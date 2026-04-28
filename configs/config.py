@@ -18,9 +18,6 @@ class Config:
     # Gemini
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-    # Ollama
-    OLLAMA_IP = os.getenv("OLLAMA_IP", "localhost")
-    OLLAMA_PORT = os.getenv("OLLAMA_PORT", "11434")
 
     # Lab API (Tailscale)
     LAB_API_KEY = os.getenv("LAB_API_KEY", "")
@@ -41,14 +38,10 @@ MODELS = {
     "gpt-5.4": "openai",
 
     # Anthropic
-    "claude-opus-4-5":          "anthropic",
     "claude-sonnet-4-5":        "anthropic",
     "claude-haiku-4-5":         "anthropic",
-    "claude-opus-4-7":          "anthropic",
-    "claude-sonnet-4-6":        "anthropic",
 
     # Gemini
-    "gemini-2.0-flash":       "gemini",
     "gemini-2.5-flash":       "gemini",
     "gemini-2.5-pro":         "gemini",
 

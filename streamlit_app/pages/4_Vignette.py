@@ -102,41 +102,22 @@ if vignette_attempts:
                     unsafe_allow_html=True,
                 )
 
-            satisfied  = att.get("satisfied_edges")
             violations = att.get("violations", [])
 
-            if satisfied is None:
-                st.caption("Edge breakdown not available — re-run to get validator evidence.")
-            elif satisfied or violations or passed:
-                st.markdown("**Edge breakdown:**")
-                if passed and not satisfied and not violations:
-                    st.caption("All edges passed — re-run to see per-edge evidence.")
-                def _status(reason: str) -> str:
-                    return "❌ FAIL" if "Missing" in reason or "Present" in reason else "✅ PASS"
-
-                rows = (
-                    [{"Status": _status(e.get("reason", "Required")),
-                      "Reason": e.get("reason", "Required"),
-                      "Edge": e["edge"],
-                      "Explanation": e.get("explanation", ""), "Quote": e.get("quote", "")}
-                     for e in satisfied]
-                    +
-                    [{"Status": _status(e.get("reason", "Required — Missing")),
-                      "Reason": e.get("reason", "Required — Missing"),
-                      "Edge": e["edge"],
-                      "Explanation": e.get("explanation", ""), "Quote": e.get("quote", "")}
-                     for e in violations]
-                )
+            if violations:
+                st.markdown("**Violations:**")
+                rows = [
+                    {"Edge": e["edge"],
+                     "Explanation": e.get("explanation", "")}
+                    for e in violations
+                ]
                 st.dataframe(
                     pd.DataFrame(rows),
                     use_container_width=True,
                     hide_index=True,
                     column_config={
-                        "Status":      st.column_config.TextColumn(width="small"),
-                        "Reason":      st.column_config.TextColumn(width="medium"),
                         "Edge":        st.column_config.TextColumn(width="medium"),
                         "Explanation": st.column_config.TextColumn(width="large"),
-                        "Quote":       st.column_config.TextColumn(width="large"),
                     },
                 )
 

@@ -69,13 +69,14 @@ def sample_cognitive_model(node_prob: float = 0.7, edge_prob: float = 0.5) -> di
     Step 1 — each node is independently activated with probability node_prob.
     Step 2 — each directed edge where both endpoints are active is independently
               activated with probability edge_prob, then gets a random weight in
-              (0.0, 1.0]. Inactive edges (either node inactive, or edge not activated)
-              are set to 0.
+              (0.0, 1.0]. Inactive edges are set to 0.
+    Step 3 — active_nodes are derived from edges: any node that appears in at
+              least one active edge. This means a node activated in step 1 but
+              with no active edges is treated as inactive.
 
     Returns {"edges": {(parent, child): float}, "active_nodes": [str]}.
     """
-    active_nodes = [n for n in _ALL_NODES if random.random() < node_prob]
-    active_set   = set(active_nodes)
+    active_set = {n for n in _ALL_NODES if random.random() < node_prob}
     edges = {
         (p, c): (
             round(random.uniform(0.01, 1.0), 4)
@@ -84,6 +85,9 @@ def sample_cognitive_model(node_prob: float = 0.7, edge_prob: float = 0.5) -> di
         )
         for (p, c) in DIRECT_EDGES
     }
+    active_nodes = list(dict.fromkeys(
+        n for (p, c), w in edges.items() if w > 0 for n in (p, c)
+    ))
     return {"edges": edges, "active_nodes": active_nodes}
 
 
