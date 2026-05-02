@@ -23,10 +23,6 @@ class Config:
     LAB_API_KEY = os.getenv("LAB_API_KEY", "")
     LAB_API_URL = os.getenv("LAB_API_URL", "http://100.110.96.82:8000/chat")
 
-    @classmethod
-    def ollama_url(cls) -> str:
-        return f"http://{cls.OLLAMA_IP}:{cls.OLLAMA_PORT}"
-
     # Deepseek
     DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
 
@@ -38,7 +34,7 @@ MODELS = {
     "gpt-5.4": "openai",
 
     # Anthropic
-    "claude-sonnet-4-5":        "anthropic",
+    "claude-sonnet-4-6":        "anthropic",
     "claude-haiku-4-5":         "anthropic",
 
     # Gemini
@@ -46,9 +42,15 @@ MODELS = {
     "gemini-2.5-pro":         "gemini",
 
     # Lab API (Tailscale)
-    "llama3.1-8b":  "open_source",
-    "llama3.1-70b": "open_source",
-    "qwen2.5-32b":  "open_source",
+    "llama3.1-8b":       "open_source",
+    "llama3.1-70b":      "open_source",
+    "qwen2.5-32b":       "open_source",
+    "qwen2.5-72b":       "open_source",
+    "qwen3.6-35b":       "open_source",
+    "qwen3.6-35b-ablit": "open_source",
+    "gpt-oss-20b":       "open_source",
+    "gemma4-31b":        "open_source",
+    "nemotron-70b":      "open_source",
 
     # DeepSeek
     "deepseek-chat":     "deepseek",

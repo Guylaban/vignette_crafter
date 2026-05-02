@@ -18,6 +18,16 @@ def main():
         default="configs/simulation_config.yaml",
         help="Path to the simulation YAML config (default: configs/simulation_config.yaml)",
     )
+    parser.add_argument(
+        "--persona-source", "-p",
+        default=None,
+        help="Path to source experiment dir (overrides persona_source in YAML, used with vignette_from_persona)",
+    )
+    parser.add_argument(
+        "--pipeline",
+        default=None,
+        help="Pipeline to run (overrides pipeline in YAML): vignette_full, vignette_from_persona, zero_shot, ...",
+    )
     args = parser.parse_args()
 
     with open(args.config, encoding="utf-8") as f:
@@ -27,7 +37,7 @@ def main():
     models = cfg["models"]
 
     timestamp    = datetime.now().strftime("%Y%m%d_%H%M%S")
-    pipeline     = sim.get("pipeline", "vignette")
+    pipeline     = args.pipeline or sim.get("pipeline", "vignette")
     experiment_dir = Path("data/output") / f"{pipeline}_{timestamp}"
     experiment_dir.mkdir(parents=True, exist_ok=True)
 
@@ -35,9 +45,9 @@ def main():
     set_experiment_dir(experiment_dir)
 
     _MODE_FLAGS = {
-        "full":         {"persona_context": True,  "use_formulation": True},
-        "demographics": {"persona_context": True,  "use_formulation": False},
-        "no_context":   {"persona_context": False, "use_formulation": False},
+        "full":           {"persona_context": True,  "use_formulation": True},
+        "no_formulation": {"persona_context": True,  "use_formulation": False},
+        "zero_shot":      {"persona_context": False, "use_formulation": False},
     }
     vignette_mode = sim.get("vignette_mode", "full")
     flags = _MODE_FLAGS.get(vignette_mode, _MODE_FLAGS["full"])
@@ -49,6 +59,7 @@ def main():
         max_retries     = sim["max_retries"],
         temperature     = sim["temperature"],
         pipeline        = pipeline,
+        vignette_mode   = vignette_mode,
         persona_context  = flags["persona_context"],
         use_formulation  = flags["use_formulation"],
         n_items          = sim["self_report_items"],
@@ -56,7 +67,7 @@ def main():
         edge_prob        = sim.get("edge_prob", 0.5),
         models          = models,
         experiment_dir  = experiment_dir,
-        persona_source  = sim.get("persona_source"),
+        persona_source  = args.persona_source or sim.get("persona_source"),
     )
     runner.run()
 

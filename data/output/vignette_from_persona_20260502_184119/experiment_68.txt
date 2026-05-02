@@ -1,0 +1,182 @@
+PERSONA 68  |  2026-05-02 20:17:37
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             51
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Married
+  occupation      Hotel Manager
+  trauma_type     Toxic chemical exposure
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Stress: Stress
+    • Workplace: Workplace
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Threat:
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6183
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.1426
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: For toxic chemical exposure, the trigger pattern is not clinically well matched: 'Military Topics' suggests combat/war-related trauma cues, and 'Loss Themes' suggests bereavement-related reminders, while no trigger references fumes, smells, contamination, breathing difficulty, workplaces, or chemical hazards. This makes the trigger set hard to reconcile with the stated trauma type.
+    item:        Threat / Threat: Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: The threat items are internally coherent with a persecution/assault-style danger formulation ('someone is following me', needing to stay alert at night) rather than a toxic exposure formulation. They do not plausibly connect to the selected triggers, despite the strong Triggers → Threat edge that should link these nodes tightly.
+  [2] FAIL
+    item:        Triggers / Triggers: Loss Themes: Talk about people loosing loved ones
+    explanation: The trigger item about discussions of people losing loved ones is hard to reconcile with the indexed trauma of toxic chemical exposure. It implies bereavement-related trauma content that is not otherwise represented in the profile, making this trigger clinically implausible for the same patient unless the exposure involved deaths, which is not supported elsewhere.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: Within the Threat node, concentration difficulty is a broad nonspecific symptom, whereas sleep vigilance reflects an ongoing sense of current external danger. That combination can coexist, but in this profile the threat content is otherwise sparse and the selected triggers do not clearly support a coherent toxic-exposure-related danger schema, weakening internal coherence.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,598
+  output:     1,795
+  total:      4,393
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Nadia, a 51-year-old hotel manager, had built her career on anticipating problems before they
+arrived. That skill turned against her one afternoon when a housekeeping cart tipped over in a
+narrow service corridor, releasing a concentrated cloud of industrial-grade disinfectant. She was
+trapped in the fumes for several moments before the ventilation kicked in, and in that time she felt
+her throat close, her eyes burn, and a visceral certainty that she was being poisoned. The
+paramedics later assured her the exposure was below toxic thresholds, but her body had already
+recorded the event as life-threatening.
+
+In the weeks that followed, she found herself jolting awake at two in the morning, heart pounding,
+needing to scan the bedroom before she could settle. She had difficulty falling asleep because she
+felt she had to stay alert, as if danger might creep in while she was unaware. At the hotel, routine
+tasks became charged. When a guest complained about a faint odor coming from the laundry room,
+Nadia’s hands began to tremble and she had to excuse herself to the bathroom, where she splashed
+cold water on her face until her breathing slowed. That strong physical reaction—the racing heart,
+the shallow breaths—came without warning, and it made her dread the next time. She began noticing
+that even the antiseptic smell in the hotel’s first-aid station, which she passed daily on her way
+to the office, was enough to trigger that same cascade. The more she tensed in anticipation of those
+triggers, the more sensitive she became: a loud bang from a dropped tray in the kitchen made her
+spin around with her fists clenched, and she stayed on high alert for several minutes afterward,
+unable to concentrate on the schedule she had been reviewing.
+
+The workplace itself became a source of constant background vigilance. She avoided the housekeeping
+storage room where the accident occurred, but she could not avoid the building. Every unexpected
+sound—the clatter of a luggage cart, the slam of a service door—sent a spike of alarm through her
+chest. She had come to believe that the hotel was no longer safe, that chemicals used in cleaning
+were always a few seconds away from being released again. That belief kept her scanning corners,
+sniffing the air, bracing for the next exposure. And because she was always scanning, she found
+triggers everywhere: the bleach used to sanitize the gym, the faint medicinal smell from a guest’s
+vapor rub, even the stress of a full-booked weekend that left her feeling too worn down to stay
+alert.
+
+The cycle tightened over months. Nadia’s sleep vigilance worsened, leaving her exhausted, and
+exhaustion made her more reactive to sounds and smells. She started taking long routes to avoid
+certain corridors, but the avoidance itself sharpened her awareness of how many triggers surrounded
+her. Her husband noticed she was restless and irritable, but she could not explain it without
+reliving the moment in the corridor. What frightened her most was the unpredictability: she never
+knew which trigger would break through, and she felt she was losing control of the very environment
+she had once managed so confidently.
+
+Finally, after a guest accidentally set off the fire alarm during a drill, Nadia spent the entire
+night in the parking lot, trembling and convinced she would not go back inside. Her husband drove
+her to a clinic the next morning. She was afraid of what the therapist might say—afraid that
+acknowledging how bad it had become would make it real—but she was more afraid of staying in the
+loop that kept her body braced for poison, even when there was none.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Nadia, a 51-year-old hotel manager, had built her career on anticipating problems before they
+arrived. That skill turned against her one afternoon when a housekeeping cart tipped over in a
+narrow service corridor, releasing a concentrated cloud of industrial-grade disinfectant. She was
+trapped in the fumes for several moments before the ventilation kicked in, and in that time she felt
+her throat close, her eyes burn, and a visceral certainty that she was being poisoned. The
+paramedics later assured her the exposure was below toxic thresholds, but her body had already
+recorded the event as life-threatening.
+
+In the weeks that followed, she found herself jolting awake at two in the morning, heart pounding,
+needing to scan the bedroom before she could settle. She had difficulty falling asleep because she
+felt she had to stay alert, as if danger might creep in while she was unaware. At the hotel, routine
+tasks became charged. When a guest complained about a faint odor coming from the laundry room,
+Nadia’s hands began to tremble and she had to excuse herself to the bathroom, where she splashed
+cold water on her face until her breathing slowed. That strong physical reaction—the racing heart,
+the shallow breaths—came without warning, and it made her dread the next time. She began noticing
+that even the antiseptic smell in the hotel’s first-aid station, which she passed daily on her way
+to the office, was enough to trigger that same cascade. The more she tensed in anticipation of those
+triggers, the more sensitive she became: a loud bang from a dropped tray in the kitchen made her
+spin around with her fists clenched, and she stayed on high alert for several minutes afterward,
+unable to concentrate on the schedule she had been reviewing.
+
+The workplace itself became a source of constant background vigilance. She avoided the housekeeping
+storage room where the accident occurred, but she could not avoid the building. Every unexpected
+sound—the clatter of a luggage cart, the slam of a service door—sent a spike of alarm through her
+chest. She had come to believe that the hotel was no longer safe, that chemicals used in cleaning
+were always a few seconds away from being released again. That belief kept her scanning corners,
+sniffing the air, bracing for the next exposure. And because she was always scanning, she found
+triggers everywhere: the bleach used to sanitize the gym, the faint medicinal smell from a guest’s
+vapor rub, even the stress of a full-booked weekend that left her feeling too worn down to stay
+alert.
+
+The cycle tightened over months. Nadia’s sleep vigilance worsened, leaving her exhausted, and
+exhaustion made her more reactive to sounds and smells. She started taking long routes to avoid
+certain corridors, but the avoidance itself sharpened her awareness of how many triggers surrounded
+her. Her husband noticed she was restless and irritable, but she could not explain it without
+reliving the moment in the corridor. What frightened her most was the unpredictability: she never
+knew which trigger would break through, and she felt she was losing control of the very environment
+she had once managed so confidently.
+
+Finally, after a guest accidentally set off the fire alarm during a drill, Nadia spent the entire
+night in the parking lot, trembling and convinced she would not go back inside. Her husband drove
+her to a clinic the next morning. She was afraid of what the therapist might say—afraid that
+acknowledging how bad it had become would make it real—but she was more afraid of staying in the
+loop that kept her body braced for poison, even when there was none.

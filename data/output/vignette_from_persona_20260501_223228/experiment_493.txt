@@ -1,0 +1,217 @@
+PERSONA 493  |  2026-05-02 02:15:24
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             26
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Divorced
+  occupation      Bank Teller
+  trauma_type     Terrorism
+  pcl5            43
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Overwork: work excessively to avoid being alone with thoughts
+    • Avoid Intimacy: Being emotionally close or intimate with others
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    • Waking Alert: I wake during the night to check whether I am safe
+    • Checking Behind: I frequently look behind me to check if someone is following me
+  Negative Appraisals:
+    • No Longer Capable: I am no longer capable of doing the things that defined me
+    • Violated Values: I acted in ways that go against who I am
+    • Can't Rely on Self: I can't rely on myself
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.9905
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.7202
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.6885
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Social Contacts: Seeing people that I socialised with before the event
+    explanation: The Maladaptive Strategies node mixes avoidance behaviours with what appears to be a trigger-like cue. 'Seeing people that I socialised with before the event' is phrased as a social reminder/trigger rather than a coping strategy, so within the specified node it is clinically incoherent.
+    item:        Threat / Avoid Intimacy: Being emotionally close or intimate with others
+    explanation: 'Avoid Social Contacts' and 'Avoid Intimacy' imply social withdrawal, which can fit PTSD, but the specific target 'seeing people that I socialised with before the event' suggests avoidance of trauma reminders tied to the past. This sits awkwardly with the selected Negative Appraisals, which focus on incapacity, moral injury, and not belonging, without any corresponding interpersonal mistrust, shame in relationships, or reminder-based social threat theme.
+    item:        Negative Appraisals / Belong Nowhere: I no longer belong anywhere
+    explanation: 'Belong Nowhere: I no longer belong anywhere' is possible in PTSD, but here it leans toward a broad identity/interpersonal alienation theme that is not well supported by the rest of the profile. The Threat items are predominantly hypervigilant safety-checking and pursuit fears, while the other appraisal items emphasize incapacity and violated values; this makes the belonging item feel disconnected rather than part of a coherent appraisal cluster.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,038
+  output:     1,074
+  total:      4,112
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Narin S. was 26 when he came for treatment, a soft-spoken Cambodian American man who had been
+divorced the year before and was now working long shifts as a bank teller. The event he kept
+circling without wanting to dwell on had happened at work six months earlier, during what had
+started as an ordinary Friday afternoon. A man came into the branch wearing a heavy jacket despite
+the heat, shouted something political that Narin only remembers in fragments, and reached into a bag
+while customers dropped to the floor. In those seconds Narin froze. He remembered seeing an older
+customer stumble near the counter and hearing himself do nothing except crouch and wait, eyes fixed
+on the carpet, certain that any movement would get someone killed. The police later called it a
+terrorism-related incident; the device the man carried did not fully detonate, but the threat had
+been real. What stayed with Narin was not only the fear that he and others might die, but the
+conviction that when everything depended on him, he had discovered something shameful about himself.
+
+In the weeks afterward, he had come to believe that he was no longer capable of the steadiness and
+competence that had once defined him. Before the attack he had taken pride in being calm with
+customers, good under pressure, the dependable one in his family after the divorce. Now he was
+certain he could not rely on himself. What tormented him most was the memory of staying down behind
+the counter while the older customer struggled in front of him. He knew other people had also
+frozen, and he could repeat that to himself in a detached way, but it did not touch the deeper
+conclusion he had drawn: that he had acted against his values, that when tested he was cowardly,
+ineffective, and not the man he thought he was. From that point, the world felt less safe because he
+no longer experienced himself as someone who could manage danger.
+
+That loss of faith in himself sharpened into constant watchfulness. Walking from the bus stop to his
+apartment, Narin repeatedly glanced over his shoulder, checking whether someone was coming up behind
+him. At night he woke abruptly and scanned the room, sometimes getting up to make sure the door was
+locked and the windows were secure before he could try to sleep again. At the bank, the front
+entrance had become the place he monitored most. If a customer lingered outside or came in wearing a
+backpack or bulky coat, he felt his body tense before he had fully registered why. In his own mind
+this made sense: if he had already failed once when it mattered, he could not afford to miss any
+sign of danger now. His vigilance was driven as much by distrust of himself as by distrust of other
+people.
+
+Over time, though, living that way only confirmed the bleak view he had of himself. He was irritable
+with coworkers who asked innocent questions or moved too quickly behind him at the counter, and he
+hated how sharply he snapped. If a supervisor commented on his distractedness, he took it as
+evidence that he really was damaged and unreliable. Waking in the night to check the apartment left
+him exhausted at work, and the fact that he could not simply sleep through until morning seemed to
+prove that he was no longer capable in the basic ways other people were. Each backward glance on the
+street, each surge of anger, each night spent on alert fed the same conclusion: he could not trust
+his own reactions, and the attack had exposed a weakness he would not be able to undo.
+
+He managed this by filling every possible hour. Narin volunteered for extra shifts, stayed after
+closing to reconcile drawers, and took on tedious tasks others avoided because being busy at the
+branch was preferable to going home alone with his thoughts. He was aware that he was driving
+himself, but the alternative felt worse. He also worked hard not to think about the attack at all;
+if an image of the older customer near the counter came to mind, he pushed it away immediately and
+focused on balancing receipts or arranging deposit slips. Since the divorce he had become even more
+emotionally shut down, avoiding closeness with anyone who might ask what was wrong or want more from
+him than he felt able to give. Yet the more he overworked, suppressed, and kept people at a
+distance, the more convinced he became that something fundamental in him had changed. A man who
+needed constant distraction, who could not bear his own thoughts, did not seem competent or solid to
+him; it seemed like further proof that he could not rely on himself.
+
+By the time he sought help, the bank had become both refuge and trap: the place where he hid from
+himself and the place where the danger still felt closest. He came after an outburst at a customer
+who had reached suddenly into his coat for a phone, followed by a night in which he woke three times
+to check the apartment and did not get back to sleep before dawn. What frightened Narin most was not
+only that another attack could happen, but that in the next moment of crisis he would again become
+the version of himself he despised. What he hoped, cautiously, was that treatment might help him
+understand whether that judgment was really true, and whether he could stop living as if safety
+depended on never letting his guard down.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Narin S. was 26 when he came for treatment, a soft-spoken Cambodian American man who had been
+divorced the year before and was now working long shifts as a bank teller. The event he kept
+circling without wanting to dwell on had happened at work six months earlier, during what had
+started as an ordinary Friday afternoon. A man came into the branch wearing a heavy jacket despite
+the heat, shouted something political that Narin only remembers in fragments, and reached into a bag
+while customers dropped to the floor. In those seconds Narin froze. He remembered seeing an older
+customer stumble near the counter and hearing himself do nothing except crouch and wait, eyes fixed
+on the carpet, certain that any movement would get someone killed. The police later called it a
+terrorism-related incident; the device the man carried did not fully detonate, but the threat had
+been real. What stayed with Narin was not only the fear that he and others might die, but the
+conviction that when everything depended on him, he had discovered something shameful about himself.
+
+In the weeks afterward, he had come to believe that he was no longer capable of the steadiness and
+competence that had once defined him. Before the attack he had taken pride in being calm with
+customers, good under pressure, the dependable one in his family after the divorce. Now he was
+certain he could not rely on himself. What tormented him most was the memory of staying down behind
+the counter while the older customer struggled in front of him. He knew other people had also
+frozen, and he could repeat that to himself in a detached way, but it did not touch the deeper
+conclusion he had drawn: that he had acted against his values, that when tested he was cowardly,
+ineffective, and not the man he thought he was. From that point, the world felt less safe because he
+no longer experienced himself as someone who could manage danger.
+
+That loss of faith in himself sharpened into constant watchfulness. Walking from the bus stop to his
+apartment, Narin repeatedly glanced over his shoulder, checking whether someone was coming up behind
+him. At night he woke abruptly and scanned the room, sometimes getting up to make sure the door was
+locked and the windows were secure before he could try to sleep again. At the bank, the front
+entrance had become the place he monitored most. If a customer lingered outside or came in wearing a
+backpack or bulky coat, he felt his body tense before he had fully registered why. In his own mind
+this made sense: if he had already failed once when it mattered, he could not afford to miss any
+sign of danger now. His vigilance was driven as much by distrust of himself as by distrust of other
+people.
+
+Over time, though, living that way only confirmed the bleak view he had of himself. He was irritable
+with coworkers who asked innocent questions or moved too quickly behind him at the counter, and he
+hated how sharply he snapped. If a supervisor commented on his distractedness, he took it as
+evidence that he really was damaged and unreliable. Waking in the night to check the apartment left
+him exhausted at work, and the fact that he could not simply sleep through until morning seemed to
+prove that he was no longer capable in the basic ways other people were. Each backward glance on the
+street, each surge of anger, each night spent on alert fed the same conclusion: he could not trust
+his own reactions, and the attack had exposed a weakness he would not be able to undo.
+
+He managed this by filling every possible hour. Narin volunteered for extra shifts, stayed after
+closing to reconcile drawers, and took on tedious tasks others avoided because being busy at the
+branch was preferable to going home alone with his thoughts. He was aware that he was driving
+himself, but the alternative felt worse. He also worked hard not to think about the attack at all;
+if an image of the older customer near the counter came to mind, he pushed it away immediately and
+focused on balancing receipts or arranging deposit slips. Since the divorce he had become even more
+emotionally shut down, avoiding closeness with anyone who might ask what was wrong or want more from
+him than he felt able to give. Yet the more he overworked, suppressed, and kept people at a
+distance, the more convinced he became that something fundamental in him had changed. A man who
+needed constant distraction, who could not bear his own thoughts, did not seem competent or solid to
+him; it seemed like further proof that he could not rely on himself.
+
+By the time he sought help, the bank had become both refuge and trap: the place where he hid from
+himself and the place where the danger still felt closest. He came after an outburst at a customer
+who had reached suddenly into his coat for a phone, followed by a night in which he woke three times
+to check the apartment and did not get back to sleep before dawn. What frightened Narin most was not
+only that another attack could happen, but that in the next moment of crisis he would again become
+the version of himself he despised. What he hoped, cautiously, was that treatment might help him
+understand whether that judgment was really true, and whether he could stop living as if safety
+depended on never letting his guard down.

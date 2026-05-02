@@ -1,0 +1,103 @@
+PERSONA 28  |  2026-05-01 16:43:24
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    craft_persona
+  temperature: 0.7
+  max_retries: 2
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             58
+  gender          Female
+  ethnicity       Oceania
+  relationship_status In a relationship
+  occupation      Radiologist
+  trauma_type     Life-threatening accident
+  pcl5            37
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Trauma-Related Events: Trauma-related events
+    • Funerals/Graves: Funerals, cemeteries, or grief-related events
+    • Intrusive Thoughts: Unwanted thoughts
+  Maladaptive Strategies:
+    • Emotion Control: I try hard to control my emotions
+    • Avoid Sex: Sex
+    • Avoid Sleep: Going to sleep or lying in the dark
+  Threat:
+    • Startle Response: Feeling jumpy or easily startled
+    • Back to Wall: I feel unsafe unless my back is against a wall where I can see the room
+    • Waking Alert: I wake during the night to check whether I am safe
+  Memory:
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    • No Coherent Story: I cannot tell a clear story of what happened even to myself
+    • Confused Sequence: I cannot put the memories of the event in the right order
+  Negative Appraisals:
+    • Permanent Damage: I have permanently changed for the worse
+    • Self-Doubt: I can't trust that I will do the right thing
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.1747
+  Negative Appraisals → Maladaptive Strategies       0.0387
+  Negative Appraisals → Threat                       0.0656
+  Negative Appraisals → Memory                       0.4364
+  Negative Appraisals → Triggers                     0.4179
+  Memory → Maladaptive Strategies                    0.1883
+  Memory → Threat                                    0.6134
+  Memory → Negative Appraisals                       0.6863
+  Memory → Triggers                                  0.5873
+  Threat → Maladaptive Strategies                    0.6415
+  Threat → Memory                                    0.6702
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.2948
+  Maladaptive Strategies → Memory                    0.0831
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.9624
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Funerals/Graves: Funerals, cemeteries, or grief-related events
+    explanation: For a life-threatening accident, funerals/cemeteries as a primary trigger is possible but becomes hard to reconcile when the rest of the profile contains no bereavement, death-of-others, or grief-linked memory/appraisal content. It pulls toward a different trauma emphasis than the rest of the profile.
+    item:        Trauma-Related Events: Trauma-related events / Institutional Failure: The people or institutions that should have protected me let me down
+    explanation: The appraisal that institutions or protectors let her down is not impossible after an accident, but in this profile it lacks support from the memory, threat, and strategy items, which instead center on disorganized trauma memory, hypervigilance, and general danger. Without any content about emergency response, workplace systems, or preventable negligence, this item is the least coherent with the stated trauma type and the rest of the node content.
+  [2] FAIL
+    item:        Negative Appraisals / Institutional Failure: The people or institutions that should have protected me let me down
+    explanation: For a 58-year-old female radiologist with a life-threatening accident, this appraisal is hard to reconcile with the rest of the profile. The other selected items center on fear, fragmented trauma memory, hypervigilance, and self-change after an accident. 'Institutional failure' more strongly implies betrayal, negligence, or preventable harm by authorities, which is not otherwise reflected in the triggers, threat, memory, or maladaptive strategy items. Without any corroborating items about blame toward systems, medical care, employers, or responders, this appraisal stands out as clinically incoherent with the stated trauma type and overall formulation.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      7,750
+  output:       580
+  total:      8,330
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  0 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+

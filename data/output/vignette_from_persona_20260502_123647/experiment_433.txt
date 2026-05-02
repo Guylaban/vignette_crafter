@@ -1,0 +1,745 @@
+PERSONA 433  |  2026-05-02 22:49:35
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             63
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Single
+  occupation      Auditor
+  trauma_type     Trauma to a loved one
+  pcl5            63
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Locked Spaces: Being in a locked or confined room
+    • Being in Nature: Being in a natural environment similar to where it happened
+    • Victim Memories: Reminders of victims
+  Threat:
+    • Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+    • Sleep Problems: Trouble falling or staying asleep
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+  Negative Appraisals:
+    • Lost Faith: I have lost my faith in people, life, or a higher power
+    • Body as Enemy: My body keeps reacting as if I am still in danger even when I am safe
+    • Helplessness: I can't stop bad things from happening to me
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.4696
+  Triggers → Memory                                  0.9736
+  Triggers → Negative Appraisals                     0.2730
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.1632
+  Negative Appraisals → Memory                       0.0424
+  Negative Appraisals → Triggers                     0.0993
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.6611
+  Threat → Negative Appraisals                       0.1112
+  Threat → Triggers                                  0.8703
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Checking Behind
+    explanation: Threat items imply an ongoing personal-danger/being-followed formulation, which is hard to reconcile with trauma to a loved one; they read more like direct interpersonal victimization than fear for a loved one.
+    item:        Memory / Threat: Risky Behavior
+    explanation: Within Threat, 'Checking Behind' and 'Avoid Unfamiliar Places' reflect hypervigilant danger avoidance, while 'Risky Behavior' points in the opposite direction behaviorally; this combination is possible but clinically strained without any other items supporting disinhibition.
+    item:        Negative Appraisals / Threat: Avoid Unfamiliar Places
+    explanation: Memory item 'Pain Recall' implies bodily re-experiencing of injury to the patient's own body, which is difficult to fit with trauma to a loved one unless she was also directly harmed; the other memory items do not suggest that.
+  [2] FAIL
+    item:        Threat / Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm
+    explanation: For trauma to a loved one, a prominent risky-behavior item is hard to reconcile with the rest of the profile, which is dominated by fear/avoidance and reliving rather than self-endangering behavior. It pulls the threat profile in a different direction without support from other nodes.
+    item:        Memory / Memory: Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event
+    explanation: Pain recall in the same body parts as during the event implies the patient personally sustained bodily injury during the trauma. That is difficult to fit with trauma to a loved one, especially given no other items indicate direct physical victimization.
+    item:        Negative Appraisals / Negative Appraisals: Body Unreliable: I can no longer trust my own body
+    explanation: The body-focused negative appraisals suggest distrust of one's own injured or trauma-reactive body, which fits direct bodily trauma better than trauma centered on harm to a loved one. In this profile they are not well supported by the trauma type or the other selected items.
+  [3] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: For trauma to a loved one, 'military topics' is hard to justify unless the loved one’s trauma was specifically military-related; that context is not represented anywhere else in the profile, so this trigger appears mismatched to the stated trauma type.
+    item:        Threat / Triggers: Locked Spaces: Being in a locked or confined room
+    explanation: 'Locked spaces' suggests a confinement/entrapment trauma context, but the rest of the profile centers on reliving, terror, and generalized danger after trauma to a loved one rather than a personal entrapment event. Without corroborating memory or appraisal content, this trigger looks clinically out of place.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     27,796
+  output:     4,054
+  total:     31,850
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Fatima, a 63-year-old auditor, had spent her life meticulously balancing numbers and uncovering
+discrepancies. Yet, ever since the day her younger brother was killed in a senseless act of
+violence, her own life had become a cacophony of imbalance. The memory of that dark day haunted her;
+she could still hear the frantic calls from the hospital, the sirens blaring in the distance, and
+the overwhelming helplessness that enveloped her when she realized she was too late. Since then,
+being in confined spaces felt like a trigger, pulling her back into that moment of fear and loss.
+Whenever she found herself in a locked office or even a small meeting room, her heart raced, and she
+struggled to breathe, convinced that danger lurked just outside the door.
+
+Fatima's avoidance of unfamiliar places had gradually escalated into a way of life. The world
+outside her home had become a threatening landscape, filled with potential dangers she could not
+assess. She often shunned invitations from friends to explore new places, convinced that stepping
+into the unknown would lead her to more loss. This hypervigilance kept her on edge, where every
+noise in her apartment could send her spiraling back to the moment she learned of her brother’s
+death. Sleep became a battlefield; she lay awake for hours, plagued by the echoes of that day, and
+when she did manage to drift off, nightmares would claw her back into terror.
+
+The memories of her brother flooded her senses with an intensity that left her reeling. When a
+familiar scent wafted through her kitchen—the scent of his favorite spice—it ignited vivid
+recollections that overwhelmed her. It felt as if she were living that moment again, standing in the
+hospital hallway, feeling the icy grip of despair. Each recollection brought back the same terror
+she had felt at the time; it was as if she had never left that day behind. Triggers were all around
+her, lurking in the mundane details of life. A passing car could evoke the sirens, a locked door
+could remind her of the helplessness she felt, and the beauty of nature outside her window could
+turn into a painful reminder of the last time she laughed with her brother in the park.
+
+As time passed, Fatima's negative appraisals of the world solidified into a heavy armor of mistrust.
+She had lost faith in people, convinced that life could turn cruel in an instant, leaving her
+powerless. Her body reacted as though danger was always present, even when she was safe in her quiet
+apartment. Each time she recalled her brother's death, the memories twisted into a narrative of
+helplessness, filling her with despair. She felt like a prisoner to her own body, unable to escape
+the feelings of fear and vulnerability that erupted without warning. The terror of loss and the
+unpredictability of life seemed to tighten their grip on her, reinforcing her belief that bad things
+were inevitable.
+
+Fatima’s daily life became a cycle of avoidance, hyperawareness, and relentless memories. She
+avoided nature as it reminded her of the last peaceful moments with her brother, and she avoided
+friends who might coax her out of her safe, self-imposed isolation. Each trigger only deepened her
+fear and reinforced her negative perceptions, creating a loop she felt powerless to break. She knew
+her reactions were extreme, but she couldn’t shake the feeling that they were justified. After all,
+how could she trust the world when it had taken someone she loved so dearly?
+
+Eventually, Fatima reached a point where the weight of her suffering became unbearable. The solitude
+that once felt comforting now echoed with her grief, and the memories that had once brought her joy
+had turned into a source of pain. She found herself wondering if there was a way to reclaim her
+life, to step out of the suffocating shadows of her past. It was this flicker of hope that led her
+to seek help. She was terrified of confronting her memories, of uncovering the depths of her pain,
+but she longed to feel alive again, to find a way to coexist with her memories without being
+consumed by them.
+
+    ✗ edge:        Triggers → Threat
+      explanation: There is no explicit causal relationship described between triggers and threat, indicating how triggers lead to a sense of threat.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not convey how negative appraisals influence the sense of threat Fatima experiences.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: There is no causal connection described between negative appraisals and triggers, showing how negative beliefs might lead to the identification of triggers.
+
+  [2] FAIL
+Fatima, a 63-year-old auditor, had spent her life meticulously balancing numbers and uncovering
+discrepancies. Yet, ever since the day her younger brother was killed in a senseless act of
+violence, her own life had become a cacophony of imbalance. The memory of that dark day haunted her;
+she could still hear the frantic calls from the hospital, the sirens blaring in the distance, and
+the overwhelming helplessness that enveloped her when she realized she was too late. Since then,
+being in confined spaces felt like a trigger, pulling her back into that moment of fear and loss.
+Whenever she found herself in a locked office or even a small meeting room, her heart raced, and she
+struggled to breathe, convinced that danger lurked just outside the door. These moments of
+confinement triggered a visceral sense of threat, as if the walls were closing in and her mind
+recalled the helplessness she felt on that tragic day, amplifying her fear that she could be trapped
+once again.
+
+Fatima's avoidance of unfamiliar places had gradually escalated into a way of life. The world
+outside her home had become a threatening landscape, filled with potential dangers she could not
+assess. She often shunned invitations from friends to explore new places, convinced that stepping
+into the unknown would lead her to more loss. This hypervigilance kept her on edge, where every
+noise in her apartment could send her spiraling back to the moment she learned of her brother’s
+death. Sleep became a battlefield; she lay awake for hours, plagued by the echoes of that day, and
+when she did manage to drift off, nightmares would claw her back into terror.
+
+The memories of her brother flooded her senses with an intensity that left her reeling. When a
+familiar scent wafted through her kitchen—the scent of his favorite spice—it ignited vivid
+recollections that overwhelmed her. It felt as if she were living that moment again, standing in the
+hospital hallway, feeling the icy grip of despair. Each recollection brought back the same terror
+she had felt at the time; it was as if she had never left that day behind. Triggers were all around
+her, lurking in the mundane details of life. A passing car could evoke the sirens, a locked door
+could remind her of the helplessness she felt, and the beauty of nature outside her window could
+turn into a painful reminder of the last time she laughed with her brother in the park.
+
+As time passed, Fatima's negative appraisals of the world solidified into a heavy armor of mistrust.
+Her belief that she was permanently vulnerable meant that she entered every situation already on
+high alert, convinced that danger was lurking around every corner, even when it was absent. She had
+lost faith in people, convinced that life could turn cruel in an instant, leaving her powerless. Her
+body reacted as though danger was always present, even when she was safe in her quiet apartment.
+This conviction led her to identify triggers in her surroundings, as she became hyper-aware of any
+stimuli that could confirm her fears, from the sound of footsteps in the hallway to a sudden noise
+from outside. Each time she recalled her brother's death, the memories twisted into a narrative of
+helplessness, filling her with despair. She felt like a prisoner to her own body, unable to escape
+the feelings of fear and vulnerability that erupted without warning. Her certainty that something
+terrible would happen at any moment caused her to interpret these feelings as warnings, reinforcing
+her fear that she was in imminent danger. The terror of loss and the unpredictability of life seemed
+to tighten their grip on her, reinforcing her belief that bad things were inevitable.
+
+Fatima’s daily life became a cycle of avoidance, hyperawareness, and relentless memories. She
+avoided nature as it reminded her of the last peaceful moments with her brother, and she avoided
+friends who might coax her out of her safe, self-imposed isolation. Each trigger only deepened her
+fear and reinforced her negative perceptions, creating a loop she felt powerless to break. She knew
+her reactions were extreme, but she couldn’t shake the feeling that they were justified. After all,
+how could she trust the world when it had taken someone she loved so dearly?
+
+Eventually, Fatima reached a point where the weight of her suffering became unbearable. The solitude
+that once felt comforting now echoed with her grief, and the memories that had once brought her joy
+had turned into a source of pain. She found herself wondering if there was a way to reclaim her
+life, to step out of the suffocating shadows of her past. It was this flicker of hope that led her
+to seek help. She was terrified of confronting her memories, of uncovering the depths of her pain,
+but she longed to feel alive again, to find a way to coexist with her memories without being
+consumed by them.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not clearly convey how triggers influence the sense of threat experienced by Fatima.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not establish that her negative appraisals lead to a sense of threat.
+
+    ✗ edge:        Threat → Memory
+      explanation: There is no clear depiction of how the sense of threat influences her memory of the traumatic event.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The relationship where the sense of threat leads to negative appraisals is absent in the vignette.
+
+    ✗ edge:        Threat → Triggers
+      explanation: It is not made explicit how the sense of threat influences her identification of triggers.
+
+  [3] FAIL
+Fatima, a 63-year-old auditor, had spent her life meticulously balancing numbers and uncovering
+discrepancies. Yet, ever since the day her younger brother was killed in a senseless act of
+violence, her own life had become a cacophony of imbalance. The memory of that dark day haunted her;
+she could still hear the frantic calls from the hospital, the sirens blaring in the distance, and
+the overwhelming helplessness that enveloped her when she realized she was too late. Since then,
+being in confined spaces felt like a trigger, pulling her back into that moment of fear and loss.
+The cues led to a feeling of danger that felt as real as the original event, leaving Fatima
+paralyzed in those small rooms, her heart racing as if the same threat were present again. Whenever
+she found herself in a locked office or even a small meeting room, her heart raced, and she
+struggled to breathe, convinced that danger lurked just outside the door. These moments of
+confinement triggered a visceral sense of threat, as if the walls were closing in and her mind
+recalled the helplessness she felt on that tragic day, amplifying her fear that she could be trapped
+once again.
+
+Fatima's avoidance of unfamiliar places had gradually escalated into a way of life. The world
+outside her home had become a threatening landscape, filled with potential dangers she could not
+assess. She often shunned invitations from friends to explore new places, convinced that stepping
+into the unknown would lead her to more loss. This hypervigilance kept her on edge, where every
+noise in her apartment could send her spiraling back to the moment she learned of her brother’s
+death. Living at that pitch of alertness, she found the world had become dense with reminders she
+couldn't stop reading, with each sound amplifying her sense of threat and reinforcing her negative
+perceptions. Sleep became a battlefield; she lay awake for hours, plagued by the echoes of that day,
+and when she did manage to drift off, nightmares would claw her back into terror.
+
+The memories of her brother flooded her senses with an intensity that left her reeling. When a
+familiar scent wafted through her kitchen—the scent of his favorite spice—it ignited vivid
+recollections that overwhelmed her. It felt as if she were living that moment again, standing in the
+hospital hallway, feeling the icy grip of despair. Each recollection brought back the same terror
+she had felt at the time; it was as if she had never left that day behind. Triggers were all around
+her, lurking in the mundane details of life. A passing car could evoke the sirens, a locked door
+could remind her of the helplessness she felt, and the beauty of nature outside her window could
+turn into a painful reminder of the last time she laughed with her brother in the park.
+
+As time passed, Fatima's negative appraisals of the world solidified into a heavy armor of mistrust.
+Having decided that she was permanently vulnerable, she walked into rooms already braced — the
+threat arrived with her before anything had happened, heightening her sense of unease and suspicion.
+Her belief that she was permanently vulnerable meant that she entered every situation already on
+high alert, convinced that danger was lurking around every corner, even when it was absent. She had
+lost faith in people, convinced that life could turn cruel in an instant, leaving her powerless. Her
+body reacted as though danger was always present, even when she was safe in her quiet apartment.
+This conviction led her to identify triggers in her surroundings, as she became hyper-aware of any
+stimuli that could confirm her fears, from the sound of footsteps in the hallway to a sudden noise
+from outside. The persistent sense of danger kept her close to the event in her mind, as if she
+needed to keep reviewing it to stay one step ahead of whatever came next, making every reminder feel
+like a resurgence of her trauma. Each time she recalled her brother's death, the memories twisted
+into a narrative of helplessness, filling her with despair. The constant sense of danger was the
+most convincing proof she had that her life had changed beyond repair, solidifying her belief that
+she was forever trapped in this cycle of fear. She felt like a prisoner to her own body, unable to
+escape the feelings of fear and vulnerability that erupted without warning. Her certainty that
+something terrible would happen at any moment caused her to interpret these feelings as warnings,
+reinforcing her fear that she was in imminent danger. The terror of loss and the unpredictability of
+life seemed to tighten their grip on her, reinforcing her belief that bad things were inevitable.
+
+Fatima’s daily life became a cycle of avoidance, hyperawareness, and relentless memories. She
+avoided nature as it reminded her of the last peaceful moments with her brother, and she avoided
+friends who might coax her out of her safe, self-imposed isolation. Each trigger only deepened her
+fear and reinforced her negative perceptions, creating a loop she felt powerless to break. She knew
+her reactions were extreme, but she couldn’t shake the feeling that they were justified. After all,
+how could she trust the world when it had taken someone she loved so dearly?
+
+Eventually, Fatima reached a point where the weight of her suffering became unbearable. The solitude
+that once felt comforting now echoed with her grief, and the memories that had once brought her joy
+had turned into a source of pain. She found herself wondering if there was a way to reclaim her
+life, to step out of the suffocating shadows of her past. It was this flicker of hope that led her
+to seek help. She was terrified of confronting her memories, of uncovering the depths of her pain,
+but she longed to feel alive again, to find a way to coexist with her memories without being
+consumed by them.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The relationship between Triggers and Threat is not clearly established, as the vignette describes triggers leading to a sense of threat but lacks a clear causal connection.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: Negative Appraisals do not explicitly lead to Memory in the vignette, leaving this causal connection unestablished.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette does not convey how Threat leads to Negative Appraisals, missing the causal relationship between these components.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The connection between Threat and Triggers is not clearly articulated in the vignette, failing to demonstrate how a sense of threat influences the identification of triggers.
+
+  [4] FAIL
+Fatima, a 63-year-old auditor, had spent her life meticulously balancing numbers and uncovering
+discrepancies. Yet, ever since the day her younger brother was killed in a senseless act of
+violence, her own life had become a cacophony of imbalance. The memory of that dark day haunted her;
+she could still hear the frantic calls from the hospital, the sirens blaring in the distance, and
+the overwhelming helplessness that enveloped her when she realized she was too late. Since then,
+being in confined spaces felt like a trigger, pulling her back into that moment of fear and loss.
+Every time she encountered these triggers, they sent her heart racing, amplifying her perception of
+danger and reinforcing the belief that she was in imminent peril, just as she felt that day. The
+cues led to a feeling of danger that felt as real as the original event, leaving Fatima paralyzed in
+those small rooms, her heart racing as if the same threat were present again. Whenever she found
+herself in a locked office or even a small meeting room, her heart raced, and she struggled to
+breathe, convinced that danger lurked just outside the door. These moments of confinement triggered
+a visceral sense of threat, as if the walls were closing in and her mind recalled the helplessness
+she felt on that tragic day, amplifying her fear that she could be trapped once again.
+
+Fatima's avoidance of unfamiliar places had gradually escalated into a way of life. The world
+outside her home had become a threatening landscape, filled with potential dangers she could not
+assess. She often shunned invitations from friends to explore new places, convinced that stepping
+into the unknown would lead her to more loss. This hypervigilance kept her on edge, where every
+noise in her apartment could send her spiraling back to the moment she learned of her brother’s
+death. Living at that pitch of alertness, she found the world had become dense with reminders she
+couldn't stop reading, with each sound amplifying her sense of threat and reinforcing her negative
+perceptions. As she moved through her daily life, the background hum of danger made almost every
+ordinary cue feel like a warning, confirming the fears that dominated her thoughts. Sleep became a
+battlefield; she lay awake for hours, plagued by the echoes of that day, and when she did manage to
+drift off, nightmares would claw her back into terror.
+
+The memories of her brother flooded her senses with an intensity that left her reeling. When a
+familiar scent wafted through her kitchen—the scent of his favorite spice—it ignited vivid
+recollections that overwhelmed her. It felt as if she were living that moment again, standing in the
+hospital hallway, feeling the icy grip of despair. Each recollection brought back the same terror
+she had felt at the time; it was as if she had never left that day behind. Triggers were all around
+her, lurking in the mundane details of life. A passing car could evoke the sirens, a locked door
+could remind her of the helplessness she felt, and the beauty of nature outside her window could
+turn into a painful reminder of the last time she laughed with her brother in the park.
+
+As time passed, Fatima's negative appraisals of the world solidified into a heavy armor of mistrust.
+Having decided that she was permanently vulnerable, she walked into rooms already braced — the
+threat arrived with her before anything had happened, heightening her sense of unease and suspicion.
+Her belief that she was permanently vulnerable meant that she entered every situation already on
+high alert, convinced that danger was lurking around every corner, even when it was absent. This
+constant state of apprehension kept her mind locked on the painful memories of her brother’s death,
+making her relive those moments as if they were happening again, reinforcing her sense of
+vulnerability. She had lost faith in people, convinced that life could turn cruel in an instant,
+leaving her powerless. Her body reacted as though danger was always present, even when she was safe
+in her quiet apartment. This conviction led her to identify triggers in her surroundings, as she
+became hyper-aware of any stimuli that could confirm her fears, from the sound of footsteps in the
+hallway to a sudden noise from outside. The persistent sense of danger kept her close to the event
+in her mind, as if she needed to keep reviewing it to stay one step ahead of whatever came next,
+making every reminder feel like a resurgence of her trauma. With every reminder of that fateful day,
+her mind twisted the memories into a narrative of helplessness, further solidifying her belief that
+she was trapped in this cycle of fear. Each time she recalled her brother's death, the memories
+twisted into a narrative of helplessness, filling her with despair. The constant sense of danger was
+the most convincing proof she had that her life had changed beyond repair, solidifying her belief
+that she was forever trapped in this cycle of fear. She felt like a prisoner to her own body, unable
+to escape the feelings of fear and vulnerability that erupted without warning. Her certainty that
+something terrible would happen at any moment caused her to interpret these feelings as warnings,
+reinforcing her fear that she was in imminent danger. The terror of loss and the unpredictability of
+life seemed to tighten their grip on her, reinforcing her belief that bad things were inevitable.
+
+Fatima’s daily life became a cycle of avoidance, hyperawareness, and relentless memories. She
+avoided nature as it reminded her of the last peaceful moments with her brother, and she avoided
+friends who might coax her out of her safe, self-imposed isolation. Each trigger only deepened her
+fear and reinforced her negative perceptions, creating a loop she felt powerless to break. She knew
+her reactions were extreme, but she couldn’t shake the feeling that they were justified. After all,
+how could she trust the world when it had taken someone she loved so dearly?
+
+Eventually, Fatima reached a point where the weight of her suffering became unbearable. The solitude
+that once felt comforting now echoed with her grief, and the memories that had once brought her joy
+had turned into a source of pain. She found herself wondering if there was a way to reclaim her
+life, to step out of the suffocating shadows of her past. It was this flicker of hope that led her
+to seek help. She was terrified of confronting her memories, of uncovering the depths of her pain,
+but she longed to feel alive again, to find a way to coexist with her memories without being
+consumed by them.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not establish a causal link between triggers and the sense of threat Fatima experiences.
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette does not show how triggers lead to her intrusive memories or trauma memories.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: There is no causal relationship illustrated between negative appraisals and the sense of threat she feels.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette fails to connect negative appraisals to the memories Fatima experiences.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: No causal connection is made between negative appraisals and the identification of triggers.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not demonstrate that the sense of threat influences her memories of the traumatic event.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: There is no causal link shown between the perceived threat and negative appraisals in Fatima's mind.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not depict a causal relationship between the sense of threat and the triggers Fatima identifies.
+
+  [5] FAIL
+Fatima, a 63-year-old auditor, had spent her life meticulously balancing numbers and uncovering
+discrepancies. Yet, ever since the day her younger brother was killed in a senseless act of
+violence, her own life had become a cacophony of imbalance. The memory of that dark day haunted her;
+she could still hear the frantic calls from the hospital, the sirens blaring in the distance, and
+the overwhelming helplessness that enveloped her when she realized she was too late. Since then,
+being in confined spaces felt like a trigger, pulling her back into that moment of fear and loss.
+Every time she encountered these triggers, they sent her heart racing, amplifying her perception of
+danger and reinforcing the belief that she was in imminent peril, just as she felt that day. This
+racing heart was a clear signal to Fatima that danger was present, and it only intensified her sense
+of threat, making her feel as though she were reliving that harrowing moment of loss. The cues led
+to a feeling of danger that felt as real as the original event, leaving Fatima paralyzed in those
+small rooms, her heart racing as if the same threat were present again. Whenever she found herself
+in a locked office or even a small meeting room, her heart raced, and she struggled to breathe,
+convinced that danger lurked just outside the door. These moments of confinement triggered a
+visceral sense of threat, as if the walls were closing in and her mind recalled the helplessness she
+felt on that tragic day, amplifying her fear that she could be trapped once again. Fatima's
+avoidance of unfamiliar places had gradually escalated into a way of life. The world outside her
+home had become a threatening landscape, filled with potential dangers she could not assess. She
+often shunned invitations from friends to explore new places, convinced that stepping into the
+unknown would lead her to more loss. This hypervigilance kept her on edge, where every noise in her
+apartment could send her spiraling back to the moment she learned of her brother’s death. Living at
+that pitch of alertness, she found the world had become dense with reminders she couldn't stop
+reading, with each sound amplifying her sense of threat and reinforcing her negative perceptions. As
+she moved through her daily life, the background hum of danger made almost every ordinary cue feel
+like a warning, confirming the fears that dominated her thoughts. Sleep became a battlefield; she
+lay awake for hours, plagued by the echoes of that day, and when she did manage to drift off,
+nightmares would claw her back into terror. The memories of her brother flooded her senses with an
+intensity that left her reeling. Each trigger would pull her back to those memories, as the scent of
+his favorite spice or the sound of sirens would reopen the floodgates, forcing her to relive the
+trauma with an immediacy that felt inescapable. When a familiar scent wafted through her kitchen—the
+scent of his favorite spice—it ignited vivid recollections that overwhelmed her. It felt as if she
+were living that moment again, standing in the hospital hallway, feeling the icy grip of despair.
+Each recollection brought back the same terror she had felt at the time; it was as if she had never
+left that day behind. Triggers were all around her, lurking in the mundane details of life. A
+passing car could evoke the sirens, a locked door could remind her of the helplessness she felt, and
+the beauty of nature outside her window could turn into a painful reminder of the last time she
+laughed with her brother in the park. As time passed, Fatima's negative appraisals of the world
+solidified into a heavy armor of mistrust. Her belief that she was permanently vulnerable made her
+hyper-aware of potential threats, which only heightened her anxiety and convinced her that danger
+was always just around the corner. Having decided that she was permanently vulnerable, she walked
+into rooms already braced — the threat arrived with her before anything had happened, heightening
+her sense of unease and suspicion. The feeling of imminent threat would often trigger vivid
+flashbacks, as her mind scrambled to make sense of the fear that haunted her, forcing her to
+confront the painful scene of her brother's death repeatedly. Her belief that she was permanently
+vulnerable meant that she entered every situation already on high alert, convinced that danger was
+lurking around every corner, even when it was absent. This constant state of apprehension kept her
+mind locked on the painful memories of her brother’s death, making her relive those moments as if
+they were happening again, reinforcing her sense of vulnerability. Each time she found herself
+trapped in these memories, the conviction that she had failed to protect him would surface, making
+her feel powerless and further entrenching her negative self-assessment. She had lost faith in
+people, convinced that life could turn cruel in an instant, leaving her powerless. Her body reacted
+as though danger was always present, even when she was safe in her quiet apartment. This conviction
+led her to identify triggers in her surroundings, as she became hyper-aware of any stimuli that
+could confirm her fears, from the sound of footsteps in the hallway to a sudden noise from outside.
+Her belief that the world was fundamentally unsafe meant that she would seize on any ordinary sound
+or sight as confirmation of the dangers around her, heightening her anxiety and reinforcing her
+sense of vulnerability. The persistent sense of danger kept her close to the event in her mind, as
+if she needed to keep reviewing it to stay one step ahead of whatever came next, making every
+reminder feel like a resurgence of her trauma. With every reminder of that fateful day, her mind
+twisted the memories into a narrative of helplessness, further solidifying her belief that she was
+trapped in this cycle of fear. Each time she recalled her brother's death, the memories twisted into
+a narrative of helplessness, filling her with despair. The constant sense of danger was the most
+convincing proof she had that her life had changed beyond repair, solidifying her belief that she
+was forever trapped in this cycle of fear. Feeling this way led her to conclude that she was now a
+person who could only expect loss and pain, further embedding her negative appraisals into her daily
+thoughts and interactions. She felt like a prisoner to her own body, unable to escape the feelings
+of fear and vulnerability that erupted without warning. Her certainty that something terrible would
+happen at any moment caused her to interpret these feelings as warnings, reinforcing her fear that
+she was in imminent danger. The terror of loss and the unpredictability of life seemed to tighten
+their grip on her, reinforcing her belief that bad things were inevitable. Fatima’s daily life
+became a cycle of avoidance, hyperawareness, and relentless memories. Her heightened sense of threat
+made her avoid situations that could lead to triggering memories, reinforcing her isolation as she
+retreated further into her safe spaces. She avoided nature as it reminded her of the last peaceful
+moments with her brother, and she avoided friends who might coax her out of her safe, self-imposed
+isolation. Each trigger only deepened her fear and reinforced her negative perceptions, creating a
+loop she felt powerless to break. She knew her reactions were extreme, but she couldn’t shake the
+feeling that they were justified. After all, how could she trust the world when it had taken someone
+she loved so dearly? This belief that the world was untrustworthy only solidified her triggers, as
+she constantly scanned her environment for signs that danger was imminent, training her mind to
+react defensively at every turn. Eventually, Fatima reached a point where the weight of her
+suffering became unbearable. The solitude that once felt comforting now echoed with her grief, and
+the memories that had once brought her joy had turned into a source of pain. She found herself
+wondering if there was a way to reclaim her life, to step out of the suffocating shadows of her
+past. It was this flicker of hope that led her to seek help. She feared that confronting these
+memories might expose her vulnerabilities further, yet the weight of her constant threat and
+negative appraisals left her yearning for a path to reclaim her life. She was terrified of
+confronting her memories, of uncovering the depths of her pain, but she longed to feel alive again,
+to find a way to coexist with her memories without being consumed by them.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not clearly convey how triggers lead to a sense of threat.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not establish how negative appraisals influence the identification of triggers.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette fails to explain how a sense of threat leads to intrusive memories.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette does not describe how a sense of threat contributes to negative appraisals.
+
+  [6] FAIL
+Fatima, a 63-year-old auditor, had spent her life meticulously balancing numbers and uncovering
+discrepancies. Yet, ever since the day her younger brother was killed in a senseless act of
+violence, her own life had become a cacophony of imbalance. The memory of that dark day haunted her;
+she could still hear the frantic calls from the hospital, the sirens blaring in the distance, and
+the overwhelming helplessness that enveloped her when she realized she was too late. Since then,
+being in confined spaces felt like a trigger, pulling her back into that moment of fear and loss.
+Every time she encountered these triggers, they sent her heart racing, amplifying her perception of
+danger and reinforcing the belief that she was in imminent peril, just as she felt that day. This
+racing heart was a clear signal to Fatima that danger was present, and it only intensified her sense
+of threat, making her feel as though she were reliving that harrowing moment of loss. The cues led
+to a feeling of danger that felt as real as the original event, leaving Fatima paralyzed in those
+small rooms, her heart racing as if the same threat were present again. Whenever she found herself
+in a locked office or even a small meeting room, her heart raced, and she struggled to breathe,
+convinced that danger lurked just outside the door. These moments of confinement triggered a
+visceral sense of threat, as if the walls were closing in and her mind recalled the helplessness she
+felt on that tragic day, amplifying her fear that she could be trapped once again. Fatima's
+avoidance of unfamiliar places had gradually escalated into a way of life. The world outside her
+home had become a threatening landscape, filled with potential dangers she could not assess. She
+often shunned invitations from friends to explore new places, convinced that stepping into the
+unknown would lead her to more loss. This hypervigilance kept her on edge, where every noise in her
+apartment could send her spiraling back to the moment she learned of her brother’s death. Living at
+that pitch of alertness, she found the world had become dense with reminders she couldn't stop
+reading, with each sound amplifying her sense of threat and reinforcing her negative perceptions. As
+she moved through her daily life, the background hum of danger made almost every ordinary cue feel
+like a warning, confirming the fears that dominated her thoughts. Sleep became a battlefield; she
+lay awake for hours, plagued by the echoes of that day, and when she did manage to drift off,
+nightmares would claw her back into terror. The memories of her brother flooded her senses with an
+intensity that left her reeling. Each trigger would pull her back to those memories, as the scent of
+his favorite spice or the sound of sirens would reopen the floodgates, forcing her to relive the
+trauma with an immediacy that felt inescapable. When a familiar scent wafted through her kitchen—the
+scent of his favorite spice—it ignited vivid recollections that overwhelmed her. It felt as if she
+were living that moment again, standing in the hospital hallway, feeling the icy grip of despair.
+Each recollection brought back the same terror she had felt at the time; it was as if she had never
+left that day behind. Triggers were all around her, lurking in the mundane details of life. A
+passing car could evoke the sirens, a locked door could remind her of the helplessness she felt, and
+the beauty of nature outside her window could turn into a painful reminder of the last time she
+laughed with her brother in the park. As time passed, Fatima's negative appraisals of the world
+solidified into a heavy armor of mistrust. Her belief that she was permanently vulnerable made her
+hyper-aware of potential threats, which only heightened her anxiety and convinced her that danger
+was always just around the corner. Having decided that she was permanently vulnerable, she walked
+into rooms already braced — the threat arrived with her before anything had happened, heightening
+her sense of unease and suspicion. The feeling of imminent threat would often trigger vivid
+flashbacks, as her mind scrambled to make sense of the fear that haunted her, forcing her to
+confront the painful scene of her brother's death repeatedly. Her belief that she was permanently
+vulnerable meant that she entered every situation already on high alert, convinced that danger was
+lurking around every corner, even when it was absent. This constant state of apprehension kept her
+mind locked on the painful memories of her brother’s death, making her relive those moments as if
+they were happening again, reinforcing her sense of vulnerability. Each time she found herself
+trapped in these memories, the conviction that she had failed to protect him would surface, making
+her feel powerless and further entrenching her negative self-assessment. She had lost faith in
+people, convinced that life could turn cruel in an instant, leaving her powerless. Her body reacted
+as though danger was always present, even when she was safe in her quiet apartment. This conviction
+led her to identify triggers in her surroundings, as she became hyper-aware of any stimuli that
+could confirm her fears, from the sound of footsteps in the hallway to a sudden noise from outside.
+Her belief that the world was fundamentally unsafe meant that she would seize on any ordinary sound
+or sight as confirmation of the dangers around her, heightening her anxiety and reinforcing her
+sense of vulnerability. The persistent sense of danger kept her close to the event in her mind, as
+if she needed to keep reviewing it to stay one step ahead of whatever came next, making every
+reminder feel like a resurgence of her trauma. With every reminder of that fateful day, her mind
+twisted the memories into a narrative of helplessness, further solidifying her belief that she was
+trapped in this cycle of fear. Each time she recalled her brother's death, the memories twisted into
+a narrative of helplessness, filling her with despair. The constant sense of danger was the most
+convincing proof she had that her life had changed beyond repair, solidifying her belief that she
+was forever trapped in this cycle of fear. Feeling this way led her to conclude that she was now a
+person who could only expect loss and pain, further embedding her negative appraisals into her daily
+thoughts and interactions. She felt like a prisoner to her own body, unable to escape the feelings
+of fear and vulnerability that erupted without warning. Her certainty that something terrible would
+happen at any moment caused her to interpret these feelings as warnings, reinforcing her fear that
+she was in imminent danger. The terror of loss and the unpredictability of life seemed to tighten
+their grip on her, reinforcing her belief that bad things were inevitable. Fatima’s daily life
+became a cycle of avoidance, hyperawareness, and relentless memories. Her heightened sense of threat
+made her avoid situations that could lead to triggering memories, reinforcing her isolation as she
+retreated further into her safe spaces. She avoided nature as it reminded her of the last peaceful
+moments with her brother, and she avoided friends who might coax her out of her safe, self-imposed
+isolation. Each trigger only deepened her fear and reinforced her negative perceptions, creating a
+loop she felt powerless to break. She knew her reactions were extreme, but she couldn’t shake the
+feeling that they were justified. After all, how could she trust the world when it had taken someone
+she loved so dearly? This belief that the world was untrustworthy only solidified her triggers, as
+she constantly scanned her environment for signs that danger was imminent, training her mind to
+react defensively at every turn. "These triggers only heightened her sense of threat, each racing
+heartbeat convincing her that the danger she felt was imminent and real." Eventually, Fatima reached
+a point where the weight of her suffering became unbearable. The solitude that once felt comforting
+now echoed with her grief, and the memories that had once brought her joy had turned into a source
+of pain. She found herself wondering if there was a way to reclaim her life, to step out of the
+suffocating shadows of her past. It was this flicker of hope that led her to seek help. She feared
+that confronting these memories might expose her vulnerabilities further, yet the weight of her
+constant threat and negative appraisals left her yearning for a path to reclaim her life. "The
+conviction that she was in a world filled with threats meant that she began to see danger in the
+mundane: a passing car, a sudden noise, or even a stranger's glance would snag her attention,
+amplifying her fear." She was terrified of confronting her memories, of uncovering the depths of her
+pain, but she longed to feel alive again, to find a way to coexist with her memories without being
+consumed by them. "Faced with this constant threat, the intrusive memories of her brother's death
+would flood her mind unbidden, as if her body was drawing her back to that moment of loss in a
+desperate attempt to warn her." "The relentless threat that shadowed her days confirmed her darkest
+thoughts, whispering to her that she was not the kind of person who could ever feel safe again."
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not clearly convey how triggers influence or lead to a sense of threat.
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette does not clearly convey how triggers influence or lead to the memory of the traumatic event.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not clearly convey how triggers influence or lead to negative appraisals.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not clearly convey how negative appraisals influence or lead to a sense of threat.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not clearly convey how negative appraisals influence or lead to the memory of the traumatic event.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not clearly convey how negative appraisals influence or lead to triggers.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not clearly convey how a sense of threat influences or leads to the memory of the traumatic event.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette does not clearly convey how a sense of threat influences or leads to negative appraisals.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not clearly convey how a sense of threat influences or leads to triggers.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Fatima, a 63-year-old auditor, had spent her life meticulously balancing numbers and uncovering
+discrepancies. Yet, ever since the day her younger brother was killed in a senseless act of
+violence, her own life had become a cacophony of imbalance. The memory of that dark day haunted her;
+she could still hear the frantic calls from the hospital, the sirens blaring in the distance, and
+the overwhelming helplessness that enveloped her when she realized she was too late. Since then,
+being in confined spaces felt like a trigger, pulling her back into that moment of fear and loss.
+Every time she encountered these triggers, they sent her heart racing, amplifying her perception of
+danger and reinforcing the belief that she was in imminent peril, just as she felt that day. This
+racing heart was a clear signal to Fatima that danger was present, and it only intensified her sense
+of threat, making her feel as though she were reliving that harrowing moment of loss. The cues led
+to a feeling of danger that felt as real as the original event, leaving Fatima paralyzed in those
+small rooms, her heart racing as if the same threat were present again. Whenever she found herself
+in a locked office or even a small meeting room, her heart raced, and she struggled to breathe,
+convinced that danger lurked just outside the door. These moments of confinement triggered a
+visceral sense of threat, as if the walls were closing in and her mind recalled the helplessness she
+felt on that tragic day, amplifying her fear that she could be trapped once again. Fatima's
+avoidance of unfamiliar places had gradually escalated into a way of life. The world outside her
+home had become a threatening landscape, filled with potential dangers she could not assess. She
+often shunned invitations from friends to explore new places, convinced that stepping into the
+unknown would lead her to more loss. This hypervigilance kept her on edge, where every noise in her
+apartment could send her spiraling back to the moment she learned of her brother’s death. Living at
+that pitch of alertness, she found the world had become dense with reminders she couldn't stop
+reading, with each sound amplifying her sense of threat and reinforcing her negative perceptions. As
+she moved through her daily life, the background hum of danger made almost every ordinary cue feel
+like a warning, confirming the fears that dominated her thoughts. Sleep became a battlefield; she
+lay awake for hours, plagued by the echoes of that day, and when she did manage to drift off,
+nightmares would claw her back into terror. The memories of her brother flooded her senses with an
+intensity that left her reeling. Each trigger would pull her back to those memories, as the scent of
+his favorite spice or the sound of sirens would reopen the floodgates, forcing her to relive the
+trauma with an immediacy that felt inescapable. When a familiar scent wafted through her kitchen—the
+scent of his favorite spice—it ignited vivid recollections that overwhelmed her. It felt as if she
+were living that moment again, standing in the hospital hallway, feeling the icy grip of despair.
+Each recollection brought back the same terror she had felt at the time; it was as if she had never
+left that day behind. Triggers were all around her, lurking in the mundane details of life. A
+passing car could evoke the sirens, a locked door could remind her of the helplessness she felt, and
+the beauty of nature outside her window could turn into a painful reminder of the last time she
+laughed with her brother in the park. As time passed, Fatima's negative appraisals of the world
+solidified into a heavy armor of mistrust. Her belief that she was permanently vulnerable made her
+hyper-aware of potential threats, which only heightened her anxiety and convinced her that danger
+was always just around the corner. Having decided that she was permanently vulnerable, she walked
+into rooms already braced — the threat arrived with her before anything had happened, heightening
+her sense of unease and suspicion. The feeling of imminent threat would often trigger vivid
+flashbacks, as her mind scrambled to make sense of the fear that haunted her, forcing her to
+confront the painful scene of her brother's death repeatedly. Her belief that she was permanently
+vulnerable meant that she entered every situation already on high alert, convinced that danger was
+lurking around every corner, even when it was absent. This constant state of apprehension kept her
+mind locked on the painful memories of her brother’s death, making her relive those moments as if
+they were happening again, reinforcing her sense of vulnerability. Each time she found herself
+trapped in these memories, the conviction that she had failed to protect him would surface, making
+her feel powerless and further entrenching her negative self-assessment. She had lost faith in
+people, convinced that life could turn cruel in an instant, leaving her powerless. Her body reacted
+as though danger was always present, even when she was safe in her quiet apartment. This conviction
+led her to identify triggers in her surroundings, as she became hyper-aware of any stimuli that
+could confirm her fears, from the sound of footsteps in the hallway to a sudden noise from outside.
+Her belief that the world was fundamentally unsafe meant that she would seize on any ordinary sound
+or sight as confirmation of the dangers around her, heightening her anxiety and reinforcing her
+sense of vulnerability. The persistent sense of danger kept her close to the event in her mind, as
+if she needed to keep reviewing it to stay one step ahead of whatever came next, making every
+reminder feel like a resurgence of her trauma. With every reminder of that fateful day, her mind
+twisted the memories into a narrative of helplessness, further solidifying her belief that she was
+trapped in this cycle of fear. Each time she recalled her brother's death, the memories twisted into
+a narrative of helplessness, filling her with despair. The constant sense of danger was the most
+convincing proof she had that her life had changed beyond repair, solidifying her belief that she
+was forever trapped in this cycle of fear. Feeling this way led her to conclude that she was now a
+person who could only expect loss and pain, further embedding her negative appraisals into her daily
+thoughts and interactions. She felt like a prisoner to her own body, unable to escape the feelings
+of fear and vulnerability that erupted without warning. Her certainty that something terrible would
+happen at any moment caused her to interpret these feelings as warnings, reinforcing her fear that
+she was in imminent danger. The terror of loss and the unpredictability of life seemed to tighten
+their grip on her, reinforcing her belief that bad things were inevitable. Fatima’s daily life
+became a cycle of avoidance, hyperawareness, and relentless memories. Her heightened sense of threat
+made her avoid situations that could lead to triggering memories, reinforcing her isolation as she
+retreated further into her safe spaces. She avoided nature as it reminded her of the last peaceful
+moments with her brother, and she avoided friends who might coax her out of her safe, self-imposed
+isolation. Each trigger only deepened her fear and reinforced her negative perceptions, creating a
+loop she felt powerless to break. She knew her reactions were extreme, but she couldn’t shake the
+feeling that they were justified. After all, how could she trust the world when it had taken someone
+she loved so dearly? This belief that the world was untrustworthy only solidified her triggers, as
+she constantly scanned her environment for signs that danger was imminent, training her mind to
+react defensively at every turn. "These triggers only heightened her sense of threat, each racing
+heartbeat convincing her that the danger she felt was imminent and real." Eventually, Fatima reached
+a point where the weight of her suffering became unbearable. The solitude that once felt comforting
+now echoed with her grief, and the memories that had once brought her joy had turned into a source
+of pain. She found herself wondering if there was a way to reclaim her life, to step out of the
+suffocating shadows of her past. It was this flicker of hope that led her to seek help. She feared
+that confronting these memories might expose her vulnerabilities further, yet the weight of her
+constant threat and negative appraisals left her yearning for a path to reclaim her life. "The
+conviction that she was in a world filled with threats meant that she began to see danger in the
+mundane: a passing car, a sudden noise, or even a stranger's glance would snag her attention,
+amplifying her fear." She was terrified of confronting her memories, of uncovering the depths of her
+pain, but she longed to feel alive again, to find a way to coexist with her memories without being
+consumed by them. "Faced with this constant threat, the intrusive memories of her brother's death
+would flood her mind unbidden, as if her body was drawing her back to that moment of loss in a
+desperate attempt to warn her." "The relentless threat that shadowed her days confirmed her darkest
+thoughts, whispering to her that she was not the kind of person who could ever feel safe again."

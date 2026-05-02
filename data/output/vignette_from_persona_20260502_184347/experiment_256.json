@@ -1,0 +1,198 @@
+{
+  "persona_id": 256,
+  "source_persona_id": 256,
+  "experiment_timestamp": "2026-05-02 19:50:51",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-chat",
+      "persona_crafter": "deepseek-chat",
+      "vignette_crafter": "deepseek-chat",
+      "vignette_validator": "deepseek-chat"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 35,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Single",
+    "occupation": "Special Education Teacher",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 58
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Shouting",
+        "value": "Shouting"
+      },
+      {
+        "key": "Somatic Pain (Neck)",
+        "value": "Neck pain"
+      },
+      {
+        "key": "Authority Presence",
+        "value": "Police"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      },
+      {
+        "key": "Scanning Exits",
+        "value": "I scan for exits as soon as I enter any room or building"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Photographic Recall",
+        "value": "Remembering what happened during the frightening event is just like looking at photographs of it in my mind."
+      },
+      {
+        "key": "Rage on Recall",
+        "value": "When I remember the event I feel intense rage"
+      },
+      {
+        "key": "Guilt on Recall",
+        "value": "When I remember the event I feel intense guilt"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Self-Comparison",
+        "value": "Somebody else would not have gotten into this situation"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "I have to be on guard all the time"
+      },
+      {
+        "key": "Inadequacy",
+        "value": "I am inadequate"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0632,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.9637,
+    "Negative Appraisals -- Memory": 0.2066,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.5402,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.9135,
+    "Threat -- Negative Appraisals": 0.8248,
+    "Threat -- Triggers": 0.8948,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6295428571428571,
+  "edge_density": 0.35,
+  "vignette_word_count": 750,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Failed Role: I have failed in my most important role in life",
+          "explanation": "For a 35-year-old single male special education teacher reporting a mugging/robbery, 'I have failed in my most important role in life' is hard to link coherently to the rest of the profile. The other appraisals center on self-blame and persistent danger, but this item implies a salient role failure theme (e.g. partner/parent/protector) that is not otherwise represented in triggers, threat, or memory."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Within Memory, intense shame and intense rage on recall can coexist, but paired with a mugging/robbery and the rest of this profile they pull toward different meanings of the event without enough support elsewhere. Shame would usually connect to strong self-blame/humiliation themes, while rage would connect to injustice/anger themes; the profile does not integrate both clearly."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Failed Role"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 2,
+    "passed": 1,
+    "failed": 1,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 6726,
+    "output": 1129,
+    "total": 7855
+  },
+  "vignette": "Michael is a 35-year-old special education teacher who was mugged eighteen months ago while walking home from a late parent-teacher conference. Two men had emerged from an alley, one grabbing him from behind while the other pressed something hard into his neck and demanded his wallet. The physical memory was seared into him with photographic clarity: the cold pressure against his vertebrae, the sound of the shout—*“Give it up now!”*—and the helpless rage that flooded him as he complied. In the weeks that followed, he could not stop replaying the moment, and each time he did, the guilt rose up like bile. He had been trained in de-escalation; he worked with volatile children every day. Somebody else would not have gotten into this situation, he told himself. Somebody more competent, more aware, would have seen it coming and crossed the street. The shame of his own inadequacy became a fixed belief, one he carried into every classroom and every quiet street at dusk.\n\nThat belief kept his nervous system locked in a state of permanent vigilance. Michael came to believe that relaxation was a luxury he could no longer afford. Even in his own apartment, with the deadbolt thrown and the chain fastened, he could not let his guard down. He was certain that if he stopped scanning, stopped preparing, something would happen again—and next time, he would not survive it. This hypervigilance, in turn, kept the memory raw. Living at that pitch of alertness, he found that the world had become dense with reminders he could not stop reading—a shadow crossing a window, the scrape of a shoe on pavement, even the creak of a door in his own apartment building. The constant sense of threat that shadowed his days had quietly become the most convincing proof he had that his inadequacy was real—if he were truly capable, he reasoned, he would not need to be this afraid all the time. Every time his neck ached from hunching over a student’s desk, the pressure of the mugger’s weapon returned to him. Every time a child shouted in frustration during a meltdown, the command *“Give it up now!”* echoed in his skull, and he would freeze mid-sentence, the rage and guilt washing over him in the same sickening wave.\n\nHis job became a minefield. Michael now scanned for exits the moment he entered any room—his classroom, the staff lounge, the grocery store. He could not walk into a building without mapping every door, every window, every possible escape route. The presence of authority figures made this worse. When a police car pulled up outside the school for a routine safety drill, Michael’s heart hammered so hard he had to excuse himself to the bathroom, where he stood gripping the sink, staring at his own panicked face in the mirror. He knew, intellectually, that the officers were there to help. But his body did not believe it. The sight of a uniform triggered the same helplessness he had felt in the alley, and the memory would flash back with such vividness that he lost track of where he was.\n\nThe cycle tightened over months. His hypervigilance made him irritable and distracted; he snapped at colleagues, withdrew from friends, and stopped accepting invitations to go out after dark. He began to believe that his inadequacy was not just about the mugging but about everything—that he was fundamentally not equipped to handle the world. Each new trigger confirmed this: the shout, the neck pain, the police presence. Each flashback reinforced his need to stay on guard. And each moment of scanning taught him that danger was everywhere, that he was right to be afraid. He had come to see his own vigilance not as a symptom but as a survival strategy, one he could not afford to abandon.\n\nWhat finally brought him to therapy was a morning when a student with autism began to scream during a transition between activities. Michael felt his vision tunnel, his hands go cold, and for a terrifying moment he did not know where he was. He stood frozen in the middle of his own classroom while a seven-year-old child cried for help, and he could not move. That night, alone in his apartment, he realized he was afraid of his own students. He was afraid of the very voices he was supposed to calm. He wanted to stop living this way, but he was equally certain that letting his guard down would be the end of him."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Michael is a 35-year-old special education teacher who was mugged eighteen months ago while walking home from a late parent-teacher conference. Two men had emerged from an alley, one grabbing him from behind while the other pressed something hard into his neck and demanded his wallet. The physical memory was seared into him with photographic clarity: the cold pressure against his vertebrae, the sound of the shout—*“Give it up now!”*—and the helpless rage that flooded him as he complied. In the weeks that followed, he could not stop replaying the moment, and each time he did, the guilt rose up like bile. He had been trained in de-escalation; he worked with volatile children every day. Somebody else would not have gotten into this situation, he told himself. Somebody more competent, more aware, would have seen it coming and crossed the street. The shame of his own inadequacy became a fixed belief, one he carried into every classroom and every quiet street at dusk.\n\nThat belief kept his nervous system locked in a state of permanent vigilance. Michael came to believe that relaxation was a luxury he could no longer afford. Even in his own apartment, with the deadbolt thrown and the chain fastened, he could not let his guard down. He was certain that if he stopped scanning, stopped preparing, something would happen again—and next time, he would not survive it. This hypervigilance, in turn, kept the memory raw. Every time his neck ached from hunching over a student’s desk, the pressure of the mugger’s weapon returned to him. Every time a child shouted in frustration during a meltdown, the command *“Give it up now!”* echoed in his skull, and he would freeze mid-sentence, the rage and guilt washing over him in the same sickening wave.\n\nHis job became a minefield. Michael now scanned for exits the moment he entered any room—his classroom, the staff lounge, the grocery store. He could not walk into a building without mapping every door, every window, every possible escape route. The presence of authority figures made this worse. When a police car pulled up outside the school for a routine safety drill, Michael’s heart hammered so hard he had to excuse himself to the bathroom, where he stood gripping the sink, staring at his own panicked face in the mirror. He knew, intellectually, that the officers were there to help. But his body did not believe it. The sight of a uniform triggered the same helplessness he had felt in the alley, and the memory would flash back with such vividness that he lost track of where he was.\n\nThe cycle tightened over months. His hypervigilance made him irritable and distracted; he snapped at colleagues, withdrew from friends, and stopped accepting invitations to go out after dark. He began to believe that his inadequacy was not just about the mugging but about everything—that he was fundamentally not equipped to handle the world. Each new trigger confirmed this: the shout, the neck pain, the police presence. Each flashback reinforced his need to stay on guard. And each moment of scanning taught him that danger was everywhere, that he was right to be afraid. He had come to see his own vigilance not as a symptom but as a survival strategy, one he could not afford to abandon.\n\nWhat finally brought him to therapy was a morning when a student with autism began to scream during a transition between activities. Michael felt his vision tunnel, his hands go cold, and for a terrifying moment he did not know where he was. He stood frozen in the middle of his own classroom while a seven-year-old child cried for help, and he could not move. That night, alone in his apartment, he realized he was afraid of his own students. He was afraid of the very voices he was supposed to calm. He wanted to stop living this way, but he was equally certain that letting his guard down would be the end of him.", "passed": false, "violations": [{"edge": "Threat → Negative Appraisals", "explanation": "No paragraph conveys that the sense of threat causes or drives negative appraisals."}, {"edge": "Threat → Triggers", "explanation": "No paragraph conveys that the sense of threat causes or drives triggers."}], "violation_count": 2, "feedback": "REQUIRED EDGES MISSING:\n- Threat → Negative Appraisals: No paragraph conveys that the sense of threat causes or drives negative appraisals.\n  e.g. \"The constant sense of danger was the most convincing proof she had that her life had changed beyond repair.\"\n  e.g. \"Feeling this afraid all the time, she had eventually come to accept the conclusion her body kept offering: that she was not the kind of person who got to feel safe.\"\n  e.g. \"The threat that shadowed her days quietly confirmed the thought she worked hardest to resist — that this was simply who she was now.\"\n- Threat → Triggers: No paragraph conveys that the sense of threat causes or drives triggers.\n  e.g. \"Already running on threat, she found that almost anything could tip into a warning — a van parked at an odd angle, a light left on that shouldn't have been.\"\n  e.g. \"The background hum of danger she carried everywhere made ordinary cues feel like messages — each one confirming what her body already believed.\"\n  e.g. \"Living at that pitch of alertness, she found the world had become dense with reminders she couldn't stop reading.\""},
+
+    {"vignette": "Michael is a 35-year-old special education teacher who was mugged eighteen months ago while walking home from a late parent-teacher conference. Two men had emerged from an alley, one grabbing him from behind while the other pressed something hard into his neck and demanded his wallet. The physical memory was seared into him with photographic clarity: the cold pressure against his vertebrae, the sound of the shout—*“Give it up now!”*—and the helpless rage that flooded him as he complied. In the weeks that followed, he could not stop replaying the moment, and each time he did, the guilt rose up like bile. He had been trained in de-escalation; he worked with volatile children every day. Somebody else would not have gotten into this situation, he told himself. Somebody more competent, more aware, would have seen it coming and crossed the street. The shame of his own inadequacy became a fixed belief, one he carried into every classroom and every quiet street at dusk.\n\nThat belief kept his nervous system locked in a state of permanent vigilance. Michael came to believe that relaxation was a luxury he could no longer afford. Even in his own apartment, with the deadbolt thrown and the chain fastened, he could not let his guard down. He was certain that if he stopped scanning, stopped preparing, something would happen again—and next time, he would not survive it. This hypervigilance, in turn, kept the memory raw. Living at that pitch of alertness, he found that the world had become dense with reminders he could not stop reading—a shadow crossing a window, the scrape of a shoe on pavement, even the creak of a door in his own apartment building. The constant sense of threat that shadowed his days had quietly become the most convincing proof he had that his inadequacy was real—if he were truly capable, he reasoned, he would not need to be this afraid all the time. Every time his neck ached from hunching over a student’s desk, the pressure of the mugger’s weapon returned to him. Every time a child shouted in frustration during a meltdown, the command *“Give it up now!”* echoed in his skull, and he would freeze mid-sentence, the rage and guilt washing over him in the same sickening wave.\n\nHis job became a minefield. Michael now scanned for exits the moment he entered any room—his classroom, the staff lounge, the grocery store. He could not walk into a building without mapping every door, every window, every possible escape route. The presence of authority figures made this worse. When a police car pulled up outside the school for a routine safety drill, Michael’s heart hammered so hard he had to excuse himself to the bathroom, where he stood gripping the sink, staring at his own panicked face in the mirror. He knew, intellectually, that the officers were there to help. But his body did not believe it. The sight of a uniform triggered the same helplessness he had felt in the alley, and the memory would flash back with such vividness that he lost track of where he was.\n\nThe cycle tightened over months. His hypervigilance made him irritable and distracted; he snapped at colleagues, withdrew from friends, and stopped accepting invitations to go out after dark. He began to believe that his inadequacy was not just about the mugging but about everything—that he was fundamentally not equipped to handle the world. Each new trigger confirmed this: the shout, the neck pain, the police presence. Each flashback reinforced his need to stay on guard. And each moment of scanning taught him that danger was everywhere, that he was right to be afraid. He had come to see his own vigilance not as a symptom but as a survival strategy, one he could not afford to abandon.\n\nWhat finally brought him to therapy was a morning when a student with autism began to scream during a transition between activities. Michael felt his vision tunnel, his hands go cold, and for a terrifying moment he did not know where he was. He stood frozen in the middle of his own classroom while a seven-year-old child cried for help, and he could not move. That night, alone in his apartment, he realized he was afraid of his own students. He was afraid of the very voices he was supposed to calm. He wanted to stop living this way, but he was equally certain that letting his guard down would be the end of him.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

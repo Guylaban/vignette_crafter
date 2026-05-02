@@ -1,0 +1,641 @@
+PERSONA 189  |  2026-05-02 14:22:43
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-haiku-4-5
+    persona_crafter      claude-haiku-4-5
+    vignette_crafter     claude-haiku-4-5
+    vignette_validator   claude-haiku-4-5
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             72
+  gender          Female
+  ethnicity       African
+  relationship_status Widowed
+  occupation      Forester
+  trauma_type     Civilian in war zone
+  pcl5            64
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Nighttime/Dark: Night-time or waking up in the dark
+    • Auditory (Explosion): Explosion or bang sounds
+    • Perceived Threat: People acting suspiciously
+  Maladaptive Strategies:
+    • Sensory Distraction: I put on loud music or TV
+    • Checking Surroundings: constantly scan environment for signs of threat
+    • Hypervigilance towards people: vigilant for dangerous people
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0701
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Being Alone: Being alone in a room or building
+    explanation: The item is not a maladaptive strategy but describes an avoided situation/trigger-like context. It is internally mismatched with the other strategy items, which are actual coping behaviors (covering face, using loud music/TV). It also weakens cross-node coherence because the profile contains no corresponding threat, appraisal, or memory content explaining why being alone is specifically targeted.
+  [2] FAIL
+    item:        Triggers / Triggers: Object Throwing: Throwing objects
+    explanation: The trigger set is partly coherent for a civilian in a war zone (gunshot noise, darkness), but 'Throwing objects' is hard to reconcile as a salient trauma-related trigger without any supporting threat, memory, or appraisal content linking thrown objects to the war trauma.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Face Hiding: cover face with hands
+    explanation: The maladaptive strategies are not internally coherent with the formulation or with each other as the only active node pair is a very weak Maladaptive Strategies → Triggers link, yet the selected strategies imply multiple different symptom targets (acute fear concealment, sensory suppression, hypervigilant threat monitoring) without corresponding threat, memory, or appraisal content.
+  [3] FAIL
+    item:        Triggers / Triggers: Auditory/Threat: Gunshot noise
+    explanation: The trigger items are plausible for a civilian in a war zone, but the profile is not internally coherent with the cognitive formulation because all links from Triggers to other nodes are inactive and no Threat, Memory, or Negative Appraisal items are present to give these highly specific combat-like auditory triggers any connected meaning in the formulation.
+    item:        Maladaptive Strategies / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: Using loud music or TV as sensory distraction sits awkwardly with the dominant trigger pattern of gunshot and explosion sounds: this strategy relies on additional intense auditory input despite the only reported triggers being threatening noises. That is a hard-to-explain within-profile mismatch unless other non-auditory symptoms are present, which are not reported here.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     27,692
+  output:     3,390
+  total:     31,082
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  5 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+# Amara
+
+Amara was sixty-eight when the war came to her village in South Sudan. She had spent thirty years as
+a forester, walking the acacia groves and managing the timber cooperatives that sustained her
+community. She knew the land the way other people knew their own homes—every path, every seasonal
+shift in the light filtering through the canopy. Her husband, Daniel, had died five years before the
+conflict, and their two adult children had long since moved to Khartoum and then abroad. She lived
+alone in the house they had built together, tending her small garden, rising before dawn to walk the
+forest.
+
+When the militia came through in the dry season of 2003, they came at night. Amara had been asleep
+when the first explosions shattered the darkness—not distant, but close enough that the walls of her
+house shook and plaster fell like ash onto her bed. She had crawled into the space beneath her
+kitchen table, her heart hammering so violently she thought it would break through her ribs. The
+sounds went on for hours: the crack and boom of ordnance, the sharp percussion of automatic weapons,
+voices shouting in languages she did not recognize. When men came through her door—she could not
+later say if they were looking for her specifically or simply moving through the village—she had
+remained motionless in the dark, her hand clamped over her mouth, certain that any sound, any
+movement, would mean her death. They had taken what they wanted and left. By morning, three of her
+neighbors' houses were burning.
+
+She had left South Sudan four months later, on a visa sponsored by a church organization. She was
+fifty-four years old and had to begin again. An American forestry company hired her based on her
+credentials, and she had spent the last eighteen years working in the national forests of Oregon,
+living in a small town near the Wallowa-Whitman, doing the work she knew best in a landscape that
+was, at least, not her own.
+
+But sleep had become impossible. For the first few years, Amara had simply accepted the insomnia—she
+would lie awake in the dark, her body rigid, listening to every creak of the old house. Then, about
+fifteen years into her time in America, she had begun turning on the television before bed. Just
+background noise, she told herself. Just to fill the silence. She would set it to a news channel or
+a cooking show, volume loud enough that she could not hear her own breathing, and eventually,
+somewhere around three in the morning, she would drift off to the murmur of voices and the blue glow
+of the screen. The habit had calcified. Now, at seventy-two, she could not sleep without it. If the
+power went out, or if she tried to lie in darkness, the old terror would surge back—her chest would
+tighten, her mind would race, and she would be back in that kitchen, waiting for footsteps.
+
+Over time, the sensory distraction had become a kind of cage. She had come to depend on the noise—on
+having something external to anchor her attention—and without it, the darkness felt like an open
+door. But the very act of relying on the television, of constantly needing to fill the silence, had
+made her more sensitive to the triggers themselves. When the power did occasionally fail, or when
+she found herself in an unexpectedly quiet moment, the contrast was so stark that the fear felt
+sharper, more immediate. And loud sounds—a car backfiring on the street outside, the bang of a door
+slamming in the wind—would send her into a state of acute alarm that could last for hours. She had
+learned to brace herself against these moments by staying vigilant, by constantly scanning her
+surroundings for signs of danger, watching people in the grocery store or at the ranger station for
+any hint of suspicious behavior. Her eyes were always moving, always assessing. At work, she found
+herself studying the contractors and visiting officials with an intensity that bordered on
+obsessive, noting who stood too close, who moved too quickly, whose intentions felt opaque.
+
+Her colleagues had begun to notice. A younger forester named Marcus had mentioned, gently, that
+Amara seemed "on edge" during a recent field survey. She had snapped at him without meaning to—a
+sharpness born from the constant vigilance, from the exhaustion of never being able to truly relax.
+She had apologized, but something had shifted. She had started taking more solitary assignments,
+avoiding the team meetings where she felt exposed, unable to control the environment around her.
+
+It was her granddaughter, visiting from Portland, who had finally said something direct. She had
+found Amara in the kitchen at two in the morning, television blaring from the bedroom, and had
+asked, simply, "Grandmother, are you okay?" The question had broken something open. Amara had sat
+down at the table—the same table where she had hidden seventy years ago—and had begun, for the first
+time in decades, to speak about what had happened. Within a week, she had called the VA clinic. What
+frightened her most now was not the memory itself, but the way it had colonized her entire life, the
+way she had become a person who could no longer sit in silence, who could not trust the darkness,
+who was always, always waiting for the next explosion. She was hoping that someone could help her
+find her way back to sleep without the noise, back to the quiet, back to the person she had been
+before the fear had taken root.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette describes maladaptive strategies (television use, vigilance, avoidance of team meetings) and triggers (loud sounds, darkness, quiet moments), but does not establish a causal relationship where the maladaptive strategies themselves generate or amplify the triggers. While the text states that 'the very act of relying on the television...had made her more sensitive to the triggers themselves,' this describes triggers becoming more salient rather than strategies producing new triggers. The required edge demands that maladaptive strategies drive or lead to the occurrence or activation of triggers.
+
+  [2] FAIL
+# Amara
+
+Amara was sixty-eight when the war came to her village in South Sudan. She had spent thirty years as
+a forester, walking the acacia groves and managing the timber cooperatives that sustained her
+community. She knew the land the way other people knew their own homes—every path, every seasonal
+shift in the light filtering through the canopy. Her husband, Daniel, had died five years before the
+conflict, and their two adult children had long since moved to Khartoum and then abroad. She lived
+alone in the house they had built together, tending her small garden, rising before dawn to walk the
+forest.
+
+When the militia came through in the dry season of 2003, they came at night. Amara had been asleep
+when the first explosions shattered the darkness—not distant, but close enough that the walls of her
+house shook and plaster fell like ash onto her bed. She had crawled into the space beneath her
+kitchen table, her heart hammering so violently she thought it would break through her ribs. The
+sounds went on for hours: the crack and boom of ordnance, the sharp percussion of automatic weapons,
+voices shouting in languages she did not recognize. When men came through her door—she could not
+later say if they were looking for her specifically or simply moving through the village—she had
+remained motionless in the dark, her hand clamped over her mouth, certain that any sound, any
+movement, would mean her death. They had taken what they wanted and left. By morning, three of her
+neighbors' houses were burning.
+
+She had left South Sudan four months later, on a visa sponsored by a church organization. She was
+fifty-four years old and had to begin again. An American forestry company hired her based on her
+credentials, and she had spent the last eighteen years working in the national forests of Oregon,
+living in a small town near the Wallowa-Whitman, doing the work she knew best in a landscape that
+was, at least, not her own.
+
+But sleep had become impossible. For the first few years, Amara had simply accepted the insomnia—she
+would lie awake in the dark, her body rigid, listening to every creak of the old house. Then, about
+fifteen years into her time in America, she had begun turning on the television before bed. Just
+background noise, she told herself. Just to fill the silence. She would set it to a news channel or
+a cooking show, volume loud enough that she could not hear her own breathing, and eventually,
+somewhere around three in the morning, she would drift off to the murmur of voices and the blue glow
+of the screen. The habit had calcified. Now, at seventy-two, she could not sleep without it. If the
+power went out, or if she tried to lie in darkness, the old terror would surge back—her chest would
+tighten, her mind would race, and she would be back in that kitchen, waiting for footsteps.
+
+Over time, the sensory distraction had become a kind of cage. She had come to depend on the noise—on
+having something external to anchor her attention—and without it, the darkness felt like an open
+door. But the very act of relying on the television, of constantly needing to fill the silence, had
+made her more sensitive to the triggers themselves. When the power did occasionally fail, or when
+she found herself in an unexpectedly quiet moment, the contrast was so stark that the fear felt
+sharper, more immediate. And loud sounds—a car backfiring on the street outside, the bang of a door
+slamming in the wind—would send her into a state of acute alarm that could last for hours. She had
+learned to brace herself against these moments by staying vigilant, by constantly scanning her
+surroundings for signs of danger, watching people in the grocery store or at the ranger station for
+any hint of suspicious behavior. Her eyes were always moving, always assessing. At work, she found
+herself studying the contractors and visiting officials with an intensity that bordered on
+obsessive, noting who stood too close, who moved too quickly, whose intentions felt opaque.
+
+Her colleagues had begun to notice. A younger forester named Marcus had mentioned, gently, that
+Amara seemed "on edge" during a recent field survey. She had snapped at him without meaning to—a
+sharpness born from the constant vigilance, from the exhaustion of never being able to truly relax.
+She had apologized, but something had shifted. Her hypervigilance in those moments—the way she
+monitored his movements, the tone of his voice—had created new triggers: the sight of Marcus
+approaching her desk now made her stomach tighten; the sound of footsteps in the hallway behind her
+sent her into alert; even the memory of that field survey became a place she could no longer bear to
+revisit, so she began inventing reasons to stay at the office during the hours when others were out
+in the field. She had started taking more solitary assignments, avoiding the team meetings where she
+felt exposed, unable to control the environment around her. Each time she declined a group
+assignment or found a reason to work alone in the forest, she reinforced a new landscape of
+avoidance—the conference room itself became a trigger, the sight of the meeting schedule in her
+inbox enough to set her heart racing, until even the possibility of being asked to attend a briefing
+sent her into a state of dread that lasted days.
+
+It was her granddaughter, visiting from Portland, who had finally said something direct. She had
+found Amara in the kitchen at two in the morning, television blaring from the bedroom, and had
+asked, simply, "Grandmother, are you okay?" The question had broken something open. Amara had sat
+down at the table—the same table where she had hidden seventy years ago—and had begun, for the first
+time in decades, to speak about what had happened. Within a week, she had called the VA clinic. What
+frightened her most now was not the memory itself, but the way it had colonized her entire life, the
+way she had become a person who could no longer sit in silence, who could not trust the darkness,
+who was always, always waiting for the next explosion. She was hoping that someone could help her
+find her way back to sleep without the noise, back to the quiet, back to the person she had been
+before the fear had taken root.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette describes maladaptive strategies (television distraction, avoidance of group work, hypervigilance, staying in the office) and separately describes triggers (loud sounds, quiet moments, Marcus approaching, footsteps, conference rooms), but does not convey a causal relationship where the maladaptive strategies themselves create or intensify triggers. The vignette states that relying on television 'had made her more sensitive to the triggers themselves' and that avoidance 'reinforced a new landscape of avoidance,' but these passages do not clearly establish that the maladaptive strategies are what generate or produce the triggers—only that they make her more reactive to pre-existing threats.
+
+  [3] FAIL
+# Amara
+
+Amara was sixty-eight when the war came to her village in South Sudan. She had spent thirty years as
+a forester, walking the acacia groves and managing the timber cooperatives that sustained her
+community. She knew the land the way other people knew their own homes—every path, every seasonal
+shift in the light filtering through the canopy. Her husband, Daniel, had died five years before the
+conflict, and their two adult children had long since moved to Khartoum and then abroad. She lived
+alone in the house they had built together, tending her small garden, rising before dawn to walk the
+forest.
+
+When the militia came through in the dry season of 2003, they came at night. Amara had been asleep
+when the first explosions shattered the darkness—not distant, but close enough that the walls of her
+house shook and plaster fell like ash onto her bed. She had crawled into the space beneath her
+kitchen table, her heart hammering so violently she thought it would break through her ribs. The
+sounds went on for hours: the crack and boom of ordnance, the sharp percussion of automatic weapons,
+voices shouting in languages she did not recognize. When men came through her door—she could not
+later say if they were looking for her specifically or simply moving through the village—she had
+remained motionless in the dark, her hand clamped over her mouth, certain that any sound, any
+movement, would mean her death. They had taken what they wanted and left. By morning, three of her
+neighbors' houses were burning.
+
+She had left South Sudan four months later, on a visa sponsored by a church organization. She was
+fifty-four years old and had to begin again. An American forestry company hired her based on her
+credentials, and she had spent the last eighteen years working in the national forests of Oregon,
+living in a small town near the Wallowa-Whitman, doing the work she knew best in a landscape that
+was, at least, not her own.
+
+But sleep had become impossible. For the first few years, Amara had simply accepted the insomnia—she
+would lie awake in the dark, her body rigid, listening to every creak of the old house. Then, about
+fifteen years into her time in America, she had begun turning on the television before bed. Just
+background noise, she told herself. Just to fill the silence. She would set it to a news channel or
+a cooking show, volume loud enough that she could not hear her own breathing, and eventually,
+somewhere around three in the morning, she would drift off to the murmur of voices and the blue glow
+of the screen. The habit had calcified. Now, at seventy-two, she could not sleep without it. If the
+power went out, or if she tried to lie in darkness, the old terror would surge back—her chest would
+tighten, her mind would race, and she would be back in that kitchen, waiting for footsteps.
+
+Over time, the sensory distraction had become a kind of cage. She had come to depend on the noise—on
+having something external to anchor her attention—and without it, the darkness felt like an open
+door. But this very dependence had remade her world: the moments when the television failed to mask
+the silence became triggers in themselves, and the quiet hours that had once been ordinary—a power
+outage, a broken set—now carried the weight of threat. Each night she managed to sleep through the
+noise, she reinforced the belief that silence itself was dangerous, until the absence of sound
+became as much a danger signal as the backfiring car or the slamming door. But the very act of
+relying on the television, of constantly needing to fill the silence, had made her more sensitive to
+the triggers themselves. When the power did occasionally fail, or when she found herself in an
+unexpectedly quiet moment, the contrast was so stark that the fear felt sharper, more immediate. And
+loud sounds—a car backfiring on the street outside, the bang of a door slamming in the wind—would
+send her into a state of acute alarm that could last for hours. She had learned to brace herself
+against these moments by staying vigilant, by constantly scanning her surroundings for signs of
+danger, watching people in the grocery store or at the ranger station for any hint of suspicious
+behavior. Her eyes were always moving, always assessing. At work, she found herself studying the
+contractors and visiting officials with an intensity that bordered on obsessive, noting who stood
+too close, who moved too quickly, whose intentions felt opaque.
+
+Her colleagues had begun to notice. A younger forester named Marcus had mentioned, gently, that
+Amara seemed "on edge" during a recent field survey. She had snapped at him without meaning to—a
+sharpness born from the constant vigilance, from the exhaustion of never being able to truly relax.
+She had apologized, but something had shifted. Her hypervigilance in those moments—the way she
+monitored his movements, the tone of his voice—had created new triggers: the sight of Marcus
+approaching her desk now made her stomach tighten; the sound of footsteps in the hallway behind her
+sent her into alert; even the memory of that field survey became a place she could no longer bear to
+revisit, so she began inventing reasons to stay at the office during the hours when others were out
+in the field. She had started taking more solitary assignments, avoiding the team meetings where she
+felt exposed, unable to control the environment around her. Each time she declined a group
+assignment or found a reason to work alone in the forest, she reinforced a new landscape of
+avoidance—the conference room itself became a trigger, the sight of the meeting schedule in her
+inbox enough to set her heart racing, until even the possibility of being asked to attend a briefing
+sent her into a state of dread that lasted days. The places she avoided had become the places she
+feared most: by steering clear of the conference room, she had transformed it from a neutral
+workspace into a symbol of exposure and loss of control, and the longer she stayed away, the more
+catastrophic her imagination made it. Her safety behaviours had drawn a map of danger around her
+workplace—every corridor she took the long way around, every meeting she declined, every person she
+kept at a distance became a small confirmation that these things were indeed threats worth fearing.
+
+It was her granddaughter, visiting from Portland, who had finally said something direct. She had
+found Amara in the kitchen at two in the morning, television blaring from the bedroom, and had
+asked, simply, "Grandmother, are you okay?" The question had broken something open. Amara had sat
+down at the table—the same table where she had hidden seventy years ago—and had begun, for the first
+time in decades, to speak about what had happened. Within a week, she had called the VA clinic. What
+frightened her most now was not the memory itself, but the way it had colonized her entire life, the
+way she had become a person who could no longer sit in silence, who could not trust the darkness,
+who was always, always waiting for the next explosion. She was hoping that someone could help her
+find her way back to sleep without the noise, back to the quiet, back to the person she had been
+before the fear had taken root.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette describes maladaptive strategies (turning on television, avoidance of colleagues and meetings, hypervigilance, staying in office/avoiding field work) and describes triggers (silence, darkness, loud sounds, Marcus approaching, footsteps, conference room, meeting schedule), but does not convey that the maladaptive strategies themselves *cause or create* the triggers. Instead, the text suggests triggers pre-exist (silence, loud sounds from the trauma memory) and strategies are responses to them, rather than strategies generating new triggers.
+
+  [4] FAIL
+# Amara
+
+Amara was sixty-eight when the war came to her village in South Sudan. She had spent thirty years as
+a forester, walking the acacia groves and managing the timber cooperatives that sustained her
+community. She knew the land the way other people knew their own homes—every path, every seasonal
+shift in the light filtering through the canopy. Her husband, Daniel, had died five years before the
+conflict, and their two adult children had long since moved to Khartoum and then abroad. She lived
+alone in the house they had built together, tending her small garden, rising before dawn to walk the
+forest.
+
+When the militia came through in the dry season of 2003, they came at night. Amara had been asleep
+when the first explosions shattered the darkness—not distant, but close enough that the walls of her
+house shook and plaster fell like ash onto her bed. She had crawled into the space beneath her
+kitchen table, her heart hammering so violently she thought it would break through her ribs. The
+sounds went on for hours: the crack and boom of ordnance, the sharp percussion of automatic weapons,
+voices shouting in languages she did not recognize. When men came through her door—she could not
+later say if they were looking for her specifically or simply moving through the village—she had
+remained motionless in the dark, her hand clamped over her mouth, certain that any sound, any
+movement, would mean her death. They had taken what they wanted and left. By morning, three of her
+neighbors' houses were burning.
+
+She had left South Sudan four months later, on a visa sponsored by a church organization. She was
+fifty-four years old and had to begin again. An American forestry company hired her based on her
+credentials, and she had spent the last eighteen years working in the national forests of Oregon,
+living in a small town near the Wallowa-Whitman, doing the work she knew best in a landscape that
+was, at least, not her own.
+
+But sleep had become impossible. For the first few years, Amara had simply accepted the insomnia—she
+would lie awake in the dark, her body rigid, listening to every creak of the old house. Then, about
+fifteen years into her time in America, she had begun turning on the television before bed. Just
+background noise, she told herself. Just to fill the silence. She would set it to a news channel or
+a cooking show, volume loud enough that she could not hear her own breathing, and eventually,
+somewhere around three in the morning, she would drift off to the murmur of voices and the blue glow
+of the screen. The habit had calcified. Now, at seventy-two, she could not sleep without it. If the
+power went out, or if she tried to lie in darkness, the old terror would surge back—her chest would
+tighten, her mind would race, and she would be back in that kitchen, waiting for footsteps.
+
+Over time, the sensory distraction had become a kind of cage. She had come to depend on the noise—on
+having something external to anchor her attention—and without it, the darkness felt like an open
+door. But this very dependence had remade her world: the moments when the television failed to mask
+the silence became triggers in themselves, and the quiet hours that had once been ordinary—a power
+outage, a broken set—now carried the weight of threat. The strategy of filling silence with noise
+had created the very condition it was meant to prevent: silence itself had become something to fear.
+But this very dependence had remade her world: the moments when the television failed to mask the
+silence became triggers in themselves, and the quiet hours that had once been ordinary—a power
+outage, a broken set—now carried the weight of threat. Each night she managed to sleep through the
+noise, she reinforced the belief that silence itself was dangerous, until the absence of sound
+became as much a danger signal as the backfiring car or the slamming door. But the very act of
+relying on the television, of constantly needing to fill the silence, had made her more sensitive to
+the triggers themselves. When the power did occasionally fail, or when she found herself in an
+unexpectedly quiet moment, the contrast was so stark that the fear felt sharper, more immediate. And
+loud sounds—a car backfiring on the street outside, the bang of a door slamming in the wind—would
+send her into a state of acute alarm that could last for hours. She had learned to brace herself
+against these moments by staying vigilant, by constantly scanning her surroundings for signs of
+danger, watching people in the grocery store or at the ranger station for any hint of suspicious
+behavior. Her eyes were always moving, always assessing. At work, she found herself studying the
+contractors and visiting officials with an intensity that bordered on obsessive, noting who stood
+too close, who moved too quickly, whose intentions felt opaque.
+
+Her colleagues had begun to notice. A younger forester named Marcus had mentioned, gently, that
+Amara seemed "on edge" during a recent field survey. She had snapped at him without meaning to—a
+sharpness born from the constant vigilance, from the exhaustion of never being able to truly relax.
+She had apologized, but something had shifted. Her hypervigilance in those moments—the way she
+monitored his movements, the tone of his voice—had created new triggers: the sight of Marcus
+approaching her desk now made her stomach tighten; the sound of footsteps in the hallway behind her
+sent her into alert; even the memory of that field survey became a place she could no longer bear to
+revisit, so she began inventing reasons to stay at the office during the hours when others were out
+in the field. She had started taking more solitary assignments, avoiding the team meetings where she
+felt exposed, unable to control the environment around her. But each time she chose the forest over
+the conference room, she was unknowingly narrowing her world—the very act of avoidance transformed
+ordinary workplaces into danger zones. The hallway she began to take the long way around, the
+meeting schedule she learned to dread before even opening her inbox, the sight of Marcus at his
+desk—these had all become triggers precisely because she had fled from them, because her safety lay
+in their absence. Each time she declined a group assignment or found a reason to work alone in the
+forest, she reinforced a new landscape of avoidance—the conference room itself became a trigger, the
+sight of the meeting schedule in her inbox enough to set her heart racing, until even the
+possibility of being asked to attend a briefing sent her into a state of dread that lasted days. The
+places she avoided had become the places she feared most: by steering clear of the conference room,
+she had transformed it from a neutral workspace into a symbol of exposure and loss of control, and
+the longer she stayed away, the more catastrophic her imagination made it. Her safety behaviours had
+drawn a map of danger around her workplace—every corridor she took the long way around, every
+meeting she declined, every person she kept at a distance became a small confirmation that these
+things were indeed threats worth fearing.
+
+It was her granddaughter, visiting from Portland, who had finally said something direct. She had
+found Amara in the kitchen at two in the morning, television blaring from the bedroom, and had
+asked, simply, "Grandmother, are you okay?" The question had broken something open. Amara had sat
+down at the table—the same table where she had hidden seventy years ago—and had begun, for the first
+time in decades, to speak about what had happened. Within a week, she had called the VA clinic. What
+frightened her most now was not the memory itself, but the way it had colonized her entire life, the
+way she had become a person who could no longer sit in silence, who could not trust the darkness,
+who was always, always waiting for the next explosion. She was hoping that someone could help her
+find her way back to sleep without the noise, back to the quiet, back to the person she had been
+before the fear had taken root.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette describes maladaptive strategies (turning on television, avoidance, hypervigilance) and separately describes triggers (silence, footsteps, Marcus, meetings), but does not establish a causal relationship where the maladaptive strategies themselves create or generate the triggers. While the text states that 'dependence had remade her world' and 'safety behaviours had drawn a map of danger,' it does not clearly convey within any single paragraph that the act of employing maladaptive strategies is what caused the triggers to emerge.
+
+  [5] PASS
+# Amara
+
+Amara was sixty-eight when the war came to her village in South Sudan. She had spent thirty years as
+a forester, walking the acacia groves and managing the timber cooperatives that sustained her
+community. She knew the land the way other people knew their own homes—every path, every seasonal
+shift in the light filtering through the canopy. Her husband, Daniel, had died five years before the
+conflict, and their two adult children had long since moved to Khartoum and then abroad. She lived
+alone in the house they had built together, tending her small garden, rising before dawn to walk the
+forest.
+
+When the militia came through in the dry season of 2003, they came at night. Amara had been asleep
+when the first explosions shattered the darkness—not distant, but close enough that the walls of her
+house shook and plaster fell like ash onto her bed. She had crawled into the space beneath her
+kitchen table, her heart hammering so violently she thought it would break through her ribs. The
+sounds went on for hours: the crack and boom of ordnance, the sharp percussion of automatic weapons,
+voices shouting in languages she did not recognize. When men came through her door—she could not
+later say if they were looking for her specifically or simply moving through the village—she had
+remained motionless in the dark, her hand clamped over her mouth, certain that any sound, any
+movement, would mean her death. They had taken what they wanted and left. By morning, three of her
+neighbors' houses were burning.
+
+She had left South Sudan four months later, on a visa sponsored by a church organization. She was
+fifty-four years old and had to begin again. An American forestry company hired her based on her
+credentials, and she had spent the last eighteen years working in the national forests of Oregon,
+living in a small town near the Wallowa-Whitman, doing the work she knew best in a landscape that
+was, at least, not her own.
+
+But sleep had become impossible. For the first few years, Amara had simply accepted the insomnia—she
+would lie awake in the dark, her body rigid, listening to every creak of the old house. Then, about
+fifteen years into her time in America, she had begun turning on the television before bed. Just
+background noise, she told herself. Just to fill the silence. She would set it to a news channel or
+a cooking show, volume loud enough that she could not hear her own breathing, and eventually,
+somewhere around three in the morning, she would drift off to the murmur of voices and the blue glow
+of the screen. The habit had calcified. Now, at seventy-two, she could not sleep without it. If the
+power went out, or if she tried to lie in darkness, the old terror would surge back—her chest would
+tighten, her mind would race, and she would be back in that kitchen, waiting for footsteps.
+
+Over time, the sensory distraction had become a kind of cage. She had come to depend on the noise—on
+having something external to anchor her attention—and without it, the darkness felt like an open
+door. Each night the television masked the silence, she reinforced the belief that silence itself
+was dangerous; the very strategy meant to soothe her had transformed ordinary quiet into a threat
+she now had to escape. But this very dependence had remade her world: the moments when the
+television failed to mask the silence became triggers in themselves, and the quiet hours that had
+once been ordinary—a power outage, a broken set—now carried the weight of threat. The strategy of
+filling silence with noise had created the very condition it was meant to prevent: silence itself
+had become something to fear. But this very dependence had remade her world: the moments when the
+television failed to mask the silence became triggers in themselves, and the quiet hours that had
+once been ordinary—a power outage, a broken set—now carried the weight of threat. Each night she
+managed to sleep through the noise, she reinforced the belief that silence itself was dangerous,
+until the absence of sound became as much a danger signal as the backfiring car or the slamming
+door. But the very act of relying on the television, of constantly needing to fill the silence, had
+made her more sensitive to the triggers themselves. When the power did occasionally fail, or when
+she found herself in an unexpectedly quiet moment, the contrast was so stark that the fear felt
+sharper, more immediate. And loud sounds—a car backfiring on the street outside, the bang of a door
+slamming in the wind—would send her into a state of acute alarm that could last for hours. She had
+learned to brace herself against these moments by staying vigilant, by constantly scanning her
+surroundings for signs of danger, watching people in the grocery store or at the ranger station for
+any hint of suspicious behavior. This hypervigilance, meant to keep her safe, had remade the world
+around her—every glance she cast, every person she assessed, every moment she spent braced for
+threat became a small confirmation that danger was everywhere, that her vigilance was justified,
+that she was right to be afraid. Her eyes were always moving, always assessing. At work, she found
+herself studying the contractors and visiting officials with an intensity that bordered on
+obsessive, noting who stood too close, who moved too quickly, whose intentions felt opaque.
+
+Her colleagues had begun to notice. A younger forester named Marcus had mentioned, gently, that
+Amara seemed "on edge" during a recent field survey. She had snapped at him without meaning to—a
+sharpness born from the constant vigilance, from the exhaustion of never being able to truly relax.
+She had apologized, but something had shifted. Her hypervigilance in those moments—the way she
+monitored his movements, the tone of his voice—had created new triggers: the sight of Marcus
+approaching her desk now made her stomach tighten; the sound of footsteps in the hallway behind her
+sent her into alert; even the memory of that field survey became a place she could no longer bear to
+revisit, so she began inventing reasons to stay at the office during the hours when others were out
+in the field. She had started taking more solitary assignments, avoiding the team meetings where she
+felt exposed, unable to control the environment around her. But each time she chose the forest over
+the conference room, she was unknowingly narrowing her world—the very act of avoidance transformed
+ordinary workplaces into danger zones. The hallway she began to take the long way around, the
+meeting schedule she learned to dread before even opening her inbox, the sight of Marcus at his
+desk—these had all become triggers precisely because she had fled from them, because her safety lay
+in their absence. The hallway she began to take the long way around, the meeting schedule she
+learned to dread before even opening her inbox, the sight of Marcus at his desk—these had all become
+triggers precisely because she had fled from them, because her safety lay in their absence. Each
+time she declined a group assignment or found a reason to work alone in the forest, she reinforced a
+new landscape of avoidance—the conference room itself became a trigger, the sight of the meeting
+schedule in her inbox enough to set her heart racing, until even the possibility of being asked to
+attend a briefing sent her into a state of dread that lasted days. The places she avoided had become
+the places she feared most: by steering clear of the conference room, she had transformed it from a
+neutral workspace into a symbol of exposure and loss of control, and the longer she stayed away, the
+more catastrophic her imagination made it. Her safety behaviours had drawn a map of danger around
+her workplace—every corridor she took the long way around, every meeting she declined, every person
+she kept at a distance became a small confirmation that these things were indeed threats worth
+fearing.
+
+It was her granddaughter, visiting from Portland, who had finally said something direct. She had
+found Amara in the kitchen at two in the morning, television blaring from the bedroom, and had
+asked, simply, "Grandmother, are you okay?" The question had broken something open. Amara had sat
+down at the table—the same table where she had hidden seventy years ago—and had begun, for the first
+time in decades, to speak about what had happened. Within a week, she had called the VA clinic. What
+frightened her most now was not the memory itself, but the way it had colonized her entire life, the
+way she had become a person who could no longer sit in silence, who could not trust the darkness,
+who was always, always waiting for the next explosion. She was hoping that someone could help her
+find her way back to sleep without the noise, back to the quiet, back to the person she had been
+before the fear had taken root.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+# Amara
+
+Amara was sixty-eight when the war came to her village in South Sudan. She had spent thirty years as
+a forester, walking the acacia groves and managing the timber cooperatives that sustained her
+community. She knew the land the way other people knew their own homes—every path, every seasonal
+shift in the light filtering through the canopy. Her husband, Daniel, had died five years before the
+conflict, and their two adult children had long since moved to Khartoum and then abroad. She lived
+alone in the house they had built together, tending her small garden, rising before dawn to walk the
+forest.
+
+When the militia came through in the dry season of 2003, they came at night. Amara had been asleep
+when the first explosions shattered the darkness—not distant, but close enough that the walls of her
+house shook and plaster fell like ash onto her bed. She had crawled into the space beneath her
+kitchen table, her heart hammering so violently she thought it would break through her ribs. The
+sounds went on for hours: the crack and boom of ordnance, the sharp percussion of automatic weapons,
+voices shouting in languages she did not recognize. When men came through her door—she could not
+later say if they were looking for her specifically or simply moving through the village—she had
+remained motionless in the dark, her hand clamped over her mouth, certain that any sound, any
+movement, would mean her death. They had taken what they wanted and left. By morning, three of her
+neighbors' houses were burning.
+
+She had left South Sudan four months later, on a visa sponsored by a church organization. She was
+fifty-four years old and had to begin again. An American forestry company hired her based on her
+credentials, and she had spent the last eighteen years working in the national forests of Oregon,
+living in a small town near the Wallowa-Whitman, doing the work she knew best in a landscape that
+was, at least, not her own.
+
+But sleep had become impossible. For the first few years, Amara had simply accepted the insomnia—she
+would lie awake in the dark, her body rigid, listening to every creak of the old house. Then, about
+fifteen years into her time in America, she had begun turning on the television before bed. Just
+background noise, she told herself. Just to fill the silence. She would set it to a news channel or
+a cooking show, volume loud enough that she could not hear her own breathing, and eventually,
+somewhere around three in the morning, she would drift off to the murmur of voices and the blue glow
+of the screen. The habit had calcified. Now, at seventy-two, she could not sleep without it. If the
+power went out, or if she tried to lie in darkness, the old terror would surge back—her chest would
+tighten, her mind would race, and she would be back in that kitchen, waiting for footsteps.
+
+Over time, the sensory distraction had become a kind of cage. She had come to depend on the noise—on
+having something external to anchor her attention—and without it, the darkness felt like an open
+door. Each night the television masked the silence, she reinforced the belief that silence itself
+was dangerous; the very strategy meant to soothe her had transformed ordinary quiet into a threat
+she now had to escape. But this very dependence had remade her world: the moments when the
+television failed to mask the silence became triggers in themselves, and the quiet hours that had
+once been ordinary—a power outage, a broken set—now carried the weight of threat. The strategy of
+filling silence with noise had created the very condition it was meant to prevent: silence itself
+had become something to fear. But this very dependence had remade her world: the moments when the
+television failed to mask the silence became triggers in themselves, and the quiet hours that had
+once been ordinary—a power outage, a broken set—now carried the weight of threat. Each night she
+managed to sleep through the noise, she reinforced the belief that silence itself was dangerous,
+until the absence of sound became as much a danger signal as the backfiring car or the slamming
+door. But the very act of relying on the television, of constantly needing to fill the silence, had
+made her more sensitive to the triggers themselves. When the power did occasionally fail, or when
+she found herself in an unexpectedly quiet moment, the contrast was so stark that the fear felt
+sharper, more immediate. And loud sounds—a car backfiring on the street outside, the bang of a door
+slamming in the wind—would send her into a state of acute alarm that could last for hours. She had
+learned to brace herself against these moments by staying vigilant, by constantly scanning her
+surroundings for signs of danger, watching people in the grocery store or at the ranger station for
+any hint of suspicious behavior. This hypervigilance, meant to keep her safe, had remade the world
+around her—every glance she cast, every person she assessed, every moment she spent braced for
+threat became a small confirmation that danger was everywhere, that her vigilance was justified,
+that she was right to be afraid. Her eyes were always moving, always assessing. At work, she found
+herself studying the contractors and visiting officials with an intensity that bordered on
+obsessive, noting who stood too close, who moved too quickly, whose intentions felt opaque.
+
+Her colleagues had begun to notice. A younger forester named Marcus had mentioned, gently, that
+Amara seemed "on edge" during a recent field survey. She had snapped at him without meaning to—a
+sharpness born from the constant vigilance, from the exhaustion of never being able to truly relax.
+She had apologized, but something had shifted. Her hypervigilance in those moments—the way she
+monitored his movements, the tone of his voice—had created new triggers: the sight of Marcus
+approaching her desk now made her stomach tighten; the sound of footsteps in the hallway behind her
+sent her into alert; even the memory of that field survey became a place she could no longer bear to
+revisit, so she began inventing reasons to stay at the office during the hours when others were out
+in the field. She had started taking more solitary assignments, avoiding the team meetings where she
+felt exposed, unable to control the environment around her. But each time she chose the forest over
+the conference room, she was unknowingly narrowing her world—the very act of avoidance transformed
+ordinary workplaces into danger zones. The hallway she began to take the long way around, the
+meeting schedule she learned to dread before even opening her inbox, the sight of Marcus at his
+desk—these had all become triggers precisely because she had fled from them, because her safety lay
+in their absence. The hallway she began to take the long way around, the meeting schedule she
+learned to dread before even opening her inbox, the sight of Marcus at his desk—these had all become
+triggers precisely because she had fled from them, because her safety lay in their absence. Each
+time she declined a group assignment or found a reason to work alone in the forest, she reinforced a
+new landscape of avoidance—the conference room itself became a trigger, the sight of the meeting
+schedule in her inbox enough to set her heart racing, until even the possibility of being asked to
+attend a briefing sent her into a state of dread that lasted days. The places she avoided had become
+the places she feared most: by steering clear of the conference room, she had transformed it from a
+neutral workspace into a symbol of exposure and loss of control, and the longer she stayed away, the
+more catastrophic her imagination made it. Her safety behaviours had drawn a map of danger around
+her workplace—every corridor she took the long way around, every meeting she declined, every person
+she kept at a distance became a small confirmation that these things were indeed threats worth
+fearing.
+
+It was her granddaughter, visiting from Portland, who had finally said something direct. She had
+found Amara in the kitchen at two in the morning, television blaring from the bedroom, and had
+asked, simply, "Grandmother, are you okay?" The question had broken something open. Amara had sat
+down at the table—the same table where she had hidden seventy years ago—and had begun, for the first
+time in decades, to speak about what had happened. Within a week, she had called the VA clinic. What
+frightened her most now was not the memory itself, but the way it had colonized her entire life, the
+way she had become a person who could no longer sit in silence, who could not trust the darkness,
+who was always, always waiting for the next explosion. She was hoping that someone could help her
+find her way back to sleep without the noise, back to the quiet, back to the person she had been
+before the fear had taken root.

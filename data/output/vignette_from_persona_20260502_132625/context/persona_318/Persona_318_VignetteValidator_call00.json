@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "agent_name": "Persona_318_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-02 15:01:38"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Negative Appraisals\n  - Threat\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Threat → Negative Appraisals\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\n# Margot\n\nMargot had been a model for forty-three years—runway, print, campaigns for luxury brands that demanded an almost preternatural composure. She had built a career on the ability to hold herself perfectly still, to project calm even under the glare of studio lights and the crush of backstage chaos. Her last major contract had wrapped when she was sixty-two, and she had transitioned into mentoring younger models at an agency in Manhattan, a role that suited her: she could teach them the mechanics of the walk, the angle of the chin, the discipline required to survive in an industry that devoured youth. It was steady work, respected work. She had been widowed for eight years—her husband, David, had died of a sudden cardiac event—and the agency had become her anchor, the place where she felt purposeful and seen.\n\nOn a March afternoon in 2022, during a fitting for a spring campaign shoot, Margot had turned too quickly while adjusting a model's collar. Her hand caught the young woman's face—a sharp, reflexive gesture that was meant to be nothing, a mere repositioning, but the model, Aisha, had been standing on a small platform. The collision had thrown Aisha off balance. She fell backward, her arm twisting beneath her as she hit the concrete floor of the studio. The sound was definitive: a crack, then Aisha's scream. Her wrist was fractured in two places. Margot had called the ambulance, had ridden with Aisha to the hospital, had sat in the waiting room while surgeons discussed pins and plates. She had apologized so many times that the words had stopped meaning anything. Aisha had been kind about it—genuinely kind, saying it was an accident, that she knew Margot hadn't meant to hurt her—but Margot could not accept the kindness. It felt like a mercy she didn't deserve.\n\nThe fracture healed. Aisha returned to work within four months. But Margot could not return to the same ease she had known before. Something had fractured in her as well, something that had not mended. She found herself unable to relax, even in her apartment on the Upper West Side, even when she was alone and the doors were locked and there was no one present whom she could hurt. Her body had become a thing she did not trust. Her muscles stayed clenched, her jaw tight, her hands trembling slightly when she held a coffee cup. She would sit on her sofa in the evenings and feel her shoulders hunched up around her ears, her breath shallow, as though her body was bracing for the moment when she would lose control again and cause irreparable harm. She had come to believe that she was fundamentally different from other people—that someone else, someone more careful or more present or simply more good, would never have made such a careless movement. Someone else would have been aware enough to prevent the fall. The thought circled relentlessly: what kind of person was she, that she could destroy a young woman's livelihood in a single thoughtless second? The humiliation of that knowledge—that she had revealed herself to be reckless, dangerous, unfit for the responsibility she had carried—sat in her chest like a stone. When she looked in the mirror, she saw a woman she no longer recognized, someone who had proven herself capable of harm. Her inability to let go of her body's vigilance, to trust that she would not strike out again, only deepened her conviction that she was someone fundamentally untrustworthy. The more tense she became, the more certain she felt that her tension was justified—that her body's constant readiness was an accurate assessment of the threat she posed. She could not forgive herself for not having been more careful in that moment, for not having anticipated the danger and stopped herself before it was too late.\n\nWithin two months, she had taken a leave of absence from the agency. She told the director she needed time, that she was unwell, but she did not return. She could not face Aisha again, could not stand in a studio and touch another person's body, could not bear the weight of the responsibility. She stopped going out, stopped answering calls from colleagues. The concentration that had once allowed her to command a room had fractured; she would read the same paragraph of a book five times and retain nothing. At sixty-six, Margot found herself almost entirely alone, unable to work, unable to relax, unable to forgive the woman in the mirror for the single moment that had unmade her. It was only last month, when her sister had finally insisted, that she had agreed to see a therapist—not because she believed anything could repair what she had broken in herself, but because the alternative was to disappear entirely.\n"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "id": "toolu_01WbKzYX5jyQQCgZWatfB5ED",
+          "caller": {
+            "type": "direct"
+          },
+          "input": {
+            "verdict": "FAIL",
+            "violation_edges": [
+              "Threat → Negative Appraisals"
+            ],
+            "violation_explanations": [
+              "The vignette presents Negative Appraisals (beliefs that she is 'fundamentally different,' 'dangerous,' 'untrustworthy,' 'reckless') but does not establish that a perceived Threat causally drives these appraisals; instead, the negative appraisals appear to drive the sense of threat (her body's vigilance is justified by her belief in her dangerousness), which is the reverse causal direction."
+            ]
+          },
+          "name": "ValidationResult",
+          "type": "tool_use"
+        }
+      ]
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Threat → Negative Appraisals"
+    ],
+    "violation_explanations": [
+      "The vignette presents Negative Appraisals (beliefs that she is 'fundamentally different,' 'dangerous,' 'untrustworthy,' 'reckless') but does not establish that a perceived Threat causally drives these appraisals; instead, the negative appraisals appear to drive the sense of threat (her body's vigilance is justified by her belief in her dangerousness), which is the reverse causal direction."
+    ]
+  }
+}

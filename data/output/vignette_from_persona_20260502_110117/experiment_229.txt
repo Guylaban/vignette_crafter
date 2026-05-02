@@ -1,0 +1,218 @@
+PERSONA 229  |  2026-05-02 11:38:33
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             49
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Fashion Designer
+  trauma_type     Trauma to a loved one
+  pcl5            77
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid Future Plans: Making any plans for the future
+    • Suppress Thoughts: try hard not think about the trauma
+    • Mental Distraction: keep mind occupied all the time
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Sleep Problems: Trouble falling or staying asleep
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+  Memory:
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+    • Partial Clarity: Some moments of the event are extremely clear while others are completely blank
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.6360
+  Memory → Threat                                    0.0215
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.1308
+  Threat → Memory                                    0.9094
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.5910
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat in Delays: When something takes longer than expected I assume something bad is happening
+    explanation: The profile is for trauma to a loved one, but the threat items are dominated by direct personal pursuit/attack themes (someone following me, needing to check immediate personal safety, planning escape routes). That pattern fits interpersonal victimization of the self more than bereavement/trauma-to-loved-one and is hard to reconcile without any corresponding memory content about being personally endangered.
+    item:        Memory / Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: Within the formulation, Threat and Memory are tightly linked, yet the memory items are about guilt, emotional overwhelm, and patchy recall, while the threat items are about current physical surveillance/attack. There is little plausible content connection between these selected memory items and the very specific threat behaviors, so the strong Threat ↔ Memory pattern is not well reflected.
+    item:        Maladaptive Strategies / Waking Alert: I wake during the night to check whether I am safe
+    explanation: Revenge fantasies toward those responsible can occur after a loved one is harmed, but paired with checking behind, waking to check safety, and escape-route planning, the overall pattern implies ongoing direct threat to the patient rather than distress centered on the loved one's trauma. This cross-node combination is clinically difficult to explain as one coherent presentation from the stated trauma type.
+  [2] FAIL
+    item:        Threat / Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: These threat and safety-behaviour items imply an ongoing interpersonal pursuit or direct personal danger to the patient. That is hard to reconcile with the validated trauma type of trauma to a loved one, unless there is additional unreported threat to self.
+    item:        Maladaptive Strategies / Escape Route Planning: always plan an escape route before entering a place
+    explanation: The profile otherwise centres on guilt, emotional overwhelm, and fragmented recall linked to the loved one's trauma, which fits bereavement/indirect trauma. Escape-route planning and checking if someone is following him pull toward a different trauma context and are not well integrated with the rest of the selected items.
+  [3] FAIL
+    item:        Maladaptive Strategies / Revenge Fantasies: I imagine getting revenge on the people responsible
+    explanation: For trauma to a loved one, revenge fantasies can be plausible if there is an identifiable perpetrator, but here the rest of the profile does not establish an assault/perpetrator context. In the absence of any trigger, memory, or appraisal content about attackers or blame, this item is hard to integrate clinically with the rest of the profile.
+    item:        Threat / Waking Alert: I wake during the night to check whether I am safe
+    explanation: The threat items are specifically about the patient checking whether he himself is physically safe at night. For trauma to a loved one, this can occur, but in this profile there are no triggers or appraisals supporting a persistent personal-danger formulation. The memory items centre on guilt and emotional overwhelm about the event, making the nocturnal self-protection theme feel disconnected.
+  [4] FAIL
+    item:        Threat / Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    explanation: The Threat node is internally strained by combining general negative emotions and generic sleep problems with a highly specific hypervigilance item ('need to stay alert'). For a trauma involving harm to a loved one, this item implies an ongoing immediate-danger posture toward the patient's own safety that is not supported by the memory content, appraisals, or strategies provided. The rest of the profile is dominated by guilt, overwhelming recall, patchy memory, suppression, and distraction, which coheres with trauma to a loved one and severe PTSD, but does not clinically anchor a strong 'must stay alert' threat theme. This makes the sleep-vigilance item the main incoherent selection relative to the rest of the formulation and profile.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,975
+  output:     1,014
+  total:      3,989
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Luca Moretti was a 49-year-old fashion designer who came to treatment several months after the
+sudden death of his younger sister, Elena, in a highway crash on the outskirts of Chicago. He had
+been the one to answer the call from the hospital, to speak to the police, and to identify her
+belongings after she was pronounced dead. What stayed with him was not a coherent story but jagged
+fragments: the fluorescent light in the viewing room, the buckle of her handbag, the exact red knit
+scarf she had been wearing that morning, and then stretches of blankness where he could not place
+what had been said or done. When he tried to remember, he would be hit by a wave of guilt so intense
+that he had to stop; he was certain he should have insisted she leave later, should have called her
+back, should have somehow prevented the trip. Those memories were not stable recollections but
+broken flashes that came with a crushing emotional force, and the force itself made him dread any
+quiet moment in which his mind might wander back to her.
+
+In the weeks that followed, Luca noticed that the memory itself made him feel physically sick and
+flooded with fear, horror, and shame, and the reaction spilled into his days at work. At his studio,
+where he supervised fittings, fabric selections, and late-season deadlines, he began keeping himself
+occupied from morning until night, taking on extra design tasks, answering emails immediately, and
+lingering over small adjustments long after they were necessary. He made no plans beyond the day in
+front of him. He had once been meticulous about travel, collections, and even dinners with his
+husband, but now he avoided any future plans because he could not bear the thought of committing to
+a life that might be interrupted again. When the memory of Elena returned, especially in the quiet
+of his office after the staff left, it overwhelmed him so completely that he would shut his laptop,
+leave the room, or force himself into another task. The more he tried not to think about the
+accident, the more he found himself organising his hours around not being alone with his thoughts.
+
+At first he believed constant busyness would keep him safe, yet the same effort to suppress thoughts
+of Elena began to make the memories feel more insistent. When he sat through a fitting and caught a
+glimpse of a scarf thrown over a chair, or saw the glare of headlights on wet pavement while walking
+to his car after work, his body reacted before he could reason with it: his heart raced, his chest
+tightened, and a wave of heat and panic left him shaky and alert. That physical jolt confirmed his
+fear that something inside him had been damaged by what happened, and with every reminder he became
+more convinced he could not afford to let his guard down. The stronger the fear and guilt became,
+the harder he worked to keep his mind occupied, and the more he pushed away any future-oriented
+conversation with his husband about vacations, renovations, or even dinner reservations. Luca had
+come to believe that imagining the future invited loss.
+
+The memory did not only intrude more often; it also changed shape under the strain. Because he kept
+trying to shove it aside, the pieces that remained were the most brutal ones, while other parts
+stayed blank, which left him unable to build a full account of that night or to reassure himself
+that he understood it correctly. He would remember Elena’s scarf, the voicemail he never deleted,
+and the look on the police officer’s face, but not the sequence between them, and that partial
+clarity only deepened his guilt. He was left with isolated images and an emotional certainty that he
+had failed her, and from there he would swing back into fear and shame so strong that he could not
+sleep or sit still with his own thoughts. The more overwhelmed he felt by the fragments, the more
+determined he became to avoid anything that might invite them back, and the more he filled his days
+with work, errands, and mindless scrolling late into the night.
+
+By the time he sought help, Luca was exhausted from the life he had built around staying occupied.
+He was sleeping poorly, waking in the middle of the night with his mind already bracing for the day,
+and he had become distant from his husband, who no longer knew how to talk about the future without
+setting off Luca’s refusal or distress. Luca said he was afraid that if he stopped moving, even for
+a moment, the memory would come back with the same force and he would be swallowed by it. What
+finally brought him in was the recognition that his work, once the place where he felt most alive,
+was now being used to outrun the very thoughts he feared most. He was most afraid that if he let
+himself remember Elena clearly, he would be confronted not only with her death but with his own
+guilt and the possibility that his life from here on would remain narrowed to avoidance.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Luca Moretti was a 49-year-old fashion designer who came to treatment several months after the
+sudden death of his younger sister, Elena, in a highway crash on the outskirts of Chicago. He had
+been the one to answer the call from the hospital, to speak to the police, and to identify her
+belongings after she was pronounced dead. What stayed with him was not a coherent story but jagged
+fragments: the fluorescent light in the viewing room, the buckle of her handbag, the exact red knit
+scarf she had been wearing that morning, and then stretches of blankness where he could not place
+what had been said or done. When he tried to remember, he would be hit by a wave of guilt so intense
+that he had to stop; he was certain he should have insisted she leave later, should have called her
+back, should have somehow prevented the trip. Those memories were not stable recollections but
+broken flashes that came with a crushing emotional force, and the force itself made him dread any
+quiet moment in which his mind might wander back to her.
+
+In the weeks that followed, Luca noticed that the memory itself made him feel physically sick and
+flooded with fear, horror, and shame, and the reaction spilled into his days at work. At his studio,
+where he supervised fittings, fabric selections, and late-season deadlines, he began keeping himself
+occupied from morning until night, taking on extra design tasks, answering emails immediately, and
+lingering over small adjustments long after they were necessary. He made no plans beyond the day in
+front of him. He had once been meticulous about travel, collections, and even dinners with his
+husband, but now he avoided any future plans because he could not bear the thought of committing to
+a life that might be interrupted again. When the memory of Elena returned, especially in the quiet
+of his office after the staff left, it overwhelmed him so completely that he would shut his laptop,
+leave the room, or force himself into another task. The more he tried not to think about the
+accident, the more he found himself organising his hours around not being alone with his thoughts.
+
+At first he believed constant busyness would keep him safe, yet the same effort to suppress thoughts
+of Elena began to make the memories feel more insistent. When he sat through a fitting and caught a
+glimpse of a scarf thrown over a chair, or saw the glare of headlights on wet pavement while walking
+to his car after work, his body reacted before he could reason with it: his heart raced, his chest
+tightened, and a wave of heat and panic left him shaky and alert. That physical jolt confirmed his
+fear that something inside him had been damaged by what happened, and with every reminder he became
+more convinced he could not afford to let his guard down. The stronger the fear and guilt became,
+the harder he worked to keep his mind occupied, and the more he pushed away any future-oriented
+conversation with his husband about vacations, renovations, or even dinner reservations. Luca had
+come to believe that imagining the future invited loss.
+
+The memory did not only intrude more often; it also changed shape under the strain. Because he kept
+trying to shove it aside, the pieces that remained were the most brutal ones, while other parts
+stayed blank, which left him unable to build a full account of that night or to reassure himself
+that he understood it correctly. He would remember Elena’s scarf, the voicemail he never deleted,
+and the look on the police officer’s face, but not the sequence between them, and that partial
+clarity only deepened his guilt. He was left with isolated images and an emotional certainty that he
+had failed her, and from there he would swing back into fear and shame so strong that he could not
+sleep or sit still with his own thoughts. The more overwhelmed he felt by the fragments, the more
+determined he became to avoid anything that might invite them back, and the more he filled his days
+with work, errands, and mindless scrolling late into the night.
+
+By the time he sought help, Luca was exhausted from the life he had built around staying occupied.
+He was sleeping poorly, waking in the middle of the night with his mind already bracing for the day,
+and he had become distant from his husband, who no longer knew how to talk about the future without
+setting off Luca’s refusal or distress. Luca said he was afraid that if he stopped moving, even for
+a moment, the memory would come back with the same force and he would be swallowed by it. What
+finally brought him in was the recognition that his work, once the place where he felt most alive,
+was now being used to outrun the very thoughts he feared most. He was most afraid that if he let
+himself remember Elena clearly, he would be confronted not only with her death but with his own
+guilt and the possibility that his life from here on would remain narrowed to avoidance.

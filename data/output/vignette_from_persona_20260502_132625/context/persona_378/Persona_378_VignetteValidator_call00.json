@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "agent_name": "Persona_378_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-02 15:18:26"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Negative Appraisals\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Threat\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Maladaptive Strategies\n  - Negative Appraisals → Threat\n  - Negative Appraisals → Triggers\n  - Threat → Triggers\n  - Maladaptive Strategies → Negative Appraisals\n  - Maladaptive Strategies → Triggers\n  - Maladaptive Strategies → Threat\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\n# Clinical Vignette: Robert K.\n\nRobert was sixty-six when he first walked into the office, moving with the careful precision of a man who had spent decades learning not to take up space. At fifty-eight, when his elderly mother had fallen and broken her hip, he had brought her to live with him and his wife, Margaret. Within weeks of her arrival, the old terrors had surfaced with a clarity that shocked him—not the vague anxiety of middle age, but the specific, embodied panic of a child pinned against cold tile.\n\nHis mother's hands had been cold, always cold. She would reach out to steady herself on his shoulder, and the shock of that chill against his skin would send him into a state of raw alarm that his conscious mind could not quite justify. When her fingers touched the back of his neck one morning as he poured her coffee, his heart had begun to race so violently he thought he might collapse. The sensation—that particular temperature, that invasive touch—pulled him backward across fifty years to a bathroom in a house he had tried to forget. His father's hands, gripping him under cold running water as punishment for some small infraction, holding him there while his lungs burned and his small body convulsed with shock. The cold had been the instrument and the message: you are not safe, you are not in control, your body is not your own.\n\nThe racing of his own heart became its own trigger. Each time it quickened—whether from the coffee he drank too fast or the anxiety that had begun to colonize his mornings—Robert felt the ground shift beneath him. The physical sensation itself was a warning, proof that danger was imminent. And when his mother had reached for him again, or when Margaret had touched his arm in concern, his body had reacted before thought could intervene. He would flinch, sometimes cry out, his nervous system convinced that harm was coming. The intrusive memories came without warning too—a flash of his father's face, the cold, the helplessness—arriving suddenly while Robert was at his desk at work, leaving him shaking and unable to focus on code that had once been his refuge.\n\nWhat had begun as isolated moments of discomfort had calcified into a set of certainties that now governed his days. Robert had come to believe that he had to be constantly vigilant, that the world contained threats he could not predict or control, that people—even those who loved him—could not be trusted with his vulnerability. The more he thought about these dangers, the more he noticed them everywhere. He began to scan rooms for potential weapons, for objects that could be used to harm him. He saw the kitchen knife differently now. He saw the belt Margaret hung by the door. These were not threats in any rational sense, but his mind had learned to read danger in the ordinary architecture of domestic life. And these vigilant observations only deepened his conviction that he was right to be afraid, that his constant carefulness was justified, necessary, the only thing keeping him safe.\n\nTo manage the panic, Robert had withdrawn. He stopped looking at his own body in the shower, unable to bear the sight of his skin without feeling exposed and vulnerable. He began declining invitations from the colleagues he had socialized with for years—the monthly dinners, the weekend hiking trips—telling himself that being around people meant being at risk, meant having to endure the possibility of unexpected touch. Most painfully, he had pulled away from Margaret's affection. She had tried to understand, had asked what was wrong, but he could not explain that her hand on his back felt like a threat, that her attempt to comfort him felt like an invasion. The avoidance had seemed protective at first, a way to maintain control. But as weeks turned into months, the isolation had only intensified his belief that he was fundamentally damaged, permanently set apart from others, an outsider in his own marriage and his own life.\n\nThe cycle had tightened relentlessly. His avoidance of touch meant he remained hypervigilant to the possibility of it, scanning for the moment when someone might breach his boundary. His withdrawal from his body meant he was more attuned to its signals—every flutter of his heart felt dangerous, every unexpected sensation a harbinger. And each time he managed to avoid contact, each time he successfully isolated himself, the conviction that people could not be trusted, that he needed constant vigilance, grew stronger. Margaret had finally insisted he see someone, her own distress evident. Robert had agreed, though he remained uncertain whether anyone could help him understand why, after so many decades, the cold still had such power, and why the people closest to him now felt like the greatest threat of all.\n"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "id": "toolu_01SSDYV7fCCtGqaenJtu94db",
+          "caller": {
+            "type": "direct"
+          },
+          "input": {
+            "verdict": "FAIL",
+            "violation_edges": [
+              "Triggers → Negative Appraisals"
+            ],
+            "violation_explanations": [
+              "The vignette depicts triggers (his mother's cold hands, racing heart, touch) and negative appraisals (beliefs about constant vigilance, untrustworthiness, danger everywhere) but does not establish a causal pathway showing that triggers directly drive or lead to the formation or intensification of these appraisals—only that both exist and interact through other mechanisms."
+            ]
+          },
+          "name": "ValidationResult",
+          "type": "tool_use"
+        }
+      ]
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Triggers → Negative Appraisals"
+    ],
+    "violation_explanations": [
+      "The vignette depicts triggers (his mother's cold hands, racing heart, touch) and negative appraisals (beliefs about constant vigilance, untrustworthiness, danger everywhere) but does not establish a causal pathway showing that triggers directly drive or lead to the formation or intensification of these appraisals—only that both exist and interact through other mechanisms."
+    ]
+  }
+}

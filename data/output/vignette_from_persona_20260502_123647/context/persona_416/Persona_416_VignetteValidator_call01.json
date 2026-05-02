@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "agent_name": "Persona_416_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 1,
+    "timestamp": "2026-05-02 22:25:37"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Memory\n  - Negative Appraisals\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Threat\n  - Triggers → Memory\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Memory\n  - Negative Appraisals → Triggers\n  - Memory → Negative Appraisals\n  - Threat → Negative Appraisals\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nMargaret, a 73-year-old QA engineer, had spent her life meticulously scrutinizing software code, a profession that demanded a keen eye for detail and an analytical mind. Yet, in her personal life, the uncertainty she had learned to navigate in her career starkly contrasted with the pervasive anxiety that shadowed her existence. It all began with her childhood, a time overshadowed by the physical abuse she suffered at the hands of a caregiver she had trusted implicitly. This betrayal had left deep scars, and even now, the mere thought of men in close proximity triggered a visceral reaction. Margaret often found herself on edge during work meetings, her hypervigilance heightened whenever a male colleague leaned too close or made sudden movements. She had come to believe that she needed to be constantly alert, as her body would react before her mind could process the situation, putting her in a perpetual state of watchfulness.\n\nGrief-related events, such as funerals and visits to cemeteries, served as potent reminders of her past traumas. The somber atmosphere of these events would wash over her, leaving her feeling emotionally detached yet fully aware of the memories that surfaced — vivid and unyielding, like photographs in her mind. Despite the clarity of these recollections, Margaret often felt a disconcerting numbness, as if she were watching someone else’s life unfold. This emotional disconnect only reinforced her feelings of helplessness; she often thought that she could never stop bad things from happening, especially to herself. Each funeral or grave visit not only triggered distressing memories of her abuse but also led her to question her own inaction back then and now. She ruminated on her perceived failures, convinced that she would never forgive herself for not doing more to stop the abuse when she had the chance.\n\nThe interplay of her memories, triggered by various situations, fueled her negative appraisals. Whenever she recalled the moments of betrayal, the recollections would morph into a cycle of self-blame and guilt. She would think of the caregiver who had been supposed to protect her, only to become the source of her suffering. Each recollection of the abuse felt like a confirmation of her long-held belief that trust could lead to betrayal, and that she was destined to remain vulnerable. This negative appraisal not only intensified her anxiety but also heightened her fear of being alone with men, as she associated their presence with past trauma. The threat of her own memories loomed large, creating a feedback loop that tightened around her as she navigated her daily life.\n\nThe consequences of her traumatic past were evident in her relationships, particularly with her husband. Margaret found herself withdrawing from intimacy, often avoiding deep conversations that could lead to vulnerability. She feared that if she let her guard down, she might be overwhelmed by the memories of her abuse and the associated feelings of helplessness. Yet, she longed for connection and understanding, feeling torn between the desire to share her experiences and the fear of being judged or misunderstood. \n\nNow, sitting in the therapist's office, Margaret felt an unfamiliar mixture of hope and trepidation. She had finally reached a point where the weight of her past had become too heavy to carry alone. The thought of unraveling her trauma was daunting; she feared that confronting her memories might bring her to a place of emotional upheaval she had spent decades avoiding. Yet, she hoped that by sharing her story, she might find a path to healing. What frightened her most was the thought of remaining trapped in this cycle of pain and isolation, a life perpetually shadowed by the trauma of her childhood. \"These moments would trigger a sense of imminent danger, making her heart race as her mind flashed back to the abuse, reinforcing the belief that she was never truly safe around men.\" \"The cold reminder of those events would flood her thoughts, bringing back vivid memories of her caregiver’s betrayal, as if she were reliving those moments all over again.\" \"Her conviction that she was powerless made her memories of the abuse sharper and more vivid, as they served as proof of her perceived failures and the untrustworthiness of those around her.\" \"The belief that she was forever marked by this betrayal made every memory feel like an indictment against her, confirming the idea that she was destined for disappointment and hurt.\" \"The constant sense of danger she felt whenever a man approached her only solidified her belief that she was inherently vulnerable, leading her to withdraw further from potential connections.\"\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Triggers → Threat",
+      "Triggers → Memory",
+      "Triggers → Negative Appraisals",
+      "Negative Appraisals → Memory",
+      "Negative Appraisals → Triggers",
+      "Memory → Negative Appraisals",
+      "Threat → Negative Appraisals"
+    ],
+    "violation_explanations": [
+      "The vignette does not establish a causal relationship where triggers lead to a sense of threat.",
+      "The vignette does not establish a causal relationship where triggers lead to memory recall.",
+      "The vignette does not establish a causal relationship where triggers lead to negative appraisals.",
+      "The vignette does not establish a causal relationship where negative appraisals lead to memory recall.",
+      "The vignette does not establish a causal relationship where negative appraisals lead to triggers.",
+      "The vignette does not establish a causal relationship where memory recall leads to negative appraisals.",
+      "The vignette does not establish a causal relationship where a sense of threat leads to negative appraisals."
+    ]
+  }
+}

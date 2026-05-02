@@ -1,0 +1,196 @@
+{
+  "persona_id": 256,
+  "source_persona_id": 256,
+  "experiment_timestamp": "2026-05-02 15:24:23",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "claude-sonnet-4-6",
+      "persona_crafter": "claude-sonnet-4-6",
+      "vignette_crafter": "claude-sonnet-4-6",
+      "vignette_validator": "claude-sonnet-4-6"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 35,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Single",
+    "occupation": "Special Education Teacher",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 58
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Shouting",
+        "value": "Shouting"
+      },
+      {
+        "key": "Somatic Pain (Neck)",
+        "value": "Neck pain"
+      },
+      {
+        "key": "Authority Presence",
+        "value": "Police"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      },
+      {
+        "key": "Scanning Exits",
+        "value": "I scan for exits as soon as I enter any room or building"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Photographic Recall",
+        "value": "Remembering what happened during the frightening event is just like looking at photographs of it in my mind."
+      },
+      {
+        "key": "Rage on Recall",
+        "value": "When I remember the event I feel intense rage"
+      },
+      {
+        "key": "Guilt on Recall",
+        "value": "When I remember the event I feel intense guilt"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Self-Comparison",
+        "value": "Somebody else would not have gotten into this situation"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "I have to be on guard all the time"
+      },
+      {
+        "key": "Inadequacy",
+        "value": "I am inadequate"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0632,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.9637,
+    "Negative Appraisals -- Memory": 0.2066,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.5402,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.9135,
+    "Threat -- Negative Appraisals": 0.8248,
+    "Threat -- Triggers": 0.8948,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6295428571428571,
+  "edge_density": 0.35,
+  "vignette_word_count": 739,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Failed Role: I have failed in my most important role in life",
+          "explanation": "For a 35-year-old single male special education teacher reporting a mugging/robbery, 'I have failed in my most important role in life' is hard to link coherently to the rest of the profile. The other appraisals center on self-blame and persistent danger, but this item implies a salient role failure theme (e.g. partner/parent/protector) that is not otherwise represented in triggers, threat, or memory."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Within Memory, intense shame and intense rage on recall can coexist, but paired with a mugging/robbery and the rest of this profile they pull toward different meanings of the event without enough support elsewhere. Shame would usually connect to strong self-blame/humiliation themes, while rage would connect to injustice/anger themes; the profile does not integrate both clearly."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Failed Role"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3831,
+    "output": 1004,
+    "total": 4835
+  },
+  "vignette": "Callum Delaney is a 35-year-old single man of Irish descent who works as a special education teacher at a public middle school in a mid-sized Midwestern city. He presented for an initial intake following a street robbery that occurred approximately eight months ago, and his PCL-5 score of 58 places him well within the severe range of post-traumatic stress. He described the incident with a precision that was itself striking: walking home alone at dusk after a late parent-teacher conference, he was approached from behind by two men who shoved him hard against a chain-link fence, one pressing a forearm across the back of his neck while the other demanded his wallet and phone. He remembered the specific pressure on his cervical spine, the metallic smell of the fence, the sound of one man shouting inches from his ear. He did not fight back. A patrol car passed slowly at the far end of the block and kept moving. Within minutes it was over, but for Callum, it has not been over since.\n\nIn the weeks following the robbery, Callum found that certain experiences reached back into that evening and pulled it forward with a vividness he described as photographic — not like remembering, but like being shown. The sound of shouting, whether a colleague raising his voice across the school hallway or a student having a meltdown in class, could snap him instantly back to that alley, the scene assembling itself image by image with the same cold clarity. The dull ache that had settled into his neck since the assault functioned in the same way: on difficult days in the classroom, when tension accumulated in his shoulders and crept upward, the somatic reminder was enough to flood him with the full sensory record of the attack. Even the sight of a police officer — a presence that might reasonably signal safety — had become a trigger rather than a comfort, because the patrol car that passed without stopping had lodged itself as proof that no one was coming. Each of these cues reliably returned him to the memory, and the memory, when it arrived, brought with it not only fear but a fierce, disorienting rage, followed almost immediately by guilt at feeling that rage at all.\n\nThat guilt had become one of the most corrosive features of his presentation. Callum had come to believe, with a certainty he could not argue himself out of, that someone else — someone more alert, more capable, more fundamentally adequate — would simply not have been in this situation. He had stayed late at school. He had walked that route. He had frozen. These appraisals of personal inadequacy were not abstract; they pressed directly on his sense of ongoing threat, convincing him that he remained vulnerable precisely because of some deficiency in himself, and that the world required constant vigilance as a result. He found himself unable to relax even in demonstrably safe settings — in his own apartment, in the school staffroom — because the belief that he was inadequate to protect himself made safety feel like an illusion. He had begun scanning for exits the moment he entered any room, a habit so automatic now that he clocked the fire doors in his own classroom before his students arrived each morning.\n\nThe hypervigilance fed back relentlessly into the memories it was meant to prevent. The more he monitored his environment for threat, the more his nervous system remained primed, and the more readily the photographic recall returned — the fence, the neck, the shouting, the passing car. Each intrusion confirmed the appraisals that had generated the vigilance in the first place: he was inadequate, he was not safe, he had to stay alert. The loop had tightened over months. He had quietly stopped attending the after-school staff gatherings where voices sometimes rose in laughter or argument, and a colleague he had considered a close friend had stopped reaching out after several unanswered invitations.\n\nWhat finally brought Callum in was a moment in his classroom when a student knocked over a chair with a loud bang and Callum, in front of twenty-two children, dropped into a crouch behind his desk. He described the shame of it with a flat, exhausted voice. He was not sure what he hoped for, only that he could not keep living inside a body that treated every school day as a continuation of that night."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Callum Delaney is a 35-year-old single man of Irish descent who works as a special education teacher at a public middle school in a mid-sized Midwestern city. He presented for an initial intake following a street robbery that occurred approximately eight months ago, and his PCL-5 score of 58 places him well within the severe range of post-traumatic stress. He described the incident with a precision that was itself striking: walking home alone at dusk after a late parent-teacher conference, he was approached from behind by two men who shoved him hard against a chain-link fence, one pressing a forearm across the back of his neck while the other demanded his wallet and phone. He remembered the specific pressure on his cervical spine, the metallic smell of the fence, the sound of one man shouting inches from his ear. He did not fight back. A patrol car passed slowly at the far end of the block and kept moving. Within minutes it was over, but for Callum, it has not been over since.\n\nIn the weeks following the robbery, Callum found that certain experiences reached back into that evening and pulled it forward with a vividness he described as photographic — not like remembering, but like being shown. The sound of shouting, whether a colleague raising his voice across the school hallway or a student having a meltdown in class, could snap him instantly back to that alley, the scene assembling itself image by image with the same cold clarity. The dull ache that had settled into his neck since the assault functioned in the same way: on difficult days in the classroom, when tension accumulated in his shoulders and crept upward, the somatic reminder was enough to flood him with the full sensory record of the attack. Even the sight of a police officer — a presence that might reasonably signal safety — had become a trigger rather than a comfort, because the patrol car that passed without stopping had lodged itself as proof that no one was coming. Each of these cues reliably returned him to the memory, and the memory, when it arrived, brought with it not only fear but a fierce, disorienting rage, followed almost immediately by guilt at feeling that rage at all.\n\nThat guilt had become one of the most corrosive features of his presentation. Callum had come to believe, with a certainty he could not argue himself out of, that someone else — someone more alert, more capable, more fundamentally adequate — would simply not have been in this situation. He had stayed late at school. He had walked that route. He had frozen. These appraisals of personal inadequacy were not abstract; they pressed directly on his sense of ongoing threat, convincing him that he remained vulnerable precisely because of some deficiency in himself, and that the world required constant vigilance as a result. He found himself unable to relax even in demonstrably safe settings — in his own apartment, in the school staffroom — because the belief that he was inadequate to protect himself made safety feel like an illusion. He had begun scanning for exits the moment he entered any room, a habit so automatic now that he clocked the fire doors in his own classroom before his students arrived each morning.\n\nThe hypervigilance fed back relentlessly into the memories it was meant to prevent. The more he monitored his environment for threat, the more his nervous system remained primed, and the more readily the photographic recall returned — the fence, the neck, the shouting, the passing car. Each intrusion confirmed the appraisals that had generated the vigilance in the first place: he was inadequate, he was not safe, he had to stay alert. The loop had tightened over months. He had quietly stopped attending the after-school staff gatherings where voices sometimes rose in laughter or argument, and a colleague he had considered a close friend had stopped reaching out after several unanswered invitations.\n\nWhat finally brought Callum in was a moment in his classroom when a student knocked over a chair with a loud bang and Callum, in front of twenty-two children, dropped into a crouch behind his desk. He described the shame of it with a flat, exhausted voice. He was not sure what he hoped for, only that he could not keep living inside a body that treated every school day as a continuation of that night.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

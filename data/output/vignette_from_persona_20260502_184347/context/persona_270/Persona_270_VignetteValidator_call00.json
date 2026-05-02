@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "agent_name": "Persona_270_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-02 19:54:16"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Memory\n  - Negative Appraisals\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Memory\n  - Negative Appraisals → Triggers\n  - Memory → Maladaptive Strategies\n  - Memory → Triggers\n  - Maladaptive Strategies → Negative Appraisals\n  - Maladaptive Strategies → Triggers\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nRajesh had not spoken of the journey in over forty years. When he tried, the words would not come; the memory existed as a series of fractured sensations—the deafening crack of gunfire, the smell of diesel and damp earth, the sight of his younger brother’s body crumpling beside a checkpoint while a policeman shouted in a language that was almost familiar. He could feel the cold metal of the truck bed against his back, hear the grinding of gears, see the dust rising in clouds, but he could not arrange these pieces into a story that made sense. The fragments felt more real than anything that had happened since—more vivid than the birth of his children, more present than the clay spinning beneath his hands on the wheel.\n\nFor years after arriving in America, Rajesh had thrown himself into his pottery. The work gave him a rhythm, a way to be still. But as he aged, something shifted. A car backfiring in the street would send his heart racing before his mind could catch up. The sound was not a memory—it was a return. He would find himself scanning the parking lot, checking the shadows, though he could not say what he was looking for. When a neighbor’s funeral procession passed his house, he felt a wave of dread so heavy he had to sit down. He began to believe he was no longer capable of the quiet, steady work that had once defined him. The slightest upset—a customer complaining about a glaze, a missed delivery—felt catastrophic. He had come to believe that he had to be especially careful, because you never knew what could happen next.\n\nThe vigilance was exhausting, but letting it go felt impossible. Rajesh started avoiding anything that might stir hope or happiness, because those feelings seemed dangerous—they made him vulnerable, made him forget to watch. He also avoided any hint of disagreement, even with his wife over something as trivial as dinner. A raised voice, even in jest, made his stomach clench. He began checking his surroundings constantly, scanning the kiln room before he entered, glancing over his shoulder when he walked to the post office. These strategies briefly calmed him, but they also confirmed his worst fear: that he could not cope with even ordinary life. The more he avoided, the more he felt he had to avoid, and the more the fractured memories intruded—not as narrative, but as sensation, pulling him back to that truck bed.\n\nThe police presence in his town became unbearable. A patrol car parked near his studio would ruin his concentration for hours. The sight of a uniform made his hands shake, and he would retreat inside, locking the door, certain that something terrible was about to happen. He had stopped attending community events, stopped visiting the temple, stopped taking his grandchildren to the park. His wife had begun to worry; she said he was disappearing into himself. Rajesh knew she was right, but he could not explain why. The fragments of the past had become a prison, and every avoidance made the walls thicker.\n\nWhat finally brought him to seek help was a morning in early spring. A hearse passed his studio slowly, and he found himself on the floor, clutching a half-formed bowl, unable to breathe. He understood then that his life had become smaller than the space between his hands. He was afraid of what he might become if he did not find a way to speak the unspeakable—but he was equally afraid that if he did, the pieces would never fit back together.\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Triggers → Negative Appraisals",
+      "Negative Appraisals → Memory",
+      "Negative Appraisals → Triggers",
+      "Maladaptive Strategies → Negative Appraisals",
+      "Maladaptive Strategies → Triggers"
+    ],
+    "violation_explanations": [
+      "No paragraph conveys that triggers (e.g., car backfiring, police presence) cause or lead to negative appraisals (e.g., ‘he could not cope’).",
+      "No paragraph conveys that negative appraisals cause or lead to intrusive memory; the memory intrudes without being driven by appraisals.",
+      "No paragraph conveys that negative appraisals cause or lead to triggers; triggers appear independently.",
+      "No paragraph conveys that maladaptive strategies (avoidance, checking) cause or lead to negative appraisals; the text says strategies ‘confirmed’ his fear but does not show a causal influence from strategies to appraisals.",
+      "No paragraph conveys that maladaptive strategies cause or lead to triggers; triggers appear without being caused by strategies."
+    ]
+  }
+}

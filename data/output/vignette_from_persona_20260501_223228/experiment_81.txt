@@ -1,0 +1,239 @@
+PERSONA 81  |  2026-05-01 23:07:53
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             21
+  gender          Male
+  ethnicity       European
+  relationship_status Single
+  occupation      Bus Driver
+  trauma_type     Military
+  pcl5            53
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Screen Escape: I spend long hours on my phone, games, or internet to avoid thinking
+    • Avoid Religious Spaces: Places of worship or religious gatherings
+    • Avoid Crowds: Crowded places such as shopping centres or public events
+  Memory:
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+  Negative Appraisals:
+    • Life Not Worth Living: I am not sure my life is worth living anymore
+    • World is Dangerous: The world is a dangerous place
+    • Hypervigilance: I have to be on guard all the time
+  Triggers:
+    • Olfactory Danger Cue: Burnt smell
+    • Auditory (Explosion): Explosion or bang sounds
+    • Auditory (Helicopter): Helicopter or aircraft sounds
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.9441
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.7724
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.1146
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3209
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.3647
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, 'Verbal Access' directly conflicts with the combination of 'Fragmented Pieces' and repetitive intrusive replay. A patient who says the trauma memory is fragmented and involuntarily replayed would not usually also report being able to talk about it very easily; this is a hard within-node contradiction rather than normal heterogeneity.
+    item:        Maladaptive Strategies / Memory: Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together.
+    explanation: The maladaptive avoidance items are not clinically well anchored to the rest of the profile or to the military trauma context presented here. Avoiding enclosed spaces and religious spaces suggests specific situational trigger-linked avoidance, but the profile contains no Triggers items and the formulation explicitly leaves Triggers disconnected from the other active components. These avoidance choices therefore do not fit the stated formulation and are hard to connect to the memory/appraisal pattern that is otherwise driving symptoms.
+    item:        Negative Appraisals / Memory: Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    explanation: Negative appraisals are generally severe and coherent with high PTSD burden, but because the active formulation centers Negative Appraisals driving Maladaptive Strategies and Memory, the selected maladaptive strategies should plausibly arise from those appraisals. 'Screen Escape' fits this, whereas avoidance of enclosed and religious spaces does not clearly follow from the selected appraisals ('Constant Vigilance,' 'Life Not Worth Living,' 'No Accountability').
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Enclosed Spaces: Enclosed or confined spaces
+    explanation: The maladaptive avoidance items are not clinically well matched to the rest of the profile or to a military trauma formulation here. Avoiding enclosed spaces and religious spaces suggests highly specific trigger-linked avoidance, but the profile contains no Trigger items and no Threat content tied to confinement, ambush, captivity, worship settings, or comparable trauma cues. This makes these two avoidance items feel disconnected from the reported memory and appraisal pattern.
+    item:        Negative Appraisals / Avoid Religious Spaces: Places of worship or religious gatherings
+    explanation: 'Constant Vigilance' implies an active current-sense-of-threat/hypervigilance presentation. In this formulation, Threat is not active and Negative Appraisals has no link to Threat; the rest of the selected items center more on fragmented/repetitive memory, injustice, hopelessness, and cognitive avoidance. That item therefore sits awkwardly with both the node structure and the absence of any corresponding threat-related content elsewhere in the profile.
+  [3] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Constant Vigilance: I have to be especially careful because you never know what can happen next
+    explanation: The Negative Appraisals node mixes three quite different themes—ongoing current danger/hypervigilance, severe depressive hopelessness, and moral/injustice-focused appraisal. These can coexist, but with only three appraisal items and no corresponding Threat or Trigger content, the node lacks a clear coherent theme tied to the formulation.
+    item:        Triggers / Negative Appraisals: Life Not Worth Living: I am not sure my life is worth living anymore
+    explanation: A prominent appraisal of current danger ('Constant Vigilance') would usually connect clinically with Threat and/or Trigger content, but both nodes are absent here and all edges involving Threat/Triggers are inactive. This makes that item poorly aligned with the stated formulation structure.
+  [4] FAIL
+    item:        Triggers / Olfactory (Alcohol): Alcohol smell
+    explanation: For a military trauma profile, loud noises are coherent, but alcohol smell and burnt smell together are hard to reconcile clinically without any corresponding memory, threat, or appraisal content indicating fire, explosions, intoxication, barracks/social-drinking contexts, or another olfactory-linked trauma scene. The trigger set implies a specific sensory trauma context that is not represented elsewhere in the profile.
+  [5] FAIL
+    item:        Triggers / Triggers: Auditory (Babies): Babies
+    explanation: The trigger profile is mostly coherent with military trauma (loud noises, burnt smell), but 'Babies' is hard to reconcile with the rest of the profile and trauma type because no memory, threat, appraisal, or strategy item suggests infant-related content or a civilian/family trauma context. This makes that trigger clinically hard to explain within the same trauma narrative.
+    item:        Negative Appraisals / Negative Appraisals: No Accountability: The people responsible have faced no consequences
+    explanation: 'No Accountability' can occur after military trauma, but here the rest of the profile is dominated by sensory-perceptual trauma memory, generalized danger beliefs, and avoidance/distraction, with no other items indicating moral injury, betrayal, or injustice themes. Given the formulation strongly links Negative Appraisals to Memory and Maladaptive Strategies, this appraisal is insufficiently supported by the accompanying memory and strategy items and sits apart from the otherwise fear-based profile.
+  [6] FAIL
+    item:        Triggers / Triggers: Auditory (Loud Noises): Loud noises
+    explanation: The trigger items are strongly combat-specific and plausibly fit military trauma, but the formulation marks all Triggers pathways as inactive, including Triggers → Threat, Triggers → Memory, and Triggers → Negative Appraisals. With three intense sensory trauma reminders selected, one would expect at least some linked threat or memory activation. As written, the trigger node is too active and trauma-specific to sit coherently as an isolated component in this formulation.
+    item:        Negative Appraisals / Triggers: Olfactory Danger Cue: Burnt smell
+    explanation: The appraisal items 'World is Dangerous' and 'I have to be on guard all the time' imply a persistent sense of current threat, yet Threat is entirely disconnected in the formulation and no Threat items are present. These appraisals can occur in PTSD, but together they function as threat-laden beliefs that sit awkwardly with a model where Negative Appraisals link mainly to Memory and Maladaptive Strategies rather than to current threat processing.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,032
+  output:       987
+  total:      4,019
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Liam Weber was 21 when he came for treatment, a quiet young man who had returned from military
+service carrying an experience he still could not tell straight through. During a convoy operation
+overseas, an explosion struck near his vehicle. What remained with him was not a single coherent
+story but flashes: the blast, the metallic pressure in his ears, a smear of smoke, shouted words he
+could not piece back together, and above all the scorched, burnt smell that seemed to fuse itself to
+the moment. He also remembered the chopping aircraft noise overhead afterward, and the way every
+sudden bang became charged with the expectation that something catastrophic was about to happen
+again. When he tried to explain what happened, he would stop, frown, and say he knew it had happened
+but could not find the words for it.
+
+In the months after returning home, Liam had come to believe that the world was fundamentally
+dangerous and that his only chance of getting through a day was to stay on guard. He scanned sounds
+automatically, especially any sharp bang or the distant thrum of a helicopter or plane, and his body
+reacted before he had time to think. That sense of permanent threat narrowed his life. Although he
+now worked as a bus driver, he approached each route as if danger might break into it without
+warning. At crowded stops he watched passengers, exits, and sudden movements instead of settling
+into the routine of the job. He had also begun avoiding crowded places outside work altogether,
+turning down invitations to shopping centers or public events because being surrounded by people
+felt unsafe in a way he could not easily justify to others.
+
+Those beliefs also shaped what he did when he was alone. Because he was certain that letting his
+mind go quiet would leave him exposed to whatever came back, he spent long hours on his phone,
+gaming, or scrolling online late into the night, trying to keep himself mentally occupied. He had
+stopped going into churches or other religious spaces as well; he would detour past them without
+fully explaining why, only knowing they left him too exposed and unsettled. Beneath that was a more
+despairing conviction he rarely said aloud: that he was no longer sure his life was worth living. He
+did not describe an active plan, but the thought frightened him because it arrived with the same
+flat certainty as his other conclusions about the world.
+
+The memories themselves fed those conclusions. Because the event returned in disconnected pieces,
+Liam could not place it safely in the past. Instead it replayed like a film that started without
+warning: a burst of noise, the smell of burning, the aircraft sound overhead, and then a sickening
+sense that he was back in it. Each replay seemed to confirm what he already feared—that nowhere was
+truly safe and that he had to remain vigilant at all times. What frightened him most was not only
+remembering but the fact that the memory felt unfinished and beyond his control, as if his mind were
+still trying and failing to make sense of something too dangerous to hold.
+
+That was part of why he kept reaching for distraction. When a memory began to gather, he would grab
+his phone, start a game, or disappear into the internet for hours because it was the fastest way he
+knew to stop the images from gaining momentum. Avoiding crowds helped for the same reason: fewer
+noises, fewer jolts, fewer chances of a bang setting off the internal replay. Yet over time this
+left the memory even less spoken and less organized. The more he pushed it away and replaced quiet
+moments with screens, the more the event seemed to survive only as broken clips and sensory
+fragments, still impossible to describe from beginning to end.
+
+Nowhere was this clearer than at work. If a bus backfired nearby, if a passenger dropped something
+with a sharp crack, or if diesel exhaust carried a burnt smell through the cab, Liam could feel the
+film begin again. He would tighten at the wheel, lose the thread of the present, and afterward spend
+his break staring at his phone to force the images down. Even the sound of helicopters over the city
+could alter the rest of his shift. He hated how quickly this happened, and each episode left him
+more convinced that the danger was real, current, and inescapable.
+
+By the time he sought help, Liam’s world had become smaller and more exhausting than he wanted to
+admit. He was still showing up to work, but much of his life outside those routes had collapsed into
+avoidance and screen time. What finally brought him in was the realization that he could no longer
+tell whether he was protecting himself or disappearing from his own life. He said he wanted, more
+than anything, to be able to remember what happened without feeling trapped inside it, and he was
+afraid that if nothing changed, the part of him that still cared whether his life was worth living
+would go quiet for good.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Liam Weber was 21 when he came for treatment, a quiet young man who had returned from military
+service carrying an experience he still could not tell straight through. During a convoy operation
+overseas, an explosion struck near his vehicle. What remained with him was not a single coherent
+story but flashes: the blast, the metallic pressure in his ears, a smear of smoke, shouted words he
+could not piece back together, and above all the scorched, burnt smell that seemed to fuse itself to
+the moment. He also remembered the chopping aircraft noise overhead afterward, and the way every
+sudden bang became charged with the expectation that something catastrophic was about to happen
+again. When he tried to explain what happened, he would stop, frown, and say he knew it had happened
+but could not find the words for it.
+
+In the months after returning home, Liam had come to believe that the world was fundamentally
+dangerous and that his only chance of getting through a day was to stay on guard. He scanned sounds
+automatically, especially any sharp bang or the distant thrum of a helicopter or plane, and his body
+reacted before he had time to think. That sense of permanent threat narrowed his life. Although he
+now worked as a bus driver, he approached each route as if danger might break into it without
+warning. At crowded stops he watched passengers, exits, and sudden movements instead of settling
+into the routine of the job. He had also begun avoiding crowded places outside work altogether,
+turning down invitations to shopping centers or public events because being surrounded by people
+felt unsafe in a way he could not easily justify to others.
+
+Those beliefs also shaped what he did when he was alone. Because he was certain that letting his
+mind go quiet would leave him exposed to whatever came back, he spent long hours on his phone,
+gaming, or scrolling online late into the night, trying to keep himself mentally occupied. He had
+stopped going into churches or other religious spaces as well; he would detour past them without
+fully explaining why, only knowing they left him too exposed and unsettled. Beneath that was a more
+despairing conviction he rarely said aloud: that he was no longer sure his life was worth living. He
+did not describe an active plan, but the thought frightened him because it arrived with the same
+flat certainty as his other conclusions about the world.
+
+The memories themselves fed those conclusions. Because the event returned in disconnected pieces,
+Liam could not place it safely in the past. Instead it replayed like a film that started without
+warning: a burst of noise, the smell of burning, the aircraft sound overhead, and then a sickening
+sense that he was back in it. Each replay seemed to confirm what he already feared—that nowhere was
+truly safe and that he had to remain vigilant at all times. What frightened him most was not only
+remembering but the fact that the memory felt unfinished and beyond his control, as if his mind were
+still trying and failing to make sense of something too dangerous to hold.
+
+That was part of why he kept reaching for distraction. When a memory began to gather, he would grab
+his phone, start a game, or disappear into the internet for hours because it was the fastest way he
+knew to stop the images from gaining momentum. Avoiding crowds helped for the same reason: fewer
+noises, fewer jolts, fewer chances of a bang setting off the internal replay. Yet over time this
+left the memory even less spoken and less organized. The more he pushed it away and replaced quiet
+moments with screens, the more the event seemed to survive only as broken clips and sensory
+fragments, still impossible to describe from beginning to end.
+
+Nowhere was this clearer than at work. If a bus backfired nearby, if a passenger dropped something
+with a sharp crack, or if diesel exhaust carried a burnt smell through the cab, Liam could feel the
+film begin again. He would tighten at the wheel, lose the thread of the present, and afterward spend
+his break staring at his phone to force the images down. Even the sound of helicopters over the city
+could alter the rest of his shift. He hated how quickly this happened, and each episode left him
+more convinced that the danger was real, current, and inescapable.
+
+By the time he sought help, Liam’s world had become smaller and more exhausting than he wanted to
+admit. He was still showing up to work, but much of his life outside those routes had collapsed into
+avoidance and screen time. What finally brought him in was the realization that he could no longer
+tell whether he was protecting himself or disappearing from his own life. He said he wanted, more
+than anything, to be able to remember what happened without feeling trapped inside it, and he was
+afraid that if nothing changed, the part of him that still cared whether his life was worth living
+would go quiet for good.

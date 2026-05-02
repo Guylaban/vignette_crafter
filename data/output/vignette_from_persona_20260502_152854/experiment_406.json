@@ -1,0 +1,227 @@
+{
+  "persona_id": 406,
+  "source_persona_id": 406,
+  "experiment_timestamp": "2026-05-02 20:19:47",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-flash",
+      "persona_crafter": "gemini-2.5-flash",
+      "vignette_crafter": "gemini-2.5-flash",
+      "vignette_validator": "gemini-2.5-flash"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 46,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Single",
+    "occupation": "Pharmacist",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 42
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      },
+      {
+        "key": "Meaning Seeking",
+        "value": "I think about why the event has happened to me"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Startle to Sounds",
+        "value": "I jump or startle at ordinary sounds that would not bother most people"
+      },
+      {
+        "key": "Sleep Problems",
+        "value": "Trouble falling or staying asleep"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Weakness Belief",
+        "value": "I am a weak person"
+      },
+      {
+        "key": "No Good Ahead",
+        "value": "Nothing good can happen to me anymore"
+      },
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.2992,
+    "Negative Appraisals -- Threat": 0.5503,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.6715,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.2943,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7703,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.8261
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5686166666666667,
+  "edge_density": 0.3,
+  "vignette_word_count": 677,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Grief Reminders: Anything that reminds me of someone I have lost",
+          "explanation": "'Avoid Grief Reminders' implies bereavement/loss of a deceased person, which is hard to reconcile with the indexed trauma of a child's life-threatening illness unless the child died; that is not the stated trauma type. This item appears trauma-incongruent."
+        },
+        {
+          "component": "Threat",
+          "item": "Hypervigilance towards people: vigilant for dangerous people",
+          "explanation": "'Hypervigilance towards people: vigilant for dangerous people' suggests interpersonal danger/assault-related threat. The rest of the profile centers on generalized unsafety and negative self-appraisals rather than fear of dangerous people, making this item poorly matched to the trauma type and the other selected items."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Grief Reminders"
+        ],
+        "Threat": [
+          "Hypervigilance towards people"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Hypervigilance towards people: vigilant for dangerous people",
+          "explanation": "The profile is built around a child's life-threatening illness, but 'vigilant for dangerous people' implies an interpersonal/assault-type danger focus that is hard to reconcile with the rest of the profile, which otherwise reflects generalized vulnerability and medical trauma. This item appears trauma-incongruent for the stated trauma type."
+        },
+        {
+          "component": "Threat",
+          "item": "Maladaptive Strategies: Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations",
+          "explanation": "Avoiding hospitals/ambulances/physical examinations is plausible for medical trauma, but it sits awkwardly alongside 'vigilant for dangerous people,' which points to a different threat domain. Within Maladaptive Strategies, these two strategies suggest different trauma contexts that are difficult to explain as one coherent profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Hypervigilance towards people"
+        ],
+        "Threat": [
+          "Maladaptive Strategies"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Magical Thinking: I tell myself the event did not really happen or was not that bad",
+          "explanation": "For a trauma centered on a child's life-threatening illness, minimizing that the event 'did not really happen or was not that bad' is hard to reconcile with the rest of the profile, which shows marked ongoing threat and strongly negative self-appraisals. Thought suppression and avoidance of medical cues fit, but this item points toward denial/minimization in a way that clashes with the severity and emotional meaning of the other endorsed items."
+        },
+        {
+          "component": "Threat",
+          "item": "Waking Alert: I wake during the night to check whether I am safe",
+          "explanation": "'I wake during the night to check whether I am safe' suggests a danger-focused nighttime safety-checking pattern centered on the patient's own physical safety. In the context of trauma from a child's severe illness, threat is more plausibly organized around the child's safety/health or medical crises. This item is not impossible, but paired with the absence of child-focused threat content it is clinically mismatched to the trauma context."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Magical Thinking"
+        ],
+        "Threat": [
+          "Waking Alert"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2872,
+    "output": 5120,
+    "total": 7992
+  },
+  "vignette": "Layla, a 46-year-old pharmacist, recalled the harrowing year her child battled a life-threatening illness as the fracture point in her life. The sterile scent of the hospital, the insistent beeping of machines, the hushed urgency of doctors and nurses — all became etched into her memory during those endless months in the pediatric intensive care unit. There was a specific night, she recounted, when her child’s breathing faltered, and the frantic scramble of medical staff around the bed felt like an assault, leaving her utterly helpless, convinced she was witnessing the end. Though her child eventually recovered, Layla never truly left that room.\n\nIn the aftermath, a profound sense of brokenness settled over Layla. She had come to believe, deep in her core, that there was something fundamentally wrong with her as a person, a flaw that had allowed such suffering to touch her family. This pervasive sense of a defective self made it almost impossible for her to truly relax, leaving her in a constant state of hyperarousal, even in the safety of her own home. The slightest unexpected sound – a dropped pen, a car horn outside – would make her jump or startle with an intensity that felt disproportionate and exhausting. This chronic inability to relax, this persistent state of vigilance, only served to reinforce her conviction that she was a weak person, unable to cope with the world after what she had endured.\n\nHer deep-seated belief that nothing good could happen to her anymore, born from the terror of watching her child suffer, led Layla to actively avoid any reminders of that time. As a pharmacist, her workplace was frequently near medical clinics and hospitals, making her daily commute a gauntlet of triggers. She started taking circuitous routes to avoid passing ambulances, and even the thought of a physical examination for herself filled her with dread. These efforts to avoid medical cues, while offering momentary relief from the intense anxiety, paradoxically kept her nervous system on high alert, making her more jumpy and unable to truly unwind. She would often find herself thinking about why the event had happened to her, a relentless search for meaning that offered no solace, only deeper despair.\n\nThe relentless agitation and inability to relax made the idea of facing medical environments unbearable, pushing her further into these patterns of avoidance. She became meticulously careful at work, ensuring she never had to interact directly with hospital staff or deal with prescriptions that required her to step beyond her counter, lest she encounter a trigger. This increasing avoidance of medical cues, particularly in her professional life, only deepened her belief that she was a weak person, incapable of handling the demands of her own profession. She also found herself desperately trying to suppress any thoughts of the trauma, pushing them away whenever they surfaced, hoping to find some peace. Yet, these efforts to suppress thoughts about that terrifying time, while offering momentary respite, paradoxically kept her mind racing, making sleep an elusive dream and further contributing to her overall state of agitation. The persistent sleep problems and constant startle response, in turn, fueled her belief that she was a weak person, unable to cope even with the basic demands of rest.\n\nLayla’s life became a tight, self-reinforcing loop of fear and avoidance. Her inability to relax, even when she knew she was in a safe place, only confirmed her darkest fears that something was deeply wrong with her, that she was fundamentally defective. She rarely slept through the night, often waking in a cold sweat, her heart pounding, only to be met by the familiar, crushing thought that nothing good could happen to her anymore. The mounting exhaustion from her sleep problems made her even more susceptible to startling at ordinary sounds, keeping her in a perpetual state of readiness for danger. It was this tightening cycle, the pervasive feeling that she was trapped and deteriorating, that finally brought Layla to seek help, desperately hoping to find a way to break free from the suffocating grip of her past."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Layla, a 46-year-old pharmacist, recalled the harrowing year her child battled a life-threatening illness as the fracture point in her life. The sterile scent of the hospital, the insistent beeping of machines, the hushed urgency of doctors and nurses — all became etched into her memory during those endless months in the pediatric intensive care unit. There was a specific night, she recounted, when her child’s breathing faltered, and the frantic scramble of medical staff around the bed felt like an assault, leaving her utterly helpless, convinced she was witnessing the end. Though her child eventually recovered, Layla never truly left that room.\n\nIn the aftermath, a profound sense of brokenness settled over Layla. She had come to believe, deep in her core, that there was something fundamentally wrong with her as a person, a flaw that had allowed such suffering to touch her family. This pervasive sense of a defective self made it almost impossible for her to truly relax, leaving her in a constant state of hyperarousal, even in the safety of her own home. The slightest unexpected sound – a dropped pen, a car horn outside – would make her jump or startle with an intensity that felt disproportionate and exhausting. This chronic inability to relax, this persistent state of vigilance, only served to reinforce her conviction that she was a weak person, unable to cope with the world after what she had endured.\n\nHer deep-seated belief that nothing good could happen to her anymore, born from the terror of watching her child suffer, led Layla to actively avoid any reminders of that time. As a pharmacist, her workplace was frequently near medical clinics and hospitals, making her daily commute a gauntlet of triggers. She started taking circuitous routes to avoid passing ambulances, and even the thought of a physical examination for herself filled her with dread. These efforts to avoid medical cues, while offering momentary relief from the intense anxiety, paradoxically kept her nervous system on high alert, making her more jumpy and unable to truly unwind. She would often find herself thinking about why the event had happened to her, a relentless search for meaning that offered no solace, only deeper despair.\n\nThe relentless agitation and inability to relax made the idea of facing medical environments unbearable, pushing her further into these patterns of avoidance. She became meticulously careful at work, ensuring she never had to interact directly with hospital staff or deal with prescriptions that required her to step beyond her counter, lest she encounter a trigger. This increasing avoidance of medical cues, particularly in her professional life, only deepened her belief that she was a weak person, incapable of handling the demands of her own profession. She also found herself desperately trying to suppress any thoughts of the trauma, pushing them away whenever they surfaced, hoping to find some peace. Yet, these efforts to suppress thoughts about that terrifying time, while offering momentary respite, paradoxically kept her mind racing, making sleep an elusive dream and further contributing to her overall state of agitation. The persistent sleep problems and constant startle response, in turn, fueled her belief that she was a weak person, unable to cope even with the basic demands of rest.\n\nLayla’s life became a tight, self-reinforcing loop of fear and avoidance. Her inability to relax, even when she knew she was in a safe place, only confirmed her darkest fears that something was deeply wrong with her, that she was fundamentally defective. She rarely slept through the night, often waking in a cold sweat, her heart pounding, only to be met by the familiar, crushing thought that nothing good could happen to her anymore. The mounting exhaustion from her sleep problems made her even more susceptible to startling at ordinary sounds, keeping her in a perpetual state of readiness for danger. It was this tightening cycle, the pervasive feeling that she was trapped and deteriorating, that finally brought Layla to seek help, desperately hoping to find a way to break free from the suffocating grip of her past.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

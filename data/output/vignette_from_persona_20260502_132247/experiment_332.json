@@ -1,0 +1,191 @@
+{
+  "persona_id": 332,
+  "source_persona_id": 332,
+  "experiment_timestamp": "2026-05-02 16:00:45",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "claude-sonnet-4-6",
+      "persona_crafter": "claude-sonnet-4-6",
+      "vignette_crafter": "claude-sonnet-4-6",
+      "vignette_validator": "claude-sonnet-4-6"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 43,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "IT Support",
+    "trauma_type": "Physical abuse by caregiver (childhood)",
+    "pcl5": 55
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Being in Nature",
+        "value": "Being in a natural environment similar to where it happened"
+      },
+      {
+        "key": "Event Recall",
+        "value": "Talking about the event"
+      },
+      {
+        "key": "Locked Spaces",
+        "value": "Being in a locked or confined room"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Concentration",
+        "value": "Having difficulty concentrating"
+      },
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Intrinsic Fault",
+        "value": "There is something about me that made the event happen"
+      },
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      },
+      {
+        "key": "Character Blame",
+        "value": "The event happened to me because of the sort of person I am"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.4489,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.763,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.1261,
+    "Threat -- Triggers": 0.1116,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.3624,
+  "edge_density": 0.2,
+  "vignette_word_count": 782,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened",
+          "explanation": "The Negative Appraisals node is internally inconsistent for childhood physical abuse by a caregiver. 'Intrinsic Fault' fits a child abuse formulation, but 'Violated Values' implies the patient believes she herself committed morally troubling actions, which is hard to reconcile with being a child victim unless there is additional unreported perpetration or compliance behavior. 'Physical Vulnerability' as permanent bodily damage is also a distinct injury-based appraisal that is not supported elsewhere in the profile. Taken together, these three appraisals do not form a coherent single appraisal pattern."
+        },
+        {
+          "component": "Triggers",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "'Being in Nature' is difficult to reconcile with the trauma type of repeated physical abuse by a caregiver unless the abuse specifically occurred in a natural/outdoor setting. The rest of the profile points to interpersonal danger, shame, and hypervigilance rather than context-specific outdoor reminders, so this trigger looks trauma-incongruent."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Physical Vulnerability"
+        ],
+        "Triggers": [
+          "Negative Appraisals"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "For childhood physical abuse by a caregiver, the selected negative appraisals are mostly coherent when they center on shame, defectiveness, and self-blame (e.g., intrinsic fault, defective self). However, 'I acted in ways that go against who I am' implies perpetration or morally troubling behavior by the patient, which is hard to reconcile with the trauma type unless there is additional context not represented elsewhere. Within the node, it pulls in a different direction from the other appraisals, which depict the patient as harmed/defective rather than as having committed value-violating actions."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Violated Values"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3759,
+    "output": 1033,
+    "total": 4792
+  },
+  "vignette": "Adaeze is a 43-year-old Nigerian-American woman who works in IT support and has been married for eleven years. She came to the clinic after her PCL-5 score of 55 prompted a referral from her primary care physician, though she had been carrying what she described as \"this weight\" for most of her adult life. The events that gave rise to that weight began in childhood, in a rural setting outside Lagos where she spent summers with an aunt and uncle before her family emigrated. The abuse occurred across several seasons, administered by the uncle in an outbuilding surrounded by dense bush and tall grass, the air thick with the smell of red earth and vegetation. He would lock the door behind them. Adaeze remembers the particular quality of silence in that room — the way the outside sounds of insects and wind in the trees were muffled, the way the light came in only through a single high window. She was told, repeatedly, that she brought it on herself by being difficult, by being the kind of child who invited trouble. She was eight years old the first time.\n\nAdaeze has come to believe, with a conviction that feels to her less like an opinion and more like a fact she has simply always known, that there is something fundamentally wrong with her — not something that was done to her, but something intrinsic, a flaw woven into her character that made her the kind of person the abuse could find. She does not frame this as a belief she holds; she experiences it as a truth she lives inside. This deep appraisal of herself as inherently defective keeps her nervous system in a state of chronic readiness. Her body, she says, never quite settles. At her desk in the IT support office, she sits with her shoulders drawn up toward her ears without noticing, and when a ticket comes in marked urgent she feels a spike of alarm that seems disproportionate even to her. She has difficulty concentrating on the step-by-step troubleshooting her job requires, losing her thread mid-task, and she is aware that her colleagues have noticed. She was passed over for a team lead position last year, and though nothing was said directly, she suspects it was because she seems distracted and unreliable.\n\nThe chronic physiological tension and the false alarms that fire through her body throughout the day have, in turn, deepened her conviction that something is wrong with her. She interprets her own reactivity as further evidence of her defectiveness — normal people, she reasons, are not like this; the fact that she is confirms what the uncle told her. This loop has been running quietly for decades, each spike of alarm feeding back into the story she carries about who she is.\n\nThe appraisals also shape what she can and cannot approach in the world. Because she understands the abuse as something her character attracted, the triggers that are most potent for her are those that place her back inside the conditions of that original scene. A walk in a park or a green space — something she encounters on her lunch break when colleagues suggest eating outside — can stop her mid-stride. The smell of damp earth or the sound of wind moving through leaves pulls the past forward in a way that feels less like remembering and more like return. Confined spaces are worse: if a server room door closes behind her during a maintenance call and she hears the latch engage, her body responds before her mind can intervene, heart rate climbing, chest tightening, the old silence of that outbuilding pressing in. She has begun routing her support calls to avoid rooms without propped-open doors. Talking about the events directly — which she has never done in any therapeutic context — remains almost entirely foreclosed. The body's alarm, once triggered, also makes these situations harder to leave behind; the residual tension from a false alarm at work can linger for hours and make the natural environment on her evening commute feel newly threatening.\n\nWhat finally brought Adaeze in was a moment three months ago when she was locked briefly inside a server closet after a door malfunction. She sat on the floor for twenty minutes before someone heard her. She has not been able to enter that room since. What she is most afraid of, she says, is that the therapy will confirm what she already suspects — that the problem is not what happened to her, but what she is. What she is most hoping for, though she can barely say it aloud, is that someone will tell her she is wrong."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Adaeze is a 43-year-old Nigerian-American woman who works in IT support and has been married for eleven years. She came to the clinic after her PCL-5 score of 55 prompted a referral from her primary care physician, though she had been carrying what she described as \"this weight\" for most of her adult life. The events that gave rise to that weight began in childhood, in a rural setting outside Lagos where she spent summers with an aunt and uncle before her family emigrated. The abuse occurred across several seasons, administered by the uncle in an outbuilding surrounded by dense bush and tall grass, the air thick with the smell of red earth and vegetation. He would lock the door behind them. Adaeze remembers the particular quality of silence in that room — the way the outside sounds of insects and wind in the trees were muffled, the way the light came in only through a single high window. She was told, repeatedly, that she brought it on herself by being difficult, by being the kind of child who invited trouble. She was eight years old the first time.\n\nAdaeze has come to believe, with a conviction that feels to her less like an opinion and more like a fact she has simply always known, that there is something fundamentally wrong with her — not something that was done to her, but something intrinsic, a flaw woven into her character that made her the kind of person the abuse could find. She does not frame this as a belief she holds; she experiences it as a truth she lives inside. This deep appraisal of herself as inherently defective keeps her nervous system in a state of chronic readiness. Her body, she says, never quite settles. At her desk in the IT support office, she sits with her shoulders drawn up toward her ears without noticing, and when a ticket comes in marked urgent she feels a spike of alarm that seems disproportionate even to her. She has difficulty concentrating on the step-by-step troubleshooting her job requires, losing her thread mid-task, and she is aware that her colleagues have noticed. She was passed over for a team lead position last year, and though nothing was said directly, she suspects it was because she seems distracted and unreliable.\n\nThe chronic physiological tension and the false alarms that fire through her body throughout the day have, in turn, deepened her conviction that something is wrong with her. She interprets her own reactivity as further evidence of her defectiveness — normal people, she reasons, are not like this; the fact that she is confirms what the uncle told her. This loop has been running quietly for decades, each spike of alarm feeding back into the story she carries about who she is.\n\nThe appraisals also shape what she can and cannot approach in the world. Because she understands the abuse as something her character attracted, the triggers that are most potent for her are those that place her back inside the conditions of that original scene. A walk in a park or a green space — something she encounters on her lunch break when colleagues suggest eating outside — can stop her mid-stride. The smell of damp earth or the sound of wind moving through leaves pulls the past forward in a way that feels less like remembering and more like return. Confined spaces are worse: if a server room door closes behind her during a maintenance call and she hears the latch engage, her body responds before her mind can intervene, heart rate climbing, chest tightening, the old silence of that outbuilding pressing in. She has begun routing her support calls to avoid rooms without propped-open doors. Talking about the events directly — which she has never done in any therapeutic context — remains almost entirely foreclosed. The body's alarm, once triggered, also makes these situations harder to leave behind; the residual tension from a false alarm at work can linger for hours and make the natural environment on her evening commute feel newly threatening.\n\nWhat finally brought Adaeze in was a moment three months ago when she was locked briefly inside a server closet after a door malfunction. She sat on the floor for twenty minutes before someone heard her. She has not been able to enter that room since. What she is most afraid of, she says, is that the therapy will confirm what she already suspects — that the problem is not what happened to her, but what she is. What she is most hoping for, though she can barely say it aloud, is that someone will tell her she is wrong.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

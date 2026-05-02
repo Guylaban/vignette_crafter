@@ -1,0 +1,746 @@
+PERSONA 440  |  2026-05-02 22:57:55
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             56
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Divorced
+  occupation      Detective
+  trauma_type     Physical abuse by caregiver (childhood)
+  pcl5            62
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory Danger Cue: Burnt smell
+    • Victim Similarity: People who look similar to the victims
+    • Positive Emotion Confusion: Positive emotions
+  Maladaptive Strategies:
+    • Avoid Similar Clothes: avoid wearing similar clothes
+    • Memory Detachment: I detach myself from the memories
+    • Avoid People: avoid other people
+  Threat:
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+    • Rage on Recall: When I remember the event I feel intense rage
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+  Negative Appraisals:
+    • Shattered Beliefs: My beliefs about how the world works have been completely destroyed
+    • Bad Coper: My reactions since the event show that I am a lousy coper
+    • Character Blame: The event happened to me because of the sort of person I am
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3139
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0368
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.9902
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.3682
+  Memory → Threat                                    0.2385
+  Memory → Negative Appraisals                       0.0697
+  Memory → Triggers                                  0.0709
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.8633
+  Threat → Triggers                                  0.2359
+  Maladaptive Strategies → Memory                    0.2886
+  Maladaptive Strategies → Negative Appraisals       0.9021
+  Maladaptive Strategies → Triggers                  0.2685
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+    explanation: The inaction/self-blame item is hard to reconcile with the indexed trauma of childhood physical abuse by a caregiver. In a child victim context, 'not doing more to stop what happened' implies agency that is typically not clinically plausible for the same trauma profile; a more general shame/self-blame item would fit, but this specific omission-guilt wording is questionable.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: Within the Threat node, 'difficulty concentrating' is not a threat appraisal but a general arousal/cognitive symptom. The other Threat items reflect current danger and hypervigilance ('strong physical reactions to reminders', 'need to stay alert to fall asleep'). This item weakens within-node coherence and does not match the node's formulation role as perceived current threat.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     28,956
+  output:     4,001
+  total:     32,957
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+John, a 56-year-old detective, had always prided himself on his ability to maintain control in
+chaotic situations. However, memories of his childhood, particularly the physical abuse he suffered
+at the hands of his caregiver, had begun to unravel that control. The smell of burnt wood, a
+lingering scent that reminded him of his past, would catch him off guard and send him spiraling into
+a state of anxiety. He often found himself avoiding places that might trigger such olfactory
+memories, even choosing his clothing carefully to steer clear of anything that resembled what his
+abuser wore. Whenever he encountered someone with similar features to the victims he investigated,
+his heart raced, and he felt an overwhelming urge to detach from the moment. He believed that by
+avoiding such triggers, he could distance himself from the pain, yet he knew it was a futile
+strategy that only deepened his sense of isolation.
+
+The memories, however, were tenacious. He would sometimes try to explain his feelings to colleagues
+or friends, but the words would elude him, leaving him frustrated and angry. Each recollection was
+accompanied by a surge of rage that he could neither comprehend nor contain. It was as if the memory
+itself held him hostage, dragging him back to a past he wished to escape. When he was reminded of
+his trauma, whether through a fleeting image or a familiar scent, he would be thrown into a physical
+state of reactivity—his body tensing, his breath quickening, as if he were reliving the abuse all
+over again. This hypervigilance became a constant companion, making it difficult for him to relax,
+especially at night when sleep eluded him. He lay awake, trapped in a cycle of alertness, convinced
+that if he let his guard down, he would be vulnerable to an onslaught of memories that he was not
+ready to face.
+
+As John wrestled with these memories, he found himself grappling with intense negative appraisals of
+his character. He came to believe that his reactions marked him as a "bad coper"—someone who could
+not effectively handle the aftermath of his trauma. This belief only fueled his emotional
+detachment. He would often convince himself that he deserved the abuse, attributing it to his
+perceived weaknesses. Each time he recalled the event, the belief that he was somehow to blame for
+his suffering tightened its grip on him. In moments of clarity, he could see the connection; the
+memories evoked feelings of shame and anger, which reinforced his negative views of himself. Yet,
+those moments were fleeting, overshadowed by the immediate emotional turmoil when a trigger struck.
+
+The interplay of these memories and beliefs created a vicious cycle that left John feeling trapped.
+Whenever he thought about the abuse, the emotional weight would trigger an array of avoidant
+behaviors. He found himself withdrawing from social situations, convinced that he could not be
+around others without risking exposure to similar triggers. Even in his work as a detective, where
+he was once passionate about uncovering the truth, he now struggled to engage fully. His colleagues
+had begun to notice his patterns, and he felt their concern, which only deepened his sense of
+isolation.
+
+Seeking help had not come easily to John. After years of battling these memories and their
+repercussions on his life, he finally decided to reach out to a therapist. He was filled with
+apprehension, fearing that delving deeper into his past would only exacerbate his feelings of rage
+and despair. Yet, he also held a flicker of hope that, perhaps, by confronting his trauma, he could
+reclaim the control he felt he had lost. John understood that he needed to break free from the cycle
+that had governed his life for too long, even if the path ahead was fraught with uncertainty.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not show how triggers lead to maladaptive strategies, such as avoidance.
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette does not establish a causal link between triggers and memory.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: Negative appraisals do not appear to influence memory in the vignette.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not illustrate how memory drives maladaptive strategies.
+
+    ✗ edge:        Memory → Threat
+      explanation: The vignette does not indicate that memory contributes to a sense of threat.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette fails to show how memory influences negative appraisals.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not convey that memory leads to triggers.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette does not demonstrate how a sense of threat influences negative appraisals.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not show how a sense of threat leads to triggers.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette does not establish that maladaptive strategies influence memory.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not illustrate how maladaptive strategies lead to negative appraisals.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not show how maladaptive strategies contribute to triggers.
+
+  [2] FAIL
+John, a 56-year-old detective, had always prided himself on his ability to maintain control in
+chaotic situations. However, memories of his childhood, particularly the physical abuse he suffered
+at the hands of his caregiver, had begun to unravel that control. The smell of burnt wood, a
+lingering scent that reminded him of his past, would catch him off guard and send him spiraling into
+a state of anxiety. Whenever that smell wafted through the air, it would trigger memories of his
+childhood abuse, flooding his mind with vivid images that he desperately wished to forget,
+compelling him to avoid situations where such reminders might occur. He often found himself avoiding
+places that might trigger such olfactory memories, even choosing his clothing carefully to steer
+clear of anything that resembled what his abuser wore. Yet, in avoiding these reminders, he only
+reinforced the grip of his trauma, creating a world where every decision was dictated by the fear of
+triggering painful memories. Whenever he encountered someone with similar features to the victims he
+investigated, his heart raced, and he felt an overwhelming urge to detach from the moment. He
+believed that by avoiding such triggers, he could distance himself from the pain, yet he knew it was
+a futile strategy that only deepened his sense of isolation.
+
+The memories, however, were tenacious. Each time they resurfaced, they left him with a heightened
+sense of threat, making him feel as if the past was not merely a memory but a present danger he had
+to navigate. He would sometimes try to explain his feelings to colleagues or friends, but the words
+would elude him, leaving him frustrated and angry. Each recollection was accompanied by a surge of
+rage that he could neither comprehend nor contain. It was as if the memory itself held him hostage,
+dragging him back to a past he wished to escape. When he was reminded of his trauma, whether through
+a fleeting image or a familiar scent, he would be thrown into a physical state of reactivity—his
+body tensing, his breath quickening, as if he were reliving the abuse all over again. This
+hypervigilance became a constant companion, making it difficult for him to relax, especially at
+night when sleep eluded him. As the memories surged, they heightened his sense of threat, leaving
+him convinced that danger lurked just beyond his perception, a belief that only amplified his
+anxiety and made rest seem impossible. He lay awake, trapped in a cycle of alertness, convinced that
+if he let his guard down, he would be vulnerable to an onslaught of memories that he was not ready
+to face.
+
+As John wrestled with these memories, he found himself grappling with intense negative appraisals of
+his character. He came to believe that his reactions marked him as a "bad coper"—someone who could
+not effectively handle the aftermath of his trauma. This belief only fueled his emotional
+detachment. He would often convince himself that he deserved the abuse, attributing it to his
+perceived weaknesses. This negative appraisal of himself made the memories of his trauma feel even
+sharper and more vivid, as he believed they were evidence of his failure to protect himself,
+reinforcing the notion that he was inherently flawed. Each time he recalled the event, the belief
+that he was somehow to blame for his suffering tightened its grip on him. In moments of clarity, he
+could see the connection; the memories evoked feelings of shame and anger, which reinforced his
+negative views of himself. Yet, those moments were fleeting, overshadowed by the immediate emotional
+turmoil when a trigger struck.
+
+The interplay of these memories and beliefs created a vicious cycle that left John feeling trapped.
+His maladaptive strategies formed a barrier around his memories, making them more potent whenever
+they did arise, as the act of avoidance kept the memories alive and close, rather than allowing them
+to fade. Whenever he thought about the abuse, the emotional weight would trigger an array of
+avoidant behaviors. He found himself withdrawing from social situations, convinced that he could not
+be around others without risking exposure to similar triggers. This avoidance behavior only deepened
+his feelings of isolation and despair, as he began to believe that his inability to cope with social
+interactions confirmed his worst fears about himself. Even in his work as a detective, where he was
+once passionate about uncovering the truth, he now struggled to engage fully. His colleagues had
+begun to notice his patterns, and he felt their concern, which only deepened his sense of isolation.
+
+Seeking help had not come easily to John. After years of battling these memories and their
+repercussions on his life, he finally decided to reach out to a therapist. He was filled with
+apprehension, fearing that delving deeper into his past would only exacerbate his feelings of rage
+and despair. Yet, he also held a flicker of hope that, perhaps, by confronting his trauma, he could
+reclaim the control he felt he had lost. John understood that he needed to break free from the cycle
+that had governed his life for too long, even if the path ahead was fraught with uncertainty.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not establish how triggers influence John's maladaptive strategies, as it describes avoidance without linking it explicitly to triggers.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette fails to demonstrate how memories trigger further triggers, as it discusses memories but does not connect them back to additional triggers.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette does not clarify how maladaptive strategies influence John's memory, as it describes his avoidance but does not link it to how it affects his memories.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not show how maladaptive strategies lead to negative appraisals, as it discusses his negative beliefs without connecting them to his coping strategies.
+
+  [3] FAIL
+John, a 56-year-old detective, had always prided himself on his ability to maintain control in
+chaotic situations. However, memories of his childhood, particularly the physical abuse he suffered
+at the hands of his caregiver, had begun to unravel that control. The smell of burnt wood, a
+lingering scent that reminded him of his past, would catch him off guard and send him spiraling into
+a state of anxiety. In those moments, John would find himself retreating from social gatherings,
+convinced that if he stayed, he might encounter something that would trigger those painful memories
+again, making his avoidance feel like a necessary shield against further distress. Whenever that
+smell wafted through the air, it would trigger memories of his childhood abuse, flooding his mind
+with vivid images that he desperately wished to forget, compelling him to avoid situations where
+such reminders might occur. He often found himself avoiding places that might trigger such olfactory
+memories, even choosing his clothing carefully to steer clear of anything that resembled what his
+abuser wore. Yet, in avoiding these reminders, he only reinforced the grip of his trauma, creating a
+world where every decision was dictated by the fear of triggering painful memories. Whenever he
+encountered someone with similar features to the victims he investigated, his heart raced, and he
+felt an overwhelming urge to detach from the moment. He believed that by avoiding such triggers, he
+could distance himself from the pain, yet he knew it was a futile strategy that only deepened his
+sense of isolation.
+
+The memories, however, were tenacious. Each time they resurfaced, they left him with a heightened
+sense of threat, making him feel as if the past was not merely a memory but a present danger he had
+to navigate. He would sometimes try to explain his feelings to colleagues or friends, but the words
+would elude him, leaving him frustrated and angry. Each recollection was accompanied by a surge of
+rage that he could neither comprehend nor contain. The intensity of these vivid memories often left
+him on high alert, making him overly cautious around unfamiliar faces, where he would perceive
+potential threats in their features, further amplifying his anxiety about being triggered again. It
+was as if the memory itself held him hostage, dragging him back to a past he wished to escape. When
+he was reminded of his trauma, whether through a fleeting image or a familiar scent, he would be
+thrown into a physical state of reactivity—his body tensing, his breath quickening, as if he were
+reliving the abuse all over again. This hypervigilance became a constant companion, making it
+difficult for him to relax, especially at night when sleep eluded him. As the memories surged, they
+heightened his sense of threat, leaving him convinced that danger lurked just beyond his perception,
+a belief that only amplified his anxiety and made rest seem impossible. He lay awake, trapped in a
+cycle of alertness, convinced that if he let his guard down, he would be vulnerable to an onslaught
+of memories that he was not ready to face.
+
+As John wrestled with these memories, he found himself grappling with intense negative appraisals of
+his character. He came to believe that his reactions marked him as a "bad coper"—someone who could
+not effectively handle the aftermath of his trauma. This belief only fueled his emotional
+detachment. He would often convince himself that he deserved the abuse, attributing it to his
+perceived weaknesses. This negative appraisal of himself made the memories of his trauma feel even
+sharper and more vivid, as he believed they were evidence of his failure to protect himself,
+reinforcing the notion that he was inherently flawed. Each time he recalled the event, the belief
+that he was somehow to blame for his suffering tightened its grip on him. In moments of clarity, he
+could see the connection; the memories evoked feelings of shame and anger, which reinforced his
+negative views of himself. Yet, those moments were fleeting, overshadowed by the immediate emotional
+turmoil when a trigger struck.
+
+The interplay of these memories and beliefs created a vicious cycle that left John feeling trapped.
+His maladaptive strategies formed a barrier around his memories, making them more potent whenever
+they did arise, as the act of avoidance kept the memories alive and close, rather than allowing them
+to fade. Whenever he thought about the abuse, the emotional weight would trigger an array of
+avoidant behaviors. He found himself withdrawing from social situations, convinced that he could not
+be around others without risking exposure to similar triggers. This avoidance behavior only deepened
+his feelings of isolation and despair, as he began to believe that his inability to cope with social
+interactions confirmed his worst fears about himself. Every time he chose to withdraw rather than
+face those interactions, he felt a growing sense of shame, convincing himself that his need to
+escape was proof of his weakness, feeding into his belief that he was incapable of managing his
+trauma. Even in his work as a detective, where he was once passionate about uncovering the truth, he
+now struggled to engage fully. His colleagues had begun to notice his patterns, and he felt their
+concern, which only deepened his sense of isolation. With each attempt to avoid their questions
+about his well-being, he felt more convinced that he was letting everyone down, reinforcing the
+negative appraisals he held about himself and his inability to cope with his past.
+
+Seeking help had not come easily to John. After years of battling these memories and their
+repercussions on his life, he finally decided to reach out to a therapist. He was filled with
+apprehension, fearing that delving deeper into his past would only exacerbate his feelings of rage
+and despair. Yet, he also held a flicker of hope that, perhaps, by confronting his trauma, he could
+reclaim the control he felt he had lost. John understood that he needed to break free from the cycle
+that had governed his life for too long, even if the path ahead was fraught with uncertainty.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not explicitly show how triggers lead to maladaptive strategies, such as avoidance; it discusses avoidance but doesn't connect it as a direct result of triggers.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: While negative appraisals are present, there is no clear causal link established between negative appraisals and memory.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The relationship between memory and maladaptive strategies is not clearly articulated; it mentions avoidance but does not demonstrate how memory drives these strategies.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: There is no direct connection shown between maladaptive strategies and negative appraisals, despite both being present in the vignette.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not establish how maladaptive strategies lead to triggers; it mentions avoidance but does not indicate that this avoidance creates new triggers.
+
+  [4] FAIL
+John, a 56-year-old detective, had always prided himself on his ability to maintain control in
+chaotic situations. However, memories of his childhood, particularly the physical abuse he suffered
+at the hands of his caregiver, had begun to unravel that control. The smell of burnt wood, a
+lingering scent that reminded him of his past, would catch him off guard and send him spiraling into
+a state of anxiety. In those moments, John would find himself retreating from social gatherings,
+convinced that if he stayed, he might encounter something that would trigger those painful memories
+again, making his avoidance feel like a necessary shield against further distress. Whenever that
+smell wafted through the air, it would trigger memories of his childhood abuse, flooding his mind
+with vivid images that he desperately wished to forget, compelling him to avoid situations where
+such reminders might occur. In response, he began steering clear of places associated with these
+memories, convinced that isolation was the only way to keep the anxiety at bay, but each act of
+avoidance only seemed to strengthen the hold of his trauma, making him feel more trapped in a world
+he had created to escape it. He often found himself avoiding places that might trigger such
+olfactory memories, even choosing his clothing carefully to steer clear of anything that resembled
+what his abuser wore. As he created this bubble of avoidance around himself, he soon realized that
+the very act of dodging these triggers became a reminder of his past, with every choice he made
+reinforcing the notion that he was still at the mercy of his trauma. Yet, in avoiding these
+reminders, he only reinforced the grip of his trauma, creating a world where every decision was
+dictated by the fear of triggering painful memories. Whenever he encountered someone with similar
+features to the victims he investigated, his heart raced, and he felt an overwhelming urge to detach
+from the moment. He believed that by avoiding such triggers, he could distance himself from the
+pain, yet he knew it was a futile strategy that only deepened his sense of isolation.
+
+The memories, however, were tenacious. Each time they resurfaced, they left him with a heightened
+sense of threat, making him feel as if the past was not merely a memory but a present danger he had
+to navigate. He would sometimes try to explain his feelings to colleagues or friends, but the words
+would elude him, leaving him frustrated and angry. Each recollection was accompanied by a surge of
+rage that he could neither comprehend nor contain. The intensity of these vivid memories often left
+him on high alert, making him overly cautious around unfamiliar faces, where he would perceive
+potential threats in their features, further amplifying his anxiety about being triggered again. It
+was as if the memory itself held him hostage, dragging him back to a past he wished to escape. When
+he was reminded of his trauma, whether through a fleeting image or a familiar scent, he would be
+thrown into a physical state of reactivity—his body tensing, his breath quickening, as if he were
+reliving the abuse all over again. These memories not only heightened his anxiety but also drove him
+to further avoid situations where they could be triggered, leading him to create a routine that
+minimized exposure to anything reminiscent of his past. This hypervigilance became a constant
+companion, making it difficult for him to relax, especially at night when sleep eluded him. As the
+memories surged, they heightened his sense of threat, leaving him convinced that danger lurked just
+beyond his perception, a belief that only amplified his anxiety and made rest seem impossible. He
+lay awake, trapped in a cycle of alertness, convinced that if he let his guard down, he would be
+vulnerable to an onslaught of memories that he was not ready to face.
+
+As John wrestled with these memories, he found himself grappling with intense negative appraisals of
+his character. He came to believe that his reactions marked him as a "bad coper"—someone who could
+not effectively handle the aftermath of his trauma. This belief only fueled his emotional
+detachment. He would often convince himself that he deserved the abuse, attributing it to his
+perceived weaknesses. This negative appraisal of himself made the memories of his trauma feel even
+sharper and more vivid, as he believed they were evidence of his failure to protect himself,
+reinforcing the notion that he was inherently flawed. The more he thought of himself as weak, the
+more vividly the memories would return, each recollection punctuated by that belief, as if the past
+was a testament to his shortcomings rather than a historical event. Each time he recalled the event,
+the belief that he was somehow to blame for his suffering tightened its grip on him. In moments of
+clarity, he could see the connection; the memories evoked feelings of shame and anger, which
+reinforced his negative views of himself. Yet, those moments were fleeting, overshadowed by the
+immediate emotional turmoil when a trigger struck.
+
+The interplay of these memories and beliefs created a vicious cycle that left John feeling trapped.
+His maladaptive strategies formed a barrier around his memories, making them more potent whenever
+they did arise, as the act of avoidance kept the memories alive and close, rather than allowing them
+to fade. Whenever he thought about the abuse, the emotional weight would trigger an array of
+avoidant behaviors. He found himself withdrawing from social situations, convinced that he could not
+be around others without risking exposure to similar triggers. This avoidance behavior only deepened
+his feelings of isolation and despair, as he began to believe that his inability to cope with social
+interactions confirmed his worst fears about himself. Each time he chose to withdraw, he felt a
+growing sense of shame, reinforcing the belief that he was incapable of handling his trauma, which
+only solidified his negative self-image further. Every time he chose to withdraw rather than face
+those interactions, he felt a growing sense of shame, convincing himself that his need to escape was
+proof of his weakness, feeding into his belief that he was incapable of managing his trauma. Even in
+his work as a detective, where he was once passionate about uncovering the truth, he now struggled
+to engage fully. His colleagues had begun to notice his patterns, and he felt their concern, which
+only deepened his sense of isolation. With each attempt to avoid their questions about his well-
+being, he felt more convinced that he was letting everyone down, reinforcing the negative appraisals
+he held about himself and his inability to cope with his past.
+
+Seeking help had not come easily to John. After years of battling these memories and their
+repercussions on his life, he finally decided to reach out to a therapist. He was filled with
+apprehension, fearing that delving deeper into his past would only exacerbate his feelings of rage
+and despair. Yet, he also held a flicker of hope that, perhaps, by confronting his trauma, he could
+reclaim the control he felt he had lost. John understood that he needed to break free from the cycle
+that had governed his life for too long, even if the path ahead was fraught with uncertainty.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not convey that triggers influence maladaptive strategies.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not show that negative appraisals influence memory.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not establish that memory influences maladaptive strategies.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette does not demonstrate that maladaptive strategies influence memory.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not indicate that maladaptive strategies influence negative appraisals.
+
+  [5] FAIL
+John, a 56-year-old detective, had always prided himself on his ability to maintain control in
+chaotic situations. However, memories of his childhood, particularly the physical abuse he suffered
+at the hands of his caregiver, had begun to unravel that control. The smell of burnt wood, a
+lingering scent that reminded him of his past, would catch him off guard and send him spiraling into
+a state of anxiety. In those moments, John would find himself retreating from social gatherings,
+convinced that if he stayed, he might encounter something that would trigger those painful memories
+again, making his avoidance feel like a necessary shield against further distress. Whenever that
+smell wafted through the air, it would trigger memories of his childhood abuse, flooding his mind
+with vivid images that he desperately wished to forget, compelling him to avoid situations where
+such reminders might occur. In response, he began steering clear of places associated with these
+memories, convinced that isolation was the only way to keep the anxiety at bay, but each act of
+avoidance only seemed to strengthen the hold of his trauma, making him feel more trapped in a world
+he had created to escape it. He often found himself avoiding places that might trigger such
+olfactory memories, even choosing his clothing carefully to steer clear of anything that resembled
+what his abuser wore. As he created this bubble of avoidance around himself, he soon realized that
+the very act of dodging these triggers became a reminder of his past, with every choice he made
+reinforcing the notion that he was still at the mercy of his trauma. Yet, in avoiding these
+reminders, he only reinforced the grip of his trauma, creating a world where every decision was
+dictated by the fear of triggering painful memories. Whenever he encountered someone with similar
+features to the victims he investigated, his heart raced, and he felt an overwhelming urge to detach
+from the moment. He believed that by avoiding such triggers, he could distance himself from the
+pain, yet he knew it was a futile strategy that only deepened his sense of isolation. The memories,
+however, were tenacious. Each time they resurfaced, they left him with a heightened sense of threat,
+making him feel as if the past was not merely a memory but a present danger he had to navigate. He
+would sometimes try to explain his feelings to colleagues or friends, but the words would elude him,
+leaving him frustrated and angry. Each recollection was accompanied by a surge of rage that he could
+neither comprehend nor contain. The intensity of these vivid memories often left him on high alert,
+making him overly cautious around unfamiliar faces, where he would perceive potential threats in
+their features, further amplifying his anxiety about being triggered again. It was as if the memory
+itself held him hostage, dragging him back to a past he wished to escape. When he was reminded of
+his trauma, whether through a fleeting image or a familiar scent, he would be thrown into a physical
+state of reactivity—his body tensing, his breath quickening, as if he were reliving the abuse all
+over again. These memories not only heightened his anxiety but also drove him to further avoid
+situations where they could be triggered, leading him to create a routine that minimized exposure to
+anything reminiscent of his past. This hypervigilance became a constant companion, making it
+difficult for him to relax, especially at night when sleep eluded him. As the memories surged, they
+heightened his sense of threat, leaving him convinced that danger lurked just beyond his perception,
+a belief that only amplified his anxiety and made rest seem impossible. He lay awake, trapped in a
+cycle of alertness, convinced that if he let his guard down, he would be vulnerable to an onslaught
+of memories that he was not ready to face. As John wrestled with these memories, he found himself
+grappling with intense negative appraisals of his character. He came to believe that his reactions
+marked him as a "bad coper"—someone who could not effectively handle the aftermath of his trauma.
+This belief only fueled his emotional detachment. He would often convince himself that he deserved
+the abuse, attributing it to his perceived weaknesses. This negative appraisal of himself made the
+memories of his trauma feel even sharper and more vivid, as he believed they were evidence of his
+failure to protect himself, reinforcing the notion that he was inherently flawed. The more he
+thought of himself as weak, the more vividly the memories would return, each recollection punctuated
+by that belief, as if the past was a testament to his shortcomings rather than a historical event.
+Each time he recalled the event, the belief that he was somehow to blame for his suffering tightened
+its grip on him. In moments of clarity, he could see the connection; the memories evoked feelings of
+shame and anger, which reinforced his negative views of himself. Yet, those moments were fleeting,
+overshadowed by the immediate emotional turmoil when a trigger struck. The interplay of these
+memories and beliefs created a vicious cycle that left John feeling trapped. His maladaptive
+strategies formed a barrier around his memories, making them more potent whenever they did arise, as
+the act of avoidance kept the memories alive and close, rather than allowing them to fade. Whenever
+he thought about the abuse, the emotional weight would trigger an array of avoidant behaviors. He
+found himself withdrawing from social situations, convinced that he could not be around others
+without risking exposure to similar triggers. "Yet, with every day spent avoiding the reminders of
+his past, he felt the memories growing stronger, as if they were waiting just beneath the surface,
+ready to overtake him at any moment when he let his guard down." This avoidance behavior only
+deepened his feelings of isolation and despair, as he began to believe that his inability to cope
+with social interactions confirmed his worst fears about himself. "The more he relied on his
+avoidance strategies, the more he felt the weight of evidence piling up against himself, convincing
+him that he was fragile and incapable of handling even the simplest situations." Each time he chose
+to withdraw, he felt a growing sense of shame, reinforcing the belief that he was incapable of
+handling his trauma, which only solidified his negative self-image further. Every time he chose to
+withdraw rather than face those interactions, he felt a growing sense of shame, convincing himself
+that his need to escape was proof of his weakness, feeding into his belief that he was incapable of
+managing his trauma. Even in his work as a detective, where he was once passionate about uncovering
+the truth, he now struggled to engage fully. His colleagues had begun to notice his patterns, and he
+felt their concern, which only deepened his sense of isolation. With each attempt to avoid their
+questions about his well-being, he felt more convinced that he was letting everyone down,
+reinforcing the negative appraisals he held about himself and his inability to cope with his past.
+Seeking help had not come easily to John. After years of battling these memories and their
+repercussions on his life, he finally decided to reach out to a therapist. He was filled with
+apprehension, fearing that delving deeper into his past would only exacerbate his feelings of rage
+and despair. Yet, he also held a flicker of hope that, perhaps, by confronting his trauma, he could
+reclaim the control he felt he had lost. John understood that he needed to break free from the cycle
+that had governed his life for too long, even if the path ahead was fraught with uncertainty. "Each
+time a memory surfaced, John found himself retreating even further into his routines, avoiding
+conversations and social gatherings that might lead to discussions about the past or any emotional
+engagement, convinced that staying away was his only means of protection." "His negative view of
+himself made the memories of his trauma feel even sharper and more vivid, as he told himself that he
+should have been stronger, which only intensified the flashbacks and made them harder to escape."
+"Each vivid recollection pushed him to withdraw even more from situations that could trigger such
+memories, reinforcing his sense of inadequacy and driving him to create a life of isolation."
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how triggers lead to maladaptive strategies.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not establish a causal relationship between memory and maladaptive strategies.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette does not illustrate how a sense of threat leads to negative appraisals.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not show how maladaptive strategies influence negative appraisals.
+
+  [6] FAIL
+John, a 56-year-old detective, had always prided himself on his ability to maintain control in
+chaotic situations. However, memories of his childhood, particularly the physical abuse he suffered
+at the hands of his caregiver, had begun to unravel that control. The smell of burnt wood, a
+lingering scent that reminded him of his past, would catch him off guard and send him spiraling into
+a state of anxiety. In those moments, John would find himself retreating from social gatherings,
+convinced that if he stayed, he might encounter something that would trigger those painful memories
+again, making his avoidance feel like a necessary shield against further distress. Whenever that
+smell wafted through the air, it would trigger memories of his childhood abuse, flooding his mind
+with vivid images that he desperately wished to forget, compelling him to avoid situations where
+such reminders might occur. In response, he began steering clear of places associated with these
+memories, convinced that isolation was the only way to keep the anxiety at bay, but each act of
+avoidance only seemed to strengthen the hold of his trauma, making him feel more trapped in a world
+he had created to escape it. He often found himself avoiding places that might trigger such
+olfactory memories, even choosing his clothing carefully to steer clear of anything that resembled
+what his abuser wore. As he created this bubble of avoidance around himself, he soon realized that
+the very act of dodging these triggers became a reminder of his past, with every choice he made
+reinforcing the notion that he was still at the mercy of his trauma. Yet, in avoiding these
+reminders, he only reinforced the grip of his trauma, creating a world where every decision was
+dictated by the fear of triggering painful memories. Whenever he encountered someone with similar
+features to the victims he investigated, his heart raced, and he felt an overwhelming urge to detach
+from the moment. He believed that by avoiding such triggers, he could distance himself from the
+pain, yet he knew it was a futile strategy that only deepened his sense of isolation. The memories,
+however, were tenacious. Each time they resurfaced, they left him with a heightened sense of threat,
+making him feel as if the past was not merely a memory but a present danger he had to navigate. He
+would sometimes try to explain his feelings to colleagues or friends, but the words would elude him,
+leaving him frustrated and angry. Each recollection was accompanied by a surge of rage that he could
+neither comprehend nor contain. The intensity of these vivid memories often left him on high alert,
+making him overly cautious around unfamiliar faces, where he would perceive potential threats in
+their features, further amplifying his anxiety about being triggered again. It was as if the memory
+itself held him hostage, dragging him back to a past he wished to escape. When he was reminded of
+his trauma, whether through a fleeting image or a familiar scent, he would be thrown into a physical
+state of reactivity—his body tensing, his breath quickening, as if he were reliving the abuse all
+over again. These memories not only heightened his anxiety but also drove him to further avoid
+situations where they could be triggered, leading him to create a routine that minimized exposure to
+anything reminiscent of his past. This hypervigilance became a constant companion, making it
+difficult for him to relax, especially at night when sleep eluded him. As the memories surged, they
+heightened his sense of threat, leaving him convinced that danger lurked just beyond his perception,
+a belief that only amplified his anxiety and made rest seem impossible. He lay awake, trapped in a
+cycle of alertness, convinced that if he let his guard down, he would be vulnerable to an onslaught
+of memories that he was not ready to face. As John wrestled with these memories, he found himself
+grappling with intense negative appraisals of his character. He came to believe that his reactions
+marked him as a "bad coper"—someone who could not effectively handle the aftermath of his trauma.
+This belief only fueled his emotional detachment. He would often convince himself that he deserved
+the abuse, attributing it to his perceived weaknesses. This negative appraisal of himself made the
+memories of his trauma feel even sharper and more vivid, as he believed they were evidence of his
+failure to protect himself, reinforcing the notion that he was inherently flawed. The more he
+thought of himself as weak, the more vividly the memories would return, each recollection punctuated
+by that belief, as if the past was a testament to his shortcomings rather than a historical event.
+Each time he recalled the event, the belief that he was somehow to blame for his suffering tightened
+its grip on him. In moments of clarity, he could see the connection; the memories evoked feelings of
+shame and anger, which reinforced his negative views of himself. Yet, those moments were fleeting,
+overshadowed by the immediate emotional turmoil when a trigger struck. The interplay of these
+memories and beliefs created a vicious cycle that left John feeling trapped. His maladaptive
+strategies formed a barrier around his memories, making them more potent whenever they did arise, as
+the act of avoidance kept the memories alive and close, rather than allowing them to fade. Whenever
+he thought about the abuse, the emotional weight would trigger an array of avoidant behaviors. He
+found himself withdrawing from social situations, convinced that he could not be around others
+without risking exposure to similar triggers. "Yet, with every day spent avoiding the reminders of
+his past, he felt the memories growing stronger, as if they were waiting just beneath the surface,
+ready to overtake him at any moment when he let his guard down." This avoidance behavior only
+deepened his feelings of isolation and despair, as he began to believe that his inability to cope
+with social interactions confirmed his worst fears about himself. "The more he relied on his
+avoidance strategies, the more he felt the weight of evidence piling up against himself, convincing
+him that he was fragile and incapable of handling even the simplest situations." Each time he chose
+to withdraw, he felt a growing sense of shame, reinforcing the belief that he was incapable of
+handling his trauma, which only solidified his negative self-image further. "Each time he resorted
+to these avoidance strategies, he felt a growing sense of inadequacy, convincing himself that if he
+truly were strong, he wouldn’t need to hide from these reminders." Every time he chose to withdraw
+rather than face those interactions, he felt a growing sense of shame, convincing himself that his
+need to escape was proof of his weakness, feeding into his belief that he was incapable of managing
+his trauma. "This avoidance led him to conclude that he was weak, accumulating evidence in his mind
+that he was incapable of managing his trauma like others might, which only fueled his sense of
+shame." Even in his work as a detective, where he was once passionate about uncovering the truth, he
+now struggled to engage fully. His colleagues had begun to notice his patterns, and he felt their
+concern, which only deepened his sense of isolation. With each attempt to avoid their questions
+about his well-being, he felt more convinced that he was letting everyone down, reinforcing the
+negative appraisals he held about himself and his inability to cope with his past. "These
+experiences only confirmed for him that he was fragile and unable to cope, deepening his negative
+appraisals of himself and solidifying his belief that he was somehow to blame for his suffering."
+Seeking help had not come easily to John. After years of battling these memories and their
+repercussions on his life, he finally decided to reach out to a therapist. He was filled with
+apprehension, fearing that delving deeper into his past would only exacerbate his feelings of rage
+and despair. Yet, he also held a flicker of hope that, perhaps, by confronting his trauma, he could
+reclaim the control he felt he had lost. John understood that he needed to break free from the cycle
+that had governed his life for too long, even if the path ahead was fraught with uncertainty. "Each
+time a memory surfaced, John found himself retreating even further into his routines, avoiding
+conversations and social gatherings that might lead to discussions about the past or any emotional
+engagement, convinced that staying away was his only means of protection." "His negative view of
+himself made the memories of his trauma feel even sharper and more vivid, as he told himself that he
+should have been stronger, which only intensified the flashbacks and made them harder to escape."
+"Each vivid recollection pushed him to withdraw even more from situations that could trigger such
+memories, reinforcing his sense of inadequacy and driving him to create a life of isolation." "In
+response to these vivid memories, he started to develop unhealthy habits, like avoiding
+conversations about his past or skipping social events altogether, convinced that staying away would
+keep him safe from reliving those painful moments." "This constant sense of danger reinforced his
+belief that he was not capable of handling his trauma, leading him to internalize the idea that he
+was fundamentally flawed and would always be at the mercy of his past."
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not convey how triggers lead to maladaptive strategies, as it lacks a direct causal connection between these components.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: There is no clear connection illustrating how negative appraisals influence memory within the vignette.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette does not demonstrate how a sense of threat influences negative appraisals, lacking a causal relationship between these components.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: There is no causal link shown between maladaptive strategies and negative appraisals, failing to illustrate how one impacts the other.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+John, a 56-year-old detective, had always prided himself on his ability to maintain control in
+chaotic situations. However, memories of his childhood, particularly the physical abuse he suffered
+at the hands of his caregiver, had begun to unravel that control. The smell of burnt wood, a
+lingering scent that reminded him of his past, would catch him off guard and send him spiraling into
+a state of anxiety. In those moments, John would find himself retreating from social gatherings,
+convinced that if he stayed, he might encounter something that would trigger those painful memories
+again, making his avoidance feel like a necessary shield against further distress. Whenever that
+smell wafted through the air, it would trigger memories of his childhood abuse, flooding his mind
+with vivid images that he desperately wished to forget, compelling him to avoid situations where
+such reminders might occur. In response, he began steering clear of places associated with these
+memories, convinced that isolation was the only way to keep the anxiety at bay, but each act of
+avoidance only seemed to strengthen the hold of his trauma, making him feel more trapped in a world
+he had created to escape it. He often found himself avoiding places that might trigger such
+olfactory memories, even choosing his clothing carefully to steer clear of anything that resembled
+what his abuser wore. As he created this bubble of avoidance around himself, he soon realized that
+the very act of dodging these triggers became a reminder of his past, with every choice he made
+reinforcing the notion that he was still at the mercy of his trauma. Yet, in avoiding these
+reminders, he only reinforced the grip of his trauma, creating a world where every decision was
+dictated by the fear of triggering painful memories. Whenever he encountered someone with similar
+features to the victims he investigated, his heart raced, and he felt an overwhelming urge to detach
+from the moment. He believed that by avoiding such triggers, he could distance himself from the
+pain, yet he knew it was a futile strategy that only deepened his sense of isolation. The memories,
+however, were tenacious. Each time they resurfaced, they left him with a heightened sense of threat,
+making him feel as if the past was not merely a memory but a present danger he had to navigate. He
+would sometimes try to explain his feelings to colleagues or friends, but the words would elude him,
+leaving him frustrated and angry. Each recollection was accompanied by a surge of rage that he could
+neither comprehend nor contain. The intensity of these vivid memories often left him on high alert,
+making him overly cautious around unfamiliar faces, where he would perceive potential threats in
+their features, further amplifying his anxiety about being triggered again. It was as if the memory
+itself held him hostage, dragging him back to a past he wished to escape. When he was reminded of
+his trauma, whether through a fleeting image or a familiar scent, he would be thrown into a physical
+state of reactivity—his body tensing, his breath quickening, as if he were reliving the abuse all
+over again. These memories not only heightened his anxiety but also drove him to further avoid
+situations where they could be triggered, leading him to create a routine that minimized exposure to
+anything reminiscent of his past. This hypervigilance became a constant companion, making it
+difficult for him to relax, especially at night when sleep eluded him. As the memories surged, they
+heightened his sense of threat, leaving him convinced that danger lurked just beyond his perception,
+a belief that only amplified his anxiety and made rest seem impossible. He lay awake, trapped in a
+cycle of alertness, convinced that if he let his guard down, he would be vulnerable to an onslaught
+of memories that he was not ready to face. As John wrestled with these memories, he found himself
+grappling with intense negative appraisals of his character. He came to believe that his reactions
+marked him as a "bad coper"—someone who could not effectively handle the aftermath of his trauma.
+This belief only fueled his emotional detachment. He would often convince himself that he deserved
+the abuse, attributing it to his perceived weaknesses. This negative appraisal of himself made the
+memories of his trauma feel even sharper and more vivid, as he believed they were evidence of his
+failure to protect himself, reinforcing the notion that he was inherently flawed. The more he
+thought of himself as weak, the more vividly the memories would return, each recollection punctuated
+by that belief, as if the past was a testament to his shortcomings rather than a historical event.
+Each time he recalled the event, the belief that he was somehow to blame for his suffering tightened
+its grip on him. In moments of clarity, he could see the connection; the memories evoked feelings of
+shame and anger, which reinforced his negative views of himself. Yet, those moments were fleeting,
+overshadowed by the immediate emotional turmoil when a trigger struck. The interplay of these
+memories and beliefs created a vicious cycle that left John feeling trapped. His maladaptive
+strategies formed a barrier around his memories, making them more potent whenever they did arise, as
+the act of avoidance kept the memories alive and close, rather than allowing them to fade. Whenever
+he thought about the abuse, the emotional weight would trigger an array of avoidant behaviors. He
+found himself withdrawing from social situations, convinced that he could not be around others
+without risking exposure to similar triggers. "Yet, with every day spent avoiding the reminders of
+his past, he felt the memories growing stronger, as if they were waiting just beneath the surface,
+ready to overtake him at any moment when he let his guard down." This avoidance behavior only
+deepened his feelings of isolation and despair, as he began to believe that his inability to cope
+with social interactions confirmed his worst fears about himself. "The more he relied on his
+avoidance strategies, the more he felt the weight of evidence piling up against himself, convincing
+him that he was fragile and incapable of handling even the simplest situations." Each time he chose
+to withdraw, he felt a growing sense of shame, reinforcing the belief that he was incapable of
+handling his trauma, which only solidified his negative self-image further. "Each time he resorted
+to these avoidance strategies, he felt a growing sense of inadequacy, convincing himself that if he
+truly were strong, he wouldn’t need to hide from these reminders." Every time he chose to withdraw
+rather than face those interactions, he felt a growing sense of shame, convincing himself that his
+need to escape was proof of his weakness, feeding into his belief that he was incapable of managing
+his trauma. "This avoidance led him to conclude that he was weak, accumulating evidence in his mind
+that he was incapable of managing his trauma like others might, which only fueled his sense of
+shame." Even in his work as a detective, where he was once passionate about uncovering the truth, he
+now struggled to engage fully. His colleagues had begun to notice his patterns, and he felt their
+concern, which only deepened his sense of isolation. With each attempt to avoid their questions
+about his well-being, he felt more convinced that he was letting everyone down, reinforcing the
+negative appraisals he held about himself and his inability to cope with his past. "These
+experiences only confirmed for him that he was fragile and unable to cope, deepening his negative
+appraisals of himself and solidifying his belief that he was somehow to blame for his suffering."
+Seeking help had not come easily to John. After years of battling these memories and their
+repercussions on his life, he finally decided to reach out to a therapist. He was filled with
+apprehension, fearing that delving deeper into his past would only exacerbate his feelings of rage
+and despair. Yet, he also held a flicker of hope that, perhaps, by confronting his trauma, he could
+reclaim the control he felt he had lost. John understood that he needed to break free from the cycle
+that had governed his life for too long, even if the path ahead was fraught with uncertainty. "Each
+time a memory surfaced, John found himself retreating even further into his routines, avoiding
+conversations and social gatherings that might lead to discussions about the past or any emotional
+engagement, convinced that staying away was his only means of protection." "His negative view of
+himself made the memories of his trauma feel even sharper and more vivid, as he told himself that he
+should have been stronger, which only intensified the flashbacks and made them harder to escape."
+"Each vivid recollection pushed him to withdraw even more from situations that could trigger such
+memories, reinforcing his sense of inadequacy and driving him to create a life of isolation." "In
+response to these vivid memories, he started to develop unhealthy habits, like avoiding
+conversations about his past or skipping social events altogether, convinced that staying away would
+keep him safe from reliving those painful moments." "This constant sense of danger reinforced his
+belief that he was not capable of handling his trauma, leading him to internalize the idea that he
+was fundamentally flawed and would always be at the mercy of his past."

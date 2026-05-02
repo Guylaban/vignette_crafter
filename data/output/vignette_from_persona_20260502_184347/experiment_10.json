@@ -1,0 +1,242 @@
+{
+  "persona_id": 10,
+  "source_persona_id": 10,
+  "experiment_timestamp": "2026-05-02 18:46:54",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-chat",
+      "persona_crafter": "deepseek-chat",
+      "vignette_crafter": "deepseek-chat",
+      "vignette_validator": "deepseek-chat"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 30,
+    "gender": "Female",
+    "ethnicity": "Oceania",
+    "relationship_status": "Married",
+    "occupation": "Plumber",
+    "trauma_type": "Physical abuse by caregiver (childhood)",
+    "pcl5": 34
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Shouting",
+        "value": "Shouting"
+      },
+      {
+        "key": "Being Watched",
+        "value": "Feeling watched or observed"
+      },
+      {
+        "key": "Expressions of Anger",
+        "value": "Other people expressing anger, even calmly"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Undereating",
+        "value": "I avoid eating or restrict food as a way of coping"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      },
+      {
+        "key": "Mental Distraction",
+        "value": "keep mind occupied all the time"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Concentration",
+        "value": "Having difficulty concentrating"
+      },
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Partial Clarity",
+        "value": "Some moments of the event are extremely clear while others are completely blank"
+      },
+      {
+        "key": "Memory Feels Alien",
+        "value": "The memory feels like it belongs to someone else rather than to me"
+      },
+      {
+        "key": "Incomplete Picture",
+        "value": "I feel like I am only remembering parts of what happened and the rest is missing"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.5143,
+    "Triggers -- Threat": 0.8452,
+    "Triggers -- Memory": 0.0373,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.5848,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.6006,
+    "Threat -- Memory": 0.7886,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9844,
+    "Maladaptive Strategies -- Memory": 0.9005,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0539,
+    "Maladaptive Strategies -- Threat": 0.5247
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.58343,
+  "edge_density": 0.5,
+  "vignette_word_count": 752,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Weapons): Weapons or objects used as weapons",
+          "explanation": "For childhood physical abuse by a caregiver, shouting is coherent, but 'Weapons or objects used as weapons' is hard to reconcile with the rest of the profile because neither the trauma type nor the other items suggest weapon-based assault. It implies a more specific trauma context that is not reflected in the memory, threat, or coping items."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Heavy Makeup: heavy make-up",
+          "explanation": "'Heavy make-up' is difficult to connect to the active formulation. The strongest network links involve Triggers, Threat, Memory, and Maladaptive Strategies, but the other selected strategy items are about distraction and bodily control. Heavy make-up usually implies concealment, appearance management, or social camouflage, which is not supported by any corresponding threat, trigger, memory, or appraisal content here, making this item feel clinically disconnected from the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Weapons)"
+        ],
+        "Maladaptive Strategies": [
+          "Heavy Makeup"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Feelings: Allowing myself to feel any strong emotion",
+          "explanation": "'Avoid Feelings' is internally contradictory as written: 'Allowing myself to feel any strong emotion' describes the opposite of avoiding feelings, so this item is not clinically coherent within the Maladaptive Strategies node."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Feelings"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Seeking Conflict: I pick arguments or create drama to distract myself from the trauma",
+          "explanation": "Within Maladaptive Strategies, 'Seeking Conflict' and 'Undereating' describe two quite different coping styles that are not impossible together, but in this profile they are weakly anchored to the rest of the formulation and trauma presentation. 'Seeking Conflict' is especially hard to reconcile with the otherwise fear-based trigger/threat pattern centered on shouting, anger, being watched, hypervigilance, and fragmented memory from childhood physical abuse."
+        },
+        {
+          "component": "Threat",
+          "item": "Undereating: I avoid eating or restrict food as a way of coping",
+          "explanation": "'Undereating' is also poorly integrated with the rest of the selected items. No other items indicate food-, body-, or control-related coping themes, so this strategy appears to address a symptom domain not otherwise represented in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Seeking Conflict"
+        ],
+        "Threat": [
+          "Undereating"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3016,
+    "output": 920,
+    "total": 3936
+  },
+  "vignette": "Malia was thirty years old, a plumber who had built a steady life with her husband in a small coastal town, but the foundation of that life had been laid during a childhood she could barely hold in her mind. She remembered the shouting most clearly—her mother’s voice, sharp and sudden, filling the kitchen of their old house. Her father’s anger had been quieter, a coiled presence that preceded a blow, and she could recall the sting of his hand across her face, the way the room would tilt, and then nothing. Whole minutes were missing. She remembered the feel of the linoleum floor against her cheek, but not how she got there. The memory felt like it belonged to someone else, a story she had been told rather than a life she had lived, yet the gaps in that story haunted her more than the fragments she held.\n\nThe first time her husband raised his voice during an argument—not at her, but at a sports game on television—Malia’s chest tightened so sharply she thought she might stop breathing. Her body went rigid, her muscles locking into a state of readiness that had no object. She began to notice that any raised voice, even a customer’s friendly call across a hardware store aisle, sent a jolt through her. She started to dread the sound of her own phone ringing, because someone on the other end might be upset. When a coworker expressed frustration about a clogged pipe, calmly but firmly, Malia felt her skin prickle and her attention splinter. She could not concentrate on the task in front of her; her mind was scanning the room, watching for movement, for the next threat. Her body felt constantly tense, as if she were bracing for a blow that never came, and unexpected movement nearby—a customer reaching for a wrench, her husband shifting in his sleep—made her flinch as though she were still in danger.\n\nTo manage this, Malia began to suppress the thoughts that surfaced. She tried hard not to think about the trauma, pushing the memory away whenever it intruded. She kept her mind occupied all the time, listening to podcasts during work, scrolling through her phone during meals, refusing to let silence settle. She also started to undereat, skipping breakfast and lunch because the act of sitting still to eat felt vulnerable, like an invitation for something bad to happen. But the more she pushed the memory away, the more fragmented it became—the clear moments grew sharper, the blanks deeper, and the whole thing felt even more alien, as if she were trying to hold water in her hands. The suppression itself seemed to make the memory less real, more like a movie she had once seen, and that distance frightened her because she knew, somehow, that she was failing to keep something important at bay.\n\nHer constant state of alertness meant that she noticed every shout, every angry expression, every pair of eyes that lingered on her too long. Being watched felt unbearable; she had come to believe that observation preceded punishment, that someone was always about to strike. This hypervigilance cycled back into her strategies: she would distract herself more frantically, suppress harder, eat less, and each strategy seemed to make the threat feel more imminent rather than less. The tension in her body became a signal that danger was near, and that signal kept her scanning for triggers that were everywhere. At work, she began to avoid certain houses where she knew the residents had loud voices. She took longer routes to avoid passing her childhood home. Her husband noticed she was eating dinner less often, and she told him she just wasn't hungry, but the truth was that eating felt like a risk she could not afford to take.\n\nWhat finally brought Malia to a therapist’s office was a moment at a job site two weeks ago. A homeowner had shouted for his child to come inside, and Malia had dropped her pipe wrench, spun around, and backed into a wall before she could stop herself. The other plumber on site had looked at her with concern, and she had felt a wave of shame so deep she could not speak. She was afraid that she was losing control of her own body, that the vigilance was wearing her down until she would eventually snap. She hoped, quietly, that someone could help her hold the memory steady long enough to see it clearly, without it shattering her."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Malia was thirty years old, a plumber who had built a steady life with her husband in a small coastal town, but the foundation of that life had been laid during a childhood she could barely hold in her mind. She remembered the shouting most clearly—her mother’s voice, sharp and sudden, filling the kitchen of their old house. Her father’s anger had been quieter, a coiled presence that preceded a blow, and she could recall the sting of his hand across her face, the way the room would tilt, and then nothing. Whole minutes were missing. She remembered the feel of the linoleum floor against her cheek, but not how she got there. The memory felt like it belonged to someone else, a story she had been told rather than a life she had lived, yet the gaps in that story haunted her more than the fragments she held.\n\nThe first time her husband raised his voice during an argument—not at her, but at a sports game on television—Malia’s chest tightened so sharply she thought she might stop breathing. Her body went rigid, her muscles locking into a state of readiness that had no object. She began to notice that any raised voice, even a customer’s friendly call across a hardware store aisle, sent a jolt through her. She started to dread the sound of her own phone ringing, because someone on the other end might be upset. When a coworker expressed frustration about a clogged pipe, calmly but firmly, Malia felt her skin prickle and her attention splinter. She could not concentrate on the task in front of her; her mind was scanning the room, watching for movement, for the next threat. Her body felt constantly tense, as if she were bracing for a blow that never came, and unexpected movement nearby—a customer reaching for a wrench, her husband shifting in his sleep—made her flinch as though she were still in danger.\n\nTo manage this, Malia began to suppress the thoughts that surfaced. She tried hard not to think about the trauma, pushing the memory away whenever it intruded. She kept her mind occupied all the time, listening to podcasts during work, scrolling through her phone during meals, refusing to let silence settle. She also started to undereat, skipping breakfast and lunch because the act of sitting still to eat felt vulnerable, like an invitation for something bad to happen. But the more she pushed the memory away, the more fragmented it became—the clear moments grew sharper, the blanks deeper, and the whole thing felt even more alien, as if she were trying to hold water in her hands. The suppression itself seemed to make the memory less real, more like a movie she had once seen, and that distance frightened her because she knew, somehow, that she was failing to keep something important at bay.\n\nHer constant state of alertness meant that she noticed every shout, every angry expression, every pair of eyes that lingered on her too long. Being watched felt unbearable; she had come to believe that observation preceded punishment, that someone was always about to strike. This hypervigilance cycled back into her strategies: she would distract herself more frantically, suppress harder, eat less, and each strategy seemed to make the threat feel more imminent rather than less. The tension in her body became a signal that danger was near, and that signal kept her scanning for triggers that were everywhere. At work, she began to avoid certain houses where she knew the residents had loud voices. She took longer routes to avoid passing her childhood home. Her husband noticed she was eating dinner less often, and she told him she just wasn't hungry, but the truth was that eating felt like a risk she could not afford to take.\n\nWhat finally brought Malia to a therapist’s office was a moment at a job site two weeks ago. A homeowner had shouted for his child to come inside, and Malia had dropped her pipe wrench, spun around, and backed into a wall before she could stop herself. The other plumber on site had looked at her with concern, and she had felt a wave of shame so deep she could not speak. She was afraid that she was losing control of her own body, that the vigilance was wearing her down until she would eventually snap. She hoped, quietly, that someone could help her hold the memory steady long enough to see it clearly, without it shattering her.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

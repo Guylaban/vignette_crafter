@@ -1,0 +1,180 @@
+{
+  "persona_id": 123,
+  "source_persona_id": 123,
+  "experiment_timestamp": "2026-05-02 14:02:18",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "claude-haiku-4-5",
+      "persona_crafter": "claude-haiku-4-5",
+      "vignette_crafter": "claude-haiku-4-5",
+      "vignette_validator": "claude-haiku-4-5"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 32,
+    "gender": "Male",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Housekeeper",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 61
+  },
+  "self_report": {
+    "Memory": [
+      {
+        "key": "Pain Recall",
+        "value": "When the memory returns I feel physical pain in the same parts of my body as during the event"
+      },
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Distrust Others",
+        "value": "People are not what they seem"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.8557,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.2423,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Memory",
+    "Memory → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Memory",
+    "Memory → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.549,
+  "edge_density": 0.1,
+  "vignette_word_count": 779,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Fragmented Pieces",
+          "explanation": "Within the Memory node, 'My memories of the event come in disconnected pieces that do not fit together' directly conflicts with 'I can talk about what happened very easily.' For a severe mugging-related PTSD profile, markedly fragmented recall and very easy verbal access to the trauma narrative are hard to reconcile as describing the same current memory presentation."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Fragmented Pieces"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Verbal Access: I can talk about what happened very easily.",
+          "explanation": "The Memory node is internally incoherent for a severe mugging/robbery PTSD presentation: 'I can talk about what happened very easily' suggests low avoidance and relatively integrated, verbally accessible trauma memory, whereas simultaneously endorsing very vivid detailed recall and body-based painful reliving implies a highly sensory, distressing, poorly integrated trauma memory. This combination is possible in milder cases, but here it is hard to reconcile clinically within the same Memory profile. The Negative Appraisals items are coherent for robbery trauma, but the Memory selections do not fit cleanly with that node pattern or with the strong Negative Appraisals ↔ Memory linkage in the formulation."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Verbal Access"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Constant Vigilance: I have to be especially careful because you never know what can happen next",
+          "explanation": "This item is more characteristic of ongoing threat/safety behavior than of a pure negative appraisal. In this profile, Threat is not endorsed and all Threat-related edges are inactive, while the active formulation is specifically centered on a Memory ↔ Negative Appraisals loop. The mistrust items fit robbery-related appraisals, but 'Constant Vigilance' introduces a prominent current-threat theme that is not supported elsewhere in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Constant Vigilance"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3699,
+    "output": 1040,
+    "total": 4739
+  },
+  "vignette": "# Rajesh's Story\n\nRajesh Patel was thirty-two when the world fractured into before and after. He had been working as a housekeeper at the Riverside Medical Center for seven years, a job that suited him—steady, predictable, the kind of work that let him move through the day without much fanfare. He was married to Priya, whom he'd known since childhood; they lived in a modest apartment in Jersey City and had recently begun talking about children. On a Tuesday evening in March, while walking home from the bus stop after a double shift, Rajesh was pulled into an alley by two men who demanded his wallet. When he hesitated—not out of courage but out of shock—one of them struck him across the face and ribs. They took his phone, his wallet, his watch. What they took that mattered most was something he couldn't name then, something that would only become clear in the weeks that followed.\n\nThe memory of those few minutes arrived with stunning clarity and persistence. Rajesh could recall the exact texture of the brick wall against his palms as he was shoved backward, the metallic taste of blood in his mouth, the way one attacker's sneaker—white with a fraying blue stripe—appeared in his peripheral vision just before the kick landed. At night, when the memory surfaced, his body remembered too. His ribs would ache with phantom pain, his jaw would tighten as though absorbing the blow again, and sometimes his hands would begin to shake uncontrollably. He found himself unable to talk about what had happened, not because he lacked the details—they were vivid and intrusive—but because something in his throat closed when he tried to speak it aloud. Even with Priya, who held his hand in the hospital, he could only manage fragments: \"Two guys. Fast. I don't know.\" The fuller story remained locked somewhere behind his teeth.\n\nWhat frightened Rajesh most in those first weeks was not the memory itself, but what it had revealed about the world. The men who attacked him had seemed ordinary—they could have been anyone. One wore a hoodie and jeans, the other a coat like something Rajesh himself might own. This ordinariness became the thing that haunted him. He had come to believe that people were not what they seemed, that beneath the surface of any interaction lurked potential violence. When he returned to work at the hospital—his supervisor had been kind about the time off—he found himself studying the faces of colleagues he had known for years, wondering what they were capable of. The world had always contained danger, he supposed, but he had not truly understood it until it had his wallet in its hands and his blood on its knuckles. Now he was certain: the world was a dangerous place, and people could not be trusted, no matter how familiar they seemed.\n\nThis conviction fed back into his memory in ways that deepened his suffering. When the vivid recollections returned—and they returned often, triggered by the sight of a white sneaker in a patient's room, or a man in a blue hoodie passing in the corridor—Rajesh's mind would immediately reinterpret them through this new lens of danger and deception. The ordinariness he had initially noticed in his attackers now seemed like camouflage, proof of how easily danger could hide. Each time the memory surfaced with its physical pain and sensory detail, it reinforced his sense that the world was fundamentally unsafe, that the people around him were potential threats. And each time he felt that conviction harden—that people could not be trusted, that deception was everywhere—the memory became more potent, more threatening, because it seemed to confirm what he now believed to be true about human nature itself.\n\nRajesh had begun avoiding the bus stop where he was attacked, which meant taking a longer route home that added forty minutes to his commute. He avoided the corridor at the hospital where he had seen the white sneaker. He found reasons not to attend the monthly gatherings with Priya's family, where there would be people he did not know well enough to be certain of. The avoidance had consequences: he was missing time with his wife, becoming isolated within his own marriage, and his supervisor had begun to notice the gaps in his work schedule. What brought him to the clinic was Priya finally insisting, her voice tired and frightened, that something had to change. Rajesh sat in the waiting room with his hands clenched, terrified that talking about what happened would only make him believe more firmly that the world was bent on his destruction, yet unable to bear the weight of silence any longer."
+,
+
+  "vignette_attempts": [
+    {"vignette": "# Rajesh's Story\n\nRajesh Patel was thirty-two when the world fractured into before and after. He had been working as a housekeeper at the Riverside Medical Center for seven years, a job that suited him—steady, predictable, the kind of work that let him move through the day without much fanfare. He was married to Priya, whom he'd known since childhood; they lived in a modest apartment in Jersey City and had recently begun talking about children. On a Tuesday evening in March, while walking home from the bus stop after a double shift, Rajesh was pulled into an alley by two men who demanded his wallet. When he hesitated—not out of courage but out of shock—one of them struck him across the face and ribs. They took his phone, his wallet, his watch. What they took that mattered most was something he couldn't name then, something that would only become clear in the weeks that followed.\n\nThe memory of those few minutes arrived with stunning clarity and persistence. Rajesh could recall the exact texture of the brick wall against his palms as he was shoved backward, the metallic taste of blood in his mouth, the way one attacker's sneaker—white with a fraying blue stripe—appeared in his peripheral vision just before the kick landed. At night, when the memory surfaced, his body remembered too. His ribs would ache with phantom pain, his jaw would tighten as though absorbing the blow again, and sometimes his hands would begin to shake uncontrollably. He found himself unable to talk about what had happened, not because he lacked the details—they were vivid and intrusive—but because something in his throat closed when he tried to speak it aloud. Even with Priya, who held his hand in the hospital, he could only manage fragments: \"Two guys. Fast. I don't know.\" The fuller story remained locked somewhere behind his teeth.\n\nWhat frightened Rajesh most in those first weeks was not the memory itself, but what it had revealed about the world. The men who attacked him had seemed ordinary—they could have been anyone. One wore a hoodie and jeans, the other a coat like something Rajesh himself might own. This ordinariness became the thing that haunted him. He had come to believe that people were not what they seemed, that beneath the surface of any interaction lurked potential violence. When he returned to work at the hospital—his supervisor had been kind about the time off—he found himself studying the faces of colleagues he had known for years, wondering what they were capable of. The world had always contained danger, he supposed, but he had not truly understood it until it had his wallet in its hands and his blood on its knuckles. Now he was certain: the world was a dangerous place, and people could not be trusted, no matter how familiar they seemed.\n\nThis conviction fed back into his memory in ways that deepened his suffering. When the vivid recollections returned—and they returned often, triggered by the sight of a white sneaker in a patient's room, or a man in a blue hoodie passing in the corridor—Rajesh's mind would immediately reinterpret them through this new lens of danger and deception. The ordinariness he had initially noticed in his attackers now seemed like camouflage, proof of how easily danger could hide. Each time the memory surfaced with its physical pain and sensory detail, it reinforced his sense that the world was fundamentally unsafe, that the people around him were potential threats. And each time he felt that conviction harden—that people could not be trusted, that deception was everywhere—the memory became more potent, more threatening, because it seemed to confirm what he now believed to be true about human nature itself.\n\nRajesh had begun avoiding the bus stop where he was attacked, which meant taking a longer route home that added forty minutes to his commute. He avoided the corridor at the hospital where he had seen the white sneaker. He found reasons not to attend the monthly gatherings with Priya's family, where there would be people he did not know well enough to be certain of. The avoidance had consequences: he was missing time with his wife, becoming isolated within his own marriage, and his supervisor had begun to notice the gaps in his work schedule. What brought him to the clinic was Priya finally insisting, her voice tired and frightened, that something had to change. Rajesh sat in the waiting room with his hands clenched, terrified that talking about what happened would only make him believe more firmly that the world was bent on his destruction, yet unable to bear the weight of silence any longer.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

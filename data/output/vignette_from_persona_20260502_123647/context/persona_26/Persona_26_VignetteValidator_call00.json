@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "agent_name": "Persona_26_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-02 13:17:23"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Memory\n  - Negative Appraisals\n  - Threat\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Negative Appraisals → Maladaptive Strategies\n  - Negative Appraisals → Threat\n  - Negative Appraisals → Memory\n  - Memory → Maladaptive Strategies\n  - Memory → Threat\n  - Memory → Negative Appraisals\n  - Threat → Maladaptive Strategies\n  - Threat → Negative Appraisals\n  - Maladaptive Strategies → Memory\n  - Maladaptive Strategies → Negative Appraisals\n  - Maladaptive Strategies → Threat\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nRaj, a 68-year-old South Asian man, sat quietly in the corner of the café, his back pressed firmly against the wall. This habit had taken root over the years as a protective measure; it allowed him to see the entrance and anyone who might approach him. Since the traumatic event that had altered the course of his life, he had become acutely aware of his surroundings, leading to a heightened state of alertness. It was a skill cultivated from necessity, but it also served as a constant reminder of the vulnerability he felt, a vulnerability that had seeped into the very fabric of his being. Raj often found himself believing he was a lousy coper, convinced that his reactions to the trauma defined him. This negative appraisal weighed heavily on his heart, leading him to engage in self-harming behaviors, a misguided attempt to release the overwhelming feelings that consumed him. The physical pain provided a temporary distraction from the emotional turmoil, yet it only deepened his belief that he would never experience normal emotions again.\n\nThe traumatic incident occurred years ago but remained vividly etched in Raj's mind. He often recalled the sounds—the muffled voices, the heavy thud of footsteps approaching, and the sudden silence that followed. Each time a memory surfaced, he could hear those sounds echoing in his head, forcing him to relive the fear and helplessness he had experienced. This auditory recall was so visceral that it triggered a physical response; the pain returned in the same spots where he had felt it during the assault. The memories became entwined with his thoughts, reinforcing his negative appraisals about himself and his inability to articulate what had happened. Raj struggled to find words to describe the event, feeling more like an outsider in his own life, disconnected from the emotions that once defined him.\n\nRaj's heightened perception of threat was a constant companion. He jumped at the slightest touch, flinching at unexpected contact, and had developed a tendency to monitor sounds in his home, listening intently for any sign of intrusion. The world outside felt perilous, and he was convinced that he could never return to a state of normalcy. Each unexpected noise sent his heart racing, a stark reminder of the chaos that had once invaded his life. The interplay between his memories and his perception of threat became a self-reinforcing cycle; the more he recalled the trauma, the more he felt the need to protect himself, and the more he believed he was permanently marked by his experiences.\n\nIn seeking to escape the overwhelming sensations, Raj often isolated himself, fearing that being alone would lead him to confront the painful memories he so desperately wanted to avoid. Yet, in this isolation, he found his negative appraisals strengthening. He often thought he was a burden to others, further entrenching his belief that he was an outsider. The maladaptive strategies he employed to cope with his distress—self-harm, avoidance of social situations, and the need to sit with his back against a wall—only reinforced his negative self-view. He could not escape the loop of pain that seemed to define his existence.\n\nNow, sitting in the café, Raj was grappling with the relentless cycle that had become his life. He had finally decided to seek help, pushed by the desire to reclaim a sense of normalcy that felt increasingly elusive. His greatest fear was that he might never be able to feel whole again, that he would remain trapped in the shadows of his past. Yet, he also held a flicker of hope—the hope that, through therapy, he might learn to navigate the memories that haunted him, find ways to cope that did not involve self-harm, and ultimately, begin to heal the wounds that had defined him for far too long.\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Negative Appraisals → Maladaptive Strategies",
+      "Negative Appraisals → Threat",
+      "Memory → Maladaptive Strategies",
+      "Memory → Threat",
+      "Memory → Negative Appraisals",
+      "Threat → Maladaptive Strategies",
+      "Threat → Negative Appraisals",
+      "Maladaptive Strategies → Memory",
+      "Maladaptive Strategies → Negative Appraisals",
+      "Maladaptive Strategies → Threat"
+    ],
+    "violation_explanations": [
+      "There is no clear causal relationship indicating that negative appraisals lead to maladaptive strategies.",
+      "There is no clear causal relationship indicating that negative appraisals lead to a sense of threat.",
+      "There is no clear causal relationship indicating that memory leads to maladaptive strategies.",
+      "There is no clear causal relationship indicating that memory leads to a sense of threat.",
+      "There is no clear causal relationship indicating that memory leads to negative appraisals.",
+      "There is no clear causal relationship indicating that a sense of threat leads to maladaptive strategies.",
+      "There is no clear causal relationship indicating that a sense of threat leads to negative appraisals.",
+      "There is no clear causal relationship indicating that maladaptive strategies lead to memory.",
+      "There is no clear causal relationship indicating that maladaptive strategies lead to negative appraisals.",
+      "There is no clear causal relationship indicating that maladaptive strategies lead to a sense of threat."
+    ]
+  }
+}

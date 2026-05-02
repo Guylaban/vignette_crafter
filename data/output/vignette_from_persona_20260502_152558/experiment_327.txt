@@ -1,0 +1,290 @@
+PERSONA 327  |  2026-05-02 21:21:10
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-pro
+    persona_crafter      gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             28
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Financial Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Media / News: Related news
+    • Weather Similarity: Similar weather conditions to when the event happened
+    • Children Present: Being around children
+  Threat:
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+  Memory:
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Identity Loss: I feel like I don't know myself anymore
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6291
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.3279
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.8899
+  Negative Appraisals → Triggers                     0.8733
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3833
+  Memory → Triggers                                  0.5300
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0248
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9883
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The threat items are keyed to interpersonal assault/home-intrusion danger and pervasive escape planning, which is hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, threat would more plausibly involve medical catastrophe, sudden deterioration, or loss, rather than someone entering the home.
+    item:        Negative Appraisals / Threat: Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    explanation: These threat items also fit poorly with the rest of the profile: the triggers are news, emotional closeness, and weather similarity, none of which plausibly connect to monitoring for an intruder or scanning escape routes. Given the very strong Triggers ↔ Threat edges, the selected threat content should be tightly linked to the triggers, but here the content appears to come from a different trauma schema.
+  [2] FAIL
+    item:        Triggers / Triggers: Emotional Closeness: Someone getting emotionally close to me
+    explanation: For trauma involving a child's life-threatening illness, media/news and weather cues are plausible reminders, but 'someone getting emotionally close to me' is difficult to reconcile as a primary trauma trigger unless there is additional interpersonal trauma history. It does not fit well with the illness-focused threat and memory pattern described by the rest of the profile.
+    item:        Negative Appraisals / Negative Appraisals: Dehumanization: I feel like an object, not like a person
+    explanation: The negative appraisal set is dominated by severe depersonalisation/identity disturbance ('object, not a person'; 'don't know myself anymore'; 'unrecognisable to me'), which is hard to link coherently to the stated trauma type and to the rest of the profile. For a parent traumatised by a child's illness, appraisals would more plausibly center on guilt, responsibility, permanent danger, or inability to protect. This item especially feels clinically mismatched rather than merely unusual.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      7,141
+  output:     7,625
+  total:     14,766
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Liam, a 28-year-old financial analyst, presented for treatment eight months after his four-year-old
+daughter, Lily, was hospitalised for a life-threatening respiratory illness. The trauma was not a
+single moment but a week of escalating terror that began on a cold, rainy afternoon. He and his wife
+had been watching a news report about a new pediatric virus circulating in their city when they
+noticed Lily’s breathing was shallow. The ensuing rush to the hospital, the frantic hours in the
+emergency room, and the eventual diagnosis of acute respiratory distress syndrome unfolded against a
+backdrop of torrential rain and the sterile, indifferent glow of hospital monitors. Lily made a full
+recovery, but Liam feels he never left that intensive care unit.
+
+In the months that followed, Liam found himself haunted by what he called "snapshots" from that
+week. The memories are never a full narrative, but rather a series of intensely vivid and detailed
+images: Lily’s small hand lost in a tangle of IV tubes, the rhythmic, menacing hiss of the
+ventilator, the rain streaming down the ICU window. He reports that as soon as these visual memories
+surface, he instinctively pushes them away, a mental flinch to stop them before they can become
+complete. This constant intrusion and his subsequent blocking of the memory have cemented a profound
+and painful set of beliefs about himself. Each flash of memory reinforces his conviction that he
+should have acted sooner, that he missed the signs, and that he ultimately failed to protect his
+daughter.
+
+This sense of personal failure now dictates his daily experience. The sight of other children,
+particularly those around Lily’s age, has become an unbearable trigger. Walking past a playground on
+his way to work, he is struck by a wave of self-loathing, the carefree sounds of play serving only
+to highlight his perceived inadequacy as a father. Similarly, a news alert on his phone about public
+health can send his mind spiralling back to that initial report he saw on TV, instantly activating
+the belief that he is an unrecognisable man, a shadow of the competent husband and father he once
+was. Because he has come to believe he is a failed protector, he is now hyper-attuned to these
+reminders, as if constantly scanning his environment for evidence to confirm his new, broken
+identity.
+
+Any of these triggers can plunge him into a state of high alert. The sound of heavy rain against the
+glass of his 34th-floor office, for example, is enough to make his heart pound and his palms sweat.
+He feels an immediate, overwhelming sense of danger, as if the building itself is unsafe. In these
+moments, he finds himself automatically identifying escape routes, mentally mapping a path from his
+desk to the emergency stairwell, a habit he now performs in every new environment. This constant
+feeling of being under threat makes him seek out potential dangers, his vigilance compelling him to
+scan headlines and check weather apps compulsively, even though he knows it will likely make things
+worse.
+
+This heightened state of arousal acts as a gateway to the traumatic memories. When he feels most on
+edge, his mind is flooded with the images from the hospital, the sense of present-day threat
+blending seamlessly with the past terror. At night, this vigilance is absolute; he has immense
+difficulty falling asleep, convinced he needs to stay alert to monitor Lily's breathing from the
+other room. The exhaustion is debilitating, but the fear of missing something is greater.
+
+The cycle has become self-perpetuating, a closed loop of suffering. His negative appraisals of
+himself as a failure make the traumatic memories more accessible and frequent, as if his mind is
+forcing him to re-watch the evidence of his guilt. In turn, the vividness of the memories confirms
+his unrecognisable state, that he is no longer the person he was. This conviction makes him
+exquisitely sensitive to triggers, which then ignite his threat system, which in turn brings back
+the memories. The constant mental effort has shattered his concentration, leading to mistakes in his
+high-stakes work as an analyst. His relationship with his wife has grown strained, his avoidance of
+the topic creating a silent, painful distance between them.
+
+Liam finally sought therapy after fleeing his own nephew’s birthday party. When the boy ran towards
+him for a hug, Liam was overcome with such intense panic and self-disgust that he physically
+recoiled and left the house without a word. He reports that the look of confusion and pain on his
+wife’s face made him realise he could not continue this way. He described feeling like a ghost in
+his own life, stating quietly, "I don't know who I am anymore." His greatest fear is that this
+version of himself is permanent, and his deepest hope is to somehow find his way back.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not establish a causal link where the trauma memory itself leads to or heightens sensitivity to triggers.
+
+  [2] PASS
+Liam, a 28-year-old financial analyst, presented for treatment eight months after his four-year-old
+daughter, Lily, was hospitalised for a life-threatening respiratory illness. The trauma was not a
+single moment but a week of escalating terror that began on a cold, rainy afternoon. He and his wife
+had been watching a news report about a new pediatric virus circulating in their city when they
+noticed Lily’s breathing was shallow. The ensuing rush to the hospital, the frantic hours in the
+emergency room, and the eventual diagnosis of acute respiratory distress syndrome unfolded against a
+backdrop of torrential rain and the sterile, indifferent glow of hospital monitors. Lily made a full
+recovery, but Liam feels he never left that intensive care unit.
+
+In the months that followed, Liam found himself haunted by what he called "snapshots" from that
+week. The memories are never a full narrative, but rather a series of intensely vivid and detailed
+images: Lily’s small hand lost in a tangle of IV tubes, the rhythmic, menacing hiss of the
+ventilator, the rain streaming down the ICU window. He reports that as soon as these visual memories
+surface, he instinctively pushes them away, a mental flinch to stop them before they can become
+complete. Because these fragments from the hospital feel so immediate when they break through, the
+world outside has started to feel laced with echoes of that time; he now finds himself bracing for
+the sight of young children or scanning news headlines with a sense of dread, anticipating the next
+reminder. This constant intrusion and his subsequent blocking of the memory have cemented a profound
+and painful set of beliefs about himself. Each flash of memory reinforces his conviction that he
+should have acted sooner, that he missed the signs, and that he ultimately failed to protect his
+daughter.
+
+This sense of personal failure now dictates his daily experience. The sight of other children,
+particularly those around Lily’s age, has become an unbearable trigger. Walking past a playground on
+his way to work, he is struck by a wave of self-loathing, the carefree sounds of play serving only
+to highlight his perceived inadequacy as a father. Similarly, a news alert on his phone about public
+health can send his mind spiralling back to that initial report he saw on TV, instantly activating
+the belief that he is an unrecognisable man, a shadow of the competent husband and father he once
+was. Because he has come to believe he is a failed protector, he is now hyper-attuned to these
+reminders, as if constantly scanning his environment for evidence to confirm his new, broken
+identity.
+
+Any of these triggers can plunge him into a state of high alert. The sound of heavy rain against the
+glass of his 34th-floor office, for example, is enough to make his heart pound and his palms sweat.
+He feels an immediate, overwhelming sense of danger, as if the building itself is unsafe. In these
+moments, he finds himself automatically identifying escape routes, mentally mapping a path from his
+desk to the emergency stairwell, a habit he now performs in every new environment. This constant
+feeling of being under threat makes him seek out potential dangers, his vigilance compelling him to
+scan headlines and check weather apps compulsively, even though he knows it will likely make things
+worse.
+
+This heightened state of arousal acts as a gateway to the traumatic memories. When he feels most on
+edge, his mind is flooded with the images from the hospital, the sense of present-day threat
+blending seamlessly with the past terror. At night, this vigilance is absolute; he has immense
+difficulty falling asleep, convinced he needs to stay alert to monitor Lily's breathing from the
+other room. The exhaustion is debilitating, but the fear of missing something is greater.
+
+The cycle has become self-perpetuating, a closed loop of suffering. His negative appraisals of
+himself as a failure make the traumatic memories more accessible and frequent, as if his mind is
+forcing him to re-watch the evidence of his guilt. In turn, the vividness of the memories confirms
+his unrecognisable state, that he is no longer the person he was. This conviction makes him
+exquisitely sensitive to triggers, which then ignite his threat system, which in turn brings back
+the memories. The constant mental effort has shattered his concentration, leading to mistakes in his
+high-stakes work as an analyst. His relationship with his wife has grown strained, his avoidance of
+the topic creating a silent, painful distance between them.
+
+Liam finally sought therapy after fleeing his own nephew’s birthday party. When the boy ran towards
+him for a hug, Liam was overcome with such intense panic and self-disgust that he physically
+recoiled and left the house without a word. He reports that the look of confusion and pain on his
+wife’s face made him realise he could not continue this way. He described feeling like a ghost in
+his own life, stating quietly, "I don't know who I am anymore." His greatest fear is that this
+version of himself is permanent, and his deepest hope is to somehow find his way back.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Liam, a 28-year-old financial analyst, presented for treatment eight months after his four-year-old
+daughter, Lily, was hospitalised for a life-threatening respiratory illness. The trauma was not a
+single moment but a week of escalating terror that began on a cold, rainy afternoon. He and his wife
+had been watching a news report about a new pediatric virus circulating in their city when they
+noticed Lily’s breathing was shallow. The ensuing rush to the hospital, the frantic hours in the
+emergency room, and the eventual diagnosis of acute respiratory distress syndrome unfolded against a
+backdrop of torrential rain and the sterile, indifferent glow of hospital monitors. Lily made a full
+recovery, but Liam feels he never left that intensive care unit.
+
+In the months that followed, Liam found himself haunted by what he called "snapshots" from that
+week. The memories are never a full narrative, but rather a series of intensely vivid and detailed
+images: Lily’s small hand lost in a tangle of IV tubes, the rhythmic, menacing hiss of the
+ventilator, the rain streaming down the ICU window. He reports that as soon as these visual memories
+surface, he instinctively pushes them away, a mental flinch to stop them before they can become
+complete. Because these fragments from the hospital feel so immediate when they break through, the
+world outside has started to feel laced with echoes of that time; he now finds himself bracing for
+the sight of young children or scanning news headlines with a sense of dread, anticipating the next
+reminder. This constant intrusion and his subsequent blocking of the memory have cemented a profound
+and painful set of beliefs about himself. Each flash of memory reinforces his conviction that he
+should have acted sooner, that he missed the signs, and that he ultimately failed to protect his
+daughter.
+
+This sense of personal failure now dictates his daily experience. The sight of other children,
+particularly those around Lily’s age, has become an unbearable trigger. Walking past a playground on
+his way to work, he is struck by a wave of self-loathing, the carefree sounds of play serving only
+to highlight his perceived inadequacy as a father. Similarly, a news alert on his phone about public
+health can send his mind spiralling back to that initial report he saw on TV, instantly activating
+the belief that he is an unrecognisable man, a shadow of the competent husband and father he once
+was. Because he has come to believe he is a failed protector, he is now hyper-attuned to these
+reminders, as if constantly scanning his environment for evidence to confirm his new, broken
+identity.
+
+Any of these triggers can plunge him into a state of high alert. The sound of heavy rain against the
+glass of his 34th-floor office, for example, is enough to make his heart pound and his palms sweat.
+He feels an immediate, overwhelming sense of danger, as if the building itself is unsafe. In these
+moments, he finds himself automatically identifying escape routes, mentally mapping a path from his
+desk to the emergency stairwell, a habit he now performs in every new environment. This constant
+feeling of being under threat makes him seek out potential dangers, his vigilance compelling him to
+scan headlines and check weather apps compulsively, even though he knows it will likely make things
+worse.
+
+This heightened state of arousal acts as a gateway to the traumatic memories. When he feels most on
+edge, his mind is flooded with the images from the hospital, the sense of present-day threat
+blending seamlessly with the past terror. At night, this vigilance is absolute; he has immense
+difficulty falling asleep, convinced he needs to stay alert to monitor Lily's breathing from the
+other room. The exhaustion is debilitating, but the fear of missing something is greater.
+
+The cycle has become self-perpetuating, a closed loop of suffering. His negative appraisals of
+himself as a failure make the traumatic memories more accessible and frequent, as if his mind is
+forcing him to re-watch the evidence of his guilt. In turn, the vividness of the memories confirms
+his unrecognisable state, that he is no longer the person he was. This conviction makes him
+exquisitely sensitive to triggers, which then ignite his threat system, which in turn brings back
+the memories. The constant mental effort has shattered his concentration, leading to mistakes in his
+high-stakes work as an analyst. His relationship with his wife has grown strained, his avoidance of
+the topic creating a silent, painful distance between them.
+
+Liam finally sought therapy after fleeing his own nephew’s birthday party. When the boy ran towards
+him for a hug, Liam was overcome with such intense panic and self-disgust that he physically
+recoiled and left the house without a word. He reports that the look of confusion and pain on his
+wife’s face made him realise he could not continue this way. He described feeling like a ghost in
+his own life, stating quietly, "I don't know who I am anymore." His greatest fear is that this
+version of himself is permanent, and his deepest hope is to somehow find his way back.

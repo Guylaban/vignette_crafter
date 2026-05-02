@@ -1,0 +1,226 @@
+{
+  "persona_id": 128,
+  "source_persona_id": 128,
+  "experiment_timestamp": "2026-05-02 17:40:59",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-pro",
+      "persona_crafter": "gemini-2.5-pro",
+      "vignette_crafter": "gemini-2.5-pro",
+      "vignette_validator": "gemini-2.5-pro"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 80,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Widowed",
+    "occupation": "Social Worker",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 45
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      },
+      {
+        "key": "Visual (Needles/Medical)",
+        "value": "Medical equipment such as needles or drips"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      },
+      {
+        "key": "Thought Suppression",
+        "value": "I try to push them out of my mind"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Violated Values",
+        "value": "I acted in ways that go against who I am"
+      },
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Helplessness",
+        "value": "I can't stop bad things from happening to me"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.5473,
+    "Triggers -- Negative Appraisals": 0.571,
+    "Negative Appraisals -- Maladaptive Strategies": 0.3304,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.869,
+    "Negative Appraisals -- Triggers": 0.862,
+    "Memory -- Maladaptive Strategies": 0.5358,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.8212,
+    "Memory -- Triggers": 0.4595,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7363,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6369444444444444,
+  "edge_density": 0.45,
+  "vignette_word_count": 741,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Weapons): Weapons or objects used as weapons",
+          "explanation": "For trauma type of a child's life-threatening illness, weapon-related visual triggers are hard to reconcile unless there is additional unreported violent trauma. Hospital smells and loss-related conversations fit, but weapons/object-as-weapon cues are clinically implausible for the same index trauma."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Fear of Harm: You can never know who will harm you",
+          "explanation": "The appraisal 'You can never know who will harm you' implies interpersonal danger/assailant threat, which is poorly matched to the validated trauma of a child's serious illness. This also aligns awkwardly with the rest of the profile, which is otherwise illness/loss/moral injury themed rather than assault-based."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Weapons)"
+        ],
+        "Negative Appraisals": [
+          "Fear of Harm"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "'Intense rage on recall' is hard to reconcile with the rest of this profile for an 80-year-old mother traumatized by a child's life-threatening illness. The other items center on helplessness, permanent change, loss-related and hospital triggers, and intrusive affect without image. Distress, fear, guilt, grief, or sadness would fit more coherently; rage is not impossible, but here it is insufficiently supported by any corresponding appraisal or trigger content and stands out as clinically incongruent."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Face Hiding: cover face with hands",
+          "explanation": "'Cover face with hands' is not well supported as a maladaptive strategy in this profile. The active formulation links maladaptive strategies mainly to negative appraisals and memory, and the other strategies chosen (avoid going out, thought suppression) fit intrusive distress and negative beliefs. Face hiding is more typical of acute shame/panic/social exposure and is not clearly connected to the hospital/loss triggers, intrusive memory pattern, or appraisals provided, making it the least coherent item in this set."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Rage on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Face Hiding"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 2,
+    "passed": 1,
+    "failed": 1,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 6750,
+    "output": 9292,
+    "total": 16042
+  },
+  "vignette": "Layla, at eighty, carries the quiet dignity of a woman who has spent a lifetime holding space for the crises of others. For forty years as a social worker, she navigated the labyrinth of human suffering with a steady hand, but now, seated in the quiet of the therapy room, she speaks of being lost in a labyrinth of her own. The trauma was not hers, not directly, but it hollowed out a space in her life that has never refilled. It has been over four decades since her son, then just a boy, was diagnosed with leukemia. The event is not a single, sharp memory but a year-long blur of antiseptic smells, the unnerving sight of IV drips and needles, and the relentless, quiet terror of the pediatric oncology ward. She remembers the frantic bargains she made with a god she wasn’t sure she believed in and a moment of sharp, desperate anger at a young nurse—a memory that still burns with the shame of betraying her own professional creed of compassion. Her son survived, a fact that feels like a distant, intellectual truth rather than a victory. The overwhelming grief of that time is what feels most real.\n\nFor decades, she managed to keep the memories contained. But in the five years since her husband passed away, the careful structures she had built have crumbled. The world, once a place she moved through with purpose, has become a minefield of reminders. Last month, a visit to a friend in a nursing home became unbearable the moment she walked through the door. The clean, chemical smell of the hallway was not just a smell; it was a key that unlocked the past, and a wave of pure, unattached emotion washed over her. There was no clear image, just the raw, physical feeling of helplessness she’d felt by her son’s bedside forty years ago, a memory that forced its way into her present without her consent. This sudden flood of feeling immediately reinforced the story she had been telling herself for years: that she was irrevocably broken, that the experience had changed her for the worse, and that she was powerless to protect herself or those she loved. This conviction is the engine of her withdrawal. Believing she is too fragile to cope, she has all but stopped going out. She cancelled her last two cardiology appointments, unable to face the sight of a waiting room or medical equipment, a decision that frightens a part of her she can no longer seem to access.\n\nThis retreat into her home only serves to prove her fears correct. The more she avoids the world, the more she believes she is incapable of navigating it, cementing the appraisal that she is permanently damaged. Her conviction that she is irrevocably broken means she moves through her days on high alert; her world has become a field of potential triggers, where any mention of illness or loss snags her attention and confirms her sense of powerlessness. Hearing a neighbor talk about a family member’s illness is no longer just sad news; it is a direct confirmation of her own helplessness. In these moments of feeling low and powerless, her mind seems to dredge up the most painful fragments from the hospital, the memories surfacing unbidden. The intrusive nature of these memories—the grief they bring, the way they seem to have a life of their own—is so agonizing that she actively works to avoid them. She tries to push them from her mind, a constant, exhausting effort of thought suppression that leaves her drained. The fear of the memory itself becomes the primary motivator for her avoidance of hospitals, ambulances, and even conversations touching on loss. After a particularly bad day of intrusive memories, she finds herself scanning her environment for anything that might trigger them again, her world shrinking to a catalogue of potential threats.\n\nIt was her daughter who finally intervened, finding the unopened letter from the cardiologist’s office. Layla is here not with any real hope of being “fixed”—she is certain the change in her is permanent—but because the isolation has become a heavier burden than the fear. She is terrified of what will happen if she allows the memories to come, but the small, quiet part of her that was once a social worker hopes to learn how to live in the same world with them, without having to hide from it completely."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Layla, at eighty, carries the quiet dignity of a woman who has spent a lifetime holding space for the crises of others. For forty years as a social worker, she navigated the labyrinth of human suffering with a steady hand, but now, seated in the quiet of the therapy room, she speaks of being lost in a labyrinth of her own. The trauma was not hers, not directly, but it hollowed out a space in her life that has never refilled. It has been over four decades since her son, then just a boy, was diagnosed with leukemia. The event is not a single, sharp memory but a year-long blur of antiseptic smells, the unnerving sight of IV drips and needles, and the relentless, quiet terror of the pediatric oncology ward. She remembers the frantic bargains she made with a god she wasn’t sure she believed in and a moment of sharp, desperate anger at a young nurse—a memory that still burns with the shame of betraying her own professional creed of compassion. Her son survived, a fact that feels like a distant, intellectual truth rather than a victory. The overwhelming grief of that time is what feels most real.\n\nFor decades, she managed to keep the memories contained. But in the five years since her husband passed away, the careful structures she had built have crumbled. The world, once a place she moved through with purpose, has become a minefield of reminders. Last month, a visit to a friend in a nursing home became unbearable the moment she walked through the door. The clean, chemical smell of the hallway was not just a smell; it was a key that unlocked the past, and a wave of pure, unattached emotion washed over her. There was no clear image, just the raw, physical feeling of helplessness she’d felt by her son’s bedside forty years ago, a memory that forced its way into her present without her consent. This sudden flood of feeling immediately reinforced the story she had been telling herself for years: that she was irrevocably broken, that the experience had changed her for the worse, and that she was powerless to protect herself or those she loved. This conviction is the engine of her withdrawal. Believing she is too fragile to cope, she has all but stopped going out. She cancelled her last two cardiology appointments, unable to face the sight of a waiting room or medical equipment, a decision that frightens a part of her she can no longer seem to access.\n\nThis retreat into her home only serves to prove her fears correct. The more she avoids the world, the more she believes she is incapable of navigating it, cementing the appraisal that she is permanently damaged. Hearing a neighbor talk about a family member’s illness is no longer just sad news; it is a direct confirmation of her own helplessness. In these moments of feeling low and powerless, her mind seems to dredge up the most painful fragments from the hospital, the memories surfacing unbidden. The intrusive nature of these memories—the grief they bring, the way they seem to have a life of their own—is so agonizing that she actively works to avoid them. She tries to push them from her mind, a constant, exhausting effort of thought suppression that leaves her drained. The fear of the memory itself becomes the primary motivator for her avoidance of hospitals, ambulances, and even conversations touching on loss. After a particularly bad day of intrusive memories, she finds herself scanning her environment for anything that might trigger them again, her world shrinking to a catalogue of potential threats.\n\nIt was her daughter who finally intervened, finding the unopened letter from the cardiologist’s office. Layla is here not with any real hope of being “fixed”—she is certain the change in her is permanent—but because the isolation has become a heavier burden than the fear. She is terrified of what will happen if she allows the memories to come, but the small, quiet part of her that was once a social worker hopes to learn how to live in the same world with them, without having to hide from it completely.", "passed": false, "violations": [{"edge": "Negative Appraisals → Triggers", "explanation": "The vignette does not describe the patient's negative appraisals leading them to scan for or be hypervigilant to triggers."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Negative Appraisals → Triggers: The vignette does not describe the patient's negative appraisals leading them to scan for or be hypervigilant to triggers.\n  e.g. \"Once she had concluded that the world was fundamentally unsafe, almost anything could confirm it — a figure in her periphery, the wrong tone of voice, footsteps behind her.\"\n  e.g. \"The belief that she couldn't trust her own judgement meant that things she would once have registered and dismissed now snagged and held her attention.\"\n  e.g. \"Her conviction that it would happen again meant she moved through ordinary days as if they were mined — every ambiguity became a potential signal.\""},
+
+    {"vignette": "Layla, at eighty, carries the quiet dignity of a woman who has spent a lifetime holding space for the crises of others. For forty years as a social worker, she navigated the labyrinth of human suffering with a steady hand, but now, seated in the quiet of the therapy room, she speaks of being lost in a labyrinth of her own. The trauma was not hers, not directly, but it hollowed out a space in her life that has never refilled. It has been over four decades since her son, then just a boy, was diagnosed with leukemia. The event is not a single, sharp memory but a year-long blur of antiseptic smells, the unnerving sight of IV drips and needles, and the relentless, quiet terror of the pediatric oncology ward. She remembers the frantic bargains she made with a god she wasn’t sure she believed in and a moment of sharp, desperate anger at a young nurse—a memory that still burns with the shame of betraying her own professional creed of compassion. Her son survived, a fact that feels like a distant, intellectual truth rather than a victory. The overwhelming grief of that time is what feels most real.\n\nFor decades, she managed to keep the memories contained. But in the five years since her husband passed away, the careful structures she had built have crumbled. The world, once a place she moved through with purpose, has become a minefield of reminders. Last month, a visit to a friend in a nursing home became unbearable the moment she walked through the door. The clean, chemical smell of the hallway was not just a smell; it was a key that unlocked the past, and a wave of pure, unattached emotion washed over her. There was no clear image, just the raw, physical feeling of helplessness she’d felt by her son’s bedside forty years ago, a memory that forced its way into her present without her consent. This sudden flood of feeling immediately reinforced the story she had been telling herself for years: that she was irrevocably broken, that the experience had changed her for the worse, and that she was powerless to protect herself or those she loved. This conviction is the engine of her withdrawal. Believing she is too fragile to cope, she has all but stopped going out. She cancelled her last two cardiology appointments, unable to face the sight of a waiting room or medical equipment, a decision that frightens a part of her she can no longer seem to access.\n\nThis retreat into her home only serves to prove her fears correct. The more she avoids the world, the more she believes she is incapable of navigating it, cementing the appraisal that she is permanently damaged. Her conviction that she is irrevocably broken means she moves through her days on high alert; her world has become a field of potential triggers, where any mention of illness or loss snags her attention and confirms her sense of powerlessness. Hearing a neighbor talk about a family member’s illness is no longer just sad news; it is a direct confirmation of her own helplessness. In these moments of feeling low and powerless, her mind seems to dredge up the most painful fragments from the hospital, the memories surfacing unbidden. The intrusive nature of these memories—the grief they bring, the way they seem to have a life of their own—is so agonizing that she actively works to avoid them. She tries to push them from her mind, a constant, exhausting effort of thought suppression that leaves her drained. The fear of the memory itself becomes the primary motivator for her avoidance of hospitals, ambulances, and even conversations touching on loss. After a particularly bad day of intrusive memories, she finds herself scanning her environment for anything that might trigger them again, her world shrinking to a catalogue of potential threats.\n\nIt was her daughter who finally intervened, finding the unopened letter from the cardiologist’s office. Layla is here not with any real hope of being “fixed”—she is certain the change in her is permanent—but because the isolation has become a heavier burden than the fear. She is terrified of what will happen if she allows the memories to come, but the small, quiet part of her that was once a social worker hopes to learn how to live in the same world with them, without having to hide from it completely.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

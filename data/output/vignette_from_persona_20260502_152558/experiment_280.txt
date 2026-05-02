@@ -1,0 +1,244 @@
+PERSONA 280  |  2026-05-02 20:23:34
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-pro
+    persona_crafter      gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             21
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Single
+  occupation      Forester
+  trauma_type     Witnessed other trauma
+  pcl5            49
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Visual/Bodily Cues: Blood
+    • Crash Discussions: Talk about accidents
+    • Crash Imagery: Cars hit by accident
+  Maladaptive Strategies:
+    • Delay Sleep: stay up until very late
+    • Avoid Reminders: Being reminded of the event by others
+    • Checking Surroundings: constantly scan environment for signs of threat
+  Memory:
+    • Olfactory Recall: When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened.
+    • Memory Feels Alien: The memory feels like it belongs to someone else rather than to me
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+  Negative Appraisals:
+    • Violated Values: I acted in ways that go against who I am
+    • Lost Happiness: I used to be a happy person but now I am always miserable.
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.2490
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.6151
+  Triggers → Negative Appraisals                     0.6225
+  Negative Appraisals → Maladaptive Strategies       0.8929
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.9376
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0420
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.2085
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.2122
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.7598
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Female Presence: Being alone with women
+    explanation: For a 21-year-old female whose trauma type is witnessing another person's trauma, 'being alone with women' is hard to reconcile as a trauma-related trigger. It does not plausibly connect to the other selected cues (blood, crash discussions) or to the rest of the profile unless there were a very specific female-linked circumstance, which is not reflected elsewhere.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Carry Weapon: carry weapon
+    explanation: 'Carry weapon' is difficult to justify from the rest of the formulation and symptom content. There is no corresponding threat item or appraisal of current interpersonal danger, and the trauma is witnessing rather than direct assault. This strategy therefore appears to address a threat context not represented elsewhere in the selected items.
+    item:        Negative Appraisals / Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened
+    explanation: 'My body has been permanently damaged by what happened' is poorly matched to a witnessed-other-trauma presentation, especially when no memory or trigger item suggests the patient herself was physically injured. This negative appraisal implies direct bodily harm and is inconsistent with the trauma type and the rest of the profile.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,661
+  output:     8,040
+  total:     14,701
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Zara had always found a deep sense of peace in the forests of the Pacific Northwest. At twenty-one,
+her work as a forester felt less like a job and more like a calling, a way to be part of something
+vast and ancient. That sense of peace shattered six months ago on a winding two-lane road, driving
+home from a remote timber survey. She was the first to arrive at the scene of a head-on collision.
+The image of the crumpled hoods of the cars is one she actively tries to push away, but it’s the
+details that ambush her: the sharp, metallic smell of blood mixed with leaking gasoline, and the
+face of the driver in the first car, a woman her mother’s age, asking for help Zara didn't know how
+to give.
+
+In the months since, the forest has become a place of anxiety. Any unexpected sight—a deer carcass,
+a patch of red fungi—can instantly bring back the image of blood on the asphalt, and with it, the
+sickening smell of the crash. The memory never arrives as a coherent story; instead, it attacks in
+fragments. When a trigger hits, it feels less like her own recollection and more like a foreign film
+reel has been spliced into her brain, making her feel detached and unreal. This sense that the
+memory belongs to someone else is terrifying, but the guilt it brings is profoundly her own. Each
+time the memory surfaces, it reinforces the brutal self-assessment that has taken root: she should
+have done more. She should have known what to do. The thought that she failed to protect those
+people has become a core belief, a violation of the capable, helpful person she always believed
+herself to be.
+
+This crushing sense of failure dictates her every move. Believing she is fundamentally inadequate
+now, she feels a desperate need to prevent any further harm, which has manifested as a relentless,
+exhausting vigilance. On her drives to work sites, her eyes constantly scan the ditches and the tree
+line, checking her surroundings for any sign of threat. This hyper-awareness, meant to keep her
+safe, only makes her more likely to spot things that set the cycle in motion again—a piece of a
+blown tire, a roadside memorial. Seeing an image of a damaged car in the news or even hearing
+colleagues talk about a minor accident sends a jolt of panic through her, bringing back flashes of
+the memory and the accompanying wave of self-blame.
+
+To manage this, Zara has shrunk her world. She avoids any conversation that might veer toward
+accidents, abruptly changing the subject or leaving the room when her coworkers start sharing
+stories of near-misses on the road. This effort to avoid being reminded of the event has made her
+seem withdrawn and irritable to her team. The most pervasive strategy has taken over her nights.
+Convinced that the quiet darkness is when the memories are strongest, she delays sleep, staying up
+until she is on the verge of collapse. But this exhaustion only weakens her defenses. The intrusive
+sensory fragments—the smell of gasoline, the sight of shattered glass—break through more easily when
+she’s tired, and the attempt to push the memory away before it can fully form becomes a constant,
+unwinnable battle.
+
+The woman who once loved her life now feels trapped in it. She had come to believe that the happy
+person she used to be is gone forever, replaced by someone perpetually miserable and afraid. The joy
+she found in her work has been corroded by dread, and the quiet solitude of the forest now feels
+menacing. It was after a particularly bad week, where a glimpse of a minor fender-bender sent her
+into a spiral of guilt that lasted for days, that she finally made an appointment. She came to
+therapy not with a clear hope, but with a desperate question: how could she go back to being the
+person who acted, who helped, instead of the person who froze, the person who failed?
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not demonstrate that Zara's negative beliefs about herself cause the trauma memory to surface.
+
+  [2] PASS
+Zara had always found a deep sense of peace in the forests of the Pacific Northwest. At twenty-one,
+her work as a forester felt less like a job and more like a calling, a way to be part of something
+vast and ancient. That sense of peace shattered six months ago on a winding two-lane road, driving
+home from a remote timber survey. She was the first to arrive at the scene of a head-on collision.
+The image of the crumpled hoods of the cars is one she actively tries to push away, but it’s the
+details that ambush her: the sharp, metallic smell of blood mixed with leaking gasoline, and the
+face of the driver in the first car, a woman her mother’s age, asking for help Zara didn't know how
+to give.
+
+In the months since, the forest has become a place of anxiety. Any unexpected sight—a deer carcass,
+a patch of red fungi—can instantly bring back the image of blood on the asphalt, and with it, the
+sickening smell of the crash. The memory never arrives as a coherent story; instead, it attacks in
+fragments. When a trigger hits, it feels less like her own recollection and more like a foreign film
+reel has been spliced into her brain, making her feel detached and unreal. This sense that the
+memory belongs to someone else is terrifying, but the guilt it brings is profoundly her own. Each
+time the memory surfaces, it reinforces the brutal self-assessment that has taken root: she should
+have done more. She should have known what to do. The thought that she failed to protect those
+people has become a core belief, a violation of the capable, helpful person she always believed
+herself to be. This conviction that she is no longer that capable person seems to call the memory
+forward, as if her mind is constantly replaying the scene to find the exact moment she broke.
+
+This crushing sense of failure dictates her every move. Believing she is fundamentally inadequate
+now, she feels a desperate need to prevent any further harm, which has manifested as a relentless,
+exhausting vigilance. On her drives to work sites, her eyes constantly scan the ditches and the tree
+line, checking her surroundings for any sign of threat. This hyper-awareness, meant to keep her
+safe, only makes her more likely to spot things that set the cycle in motion again—a piece of a
+blown tire, a roadside memorial. Seeing an image of a damaged car in the news or even hearing
+colleagues talk about a minor accident sends a jolt of panic through her, bringing back flashes of
+the memory and the accompanying wave of self-blame.
+
+To manage this, Zara has shrunk her world. She avoids any conversation that might veer toward
+accidents, abruptly changing the subject or leaving the room when her coworkers start sharing
+stories of near-misses on the road. This effort to avoid being reminded of the event has made her
+seem withdrawn and irritable to her team. The most pervasive strategy has taken over her nights.
+Convinced that the quiet darkness is when the memories are strongest, she delays sleep, staying up
+until she is on the verge of collapse. But this exhaustion only weakens her defenses. The intrusive
+sensory fragments—the smell of gasoline, the sight of shattered glass—break through more easily when
+she’s tired, and the attempt to push the memory away before it can fully form becomes a constant,
+unwinnable battle.
+
+The woman who once loved her life now feels trapped in it. She had come to believe that the happy
+person she used to be is gone forever, replaced by someone perpetually miserable and afraid. The joy
+she found in her work has been corroded by dread, and the quiet solitude of the forest now feels
+menacing. It was after a particularly bad week, where a glimpse of a minor fender-bender sent her
+into a spiral of guilt that lasted for days, that she finally made an appointment. She came to
+therapy not with a clear hope, but with a desperate question: how could she go back to being the
+person who acted, who helped, instead of the person who froze, the person who failed?
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Zara had always found a deep sense of peace in the forests of the Pacific Northwest. At twenty-one,
+her work as a forester felt less like a job and more like a calling, a way to be part of something
+vast and ancient. That sense of peace shattered six months ago on a winding two-lane road, driving
+home from a remote timber survey. She was the first to arrive at the scene of a head-on collision.
+The image of the crumpled hoods of the cars is one she actively tries to push away, but it’s the
+details that ambush her: the sharp, metallic smell of blood mixed with leaking gasoline, and the
+face of the driver in the first car, a woman her mother’s age, asking for help Zara didn't know how
+to give.
+
+In the months since, the forest has become a place of anxiety. Any unexpected sight—a deer carcass,
+a patch of red fungi—can instantly bring back the image of blood on the asphalt, and with it, the
+sickening smell of the crash. The memory never arrives as a coherent story; instead, it attacks in
+fragments. When a trigger hits, it feels less like her own recollection and more like a foreign film
+reel has been spliced into her brain, making her feel detached and unreal. This sense that the
+memory belongs to someone else is terrifying, but the guilt it brings is profoundly her own. Each
+time the memory surfaces, it reinforces the brutal self-assessment that has taken root: she should
+have done more. She should have known what to do. The thought that she failed to protect those
+people has become a core belief, a violation of the capable, helpful person she always believed
+herself to be. This conviction that she is no longer that capable person seems to call the memory
+forward, as if her mind is constantly replaying the scene to find the exact moment she broke.
+
+This crushing sense of failure dictates her every move. Believing she is fundamentally inadequate
+now, she feels a desperate need to prevent any further harm, which has manifested as a relentless,
+exhausting vigilance. On her drives to work sites, her eyes constantly scan the ditches and the tree
+line, checking her surroundings for any sign of threat. This hyper-awareness, meant to keep her
+safe, only makes her more likely to spot things that set the cycle in motion again—a piece of a
+blown tire, a roadside memorial. Seeing an image of a damaged car in the news or even hearing
+colleagues talk about a minor accident sends a jolt of panic through her, bringing back flashes of
+the memory and the accompanying wave of self-blame.
+
+To manage this, Zara has shrunk her world. She avoids any conversation that might veer toward
+accidents, abruptly changing the subject or leaving the room when her coworkers start sharing
+stories of near-misses on the road. This effort to avoid being reminded of the event has made her
+seem withdrawn and irritable to her team. The most pervasive strategy has taken over her nights.
+Convinced that the quiet darkness is when the memories are strongest, she delays sleep, staying up
+until she is on the verge of collapse. But this exhaustion only weakens her defenses. The intrusive
+sensory fragments—the smell of gasoline, the sight of shattered glass—break through more easily when
+she’s tired, and the attempt to push the memory away before it can fully form becomes a constant,
+unwinnable battle.
+
+The woman who once loved her life now feels trapped in it. She had come to believe that the happy
+person she used to be is gone forever, replaced by someone perpetually miserable and afraid. The joy
+she found in her work has been corroded by dread, and the quiet solitude of the forest now feels
+menacing. It was after a particularly bad week, where a glimpse of a minor fender-bender sent her
+into a spiral of guilt that lasted for days, that she finally made an appointment. She came to
+therapy not with a clear hope, but with a desperate question: how could she go back to being the
+person who acted, who helped, instead of the person who froze, the person who failed?

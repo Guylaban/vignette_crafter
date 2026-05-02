@@ -1,0 +1,219 @@
+PERSONA 458  |  2026-05-02 12:15:01
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             30
+  gender          Female
+  ethnicity       African
+  relationship_status Married
+  occupation      School Counselor
+  trauma_type     Police
+  pcl5            63
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Feeling Tired: Feeling very tired or exhausted
+    • Auditory (Loud Noises): Loud noises
+    • Olfactory (Alcohol): Alcohol smell
+  Maladaptive Strategies:
+    • Avoid Emotional Stress: Situations that make me feel strong emotions
+    • Avoid Positive Events: Situations that might make me feel happy or hopeful
+    • Avoid People: avoid other people
+  Threat:
+    • Threat in Movements: Sudden movements by others put me immediately on guard
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+  Negative Appraisals:
+    • Defective Self: There is something wrong with me as a person
+    • Isolation: I feel isolated and set apart from others
+    • Self-Blame: The event happened because of the way I acted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.7176
+  Negative Appraisals → Threat                       0.3927
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.5499
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.8949
+  Maladaptive Strategies → Triggers                  0.2372
+  Maladaptive Strategies → Threat                    0.0454
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Driving with Others
+    explanation: The transport-related content is not clinically well anchored to the rest of the profile. 'Driving with Others' and 'Avoid Public Transport' imply a prominent transport/travel trigger-avoidance pattern, but the Threat and Negative Appraisal items are centered on hypervigilance to others' movements, interpersonal danger, shame, and isolation rather than transport-specific trauma meanings. That mismatch is hard to explain as the same dominant self-report profile for a police-related trauma.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Public Transport
+    explanation: The trigger node is also weakly integrated in the formulation: Triggers has no active links to Threat, Negative Appraisals, or Memory. Given that, the selected trigger content should not imply a strong specific threat pathway that is absent elsewhere. The transport-specific trigger/avoidance pair suggests a major cue-threat connection that is not reflected in the formulation or other nodes.
+  [2] FAIL
+    item:        Triggers / Triggers: Perceived Threat: People acting suspiciously
+    explanation: The trigger item 'people acting suspiciously' implies a socially interpreted cue linked to hostile intent, but the threat items are dominated by non-social movement sensitivity ('unexpected movement', 'sudden movements'). That pattern is not impossible, but here the trigger-threat pairing is weakly coherent because the formulation does not support a strong Triggers → Threat linkage, and the selected trigger does not clearly connect to the specific threat content endorsed.
+    item:        Threat / Threat: Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+    explanation: The two threat items form a tight cluster around hypervigilance to sudden movement, which is coherent for police-related trauma. However, pairing them with 'risky behavior' pulls the threat node in the opposite direction: immediate danger sensitivity and exaggerated guard are difficult to reconcile with concurrent high-risk behavior unless there is other profile content explaining impulsive disinhibition, which is absent here.
+    item:        Maladaptive Strategies / Threat: Threat in Movements: Sudden movements by others put me immediately on guard
+    explanation: 'Avoid positive events' is not well supported by the rest of the profile. The negative appraisals emphasize defectiveness, isolation, and loss of community, and the threat items emphasize movement-based danger. Avoiding emotionally stressful situations and other people fits that pattern, but avoiding potentially happy or hopeful situations introduces a different process without corresponding appraisal or memory content to explain it.
+  [3] FAIL
+    item:        Threat / Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm
+    explanation: 'Risky Behavior' is difficult to reconcile with the rest of the profile, which is otherwise dominated by fear, hypervigilance, avoidance, and social withdrawal. In this configuration it points in the opposite direction from the threat system described by the other items and lacks support from the maladaptive-strategy items.
+    item:        Negative Appraisals / Negative Appraisals: Lost Community: I have lost my connection to my community and culture
+    explanation: 'Lost Community' is not impossible, but it is weakly integrated with the rest of the profile. The other appraisal items center on personal defectiveness and interpersonal isolation, while no other trigger, memory, threat, or coping item reflects community/cultural disruption specifically after police trauma.
+    item:        Triggers / Triggers: Tactile (Touch): Physical touch
+    explanation: 'Physical touch' as a trigger is not impossible, but here it is less well connected to the rest of the selected items than loud noises and sudden movements. The remainder of the profile suggests a police-related threat theme centered on vigilance to environmental danger rather than touch-specific trauma cues.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,025
+  output:       986
+  total:      4,011
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Nadia was a 30-year-old African American school counselor who came to treatment after months of
+feeling as though she could not settle anywhere, not even at home with her husband. Her symptoms
+traced back to a police encounter that had left her shaken in a way she had not expected. One
+evening, driving home after work, she was pulled over for a minor traffic issue. The stop escalated
+quickly: the officer’s tone sharpened, his movements felt abrupt and unpredictable, and when he
+stepped close she caught the smell of alcohol on his breath. Nadia remembered being acutely aware of
+how tired she already was that day, how hard it was to think straight, and how vulnerable that
+exhaustion made her feel while she tried to answer carefully and keep her hands visible. She left
+the interaction physically safe but deeply unsettled, and in the weeks that followed she began to
+read the event as evidence that something was wrong with her. She told herself that if she had
+handled things differently, if she had sounded less nervous or been more composed, it would not have
+gone the way it did. That self-blame deepened into a broader sense that there was something
+defective in her, and she came to feel isolated and set apart from other people, as if others moved
+through the world with a confidence and ease she no longer possessed.
+
+As Nadia’s view of herself worsened, she began shrinking her life in ways that made sense to her at
+the time. She avoided situations that might make her feel strong emotions, especially anything that
+might bring back the shame and panic of that night, and she also steered clear of anything that
+might make her feel hopeful or happy, because those moments felt fragile and dangerous, as if
+disappointment would only confirm what she already feared about herself. She pulled away from people
+at school and outside of work, declining invitations from colleagues and keeping conversations brief
+with friends, because being around others seemed to expose her vulnerability and invite questions
+she did not want to answer. The more she withdrew, the more she noticed how alone she felt, and that
+loneliness fed the belief that she was fundamentally different from everyone else. It also made the
+world feel narrower and less predictable, so she became even more watchful. In her mind, the
+distance she put between herself and other people was partly a way to protect herself from being
+hurt again, but it also seemed to confirm that she did not belong.
+
+That withdrawal had another cost: it made certain cues hit harder. At work, where she spent her days
+in crowded hallways and meetings with students, sudden movements by others put her immediately on
+guard. A student darting up too quickly from a chair, a door slamming in the counseling office, or a
+loud noise in the corridor could jolt her back into the feeling that something bad was about to
+happen. She noticed the smell of alcohol in a parent’s breath during an after-school conference and
+felt her body tighten before she could think. Because she was so intent on avoiding strong feelings
+and other people, she had fewer chances to learn that these moments were safe, and each new scare
+reinforced how hard it was for her to settle. She became superalert and watchful in a way that
+exhausted her, scanning faces and movements, and even in her own home she found she could not relax,
+though she knew she was in a safe place. The constant effort to stay ahead of danger left her worn
+down, and that tiredness itself became a trigger: on the days she felt very exhausted, her mind
+seemed slower and her guard thinner, which made her even more vulnerable to sudden alarms. The
+pattern fed on itself. The more she avoided emotional stress, avoided positive events, and avoided
+people, the more isolated she felt and the more certain she became that something was wrong with
+her; the more she felt defective and set apart, the more vigilant she became for threat. And the
+more vigilant she was, the more every abrupt movement, loud sound, or whiff of alcohol seemed to
+confirm that she had good reason to stay guarded.
+
+By the time she sought help, Nadia was still functioning at work, but only by pushing herself
+through each day with effort and dread. She had started saying no to lunches, birthday gatherings,
+and even small celebrations at school, because hopefulness felt risky and emotions felt too big to
+manage. What finally brought her in was realizing that her world had become organized around bracing
+herself, and that she was missing the parts of life that had once mattered to her. She was most
+afraid that if this continued, she would remain trapped in the belief that she was broken and alone,
+but she was also quietly hoping that treatment might help her feel safe enough to stop watching
+every movement and to live without constantly preparing for the next shock.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Nadia was a 30-year-old African American school counselor who came to treatment after months of
+feeling as though she could not settle anywhere, not even at home with her husband. Her symptoms
+traced back to a police encounter that had left her shaken in a way she had not expected. One
+evening, driving home after work, she was pulled over for a minor traffic issue. The stop escalated
+quickly: the officer’s tone sharpened, his movements felt abrupt and unpredictable, and when he
+stepped close she caught the smell of alcohol on his breath. Nadia remembered being acutely aware of
+how tired she already was that day, how hard it was to think straight, and how vulnerable that
+exhaustion made her feel while she tried to answer carefully and keep her hands visible. She left
+the interaction physically safe but deeply unsettled, and in the weeks that followed she began to
+read the event as evidence that something was wrong with her. She told herself that if she had
+handled things differently, if she had sounded less nervous or been more composed, it would not have
+gone the way it did. That self-blame deepened into a broader sense that there was something
+defective in her, and she came to feel isolated and set apart from other people, as if others moved
+through the world with a confidence and ease she no longer possessed.
+
+As Nadia’s view of herself worsened, she began shrinking her life in ways that made sense to her at
+the time. She avoided situations that might make her feel strong emotions, especially anything that
+might bring back the shame and panic of that night, and she also steered clear of anything that
+might make her feel hopeful or happy, because those moments felt fragile and dangerous, as if
+disappointment would only confirm what she already feared about herself. She pulled away from people
+at school and outside of work, declining invitations from colleagues and keeping conversations brief
+with friends, because being around others seemed to expose her vulnerability and invite questions
+she did not want to answer. The more she withdrew, the more she noticed how alone she felt, and that
+loneliness fed the belief that she was fundamentally different from everyone else. It also made the
+world feel narrower and less predictable, so she became even more watchful. In her mind, the
+distance she put between herself and other people was partly a way to protect herself from being
+hurt again, but it also seemed to confirm that she did not belong.
+
+That withdrawal had another cost: it made certain cues hit harder. At work, where she spent her days
+in crowded hallways and meetings with students, sudden movements by others put her immediately on
+guard. A student darting up too quickly from a chair, a door slamming in the counseling office, or a
+loud noise in the corridor could jolt her back into the feeling that something bad was about to
+happen. She noticed the smell of alcohol in a parent’s breath during an after-school conference and
+felt her body tighten before she could think. Because she was so intent on avoiding strong feelings
+and other people, she had fewer chances to learn that these moments were safe, and each new scare
+reinforced how hard it was for her to settle. She became superalert and watchful in a way that
+exhausted her, scanning faces and movements, and even in her own home she found she could not relax,
+though she knew she was in a safe place. The constant effort to stay ahead of danger left her worn
+down, and that tiredness itself became a trigger: on the days she felt very exhausted, her mind
+seemed slower and her guard thinner, which made her even more vulnerable to sudden alarms. The
+pattern fed on itself. The more she avoided emotional stress, avoided positive events, and avoided
+people, the more isolated she felt and the more certain she became that something was wrong with
+her; the more she felt defective and set apart, the more vigilant she became for threat. And the
+more vigilant she was, the more every abrupt movement, loud sound, or whiff of alcohol seemed to
+confirm that she had good reason to stay guarded.
+
+By the time she sought help, Nadia was still functioning at work, but only by pushing herself
+through each day with effort and dread. She had started saying no to lunches, birthday gatherings,
+and even small celebrations at school, because hopefulness felt risky and emotions felt too big to
+manage. What finally brought her in was realizing that her world had become organized around bracing
+herself, and that she was missing the parts of life that had once mattered to her. She was most
+afraid that if this continued, she would remain trapped in the belief that she was broken and alone,
+but she was also quietly hoping that treatment might help her feel safe enough to stop watching
+every movement and to live without constantly preparing for the next shock.

@@ -1,0 +1,215 @@
+PERSONA 20  |  2026-05-02 18:49:35
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-chat
+    persona_crafter      deepseek-chat
+    vignette_crafter     deepseek-chat
+    vignette_validator   deepseek-chat
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             44
+  gender          Female
+  ethnicity       South Asian
+  relationship_status Married
+  occupation      Retail Worker
+  trauma_type     Witnessed other trauma
+  pcl5            68
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Affective Expression: Crying
+    • Somatic (Dizziness): Feeling dizzy or lightheaded
+    • Event Recall: Talking about the event
+  Maladaptive Strategies:
+    • Checking Surroundings: constantly scan environment for signs of threat
+    • Meaning Seeking: I think about why the event has happened to me
+    • People Pleasing: go along with whatever others want to feel safe
+  Threat:
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Scanning for Danger: I constantly scan my surroundings for signs of danger
+    • Startle Response: Feeling jumpy or easily startled
+  Memory:
+    • Confused Sequence: I cannot put the memories of the event in the right order
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.8707
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0637
+  Memory → Threat                                    0.6264
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.4476
+  Threat → Maladaptive Strategies                    0.2744
+  Threat → Memory                                    0.2951
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0386
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.8013
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+    explanation: The threat profile is strongly centered on current external danger and hypervigilant escape planning (avoiding unfamiliar places, scanning exits), but the memory items emphasize disorganized recall plus grief and rage without a clear link to present-moment environmental threat. That makes the Threat ↔ Memory pattern only weakly coherent for a witnessed-trauma presentation.
+    item:        Memory / Threat: Scanning Exits: I scan for exits as soon as I enter any room or building
+    explanation: Within Memory, intense rage and overwhelming grief can co-occur, but with only three items and the third being confused sequence, the node reads as two different dominant emotional meanings of the trauma rather than one coherent memory profile. This is not impossible, but combined with the rest of the profile it creates a clinically mixed signal.
+    item:        Maladaptive Strategies / Memory: Rage on Recall: When I remember the event I feel intense rage
+    explanation: Maladaptive Strategies are not well aligned within-node: checking surroundings fits the threat items, but meaning seeking is a ruminative appraisal-focused strategy and people pleasing is an interpersonal safety strategy. Together they imply three different maintaining processes without support from Negative Appraisals or other nodes.
+  [2] FAIL
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: The threat node mixes core trauma-related threat responses (hypervigilance, scanning exits) with a nonspecific consequence item (difficulty concentrating). Concentration problems are common in PTSD, but here they do not clearly represent perceived current threat and are weakly aligned with the rest of the threat content.
+    item:        Memory / Memory: Rage on Recall: When I remember the event I feel intense rage
+    explanation: Within the memory node, intense rage on recall and overwhelming grief on recall can coexist, but paired with confused sequence they do not form a clearly coherent memory profile for a single witnessed-trauma account unless the event involved a very specific interpersonal betrayal/loss narrative. As presented, the emotional tone is mixed enough that a clinician would question whether these memory items are describing the same dominant trauma memory state.
+  [3] FAIL
+    item:        Triggers / Triggers: Auditory (Cars): Car sounds
+    explanation: The profile suggests a highly generalized interpersonal/public-space danger style (scanning exits, constant danger monitoring, checking surroundings) that is not anchored by the rest of the formulation. For a witnessed-other-trauma case, this could occur, but here the only concrete trigger cue is 'car sounds,' which implies a more specific event context. The threat items are broad and pervasive in a way that is hard to reconcile with the otherwise grief-dominated memory content.
+    item:        Threat / Threat: Scanning Exits: I scan for exits as soon as I enter any room or building
+    explanation: Within and across nodes, 'Checking Surroundings' is essentially the same behavior as the threat items 'Scanning for Danger' and 'Hypervigilance,' creating a near-duplicate symptom loop rather than distinct components. Given the formulation, Threat and Maladaptive Strategies should be plausibly linked but not indistinguishable copies of the same content.
+    item:        Maladaptive Strategies / Threat: Hypervigilance: Being superalert or watchful or on guard
+    explanation: The memory node is dominated by disorganization and overwhelming grief on recall, with no content suggesting ongoing intentional harm, entrapment, or assaultive threat. That makes the very strong public-space exit scanning pattern feel clinically mismatched: it implies an active expectation of immediate external danger that is not supported by the memory material or the specific trigger content provided.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,955
+  output:       898
+  total:      3,853
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Meena is a 44-year-old retail worker who lives with her husband in a quiet suburban neighborhood.
+The event that changed everything happened eighteen months ago, during a routine evening shift at
+the department store where she stocks shelves. She was walking through the home-goods aisle when she
+heard a commotion near the register—raised voices, then a single sharp crack that she later learned
+was a gunshot. A customer had collapsed, shot during an attempted robbery. Meena did not see the
+shooter, but she saw the aftermath: the man on the floor, the spreading dark stain, the paramedics
+working frantically. She was not injured, but she stood frozen for what felt like an eternity,
+unable to move or look away.
+
+In the weeks that followed, the memory of that moment refused to settle into a clear sequence. When
+Meena tries to piece together what happened, the images come in fragments—the tile floor, the
+paramedic's voice, the color of the man's shirt—but she cannot arrange them in order. What stays
+with her most powerfully is not the factual sequence but the overwhelming grief that floods her when
+she remembers. She finds herself weeping without warning, the emotion as fresh as if the event were
+still happening. When the memory returns, it is so overwhelming that she has to stop whatever she is
+doing, unable to speak or move until the wave passes.
+
+Meena has come to believe that her mind is broken, that she cannot trust her own memory or her own
+reactions. This fear has driven her to scan her surroundings constantly, watching for any sign of
+threat. At work, she finds herself checking the exits, studying customers' faces, listening for
+raised voices. The hypervigilance is exhausting, but she is certain that if she lets her guard down,
+something terrible will happen again. She has become easily startled—a dropped box in the stockroom
+makes her heart race for minutes afterward. The more she scans for danger, the more the memory of
+that night intrudes, as if her vigilance itself triggers the images and the grief.
+
+The memory loops back into her strategies in a tightening spiral. When the overwhelming recall
+hits—usually after a customer raises their voice or after she hears a sound that reminds her of that
+night—Meena finds herself thinking obsessively about why this happened to her, searching for a
+meaning that never arrives. She has also begun to go along with whatever others want, agreeing to
+extra shifts, staying late, never saying no. She has come to believe that if she keeps everyone
+around her happy, she will be safe. But this people-pleasing only heightens her sense of being out
+of control, which makes her scan even more vigilantly, which in turn makes the memories more vivid
+and frequent.
+
+The cycle has worn her down. She rarely talks about the event with anyone, but when she does—when a
+coworker asks what happened that night—the act of speaking about it triggers the memory so
+powerfully that she becomes dizzy, lightheaded, her vision swimming. She has started crying at
+unpredictable moments, sometimes in the break room, sometimes at home while watching television, and
+she cannot explain why. The dizziness and the crying have become additional triggers, so that now
+even her own emotional and physical responses can send her back into the fragmented, grief-soaked
+memory.
+
+Meena's husband has noticed the change. She used to be warm and talkative; now she is watchful and
+withdrawn. She has stopped visiting her sister, who lives in the city, because the drive feels too
+exposed. At work, she has been written up twice for leaving her station without explanation—she had
+been overwhelmed by a sudden memory and needed to hide in the bathroom until it passed. She is
+terrified that she will lose her job, but she is more terrified that something will happen again and
+she will freeze, unable to protect herself or anyone else. What finally brought her to seek help was
+a moment last week when her husband found her sobbing in the laundry room, unable to say why. She
+looked at him and said, "I think I'm losing my mind." She is afraid that is true. But somewhere
+underneath that fear is a quieter hope: that someone can help her make sense of the fragments, and
+that the grief might one day stop arriving without warning.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Meena is a 44-year-old retail worker who lives with her husband in a quiet suburban neighborhood.
+The event that changed everything happened eighteen months ago, during a routine evening shift at
+the department store where she stocks shelves. She was walking through the home-goods aisle when she
+heard a commotion near the register—raised voices, then a single sharp crack that she later learned
+was a gunshot. A customer had collapsed, shot during an attempted robbery. Meena did not see the
+shooter, but she saw the aftermath: the man on the floor, the spreading dark stain, the paramedics
+working frantically. She was not injured, but she stood frozen for what felt like an eternity,
+unable to move or look away.
+
+In the weeks that followed, the memory of that moment refused to settle into a clear sequence. When
+Meena tries to piece together what happened, the images come in fragments—the tile floor, the
+paramedic's voice, the color of the man's shirt—but she cannot arrange them in order. What stays
+with her most powerfully is not the factual sequence but the overwhelming grief that floods her when
+she remembers. She finds herself weeping without warning, the emotion as fresh as if the event were
+still happening. When the memory returns, it is so overwhelming that she has to stop whatever she is
+doing, unable to speak or move until the wave passes.
+
+Meena has come to believe that her mind is broken, that she cannot trust her own memory or her own
+reactions. This fear has driven her to scan her surroundings constantly, watching for any sign of
+threat. At work, she finds herself checking the exits, studying customers' faces, listening for
+raised voices. The hypervigilance is exhausting, but she is certain that if she lets her guard down,
+something terrible will happen again. She has become easily startled—a dropped box in the stockroom
+makes her heart race for minutes afterward. The more she scans for danger, the more the memory of
+that night intrudes, as if her vigilance itself triggers the images and the grief.
+
+The memory loops back into her strategies in a tightening spiral. When the overwhelming recall
+hits—usually after a customer raises their voice or after she hears a sound that reminds her of that
+night—Meena finds herself thinking obsessively about why this happened to her, searching for a
+meaning that never arrives. She has also begun to go along with whatever others want, agreeing to
+extra shifts, staying late, never saying no. She has come to believe that if she keeps everyone
+around her happy, she will be safe. But this people-pleasing only heightens her sense of being out
+of control, which makes her scan even more vigilantly, which in turn makes the memories more vivid
+and frequent.
+
+The cycle has worn her down. She rarely talks about the event with anyone, but when she does—when a
+coworker asks what happened that night—the act of speaking about it triggers the memory so
+powerfully that she becomes dizzy, lightheaded, her vision swimming. She has started crying at
+unpredictable moments, sometimes in the break room, sometimes at home while watching television, and
+she cannot explain why. The dizziness and the crying have become additional triggers, so that now
+even her own emotional and physical responses can send her back into the fragmented, grief-soaked
+memory.
+
+Meena's husband has noticed the change. She used to be warm and talkative; now she is watchful and
+withdrawn. She has stopped visiting her sister, who lives in the city, because the drive feels too
+exposed. At work, she has been written up twice for leaving her station without explanation—she had
+been overwhelmed by a sudden memory and needed to hide in the bathroom until it passed. She is
+terrified that she will lose her job, but she is more terrified that something will happen again and
+she will freeze, unable to protect herself or anyone else. What finally brought her to seek help was
+a moment last week when her husband found her sobbing in the laundry room, unable to say why. She
+looked at him and said, "I think I'm losing my mind." She is afraid that is true. But somewhere
+underneath that fear is a quieter hope: that someone can help her make sense of the fragments, and
+that the grief might one day stop arriving without warning.

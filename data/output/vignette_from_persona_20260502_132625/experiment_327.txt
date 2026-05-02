@@ -1,0 +1,226 @@
+PERSONA 327  |  2026-05-02 15:03:56
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-haiku-4-5
+    persona_crafter      claude-haiku-4-5
+    vignette_crafter     claude-haiku-4-5
+    vignette_validator   claude-haiku-4-5
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             28
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Financial Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Media / News: Related news
+    • Weather Similarity: Similar weather conditions to when the event happened
+    • Children Present: Being around children
+  Threat:
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+  Memory:
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Identity Loss: I feel like I don't know myself anymore
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6291
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.3279
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.8899
+  Negative Appraisals → Triggers                     0.8733
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3833
+  Memory → Triggers                                  0.5300
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0248
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9883
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The threat items are keyed to interpersonal assault/home-intrusion danger and pervasive escape planning, which is hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, threat would more plausibly involve medical catastrophe, sudden deterioration, or loss, rather than someone entering the home.
+    item:        Negative Appraisals / Threat: Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    explanation: These threat items also fit poorly with the rest of the profile: the triggers are news, emotional closeness, and weather similarity, none of which plausibly connect to monitoring for an intruder or scanning escape routes. Given the very strong Triggers ↔ Threat edges, the selected threat content should be tightly linked to the triggers, but here the content appears to come from a different trauma schema.
+  [2] FAIL
+    item:        Triggers / Triggers: Emotional Closeness: Someone getting emotionally close to me
+    explanation: For trauma involving a child's life-threatening illness, media/news and weather cues are plausible reminders, but 'someone getting emotionally close to me' is difficult to reconcile as a primary trauma trigger unless there is additional interpersonal trauma history. It does not fit well with the illness-focused threat and memory pattern described by the rest of the profile.
+    item:        Negative Appraisals / Negative Appraisals: Dehumanization: I feel like an object, not like a person
+    explanation: The negative appraisal set is dominated by severe depersonalisation/identity disturbance ('object, not a person'; 'don't know myself anymore'; 'unrecognisable to me'), which is hard to link coherently to the stated trauma type and to the rest of the profile. For a parent traumatised by a child's illness, appraisals would more plausibly center on guilt, responsibility, permanent danger, or inability to protect. This item especially feels clinically mismatched rather than merely unusual.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      4,012
+  output:     1,123
+  total:      5,135
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+# Clinical Vignette: Marcus
+
+Marcus was thirty-two weeks into what should have been an ordinary Tuesday when his daughter Emma
+stopped breathing. She was sixteen months old, napping in her crib while he worked from home, and
+when he checked on her during a conference call, she was blue. The paramedics' sirens, the
+hospital's fluorescent corridors, the ventilator's mechanical wheeze—these images burned themselves
+into him with the clarity of photographs. Emma spent four days in the pediatric ICU with suspected
+bronchiolitis, each hour stretching into an eternity of monitors and oxygen saturation numbers that
+climbed and fell like a cruel tide. She survived. But Marcus did not emerge from that week
+unchanged.
+
+Now, eighteen months later, at twenty-eight years old, he found himself a stranger in his own life.
+The man he had been before—the one who could sit through client presentations without scanning for
+exits, who fell asleep within minutes of his head touching the pillow—had vanished. In his place was
+someone hypervigilant, someone who calculated worst-case scenarios the way other people checked
+email. When his wife Sarah mentioned a news story about childhood pneumonia, Marcus felt his chest
+tighten and his mind flood with the hospital's particular shade of white, the specific pitch of the
+alarm that had sounded when Emma's oxygen dipped. The trigger—a simple news alert—had pulled the
+memory forward unbidden, and with it came the crushing conviction that he had failed. He should have
+noticed something was wrong sooner. He should have been the kind of father who could protect his
+daughter from illness itself, not merely react after the fact.
+
+The memories themselves were vivid in a way that exhausted him. When they surfaced, they came as
+images first—Emma's small chest heaving, the blur of the paramedic's hands, the particular slant of
+afternoon light through the hospital window—and these pictures arrived before any narrative could
+form. He would find himself pushing them away, unable to bear the full weight of recall, yet unable
+to prevent them from returning. The blocked memories and the vivid ones seemed to feed each other:
+he would catch a glimpse of something that reminded him of that day—a child crying in the grocery
+store, a rainy afternoon that matched the weather when Emma fell ill—and the fragmentary images
+would ambush him. Each trigger, whether external or internal, seemed to confirm his darkest
+interpretation: that he was fundamentally unsafe as a protector, that the person he had
+become—someone paralyzed by dread, someone who couldn't be present with his own daughter without his
+nervous system screaming danger—was unrecognisable to him.
+
+This unrecognisable version of himself then made him more vigilant to threat. Marcus had begun
+identifying escape routes before entering any room, a habit that had started in the hospital and
+never stopped. In restaurants, he positioned himself facing the door. At his office, a glass-walled
+financial services firm in downtown Boston, he had rearranged his desk so he could see the corridor.
+His colleagues had noticed; one had asked if he was feeling okay. He wasn't. His mind had become a
+threat-detection system running constantly on high alert. At night, he lay awake beside Sarah,
+unable to fall asleep because part of him believed he needed to stay conscious, to monitor, to be
+ready. The vigilance felt necessary, even though he knew intellectually that Emma was healthy now,
+that his alertness could not prevent illness. Yet every time he relaxed his guard—every time he
+almost drifted off—his mind would offer him a scenario: what if she got sick again and he was
+asleep, unreachable?
+
+The triggers and the threat-monitoring had begun to loop in a way that felt inescapable. Being
+around children, which had once been his joy, now activated a cascade of false alarms. His sister
+had visited with her toddler last month, and Marcus had found himself unable to sit still, unable to
+engage. He heard the child's cough and his body flooded with adrenaline, as if Emma were in crisis
+again. The news he had once scrolled through casually now felt like a minefield—every story about
+childhood illness, every weather report that mentioned rain or cold, sent him spiraling. These
+triggers pulled the fragmented memories forward, which rekindled his sense of identity loss and
+failure, which then made him scan his environment for danger more intensely, which made him more
+reactive to the next trigger. He had come to believe that the person he had become—hypervigilant,
+withdrawn from his own daughter at times because being near her felt unbearable, unable to sleep—was
+not a response to trauma but a permanent truth about who he was now.
+
+Sarah had finally insisted he seek help after finding him at three in the morning, sitting in Emma's
+room in the dark, unable to explain why he couldn't return to bed. Marcus had made the appointment,
+though he carried with him the conviction that therapy might help him manage the symptoms but could
+never restore the man he had been.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+# Clinical Vignette: Marcus
+
+Marcus was thirty-two weeks into what should have been an ordinary Tuesday when his daughter Emma
+stopped breathing. She was sixteen months old, napping in her crib while he worked from home, and
+when he checked on her during a conference call, she was blue. The paramedics' sirens, the
+hospital's fluorescent corridors, the ventilator's mechanical wheeze—these images burned themselves
+into him with the clarity of photographs. Emma spent four days in the pediatric ICU with suspected
+bronchiolitis, each hour stretching into an eternity of monitors and oxygen saturation numbers that
+climbed and fell like a cruel tide. She survived. But Marcus did not emerge from that week
+unchanged.
+
+Now, eighteen months later, at twenty-eight years old, he found himself a stranger in his own life.
+The man he had been before—the one who could sit through client presentations without scanning for
+exits, who fell asleep within minutes of his head touching the pillow—had vanished. In his place was
+someone hypervigilant, someone who calculated worst-case scenarios the way other people checked
+email. When his wife Sarah mentioned a news story about childhood pneumonia, Marcus felt his chest
+tighten and his mind flood with the hospital's particular shade of white, the specific pitch of the
+alarm that had sounded when Emma's oxygen dipped. The trigger—a simple news alert—had pulled the
+memory forward unbidden, and with it came the crushing conviction that he had failed. He should have
+noticed something was wrong sooner. He should have been the kind of father who could protect his
+daughter from illness itself, not merely react after the fact.
+
+The memories themselves were vivid in a way that exhausted him. When they surfaced, they came as
+images first—Emma's small chest heaving, the blur of the paramedic's hands, the particular slant of
+afternoon light through the hospital window—and these pictures arrived before any narrative could
+form. He would find himself pushing them away, unable to bear the full weight of recall, yet unable
+to prevent them from returning. The blocked memories and the vivid ones seemed to feed each other:
+he would catch a glimpse of something that reminded him of that day—a child crying in the grocery
+store, a rainy afternoon that matched the weather when Emma fell ill—and the fragmentary images
+would ambush him. Each trigger, whether external or internal, seemed to confirm his darkest
+interpretation: that he was fundamentally unsafe as a protector, that the person he had
+become—someone paralyzed by dread, someone who couldn't be present with his own daughter without his
+nervous system screaming danger—was unrecognisable to him.
+
+This unrecognisable version of himself then made him more vigilant to threat. Marcus had begun
+identifying escape routes before entering any room, a habit that had started in the hospital and
+never stopped. In restaurants, he positioned himself facing the door. At his office, a glass-walled
+financial services firm in downtown Boston, he had rearranged his desk so he could see the corridor.
+His colleagues had noticed; one had asked if he was feeling okay. He wasn't. His mind had become a
+threat-detection system running constantly on high alert. At night, he lay awake beside Sarah,
+unable to fall asleep because part of him believed he needed to stay conscious, to monitor, to be
+ready. The vigilance felt necessary, even though he knew intellectually that Emma was healthy now,
+that his alertness could not prevent illness. Yet every time he relaxed his guard—every time he
+almost drifted off—his mind would offer him a scenario: what if she got sick again and he was
+asleep, unreachable?
+
+The triggers and the threat-monitoring had begun to loop in a way that felt inescapable. Being
+around children, which had once been his joy, now activated a cascade of false alarms. His sister
+had visited with her toddler last month, and Marcus had found himself unable to sit still, unable to
+engage. He heard the child's cough and his body flooded with adrenaline, as if Emma were in crisis
+again. The news he had once scrolled through casually now felt like a minefield—every story about
+childhood illness, every weather report that mentioned rain or cold, sent him spiraling. These
+triggers pulled the fragmented memories forward, which rekindled his sense of identity loss and
+failure, which then made him scan his environment for danger more intensely, which made him more
+reactive to the next trigger. He had come to believe that the person he had become—hypervigilant,
+withdrawn from his own daughter at times because being near her felt unbearable, unable to sleep—was
+not a response to trauma but a permanent truth about who he was now.
+
+Sarah had finally insisted he seek help after finding him at three in the morning, sitting in Emma's
+room in the dark, unable to explain why he couldn't return to bed. Marcus had made the appointment,
+though he carried with him the conviction that therapy might help him manage the symptoms but could
+never restore the man he had been.

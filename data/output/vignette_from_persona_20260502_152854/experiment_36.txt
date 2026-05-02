@@ -1,0 +1,207 @@
+PERSONA 36  |  2026-05-02 15:56:07
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             65
+  gender          Female
+  ethnicity       North American
+  relationship_status Widowed
+  occupation      Military Medic
+  trauma_type     Life-threatening accident
+  pcl5            57
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Discomfort: Feeling uncomfortable
+    • Crash Imagery: Cars hit by accident
+    • Car Similarity: Similar cars
+  Maladaptive Strategies:
+    • Overeat: eat excessively to manage distress
+    • Distraction: I distract myself with something else
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • Reliving Event: When I remember the frightening event I feel like it is happening right now.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.3707
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.7549
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.2468
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.6815
+  Maladaptive Strategies → Threat                    0.4462
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Visual (Water/Flooding): Water, flooding, or large bodies of water
+    explanation: The trauma type is a life-threatening accident, but the water/flooding trigger suggests a very specific drowning/flood disaster context that is unsupported by the rest of the profile. No other trigger, threat, memory, or strategy item reflects a water-related accident, making this trigger feel disconnected from the reported trauma representation.
+    item:        Threat / Threat: Threat in Silence: Unusual silence makes me feel something dangerous is about to happen
+    explanation: 'Threat in Silence' implies danger associated with quiet/ominous stillness, whereas the rest of the profile points more toward active danger monitoring (weapons, commands) and a possibly chaotic accident context. This silence-based threat cue is not impossible, but here it lacks support from the other selected items and sits awkwardly with the accident formulation.
+    item:        Memory / Memory: Guilt on Recall: When I remember the event I feel intense guilt
+    explanation: Intense guilt on recall is not impossible after an accident, but in this profile it is the only item indicating moral/self-blame content. There are no negative appraisal items to support guilt themes, and the remaining memory/threat content emphasizes sensory reliving and danger monitoring rather than responsibility or wrongdoing. This makes the guilt item weakly integrated with the rest of the formulation.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Being Touched: Any form of physical contact with others
+    explanation: Avoiding being touched suggests a contact-based interpersonal threat or bodily boundary issue, but the rest of the profile does not indicate assault/interpersonal trauma or touch-related triggers/threats. For a life-threatening accident profile, this item appears poorly matched to the trauma context and to the other selected nodes.
+  [2] FAIL
+    item:        Threat / Threat: Sleep Problems: Trouble falling or staying asleep
+    explanation: Sleep problems are not a threat appraisal item and do not fit coherently within the Threat node as framed by the other selected threat items; it reflects general arousal/insomnia rather than perceived current danger.
+    item:        Memory / Threat: Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+    explanation: Hypervigilance specifically focused on weapons is hard to reconcile with the trauma type of a life-threatening accident, especially when the trigger and memory items are vehicle-accident related and there are no appraisals or memories suggesting assault/combat-related danger. This creates a cross-node mismatch.
+  [3] FAIL
+    item:        Triggers / Authority Commands: Being given orders or instructions
+    explanation: For a life-threatening accident formulation, 'Authority Commands' is difficult to link to the rest of the profile. The other trigger and strategy items center on vehicle/crash-related reactivity, but this item implies a different trauma context or conditioning pattern that is not supported by the memory or threat content.
+    item:        Threat / Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+    explanation: 'Noticing Weapons' is poorly matched to the accident trauma narrative and to the rest of the selected items. Hypervigilance to loud sounds and bodily danger readiness fit post-accident threat sensitization, but specific scanning for weapons suggests a violence/combat-related threat schema that is not otherwise represented.
+    item:        Maladaptive Strategies / Avoid Driving: Driving or being a passenger in a vehicle
+    explanation: 'Avoid Driving' fits the accident trauma, but it sits awkwardly alongside the non-accident-specific items 'Authority Commands' and 'Noticing Weapons.' Together these items split the profile between vehicle-accident and combat/assault-like themes, reducing overall coherence with the stated trauma type and the Trigger→Threat linkage.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,821
+  output:     6,249
+  total:      9,070
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Eleanor, a 65-year-old retired military medic, found herself seeking help after years of quiet
+struggle. The turning point had been a multi-car pile-up on a rain-slicked highway five years prior.
+She remembered the sudden screech of tires, the horrifying sight of cars crumpling into each other
+in her rearview mirror, and then the sickening impact as her own vehicle was struck from behind,
+sending her careening into the median. Though she walked away with only minor physical injuries, the
+mental scars ran deep. She had spent a career patching up others, but now she was the one whose
+internal alarms wouldn't quiet.
+
+In the aftermath, Eleanor noticed an insidious shift in her daily life. The simple act of driving
+became a minefield. When she encountered **similar cars** to those involved in the accident, or saw
+**crash imagery** on the news, her system would immediately respond. Her **body would feel
+constantly tense and ready to react to danger**, a pervasive state of **high alert when she heard
+unexpected or loud sounds**, even just a car horn. These **triggers** consistently ignited a deep-
+seated **threat** response within her.
+
+Recalling the accident itself was equally fraught. When she attempted to make sense of the events,
+the **memory** would return with such intensity that she would **feel like it was happening right
+now**, a vivid, terrifying **reliving event**. This overwhelming sensation often left her **unable
+to find words to describe it**, and the sheer emotional burden meant that **when the memory returns,
+she felt so overwhelmed by emotion that she had to stop**. This profound difficulty in processing
+the event only intensified her feeling that her **body was constantly tense and ready to react to
+danger**, reinforcing the pervasive **threat**.
+
+To cope with this relentless internal state, Eleanor developed several **maladaptive strategies**.
+The constant sense of **threat**, the feeling of her **body on alert**, made her desperate for
+relief. She began to **eat excessively to manage distress**, finding temporary solace in food. She
+would also deliberately **distract herself with something else**, turning on the television or
+burying herself in crossword puzzles whenever the uncomfortable feelings surfaced. Most profoundly,
+she would **try hard not to think about the trauma**, pushing away any intrusive thoughts or images.
+
+These strategies, while offering momentary respite, inadvertently perpetuated her distress. Her
+attempts to **suppress thoughts** about the accident made her more vulnerable; the thoughts would
+often resurface unexpectedly, and finding herself caught off guard, she would experience an even
+greater sense of **discomfort**, which in turn acted as a potent **trigger**. The overeating, too,
+had its own cost. Feeling sluggish and out of control after **eating excessively to manage
+distress**, she found her baseline **body on alert** state only worsened, exacerbating her sense of
+**threat**. She felt less capable, less resilient, and therefore more vulnerable to future dangers.
+
+Eleanor’s once active social life began to shrink. She stopped driving long distances, avoiding
+highways altogether. Her garden, once a source of immense joy, now felt like another place where
+unexpected sounds could pierce her fragile calm. She found herself retreating more and more into her
+home, seeking to minimize exposure to any potential **triggers**. But the isolation only amplified
+her internal struggles. She came to understand that her strategies, meant to protect her, were
+instead tightening the invisible chains of her past. She decided to seek help, weary of the constant
+vigilance and the fear that she would never truly escape the shadow of that dreadful day. What
+frightened her most was the feeling that the accident was slowly but surely taking away her present,
+piece by piece.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Eleanor, a 65-year-old retired military medic, found herself seeking help after years of quiet
+struggle. The turning point had been a multi-car pile-up on a rain-slicked highway five years prior.
+She remembered the sudden screech of tires, the horrifying sight of cars crumpling into each other
+in her rearview mirror, and then the sickening impact as her own vehicle was struck from behind,
+sending her careening into the median. Though she walked away with only minor physical injuries, the
+mental scars ran deep. She had spent a career patching up others, but now she was the one whose
+internal alarms wouldn't quiet.
+
+In the aftermath, Eleanor noticed an insidious shift in her daily life. The simple act of driving
+became a minefield. When she encountered **similar cars** to those involved in the accident, or saw
+**crash imagery** on the news, her system would immediately respond. Her **body would feel
+constantly tense and ready to react to danger**, a pervasive state of **high alert when she heard
+unexpected or loud sounds**, even just a car horn. These **triggers** consistently ignited a deep-
+seated **threat** response within her.
+
+Recalling the accident itself was equally fraught. When she attempted to make sense of the events,
+the **memory** would return with such intensity that she would **feel like it was happening right
+now**, a vivid, terrifying **reliving event**. This overwhelming sensation often left her **unable
+to find words to describe it**, and the sheer emotional burden meant that **when the memory returns,
+she felt so overwhelmed by emotion that she had to stop**. This profound difficulty in processing
+the event only intensified her feeling that her **body was constantly tense and ready to react to
+danger**, reinforcing the pervasive **threat**.
+
+To cope with this relentless internal state, Eleanor developed several **maladaptive strategies**.
+The constant sense of **threat**, the feeling of her **body on alert**, made her desperate for
+relief. She began to **eat excessively to manage distress**, finding temporary solace in food. She
+would also deliberately **distract herself with something else**, turning on the television or
+burying herself in crossword puzzles whenever the uncomfortable feelings surfaced. Most profoundly,
+she would **try hard not to think about the trauma**, pushing away any intrusive thoughts or images.
+
+These strategies, while offering momentary respite, inadvertently perpetuated her distress. Her
+attempts to **suppress thoughts** about the accident made her more vulnerable; the thoughts would
+often resurface unexpectedly, and finding herself caught off guard, she would experience an even
+greater sense of **discomfort**, which in turn acted as a potent **trigger**. The overeating, too,
+had its own cost. Feeling sluggish and out of control after **eating excessively to manage
+distress**, she found her baseline **body on alert** state only worsened, exacerbating her sense of
+**threat**. She felt less capable, less resilient, and therefore more vulnerable to future dangers.
+
+Eleanor’s once active social life began to shrink. She stopped driving long distances, avoiding
+highways altogether. Her garden, once a source of immense joy, now felt like another place where
+unexpected sounds could pierce her fragile calm. She found herself retreating more and more into her
+home, seeking to minimize exposure to any potential **triggers**. But the isolation only amplified
+her internal struggles. She came to understand that her strategies, meant to protect her, were
+instead tightening the invisible chains of her past. She decided to seek help, weary of the constant
+vigilance and the fear that she would never truly escape the shadow of that dreadful day. What
+frightened her most was the feeling that the accident was slowly but surely taking away her present,
+piece by piece.

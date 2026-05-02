@@ -1,0 +1,230 @@
+{
+  "persona_id": 138,
+  "source_persona_id": null,
+  "experiment_timestamp": "2026-05-01 17:48:45",
+  "config": {
+    "pipeline": "craft_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 48,
+    "gender": "Male",
+    "ethnicity": "South Eastern Asian",
+    "relationship_status": "Married",
+    "occupation": "Physical Therapist",
+    "trauma_type": "Stalking",
+    "pcl5": 33
+  },
+  "self_report": {
+    "Threat": [
+      {
+        "key": "Waking Alert",
+        "value": "I wake during the night to check whether I am safe"
+      },
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Cannot Explain Clearly",
+        "value": "When I try to explain what happened I lose the thread and cannot finish"
+      },
+      {
+        "key": "Blocked Before Complete",
+        "value": "I find myself pushing the memory away before I can fully recall it"
+      },
+      {
+        "key": "Fragmented Pieces",
+        "value": "My memories of the event come in disconnected pieces that do not fit together"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Betrayal",
+        "value": "I was betrayed by someone I trusted"
+      },
+      {
+        "key": "Fear of Harm",
+        "value": "You can never know who will harm you"
+      },
+      {
+        "key": "Constant Vigilance",
+        "value": "I have to be especially careful because you never know what can happen next"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.1853,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.6209,
+    "Memory -- Negative Appraisals": 0.8681,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.7785,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Threat",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Threat → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Threat",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Threat → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6132,
+  "edge_density": 0.2,
+  "vignette_word_count": 0,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Contamination",
+          "explanation": "The Negative Appraisals cluster is not clinically coherent with the stated trauma type of stalking. 'Contamination' and 'Body Shame' strongly imply a sexual assault or bodily violation formulation, whereas 'Betrayal' implies harm by a trusted person. Those three appraisals together point toward a very different trauma narrative than stalking and are hard to reconcile as describing the same index trauma."
+        },
+        {
+          "component": "Threat",
+          "item": "Negative Appraisals: Body Shame",
+          "explanation": "Cross-node coherence is weak because the Threat items describe chronic vigilance and safety checking typical of stalking, but the Negative Appraisals instead center on contamination, bodily shame, and betrayal, which do not plausibly arise from the same stalking presentation without additional trauma history. This mismatch is clinically hard to explain from a single trauma report."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Contamination"
+        ],
+        "Threat": [
+          "Negative Appraisals"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Body Shame: I feel ashamed of what happened to my body",
+          "explanation": "For a stalking trauma, 'Body Shame' implies bodily violation or injury and is hard to reconcile with the rest of the profile, which otherwise centers on danger, vigilance, and fragmented recall rather than assault-related bodily consequences."
+        },
+        {
+          "component": "Memory",
+          "item": "Betrayal: I was betrayed by someone I trusted",
+          "explanation": "'Betrayal by someone I trusted' could fit some stalking cases, but paired with the current memory and threat content it shifts the trauma toward an intimate-partner or known-perpetrator betrayal narrative that is not otherwise represented. Together with 'Body Shame,' the appraisal set is not well aligned with the stalking-focused memory/threat pattern."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Body Shame"
+        ],
+        "Memory": [
+          "Betrayal"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat in Silence: Unusual silence makes me feel something dangerous is about to happen",
+          "explanation": "The formulation specifies Triggers as inactive with no active links to Threat, Memory, or Negative Appraisals, yet these items imply a prominent trigger-driven pattern: environmental silence provoking danger, surroundings instantly cueing memory, and constant guard. That creates a mismatch with the stated formulation structure."
+        },
+        {
+          "component": "Memory",
+          "item": "Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning",
+          "explanation": "Within the active formulation, Memory is strongly linked to Threat and Negative Appraisals, which is coherent for fragmented recall and difficulty explaining the event. However, the specific trigger-reactivity described by 'Triggered Without Warning' depends on an active triggers pathway that is explicitly absent."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Hypervigilance: I have to be on guard all the time",
+          "explanation": "For stalking, hypervigilance and fear of harm are plausible, but pairing multiple cue-dependent items with a formulation that isolates Triggers from all other nodes is hard to reconcile clinically. The concern is with the specific item-pattern relative to the formulation, not the trauma type itself."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Threat in Silence"
+        ],
+        "Memory": [
+          "Triggered Without Warning"
+        ],
+        "Negative Appraisals": [
+          "Hypervigilance"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 0,
+    "passed": 0,
+    "failed": 0,
+    "ultimately_passed": null
+  },
+  "token_usage": {
+    "input": 13214,
+    "output": 836,
+    "total": 14050
+  },
+  "vignette": ""
+,
+
+  "vignette_attempts": [
+  ]
+}

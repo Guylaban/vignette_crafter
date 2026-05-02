@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "agent_name": "Persona_21_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-02 13:33:01"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Negative Appraisals\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Maladaptive Strategies\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Maladaptive Strategies\n  - Threat → Maladaptive Strategies\n  - Threat → Triggers\n  - Maladaptive Strategies → Negative Appraisals\n  - Maladaptive Strategies → Triggers\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nRangi is a 63-year-old Māori man, widowed, who has worked in construction for the better part of four decades. He came to his first intake appointment with the quiet, careful bearing of someone who has spent a long time trying to take up as little space as possible — a quality that sits strangely against his large frame and weathered hands. His PCL-5 score of 68 places him in the severe range, and the picture that emerged across the first few sessions was one of a man whose interior life had been quietly dismantled over years of abuse by his late wife, and who had only recently begun to understand that what happened to him had a name.\n\nThe abuse began gradually, as it so often does, and escalated over more than a decade. His wife's attacks were physical — striking, grabbing, once fracturing two of his fingers when she slammed a door on his hand during an argument. What Rangi remembers most vividly is the specific geography of those moments: her hands around his wrist, the particular angle of an arm raised, the sight of bruising on his own forearms in the bathroom mirror the following morning. He never called the police. He told no one. He was, he believed, supposed to be able to handle it.\n\nShe died of a cardiac event three years ago, and it was in the silence that followed that the symptoms arrived in full. Now, at work on a construction site, Rangi finds that certain visual details carry an almost physical charge. A co-worker's forearm raised to wipe sweat from a brow, a supervisor gesturing sharply during a briefing, even the sight of his own hands at the end of a shift — these images land with a force disproportionate to their content, pulling him back into the sensory texture of the abuse. When the crew talks at lunch and someone mentions a domestic dispute they heard about on the news, Rangi goes quiet and finds a reason to leave the table. People who knew him and his wife — a brother-in-law who still calls occasionally, a neighbour from the old street — have become almost impossible to be around; their presence makes the past feel present in a way he cannot manage.\n\nWhen these triggers catch him off-guard, Rangi's first instinct is to move. He has made a habit of positioning himself near doors — on the site, in the canteen, in any room he enters — scanning for exits the moment he walks in, a behaviour so automatic now he barely notices it until a colleague comments on it. He also spends money in ways he cannot always account for: tools he doesn't need, takeaway meals, a new television he barely watches. He understands, dimly, that he is trying to fill something or outrun something, but the spending brings a few hours of relief before the flatness returns. And he avoids conflict with a rigidity that has begun to cost him professionally — he has declined to raise legitimate safety concerns on site, has let errors go unchallenged, has been passed over for a foreman role he was qualified for because, as his site manager noted, he \"doesn't push back.\"\n\nThe avoidance has fed something darker. Because Rangi never talks about what happened, never allows himself to be around those connected to it, the events remain unprocessed and close to the surface — and the triggers, when they come, feel as raw as ever. He wakes in the night, alert and listening, certain for a moment that he is not safe, and lies still until he has checked the room. He startles at sounds on the site — a dropped beam, a shout across the yard — in ways that embarrass him deeply. And that embarrassment compounds what has become his most corrosive belief: that he is weak. A real man, he tells himself, would not have let this happen, and would not still be undone by it. He cannot rely on himself to stay steady, to react normally, to be the person he was before. He feels, much of the time, dead inside — not grief exactly, but an absence where feeling used to be.\n\nWhat finally brought Rangi to seek help was his youngest daughter, who visited recently and told him, plainly, that she was frightened for him. He sat with that for two weeks before making the call. What he is most afraid of, he said at the end of the first session, is that the man he used to be is simply gone. What he hopes, more quietly, is that someone might tell him he is wrong.\n"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "id": "toolu_01A8EQnV6p1GKL8dB2EMdt19",
+          "caller": {
+            "type": "direct"
+          },
+          "input": {
+            "verdict": "FAIL",
+            "violation_edges": [
+              "Threat → Maladaptive Strategies",
+              "Threat → Triggers"
+            ],
+            "violation_explanations": [
+              "No paragraph conveys that Rangi's sense of threat directly drives or leads to his maladaptive strategies (e.g., exit-scanning, avoidance, spending); the strategies are linked to triggers catching him off-guard, not to an ongoing perceived threat.",
+              "No paragraph conveys that Rangi's sense of threat causes or activates his triggers; the vignette describes triggers arising from environmental cues at work and social situations, but does not establish that a felt sense of threat produces or amplifies those triggering stimuli."
+            ]
+          },
+          "name": "ValidationResult",
+          "type": "tool_use"
+        }
+      ]
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Threat → Maladaptive Strategies",
+      "Threat → Triggers"
+    ],
+    "violation_explanations": [
+      "No paragraph conveys that Rangi's sense of threat directly drives or leads to his maladaptive strategies (e.g., exit-scanning, avoidance, spending); the strategies are linked to triggers catching him off-guard, not to an ongoing perceived threat.",
+      "No paragraph conveys that Rangi's sense of threat causes or activates his triggers; the vignette describes triggers arising from environmental cues at work and social situations, but does not establish that a felt sense of threat produces or amplifies those triggering stimuli."
+    ]
+  }
+}

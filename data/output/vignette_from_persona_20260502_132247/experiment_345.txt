@@ -1,0 +1,251 @@
+PERSONA 345  |  2026-05-02 16:06:47
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-sonnet-4-6
+    persona_crafter      claude-sonnet-4-6
+    vignette_crafter     claude-sonnet-4-6
+    vignette_validator   claude-sonnet-4-6
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             43
+  gender          Female
+  ethnicity       Oceania
+  relationship_status In a relationship
+  occupation      Physical Therapist
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            77
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Alcohol): Alcohol smell
+    • Event Recall: Talking about the event
+    • Trauma-Related Events: Trauma-related events
+  Maladaptive Strategies:
+    • Compulsive Spending: I spend money impulsively to distract or comfort myself
+    • Stay Near Exit: make sure to stay close to exit
+    • Drug Use: take drugs
+  Threat:
+    • Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • More Real Than Normal: My memories of the event feel more real and vivid than memories of ordinary things
+    • No Coherent Story: I cannot tell a clear story of what happened even to myself
+    • Shame on Recall: When I remember the event I feel intense shame
+  Negative Appraisals:
+    • Thought Avoidance: If I think about the event, I will not be able to handle it
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.9032
+  Triggers → Threat                                  0.1915
+  Triggers → Memory                                  0.9441
+  Triggers → Negative Appraisals                     0.6841
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.5409
+  Negative Appraisals → Memory                       0.5744
+  Negative Appraisals → Triggers                     0.1282
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.5030
+  Threat → Maladaptive Strategies                    0.9956
+  Threat → Memory                                    0.1183
+  Threat → Negative Appraisals                       0.8348
+  Threat → Triggers                                  0.7649
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.6192
+  Maladaptive Strategies → Triggers                  0.1513
+  Maladaptive Strategies → Threat                    0.0506
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        age
+    explanation: Occupation 'Retired' is implausible for age 30 because 'Retired' is only considered plausible at age 50 or older.
+  [2] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Betrayal: I was betrayed by someone I trusted
+    explanation: The appraisal of betrayal by a trusted person is hard to reconcile with the indexed trauma type of accidentally causing serious injury to another, unless there were additional interpersonal-trauma elements not represented elsewhere. It pulls the profile toward betrayal/interpersonal trauma rather than guilt-based accidental harm.
+    item:        Triggers / Triggers: Authority Commands: Being given orders or instructions
+    explanation: The trigger set centers on authority commands and family-related cues, which is possible but not well supported by the rest of the profile. With accidental injury to another, the most coherent triggers would usually connect to the accident context, harm, guilt, or responsibility; these selected cues lack a clear link to the memory and appraisal content presented.
+    item:        Threat / Triggers: Family-Related Comments: Comments on family
+    explanation: Family-related comments and idealized families imply loss, parenting/family injury, or comparison with intact families, but no corresponding memory or appraisal item explains why family cues are central. This makes the trigger pattern feel disconnected rather than tightly linked to the rest of the profile.
+    item:        Maladaptive Strategies / Triggers: Idealized Families: Happy families
+    explanation: The threat items describe pervasive danger monitoring for attack or violence across all environments, which fits assault/combat formulations better than accidentally injuring someone. They are difficult to connect to the selected memories, which emphasize vividness, disorganization, and shame rather than danger from external perpetrators.
+  [2] FAIL
+    item:        Triggers / Triggers: Family-Related Comments
+    explanation: The trigger set is centered on family/loss themes, which fits bereavement- or family-related trauma more than accidentally causing serious injury to another. For this trauma type, such triggers are hard to reconcile unless the injured person was a family member, which is not indicated elsewhere in the profile.
+    item:        Threat / Triggers: Idealized Families
+    explanation: The threat items reflect a pervasive danger/assault formulation (scanning exits, noticing weapons, on guard at home) rather than the likely core threat in perpetration-by-accident trauma, which is more often moral threat, fear of blame, or fear of causing harm again. These threat items are difficult to connect to the selected triggers and appraisals.
+    item:        Maladaptive Strategies / Triggers: Loss Themes
+    explanation: Within the formulation, Threat strongly drives Maladaptive Strategies, so a strategy like staying near exits should be tightly linked to a plausible danger-based threat profile. Because the threat content itself is poorly matched to the trauma type and other nodes, 'Stay Near Exit' also appears incoherent in this profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Idealized Families: Happy families
+    explanation: The trigger profile is centered on guilt/loss reminders (happy families, talk about losing loved ones, alcohol smell), which fits accidentally causing serious injury to another. In contrast, the threat items are dominated by generalized interpersonal/physical danger hypervigilance (scanning exits, noticing weapons, on guard at home), a pattern more typical of assault/combat trauma than guilt-based accidental injury.
+    item:        Threat / Threat: Scanning Exits: I scan for exits as soon as I enter any room or building
+    explanation: 'Stay near exit' mirrors the same pervasive danger/escape theme as the threat items, but the rest of the profile—especially negative appraisals and memory—focuses on shame, guilt, and disorganized vivid recall of having harmed someone. This creates a cross-node mismatch: the coping and threat responses address an ongoing attack-danger context not otherwise represented in the trauma meaning.
+    item:        Maladaptive Strategies / Threat: Alert at Home: I feel on guard even inside my own home
+    explanation: Given the formulation, Triggers strongly connect to Memory, Negative Appraisals, and Maladaptive Strategies, with only weak Triggers → Threat. The selected trigger items plausibly evoke shame/loss memories, but they do not clearly connect to the severe omnipresent danger threat pattern endorsed. That weakens coherence between node content and the edge pattern.
+  [4] FAIL
+    item:        Triggers / Triggers: Loss Themes: Talk about people loosing loved ones
+    explanation: For trauma of accidentally causing serious injury to another, the trigger about 'people losing loved ones' is a poor fit unless the injured person died or there was bereavement trauma; it conflicts with the specified trauma type of serious injury rather than death.
+    item:        Threat / Threat: Alert at Home: I feel on guard even inside my own home
+    explanation: The threat profile centers on generalized physical-danger/hypervigilance ('on guard even inside my own home', 'noticing weapons in any environment'), which is hard to reconcile with the rest of the profile that is dominated by guilt, shame, and event-related recall after having caused injury to another. Those threat items suggest assault/combat-style danger expectations not otherwise represented in memory or appraisals.
+    item:        Maladaptive Strategies / Threat: Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+    explanation: 'Stay near exit' similarly implies fear of immediate external danger or needing rapid escape from unsafe environments. In this profile, maladaptive strategies are otherwise distraction/substance-use based, and the core appraisals/memories are moral injury/guilt/shame focused; this specific escape-safety behavior is not well supported by the other selected items or trauma type.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      4,282
+  output:     1,145
+  total:      5,427
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Moana Tuilagi is a 43-year-old Tongan-American physical therapist currently living in the Pacific
+Northwest with her long-term partner. She presented for assessment following a marked deterioration
+in her functioning over the past fourteen months, reporting a PCL-5 score of 77 and describing
+herself, quietly and with evident difficulty, as someone she no longer recognises.
+
+Fourteen months ago, Moana was driving home after a colleague's farewell gathering. She had not
+considered herself impaired — she had stopped drinking two hours before leaving, had eaten, had felt
+steady on her feet. What she had not accounted for was the way the evening's drinks had accumulated
+quietly in her system. At a residential intersection she knew well, she failed to brake in time and
+struck a teenage boy who had stepped from between parked cars. He survived, but sustained a
+traumatic spinal injury. Moana was the first person to reach him. She knelt on the asphalt, her
+hands on his shoulders, and remembers with terrible clarity the smell of alcohol — her own breath,
+she later realised — mingling with the cold air above his still body. She has never fully forgiven
+herself for what she noticed in that moment.
+
+In the weeks that followed, the smell of alcohol became the most reliable and devastating of her
+triggers. Walking past a bar on her lunch break, catching the scent on a patient's breath, or even
+opening a bottle of wine she no longer drinks — each instance returns her with shocking immediacy to
+that intersection. When triggered this way, Moana does not simply remember; she relives. The
+memories that surface carry a hyper-vivid, present-tense quality that ordinary recollections do not
+— more real than real, she has said — and yet she cannot construct a coherent narrative of what
+happened. The sequence breaks apart: she has fragments, sensory shards, but no story she can tell
+even to herself. When these images arrive, the shame that accompanies them is immediate and
+crushing, a physical weight she describes as landing in her chest before she has time to think. Any
+conversation that approaches the event, or any news item or clinical scenario that touches on
+trauma-related injury, can produce the same cascade: the vivid, unordered images, the shame, the
+sense of the scene beginning to happen again.
+
+This pervasive sense of threat has become a feature of Moana's daily life. In her work as a physical
+therapist, she moves through clinical spaces filled with equipment — resistance bands, weight
+machines, parallel bars — and she has found herself cataloguing each as a potential instrument of
+harm, scanning rooms before sessions begin. The flashbacks themselves have come to feel like
+evidence of ongoing danger, as though her nervous system is insisting the event is still unfolding.
+When the threat state rises — whether triggered by a smell, a sound, or a patient describing an
+accident — Moana positions herself near exits in treatment rooms and waiting areas, a habit her
+colleagues have begun to notice without understanding.
+
+What has tightened the cycle most severely are her appraisals of herself and the event. Moana has
+come to believe, with a certainty she experiences as factual, that she will never forgive herself
+for not doing more in those first moments — that she should have acted differently, more quickly,
+more competently. She is equally certain that thinking directly about what happened will cause her
+to lose control entirely, a conviction that has made any natural processing impossible. These
+beliefs do not stay contained: they return her attention to the event, reactivating the triggers and
+the unordered memories, which in turn intensify the shame and confirm her sense of herself as
+irreparably altered. The person she sees in the mirror, she has said, is a stranger — a woman who
+hurt a child and then could not hold herself together.
+
+To manage the surges of threat and shame, Moana has turned to strategies that have themselves become
+sources of distress. She has accumulated significant credit card debt through impulsive online
+purchases made in the early hours when sleep fails her. She has begun using cannabis nightly,
+initially to sleep, now to blunt the evenings generally. Both have introduced new self-recrimination
+— a woman who prided herself on discipline and clinical precision now sees her own coping as further
+proof of deterioration, which sharpens the shame and lowers the threshold at which the next trigger
+finds her.
+
+What finally brought Moana to seek help was a session three weeks ago in which a patient described a
+road accident. She excused herself, sat in a supply closet for twenty minutes, and then returned and
+finished the appointment. That night she told her partner, for the first time, that something was
+seriously wrong. She is most afraid that the clinician will confirm what she already suspects — that
+she is, at her core, unchanged and unforgivable. What she is hoping for, tentatively and almost
+inaudibly, is that she might one day be able to do her job without fearing herself.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Moana Tuilagi is a 43-year-old Tongan-American physical therapist currently living in the Pacific
+Northwest with her long-term partner. She presented for assessment following a marked deterioration
+in her functioning over the past fourteen months, reporting a PCL-5 score of 77 and describing
+herself, quietly and with evident difficulty, as someone she no longer recognises.
+
+Fourteen months ago, Moana was driving home after a colleague's farewell gathering. She had not
+considered herself impaired — she had stopped drinking two hours before leaving, had eaten, had felt
+steady on her feet. What she had not accounted for was the way the evening's drinks had accumulated
+quietly in her system. At a residential intersection she knew well, she failed to brake in time and
+struck a teenage boy who had stepped from between parked cars. He survived, but sustained a
+traumatic spinal injury. Moana was the first person to reach him. She knelt on the asphalt, her
+hands on his shoulders, and remembers with terrible clarity the smell of alcohol — her own breath,
+she later realised — mingling with the cold air above his still body. She has never fully forgiven
+herself for what she noticed in that moment.
+
+In the weeks that followed, the smell of alcohol became the most reliable and devastating of her
+triggers. Walking past a bar on her lunch break, catching the scent on a patient's breath, or even
+opening a bottle of wine she no longer drinks — each instance returns her with shocking immediacy to
+that intersection. When triggered this way, Moana does not simply remember; she relives. The
+memories that surface carry a hyper-vivid, present-tense quality that ordinary recollections do not
+— more real than real, she has said — and yet she cannot construct a coherent narrative of what
+happened. The sequence breaks apart: she has fragments, sensory shards, but no story she can tell
+even to herself. When these images arrive, the shame that accompanies them is immediate and
+crushing, a physical weight she describes as landing in her chest before she has time to think. Any
+conversation that approaches the event, or any news item or clinical scenario that touches on
+trauma-related injury, can produce the same cascade: the vivid, unordered images, the shame, the
+sense of the scene beginning to happen again.
+
+This pervasive sense of threat has become a feature of Moana's daily life. In her work as a physical
+therapist, she moves through clinical spaces filled with equipment — resistance bands, weight
+machines, parallel bars — and she has found herself cataloguing each as a potential instrument of
+harm, scanning rooms before sessions begin. The flashbacks themselves have come to feel like
+evidence of ongoing danger, as though her nervous system is insisting the event is still unfolding.
+When the threat state rises — whether triggered by a smell, a sound, or a patient describing an
+accident — Moana positions herself near exits in treatment rooms and waiting areas, a habit her
+colleagues have begun to notice without understanding.
+
+What has tightened the cycle most severely are her appraisals of herself and the event. Moana has
+come to believe, with a certainty she experiences as factual, that she will never forgive herself
+for not doing more in those first moments — that she should have acted differently, more quickly,
+more competently. She is equally certain that thinking directly about what happened will cause her
+to lose control entirely, a conviction that has made any natural processing impossible. These
+beliefs do not stay contained: they return her attention to the event, reactivating the triggers and
+the unordered memories, which in turn intensify the shame and confirm her sense of herself as
+irreparably altered. The person she sees in the mirror, she has said, is a stranger — a woman who
+hurt a child and then could not hold herself together.
+
+To manage the surges of threat and shame, Moana has turned to strategies that have themselves become
+sources of distress. She has accumulated significant credit card debt through impulsive online
+purchases made in the early hours when sleep fails her. She has begun using cannabis nightly,
+initially to sleep, now to blunt the evenings generally. Both have introduced new self-recrimination
+— a woman who prided herself on discipline and clinical precision now sees her own coping as further
+proof of deterioration, which sharpens the shame and lowers the threshold at which the next trigger
+finds her.
+
+What finally brought Moana to seek help was a session three weeks ago in which a patient described a
+road accident. She excused herself, sat in a supply closet for twenty minutes, and then returned and
+finished the appointment. That night she told her partner, for the first time, that something was
+seriously wrong. She is most afraid that the clinician will confirm what she already suspects — that
+she is, at her core, unchanged and unforgivable. What she is hoping for, tentatively and almost
+inaudibly, is that she might one day be able to do her job without fearing herself.

@@ -1,0 +1,209 @@
+PERSONA 123  |  2026-05-01 23:28:15
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             32
+  gender          Male
+  ethnicity       South Asian
+  relationship_status Married
+  occupation      Housekeeper
+  trauma_type     Mugging or robbery
+  pcl5            61
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Memory:
+    • Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+  Negative Appraisals:
+    • Distrust Others: People are not what they seem
+    • Mistrust: People can't be trusted
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.8557
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.2423
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Fragmented Pieces
+    explanation: Within the Memory node, 'My memories of the event come in disconnected pieces that do not fit together' directly conflicts with 'I can talk about what happened very easily.' For a severe mugging-related PTSD profile, markedly fragmented recall and very easy verbal access to the trauma narrative are hard to reconcile as describing the same current memory presentation.
+  [2] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: The Memory node is internally incoherent for a severe mugging/robbery PTSD presentation: 'I can talk about what happened very easily' suggests low avoidance and relatively integrated, verbally accessible trauma memory, whereas simultaneously endorsing very vivid detailed recall and body-based painful reliving implies a highly sensory, distressing, poorly integrated trauma memory. This combination is possible in milder cases, but here it is hard to reconcile clinically within the same Memory profile. The Negative Appraisals items are coherent for robbery trauma, but the Memory selections do not fit cleanly with that node pattern or with the strong Negative Appraisals ↔ Memory linkage in the formulation.
+  [3] FAIL
+    item:        Negative Appraisals / Constant Vigilance: I have to be especially careful because you never know what can happen next
+    explanation: This item is more characteristic of ongoing threat/safety behavior than of a pure negative appraisal. In this profile, Threat is not endorsed and all Threat-related edges are inactive, while the active formulation is specifically centered on a Memory ↔ Negative Appraisals loop. The mistrust items fit robbery-related appraisals, but 'Constant Vigilance' introduces a prominent current-threat theme that is not supported elsewhere in the profile.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,906
+  output:     1,024
+  total:      3,930
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Rohan Patel was 32 when he was mugged on his way home from an evening housekeeping shift at a
+downtown hotel. He had finished late after turning over several rooms and taking out bags of
+laundry, and he was walking the familiar route to the bus stop with his work keys and a small
+envelope of cash from tips in his pocket. A man stepped out from between two parked cars and closed
+the distance before Rohan had time to register what was happening. He remembers the sharp shove into
+the side of a brick wall, the hand gripping his shirt, the demand to hand everything over, and the
+blow that landed across his ribs when he hesitated. What has stayed with him is not only the fear
+but the bodily certainty of it: the pressure in his chest as he was pinned, the hot pain along his
+side, the sound of the stranger’s voice close to his face. He can picture the streetlight, the
+stained cuff of the man’s sleeve, the smell of cigarette smoke. Yet when he tries to tell the story
+out loud, he stalls. He says he knows exactly what happened, but when he reaches the worst part,
+“the words just go.”
+
+In the weeks that followed, Rohan had come to believe the assault revealed something fundamental
+about other people. He was certain that people were not what they seemed, that someone could look
+ordinary one second and turn dangerous the next. The city he had once navigated automatically now
+felt predatory to him, as if threat were woven into everyday life. That belief made the memory feel
+close and ready to strike at any moment. A guest stepping unexpectedly into a hallway at work, a man
+lingering by the service entrance, even the scrape of shoes behind him on the sidewalk could pull
+the scene back with startling clarity. When it did, he felt the same pain in his ribs and shoulder
+as if his body were reliving the attack, and the detail of the memory only seemed to confirm what he
+had concluded: the world was dangerous, and trusting appearances was how people got hurt.
+
+The memory, in turn, kept hardening those conclusions. Rohan could not dismiss the mugging as bad
+luck because it returned to him with such precision. He would be changing sheets in a hotel room or
+pushing his cart down a corridor and suddenly see again the stained sleeve, the angle of the brick
+wall against his cheek, the man’s face half-lit under the streetlamp. The physical pain came with it
+so vividly that he felt foolish trying to reassure himself he was safe in the present. To him, the
+fact that his body reacted this strongly meant the danger had never really passed. Each recurrence
+left him more convinced that people could not be trusted and that safety was mostly an illusion
+maintained until someone decided to take it away.
+
+At work, this has become especially visible. Housekeeping requires him to move through back
+hallways, elevators, loading areas, and parking-adjacent service corridors, and those in-between
+spaces now feel to him too much like the street where he was attacked. If he hears footsteps behind
+him while carrying linens, his whole body tightens before he turns around. When male guests speak
+abruptly or stand too close to ask for towels, he watches their hands and scans for exits, already
+bracing for something to happen. He does not describe this as anxiety so much as common sense; in
+his mind, being wary is the only reasonable response once one has learned what people are capable
+of. And because he keeps seeing the robbery in such exact, painful fragments, he feels he would be
+reckless to let his guard down.
+
+His wife has noticed that he is no longer the man who used to chat easily with neighbors or make
+small jokes with hotel staff after a long shift. He has become curt with strangers and suspicious
+even in ordinary interactions, questioning motives in a way that strains him. He says little about
+the mugging at home, not because he has forgotten it but because the memory is too fully there and
+too hard to put into language. Sometimes he starts to explain and then stops, pressing a hand to his
+side as if the old blow has landed again. On those occasions what frightens him most is not only the
+memory itself but what it proves to him about the world: that danger can emerge without warning from
+a person who looked unremarkable moments before.
+
+Rohan finally sought help after freezing in a hotel corridor when a guest came around a corner
+unexpectedly and asked him for extra hangers. For a few seconds he could not answer. He felt the old
+pain in his body, saw the mugger’s face with unbearable clarity, and afterward was shaken by how
+completely the past had overtaken the present. He came to treatment exhausted by living as if threat
+were always one step away, but also afraid that if he stopped viewing people with suspicion, he
+would leave himself open to being hurt again. What he hopes for, cautiously, is not to forget what
+happened, but to be able to remember it without feeling trapped inside it.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Rohan Patel was 32 when he was mugged on his way home from an evening housekeeping shift at a
+downtown hotel. He had finished late after turning over several rooms and taking out bags of
+laundry, and he was walking the familiar route to the bus stop with his work keys and a small
+envelope of cash from tips in his pocket. A man stepped out from between two parked cars and closed
+the distance before Rohan had time to register what was happening. He remembers the sharp shove into
+the side of a brick wall, the hand gripping his shirt, the demand to hand everything over, and the
+blow that landed across his ribs when he hesitated. What has stayed with him is not only the fear
+but the bodily certainty of it: the pressure in his chest as he was pinned, the hot pain along his
+side, the sound of the stranger’s voice close to his face. He can picture the streetlight, the
+stained cuff of the man’s sleeve, the smell of cigarette smoke. Yet when he tries to tell the story
+out loud, he stalls. He says he knows exactly what happened, but when he reaches the worst part,
+“the words just go.”
+
+In the weeks that followed, Rohan had come to believe the assault revealed something fundamental
+about other people. He was certain that people were not what they seemed, that someone could look
+ordinary one second and turn dangerous the next. The city he had once navigated automatically now
+felt predatory to him, as if threat were woven into everyday life. That belief made the memory feel
+close and ready to strike at any moment. A guest stepping unexpectedly into a hallway at work, a man
+lingering by the service entrance, even the scrape of shoes behind him on the sidewalk could pull
+the scene back with startling clarity. When it did, he felt the same pain in his ribs and shoulder
+as if his body were reliving the attack, and the detail of the memory only seemed to confirm what he
+had concluded: the world was dangerous, and trusting appearances was how people got hurt.
+
+The memory, in turn, kept hardening those conclusions. Rohan could not dismiss the mugging as bad
+luck because it returned to him with such precision. He would be changing sheets in a hotel room or
+pushing his cart down a corridor and suddenly see again the stained sleeve, the angle of the brick
+wall against his cheek, the man’s face half-lit under the streetlamp. The physical pain came with it
+so vividly that he felt foolish trying to reassure himself he was safe in the present. To him, the
+fact that his body reacted this strongly meant the danger had never really passed. Each recurrence
+left him more convinced that people could not be trusted and that safety was mostly an illusion
+maintained until someone decided to take it away.
+
+At work, this has become especially visible. Housekeeping requires him to move through back
+hallways, elevators, loading areas, and parking-adjacent service corridors, and those in-between
+spaces now feel to him too much like the street where he was attacked. If he hears footsteps behind
+him while carrying linens, his whole body tightens before he turns around. When male guests speak
+abruptly or stand too close to ask for towels, he watches their hands and scans for exits, already
+bracing for something to happen. He does not describe this as anxiety so much as common sense; in
+his mind, being wary is the only reasonable response once one has learned what people are capable
+of. And because he keeps seeing the robbery in such exact, painful fragments, he feels he would be
+reckless to let his guard down.
+
+His wife has noticed that he is no longer the man who used to chat easily with neighbors or make
+small jokes with hotel staff after a long shift. He has become curt with strangers and suspicious
+even in ordinary interactions, questioning motives in a way that strains him. He says little about
+the mugging at home, not because he has forgotten it but because the memory is too fully there and
+too hard to put into language. Sometimes he starts to explain and then stops, pressing a hand to his
+side as if the old blow has landed again. On those occasions what frightens him most is not only the
+memory itself but what it proves to him about the world: that danger can emerge without warning from
+a person who looked unremarkable moments before.
+
+Rohan finally sought help after freezing in a hotel corridor when a guest came around a corner
+unexpectedly and asked him for extra hangers. For a few seconds he could not answer. He felt the old
+pain in his body, saw the mugger’s face with unbearable clarity, and afterward was shaken by how
+completely the past had overtaken the present. He came to treatment exhausted by living as if threat
+were always one step away, but also afraid that if he stopped viewing people with suspicion, he
+would leave himself open to being hurt again. What he hopes for, cautiously, is not to forget what
+happened, but to be able to remember it without feeling trapped inside it.

@@ -1,0 +1,242 @@
+{
+  "persona_id": 257,
+  "source_persona_id": 257,
+  "experiment_timestamp": "2026-05-02 19:51:23",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-chat",
+      "persona_crafter": "deepseek-chat",
+      "vignette_crafter": "deepseek-chat",
+      "vignette_validator": "deepseek-chat"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 68,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "Unemployed",
+    "trauma_type": "Physical abuse by romantic partner",
+    "pcl5": 41
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Sleeping Alone",
+        "value": "Sleeping alone or in an unfamiliar place"
+      },
+      {
+        "key": "Feeling Vulnerable",
+        "value": "Feeling emotionally vulnerable"
+      },
+      {
+        "key": "Olfactory (Earth/Outdoor)",
+        "value": "Soil or outdoor smells"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "People Pleasing",
+        "value": "go along with whatever others want to feel safe"
+      },
+      {
+        "key": "Busyness",
+        "value": "I work hard at keeping busy with other things"
+      },
+      {
+        "key": "Mental Distraction",
+        "value": "keep mind occupied all the time"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Safe Zone Only",
+        "value": "I only feel safe in a very limited number of places"
+      },
+      {
+        "key": "Sleep Vigilance",
+        "value": "I have difficulty falling asleep because I need to stay alert"
+      },
+      {
+        "key": "Alert at Home",
+        "value": "I feel on guard even inside my own home"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Blocked Before Complete",
+        "value": "I find myself pushing the memory away before I can fully recall it"
+      },
+      {
+        "key": "Triggered Without Warning",
+        "value": "Something in my surroundings can instantly bring back the full memory without warning"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.6995,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.224,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.1992,
+    "Memory -- Threat": 0.9556,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.3702,
+    "Threat -- Maladaptive Strategies": 0.3139,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.5041,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.3582,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4530875,
+  "edge_density": 0.4,
+  "vignette_word_count": 950,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Medical Care: Seeking medical or psychological help",
+          "explanation": "'Avoid Medical Care' is internally inconsistent as written: the label indicates avoidance, but the item text states 'Seeking medical or psychological help,' which is the opposite behavior."
+        },
+        {
+          "component": "Triggers",
+          "item": "Overwork: work excessively to avoid being alone with thoughts",
+          "explanation": "'Overwork' is hard to reconcile with the patient's unemployment status. While unemployed people can keep excessively busy, this wording specifically implies excessive work as a strategy and is therefore clinically implausible for this demographic unless otherwise qualified."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Medical Care"
+        ],
+        "Triggers": [
+          "Overwork"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Overwork: work excessively to avoid being alone with thoughts",
+          "explanation": "These two items imply an active work-based avoidance pattern, which is hard to reconcile with the patient's stated occupation of unemployed. While keeping busy is plausible, 'Overwork' specifically describes excessive working and is therefore clinically incoherent with being unemployed unless supported by another role context that is not present here."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Overwork"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Checking Behind: I frequently look behind me to check if someone is following me",
+          "explanation": "Checking whether someone is following her suggests a stalking/pursuit-type threat context that is not well aligned with the indexed trauma of physical abuse by a romantic partner, where fear is more typically focused on the partner in domestic spaces rather than unknown followers. With the rest of the profile centered on sleeping alone, vulnerability, restricted safe places, and sleep vigilance, this item pulls toward a different threat pattern."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.",
+          "explanation": "Bodily reenactment can occur in PTSD, but as selected here it implies a highly embodied, posture-specific trauma memory. Given the other memory items emphasize involuntary intrusion plus active truncation of recall, and the threat profile is oriented toward vigilance and restricted safety rather than reliving a specific assault configuration, this item is less well integrated with the rest of the formulation and self-report pattern."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Checking Behind"
+        ],
+        "Memory": [
+          "Bodily Reenactment"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 3,
+    "passed": 1,
+    "failed": 2,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 11534,
+    "output": 1973,
+    "total": 13507
+  },
+  "vignette": "Adwoa is a 68-year-old woman who came to the United States from Ghana decades ago, and she now lives with her husband of forty years in a quiet suburban home. The trauma that reshaped her life occurred during her first marriage, a relationship she entered as a young woman in Accra. Her husband then was a charismatic man who, behind closed doors, became someone else entirely. The physical abuse was not constant, but it was unpredictable, and it always followed a pattern: he would accuse her of something—disrespect, imagined infidelity, a meal not prepared to his liking—and then the beating would come. She learned to read the subtle shifts in his voice, the way his jaw tightened, the smell of earth on his hands when he came in from the garden, because that smell often preceded the worst episodes. The memory of those moments is not a story she tells; it is a force that ambushes her. Without any warning, a scent of damp soil from a neighbor's yard will instantly bring back the full sensory weight of that apartment, the feel of the concrete floor against her cheek, the sound of his belt unbuckling. And because the memory came back so vividly, she began to see threads of it everywhere: in the way a stranger's jaw tightened at the bus stop, in the smell of damp earth from the garden, in the sound of footsteps approaching the front door — each one a potential threat she couldn't afford to ignore. After the memory had surfaced, even the most ordinary things — a kettle whistling, a door slamming, her husband's footsteps on the porch — felt like warnings she couldn't afford to ignore. To stop that force from taking hold, she had learned to keep the television on loud enough that the thoughts couldn't get a foothold — silence was the enemy, and noise was her only reliable shield. She finds herself pushing the memory away before she can fully recall it, a reflexive shove that leaves her breathless and disoriented. To stop the images coming at night, she started staying up later and later, scrubbing the kitchen counters, reorganizing the pantry, until exhaustion was the only reliable way to fall asleep.\n\nIn the years since, Adwoa has built a life that feels safe on the surface. She remarried a gentle, steady man, and she is grateful for him. But the old patterns have not dissolved; they have simply relocated. She has come to believe that her only reliable safety lies in a very limited number of places: her own living room, the kitchen, the small patch of garden she tends in the back. Everywhere else feels exposed. Even inside her own home, she finds herself on guard, her shoulders tight, her ears tuned to footsteps and the creak of the front door. When her husband travels for a few days, she cannot fall asleep because she needs to stay alert; the bed feels too large, too quiet, and the vulnerability is so acute that she lies rigid, listening. Living at that pitch of constant alertness, she found the world had become dense with reminders she couldn't stop reading — a car slowing outside, a neighbor's raised voice, the smell of damp earth from the garden — each one confirming what her body already believed.\n\nTo manage this constant low-grade terror, Adwoa has developed a set of strategies that she believes keep her safe. She works hard at keeping busy with other things—scrubbing the kitchen counters, reorganizing the pantry, folding laundry that is already folded. The moment a scent or a thought threatens to pull her back, she turns on the television or calls a friend, keeping her mind occupied all the time. She has also learned to go along with whatever others want, a habit that has deepened over decades. When her church group suggests a potluck at a park, she agrees, even though the smell of cut grass makes her stomach clench. Each place she avoided — the park, the garden club, the grocery store's produce aisle — became a reminder in itself, a daily acknowledgement of what had happened that she could not escape. When a neighbor invites her to a garden club, she accepts, only to cancel at the last minute because the thought of standing among flowerbeds fills her with dread. These small concessions to others feel necessary; she is certain that saying no would draw attention, would make her seem difficult, and being difficult, she has long believed, is dangerous.\n\nThe cycle has tightened. The more she distracts herself, the more she avoids the quiet moments when the memories might surface, but the more exhausted she becomes, and exhaustion makes her feel emotionally vulnerable, which in turn triggers the memories again. She has stopped going to the grocery store alone, because the produce section smells of earth after rain, and that smell is a direct line to the past. Her husband has noticed her withdrawing, but she cannot explain it. What finally brought her to seek help was a night last month when he was away, and she found herself standing in the kitchen at three in the morning, clutching a knife, unable to remember why. She is afraid that she is losing her mind. More than anything, she is afraid that if she stops keeping busy, if she lets herself be still, the memory will finish what it started and swallow her whole. And so she kept moving, kept the television on, kept the pantry organized — because the avoidance had grown in all directions until her home was full of routes she no longer used and things she could no longer say."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Adwoa is a 68-year-old woman who came to the United States from Ghana decades ago, and she now lives with her husband of forty years in a quiet suburban home. The trauma that reshaped her life occurred during her first marriage, a relationship she entered as a young woman in Accra. Her husband then was a charismatic man who, behind closed doors, became someone else entirely. The physical abuse was not constant, but it was unpredictable, and it always followed a pattern: he would accuse her of something—disrespect, imagined infidelity, a meal not prepared to his liking—and then the beating would come. She learned to read the subtle shifts in his voice, the way his jaw tightened, the smell of earth on his hands when he came in from the garden, because that smell often preceded the worst episodes. The memory of those moments is not a story she tells; it is a force that ambushes her. Without any warning, a scent of damp soil from a neighbor's yard will instantly bring back the full sensory weight of that apartment, the feel of the concrete floor against her cheek, the sound of his belt unbuckling. She finds herself pushing the memory away before she can fully recall it, a reflexive shove that leaves her breathless and disoriented.\n\nIn the years since, Adwoa has built a life that feels safe on the surface. She remarried a gentle, steady man, and she is grateful for him. But the old patterns have not dissolved; they have simply relocated. She has come to believe that her only reliable safety lies in a very limited number of places: her own living room, the kitchen, the small patch of garden she tends in the back. Everywhere else feels exposed. Even inside her own home, she finds herself on guard, her shoulders tight, her ears tuned to footsteps and the creak of the front door. When her husband travels for a few days, she cannot fall asleep because she needs to stay alert; the bed feels too large, too quiet, and the vulnerability is so acute that she lies rigid, listening.\n\nTo manage this constant low-grade terror, Adwoa has developed a set of strategies that she believes keep her safe. She works hard at keeping busy with other things—scrubbing the kitchen counters, reorganizing the pantry, folding laundry that is already folded. The moment a scent or a thought threatens to pull her back, she turns on the television or calls a friend, keeping her mind occupied all the time. She has also learned to go along with whatever others want, a habit that has deepened over decades. When her church group suggests a potluck at a park, she agrees, even though the smell of cut grass makes her stomach clench. When a neighbor invites her to a garden club, she accepts, only to cancel at the last minute because the thought of standing among flowerbeds fills her with dread. These small concessions to others feel necessary; she is certain that saying no would draw attention, would make her seem difficult, and being difficult, she has long believed, is dangerous.\n\nThe cycle has tightened. The more she distracts herself, the more she avoids the quiet moments when the memories might surface, but the more exhausted she becomes, and exhaustion makes her feel emotionally vulnerable, which in turn triggers the memories again. She has stopped going to the grocery store alone, because the produce section smells of earth after rain, and that smell is a direct line to the past. Her husband has noticed her withdrawing, but she cannot explain it. What finally brought her to seek help was a night last month when he was away, and she found herself standing in the kitchen at three in the morning, clutching a knife, unable to remember why. She is afraid that she is losing her mind. More than anything, she is afraid that if she stops keeping busy, if she lets herself be still, the memory will finish what it started and swallow her whole.", "passed": false, "violations": [{"edge": "Triggers → Maladaptive Strategies", "explanation": "No paragraph conveys that triggers (e.g., damp soil, cut grass) cause or lead to maladaptive strategies (e.g., distraction, avoidance)."}, {"edge": "Memory → Maladaptive Strategies", "explanation": "No paragraph conveys that the memory directly causes or leads to maladaptive strategies; the memory is described as triggering avoidance but not as the cause of the strategies themselves."}, {"edge": "Memory → Triggers", "explanation": "No paragraph conveys that the memory causes or leads to triggers; the memory is described as being triggered by scents, not as generating triggers."}, {"edge": "Threat → Triggers", "explanation": "No paragraph conveys that threat (sense of danger) causes or leads to triggers; threat is described as a background state, not as generating specific triggers."}, {"edge": "Maladaptive Strategies → Triggers", "explanation": "No paragraph conveys that maladaptive strategies cause or lead to triggers; strategies are described as responses to triggers, not as causes of them."}], "violation_count": 5, "feedback": "REQUIRED EDGES MISSING:\n- Triggers → Maladaptive Strategies: No paragraph conveys that triggers (e.g., damp soil, cut grass) cause or lead to maladaptive strategies (e.g., distraction, avoidance).\n  e.g. \"She stopped taking that route to work entirely — better to add twenty minutes to her commute than to feel that way again.\"\n  e.g. \"When the anniversary came around, she kept herself moving all day, cleaning, cooking, anything, because sitting still meant the thoughts would catch up.\"\n  e.g. \"She started leaving events early, telling herself she was tired, because staying too long meant the chances of something going wrong only multiplied.\"\n- Memory → Maladaptive Strategies: No paragraph conveys that the memory directly causes or leads to maladaptive strategies; the memory is described as triggering avoidance but not as the cause of the strategies themselves.\n  e.g. \"She had learned that if she kept the television on loud enough, the thoughts couldn't get a foothold — silence was the enemy.\"\n  e.g. \"After the memory surfaced during sex, she began finding quiet reasons to avoid intimacy altogether, telling herself she was simply tired or stressed.\"\n  e.g. \"To stop the images coming at night, she started staying up later and later, until exhaustion was the only reliable way to fall asleep.\"\n- Memory → Triggers: No paragraph conveys that the memory causes or leads to triggers; the memory is described as being triggered by scents, not as generating triggers.\n  e.g. \"After the memory had surfaced, even the most ordinary things — a kettle whistling, a door slamming — felt like warnings she couldn't afford to ignore.\"\n  e.g. \"The intrusive image left her scanning every room she entered, cataloguing exits, tracking faces, unable to switch off.\"\n  e.g. \"Because the memory came back so vividly, she began to see threads of it everywhere: in strangers' faces, in certain times of day, in the quality of winter light.\"\n- Threat → Triggers: No paragraph conveys that threat (sense of danger) causes or leads to triggers; threat is described as a background state, not as generating specific triggers.\n  e.g. \"Already running on threat, she found that almost anything could tip into a warning — a van parked at an odd angle, a light left on that shouldn't have been.\"\n  e.g. \"The background hum of danger she carried everywhere made ordinary cues feel like messages — each one confirming what her body already believed.\"\n  e.g. \"Living at that pitch of alertness, she found the world had become dense with reminders she couldn't stop reading.\"\n- Maladaptive Strategies → Triggers: No paragraph conveys that maladaptive strategies cause or lead to triggers; strategies are described as responses to triggers, not as causes of them.\n  e.g. \"Each place she avoided became a reminder in itself — the long way round she walked every morning was its own daily acknowledgement of what had happened.\"\n  e.g. \"Her safety behaviours had drawn a map of the event around her: everything she couldn't do, everywhere she couldn't go, every person she kept at arm's length.\"\n  e.g. \"The avoidance had grown in all directions until the city was full of routes she no longer used and things she could no longer say.\""},
+
+    {"vignette": "Adwoa is a 68-year-old woman who came to the United States from Ghana decades ago, and she now lives with her husband of forty years in a quiet suburban home. The trauma that reshaped her life occurred during her first marriage, a relationship she entered as a young woman in Accra. Her husband then was a charismatic man who, behind closed doors, became someone else entirely. The physical abuse was not constant, but it was unpredictable, and it always followed a pattern: he would accuse her of something—disrespect, imagined infidelity, a meal not prepared to his liking—and then the beating would come. She learned to read the subtle shifts in his voice, the way his jaw tightened, the smell of earth on his hands when he came in from the garden, because that smell often preceded the worst episodes. The memory of those moments is not a story she tells; it is a force that ambushes her. Without any warning, a scent of damp soil from a neighbor's yard will instantly bring back the full sensory weight of that apartment, the feel of the concrete floor against her cheek, the sound of his belt unbuckling. After the memory had surfaced, even the most ordinary things — a kettle whistling, a door slamming, her husband's footsteps on the porch — felt like warnings she couldn't afford to ignore. To stop that force from taking hold, she had learned to keep the television on loud enough that the thoughts couldn't get a foothold — silence was the enemy, and noise was her only reliable shield. She finds herself pushing the memory away before she can fully recall it, a reflexive shove that leaves her breathless and disoriented. To stop the images coming at night, she started staying up later and later, scrubbing the kitchen counters, reorganizing the pantry, until exhaustion was the only reliable way to fall asleep.\n\nIn the years since, Adwoa has built a life that feels safe on the surface. She remarried a gentle, steady man, and she is grateful for him. But the old patterns have not dissolved; they have simply relocated. She has come to believe that her only reliable safety lies in a very limited number of places: her own living room, the kitchen, the small patch of garden she tends in the back. Everywhere else feels exposed. Even inside her own home, she finds herself on guard, her shoulders tight, her ears tuned to footsteps and the creak of the front door. When her husband travels for a few days, she cannot fall asleep because she needs to stay alert; the bed feels too large, too quiet, and the vulnerability is so acute that she lies rigid, listening. Living at that pitch of constant alertness, she found the world had become dense with reminders she couldn't stop reading — a car slowing outside, a neighbor's raised voice, the smell of damp earth from the garden — each one confirming what her body already believed.\n\nTo manage this constant low-grade terror, Adwoa has developed a set of strategies that she believes keep her safe. She works hard at keeping busy with other things—scrubbing the kitchen counters, reorganizing the pantry, folding laundry that is already folded. The moment a scent or a thought threatens to pull her back, she turns on the television or calls a friend, keeping her mind occupied all the time. She has also learned to go along with whatever others want, a habit that has deepened over decades. When her church group suggests a potluck at a park, she agrees, even though the smell of cut grass makes her stomach clench. Each place she avoided — the park, the garden club, the grocery store's produce aisle — became a reminder in itself, a daily acknowledgement of what had happened that she could not escape. When a neighbor invites her to a garden club, she accepts, only to cancel at the last minute because the thought of standing among flowerbeds fills her with dread. These small concessions to others feel necessary; she is certain that saying no would draw attention, would make her seem difficult, and being difficult, she has long believed, is dangerous.\n\nThe cycle has tightened. The more she distracts herself, the more she avoids the quiet moments when the memories might surface, but the more exhausted she becomes, and exhaustion makes her feel emotionally vulnerable, which in turn triggers the memories again. She has stopped going to the grocery store alone, because the produce section smells of earth after rain, and that smell is a direct line to the past. Her husband has noticed her withdrawing, but she cannot explain it. What finally brought her to seek help was a night last month when he was away, and she found herself standing in the kitchen at three in the morning, clutching a knife, unable to remember why. She is afraid that she is losing her mind. More than anything, she is afraid that if she stops keeping busy, if she lets herself be still, the memory will finish what it started and swallow her whole. And so she kept moving, kept the television on, kept the pantry organized — because the avoidance had grown in all directions until her home was full of routes she no longer used and things she could no longer say.", "passed": false, "violations": [{"edge": "Memory → Triggers", "explanation": "The vignette does not convey that the memory itself causes or leads to triggers; instead, triggers lead to the memory, and the memory leads to threat, but the reverse causal direction from memory to triggers is absent."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Memory → Triggers: The vignette does not convey that the memory itself causes or leads to triggers; instead, triggers lead to the memory, and the memory leads to threat, but the reverse causal direction from memory to triggers is absent.\n  e.g. \"After the memory had surfaced, even the most ordinary things — a kettle whistling, a door slamming — felt like warnings she couldn't afford to ignore.\"\n  e.g. \"The intrusive image left her scanning every room she entered, cataloguing exits, tracking faces, unable to switch off.\"\n  e.g. \"Because the memory came back so vividly, she began to see threads of it everywhere: in strangers' faces, in certain times of day, in the quality of winter light.\""},
+
+    {"vignette": "Adwoa is a 68-year-old woman who came to the United States from Ghana decades ago, and she now lives with her husband of forty years in a quiet suburban home. The trauma that reshaped her life occurred during her first marriage, a relationship she entered as a young woman in Accra. Her husband then was a charismatic man who, behind closed doors, became someone else entirely. The physical abuse was not constant, but it was unpredictable, and it always followed a pattern: he would accuse her of something—disrespect, imagined infidelity, a meal not prepared to his liking—and then the beating would come. She learned to read the subtle shifts in his voice, the way his jaw tightened, the smell of earth on his hands when he came in from the garden, because that smell often preceded the worst episodes. The memory of those moments is not a story she tells; it is a force that ambushes her. Without any warning, a scent of damp soil from a neighbor's yard will instantly bring back the full sensory weight of that apartment, the feel of the concrete floor against her cheek, the sound of his belt unbuckling. And because the memory came back so vividly, she began to see threads of it everywhere: in the way a stranger's jaw tightened at the bus stop, in the smell of damp earth from the garden, in the sound of footsteps approaching the front door — each one a potential threat she couldn't afford to ignore. After the memory had surfaced, even the most ordinary things — a kettle whistling, a door slamming, her husband's footsteps on the porch — felt like warnings she couldn't afford to ignore. To stop that force from taking hold, she had learned to keep the television on loud enough that the thoughts couldn't get a foothold — silence was the enemy, and noise was her only reliable shield. She finds herself pushing the memory away before she can fully recall it, a reflexive shove that leaves her breathless and disoriented. To stop the images coming at night, she started staying up later and later, scrubbing the kitchen counters, reorganizing the pantry, until exhaustion was the only reliable way to fall asleep.\n\nIn the years since, Adwoa has built a life that feels safe on the surface. She remarried a gentle, steady man, and she is grateful for him. But the old patterns have not dissolved; they have simply relocated. She has come to believe that her only reliable safety lies in a very limited number of places: her own living room, the kitchen, the small patch of garden she tends in the back. Everywhere else feels exposed. Even inside her own home, she finds herself on guard, her shoulders tight, her ears tuned to footsteps and the creak of the front door. When her husband travels for a few days, she cannot fall asleep because she needs to stay alert; the bed feels too large, too quiet, and the vulnerability is so acute that she lies rigid, listening. Living at that pitch of constant alertness, she found the world had become dense with reminders she couldn't stop reading — a car slowing outside, a neighbor's raised voice, the smell of damp earth from the garden — each one confirming what her body already believed.\n\nTo manage this constant low-grade terror, Adwoa has developed a set of strategies that she believes keep her safe. She works hard at keeping busy with other things—scrubbing the kitchen counters, reorganizing the pantry, folding laundry that is already folded. The moment a scent or a thought threatens to pull her back, she turns on the television or calls a friend, keeping her mind occupied all the time. She has also learned to go along with whatever others want, a habit that has deepened over decades. When her church group suggests a potluck at a park, she agrees, even though the smell of cut grass makes her stomach clench. Each place she avoided — the park, the garden club, the grocery store's produce aisle — became a reminder in itself, a daily acknowledgement of what had happened that she could not escape. When a neighbor invites her to a garden club, she accepts, only to cancel at the last minute because the thought of standing among flowerbeds fills her with dread. These small concessions to others feel necessary; she is certain that saying no would draw attention, would make her seem difficult, and being difficult, she has long believed, is dangerous.\n\nThe cycle has tightened. The more she distracts herself, the more she avoids the quiet moments when the memories might surface, but the more exhausted she becomes, and exhaustion makes her feel emotionally vulnerable, which in turn triggers the memories again. She has stopped going to the grocery store alone, because the produce section smells of earth after rain, and that smell is a direct line to the past. Her husband has noticed her withdrawing, but she cannot explain it. What finally brought her to seek help was a night last month when he was away, and she found herself standing in the kitchen at three in the morning, clutching a knife, unable to remember why. She is afraid that she is losing her mind. More than anything, she is afraid that if she stops keeping busy, if she lets herself be still, the memory will finish what it started and swallow her whole. And so she kept moving, kept the television on, kept the pantry organized — because the avoidance had grown in all directions until her home was full of routes she no longer used and things she could no longer say.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

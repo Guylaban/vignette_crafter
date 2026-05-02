@@ -1,0 +1,221 @@
+PERSONA 440  |  2026-05-02 01:52:28
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             56
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Divorced
+  occupation      Detective
+  trauma_type     Physical abuse by caregiver (childhood)
+  pcl5            62
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory Danger Cue: Burnt smell
+    • Victim Similarity: People who look similar to the victims
+    • Positive Emotion Confusion: Positive emotions
+  Maladaptive Strategies:
+    • Avoid Similar Clothes: avoid wearing similar clothes
+    • Memory Detachment: I detach myself from the memories
+    • Avoid People: avoid other people
+  Threat:
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+    • Rage on Recall: When I remember the event I feel intense rage
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+  Negative Appraisals:
+    • Shattered Beliefs: My beliefs about how the world works have been completely destroyed
+    • Bad Coper: My reactions since the event show that I am a lousy coper
+    • Character Blame: The event happened to me because of the sort of person I am
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3139
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0368
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.9902
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.3682
+  Memory → Threat                                    0.2385
+  Memory → Negative Appraisals                       0.0697
+  Memory → Triggers                                  0.0709
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.8633
+  Threat → Triggers                                  0.2359
+  Maladaptive Strategies → Memory                    0.2886
+  Maladaptive Strategies → Negative Appraisals       0.9021
+  Maladaptive Strategies → Triggers                  0.2685
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+    explanation: The inaction/self-blame item is hard to reconcile with the indexed trauma of childhood physical abuse by a caregiver. In a child victim context, 'not doing more to stop what happened' implies agency that is typically not clinically plausible for the same trauma profile; a more general shame/self-blame item would fit, but this specific omission-guilt wording is questionable.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: Within the Threat node, 'difficulty concentrating' is not a threat appraisal but a general arousal/cognitive symptom. The other Threat items reflect current danger and hypervigilance ('strong physical reactions to reminders', 'need to stay alert to fall asleep'). This item weakens within-node coherence and does not match the node's formulation role as perceived current threat.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,275
+  output:     1,064
+  total:      4,339
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Mika grew up in a house where danger announced itself before anyone spoke. His stepfather would come
+in from the garage smelling of singed metal and burnt oil, and Mika learned as a boy that the odor
+meant he should go still, watchful, ready for the blow or the grabbing hand. The abuse was physical
+and unpredictable, often set off when his stepfather had been drinking and tinkering with tools, and
+what stayed with Mika most was not a neat sequence but fragments: the smell, a shirt front close to
+his face, the heat of rage in his own body, the certainty that no one was coming to stop it. Even
+now, when he tries to explain what happened, he loses the thread and trails off, jaw tight, as if
+the story breaks apart under him.
+
+He became a detective decades later, a job that had seemed to fit the version of himself that could
+stay hard, observant, and hard to surprise. But the work also keeps putting him near the kinds of
+cues that catch him off guard. In interviews with injured children or vulnerable adults, it is often
+the face of someone who resembles the child he once was that hits him first. At fire scenes or in
+shabby apartments with scorched pans, the burnt smell can pull the whole memory back without
+warning. The reaction is immediate and bodily: a rush in his chest, clenched muscles, a sense that
+he has to move or strike. When that happens, he does not think of it as remembering; it feels as if
+the past has broken into the room.
+
+Those moments have shaped the habits of his adult life. On cases where a victim’s age, expression,
+or frightened posture resembles his younger self, Mika shortens the interaction or hands it to a
+colleague when he can. He keeps his distance from people generally outside work, telling himself it
+is easier that way, and since his divorce he has let that harden into a routine of going home alone
+and staying there. He is oddly particular about clothes, avoiding shirts and jackets that resemble
+what he remembers from that house, as if certain cuts or fabrics could make him feel too close to
+that boy again. He calls it being practical, but the logic is simple to him: if a smell, a face, or
+even a feeling of warmth and ease can open the trapdoor, then he has to narrow his world.
+
+The effort to wall things off has not brought relief. When Mika feels a memory rising, he detaches
+from it, goes blank on purpose, pushes it away before it can fully form. Yet this seems to leave the
+past more jagged rather than less. Because he never stays with it long enough to put it into words,
+the memory remains in flashes that arrive with greater force, and when it does break through he is
+flooded with rage. The anger frightens him almost as much as the memory itself. He has come to see
+these reactions as proof that there is something fundamentally defective in him—that the abuse
+happened because of the kind of person he was, weak or marked somehow, and that the fact he still
+reacts this way means he is a lousy coper.
+
+That belief has deepened over time because his body never stands down. He sleeps lightly and badly,
+lying awake as if some part of him still has to listen for footsteps in the hall. At work and in
+public he scans constantly, tracking voices, movements, exits. This permanent state of guard leaves
+him feeling that the world’s basic rules were shattered long ago, that safety is a story other
+people tell themselves. And when he notices how keyed up he is over something as small as a burnt
+smell from the break-room toaster, he reads it as more evidence of personal failure, not injury.
+
+The loop has tightened in ways he can now see but not interrupt. The more he avoids certain people,
+clothes, and situations, the more unfamiliar ordinary contact feels, and even positive emotions have
+become confusing to him. A moment of warmth with a colleague, a brief sense of comfort, can feel
+dangerous in its own right, as if letting down his guard would invite harm; he becomes wary of the
+very states that might have connected him to others. That narrowing of his life leaves him alone
+with the fragments, and alone they return more abruptly. The repeated jolts of memory make him more
+watchful; the watchfulness makes burnt smells, familiar faces, and even good moments stand out as
+possible threats; and each new reaction seems to confirm his view that something is wrong with him
+at the core.
+
+What finally brought Mika to treatment was an interview with a teenage assault victim who looked
+enough like him at that age that he felt himself go hot and lose the room. He had to leave, and
+afterward he sat in his car shaking, furious, and unable to give a clear account of why. For the
+first time, he worried his way of managing this was costing him the work he has built his life
+around. He says he wants help sleeping and “getting a handle on it,” but what frightens him most is
+the possibility that the past has fixed him permanently, and what he barely allows himself to hope
+is that these reactions might make sense without meaning he is ruined.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Mika grew up in a house where danger announced itself before anyone spoke. His stepfather would come
+in from the garage smelling of singed metal and burnt oil, and Mika learned as a boy that the odor
+meant he should go still, watchful, ready for the blow or the grabbing hand. The abuse was physical
+and unpredictable, often set off when his stepfather had been drinking and tinkering with tools, and
+what stayed with Mika most was not a neat sequence but fragments: the smell, a shirt front close to
+his face, the heat of rage in his own body, the certainty that no one was coming to stop it. Even
+now, when he tries to explain what happened, he loses the thread and trails off, jaw tight, as if
+the story breaks apart under him.
+
+He became a detective decades later, a job that had seemed to fit the version of himself that could
+stay hard, observant, and hard to surprise. But the work also keeps putting him near the kinds of
+cues that catch him off guard. In interviews with injured children or vulnerable adults, it is often
+the face of someone who resembles the child he once was that hits him first. At fire scenes or in
+shabby apartments with scorched pans, the burnt smell can pull the whole memory back without
+warning. The reaction is immediate and bodily: a rush in his chest, clenched muscles, a sense that
+he has to move or strike. When that happens, he does not think of it as remembering; it feels as if
+the past has broken into the room.
+
+Those moments have shaped the habits of his adult life. On cases where a victim’s age, expression,
+or frightened posture resembles his younger self, Mika shortens the interaction or hands it to a
+colleague when he can. He keeps his distance from people generally outside work, telling himself it
+is easier that way, and since his divorce he has let that harden into a routine of going home alone
+and staying there. He is oddly particular about clothes, avoiding shirts and jackets that resemble
+what he remembers from that house, as if certain cuts or fabrics could make him feel too close to
+that boy again. He calls it being practical, but the logic is simple to him: if a smell, a face, or
+even a feeling of warmth and ease can open the trapdoor, then he has to narrow his world.
+
+The effort to wall things off has not brought relief. When Mika feels a memory rising, he detaches
+from it, goes blank on purpose, pushes it away before it can fully form. Yet this seems to leave the
+past more jagged rather than less. Because he never stays with it long enough to put it into words,
+the memory remains in flashes that arrive with greater force, and when it does break through he is
+flooded with rage. The anger frightens him almost as much as the memory itself. He has come to see
+these reactions as proof that there is something fundamentally defective in him—that the abuse
+happened because of the kind of person he was, weak or marked somehow, and that the fact he still
+reacts this way means he is a lousy coper.
+
+That belief has deepened over time because his body never stands down. He sleeps lightly and badly,
+lying awake as if some part of him still has to listen for footsteps in the hall. At work and in
+public he scans constantly, tracking voices, movements, exits. This permanent state of guard leaves
+him feeling that the world’s basic rules were shattered long ago, that safety is a story other
+people tell themselves. And when he notices how keyed up he is over something as small as a burnt
+smell from the break-room toaster, he reads it as more evidence of personal failure, not injury.
+
+The loop has tightened in ways he can now see but not interrupt. The more he avoids certain people,
+clothes, and situations, the more unfamiliar ordinary contact feels, and even positive emotions have
+become confusing to him. A moment of warmth with a colleague, a brief sense of comfort, can feel
+dangerous in its own right, as if letting down his guard would invite harm; he becomes wary of the
+very states that might have connected him to others. That narrowing of his life leaves him alone
+with the fragments, and alone they return more abruptly. The repeated jolts of memory make him more
+watchful; the watchfulness makes burnt smells, familiar faces, and even good moments stand out as
+possible threats; and each new reaction seems to confirm his view that something is wrong with him
+at the core.
+
+What finally brought Mika to treatment was an interview with a teenage assault victim who looked
+enough like him at that age that he felt himself go hot and lose the room. He had to leave, and
+afterward he sat in his car shaking, furious, and unable to give a clear account of why. For the
+first time, he worried his way of managing this was costing him the work he has built his life
+around. He says he wants help sleeping and “getting a handle on it,” but what frightens him most is
+the possibility that the past has fixed him permanently, and what he barely allows himself to hope
+is that these reactions might make sense without meaning he is ruined.

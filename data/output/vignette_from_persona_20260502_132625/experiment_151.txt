@@ -1,0 +1,220 @@
+PERSONA 151  |  2026-05-02 14:10:24
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-haiku-4-5
+    persona_crafter      claude-haiku-4-5
+    vignette_crafter     claude-haiku-4-5
+    vignette_validator   claude-haiku-4-5
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             60
+  gender          Male
+  ethnicity       European
+  relationship_status In a relationship
+  occupation      Warehouse Worker
+  trauma_type     Military
+  pcl5            62
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid Location: Going to or near the place where the event happened
+    • Avoid Similar Clothes: avoid wearing similar clothes
+    • Avoid Thinking: Thinking about the event
+  Memory:
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+  Negative Appraisals:
+    • Survival Guilt: I feel guilty for surviving when others did not
+    • Identity Loss: I feel like I don't know myself anymore
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.8219
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.2335
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0174
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.7336
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.9273
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Carry Weapon: carry weapon
+    explanation: The profile omits both Triggers and Threat entirely, yet includes carrying a weapon and persistent on-guard appraisals. For a 60-year-old male with military trauma, these items are individually plausible, but together they imply an active current-danger/threat system that is not represented elsewhere in the selected nodes and sits poorly with the formulation, where Threat and Triggers are not linked to the active network.
+    item:        Negative Appraisals / Hypervigilance: I have to be on guard all the time
+    explanation: 'I have to be on guard all the time' functions more like a live threat appraisal, but the formulation centers the case on a Negative Appraisals ↔ Memory ↔ Maladaptive Strategies loop, with Threat inactive. In the absence of any other threat-focused items, this item is the main source of incoherence.
+    item:        Memory / Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    explanation: 'Something in my surroundings can instantly bring back the full memory without warning' implies salient cue-driven triggering, but all Triggers edges are inactive and no Trigger items are selected. That does not by itself make triggered recall impossible, but combined with the otherwise appraisal/guilt/identity-focused formulation and profile, it is the least coherent memory item.
+  [2] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: This item is difficult to reconcile with the formulation because Threat is not otherwise represented in the self-report and all Threat-related edges are inactive. The rest of the profile is organized around guilt/identity loss and trauma memory, whereas constant threat scanning implies an active current-threat focus that is not supported by the selected Threat, Trigger, Appraisal, or Memory items. The avoidance items fit the military trauma context, but this hypervigilant checking behavior appears clinically disconnected from the rest of the profile.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,951
+  output:     1,134
+  total:      5,085
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+# Thomas
+
+Thomas was thirty-two when the convoy hit the IED outside Kandahar. He remembers the noise first—not
+the explosion itself, which his mind seems to have erased, but the ringing that came after, a high-
+pitched whine that filled everything. He remembers the smell of burning rubber and something else,
+something organic that he has never been able to name. He was the vehicle commander. Martinez and
+Dawson were in the Humvee behind his. When the dust cleared enough to see, both vehicles were
+burning. He pulled three men from his own truck. He could hear Martinez calling out, but the second
+vehicle was already fully engulfed. Thomas tried twice to reach it. The heat drove him back. He has
+spent twenty-eight years knowing that he left them there.
+
+The guilt settled into him like scar tissue. It was not the sharp, fresh guilt of the first
+months—that had been almost easier, because it had felt like something he deserved. What came later
+was worse: the slow, corrosive certainty that he had survived when better men had not, that there
+was something fundamentally wrong with the fact of his breathing while they were ash. He came home,
+married Carol ten years later, kept working. For a long time, he had almost convinced himself he
+could live with it. But in the past few years, something had shifted. The guilt had metastasized
+into a broader, darker conviction: that he did not know who he was anymore, that the man who came
+back from Kandahar was not the person he had been before, and that the world itself was a place
+where death could come without warning and take the people you cared about. He had come to believe
+that nowhere was truly safe—that vigilance was the only honest stance toward a fundamentally
+dangerous existence.
+
+These convictions had begun to shape what he did and did not allow himself to experience. When
+memories of the event surfaced—and they did, unbidden, when he was loading pallets in the warehouse
+or sitting in traffic—they came with an intensity that terrified him. The terror was not abstract.
+It was the same physical sensation he had felt in the moment: his chest tight, his vision narrowing,
+his hands shaking. Accompanying the terror was a crushing weight of guilt that made him want to
+disappear. The memories were also strangely wordless. He knew what had happened, he could see it,
+but when he tried to articulate it—even in his own mind—the words scattered like startled birds.
+There was no language adequate to what he had done or failed to do.
+
+Because these memories were unbearable, Thomas had begun to construct a careful architecture of
+avoidance. He stopped wearing the tan cargo pants he had worn in the service; they triggered
+something in him that he could not quite articulate, a sense of being pulled back into that
+identity, that failure. He had not returned to the military base where he had been stationed, though
+it was only two hours from his home. The thought of driving past those gates, of seeing the
+landscape where he had trained, made his chest tight with dread. More insidiously, he had begun to
+avoid thinking about the event at all, pushing away any memory or association the moment it arose.
+He would change the radio station, leave a room, find a task that demanded his full attention. Carol
+had noticed that he became irritable when she tried to talk about his service, and he had stopped
+attending the veteran support group he had gone to for a few months.
+
+But the avoidance was not protecting him. Instead, it was feeding the very beliefs that had taken
+root in him. Each time he turned away from a memory, each time he refused to let himself think about
+what had happened, he was implicitly confirming his deepest fear: that the truth was too dangerous
+to face, that the guilt was too heavy to bear, that he was fundamentally unsafe in his own mind. The
+more he avoided, the more he felt like a stranger to himself—a man made of evasions and
+suppressions, no longer sure what was real or solid in his own experience. And the more distant he
+became from his own past, the more the world seemed to close in. He found himself scanning parking
+lots before he got out of the car. He slept poorly, alert to sounds. He could not relax with Carol
+the way he used to. His conviction that the world was dangerous felt less like a belief and more
+like a simple fact, confirmed every time he successfully avoided something that might hurt him. The
+avoidance had become a way of life, and the life it was creating was smaller and more isolated with
+each passing month.
+
+At sixty, Thomas finally called a therapist. Carol had given him an ultimatum: get help, or she was
+leaving. He had sat in the parking lot for fifteen minutes before going in, terrified that talking
+about Kandahar would break something in him that could not be repaired. What he wanted most was to
+feel like himself again, to know who that person was. What he feared most was that there was no
+going back—that the guilt and the terror and the wordlessness were all that remained.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+# Thomas
+
+Thomas was thirty-two when the convoy hit the IED outside Kandahar. He remembers the noise first—not
+the explosion itself, which his mind seems to have erased, but the ringing that came after, a high-
+pitched whine that filled everything. He remembers the smell of burning rubber and something else,
+something organic that he has never been able to name. He was the vehicle commander. Martinez and
+Dawson were in the Humvee behind his. When the dust cleared enough to see, both vehicles were
+burning. He pulled three men from his own truck. He could hear Martinez calling out, but the second
+vehicle was already fully engulfed. Thomas tried twice to reach it. The heat drove him back. He has
+spent twenty-eight years knowing that he left them there.
+
+The guilt settled into him like scar tissue. It was not the sharp, fresh guilt of the first
+months—that had been almost easier, because it had felt like something he deserved. What came later
+was worse: the slow, corrosive certainty that he had survived when better men had not, that there
+was something fundamentally wrong with the fact of his breathing while they were ash. He came home,
+married Carol ten years later, kept working. For a long time, he had almost convinced himself he
+could live with it. But in the past few years, something had shifted. The guilt had metastasized
+into a broader, darker conviction: that he did not know who he was anymore, that the man who came
+back from Kandahar was not the person he had been before, and that the world itself was a place
+where death could come without warning and take the people you cared about. He had come to believe
+that nowhere was truly safe—that vigilance was the only honest stance toward a fundamentally
+dangerous existence.
+
+These convictions had begun to shape what he did and did not allow himself to experience. When
+memories of the event surfaced—and they did, unbidden, when he was loading pallets in the warehouse
+or sitting in traffic—they came with an intensity that terrified him. The terror was not abstract.
+It was the same physical sensation he had felt in the moment: his chest tight, his vision narrowing,
+his hands shaking. Accompanying the terror was a crushing weight of guilt that made him want to
+disappear. The memories were also strangely wordless. He knew what had happened, he could see it,
+but when he tried to articulate it—even in his own mind—the words scattered like startled birds.
+There was no language adequate to what he had done or failed to do.
+
+Because these memories were unbearable, Thomas had begun to construct a careful architecture of
+avoidance. He stopped wearing the tan cargo pants he had worn in the service; they triggered
+something in him that he could not quite articulate, a sense of being pulled back into that
+identity, that failure. He had not returned to the military base where he had been stationed, though
+it was only two hours from his home. The thought of driving past those gates, of seeing the
+landscape where he had trained, made his chest tight with dread. More insidiously, he had begun to
+avoid thinking about the event at all, pushing away any memory or association the moment it arose.
+He would change the radio station, leave a room, find a task that demanded his full attention. Carol
+had noticed that he became irritable when she tried to talk about his service, and he had stopped
+attending the veteran support group he had gone to for a few months.
+
+But the avoidance was not protecting him. Instead, it was feeding the very beliefs that had taken
+root in him. Each time he turned away from a memory, each time he refused to let himself think about
+what had happened, he was implicitly confirming his deepest fear: that the truth was too dangerous
+to face, that the guilt was too heavy to bear, that he was fundamentally unsafe in his own mind. The
+more he avoided, the more he felt like a stranger to himself—a man made of evasions and
+suppressions, no longer sure what was real or solid in his own experience. And the more distant he
+became from his own past, the more the world seemed to close in. He found himself scanning parking
+lots before he got out of the car. He slept poorly, alert to sounds. He could not relax with Carol
+the way he used to. His conviction that the world was dangerous felt less like a belief and more
+like a simple fact, confirmed every time he successfully avoided something that might hurt him. The
+avoidance had become a way of life, and the life it was creating was smaller and more isolated with
+each passing month.
+
+At sixty, Thomas finally called a therapist. Carol had given him an ultimatum: get help, or she was
+leaving. He had sat in the parking lot for fifteen minutes before going in, terrified that talking
+about Kandahar would break something in him that could not be repaired. What he wanted most was to
+feel like himself again, to know who that person was. What he feared most was that there was no
+going back—that the guilt and the terror and the wordlessness were all that remained.

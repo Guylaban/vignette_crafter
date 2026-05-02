@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "agent_name": "Persona_126_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-02 14:23:03"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Memory\n  - Negative Appraisals\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Maladaptive Strategies\n  - Triggers → Memory\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Maladaptive Strategies\n  - Negative Appraisals → Memory\n  - Negative Appraisals → Triggers\n  - Memory → Threat\n  - Memory → Negative Appraisals\n  - Memory → Triggers\n  - Threat → Negative Appraisals\n  - Threat → Triggers\n  - Maladaptive Strategies → Memory\n  - Maladaptive Strategies → Negative Appraisals\n  - Maladaptive Strategies → Threat\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nPriya is a 47-year-old South Asian woman, divorced, who serves as a pastor at a small interfaith congregation in a mid-sized American city. She presents with a PCL-5 score of 53, seeking help approximately fourteen months after surviving a period of politically motivated detention and torture during a visit to her country of origin. She had travelled there to support a local human rights initiative; what followed was a week of captivity during which she was subjected to sustained physical abuse, sensory deprivation, and forced feeding of a particular bitter, chemically adulterated liquid that her captors used as both punishment and humiliation. She was eventually released through diplomatic pressure, but she returned to the United States altered in ways she is only beginning to name.\n\nIn the early months after her return, Priya threw herself back into her pastoral duties, believing that service would restore her. It did not. The first crack appeared at a congregational dinner when a dish was served with a bitter herbal flavour that bore some resemblance to what she had been forced to consume in detention. Before she could locate the thought, her body had already responded — heart hammering, hands cold, a wave of nausea that sent her from the table. That taste, now a reliable portal back, began to govern her relationship with food in ways that spread far beyond that single flavour. She began restricting her eating with increasing rigidity, controlling portions and ingredients with meticulous precision, because the act of choosing what entered her body felt like the one domain of safety she could maintain. Talking about the event with a colleague some weeks later produced a similar cascade — the words themselves seemed to drag fragments of the experience back into the room — and she began declining invitations to share her story, even in pastoral contexts where testimony was expected.\n\nHer memories of the detention are structurally disordered. Some moments arrive with terrible clarity — the texture of the floor, the specific quality of a guard's voice — while entire hours remain blank, as though excised. These disconnected pieces do not cohere into a narrative she can hold, and when she attempts to remember, or when a trigger forces the memory forward, she is flooded with guilt: a conviction that she must have done something to invite what happened, that her faith should have protected her or been stronger. That guilt, arising within memory, feeds directly into her darkest appraisals of herself — that she is no longer the person who stood before a congregation and spoke with authority about hope, that she is no longer capable of the spiritual and pastoral work that once defined her. She has come to believe, with quiet devastation, that she has no future worth inhabiting.\n\nThese appraisals do not remain abstract. They circle back and make the triggers more potent: because she believes she cannot handle thinking about the event, any stimulus that risks pulling it forward — a bitter taste, the onset of tears in front of others, a direct question about what happened — becomes charged with anticipatory dread, and she organises her days to avoid them. The avoidance itself, however, keeps the memories from ever consolidating or losing their jagged edges, and the fragmented, guilt-laden quality of recall persists and deepens her sense of incapacity. She suppresses thoughts of the trauma with determined effort, but the suppression appears to rebound — intruding images arrive with greater force in unguarded moments, and the effort of holding them back leaves her exhausted and more convinced that the memories, if fully faced, would destroy her.\n\nHer body operates on a threat register that her conscious mind cannot override. She scans her congregation — people she has known for years — for signs of danger, unable to accept reassurances of safety that she intellectually understands but cannot feel. This persistent physiological vigilance has thinned her pastoral presence; parishioners have noticed her distraction, her early departures from social gatherings, her reluctance to sit with her back to a door. A deacon gently asked if she was well. She said she was tired.\n\nWhat finally brought her to seek help was a Sunday morning when she began to cry during a sermon and could not stop — the affective expression itself becoming a trigger that collapsed the careful structure she had built. She arrived at the intake appointment hoping, above all, to be capable again. What she fears most is that she will discover she cannot be.\n"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "id": "toolu_01PATcPr8UajTJ35bj9PzYZo",
+          "caller": {
+            "type": "direct"
+          },
+          "input": {
+            "verdict": "FAIL",
+            "violation_edges": [
+              "Threat → Negative Appraisals",
+              "Threat → Triggers",
+              "Maladaptive Strategies → Threat"
+            ],
+            "violation_explanations": [
+              "No paragraph conveys that Priya's persistent sense of threat or physiological vigilance causally drives or intensifies her negative appraisals (e.g., beliefs about incapacity, having no future, or being at fault).",
+              "No paragraph conveys that Priya's persistent sense of threat or hypervigilance causally leads to the activation or potentiation of her triggers.",
+              "No paragraph conveys that Priya's maladaptive strategies (avoidance, eating restriction, thought suppression) causally produce or maintain her sense of threat or physiological vigilance."
+            ]
+          },
+          "name": "ValidationResult",
+          "type": "tool_use"
+        }
+      ]
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Threat → Negative Appraisals",
+      "Threat → Triggers",
+      "Maladaptive Strategies → Threat"
+    ],
+    "violation_explanations": [
+      "No paragraph conveys that Priya's persistent sense of threat or physiological vigilance causally drives or intensifies her negative appraisals (e.g., beliefs about incapacity, having no future, or being at fault).",
+      "No paragraph conveys that Priya's persistent sense of threat or hypervigilance causally leads to the activation or potentiation of her triggers.",
+      "No paragraph conveys that Priya's maladaptive strategies (avoidance, eating restriction, thought suppression) causally produce or maintain her sense of threat or physiological vigilance."
+    ]
+  }
+}

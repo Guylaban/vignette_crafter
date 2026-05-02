@@ -1,0 +1,232 @@
+{
+  "persona_id": 168,
+  "source_persona_id": 168,
+  "experiment_timestamp": "2026-05-01 23:48:42",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 54,
+    "gender": "Female",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Chef",
+    "trauma_type": "Assault",
+    "pcl5": 68
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Certain Conversation Topics",
+        "value": "Certain conversation topics"
+      },
+      {
+        "key": "Emotional Closeness",
+        "value": "Someone getting emotionally close to me"
+      },
+      {
+        "key": "Male Presence",
+        "value": "Being alone with men"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      },
+      {
+        "key": "Threat from Strangers",
+        "value": "I feel threatened by strangers approaching me even in ordinary situations"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Nonverbal Memory",
+        "value": "I can't seem to put the frightening event into words."
+      },
+      {
+        "key": "Fragmented Pieces",
+        "value": "My memories of the event come in disconnected pieces that do not fit together"
+      },
+      {
+        "key": "Bodily Reenactment",
+        "value": "When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Fear of Harm",
+        "value": "You can never know who will harm you"
+      },
+      {
+        "key": "Betrayal",
+        "value": "I was betrayed by someone I trusted"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.7933,
+    "Triggers -- Negative Appraisals": 0.3072,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.6402,
+    "Negative Appraisals -- Memory": 0.6693,
+    "Negative Appraisals -- Triggers": 0.1876,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0382,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.9709,
+    "Threat -- Negative Appraisals": 0.3681,
+    "Threat -- Triggers": 0.4417,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4907222222222222,
+  "edge_density": 0.45,
+  "vignette_word_count": 872,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Military Topics: Talks about military",
+          "explanation": "For a civilian assault trauma, 'talks about military' is a hard-to-explain trigger unless the assault specifically involved military context, which is not otherwise reflected anywhere in the profile. It is not supported by the other trigger, memory, threat, or appraisal items."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Survival Guilt: I feel guilty for surviving when others did not",
+          "explanation": "'I feel guilty for surviving when others did not' implies a trauma involving deaths of others or a mass-casualty context. That does not cohere with the rest of this profile, which otherwise describes an individual assault without any indication that others were killed."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Military Topics"
+        ],
+        "Negative Appraisals": [
+          "Survival Guilt"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Fear of Rage: I will not be able to control my anger and will do something terrible",
+          "explanation": "This appraisal is the main incoherent item in the profile. The rest of the report is organized around fear, betrayal, hypervigilance, male-related/interpersonal triggers, and fragmented sensory trauma memory after assault. In contrast, fearing that she will lose control of her own rage and do something terrible introduces a perpetration/anger-control theme that is not supported by the triggers, threat items, or memory content. It does not fit the dominant cognitive formulation in which negative appraisals feed threat and memory; the other appraisal items plausibly amplify fear and mistrust, but this one points to a different clinical concern not otherwise represented in the profile. Given the otherwise tightly fear-based assault presentation, this item is hard to integrate clinically with the selected set."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Fear of Rage"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Sleep Vigilance: I have difficulty falling asleep because I need to stay alert",
+          "explanation": "This threat item is the least coherent element in the profile. The rest of the selected triggers, appraisals, and memory items consistently describe an interpersonal assault formulation centered on men, betrayal, mistrust, conversational/emotional triggers, and trauma memories. By contrast, needing to stay alert at night implies a more generalized ongoing danger-monitoring pattern that is not specifically supported by the selected triggers or appraisals. It is not impossible in PTSD, but here it fits less well than the other threat items and is weakly linked to the formulation, especially because Threat has no active edge to Maladaptive Strategies and the profile lacks other nighttime/sleep-related material."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Sleep Vigilance"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3113,
+    "output": 1004,
+    "total": 4117
+  },
+  "vignette": "At 54, Elena Martin came to treatment exhausted by the sense that danger had followed her into every ordinary part of her life. She was a married woman who had spent most of her adult life working as a chef, used to the pressure and noise of a professional kitchen, but the assault that changed her had happened not in some obviously dangerous place but after work with a man she had trusted. She still struggled to describe it directly. When she tried, the story broke apart into flashes: the shift ending late, a conversation that turned personal, being alone with him, the sudden realization that she was no longer safe. What remained strongest was not a clear sequence but the physical memory of it. Even now, when it came back, her body would tense and fold into the same position she had been in then, as if she were back inside the moment before she had words for it.\n\nIn the months afterward, Elena found that certain conversation topics could undo her almost instantly. If coworkers drifted into talk about relationships, trust, or men who had “crossed a line,” she would go still and lose the thread of the present. The memory did not return as a coherent account. It came in disconnected pieces and bodily sensations she could not organize, and her inability to put the event into words frightened her in its own right. Those same moments also sharpened what she had come to believe about people: that someone she had trusted had betrayed her, that people could not be trusted, that there was no reliable way to know who would harm you until it was too late.\n\nThat betrayal became the lens through which she moved through the world. Elena had come to believe that trust itself was dangerous, and from there it made sense to her to stay guarded. In the restaurant, if a male supplier arrived early and she found herself briefly alone with him near the walk-in refrigerator, her chest tightened before anything even happened. If one of the line cooks stepped too close behind her at the stove, she reacted before she could think, jolting hard at the movement. She told herself this vigilance was necessary because strangers approaching in ordinary situations did not feel ordinary anymore; they felt like potential threats. The more convinced she became that anyone might cause harm, the more watchful she stayed, scanning doorways, footsteps, and shifts in tone.\n\nThat same way of seeing people also made her triggers spread. Emotional closeness became especially difficult. When her husband tried to ask what she was going through or reached for her in a tender, concerned way, she did not experience it simply as comfort. Being known too closely stirred the same conviction that trust led to betrayal, and she would pull back, change the subject, or leave the room. Even certain kinds of conversation now felt dangerous before they began, because she anticipated where they might lead inside her own mind. She was not just reacting to reminders; she had started to brace against them in advance.\n\nHer constant alertness fed the memories too. In the kitchen, unexpected movement in the corner of her eye could make her heart slam and her muscles lock, and in that split second her body seemed to remember before she did. The feeling of being under threat brought back the assault as posture, tension, and scattered images, not as narrative. Afterward she was left with the same terrible conclusion: if her body reacted this quickly, it proved to her that the world really was unsafe and that her distrust was justified. Those fragmented returns to the event deepened her certainty that she had been betrayed in a fundamental way and that no one was reliably safe.\n\nThe memories themselves kept those beliefs alive. Because they arrived in pieces she could not fully explain, Elena felt she could never get enough distance from what happened to make sense of it. What frightened her most was that the assault seemed to live on outside words, in her body, as if it could happen again at any moment. That made her mistrust feel less like an opinion than like knowledge. And once she was on guard, she noticed men more quickly, strangers more sharply, certain topics more immediately, as though her whole system had learned to pick out what might expose her again.\n\nBy the time she sought help, the pattern had narrowed her life. At work she arranged prep tasks to avoid being alone with male coworkers. At home she kept her husband at an emotional distance that pained them both. She finally came in after snapping at a server who had approached her unexpectedly from behind and then spending the rest of the night shaken by bodily flashes of the assault she could not explain. Elena said she was afraid that if she let her guard down, she would be harmed again by someone she should have known better than to trust. What she hoped for, cautiously, was not to become naive, but to be able to stand in her own kitchen, hear ordinary conversation, and feel that her body belonged in the present again."
+,
+
+  "vignette_attempts": [
+    {"vignette": "At 54, Elena Martin came to treatment exhausted by the sense that danger had followed her into every ordinary part of her life. She was a married woman who had spent most of her adult life working as a chef, used to the pressure and noise of a professional kitchen, but the assault that changed her had happened not in some obviously dangerous place but after work with a man she had trusted. She still struggled to describe it directly. When she tried, the story broke apart into flashes: the shift ending late, a conversation that turned personal, being alone with him, the sudden realization that she was no longer safe. What remained strongest was not a clear sequence but the physical memory of it. Even now, when it came back, her body would tense and fold into the same position she had been in then, as if she were back inside the moment before she had words for it.\n\nIn the months afterward, Elena found that certain conversation topics could undo her almost instantly. If coworkers drifted into talk about relationships, trust, or men who had “crossed a line,” she would go still and lose the thread of the present. The memory did not return as a coherent account. It came in disconnected pieces and bodily sensations she could not organize, and her inability to put the event into words frightened her in its own right. Those same moments also sharpened what she had come to believe about people: that someone she had trusted had betrayed her, that people could not be trusted, that there was no reliable way to know who would harm you until it was too late.\n\nThat betrayal became the lens through which she moved through the world. Elena had come to believe that trust itself was dangerous, and from there it made sense to her to stay guarded. In the restaurant, if a male supplier arrived early and she found herself briefly alone with him near the walk-in refrigerator, her chest tightened before anything even happened. If one of the line cooks stepped too close behind her at the stove, she reacted before she could think, jolting hard at the movement. She told herself this vigilance was necessary because strangers approaching in ordinary situations did not feel ordinary anymore; they felt like potential threats. The more convinced she became that anyone might cause harm, the more watchful she stayed, scanning doorways, footsteps, and shifts in tone.\n\nThat same way of seeing people also made her triggers spread. Emotional closeness became especially difficult. When her husband tried to ask what she was going through or reached for her in a tender, concerned way, she did not experience it simply as comfort. Being known too closely stirred the same conviction that trust led to betrayal, and she would pull back, change the subject, or leave the room. Even certain kinds of conversation now felt dangerous before they began, because she anticipated where they might lead inside her own mind. She was not just reacting to reminders; she had started to brace against them in advance.\n\nHer constant alertness fed the memories too. In the kitchen, unexpected movement in the corner of her eye could make her heart slam and her muscles lock, and in that split second her body seemed to remember before she did. The feeling of being under threat brought back the assault as posture, tension, and scattered images, not as narrative. Afterward she was left with the same terrible conclusion: if her body reacted this quickly, it proved to her that the world really was unsafe and that her distrust was justified. Those fragmented returns to the event deepened her certainty that she had been betrayed in a fundamental way and that no one was reliably safe.\n\nThe memories themselves kept those beliefs alive. Because they arrived in pieces she could not fully explain, Elena felt she could never get enough distance from what happened to make sense of it. What frightened her most was that the assault seemed to live on outside words, in her body, as if it could happen again at any moment. That made her mistrust feel less like an opinion than like knowledge. And once she was on guard, she noticed men more quickly, strangers more sharply, certain topics more immediately, as though her whole system had learned to pick out what might expose her again.\n\nBy the time she sought help, the pattern had narrowed her life. At work she arranged prep tasks to avoid being alone with male coworkers. At home she kept her husband at an emotional distance that pained them both. She finally came in after snapping at a server who had approached her unexpectedly from behind and then spending the rest of the night shaken by bodily flashes of the assault she could not explain. Elena said she was afraid that if she let her guard down, she would be harmed again by someone she should have known better than to trust. What she hoped for, cautiously, was not to become naive, but to be able to stand in her own kitchen, hear ordinary conversation, and feel that her body belonged in the present again.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

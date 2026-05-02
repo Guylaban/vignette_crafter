@@ -1,0 +1,189 @@
+PERSONA 19  |  2026-05-02 15:43:32
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             45
+  gender          Female
+  ethnicity       South Asian
+  relationship_status Single
+  occupation      Plumber
+  trauma_type     Life-threatening illness
+  pcl5            69
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Somatic (Dizziness): Feeling dizzy or lightheaded
+    • Olfactory (Hospital): Hospital or antiseptic smell
+    • Somatic (Breathlessness): Difficulty breathing or feeling short of breath
+  Maladaptive Strategies:
+    • Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+    • Avoid Medical Care: Seeking medical or psychological help
+    • Avoid Physical Stress: Situations that put my body under stress
+  Negative Appraisals:
+    • Constant Vigilance: I have to be especially careful because you never know what can happen next
+    • Can't Rely on Others: I can't rely on other people
+    • Body Unreliable: I can no longer trust my own body
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.5238
+  Negative Appraisals → Maladaptive Strategies       0.2854
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.8161
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Never Alone: make sure never to be alone with another person
+    explanation: 'Never Alone with another person' implies a threat/avoidance pattern centered on interpersonal danger, which is hard to reconcile with a life-threatening illness trauma and with the rest of the profile, which contains no interpersonal trauma theme. It also does not fit well with the listed negative appraisals, which concern generalized danger and mistrust rather than being alone specifically with another person.
+    item:        Triggers / Being in Nature: Being in a natural environment similar to where it happened
+    explanation: 'Being in Nature' is difficult to connect to a life-threatening illness trauma unless the illness occurred in a highly specific outdoor context; the rest of the profile does not provide any such context. This trigger therefore appears weakly grounded in the stated trauma type and overall item set.
+    item:        Negative Appraisals / Auditory (Breathing): Heavy breathing sounds
+    explanation: 'Heavy breathing sounds' can occur as a somatic cue, but in this profile it reads more like a cue for panic/assault-type threat rather than illness-related trauma, especially given the lack of illness-specific memory or threat content. Its connection to the selected appraisals is therefore unclear.
+  [2] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Outsider: I am permanently an outsider now
+    explanation: The appraisal 'I am permanently an outsider now' is hard to link coherently to a life-threatening illness trauma in the rest of this profile. The other appraisals center on danger and unreliability of others, and the triggers are medical/somatic. Feeling like a permanent outsider is possible after illness, but here it stands out as thematically disconnected from the illness-linked trigger pattern and the stated formulation.
+    item:        Triggers / Triggers: Auditory (Breathing): Heavy breathing sounds
+    explanation: 'Heavy breathing sounds' as a trigger is not impossible, but in this profile it is weakly connected to the rest of the selected items. The other triggers are clearly illness/medical (dizziness, hospital smell), whereas heavy breathing suggests a respiratory/peritraumatic cue that is not supported by the appraisals or strategies selected. Given the inactive Triggers → Threat and Triggers → Memory edges, the trigger set should still form a coherent cue cluster, and this item is the least clinically anchored.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Gambling: I gamble to distract myself or feel excitement
+    explanation: 'I gamble to distract myself or feel excitement' is difficult to reconcile with the rest of the profile. The formulation supports a loop between negative appraisals and maladaptive strategies, and avoidance of medical cues fits that loop for illness trauma; self-harm distraction can also fit severe distress. Gambling, however, addresses a different coping pattern not reflected elsewhere in the profile and feels clinically unmoored from the medical-trigger/appraisal pattern.
+  [3] FAIL
+    item:        Maladaptive Strategies / Self-Harm Distraction: I hurt myself physically to stop thinking about the event
+    explanation: Self-harm used specifically to block trauma thoughts is hard to reconcile with the rest of the profile, which centers on illness-related somatic triggers, medical cue avoidance, and body-based appraisals without any other items indicating a broader dysregulation or dissociative coping style. It reads as a qualitatively different coping pattern than the rest of the selected items.
+    item:        Negative Appraisals / Avoid Medical Care: Seeking medical or psychological help
+    explanation: Avoiding medical care is potentially understandable after life-threatening illness, but in combination with severe body-focused vigilance and medical cue avoidance it creates a tension: for a patient whose appraisals center on bodily danger and unreliability, complete avoidance of both medical and psychological help is somewhat mismatched unless there are supporting mistrust or contamination/persecution themes. The current profile does not provide enough support for this stronger avoidance pattern.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,700
+  output:     4,088
+  total:      6,788
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Priya, a 45-year-old single South Asian woman, built her life around the steady, demanding work of
+plumbing. Her hands, strong and calloused, were her livelihood, navigating pipes and fittings in
+cramped spaces. But a year ago, her world tilted when a severe, sudden respiratory infection landed
+her in the ICU. She vividly recalled the terror of gasping for air, the metallic tang of
+disinfectant in her nostrils, and the dizzying weakness that left her utterly dependent. She had
+come terrifyingly close to not making it, and the memory of that helplessness lingered like a
+phantom limb.
+
+In the months that followed her recovery, Priya found that the world had become a minefield. A brief
+moment of feeling lightheaded while reaching for a tool under a sink, or the sudden onset of
+breathlessness after climbing a few flights of stairs at a job site, could instantly transport her
+back to the suffocating confines of the hospital. These somatic sensations, alongside the faint but
+unmistakable hospital or antiseptic smell that occasionally wafted from a client's cleaning supplies
+or even from the city air, would immediately plunge her into a deep sense of dread. These triggers,
+once innocuous, now activated a profound shift in her perception: she had come to believe that she
+could no longer trust her own body. A persistent, gnawing fear took root, making her certain that
+she had to be especially careful because you never know what could happen next. This constant
+vigilance became her default state, her senses hyper-attuned to any internal or external sign of
+danger.
+
+Driven by this pervasive belief that her body was unreliable and the terrifying conviction that she
+needed to be constantly on guard, Priya began to drastically alter her life. She started avoiding
+situations that put her body under stress, turning down physically demanding plumbing jobs that
+involved heavy lifting or working in tight, unventilated spaces where she might feel breathless. She
+cancelled her annual physical, skipped dental check-ups, and even stopped watching medical dramas on
+television, actively shying away from any medical cues that might remind her of her traumatic
+hospital stay. The thought of stepping into a hospital, even to visit a friend, filled her with such
+panic that she simply refused to go. These maladaptive strategies, while providing a fleeting sense
+of safety by keeping perceived threats at bay, only served to deepen her conviction. Each avoided
+doctor's appointment, each declined strenuous task, became another piece of "evidence" reinforcing
+her appraisal that her body was indeed fragile and untrustworthy, and that she couldn't rely on
+other people to understand or help her navigate this constant internal threat.
+
+Her once-thriving plumbing business began to suffer. Clients noticed her reluctance for certain
+jobs, and her income dwindled. She spent more time alone, her social circle shrinking as she found
+it harder to explain her new limitations and fears. Priya felt trapped in a tightening spiral, her
+world growing smaller and more constrained with each passing month. It was the recent experience of
+a prolonged dizzy spell after a minor exertion, coupled with the realisation that she hadn't seen a
+doctor in over a year despite growing concerns, that finally pushed her to seek help. She arrived at
+the clinic, her face etched with a mix of exhaustion and apprehension, desperate to break free from
+the invisible chains that bound her, yet terrified of what facing her fears might entail.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Priya, a 45-year-old single South Asian woman, built her life around the steady, demanding work of
+plumbing. Her hands, strong and calloused, were her livelihood, navigating pipes and fittings in
+cramped spaces. But a year ago, her world tilted when a severe, sudden respiratory infection landed
+her in the ICU. She vividly recalled the terror of gasping for air, the metallic tang of
+disinfectant in her nostrils, and the dizzying weakness that left her utterly dependent. She had
+come terrifyingly close to not making it, and the memory of that helplessness lingered like a
+phantom limb.
+
+In the months that followed her recovery, Priya found that the world had become a minefield. A brief
+moment of feeling lightheaded while reaching for a tool under a sink, or the sudden onset of
+breathlessness after climbing a few flights of stairs at a job site, could instantly transport her
+back to the suffocating confines of the hospital. These somatic sensations, alongside the faint but
+unmistakable hospital or antiseptic smell that occasionally wafted from a client's cleaning supplies
+or even from the city air, would immediately plunge her into a deep sense of dread. These triggers,
+once innocuous, now activated a profound shift in her perception: she had come to believe that she
+could no longer trust her own body. A persistent, gnawing fear took root, making her certain that
+she had to be especially careful because you never know what could happen next. This constant
+vigilance became her default state, her senses hyper-attuned to any internal or external sign of
+danger.
+
+Driven by this pervasive belief that her body was unreliable and the terrifying conviction that she
+needed to be constantly on guard, Priya began to drastically alter her life. She started avoiding
+situations that put her body under stress, turning down physically demanding plumbing jobs that
+involved heavy lifting or working in tight, unventilated spaces where she might feel breathless. She
+cancelled her annual physical, skipped dental check-ups, and even stopped watching medical dramas on
+television, actively shying away from any medical cues that might remind her of her traumatic
+hospital stay. The thought of stepping into a hospital, even to visit a friend, filled her with such
+panic that she simply refused to go. These maladaptive strategies, while providing a fleeting sense
+of safety by keeping perceived threats at bay, only served to deepen her conviction. Each avoided
+doctor's appointment, each declined strenuous task, became another piece of "evidence" reinforcing
+her appraisal that her body was indeed fragile and untrustworthy, and that she couldn't rely on
+other people to understand or help her navigate this constant internal threat.
+
+Her once-thriving plumbing business began to suffer. Clients noticed her reluctance for certain
+jobs, and her income dwindled. She spent more time alone, her social circle shrinking as she found
+it harder to explain her new limitations and fears. Priya felt trapped in a tightening spiral, her
+world growing smaller and more constrained with each passing month. It was the recent experience of
+a prolonged dizzy spell after a minor exertion, coupled with the realisation that she hadn't seen a
+doctor in over a year despite growing concerns, that finally pushed her to seek help. She arrived at
+the clinic, her face etched with a mix of exhaustion and apprehension, desperate to break free from
+the invisible chains that bound her, yet terrified of what facing her fears might entail.

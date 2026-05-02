@@ -1,0 +1,277 @@
+PERSONA 33  |  2026-05-02 15:53:01
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             39
+  gender          Female
+  ethnicity       Latin American
+  relationship_status Married
+  occupation      Soldier
+  trauma_type     Natural disaster
+  pcl5            65
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Weather Similarity: Similar weather conditions to when the event happened
+    • Auditory (Loud Noises): Loud noises
+    • Authority Presence: Police
+  Threat:
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Startle to Sounds: I jump or startle at ordinary sounds that would not bother most people
+    • Scanning for Danger: I constantly scan my surroundings for signs of danger
+  Negative Appraisals:
+    • Bad Coper: My reactions since the event show that I am a lousy coper
+    • Dehumanization: I feel like an object, not like a person
+    • Helplessness: I can't stop bad things from happening to me
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.1118
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.1818
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.7616
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.9518
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.4693
+  Threat → Triggers                                  0.5837
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: The trigger set is not coherent with the stated trauma type of natural disaster. Hospital smell can occur secondarily after disaster injury, but object throwing and people in uniform point more toward interpersonal/assault or military threat contexts than a natural-disaster index trauma, and the three triggers do not form a clear shared disaster-related theme.
+    item:        Threat / Triggers: Object Throwing: Throwing objects
+    explanation: Threat items should align with the active Triggers↔Threat and Negative Appraisals↔Threat pattern. Escape-route planning and startle to sounds fit a chronic danger formulation, but risky behavior pulls in the opposite direction of hypervigilant threat perception and is hard to reconcile as a core threat item in this profile.
+    item:        Negative Appraisals / Triggers: Authority Figures: People in uniform
+    explanation: Negative appraisals are internally and contextually mismatched. Inaction guilt can fit disaster trauma, but dehumanization is more characteristic of prolonged interpersonal violation, and together with authority/uniform and object-throwing triggers the profile suggests a different trauma context than natural disaster.
+  [2] FAIL
+    item:        Triggers / Triggers: Object Throwing
+    explanation: The trigger set is not well aligned with the stated trauma type of natural disaster. 'Weather Similarity' fits, but 'Object Throwing' and especially 'Authority Figures: People in uniform' suggest interpersonal/assault or combat-linked cues rather than a natural-disaster trauma, and there is no supporting content elsewhere to make those cues clinically coherent for this trauma profile.
+    item:        Threat / Triggers: Authority Figures
+    explanation: 'Risky Behavior' is difficult to integrate with the rest of the threat profile. The other threat items reflect hypervigilance and exaggerated startle, whereas taking excessive risks pulls in the opposite direction of persistent danger monitoring and is not supported by maladaptive-strategy items that might explain it as coping.
+    item:        Negative Appraisals / Threat: Risky Behavior
+    explanation: 'Inaction Guilt' can occur after disasters, but here it is not supported by the rest of the profile. There are no memory items or other appraisals about failed rescue, responsibility for others, or specific omission themes, making this guilt item feel disconnected relative to the otherwise general self-critical/depersonalization content.
+  [3] FAIL
+    item:        Triggers / Triggers: Authority Figures: People in uniform
+    explanation: 'People in uniform' is a poor fit as a primary trauma trigger for a natural disaster. Given the trauma type, weather cues and loud noises are coherent, but authority figures/uniforms suggest an interpersonal, combat, or institutional trauma context not otherwise reflected in the profile.
+    item:        Threat / Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm
+    explanation: 'Taking too many risks or doing things that could cause you harm' conflicts with the other threat items, which show hypervigilance and startle-based danger monitoring. Chronic escape-route scanning and exaggerated startle usually align with avoidance/caution, not increased risk-taking, unless another profile feature supports disinhibition, which is absent here.
+    item:        Negative Appraisals / Negative Appraisals: Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+    explanation: 'I will never forgive myself for not doing more to stop what happened' is possible in disasters, but in this profile it leans toward responsibility for preventing the event itself. That sits awkwardly with the rest of the formulation, which emphasizes trigger-threat-appraisal cycling around current danger and coping failure rather than a clear disaster-specific role in causing/preventing the trauma. As selected, it is less coherent than the other appraisal items.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,657
+  output:     9,339
+  total:     15,996
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Sofia, a 39-year-old soldier, presented for therapy with a deep weariness in her eyes, her military
+bearing still evident but softened by an underlying tremor of anxiety. Her life had irrevocably
+split into 'before' and 'after' a devastating hurricane she experienced during a humanitarian
+deployment in the Caribbean. She had been part of a forward operating team when the storm hit,
+trapping her unit in a collapsing temporary shelter. The deafening roar of the wind, the splintering
+wood, and the feeling of being utterly at the mercy of an uncontrollable force had seared itself
+into her memory. Later, the chaos of the recovery, with military police and other authorities
+everywhere, trying to impose order on the destruction, left her with a profound sense of
+disorientation.
+
+Now, years later, Sofia found that specific environmental cues could instantly plunge her back into
+that nightmare. The subtle shifts in atmospheric pressure before a storm, or the sound of heavy rain
+on the roof, eerily similar to the weather conditions when the event happened, immediately triggered
+a cascade of internal alarms. A sudden loud noise, like a car backfiring or a dropped tray in the
+mess hall, would make her jump and her heart pound, her body reacting as if the shelter was
+collapsing again. Even the sight of police or military authority figures, especially in groups,
+could make her tense, her mind flashing back to the disorienting aftermath. These triggers, whether
+the weather, an auditory jolt, or the presence of authority, inevitably initiated a heightened state
+of threat. She would instinctively begin scanning for danger, her eyes darting around the room,
+assessing every corner, and she’d find herself meticulously identifying escape routes, needing to
+know every exit before she could feel remotely comfortable in any space, no matter how safe. This
+constant vigilance became exhausting, and the sheer effort of maintaining it led her to believe that
+she was fundamentally flawed.
+
+Her own reactions to these triggers reinforced a painful narrative: "My reactions since the event
+show that I am a lousy coper," she’d often lament, observing her own physical responses with a
+critical eye. This negative appraisal of herself, the belief that she was a bad coper, only
+intensified her threat response. If she couldn't even trust her own ability to handle everyday
+situations without panicking, then she *had* to be hypervigilant, constantly scanning for danger to
+compensate for her perceived inadequacy. What frightened her most was the conviction that she
+couldn't stop bad things from happening to her, a deep-seated helplessness that made every potential
+threat feel insurmountable. This appraisal of helplessness, in turn, made her even more susceptible
+to triggers; if she was powerless, then every loud noise or approaching storm felt like an immediate
+harbinger of disaster, confirming her deepest fears.
+
+The constant state of threat Sofia lived in began to erode her sense of self. Her perpetual scanning
+for danger and her tendency to startle at ordinary sounds made her feel less like a person and more
+like a reactive mechanism, leading to a profound sense of dehumanization. She felt like an object,
+not like a person, constantly responding to external stimuli rather than living her own life. This
+persistent internal experience of threat also sharpened her sensitivity to potential triggers. Her
+nervous system, always on high alert, would interpret even distant sirens or a subtle shift in the
+wind as significant threats, effectively broadening and intensifying the range of things that could
+set her off.
+
+Her marriage to her husband, also a soldier, had suffered immensely. He struggled to understand why
+she flinched at a sudden laugh or insisted on sitting with her back to the wall in restaurants. Her
+inability to relax, her constant need to identify escape routes even during a family movie night,
+created a chasm between them. At work, her colleagues noticed her jumpiness and her tendency to scan
+the perimeter during briefings, leading to whispers and a sense of isolation. She came to therapy
+because the emotional toll had become unbearable, feeling trapped in a cycle where her own mind
+seemed to be her worst enemy, constantly seeking out danger and then judging her for the very
+reactions it provoked. She desperately wanted to feel like herself again, but deep down, she was
+terrified that this hypervigilant, bad-coping, dehumanized version of Sofia was all that was left.
+
+    ✗ edge:        Triggers -> Negative Appraisals
+      explanation: The vignette does not directly convey that triggers influence or lead to Sofia's negative appraisals; instead, her reactions to triggers are described as reinforcing these appraisals.
+
+  [2] PASS
+Sofia, a 39-year-old soldier, presented for therapy with a deep weariness in her eyes, her military
+bearing still evident but softened by an underlying tremor of anxiety. Her life had irrevocably
+split into 'before' and 'after' a devastating hurricane she experienced during a humanitarian
+deployment in the Caribbean. She had been part of a forward operating team when the storm hit,
+trapping her unit in a collapsing temporary shelter. The deafening roar of the wind, the splintering
+wood, and the feeling of being utterly at the mercy of an uncontrollable force had seared itself
+into her memory. Later, the chaos of the recovery, with military police and other authorities
+everywhere, trying to impose order on the destruction, left her with a profound sense of
+disorientation.
+
+Now, years later, Sofia found that specific environmental cues could instantly plunge her back into
+that nightmare. The subtle shifts in atmospheric pressure before a storm, or the sound of heavy rain
+on the roof, eerily similar to the weather conditions when the event happened, immediately triggered
+a cascade of internal alarms. A sudden loud noise, like a car backfiring or a dropped tray in the
+mess hall, would make her jump and her heart pound, her body reacting as if the shelter was
+collapsing again. Even the sight of police or military authority figures, especially in groups,
+could make her tense, her mind flashing back to the disorienting aftermath. The very existence of
+these triggers, and their power to so easily overwhelm her, directly fed into her conviction that
+she was no longer the competent soldier she once was, but instead a 'lousy coper' whose inner
+strength had been irrevocably broken. These triggers, whether the weather, an auditory jolt, or the
+presence of authority, inevitably initiated a heightened state of threat. She would instinctively
+begin scanning for danger, her eyes darting around the room, assessing every corner, and she’d find
+herself meticulously identifying escape routes, needing to know every exit before she could feel
+remotely comfortable in any space, no matter how safe. This constant vigilance became exhausting,
+and the sheer effort of maintaining it led her to believe that she was fundamentally flawed.
+
+Her own reactions to these triggers reinforced a painful narrative: "My reactions since the event
+show that I am a lousy coper," she’d often lament, observing her own physical responses with a
+critical eye. This negative appraisal of herself, the belief that she was a bad coper, only
+intensified her threat response. If she couldn't even trust her own ability to handle everyday
+situations without panicking, then she *had* to be hypervigilant, constantly scanning for danger to
+compensate for her perceived inadequacy. What frightened her most was the conviction that she
+couldn't stop bad things from happening to her, a deep-seated helplessness that made every potential
+threat feel insurmountable. This appraisal of helplessness, in turn, made her even more susceptible
+to triggers; if she was powerless, then every loud noise or approaching storm felt like an immediate
+harbinger of disaster, confirming her deepest fears.
+
+The constant state of threat Sofia lived in began to erode her sense of self. Her perpetual scanning
+for danger and her tendency to startle at ordinary sounds made her feel less like a person and more
+like a reactive mechanism, leading to a profound sense of dehumanization. She felt like an object,
+not like a person, constantly responding to external stimuli rather than living her own life. This
+persistent internal experience of threat also sharpened her sensitivity to potential triggers. Her
+nervous system, always on high alert, would interpret even distant sirens or a subtle shift in the
+wind as significant threats, effectively broadening and intensifying the range of things that could
+set her off.
+
+Her marriage to her husband, also a soldier, had suffered immensely. He struggled to understand why
+she flinched at a sudden laugh or insisted on sitting with her back to the wall in restaurants. Her
+inability to relax, her constant need to identify escape routes even during a family movie night,
+created a chasm between them. At work, her colleagues noticed her jumpiness and her tendency to scan
+the perimeter during briefings, leading to whispers and a sense of isolation. She came to therapy
+because the emotional toll had become unbearable, feeling trapped in a cycle where her own mind
+seemed to be her worst enemy, constantly seeking out danger and then judging her for the very
+reactions it provoked. She desperately wanted to feel like herself again, but deep down, she was
+terrified that this hypervigilant, bad-coping, dehumanized version of Sofia was all that was left.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Sofia, a 39-year-old soldier, presented for therapy with a deep weariness in her eyes, her military
+bearing still evident but softened by an underlying tremor of anxiety. Her life had irrevocably
+split into 'before' and 'after' a devastating hurricane she experienced during a humanitarian
+deployment in the Caribbean. She had been part of a forward operating team when the storm hit,
+trapping her unit in a collapsing temporary shelter. The deafening roar of the wind, the splintering
+wood, and the feeling of being utterly at the mercy of an uncontrollable force had seared itself
+into her memory. Later, the chaos of the recovery, with military police and other authorities
+everywhere, trying to impose order on the destruction, left her with a profound sense of
+disorientation.
+
+Now, years later, Sofia found that specific environmental cues could instantly plunge her back into
+that nightmare. The subtle shifts in atmospheric pressure before a storm, or the sound of heavy rain
+on the roof, eerily similar to the weather conditions when the event happened, immediately triggered
+a cascade of internal alarms. A sudden loud noise, like a car backfiring or a dropped tray in the
+mess hall, would make her jump and her heart pound, her body reacting as if the shelter was
+collapsing again. Even the sight of police or military authority figures, especially in groups,
+could make her tense, her mind flashing back to the disorienting aftermath. The very existence of
+these triggers, and their power to so easily overwhelm her, directly fed into her conviction that
+she was no longer the competent soldier she once was, but instead a 'lousy coper' whose inner
+strength had been irrevocably broken. These triggers, whether the weather, an auditory jolt, or the
+presence of authority, inevitably initiated a heightened state of threat. She would instinctively
+begin scanning for danger, her eyes darting around the room, assessing every corner, and she’d find
+herself meticulously identifying escape routes, needing to know every exit before she could feel
+remotely comfortable in any space, no matter how safe. This constant vigilance became exhausting,
+and the sheer effort of maintaining it led her to believe that she was fundamentally flawed.
+
+Her own reactions to these triggers reinforced a painful narrative: "My reactions since the event
+show that I am a lousy coper," she’d often lament, observing her own physical responses with a
+critical eye. This negative appraisal of herself, the belief that she was a bad coper, only
+intensified her threat response. If she couldn't even trust her own ability to handle everyday
+situations without panicking, then she *had* to be hypervigilant, constantly scanning for danger to
+compensate for her perceived inadequacy. What frightened her most was the conviction that she
+couldn't stop bad things from happening to her, a deep-seated helplessness that made every potential
+threat feel insurmountable. This appraisal of helplessness, in turn, made her even more susceptible
+to triggers; if she was powerless, then every loud noise or approaching storm felt like an immediate
+harbinger of disaster, confirming her deepest fears.
+
+The constant state of threat Sofia lived in began to erode her sense of self. Her perpetual scanning
+for danger and her tendency to startle at ordinary sounds made her feel less like a person and more
+like a reactive mechanism, leading to a profound sense of dehumanization. She felt like an object,
+not like a person, constantly responding to external stimuli rather than living her own life. This
+persistent internal experience of threat also sharpened her sensitivity to potential triggers. Her
+nervous system, always on high alert, would interpret even distant sirens or a subtle shift in the
+wind as significant threats, effectively broadening and intensifying the range of things that could
+set her off.
+
+Her marriage to her husband, also a soldier, had suffered immensely. He struggled to understand why
+she flinched at a sudden laugh or insisted on sitting with her back to the wall in restaurants. Her
+inability to relax, her constant need to identify escape routes even during a family movie night,
+created a chasm between them. At work, her colleagues noticed her jumpiness and her tendency to scan
+the perimeter during briefings, leading to whispers and a sense of isolation. She came to therapy
+because the emotional toll had become unbearable, feeling trapped in a cycle where her own mind
+seemed to be her worst enemy, constantly seeking out danger and then judging her for the very
+reactions it provoked. She desperately wanted to feel like herself again, but deep down, she was
+terrified that this hypervigilant, bad-coping, dehumanized version of Sofia was all that was left.

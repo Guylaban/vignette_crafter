@@ -1,0 +1,301 @@
+PERSONA 206  |  2026-05-02 19:02:24
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-pro
+    persona_crafter      gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             74
+  gender          Female
+  ethnicity       Latin American
+  relationship_status Married
+  occupation      Pharmacist
+  trauma_type     Physical abuse by romantic partner
+  pcl5            66
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Family-Related Comments: Comments on family
+    • Emotional Closeness: Someone getting emotionally close to me
+    • Auditory (Door): Doors opening or slamming
+  Maladaptive Strategies:
+    • Avoid Own Body: Paying attention to or looking at my own body
+    • Avoid Feelings: Allowing myself to feel any strong emotion
+    • Avoid People: avoid other people
+  Threat:
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+    • Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    • Alert at Home: I feel on guard even inside my own home
+  Memory:
+    • Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+    • Snapshot Memory: I remember the frightening event as a few moments, and each moment is a picture in my mind.
+    • Shame on Recall: When I remember the event I feel intense shame
+  Negative Appraisals:
+    • No Longer Capable: I am no longer capable of doing the things that defined me
+    • Lost Faith: I have lost my faith in people, life, or a higher power
+    • Weakness Belief: I am a weak person
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.5775
+  Triggers → Memory                                  0.2637
+  Triggers → Negative Appraisals                     0.7274
+  Negative Appraisals → Maladaptive Strategies       0.2507
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.3186
+  Negative Appraisals → Triggers                     0.9601
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.8864
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.3156
+  Threat → Maladaptive Strategies                    0.3751
+  Threat → Memory                                    0.5906
+  Threat → Negative Appraisals                       0.0667
+  Threat → Triggers                                  0.8368
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.2035
+  Maladaptive Strategies → Triggers                  0.9094
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: 'Explosion or bang sounds' is hard to reconcile with the trauma type of chronic physical abuse by a romantic partner unless there is additional history not represented elsewhere. The rest of the profile centers on interpersonal/home-based threat, emotional closeness, family comments, shame, weakness, and hypervigilance for someone entering the home. An explosion-specific trigger pulls toward a very different trauma context and is not supported by the memory, threat, or appraisal items.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Self-Harm Distraction: I hurt myself physically to stop thinking about the event
+    explanation: Self-harm as a distraction strategy is not impossible, but in this profile it is weakly supported by the rest of the selected items. The maladaptive strategy set otherwise reflects avoidance and conflict-generation, while the connected nodes emphasize home intrusion vigilance, bodily reenactment, shame, weakness, and loss of trust. Because Maladaptive Strategies is strongly linked to Triggers and somewhat to Threat/Negative Appraisals here, a severe self-injurious coping item stands out as insufficiently integrated with the rest of the formulation and item pattern.
+  [2] FAIL
+    item:        Maladaptive Strategies / Seeking Conflict: I pick arguments or create drama to distract myself from the trauma
+    explanation: 'Seeking Conflict' is hard to reconcile with the rest of this profile. The patient's trauma is intimate partner physical abuse, and the other nodes describe hypervigilance, shame, weakness, loss of trust, and avoidance. Deliberately creating interpersonal conflict is a marked shift in style that is not supported by the accompanying threat, memory, appraisal, or trigger items, making this maladaptive strategy clinically incoherent in this profile.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      7,909
+  output:     9,803
+  total:     17,712
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Elena, a 74-year-old pharmacist, presented as a woman of quiet dignity, her posture impeccably
+straight yet her hands tightly clasped in her lap. She spoke of her life with her husband, Mateo,
+and her work with a detached precision, but when the topic turned to why she was seeking help, her
+composure fractured. The trouble, she explained, had been simmering for decades, but had become
+unbearable in the last few years. The source was her first marriage, a brief and violent period over
+fifty years ago that she had tried to bury. Her first husband’s abuse was unpredictable, often
+preceded by a chilling switch from affection to criticism, usually about her family, and always
+occurred behind a locked and bolted door.
+
+The past rarely announced its arrival. More often, it ambushed her. A door slamming shut down the
+hall at the pharmacy could instantly flood her system with adrenaline, her body tensing as if
+bracing for a blow. In these moments, her mind would be seized by a series of still, silent images:
+his face contorted in rage, the glint of his ring as he raised his hand, the splintered wood of the
+doorframe. This sudden cascade of threat and memory left her feeling profoundly unsafe even in the
+brightly lit, familiar aisles of her workplace. Similarly, when a well-meaning customer would
+comment on her small family or ask about her children, the seemingly innocent words would act as a
+key, unlocking the same intrusive snapshots and the same coiled-spring tension in her muscles. She
+found herself constantly scanning her own home, a place she shared with a gentle man for forty-five
+years, listening for sounds that might signal an intruder. The feeling of being on guard was
+relentless.
+
+These intrusions and the perpetual state of high alert have, over the years, reshaped Elena’s view
+of herself. She had come to believe she was fundamentally weak, a broken thing that could not heal
+properly. This conviction that she was no longer the capable, resilient woman who had built a career
+and a new family became a lens through which she viewed every reaction. The intrusive memories felt
+not like a symptom of trauma, but like a personal failing. When a memory would surface, she would
+feel an intense, hot wave of shame, her body instinctively reenacting the past as she’d hunch her
+shoulders, feeling as though she were back on the floor of that long-ago apartment. The shame only
+reinforced her belief in her own weakness.
+
+Convinced of her own fragility, Elena began to systematically dismantle her life to avoid being
+triggered. The most painful trigger was emotional closeness. When Mateo, her husband, would reach
+for her with affection, it would spark a terrifying internal alarm. This fear, rooted in the memory
+of her first husband’s affectionate touch turning to violence, led her to interpret Mateo’s kindness
+as a potential threat. To protect herself from this perceived danger, she began to avoid him,
+retreating to the guest room and keeping her conversations with him brief and superficial. This
+withdrawal extended outwards. She stopped allowing herself to feel any strong emotion, believing
+that joy was as dangerous as grief, as both could overwhelm her fragile control. She avoided looking
+at her own body in the mirror, unable to separate her physical form from the shame of the memories
+it held.
+
+This self-imposed isolation became its own vicious cycle. Avoiding people and emotions only deepened
+her conviction that she had lost her faith in the world and was no longer capable of normal human
+connection. The more she withdrew, the weaker and more defective she felt. This profound sense of
+being broken made her even more sensitive to potential triggers, her mind constantly on the lookout
+for anything—a sound, a phrase, an emotion—that might prove her weakness once again. Her world had
+shrunk to the pharmacy and her silent home, and now even those places felt treacherous. It was
+Mateo, his face etched with a quiet sorrow after she flinched from his touch for the hundredth time,
+who finally gave her the ultimatum. Not of leaving, but of seeking help together. Elena came to
+therapy not with hope, but with a deep-seated fear that she would only be confirming what she
+already knew to be true: that she was irrevocably broken.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not describe triggers causing Elena to have negative beliefs about herself.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not describe Elena's negative beliefs causing her trauma memories to surface.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not describe the intrusive memories causing Elena to be more sensitive to triggers.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not describe feelings of threat causing Elena's trauma memories to intrude.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not describe the feeling of threat causing Elena to become more sensitive or hypervigilant to triggers.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not describe Elena's avoidance behaviors causing her to become more sensitive to triggers.
+
+  [2] PASS
+Elena, a 74-year-old pharmacist, presented as a woman of quiet dignity, her posture impeccably
+straight yet her hands tightly clasped in her lap. She spoke of her life with her husband, Mateo,
+and her work with a detached precision, but when the topic turned to why she was seeking help, her
+composure fractured. The trouble, she explained, had been simmering for decades, but had become
+unbearable in the last few years. The source was her first marriage, a brief and violent period over
+fifty years ago that she had tried to bury. Her first husband’s abuse was unpredictable, often
+preceded by a chilling switch from affection to criticism, usually about her family, and always
+occurred behind a locked and bolted door.
+
+The past rarely announced its arrival. More often, it ambushed her. A door slamming shut down the
+hall at the pharmacy could instantly flood her system with adrenaline, her body tensing as if
+bracing for a blow. In these moments, her mind would be seized by a series of still, silent images:
+his face contorted in rage, the glint of his ring as he raised his hand, the splintered wood of the
+doorframe. This sudden cascade of threat and memory left her feeling profoundly unsafe even in the
+brightly lit, familiar aisles of her workplace. After one of these intrusive flashes, the world
+seemed sharper and more dangerous; for hours afterward, the ordinary sound of a door closing or an
+innocent question from a customer would feel loaded with potential threat. Each time this happened,
+the trigger served as fresh evidence for a conclusion she had long since reached: that she was
+fundamentally broken, unable to react to the world like a normal person. Similarly, when a well-
+meaning customer would comment on her small family or ask about her children, the seemingly innocent
+words would act as a key, unlocking the same intrusive snapshots and the same coiled-spring tension
+in her muscles. She found herself constantly scanning her own home, a place she shared with a gentle
+man for forty-five years, listening for sounds that might signal an intruder. The feeling of being
+on guard was relentless. Living with this constant hum of threat meant that almost anything could
+become a warning; a slammed door wasn't just a noise, but a signal, and a simple question about her
+family felt like an interrogation she was bound to fail. On nights when this sense of ambient danger
+was highest, the memories were hardest to keep at bay, surfacing without warning as she lay in the
+dark.
+
+These intrusions and the perpetual state of high alert have, over the years, reshaped Elena’s view
+of herself. She had come to believe she was fundamentally weak, a broken thing that could not heal
+properly. This conviction that she was no longer the capable, resilient woman who had built a career
+and a new family became a lens through which she viewed every reaction. The intrusive memories felt
+not like a symptom of trauma, but like a personal failing. This core belief that she was irreparably
+damaged seemed to keep the memories close, as if her mind needed to constantly review the evidence
+of her own failure to protect herself. When a memory would surface, she would feel an intense, hot
+wave of shame, her body instinctively reenacting the past as she’d hunch her shoulders, feeling as
+though she were back on the floor of that long-ago apartment. The shame only reinforced her belief
+in her own weakness.
+
+Convinced of her own fragility, Elena began to systematically dismantle her life to avoid being
+triggered. The most painful trigger was emotional closeness. When Mateo, her husband, would reach
+for her with affection, it would spark a terrifying internal alarm. This fear, rooted in the memory
+of her first husband’s affectionate touch turning to violence, led her to interpret Mateo’s kindness
+as a potential threat. To protect herself from this perceived danger, she began to avoid him,
+retreating to the guest room and keeping her conversations with him brief and superficial. This
+withdrawal extended outwards. She stopped allowing herself to feel any strong emotion, believing
+that joy was as dangerous as grief, as both could overwhelm her fragile control. The more she
+retreated, the more potent the triggers became, as the quiet, empty spaces she created for safety
+only served to amplify the significance of any potential intrusion, like a kind word from Mateo or
+an unexpected question from a customer. She avoided looking at her own body in the mirror, unable to
+separate her physical form from the shame of the memories it held.
+
+This self-imposed isolation became its own vicious cycle. Avoiding people and emotions only deepened
+her conviction that she had lost her faith in the world and was no longer capable of normal human
+connection. The more she withdrew, the weaker and more defective she felt. This profound sense of
+being broken made her even more sensitive to potential triggers, her mind constantly on the lookout
+for anything—a sound, a phrase, an emotion—that might prove her weakness once again. Her world had
+shrunk to the pharmacy and her silent home, and now even those places felt treacherous. It was
+Mateo, his face etched with a quiet sorrow after she flinched from his touch for the hundredth time,
+who finally gave her the ultimatum. Not of leaving, but of seeking help together. Elena came to
+therapy not with hope, but with a deep-seated fear that she would only be confirming what she
+already knew to be true: that she was irrevocably broken.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Elena, a 74-year-old pharmacist, presented as a woman of quiet dignity, her posture impeccably
+straight yet her hands tightly clasped in her lap. She spoke of her life with her husband, Mateo,
+and her work with a detached precision, but when the topic turned to why she was seeking help, her
+composure fractured. The trouble, she explained, had been simmering for decades, but had become
+unbearable in the last few years. The source was her first marriage, a brief and violent period over
+fifty years ago that she had tried to bury. Her first husband’s abuse was unpredictable, often
+preceded by a chilling switch from affection to criticism, usually about her family, and always
+occurred behind a locked and bolted door.
+
+The past rarely announced its arrival. More often, it ambushed her. A door slamming shut down the
+hall at the pharmacy could instantly flood her system with adrenaline, her body tensing as if
+bracing for a blow. In these moments, her mind would be seized by a series of still, silent images:
+his face contorted in rage, the glint of his ring as he raised his hand, the splintered wood of the
+doorframe. This sudden cascade of threat and memory left her feeling profoundly unsafe even in the
+brightly lit, familiar aisles of her workplace. After one of these intrusive flashes, the world
+seemed sharper and more dangerous; for hours afterward, the ordinary sound of a door closing or an
+innocent question from a customer would feel loaded with potential threat. Each time this happened,
+the trigger served as fresh evidence for a conclusion she had long since reached: that she was
+fundamentally broken, unable to react to the world like a normal person. Similarly, when a well-
+meaning customer would comment on her small family or ask about her children, the seemingly innocent
+words would act as a key, unlocking the same intrusive snapshots and the same coiled-spring tension
+in her muscles. She found herself constantly scanning her own home, a place she shared with a gentle
+man for forty-five years, listening for sounds that might signal an intruder. The feeling of being
+on guard was relentless. Living with this constant hum of threat meant that almost anything could
+become a warning; a slammed door wasn't just a noise, but a signal, and a simple question about her
+family felt like an interrogation she was bound to fail. On nights when this sense of ambient danger
+was highest, the memories were hardest to keep at bay, surfacing without warning as she lay in the
+dark.
+
+These intrusions and the perpetual state of high alert have, over the years, reshaped Elena’s view
+of herself. She had come to believe she was fundamentally weak, a broken thing that could not heal
+properly. This conviction that she was no longer the capable, resilient woman who had built a career
+and a new family became a lens through which she viewed every reaction. The intrusive memories felt
+not like a symptom of trauma, but like a personal failing. This core belief that she was irreparably
+damaged seemed to keep the memories close, as if her mind needed to constantly review the evidence
+of her own failure to protect herself. When a memory would surface, she would feel an intense, hot
+wave of shame, her body instinctively reenacting the past as she’d hunch her shoulders, feeling as
+though she were back on the floor of that long-ago apartment. The shame only reinforced her belief
+in her own weakness.
+
+Convinced of her own fragility, Elena began to systematically dismantle her life to avoid being
+triggered. The most painful trigger was emotional closeness. When Mateo, her husband, would reach
+for her with affection, it would spark a terrifying internal alarm. This fear, rooted in the memory
+of her first husband’s affectionate touch turning to violence, led her to interpret Mateo’s kindness
+as a potential threat. To protect herself from this perceived danger, she began to avoid him,
+retreating to the guest room and keeping her conversations with him brief and superficial. This
+withdrawal extended outwards. She stopped allowing herself to feel any strong emotion, believing
+that joy was as dangerous as grief, as both could overwhelm her fragile control. The more she
+retreated, the more potent the triggers became, as the quiet, empty spaces she created for safety
+only served to amplify the significance of any potential intrusion, like a kind word from Mateo or
+an unexpected question from a customer. She avoided looking at her own body in the mirror, unable to
+separate her physical form from the shame of the memories it held.
+
+This self-imposed isolation became its own vicious cycle. Avoiding people and emotions only deepened
+her conviction that she had lost her faith in the world and was no longer capable of normal human
+connection. The more she withdrew, the weaker and more defective she felt. This profound sense of
+being broken made her even more sensitive to potential triggers, her mind constantly on the lookout
+for anything—a sound, a phrase, an emotion—that might prove her weakness once again. Her world had
+shrunk to the pharmacy and her silent home, and now even those places felt treacherous. It was
+Mateo, his face etched with a quiet sorrow after she flinched from his touch for the hundredth time,
+who finally gave her the ultimatum. Not of leaving, but of seeking help together. Elena came to
+therapy not with hope, but with a deep-seated fear that she would only be confirming what she
+already knew to be true: that she was irrevocably broken.

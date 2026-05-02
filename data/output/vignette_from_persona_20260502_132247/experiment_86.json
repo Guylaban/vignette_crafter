@@ -1,0 +1,222 @@
+{
+  "persona_id": 86,
+  "source_persona_id": 86,
+  "experiment_timestamp": "2026-05-02 14:04:01",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "claude-sonnet-4-6",
+      "persona_crafter": "claude-sonnet-4-6",
+      "vignette_crafter": "claude-sonnet-4-6",
+      "vignette_validator": "claude-sonnet-4-6"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 79,
+    "gender": "Female",
+    "ethnicity": "Latin American",
+    "relationship_status": "Widowed",
+    "occupation": "Combat Pilot",
+    "trauma_type": "Police violence",
+    "pcl5": 80
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Crowding",
+        "value": "Crowded places"
+      },
+      {
+        "key": "Auditory (Sirens)",
+        "value": "Sirens"
+      },
+      {
+        "key": "Authority Presence",
+        "value": "Police"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Delay Sleep",
+        "value": "stay up until very late"
+      },
+      {
+        "key": "Avoid Similar Clothes",
+        "value": "avoid wearing similar clothes"
+      },
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      },
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Noticing Weapons",
+        "value": "I notice potential weapons or dangerous objects in any environment"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Snapshot Memory",
+        "value": "I remember the frightening event as a few moments, and each moment is a picture in my mind."
+      },
+      {
+        "key": "Olfactory Recall",
+        "value": "When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened."
+      },
+      {
+        "key": "Sudden Pieces",
+        "value": "Fragments of the memory appear suddenly without warning and then disappear"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.732,
+    "Triggers -- Memory": 0.0213,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.6962,
+    "Memory -- Threat": 0.7891,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.4438,
+    "Threat -- Memory": 0.1747,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.883,
+    "Maladaptive Strategies -- Memory": 0.3816,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5152125,
+  "edge_density": 0.4,
+  "vignette_word_count": 796,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Relationship Reminders: When people say things like my ex",
+          "explanation": "The trigger items are hard to reconcile with the indexed trauma of police violence. 'My ex' is a relationship-specific cue and pregnancy/birth cues are highly specific to reproductive or interpersonal trauma; neither fits the rest of the profile, which otherwise centers on threat, weapons, and sensory fragments more consistent with assault/violence exposure. This is more than unusual because there is no corresponding memory or appraisal content linking police violence to ex-partner or childbirth themes."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "'Avoid wearing similar clothes' lacks a plausible anchor in the rest of the profile. There is no trigger or memory item about uniforms, clothing, or appearance cues, so this strategy appears to target a symptom pattern not represented elsewhere. Given the strong Memory→Maladaptive Strategies linkage, the selected strategies should be more clearly connected to the reported sensory/fragmented memory content."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Relationship Reminders"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "Pregnancy/birth reminders are hard to reconcile with the stated trauma type of police violence and the rest of the profile. None of the threat, memory, or strategy items suggest a perinatal, infant-related, or childbirth-linked trauma theme, so this trigger appears clinically disconnected from the reported trauma."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Overworking: I throw myself into work or tasks to keep my mind occupied",
+          "explanation": "Overworking is less coherent with this patient's demographics and the rest of the symptom pattern. In a 79-year-old widowed patient, 'throwing myself into work' is less plausible unless supported elsewhere, and the profile instead centers on sensory reminders, hypervigilance, and avoidance of trauma-linked cues. This coping item is not impossible, but in this profile it appears weakly anchored compared with the other selected strategies."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Pregnancy/Birth Reminders"
+        ],
+        "Maladaptive Strategies": [
+          "Overworking"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3909,
+    "output": 1060,
+    "total": 4969
+  },
+  "vignette": "Rosalinda is a 79-year-old widowed Latina woman who spent decades as a combat pilot, a career that demanded precisely the kind of controlled vigilance she now finds impossible to switch off. She came to the clinic after her daughter insisted, following an incident in which Rosalinda had pressed herself against a grocery store wall when a police cruiser idled at the curb outside, her hands shaking so badly she dropped her basket. She told the intake clinician she had \"held it together for long enough,\" and her PCL-5 score of 80 confirmed what her voice already communicated: she had not been holding it together at all.\n\nThe event that brought her to this point occurred approximately fourteen months ago. Rosalinda had been walking back to her car after an evening community meeting when she was stopped by two officers who mistook her for a suspect. What followed was not brief. She was pushed against the hood of a patrol car, her cheek pressed to the warm metal, her arms wrenched behind her. She remembers the specific weight of a hand at the back of her neck, the radio crackling inches from her ear, and the smell — gun oil and exhaust and something chemical she has never been able to name. A crowd gathered on the sidewalk. She could hear them but not see them, and the sound of their shuffling and murmuring merged with the officers' voices into a wall of noise that felt as though it would not stop.\n\nRosalinda does not remember the event as a continuous narrative. She holds it instead as a sequence of frozen images: the officer's belt at eye level, a bystander's sneakers on wet pavement, the angle of a streetlight. These snapshot memories carry no temporal logic, which she finds deeply disorienting — she is a woman trained to reconstruct sequences under pressure, and the fact that she cannot reconstruct this one has itself become a source of dread. Fragments surface without warning: a sudden picture of the hood of the car, or the smell of gun oil arriving without context while she is reviewing a flight log. When these pieces appear, her body responds as though the event is unfolding again — heart rate climbing, breathing shallow, muscles bracing — and the physical reactivity of these intrusions keeps the memory charged, ensuring that it resurfaces with renewed force and that the next intrusion is no less violent than the last.\n\nThe triggers Rosalinda encounters in her daily environment are not abstract. As a pilot still consulting part-time at a regional airfield, she moves through spaces where authority figures in uniform are common, where radios and intercoms produce sudden bursts of sound, and where ground crews work in tight clusters. The sight of a uniformed officer near the terminal, or the wail of an emergency vehicle on the approach road, is enough to activate the full weight of her threat system: she cannot relax even in environments she rationally knows are safe, she scans every room for objects that could become weapons, and her body floods with the same physical alarm that accompanied the original event. This heightened threat state, once activated by a trigger, does not simply fade — it pulls the fragmented memory back into awareness, so that the smell or the image arrives alongside the alarm, and the cycle begins again.\n\nOver the months since the incident, Rosalinda has built a set of strategies that feel to her like reasonable precautions. She avoids wearing the dark jacket she had on that night, and has quietly retired several similar garments. She stays awake until well past midnight, because lying in the dark is when the fragments come most freely, and exhaustion at least delays them. She scans every environment she enters — the airfield briefing room, the pharmacy, the church hall where her daughter holds birthday parties — cataloguing exits and potential threats with the same systematic attention she once gave to hostile airspace. But the scanning keeps her nervous system primed, and a primed nervous system finds threats, and found threats pull the memory forward again. Her late nights leave her cognitively depleted in ways that loosen her grip on the fragments further, so that by morning the images feel closer and more vivid than they did the night before.\n\nWhat finally broke through her resistance was not a single dramatic episode but an accumulation: she had begun declining flights she was qualified to take, telling colleagues she was \"stepping back,\" and her daughter had noticed she no longer sat facing away from the door in any room. Rosalinda arrived at the clinic hoping, in her words, to \"get the pictures in the right order.\" What she feared most was that they never would be."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Rosalinda is a 79-year-old widowed Latina woman who spent decades as a combat pilot, a career that demanded precisely the kind of controlled vigilance she now finds impossible to switch off. She came to the clinic after her daughter insisted, following an incident in which Rosalinda had pressed herself against a grocery store wall when a police cruiser idled at the curb outside, her hands shaking so badly she dropped her basket. She told the intake clinician she had \"held it together for long enough,\" and her PCL-5 score of 80 confirmed what her voice already communicated: she had not been holding it together at all.\n\nThe event that brought her to this point occurred approximately fourteen months ago. Rosalinda had been walking back to her car after an evening community meeting when she was stopped by two officers who mistook her for a suspect. What followed was not brief. She was pushed against the hood of a patrol car, her cheek pressed to the warm metal, her arms wrenched behind her. She remembers the specific weight of a hand at the back of her neck, the radio crackling inches from her ear, and the smell — gun oil and exhaust and something chemical she has never been able to name. A crowd gathered on the sidewalk. She could hear them but not see them, and the sound of their shuffling and murmuring merged with the officers' voices into a wall of noise that felt as though it would not stop.\n\nRosalinda does not remember the event as a continuous narrative. She holds it instead as a sequence of frozen images: the officer's belt at eye level, a bystander's sneakers on wet pavement, the angle of a streetlight. These snapshot memories carry no temporal logic, which she finds deeply disorienting — she is a woman trained to reconstruct sequences under pressure, and the fact that she cannot reconstruct this one has itself become a source of dread. Fragments surface without warning: a sudden picture of the hood of the car, or the smell of gun oil arriving without context while she is reviewing a flight log. When these pieces appear, her body responds as though the event is unfolding again — heart rate climbing, breathing shallow, muscles bracing — and the physical reactivity of these intrusions keeps the memory charged, ensuring that it resurfaces with renewed force and that the next intrusion is no less violent than the last.\n\nThe triggers Rosalinda encounters in her daily environment are not abstract. As a pilot still consulting part-time at a regional airfield, she moves through spaces where authority figures in uniform are common, where radios and intercoms produce sudden bursts of sound, and where ground crews work in tight clusters. The sight of a uniformed officer near the terminal, or the wail of an emergency vehicle on the approach road, is enough to activate the full weight of her threat system: she cannot relax even in environments she rationally knows are safe, she scans every room for objects that could become weapons, and her body floods with the same physical alarm that accompanied the original event. This heightened threat state, once activated by a trigger, does not simply fade — it pulls the fragmented memory back into awareness, so that the smell or the image arrives alongside the alarm, and the cycle begins again.\n\nOver the months since the incident, Rosalinda has built a set of strategies that feel to her like reasonable precautions. She avoids wearing the dark jacket she had on that night, and has quietly retired several similar garments. She stays awake until well past midnight, because lying in the dark is when the fragments come most freely, and exhaustion at least delays them. She scans every environment she enters — the airfield briefing room, the pharmacy, the church hall where her daughter holds birthday parties — cataloguing exits and potential threats with the same systematic attention she once gave to hostile airspace. But the scanning keeps her nervous system primed, and a primed nervous system finds threats, and found threats pull the memory forward again. Her late nights leave her cognitively depleted in ways that loosen her grip on the fragments further, so that by morning the images feel closer and more vivid than they did the night before.\n\nWhat finally broke through her resistance was not a single dramatic episode but an accumulation: she had begun declining flights she was qualified to take, telling colleagues she was \"stepping back,\" and her daughter had noticed she no longer sat facing away from the door in any room. Rosalinda arrived at the clinic hoping, in her words, to \"get the pictures in the right order.\" What she feared most was that they never would be.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

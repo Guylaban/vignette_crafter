@@ -1,0 +1,224 @@
+{
+  "persona_id": 128,
+  "source_persona_id": 128,
+  "experiment_timestamp": "2026-05-02 14:03:37",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "claude-haiku-4-5",
+      "persona_crafter": "claude-haiku-4-5",
+      "vignette_crafter": "claude-haiku-4-5",
+      "vignette_validator": "claude-haiku-4-5"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 80,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Widowed",
+    "occupation": "Social Worker",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 45
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      },
+      {
+        "key": "Visual (Needles/Medical)",
+        "value": "Medical equipment such as needles or drips"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      },
+      {
+        "key": "Thought Suppression",
+        "value": "I try to push them out of my mind"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Violated Values",
+        "value": "I acted in ways that go against who I am"
+      },
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Helplessness",
+        "value": "I can't stop bad things from happening to me"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.5473,
+    "Triggers -- Negative Appraisals": 0.571,
+    "Negative Appraisals -- Maladaptive Strategies": 0.3304,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.869,
+    "Negative Appraisals -- Triggers": 0.862,
+    "Memory -- Maladaptive Strategies": 0.5358,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.8212,
+    "Memory -- Triggers": 0.4595,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7363,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6369444444444444,
+  "edge_density": 0.45,
+  "vignette_word_count": 800,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Weapons): Weapons or objects used as weapons",
+          "explanation": "For trauma type of a child's life-threatening illness, weapon-related visual triggers are hard to reconcile unless there is additional unreported violent trauma. Hospital smells and loss-related conversations fit, but weapons/object-as-weapon cues are clinically implausible for the same index trauma."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Fear of Harm: You can never know who will harm you",
+          "explanation": "The appraisal 'You can never know who will harm you' implies interpersonal danger/assailant threat, which is poorly matched to the validated trauma of a child's serious illness. This also aligns awkwardly with the rest of the profile, which is otherwise illness/loss/moral injury themed rather than assault-based."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Weapons)"
+        ],
+        "Negative Appraisals": [
+          "Fear of Harm"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "'Intense rage on recall' is hard to reconcile with the rest of this profile for an 80-year-old mother traumatized by a child's life-threatening illness. The other items center on helplessness, permanent change, loss-related and hospital triggers, and intrusive affect without image. Distress, fear, guilt, grief, or sadness would fit more coherently; rage is not impossible, but here it is insufficiently supported by any corresponding appraisal or trigger content and stands out as clinically incongruent."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Face Hiding: cover face with hands",
+          "explanation": "'Cover face with hands' is not well supported as a maladaptive strategy in this profile. The active formulation links maladaptive strategies mainly to negative appraisals and memory, and the other strategies chosen (avoid going out, thought suppression) fit intrusive distress and negative beliefs. Face hiding is more typical of acute shame/panic/social exposure and is not clearly connected to the hospital/loss triggers, intrusive memory pattern, or appraisals provided, making it the least coherent item in this set."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Rage on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Face Hiding"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 4047,
+    "output": 1072,
+    "total": 5119
+  },
+  "vignette": "# Layla's Story\n\nLayla Mansour was eighty years old and had spent fifty-two years as a social worker, the last thirty of them specializing in family crisis intervention. She had always prided herself on her steadiness, her ability to sit with people in their worst moments without flinching. That was who she had been before her son Michael became ill.\n\nMichael was seven when the fever came. What began as a routine childhood sickness transformed, over the course of a single terrible week in 1972, into bacterial meningitis. Layla remembered the hospital corridor—the fluorescent lights, the smell of disinfectant and something underneath it she could never quite name, the sound of his small voice calling for her from behind a plastic tent. The doctors had explained the risks in careful language: seizures, brain damage, death. She had watched them insert an IV line into his tiny arm, had held him down while they did it because the nurses said it would be faster if he didn't move. For three days she did not know if her son would live or die. He did live, recovered fully, and Layla had carried the weight of that week silently for fifty years.\n\nNow, when someone at the senior center mentioned their grandson's hospitalization, or when a conversation drifted toward loss—a colleague's death, a friend's diagnosis—Layla felt something shift in her chest. The emotion would arrive with overwhelming force: a crushing grief and terror that seemed to have no image attached to it, just a raw, undifferentiated dread. Without warning, the memory would force itself into her mind: Michael's face, the machines, the antiseptic smell, the feeling of absolute helplessness. She had believed herself strong enough to contain these moments, but the memories came regardless, unbidden and relentless, and when they did, the grief was so complete it took her breath away.\n\nWhat frightened Layla most was the person she had become in response. She had come to believe that she had acted in ways that violated her deepest values—that she had prioritized her own fear over her son's comfort, that she had failed to protect him from suffering even as she stood beside him. She was certain now that she had changed permanently, that something essential in her had been broken by her inability to stop the bad things that happened to the people she loved. This belief about herself had become unbearable, and so she began to push the thoughts away whenever they surfaced, trying to force them back down before they could take hold. But the effort of suppression only seemed to make the memories more insistent, more vivid when they broke through.\n\nOver the past year, Layla had begun avoiding the very situations that triggered these intrusions. She stopped attending her book club because conversations inevitably turned to health and loss. She declined invitations to her daughter-in-law's birthday dinner, making excuses about her arthritis. Most significantly, she had stopped going out altogether on days when she felt vulnerable—which had become most days. When her primary care physician called to schedule her annual physical, Layla found herself unable to answer the phone. The thought of a medical examination, of being in a doctor's office with its equipment and its smells, filled her with such dread that she simply did not go. She had not had a checkup in eighteen months. Her avoidance had become so complete that she rarely left her apartment except for essential groceries, and even then she would choose the smallest market, the one with the fewest people, the one where no one might mention illness or loss.\n\nThe isolation had consequences. Her colleagues at the agency had stopped calling; they had assumed she wanted to be left alone. Her granddaughter, who had once visited weekly, came less frequently now—Layla's withdrawn manner and her sudden silences made visits uncomfortable. Layla knew this was happening, understood that her avoidance was costing her relationships she valued, but the alternative—remaining in the world where triggers lurked in every conversation, every hospital smell, every glimpse of medical equipment—felt impossible. The more she avoided, the more the memories seemed to own her. The more the memories intruded, the more certain she became that she was fundamentally damaged, that her helplessness in the face of suffering was a permanent stain on who she was. And the more she believed that about herself, the more unbearable it became to be around others, to hear their stories, to risk being reminded of all the things she could not control and could not prevent.\n\nIt was her daughter who finally insisted. \"Mama, you're disappearing,\" she said. \"I need you to talk to someone.\" Layla wept when she made the call to the therapist, not from hope, but from the exhaustion of carrying this alone for so long."
+,
+
+  "vignette_attempts": [
+    {"vignette": "# Layla's Story\n\nLayla Mansour was eighty years old and had spent fifty-two years as a social worker, the last thirty of them specializing in family crisis intervention. She had always prided herself on her steadiness, her ability to sit with people in their worst moments without flinching. That was who she had been before her son Michael became ill.\n\nMichael was seven when the fever came. What began as a routine childhood sickness transformed, over the course of a single terrible week in 1972, into bacterial meningitis. Layla remembered the hospital corridor—the fluorescent lights, the smell of disinfectant and something underneath it she could never quite name, the sound of his small voice calling for her from behind a plastic tent. The doctors had explained the risks in careful language: seizures, brain damage, death. She had watched them insert an IV line into his tiny arm, had held him down while they did it because the nurses said it would be faster if he didn't move. For three days she did not know if her son would live or die. He did live, recovered fully, and Layla had carried the weight of that week silently for fifty years.\n\nNow, when someone at the senior center mentioned their grandson's hospitalization, or when a conversation drifted toward loss—a colleague's death, a friend's diagnosis—Layla felt something shift in her chest. The emotion would arrive with overwhelming force: a crushing grief and terror that seemed to have no image attached to it, just a raw, undifferentiated dread. Without warning, the memory would force itself into her mind: Michael's face, the machines, the antiseptic smell, the feeling of absolute helplessness. She had believed herself strong enough to contain these moments, but the memories came regardless, unbidden and relentless, and when they did, the grief was so complete it took her breath away.\n\nWhat frightened Layla most was the person she had become in response. She had come to believe that she had acted in ways that violated her deepest values—that she had prioritized her own fear over her son's comfort, that she had failed to protect him from suffering even as she stood beside him. She was certain now that she had changed permanently, that something essential in her had been broken by her inability to stop the bad things that happened to the people she loved. This belief about herself had become unbearable, and so she began to push the thoughts away whenever they surfaced, trying to force them back down before they could take hold. But the effort of suppression only seemed to make the memories more insistent, more vivid when they broke through.\n\nOver the past year, Layla had begun avoiding the very situations that triggered these intrusions. She stopped attending her book club because conversations inevitably turned to health and loss. She declined invitations to her daughter-in-law's birthday dinner, making excuses about her arthritis. Most significantly, she had stopped going out altogether on days when she felt vulnerable—which had become most days. When her primary care physician called to schedule her annual physical, Layla found herself unable to answer the phone. The thought of a medical examination, of being in a doctor's office with its equipment and its smells, filled her with such dread that she simply did not go. She had not had a checkup in eighteen months. Her avoidance had become so complete that she rarely left her apartment except for essential groceries, and even then she would choose the smallest market, the one with the fewest people, the one where no one might mention illness or loss.\n\nThe isolation had consequences. Her colleagues at the agency had stopped calling; they had assumed she wanted to be left alone. Her granddaughter, who had once visited weekly, came less frequently now—Layla's withdrawn manner and her sudden silences made visits uncomfortable. Layla knew this was happening, understood that her avoidance was costing her relationships she valued, but the alternative—remaining in the world where triggers lurked in every conversation, every hospital smell, every glimpse of medical equipment—felt impossible. The more she avoided, the more the memories seemed to own her. The more the memories intruded, the more certain she became that she was fundamentally damaged, that her helplessness in the face of suffering was a permanent stain on who she was. And the more she believed that about herself, the more unbearable it became to be around others, to hear their stories, to risk being reminded of all the things she could not control and could not prevent.\n\nIt was her daughter who finally insisted. \"Mama, you're disappearing,\" she said. \"I need you to talk to someone.\" Layla wept when she made the call to the therapist, not from hope, but from the exhaustion of carrying this alone for so long.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

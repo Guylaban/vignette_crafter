@@ -1,0 +1,217 @@
+PERSONA 430  |  2026-05-02 01:47:30
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             50
+  gender          Male
+  ethnicity       South Asian
+  relationship_status Married
+  occupation      Animator
+  trauma_type     Child's life-threatening illness
+  pcl5            70
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Sleeping Alone: Sleeping alone or in an unfamiliar place
+    • Medical Procedures: Undergoing a medical examination or procedure
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Maladaptive Strategies:
+    • Rumination: Revenge: ruminate about how to get even with assailant
+    • Worst Case Rehearsal: mentally rehearse worst case scenarios to feel prepared
+    • Reassurance Seeking: I keep asking others to reassure me that I am okay
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.5070
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.6182
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: Military-related trigger content is hard to reconcile with the indexed trauma of a child's life-threatening illness. Ambulances is coherent for medical trauma, but military topics suggests a very different trauma context and is therefore clinically implausible here.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Rumination: Revenge: ruminate about how to get even with assailant
+    explanation: Revenge/get-even rumination implies an identifiable perpetrator or assailant. That does not fit a child's life-threatening illness trauma, which is not typically organized around interpersonal assault. This creates a cross-node/content mismatch with the trauma type.
+  [2] FAIL
+    item:        Triggers / Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general
+    explanation: Pregnancy/childbirth/babies is not a clearly coherent trigger for trauma centered on a child's life-threatening illness unless the illness was specifically neonatal/perinatal, which is not indicated. In this profile it sits awkwardly alongside the more plausible medical trigger of ambulances.
+    item:        Maladaptive Strategies / Self-Harm Distraction: I hurt myself physically to stop thinking about the event
+    explanation: Physical self-harm used to stop thinking about the event is possible in PTSD, but here it is weakly anchored to the rest of the profile: the only triggers are situational reminders, with no corroborating threat, appraisal, or memory items suggesting the kind of overwhelming internal distress usually linked to this strategy. Given the formulation, maladaptive strategies should connect plausibly back to the listed triggers; this item is poorly matched.
+  [3] FAIL
+    item:        Maladaptive Strategies / Rumination: Revenge: ruminate about how to get even with assailant
+    explanation: The revenge/assailant rumination item is clinically incoherent with the trauma type of a child's life-threatening illness, which does not involve an identifiable assailant in the usual sense. This item also fails to link plausibly with the selected trigger profile (ambulances, medical procedures, sleeping alone) and does not fit the formulation, where the active pattern is a reciprocal Triggers ↔ Maladaptive Strategies loop centered on trigger-driven coping rather than interpersonal retaliation.
+  [4] FAIL
+    item:        Maladaptive Strategies / Rumination: Revenge: ruminate about how to get even with assailant
+    explanation: 'Revenge against assailant' is hard to reconcile with the indexed trauma of a child's life-threatening illness, which typically lacks a personal perpetrator. This item implies an assaultive trauma context that does not fit the validated trauma type.
+    item:        Triggers / Reassurance Seeking: I keep asking others to reassure me that I am okay
+    explanation: 'I keep asking others to reassure me that I am okay' is a weaker fit than reassurance focused on the child's health/safety. In the context of trauma centered on a child's illness, this wording shifts the threat target to the self without support from any threat, memory, or appraisal items.
+  [5] FAIL
+    item:        Maladaptive Strategies / Rumination: Revenge: ruminate about how to get even with assailant
+    explanation: 'Revenge against assailant' is hard to reconcile with the trauma type of a child's life-threatening illness, which typically does not involve an identifiable assailant. This item appears trauma-incongruent for this patient.
+    item:        Triggers / Emergency Contexts: Ambulances
+    explanation: The trigger items are medically themed and fit the child's illness trauma, but they do not cohere with the revenge-focused rumination item, which implies interpersonal assault. This creates a cross-node mismatch within the active Triggers ↔ Maladaptive Strategies loop.
+  [6] FAIL
+    item:        Triggers / Olfactory (Alcohol): Alcohol smell
+    explanation: Alcohol smell is a poor fit for the stated trauma type of a child's life-threatening illness, especially when the other trigger items are medical/safety related. It suggests a different trauma context and lacks support from the rest of the profile.
+    item:        Maladaptive Strategies / Rumination: Revenge: ruminate about how to get even with assailant
+    explanation: Revenge-focused rumination about getting even with an assailant is clinically incoherent with the trauma type of a child's life-threatening illness, which does not typically involve an assailant. This item implies a different trauma narrative and is inconsistent with the rest of the selected items.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,799
+  output:       922
+  total:      3,721
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+When Arjun’s eight-year-old son was admitted to the pediatric ICU with a rapidly worsening
+infection, the days that followed narrowed into fluorescent light, antiseptic air, and the
+mechanical rhythm of monitors. Arjun spent nights in a vinyl chair beside the bed, half-awake and
+listening for any change in the boy’s breathing. He still remembers being told to step aside for
+procedures, watching masked staff move quickly around his son while he stood uselessly at the edge
+of the room. What lodged most deeply was not a single dramatic moment but the repeated sense that
+catastrophe could arrive at any second and that he had to stay alert enough to catch it first. By
+the time his son recovered and came home, Arjun had the outward appearance of relief, but internally
+he had not left the hospital.
+
+In the months afterward, certain moments pulled him back with unnerving force. The sharp smell of
+antiseptic in a clinic hallway, a routine medical examination of his own, even checking into a hotel
+for a work conference and realizing he would have to sleep alone all carried the same jolt. As an
+animator, he often worked long hours in a dim studio and occasionally traveled for production
+meetings; the first night away from home became especially difficult because being alone in an
+unfamiliar room felt too close to those nights beside his son’s hospital bed, except now there was
+no way to keep watch. When these situations arose, Arjun’s mind would immediately lurch into frantic
+effort. He would run through worst-case scenarios in detail, telling himself he needed to be
+prepared for the next emergency. He repeatedly asked his wife, doctors, or even coworkers whether he
+seemed all right, whether his son was really out of danger, whether missing some sign had become
+possible again. He also found himself circling angrily around thoughts of how to get even with the
+people he felt had failed his family during the hospitalization, replaying delays and perceived
+dismissals and imagining confrontations that might finally balance what had happened.
+
+These habits did not settle him for long. The more Arjun rehearsed disaster, the more easily
+ordinary cues took on the force of warning. A mild disinfectant smell in an urgent care waiting room
+became almost unbearable because he had already spent the morning mentally staging scenes of
+collapse and medical crisis. Before his own checkups, he would lie awake imagining bad news, and by
+the time he entered the exam room his body was keyed up enough that the paper on the examination
+table, the blood pressure cuff, and the clinician’s brisk manner all felt charged. Nights alone
+became harder in the same way: in hotel rooms on business trips, he would scan for signs that
+something might go wrong at home, call or text repeatedly for reassurance, and mentally rehearse who
+to contact if his son became ill again. Those efforts left him more vigilant, not less, so the room
+itself began to feel unsafe simply because he was alone with his thoughts.
+
+At home this has gradually changed family life. His wife has become used to late-night questions he
+already knows she cannot definitively answer—whether their son looked pale at dinner, whether a
+cough sounded different, whether they should book another appointment just to be sure. Arjun
+experiences these questions as necessary, almost responsible, yet he can see the fatigue in her
+face. At work he remains highly skilled, but on days when he has to attend a medical appointment or
+after he catches a hospital-like smell in the building, he loses hours to spiraling preparation and
+checking. He has also nursed a bitter internal ledger about the hospital stay, returning again and
+again to fantasies of exposing or punishing the staff he believes did not grasp how close his son
+came to dying. He recognizes that these thoughts do not lead anywhere, but he cannot seem to stop
+using them, as if staying angry might keep him from ever being that helpless again.
+
+He came to treatment after turning down another out-of-town studio trip because the prospect of
+sleeping alone in a hotel felt intolerable. What frightened him most was not only the surge of panic
+in those moments, but the growing sense that his life was organizing itself around preventing
+another catastrophe he could neither predict nor control. He wants to be able to walk into a clinic,
+travel for work, or spend a night away without his mind immediately building disaster scenes. More
+than that, he hopes to stop living as though his son is still in that hospital bed, while fearing
+that if he lets his guard down for even a moment, something terrible will happen again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+When Arjun’s eight-year-old son was admitted to the pediatric ICU with a rapidly worsening
+infection, the days that followed narrowed into fluorescent light, antiseptic air, and the
+mechanical rhythm of monitors. Arjun spent nights in a vinyl chair beside the bed, half-awake and
+listening for any change in the boy’s breathing. He still remembers being told to step aside for
+procedures, watching masked staff move quickly around his son while he stood uselessly at the edge
+of the room. What lodged most deeply was not a single dramatic moment but the repeated sense that
+catastrophe could arrive at any second and that he had to stay alert enough to catch it first. By
+the time his son recovered and came home, Arjun had the outward appearance of relief, but internally
+he had not left the hospital.
+
+In the months afterward, certain moments pulled him back with unnerving force. The sharp smell of
+antiseptic in a clinic hallway, a routine medical examination of his own, even checking into a hotel
+for a work conference and realizing he would have to sleep alone all carried the same jolt. As an
+animator, he often worked long hours in a dim studio and occasionally traveled for production
+meetings; the first night away from home became especially difficult because being alone in an
+unfamiliar room felt too close to those nights beside his son’s hospital bed, except now there was
+no way to keep watch. When these situations arose, Arjun’s mind would immediately lurch into frantic
+effort. He would run through worst-case scenarios in detail, telling himself he needed to be
+prepared for the next emergency. He repeatedly asked his wife, doctors, or even coworkers whether he
+seemed all right, whether his son was really out of danger, whether missing some sign had become
+possible again. He also found himself circling angrily around thoughts of how to get even with the
+people he felt had failed his family during the hospitalization, replaying delays and perceived
+dismissals and imagining confrontations that might finally balance what had happened.
+
+These habits did not settle him for long. The more Arjun rehearsed disaster, the more easily
+ordinary cues took on the force of warning. A mild disinfectant smell in an urgent care waiting room
+became almost unbearable because he had already spent the morning mentally staging scenes of
+collapse and medical crisis. Before his own checkups, he would lie awake imagining bad news, and by
+the time he entered the exam room his body was keyed up enough that the paper on the examination
+table, the blood pressure cuff, and the clinician’s brisk manner all felt charged. Nights alone
+became harder in the same way: in hotel rooms on business trips, he would scan for signs that
+something might go wrong at home, call or text repeatedly for reassurance, and mentally rehearse who
+to contact if his son became ill again. Those efforts left him more vigilant, not less, so the room
+itself began to feel unsafe simply because he was alone with his thoughts.
+
+At home this has gradually changed family life. His wife has become used to late-night questions he
+already knows she cannot definitively answer—whether their son looked pale at dinner, whether a
+cough sounded different, whether they should book another appointment just to be sure. Arjun
+experiences these questions as necessary, almost responsible, yet he can see the fatigue in her
+face. At work he remains highly skilled, but on days when he has to attend a medical appointment or
+after he catches a hospital-like smell in the building, he loses hours to spiraling preparation and
+checking. He has also nursed a bitter internal ledger about the hospital stay, returning again and
+again to fantasies of exposing or punishing the staff he believes did not grasp how close his son
+came to dying. He recognizes that these thoughts do not lead anywhere, but he cannot seem to stop
+using them, as if staying angry might keep him from ever being that helpless again.
+
+He came to treatment after turning down another out-of-town studio trip because the prospect of
+sleeping alone in a hotel felt intolerable. What frightened him most was not only the surge of panic
+in those moments, but the growing sense that his life was organizing itself around preventing
+another catastrophe he could neither predict nor control. He wants to be able to walk into a clinic,
+travel for work, or spend a night away without his mind immediately building disaster scenes. More
+than that, he hopes to stop living as though his son is still in that hospital bed, while fearing
+that if he lets his guard down for even a moment, something terrible will happen again.

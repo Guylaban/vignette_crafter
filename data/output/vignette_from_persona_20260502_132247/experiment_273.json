@@ -1,0 +1,240 @@
+{
+  "persona_id": 273,
+  "source_persona_id": 273,
+  "experiment_timestamp": "2026-05-02 15:32:16",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "claude-sonnet-4-6",
+      "persona_crafter": "claude-sonnet-4-6",
+      "vignette_crafter": "claude-sonnet-4-6",
+      "vignette_validator": "claude-sonnet-4-6"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 37,
+    "gender": "Male",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Married",
+    "occupation": "Firefighter",
+    "trauma_type": "Stalking",
+    "pcl5": 62
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Spatial Triggers",
+        "value": "Physical locations"
+      },
+      {
+        "key": "Transportation (Bicycle)",
+        "value": "Bicycle"
+      },
+      {
+        "key": "Being Followed",
+        "value": "Feeling followed or tracked"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      },
+      {
+        "key": "Scanning Exits",
+        "value": "I scan for exits as soon as I enter any room or building"
+      },
+      {
+        "key": "Watching Others",
+        "value": "I watch other people closely for signs that they might harm me"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Overwhelm on Recall",
+        "value": "When the memory returns I feel so overwhelmed by emotion that I have to stop"
+      },
+      {
+        "key": "Triggered Without Warning",
+        "value": "Something in my surroundings can instantly bring back the full memory without warning"
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Fear Going Crazy",
+        "value": "My reactions since the event mean that I am going crazy"
+      },
+      {
+        "key": "Weakness Belief",
+        "value": "I am a weak person"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.6841,
+    "Triggers -- Negative Appraisals": 0.2969,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.171,
+    "Negative Appraisals -- Memory": 0.074,
+    "Negative Appraisals -- Triggers": 0.4593,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.8272,
+    "Memory -- Negative Appraisals": 0.4935,
+    "Memory -- Triggers": 0.3587,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.1463,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.39011111111111113,
+  "edge_density": 0.45,
+  "vignette_word_count": 796,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory",
+          "explanation": "Within the Memory node, 'Hard to Recall Deliberately' conflicts with 'Verbal Access: I can talk about what happened very easily.' Deliberate retrieval difficulty and very easy verbal access are opposing states and are hard to reconcile as describing the same patient at the same time, especially alongside 'Overwhelm on Recall,' which implies traumatic recall is effortful and dysregulating rather than easy to discuss."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Hard to Recall Deliberately"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Verbal Access: I can talk about what happened very easily.",
+          "explanation": "Within the Memory node, 'I can talk about what happened very easily' directly conflicts with 'When the memory returns I feel so overwhelmed by emotion that I have to stop.' At this severity level and with strong Trigger↔Memory and Memory→Threat links, these two memory items describe opposing levels of accessibility/distress and are hard to reconcile as the same current presentation."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Verbal Access"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Authority Commands: Being given orders or instructions",
+          "explanation": "The trigger set is hard to reconcile with stalking as the index trauma: 'authority commands' and especially 'bicycle' do not show an evident clinical link to the reported trauma, and the profile provides no memory or appraisal content that would make these idiosyncratic triggers understandable."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Transportation (Bicycle): Bicycle",
+          "explanation": "Threat items emphasize broad interpersonal attack and generic danger vigilance (loud sounds, scanning exits, watching others for harm), which fits assault/combat/fire trauma better than stalking. For stalking, one would expect threat focused more on being followed, approached, monitored, contacted, or found by the perpetrator."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Threat: Threat in Sounds: I am on high alert when I hear unexpected or loud sounds",
+          "explanation": "'I am a weak person' sits awkwardly with this profile and occupation unless supported by appraisal content about failure to protect oneself or family; here the other appraisals center on permanent damage and fear of going crazy, so the weakness item feels less coherent with the stalking-specific formulation than those items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Authority Commands"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Negative Appraisals": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3957,
+    "output": 1073,
+    "total": 5030
+  },
+  "vignette": "Tariq is a 37-year-old Lebanese-American firefighter who has been married for nine years. He presents with a PCL-5 score of 62 following a prolonged stalking experience that began approximately fourteen months ago and lasted nearly six months before legal intervention. What made the experience particularly destabilising was not a single violent incident but the slow, grinding accumulation of surveillance: a man Tariq had briefly encountered through a neighbourhood dispute began appearing wherever Tariq went — outside the fire station at shift changes, parked across the street from his home, following him on a bicycle through residential streets when Tariq rode to work. The stalker never spoke directly to him. He simply appeared, and watched. It was the bicycle that became the centre of it — the quiet, almost casual way the man would pedal into view, unhurried, as though Tariq's movements were a schedule he had memorised. By the time a restraining order was obtained, Tariq had internalised the certainty that any public space could become a trap and that no distance was truly safe.\n\nIn the months that followed the legal resolution, Tariq found that his nervous system had not received the news. Entering any room — a grocery store, the apparatus bay at the station, a restaurant with his wife — he would immediately map the exits, his eyes moving before his conscious mind caught up. He watched other people closely, reading their posture and gaze for signs of hostile intent, and unexpected sounds — a door slamming, a radio burst from dispatch, the scrape of a chair — sent a jolt of alarm through him that he could not talk himself out of. These responses were not occasional; they were constant, exhausting, and entirely beyond his control.\n\nThe most acute difficulty came with memory. Certain things in his environment could collapse the distance between then and now without any warning — most powerfully, the sight of a bicycle. Tariq works in a neighbourhood where cyclists are common, and on several occasions during street responses he has rounded a corner and seen a man on a bicycle and felt the full weight of those six months land on him in an instant, the memory returning not as recollection but as presence. When the memory came back this way, Tariq was so overwhelmed by the emotion that accompanied it — a flooding dread, a physical constriction in his chest — that he had to stop what he was doing. He told his supervising lieutenant he had \"something in his eye.\" He could not explain further. When he tried to speak about what had happened, even in the intake session, the words would not come; he knew what he had lived through but found it inaccessible to language, as though the experience existed in a register that speech could not reach.\n\nIt was these failures of language and composure that fed the most corrosive part of Tariq's current presentation: what he had come to believe about himself. He was certain he had been permanently changed for the worse — that the person who had entered those six months was gone and what remained was diminished. A firefighter, he reasoned, was supposed to be someone who moved toward danger without flinching; the fact that a bicycle, a sound, a feeling of being watched could undo him meant, in his private accounting, that he was weak. These beliefs did not stay contained. When Tariq appraised himself as weak and broken, the threat monitoring intensified — as though his damaged state made him more vulnerable, less capable of protecting himself, and therefore more exposed to harm. The scanning of exits, the watching of strangers, the vigilance around sounds all sharpened in the wake of these self-condemning thoughts. And the appraisals reached backward into memory as well: when he thought of himself as permanently changed, the memories returned with renewed force, confirming the verdict. The loop was self-sealing. The memories, when they broke through, renewed his conviction that something was fundamentally wrong with him, and that conviction kept him primed for threat, which kept the triggers live, which kept the memories close.\n\nTariq has begun to withdraw from the social dimensions of his shift — the shared meals, the conversations in the common room — and his wife has noticed a distance she cannot name. What finally brought him to seek help was a moment at the station when a colleague arrived on a bicycle and Tariq had to leave the bay. He stood outside in the cold for several minutes, unable to re-enter. He is most afraid, he said quietly at intake, that this is simply who he is now. What he is hoping for, though he offered it almost as an apology, is to be wrong about that."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Tariq is a 37-year-old Lebanese-American firefighter who has been married for nine years. He presents with a PCL-5 score of 62 following a prolonged stalking experience that began approximately fourteen months ago and lasted nearly six months before legal intervention. What made the experience particularly destabilising was not a single violent incident but the slow, grinding accumulation of surveillance: a man Tariq had briefly encountered through a neighbourhood dispute began appearing wherever Tariq went — outside the fire station at shift changes, parked across the street from his home, following him on a bicycle through residential streets when Tariq rode to work. The stalker never spoke directly to him. He simply appeared, and watched. It was the bicycle that became the centre of it — the quiet, almost casual way the man would pedal into view, unhurried, as though Tariq's movements were a schedule he had memorised. By the time a restraining order was obtained, Tariq had internalised the certainty that any public space could become a trap and that no distance was truly safe.\n\nIn the months that followed the legal resolution, Tariq found that his nervous system had not received the news. Entering any room — a grocery store, the apparatus bay at the station, a restaurant with his wife — he would immediately map the exits, his eyes moving before his conscious mind caught up. He watched other people closely, reading their posture and gaze for signs of hostile intent, and unexpected sounds — a door slamming, a radio burst from dispatch, the scrape of a chair — sent a jolt of alarm through him that he could not talk himself out of. These responses were not occasional; they were constant, exhausting, and entirely beyond his control.\n\nThe most acute difficulty came with memory. Certain things in his environment could collapse the distance between then and now without any warning — most powerfully, the sight of a bicycle. Tariq works in a neighbourhood where cyclists are common, and on several occasions during street responses he has rounded a corner and seen a man on a bicycle and felt the full weight of those six months land on him in an instant, the memory returning not as recollection but as presence. When the memory came back this way, Tariq was so overwhelmed by the emotion that accompanied it — a flooding dread, a physical constriction in his chest — that he had to stop what he was doing. He told his supervising lieutenant he had \"something in his eye.\" He could not explain further. When he tried to speak about what had happened, even in the intake session, the words would not come; he knew what he had lived through but found it inaccessible to language, as though the experience existed in a register that speech could not reach.\n\nIt was these failures of language and composure that fed the most corrosive part of Tariq's current presentation: what he had come to believe about himself. He was certain he had been permanently changed for the worse — that the person who had entered those six months was gone and what remained was diminished. A firefighter, he reasoned, was supposed to be someone who moved toward danger without flinching; the fact that a bicycle, a sound, a feeling of being watched could undo him meant, in his private accounting, that he was weak. These beliefs did not stay contained. When Tariq appraised himself as weak and broken, the threat monitoring intensified — as though his damaged state made him more vulnerable, less capable of protecting himself, and therefore more exposed to harm. The scanning of exits, the watching of strangers, the vigilance around sounds all sharpened in the wake of these self-condemning thoughts. And the appraisals reached backward into memory as well: when he thought of himself as permanently changed, the memories returned with renewed force, confirming the verdict. The loop was self-sealing. The memories, when they broke through, renewed his conviction that something was fundamentally wrong with him, and that conviction kept him primed for threat, which kept the triggers live, which kept the memories close.\n\nTariq has begun to withdraw from the social dimensions of his shift — the shared meals, the conversations in the common room — and his wife has noticed a distance she cannot name. What finally brought him to seek help was a moment at the station when a colleague arrived on a bicycle and Tariq had to leave the bay. He stood outside in the cold for several minutes, unable to re-enter. He is most afraid, he said quietly at intake, that this is simply who he is now. What he is hoping for, though he offered it almost as an apology, is to be wrong about that.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

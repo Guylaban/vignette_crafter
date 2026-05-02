@@ -17,25 +17,17 @@ from configs.prompts import (
 logger = logging.getLogger(__name__)
 
 
-class FieldIssue(BaseModel):
-    field:       str  # one of: age, gender, ethnicity, relationship_status, trauma_type, pcl5
-    explanation: str  # one sentence explaining why it was flagged
-
-
 class DemographicsValidationResult(BaseModel):
-    verdict: Literal["PASS", "FAIL"]
-    issues:  list[FieldIssue]  # empty on PASS
-
-
-class SelfReportItemIssue(BaseModel):
-    component:   str  # node name e.g. "Triggers", "Memory"
-    item:        str  # the item key
-    explanation: str  # one sentence explaining why it was flagged
+    verdict:              Literal["PASS", "FAIL"]
+    issue_fields:         list[str] = []  # e.g. ["age", "relationship_status"]
+    issue_explanations:   list[str] = []  # parallel to issue_fields
 
 
 class SelfReportValidationResult(BaseModel):
-    verdict: Literal["PASS", "FAIL"]
-    issues:  list[SelfReportItemIssue]  # empty on PASS
+    verdict:              Literal["PASS", "FAIL"]
+    issue_components:     list[str] = []  # node names e.g. ["Triggers"]
+    issue_items:          list[str] = []  # item keys, parallel to issue_components
+    issue_explanations:   list[str] = []  # parallel to issue_components
 
 
 class PersonaValidatorAgent(BaseAgent):
@@ -65,8 +57,9 @@ class PersonaValidatorAgent(BaseAgent):
             return {"passed": True, "issues": [], "problematic_fields": []}
 
         passed = result.verdict == "PASS"
-        issues = [{"field": i.field, "explanation": i.explanation} for i in result.issues]
-        problematic_fields = [i.field for i in result.issues]
+        issues = [{"field": f, "explanation": e}
+                  for f, e in zip(result.issue_fields, result.issue_explanations)]
+        problematic_fields = list(result.issue_fields)
         logger.info("[%s] demographics validation: %s — %s", self.name, result.verdict,
                     ", ".join(f"{i['field']}: {i['explanation']}" for i in issues) or "no issues")
         return {"passed": passed, "issues": issues, "problematic_fields": problematic_fields}
@@ -96,13 +89,16 @@ class PersonaValidatorAgent(BaseAgent):
             return {"passed": True, "issues": [], "problematic_items": {}}
 
         passed = result.verdict == "PASS"
-        issues = [{"component": i.component, "item": i.item, "explanation": i.explanation}
-                  for i in result.issues]
-        # Normalize: LLM sometimes returns "key: value" — extract just the key part
+        issues = [{"component": c, "item": it, "explanation": e}
+                  for c, it, e in zip(result.issue_components, result.issue_items, result.issue_explanations)]
+        # Normalize: LLM sometimes returns "ComponentName: ItemKey: value" — extract just the key
         problematic_items: dict[str, list[str]] = {}
-        for i in result.issues:
-            key = i.item.split(":")[0].strip()
-            problematic_items.setdefault(i.component, []).append(key)
+        for c, it in zip(result.issue_components, result.issue_items):
+            # Strip component prefix if LLM included it (e.g. "Memory: Verbal Access: ...")
+            if it.startswith(c + ":"):
+                it = it[len(c) + 1:].strip()
+            key = it.split(":")[0].strip()
+            problematic_items.setdefault(c, []).append(key)
         logger.info("[%s] self-report validation: %s — %s", self.name, result.verdict,
                     ", ".join(f"{i['component']}/{i['item']}: {i['explanation']}" for i in issues) or "no issues")
         return {"passed": passed, "issues": issues, "problematic_items": problematic_items}

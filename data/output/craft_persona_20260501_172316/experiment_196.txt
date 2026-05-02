@@ -1,0 +1,120 @@
+PERSONA 196  |  2026-05-01 17:59:21
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    craft_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             44
+  gender          Female
+  ethnicity       Oceania
+  relationship_status In a relationship
+  occupation      Sculptor
+  trauma_type     Combat
+  pcl5            61
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Uncertainty: Uncertainty
+    • Somatic (Pain): Physical pain in a part of the body
+    • Crowding: Crowded places
+  Maladaptive Strategies:
+    • Hypervigilance towards people: vigilant for dangerous people
+    • Stay Near Exit: make sure to stay close to exit
+    • Avoid Crowds: Crowded places such as shopping centres or public events
+  Negative Appraisals:
+    • Isolation: I feel isolated and set apart from others
+    • Self-Blame: The event happened because of the way I acted
+    • Belong Nowhere: I no longer belong anywhere
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.9821
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0709
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.6451
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.6353
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: The maladaptive strategies cluster is not clinically coherent with the rest of the combat-related PTSD profile. Avoiding appearance/performance evaluation, compulsive exercise, and undereating suggests an eating-disorder/body-image coping pattern rather than trauma-linked PTSD coping, and this is not supported by the listed triggers or appraisals.
+    item:        Triggers / Compulsive Exercise: I push myself to exercise excessively
+    explanation: Given the very strong Triggers → Maladaptive Strategies edge, the selected triggers should plausibly drive the listed coping behaviours. Feeling vulnerable, uncertainty, and somatic pain do not clearly connect to avoiding evaluation of appearance/performance, compulsive exercise, or food restriction in a combat PTSD formulation.
+    item:        Negative Appraisals / Undereating: I avoid eating or restrict food as a way of coping
+    explanation: The negative appraisals describe alienation and self-blame after trauma, but they do not provide a convincing bridge to the specific body/appearance-related maladaptive strategies selected. This creates a cross-node mismatch rather than a coherent trauma-linked maintenance cycle.
+  [2] FAIL
+    item:        Maladaptive Strategies / Compulsive Exercise: I push myself to exercise excessively
+    explanation: The maladaptive strategies are internally heterogeneous in a hard-to-explain way: compulsive exercise and undereating suggest an eating/weight-control coping pattern, whereas checking surroundings is a hypervigilant safety behavior oriented to external danger. These can co-occur, but as the only three strategies selected they do not form a coherent dominant coping profile for this trauma presentation.
+    item:        Negative Appraisals / Undereating: I avoid eating or restrict food as a way of coping
+    explanation: The very strong formulation edge is Triggers → Maladaptive Strategies, yet the listed triggers (emotional vulnerability, uncertainty, bodily pain) do not plausibly connect tightly to checking surroundings for external threat. That safety behavior would fit triggers such as crowds, noises, unfamiliar people, or combat reminders better than the chosen trigger set.
+    item:        Triggers / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: Negative appraisals cluster around shame, alienation, and self-blame, but the selected maladaptive strategies do not clearly express coping with those appraisals. Given the inactive Negative Appraisals → Maladaptive Strategies edge, this mismatch is especially noticeable: exercise restriction behaviors appear disconnected from the reported appraisals and from the combat trauma context.
+  [3] FAIL
+    item:        Triggers / Undereating: I avoid eating or restrict food as a way of coping
+    explanation: The maladaptive strategies are internally mixed in a way that is hard to unify clinically: checking surroundings and hypervigilance toward people are classic threat-monitoring/safety behaviors, but no Threat items are endorsed and the formulation explicitly lacks Threat connections. Including two strong surveillance behaviors without any corresponding threat representation makes the profile incoherent.
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: The formulation is dominated by Triggers ↔ Maladaptive Strategies, with only a very weak Triggers → Negative Appraisals link and no links from Negative Appraisals to Threat or Maladaptive Strategies. However, the selected maladaptive strategies are specifically organized around detecting external danger ('checking surroundings', 'hypervigilance towards people'), which implies an active threat system not represented anywhere else in the profile.
+    item:        Negative Appraisals / Hypervigilance towards people: vigilant for dangerous people
+    explanation: For a combat trauma profile, self-blame can be plausible, but here it sits awkwardly with the rest of the selected appraisals, which focus on alienation and belonging, while the trigger-strategy cycle is centered on vague vulnerability/uncertainty plus environmental scanning. The appraisals do not provide a coherent cognitive bridge to why these particular safety behaviors would dominate, especially given the absent Threat and Memory nodes.
+  [4] FAIL
+    item:        Triggers / Triggers: Feeling Vulnerable
+    explanation: The trigger set is largely diffuse and internal (emotional vulnerability, uncertainty, bodily pain), while the maladaptive strategies are strongly oriented toward immediate external interpersonal/environmental danger (scanning dangerous people, staying near exits). That pairing is hard to reconcile as a tight trigger→strategy loop, despite this being the strongest edge in the formulation.
+    item:        Maladaptive Strategies / Triggers: Uncertainty
+    explanation: For a combat trauma profile, the selected strategies imply a specific public-threat / attack expectancy pattern, but the listed triggers do not include corresponding external cues such as crowds, men, uniforms, loud sounds, confined spaces, or conflict. The coping responses appear to address a trigger type not represented in the trigger node.
+  [5] FAIL
+    item:        Maladaptive Strategies / Undereating: I avoid eating or restrict food as a way of coping
+    explanation: Undereating is poorly integrated with the rest of the profile. The other selected items center on interpersonal danger, crowded environments, and social alienation, whereas restrictive eating as a coping strategy suggests a different symptom-management pattern that is not otherwise represented in the triggers or appraisals.
+    item:        Triggers / Stay Near Exit: make sure to stay close to exit
+    explanation: Stay Near Exit and hypervigilance towards people imply a strong ongoing threat/safety-behavior pattern in public settings. However, no Threat items are endorsed, making this cluster under-specified relative to the rest of the profile.
+    item:        Negative Appraisals / Hypervigilance towards people: vigilant for dangerous people
+    explanation: Crowding as a trigger coheres with public-safety behaviors, but the Negative Appraisals are dominated by global social disconnection and self-blame rather than fear-based meanings linked to crowded or interpersonal-danger triggers. This makes the trigger-appraisal linkage weak for the selected pattern.
+  [6] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     32,214
+  output:     2,029
+  total:     34,243
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  0 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+

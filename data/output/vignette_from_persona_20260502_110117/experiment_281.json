@@ -1,0 +1,226 @@
+{
+  "persona_id": 281,
+  "source_persona_id": 281,
+  "experiment_timestamp": "2026-05-02 11:46:28",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4-mini",
+      "persona_crafter": "gpt-5.4-mini",
+      "vignette_crafter": "gpt-5.4-mini",
+      "vignette_validator": "gpt-5.4-mini"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 74,
+    "gender": "Female",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Physical Therapist",
+    "trauma_type": "Refugee",
+    "pcl5": 35
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Event Recall",
+        "value": "Talking about the event"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      },
+      {
+        "key": "Olfactory Danger Cue",
+        "value": "Burnt smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Alcohol Use",
+        "value": "drink alcohol"
+      },
+      {
+        "key": "Past Dwelling",
+        "value": "I dwell on how I used to be before the event"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Intrusion Monitoring",
+        "value": "I listen for sounds that might mean someone is entering my home"
+      },
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      },
+      {
+        "key": "Threat from Strangers",
+        "value": "I feel threatened by strangers approaching me even in ordinary situations"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Auditory Recall",
+        "value": "When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event."
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      },
+      {
+        "key": "Feels Present Not Past",
+        "value": "The memory feels like it is happening right now rather than something that is over"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.9319,
+    "Triggers -- Memory": 0.784,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.6121,
+    "Memory -- Threat": 0.6868,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4874,
+    "Threat -- Maladaptive Strategies": 0.3835,
+    "Threat -- Memory": 0.7043,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.1244,
+    "Maladaptive Strategies -- Memory": 0.6195,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.3497
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.56836,
+  "edge_density": 0.5,
+  "vignette_word_count": 783,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Photos): Related photos",
+          "explanation": "The trigger set is partly incongruent with the indexed trauma type. For a refugee trauma history, 'related photos' could be plausible, but 'talk about accidents' is specifically accident-themed and does not fit the stated trauma unless there is an unmentioned separate index trauma. That makes the trigger profile clinically hard to reconcile with this trauma type."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Crash Discussions: Talk about accidents",
+          "explanation": "The threat item about listening for signs that someone is entering the home implies a home-intrusion/assault-style danger context. Combined with the accident-themed trigger item, the profile mixes incompatible threat contexts rather than a coherent refugee-related trauma pattern. The remaining memory items describe vivid reliving, but they do not anchor to either accidents or home intrusion, so this specific threat content is difficult to explain from the provided formulation and trauma type."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Photos)"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Crash Discussions: Talk about accidents",
+          "explanation": "The trigger content is centered on accidents/crashes, which is hard to reconcile with a refugee trauma history unless a specific accident trauma is part of the index event. For a refugee presentation, this trigger theme is clinically mismatched with the stated trauma type."
+        },
+        {
+          "component": "Threat",
+          "item": "Event Recall: Talking about the event",
+          "explanation": "The threat item about someone entering the home fits a home-intrusion/assault formulation more than the refugee-linked trigger and memory content provided. Together with accident-related triggers, it creates a cross-node profile that points to multiple unrelated trauma contexts rather than one coherent trauma history."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Crash Discussions"
+        ],
+        "Threat": [
+          "Event Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3002,
+    "output": 918,
+    "total": 3920
+  },
+  "vignette": "Marina Petrovic was a 74-year-old European woman who had spent most of her life working as a physical therapist, first in a refugee camp clinic and later in the United States, where she and her husband built a quieter life in a small apartment complex on the edge of town. Decades earlier, during the chaos of flight from her home country, she had been separated from her family in a crowded building where people hid in stairwells, and she still described one particular night with a grim, immediate clarity: the sharp smell of alcohol from men in the hallway, the burnt odor of smoke curling under a door, and the sound of someone pounding the frame as if trying to get in. When she tries to talk about it now, even briefly, Marina becomes visibly tense, and the account does not stay in the past for her. She said that once the story is brought up she can almost see the corridor as if she is standing there again, with the scene returning in pictures rather than words, and that sometimes she hears fragments in her head that belong to that night. What frightens her most is that the memory feels present, not remembered, as though the door might open at any second.\n\nThose sensations have shaped the way she moves through ordinary life. A whiff of alcohol from a neighbor in the hallway, or the trace of something burnt from a kitchen accident downstairs, can send her straight into alarm. On those days Marina feels certain that danger is near, and she begins scanning every corner of the apartment building, listening for footsteps on the stairwell or the sound of a key turning in the lock. Strangers approaching her in the parking lot or outside the grocery store can feel threatening before they even speak. She often reacts as if something terrible is about to happen even when nothing is actually wrong, and she knows that her body is responding before her mind can catch up. The old memory feeds that alarm, but the alarm also seems to pull her back into the memory again: once she is on edge, the hallway in her mind becomes vivid, the images sharpen, and the sounds she half-hears feel even more immediate.\n\nIn the months after retirement, Marina found herself organizing life around these moments. She checked the locks repeatedly, looked out the peephole before opening the door, and sat in the living room with one ear tuned toward the corridor, waiting for the sounds that might mean someone was entering her home. Her husband noticed that she left the curtains slightly parted so she could watch the parking lot, and that she rarely went down to the mailboxes alone. She began drinking alcohol in the evening, telling herself it took the edge off, though it also made her mind drift back over what she used to be like before the event, before she became someone who startled at every noise. She dwelled on that earlier version of herself with a kind of grief, remembering how steady and useful she once felt, and the comparison left her more unsettled. Drinking, scanning, and replaying the past did not calm her for long; if anything, they seemed to keep the frightening images close at hand, and after a drink she was more likely to hear those stray sounds in her head or to feel the old corridor scene pressing into the present. Her vigilance made her more exhausted and jumpy, which in turn made her more convinced that danger was real.\n\nOver time the pattern narrowed her life. She was less willing to meet neighbors, and when people approached her on the sidewalk she would stiffen and step aside. At home she moved through the apartment as if expecting interruption, pausing to listen before opening the bathroom door, then listening again before sleep. The apartment that once felt like a refuge had become a place she defended against imagined entry, and the smallest cue could bring the whole sequence back: a smell, a voice in the hall, a recalled sentence about the flight, the sudden feeling that the danger was happening now. Marina finally sought help because her husband had begun urging her to do so after several nights of poor sleep and one afternoon when she nearly panicked at a maintenance worker outside the door. She came in hoping to stop living as though the war were still outside her apartment, and she admitted that what she fears most is becoming even more trapped in this constant watchfulness, though a part of her still hopes she can recover enough to feel safe with other people again."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Marina Petrovic was a 74-year-old European woman who had spent most of her life working as a physical therapist, first in a refugee camp clinic and later in the United States, where she and her husband built a quieter life in a small apartment complex on the edge of town. Decades earlier, during the chaos of flight from her home country, she had been separated from her family in a crowded building where people hid in stairwells, and she still described one particular night with a grim, immediate clarity: the sharp smell of alcohol from men in the hallway, the burnt odor of smoke curling under a door, and the sound of someone pounding the frame as if trying to get in. When she tries to talk about it now, even briefly, Marina becomes visibly tense, and the account does not stay in the past for her. She said that once the story is brought up she can almost see the corridor as if she is standing there again, with the scene returning in pictures rather than words, and that sometimes she hears fragments in her head that belong to that night. What frightens her most is that the memory feels present, not remembered, as though the door might open at any second.\n\nThose sensations have shaped the way she moves through ordinary life. A whiff of alcohol from a neighbor in the hallway, or the trace of something burnt from a kitchen accident downstairs, can send her straight into alarm. On those days Marina feels certain that danger is near, and she begins scanning every corner of the apartment building, listening for footsteps on the stairwell or the sound of a key turning in the lock. Strangers approaching her in the parking lot or outside the grocery store can feel threatening before they even speak. She often reacts as if something terrible is about to happen even when nothing is actually wrong, and she knows that her body is responding before her mind can catch up. The old memory feeds that alarm, but the alarm also seems to pull her back into the memory again: once she is on edge, the hallway in her mind becomes vivid, the images sharpen, and the sounds she half-hears feel even more immediate.\n\nIn the months after retirement, Marina found herself organizing life around these moments. She checked the locks repeatedly, looked out the peephole before opening the door, and sat in the living room with one ear tuned toward the corridor, waiting for the sounds that might mean someone was entering her home. Her husband noticed that she left the curtains slightly parted so she could watch the parking lot, and that she rarely went down to the mailboxes alone. She began drinking alcohol in the evening, telling herself it took the edge off, though it also made her mind drift back over what she used to be like before the event, before she became someone who startled at every noise. She dwelled on that earlier version of herself with a kind of grief, remembering how steady and useful she once felt, and the comparison left her more unsettled. Drinking, scanning, and replaying the past did not calm her for long; if anything, they seemed to keep the frightening images close at hand, and after a drink she was more likely to hear those stray sounds in her head or to feel the old corridor scene pressing into the present. Her vigilance made her more exhausted and jumpy, which in turn made her more convinced that danger was real.\n\nOver time the pattern narrowed her life. She was less willing to meet neighbors, and when people approached her on the sidewalk she would stiffen and step aside. At home she moved through the apartment as if expecting interruption, pausing to listen before opening the bathroom door, then listening again before sleep. The apartment that once felt like a refuge had become a place she defended against imagined entry, and the smallest cue could bring the whole sequence back: a smell, a voice in the hall, a recalled sentence about the flight, the sudden feeling that the danger was happening now. Marina finally sought help because her husband had begun urging her to do so after several nights of poor sleep and one afternoon when she nearly panicked at a maintenance worker outside the door. She came in hoping to stop living as though the war were still outside her apartment, and she admitted that what she fears most is becoming even more trapped in this constant watchfulness, though a part of her still hopes she can recover enough to feel safe with other people again.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

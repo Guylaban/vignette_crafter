@@ -1,0 +1,222 @@
+{
+  "persona_id": 86,
+  "source_persona_id": 86,
+  "experiment_timestamp": "2026-05-01 23:10:23",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 79,
+    "gender": "Female",
+    "ethnicity": "Latin American",
+    "relationship_status": "Widowed",
+    "occupation": "Combat Pilot",
+    "trauma_type": "Police violence",
+    "pcl5": 80
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Crowding",
+        "value": "Crowded places"
+      },
+      {
+        "key": "Auditory (Sirens)",
+        "value": "Sirens"
+      },
+      {
+        "key": "Authority Presence",
+        "value": "Police"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Delay Sleep",
+        "value": "stay up until very late"
+      },
+      {
+        "key": "Avoid Similar Clothes",
+        "value": "avoid wearing similar clothes"
+      },
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      },
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Noticing Weapons",
+        "value": "I notice potential weapons or dangerous objects in any environment"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Snapshot Memory",
+        "value": "I remember the frightening event as a few moments, and each moment is a picture in my mind."
+      },
+      {
+        "key": "Olfactory Recall",
+        "value": "When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened."
+      },
+      {
+        "key": "Sudden Pieces",
+        "value": "Fragments of the memory appear suddenly without warning and then disappear"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.732,
+    "Triggers -- Memory": 0.0213,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.6962,
+    "Memory -- Threat": 0.7891,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.4438,
+    "Threat -- Memory": 0.1747,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.883,
+    "Maladaptive Strategies -- Memory": 0.3816,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5152125,
+  "edge_density": 0.4,
+  "vignette_word_count": 820,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Relationship Reminders: When people say things like my ex",
+          "explanation": "The trigger items are hard to reconcile with the indexed trauma of police violence. 'My ex' is a relationship-specific cue and pregnancy/birth cues are highly specific to reproductive or interpersonal trauma; neither fits the rest of the profile, which otherwise centers on threat, weapons, and sensory fragments more consistent with assault/violence exposure. This is more than unusual because there is no corresponding memory or appraisal content linking police violence to ex-partner or childbirth themes."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "'Avoid wearing similar clothes' lacks a plausible anchor in the rest of the profile. There is no trigger or memory item about uniforms, clothing, or appearance cues, so this strategy appears to target a symptom pattern not represented elsewhere. Given the strong Memory→Maladaptive Strategies linkage, the selected strategies should be more clearly connected to the reported sensory/fragmented memory content."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Relationship Reminders"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "Pregnancy/birth reminders are hard to reconcile with the stated trauma type of police violence and the rest of the profile. None of the threat, memory, or strategy items suggest a perinatal, infant-related, or childbirth-linked trauma theme, so this trigger appears clinically disconnected from the reported trauma."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Overworking: I throw myself into work or tasks to keep my mind occupied",
+          "explanation": "Overworking is less coherent with this patient's demographics and the rest of the symptom pattern. In a 79-year-old widowed patient, 'throwing myself into work' is less plausible unless supported elsewhere, and the profile instead centers on sensory reminders, hypervigilance, and avoidance of trauma-linked cues. This coping item is not impossible, but in this profile it appears weakly anchored compared with the other selected strategies."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Pregnancy/Birth Reminders"
+        ],
+        "Maladaptive Strategies": [
+          "Overworking"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3041,
+    "output": 993,
+    "total": 4034
+  },
+  "vignette": "Elena Morales is a 79-year-old retired combat pilot who came to treatment long after the event she still calls, simply, “that stop.” Widowed now and living alone, she had spent most of her life in disciplined, high-stakes settings, and she describes herself as someone who once trusted training, rank, and procedure. That changed during an encounter with police violence several years ago. She had been walking home in a busy downtown corridor after an aviation veterans’ event, still wearing a dark flight jacket. Patrol cars pulled up fast. The first thing that returns to her is not a full sequence but a set of fixed images: the glare of lights on a windshield, a hand on a holster, the angle of a shoulder driving her toward the car, pavement at eye level. Around those pictures comes smell before story—hot rubber, exhaust, sweat, and a sharp metallic scent she cannot name without her chest tightening. Even now she does not tell it as a smooth narrative; pieces arrive abruptly, vivid and gone again.\n\nIn the weeks afterward, certain situations began to carry the force of the event itself. Crowded places were the worst. In a grocery line or clinic waiting room, if bodies pressed too close, Elena felt her system surge before she could think: her heart hammered, her muscles locked, and she was suddenly unable to relax even when she could plainly see she was not in immediate danger. Sirens did something similar. The sound did not just startle her; it seemed to pull those picture-like moments directly into the present, along with the smell of exhaust, as if the scene were breaking through in fragments. Seeing police officers was especially potent. A routine patrol car outside her apartment or officers posted at a public building made her instantly search their belts, hands, and distance from her, noticing weapons and hard objects in the environment with a speed she experiences as automatic.\n\nBecause the memories come in flashes rather than a story, Elena has come to dread the conditions that might let them in. At night she stays up until very late, often in the living room with the television on low, telling herself that sleep is dangerous because the moment she lets go, the pictures appear without warning. She is careful about clothing in a way that would once have embarrassed her: she avoids wearing anything that resembles what she had on that day, especially darker uniform-like jackets, because she cannot separate those clothes from the snapshots that intrude. The more the fragments return, the more she organizes her routines around not giving them any opening.\n\nHer fear is not only about remembering. Elena lives as if danger can ignite at any second. She scans every room she enters for exits, for heavy objects, for anything that could be used as a weapon, and once that scanning starts she cannot settle. In the airport museum where she volunteers twice a week, she now avoids family event days because the crowding and the visible security presence keep her body braced for impact. She watches people’s hands, notices radios, batons, utility belts, and the metal stanchions by the entrance. Under that level of alertness, the same sensory fragments are more likely to break through—the hand on the holster, the smell, the slice of pavement—so that vigilance seems to feed the very memories she is trying to prevent.\n\nOver time, this has narrowed her life. She takes long detours to avoid police stations and city blocks where sirens are common. If she cannot avoid going out, she arrives early to beat crowds and chooses seats with a clear view of the door, constantly checking her surroundings for signs of threat. These habits make sense to her because they promise a margin of control, yet they also keep her attention fixed on exactly the cues that set her off. A passing siren, a cluster of people, the sight of an officer near a crosswalk—each can spark a physical rush and pull up another fragment. After a day spent scanning, she lies awake even later, tense and waiting, and the broken images return again in the small hours.\n\nWhat finally brought Elena in was an incident at the museum. A school group crowded the lobby just as sirens passed outside and two uniformed officers entered to ask for directions. She felt herself go cold and electric, started cataloging belts, radios, and possible weapons in the room, and then was hit by the familiar snapshots and smell so strongly she had to lock herself in a staff restroom until the episode passed. She is frightened by how quickly the present disappears when that happens. What she wants, she says, is not to erase what occurred but to be in a crowded place, hear a siren, or see police without feeling as though her body and mind are being dragged back into those few terrible pictures."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Elena Morales is a 79-year-old retired combat pilot who came to treatment long after the event she still calls, simply, “that stop.” Widowed now and living alone, she had spent most of her life in disciplined, high-stakes settings, and she describes herself as someone who once trusted training, rank, and procedure. That changed during an encounter with police violence several years ago. She had been walking home in a busy downtown corridor after an aviation veterans’ event, still wearing a dark flight jacket. Patrol cars pulled up fast. The first thing that returns to her is not a full sequence but a set of fixed images: the glare of lights on a windshield, a hand on a holster, the angle of a shoulder driving her toward the car, pavement at eye level. Around those pictures comes smell before story—hot rubber, exhaust, sweat, and a sharp metallic scent she cannot name without her chest tightening. Even now she does not tell it as a smooth narrative; pieces arrive abruptly, vivid and gone again.\n\nIn the weeks afterward, certain situations began to carry the force of the event itself. Crowded places were the worst. In a grocery line or clinic waiting room, if bodies pressed too close, Elena felt her system surge before she could think: her heart hammered, her muscles locked, and she was suddenly unable to relax even when she could plainly see she was not in immediate danger. Sirens did something similar. The sound did not just startle her; it seemed to pull those picture-like moments directly into the present, along with the smell of exhaust, as if the scene were breaking through in fragments. Seeing police officers was especially potent. A routine patrol car outside her apartment or officers posted at a public building made her instantly search their belts, hands, and distance from her, noticing weapons and hard objects in the environment with a speed she experiences as automatic.\n\nBecause the memories come in flashes rather than a story, Elena has come to dread the conditions that might let them in. At night she stays up until very late, often in the living room with the television on low, telling herself that sleep is dangerous because the moment she lets go, the pictures appear without warning. She is careful about clothing in a way that would once have embarrassed her: she avoids wearing anything that resembles what she had on that day, especially darker uniform-like jackets, because she cannot separate those clothes from the snapshots that intrude. The more the fragments return, the more she organizes her routines around not giving them any opening.\n\nHer fear is not only about remembering. Elena lives as if danger can ignite at any second. She scans every room she enters for exits, for heavy objects, for anything that could be used as a weapon, and once that scanning starts she cannot settle. In the airport museum where she volunteers twice a week, she now avoids family event days because the crowding and the visible security presence keep her body braced for impact. She watches people’s hands, notices radios, batons, utility belts, and the metal stanchions by the entrance. Under that level of alertness, the same sensory fragments are more likely to break through—the hand on the holster, the smell, the slice of pavement—so that vigilance seems to feed the very memories she is trying to prevent.\n\nOver time, this has narrowed her life. She takes long detours to avoid police stations and city blocks where sirens are common. If she cannot avoid going out, she arrives early to beat crowds and chooses seats with a clear view of the door, constantly checking her surroundings for signs of threat. These habits make sense to her because they promise a margin of control, yet they also keep her attention fixed on exactly the cues that set her off. A passing siren, a cluster of people, the sight of an officer near a crosswalk—each can spark a physical rush and pull up another fragment. After a day spent scanning, she lies awake even later, tense and waiting, and the broken images return again in the small hours.\n\nWhat finally brought Elena in was an incident at the museum. A school group crowded the lobby just as sirens passed outside and two uniformed officers entered to ask for directions. She felt herself go cold and electric, started cataloging belts, radios, and possible weapons in the room, and then was hit by the familiar snapshots and smell so strongly she had to lock herself in a staff restroom until the episode passed. She is frightened by how quickly the present disappears when that happens. What she wants, she says, is not to erase what occurred but to be in a crowded place, hear a siren, or see police without feeling as though her body and mind are being dragged back into those few terrible pictures.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

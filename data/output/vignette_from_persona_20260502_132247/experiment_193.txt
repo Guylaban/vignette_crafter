@@ -1,0 +1,205 @@
+PERSONA 193  |  2026-05-02 14:54:38
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-sonnet-4-6
+    persona_crafter      claude-sonnet-4-6
+    vignette_crafter     claude-sonnet-4-6
+    vignette_validator   claude-sonnet-4-6
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             68
+  gender          Female
+  ethnicity       North American
+  relationship_status Married
+  occupation      Retired
+  trauma_type     Unexpected or traumatic death of a loved one
+  pcl5            66
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Busyness: I work hard at keeping busy with other things
+    • Avoid People: avoid other people
+    • Avoid Social Contacts: Seeing people that I socialised with before the event
+  Threat:
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+  Negative Appraisals:
+    • Isolation: I feel isolated and set apart from others
+    • Belong Nowhere: I no longer belong anywhere
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.7616
+  Negative Appraisals → Threat                       0.6451
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.6353
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.5246
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Overworking: I throw myself into work or tasks to keep my mind occupied
+    explanation: For a 68-year-old retired patient, 'Overworking' is questionable as phrased because it implies a current work role; while keeping busy with tasks is plausible, the specific work-focused item is a poor fit to the demographic context.
+    item:        Negative Appraisals / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' is hard to link coherently to the indexed trauma of unexpected death of a loved one and to the rest of the profile. It suggests social/performance concerns that are not reflected in the threat or appraisal items and does not fit the formulation's main Negative Appraisals ↔ Threat loop.
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Being Touched: Any form of physical contact with others
+    explanation: For trauma type of unexpected death of a loved one, 'Avoid Being Touched' is hard to explain clinically unless there is interpersonal assault or bodily violation content, which is not present elsewhere in the profile. It appears mismatched to the trauma context and to the other selected items.
+    item:        Threat / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' suggests shame about appearance/performance or social evaluative threat, but the rest of the profile centers bereavement-related guilt, isolation, and generalized danger. This strategy does not connect well to the stated trauma type or to the active appraisal-threat loop.
+    item:        Negative Appraisals / Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    explanation: The threat items depict pervasive physical danger and inability to feel safe anywhere. In bereavement PTSD this can occur, but here the appraisals provided are mainly isolation and self-blame rather than danger-based meanings. The strong Negative Appraisals ↔ Threat loop is not well reflected because the appraisals do not explain this specific form of persistent external danger.
+  [3] FAIL
+    item:        Maladaptive Strategies / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' is hard to reconcile with the rest of the profile and the trauma type of traumatic bereavement. The other selected items center on grief-related self-blame, isolation, and generalized danger, but fear of being evaluated for appearance/performance suggests a social-evaluative concern not otherwise represented in threat, memory, triggers, or appraisals.
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: 'Self-Blame' can occur after the unexpected death of a loved one, but in this profile it sits awkwardly beside the chosen maladaptive strategies and threat items. If the patient blames herself for the death, one would expect linked strategies or threat content tied to guilt, responsibility, rumination, or death-related cues; instead the profile emphasizes social withdrawal and generic unsafety, making this item insufficiently integrated with the rest.
+    item:        Threat / Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    explanation: 'Cannot Trust Safety' is not impossible in PTSD, but with traumatic bereavement and no trigger or memory items selected, the threat profile becomes very generalized. In combination with the social-evaluative avoidance item, it creates a mixed formulation in which the source of danger is unclear: bereavement-related guilt/loss versus broad physical danger versus fear of scrutiny. This weakens coherence across nodes given the active Negative Appraisals ↔ Threat linkage.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,731
+  output:       964
+  total:      4,695
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Dorothy is a 68-year-old retired woman of North American background who presented for psychological
+assessment approximately eight months after the sudden death of her adult son, Michael, who
+collapsed from an undetected cardiac arrhythmia while visiting her home for a Sunday dinner. Dorothy
+had been the one to find him on the kitchen floor, had called 911, and had attempted CPR until
+paramedics arrived. He was pronounced dead at the scene. Her PCL-5 score of 66 places her firmly in
+the severe range, and the clinical picture that has emerged across the intake and early sessions is
+one of a woman whose grief has been overtaken by a pervasive, tightening sense of danger and self-
+condemnation.
+
+In the weeks that followed Michael's death, Dorothy found herself returning again and again to the
+same question: why hadn't she noticed something was wrong sooner? She had spoken to him only minutes
+before he collapsed. She had poured him a glass of water. She had been in the next room. She had
+come to believe, with a certainty that resisted all reassurance, that a more attentive mother would
+have seen the signs — that she had failed to protect her own child when it mattered most. This
+conviction of culpable failure did not remain contained. It spread outward into a broader sense that
+she no longer fit anywhere in the world she had previously inhabited — that the Dorothy who attended
+neighbourhood dinners and hosted family gatherings had ceased to exist, replaced by someone who had
+done something unforgivable and therefore had no right to belong. She described feeling as though
+she were watching her old life through glass, close enough to see it but permanently excluded.
+
+These appraisals — the belief in her own failure, the felt sense of exile — drove Dorothy toward a
+pattern of withdrawal that has structured her days ever since. She began declining invitations from
+the couples she and her husband had socialised with for decades, finding the prospect of sitting
+across from people who knew Michael, who might ask how she was doing or offer condolences,
+intolerable. She stopped attending her church group, where several members had known him since
+childhood. In their place, she filled her hours with relentless activity — reorganising closets,
+managing household accounts, researching nothing in particular online late into the night — anything
+that would prevent her mind from settling. Her husband, Robert, has grown quietly worried; he told
+her recently that they haven't had a real conversation in months, and Dorothy acknowledged this with
+a flatness that suggested she had already accepted it as the cost of getting through each day.
+
+What Dorothy had not anticipated was that the busyness and isolation, rather than quieting her
+nervous system, seemed to keep it perpetually primed. Her body remained on alert — muscles braced,
+jaw tight, a low-grade vigilance that never fully lifted even in the evenings when she sat alone in
+a house that was, by any objective measure, safe. She was unable to relax, and the inability to
+relax in turn confirmed her fear that something terrible was still imminent, that the world had
+revealed itself as a place where catastrophe arrives without warning and she, specifically, is not
+someone capable of preventing it. Strong waves of fear, horror, and guilt moved through her without
+apparent trigger, and each time they did, they seemed to reinforce the conclusion she had already
+reached about herself — that she was set apart, that she belonged nowhere, that her failure was not
+a single moment but a defining truth. The loop between her physical state of alarm and her self-
+condemning beliefs had become self-sustaining: the threat her body registered fed the appraisals,
+and the appraisals kept the threat alive.
+
+What finally brought Dorothy to seek help was a conversation with her daughter, who told her quietly
+that she was frightened of losing her mother as well — not to death, but to disappearance. Dorothy
+wept for the first time in months. She came to the first session saying she did not expect to feel
+better, but that she was afraid, if she continued as she had been, there would be nothing left of
+her worth saving. That fear, fragile and honest, is where the clinical work begins.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Dorothy is a 68-year-old retired woman of North American background who presented for psychological
+assessment approximately eight months after the sudden death of her adult son, Michael, who
+collapsed from an undetected cardiac arrhythmia while visiting her home for a Sunday dinner. Dorothy
+had been the one to find him on the kitchen floor, had called 911, and had attempted CPR until
+paramedics arrived. He was pronounced dead at the scene. Her PCL-5 score of 66 places her firmly in
+the severe range, and the clinical picture that has emerged across the intake and early sessions is
+one of a woman whose grief has been overtaken by a pervasive, tightening sense of danger and self-
+condemnation.
+
+In the weeks that followed Michael's death, Dorothy found herself returning again and again to the
+same question: why hadn't she noticed something was wrong sooner? She had spoken to him only minutes
+before he collapsed. She had poured him a glass of water. She had been in the next room. She had
+come to believe, with a certainty that resisted all reassurance, that a more attentive mother would
+have seen the signs — that she had failed to protect her own child when it mattered most. This
+conviction of culpable failure did not remain contained. It spread outward into a broader sense that
+she no longer fit anywhere in the world she had previously inhabited — that the Dorothy who attended
+neighbourhood dinners and hosted family gatherings had ceased to exist, replaced by someone who had
+done something unforgivable and therefore had no right to belong. She described feeling as though
+she were watching her old life through glass, close enough to see it but permanently excluded.
+
+These appraisals — the belief in her own failure, the felt sense of exile — drove Dorothy toward a
+pattern of withdrawal that has structured her days ever since. She began declining invitations from
+the couples she and her husband had socialised with for decades, finding the prospect of sitting
+across from people who knew Michael, who might ask how she was doing or offer condolences,
+intolerable. She stopped attending her church group, where several members had known him since
+childhood. In their place, she filled her hours with relentless activity — reorganising closets,
+managing household accounts, researching nothing in particular online late into the night — anything
+that would prevent her mind from settling. Her husband, Robert, has grown quietly worried; he told
+her recently that they haven't had a real conversation in months, and Dorothy acknowledged this with
+a flatness that suggested she had already accepted it as the cost of getting through each day.
+
+What Dorothy had not anticipated was that the busyness and isolation, rather than quieting her
+nervous system, seemed to keep it perpetually primed. Her body remained on alert — muscles braced,
+jaw tight, a low-grade vigilance that never fully lifted even in the evenings when she sat alone in
+a house that was, by any objective measure, safe. She was unable to relax, and the inability to
+relax in turn confirmed her fear that something terrible was still imminent, that the world had
+revealed itself as a place where catastrophe arrives without warning and she, specifically, is not
+someone capable of preventing it. Strong waves of fear, horror, and guilt moved through her without
+apparent trigger, and each time they did, they seemed to reinforce the conclusion she had already
+reached about herself — that she was set apart, that she belonged nowhere, that her failure was not
+a single moment but a defining truth. The loop between her physical state of alarm and her self-
+condemning beliefs had become self-sustaining: the threat her body registered fed the appraisals,
+and the appraisals kept the threat alive.
+
+What finally brought Dorothy to seek help was a conversation with her daughter, who told her quietly
+that she was frightened of losing her mother as well — not to death, but to disappearance. Dorothy
+wept for the first time in months. She came to the first session saying she did not expect to feel
+better, but that she was afraid, if she continued as she had been, there would be nothing left of
+her worth saving. That fear, fragile and honest, is where the clinical work begins.

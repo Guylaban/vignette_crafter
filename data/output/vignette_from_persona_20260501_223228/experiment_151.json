@@ -1,0 +1,201 @@
+{
+  "persona_id": 151,
+  "source_persona_id": 151,
+  "experiment_timestamp": "2026-05-01 23:41:41",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 60,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "In a relationship",
+    "occupation": "Warehouse Worker",
+    "trauma_type": "Military",
+    "pcl5": 62
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Location",
+        "value": "Going to or near the place where the event happened"
+      },
+      {
+        "key": "Avoid Similar Clothes",
+        "value": "avoid wearing similar clothes"
+      },
+      {
+        "key": "Avoid Thinking",
+        "value": "Thinking about the event"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Guilt on Recall",
+        "value": "When I remember the event I feel intense guilt"
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      },
+      {
+        "key": "Terror on Recall",
+        "value": "Remembering the event brings back the same terror I felt at the time"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Survival Guilt",
+        "value": "I feel guilty for surviving when others did not"
+      },
+      {
+        "key": "Identity Loss",
+        "value": "I feel like I don't know myself anymore"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.8219,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.2335,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0174,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.7336,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.9273,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.54674,
+  "edge_density": 0.25,
+  "vignette_word_count": 890,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Carry Weapon: carry weapon",
+          "explanation": "The profile omits both Triggers and Threat entirely, yet includes carrying a weapon and persistent on-guard appraisals. For a 60-year-old male with military trauma, these items are individually plausible, but together they imply an active current-danger/threat system that is not represented elsewhere in the selected nodes and sits poorly with the formulation, where Threat and Triggers are not linked to the active network."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Hypervigilance: I have to be on guard all the time",
+          "explanation": "'I have to be on guard all the time' functions more like a live threat appraisal, but the formulation centers the case on a Negative Appraisals ↔ Memory ↔ Maladaptive Strategies loop, with Threat inactive. In the absence of any other threat-focused items, this item is the main source of incoherence."
+        },
+        {
+          "component": "Memory",
+          "item": "Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning",
+          "explanation": "'Something in my surroundings can instantly bring back the full memory without warning' implies salient cue-driven triggering, but all Triggers edges are inactive and no Trigger items are selected. That does not by itself make triggered recall impossible, but combined with the otherwise appraisal/guilt/identity-focused formulation and profile, it is the least coherent memory item."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Carry Weapon"
+        ],
+        "Negative Appraisals": [
+          "Hypervigilance"
+        ],
+        "Memory": [
+          "Triggered Without Warning"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Checking Surroundings: constantly scan environment for signs of threat",
+          "explanation": "This item is difficult to reconcile with the formulation because Threat is not otherwise represented in the self-report and all Threat-related edges are inactive. The rest of the profile is organized around guilt/identity loss and trauma memory, whereas constant threat scanning implies an active current-threat focus that is not supported by the selected Threat, Trigger, Appraisal, or Memory items. The avoidance items fit the military trauma context, but this hypervigilant checking behavior appears clinically disconnected from the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Checking Surroundings"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3013,
+    "output": 1024,
+    "total": 4037
+  },
+  "vignette": "For most of his adult life, Martin had worked with his hands and trusted routine. At 60, he was still doing long shifts in a warehouse, moving pallets, checking manifests, and keeping to the same aisles he had learned by muscle memory. He lived with his partner and had the outward look of someone dependable and steady. What brought him to treatment was not a single recent crisis but the sense that, years after his military service, the part of his life tied to one combat incident had never really ended.\n\nWhen Martin speaks about the event, his words thin out. He says he knows exactly what happened, but when he tries to describe it aloud, the language seems to disappear on him. What remains is the emotional force of it: the terror comes back in full, immediate and bodily, as if he is there again rather than remembering from a distance. He recalls surviving an attack in which other men did not, and what stays with him most sharply is not relief but guilt. He had come to believe that there was something fundamentally wrong in the fact that he was the one who lived. In the years after, that belief widened into something larger. He became convinced that the world is dangerous at its core, and alongside that was a quieter, more private conviction that he no longer knew who he was. The man who came home did not feel like the man who had gone.\n\nThose beliefs shaped the way he began organizing his life. Because he was certain that survival had marked him in a way he did not deserve, and because he no longer trusted the world to be safe, he started avoiding anything that felt too close to the event. He would not go near the place where it had happened, even when veterans’ commemorations or old unit contacts made that imaginable. He also avoided wearing clothes that resembled what he had worn then. Even fabrics, cuts, or colors that brought the old uniform to mind were enough to make him put something back in the closet. Most of all, he tried not to think about the event at all. To Martin, this did not feel like avoidance so much as common sense: if the world was dangerous and he was already not the person he used to be, then staying away from anything that could pull him back seemed like the only way to keep functioning.\n\nAt the same time, the memories themselves kept driving those habits. Because recalling the event flooded him with terror and guilt, he learned to shut down conversations, change the subject, or leave his own thoughts unfinished the moment he felt them approaching. When words failed him, that too became a reason to stop. He would begin, feel the fear rise, feel the guilt harden in his chest, and decide it was safer not to go further. At work this showed up in small but costly ways. In the warehouse, certain work clothes on younger men or certain heavy, utilitarian jackets could abruptly unsettle him, and he would reroute himself down another aisle or disappear into a back area until he felt steadier. The warehouse, with its noise, uniforms, and industrial order, became one of the places where his effort not to remember had to be constantly managed.\n\nThe memories also deepened what he believed about himself and the world. Each time the terror returned so vividly, Martin took it as proof that the danger had never really passed. Each time guilt rose on recall, he felt confirmed in the idea that his survival was a moral failure rather than a fact of war. And when he reached for words and could not find them, that blankness fed his sense of identity loss: he would think that if he could not even tell his own story, then he truly did not know himself anymore. The memory was not just painful; to him it seemed to verify his darkest conclusions.\n\nOver months and years, his attempts to manage this only tightened those conclusions further. The more he kept away from places, clothes, and thoughts connected to the event, the less chance he had to experience them as anything other than dangerous. His world grew smaller and more carefully controlled, and that shrinking came to feel like evidence that the world really was unsafe. He noticed, too, that he was becoming harder to reach at home. His partner would ask simple questions about his service or about why he had suddenly changed clothes before going out, and Martin would withdraw rather than answer. That silence left him feeling even less like himself.\n\nHe came for help after realizing how much of his daily life was now built around not being pulled back. He was tired of living as if a set of memories could dictate where he went, what he wore, and what he allowed himself to think. What frightened him most was the possibility that this was permanent—that the terror and guilt meant he would always be trapped between a past he could not describe and a present he could not fully inhabit. What he hoped for, though he said it cautiously, was to find some way to remember without feeling destroyed by it and to recognize himself again."
+,
+
+  "vignette_attempts": [
+    {"vignette": "For most of his adult life, Martin had worked with his hands and trusted routine. At 60, he was still doing long shifts in a warehouse, moving pallets, checking manifests, and keeping to the same aisles he had learned by muscle memory. He lived with his partner and had the outward look of someone dependable and steady. What brought him to treatment was not a single recent crisis but the sense that, years after his military service, the part of his life tied to one combat incident had never really ended.\n\nWhen Martin speaks about the event, his words thin out. He says he knows exactly what happened, but when he tries to describe it aloud, the language seems to disappear on him. What remains is the emotional force of it: the terror comes back in full, immediate and bodily, as if he is there again rather than remembering from a distance. He recalls surviving an attack in which other men did not, and what stays with him most sharply is not relief but guilt. He had come to believe that there was something fundamentally wrong in the fact that he was the one who lived. In the years after, that belief widened into something larger. He became convinced that the world is dangerous at its core, and alongside that was a quieter, more private conviction that he no longer knew who he was. The man who came home did not feel like the man who had gone.\n\nThose beliefs shaped the way he began organizing his life. Because he was certain that survival had marked him in a way he did not deserve, and because he no longer trusted the world to be safe, he started avoiding anything that felt too close to the event. He would not go near the place where it had happened, even when veterans’ commemorations or old unit contacts made that imaginable. He also avoided wearing clothes that resembled what he had worn then. Even fabrics, cuts, or colors that brought the old uniform to mind were enough to make him put something back in the closet. Most of all, he tried not to think about the event at all. To Martin, this did not feel like avoidance so much as common sense: if the world was dangerous and he was already not the person he used to be, then staying away from anything that could pull him back seemed like the only way to keep functioning.\n\nAt the same time, the memories themselves kept driving those habits. Because recalling the event flooded him with terror and guilt, he learned to shut down conversations, change the subject, or leave his own thoughts unfinished the moment he felt them approaching. When words failed him, that too became a reason to stop. He would begin, feel the fear rise, feel the guilt harden in his chest, and decide it was safer not to go further. At work this showed up in small but costly ways. In the warehouse, certain work clothes on younger men or certain heavy, utilitarian jackets could abruptly unsettle him, and he would reroute himself down another aisle or disappear into a back area until he felt steadier. The warehouse, with its noise, uniforms, and industrial order, became one of the places where his effort not to remember had to be constantly managed.\n\nThe memories also deepened what he believed about himself and the world. Each time the terror returned so vividly, Martin took it as proof that the danger had never really passed. Each time guilt rose on recall, he felt confirmed in the idea that his survival was a moral failure rather than a fact of war. And when he reached for words and could not find them, that blankness fed his sense of identity loss: he would think that if he could not even tell his own story, then he truly did not know himself anymore. The memory was not just painful; to him it seemed to verify his darkest conclusions.\n\nOver months and years, his attempts to manage this only tightened those conclusions further. The more he kept away from places, clothes, and thoughts connected to the event, the less chance he had to experience them as anything other than dangerous. His world grew smaller and more carefully controlled, and that shrinking came to feel like evidence that the world really was unsafe. He noticed, too, that he was becoming harder to reach at home. His partner would ask simple questions about his service or about why he had suddenly changed clothes before going out, and Martin would withdraw rather than answer. That silence left him feeling even less like himself.\n\nHe came for help after realizing how much of his daily life was now built around not being pulled back. He was tired of living as if a set of memories could dictate where he went, what he wore, and what he allowed himself to think. What frightened him most was the possibility that this was permanent—that the terror and guilt meant he would always be trapped between a past he could not describe and a present he could not fully inhabit. What he hoped for, though he said it cautiously, was to find some way to remember without feeling destroyed by it and to recognize himself again.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,193 @@
+PERSONA 382  |  2026-05-02 20:03:38
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             79
+  gender          Male
+  ethnicity       African
+  relationship_status Divorced
+  occupation      Warehouse Worker
+  trauma_type     Witnessed domestic violence (childhood)
+  pcl5            42
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Being in Nature: Being in a natural environment similar to where it happened
+    • Auditory (Door): Doors opening or slamming
+    • Olfactory (Alcohol): Alcohol smell
+  Maladaptive Strategies:
+    • Substance Use: I drink alcohol, take medication or use drugs
+    • Seeking Conflict: I pick arguments or create drama to distract myself from the trauma
+    • Constant Socialising: I keep myself constantly surrounded by people so I am never alone with my thoughts
+  Memory:
+    • Emotion Without Image: Sometimes I feel the full emotional intensity of the event without any clear image or memory
+    • Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0471
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.9160
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.6759
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.6727
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Auditory (Explosion): Explosion or bang sounds
+    explanation: The trigger set is not clinically coherent with the indexed trauma of witnessed childhood domestic violence. Explosion/bang sounds, medical equipment/needles, and nature-based reminders point toward very different trauma contexts (combat/blast, medical trauma, outdoor assault/disaster) rather than a single domestic-violence witnessing history. This is a hard-to-explain mismatch within the Triggers node and also weakly linked to the selected Memory and Maladaptive Strategies items, which do not anchor these disparate cues to one coherent trauma context.
+  [2] FAIL
+    item:        Triggers / Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips
+    explanation: The trigger set is not coherent with the stated trauma type of witnessed domestic violence in childhood. Doors slamming is plausible, but medical equipment/needles and being in a natural environment suggest very different trauma contexts and are hard to reconcile with the same index trauma without additional explanation.
+    item:        Memory / Triggers: Being in Nature: Being in a natural environment similar to where it happened
+    explanation: Within the Memory node, 'photographic recall' and 'hard to recall deliberately' pull in opposing directions. A patient may have fragmented trauma memory, but endorsing vividly photographic recall while also saying the memory is difficult to deliberately access is a direct tension that is clinically questionable as a paired summary of the same trauma memory profile.
+  [3] FAIL
+    item:        Memory / Memory: Photographic Recall
+    explanation: Within the Memory node, 'Photographic Recall' and 'Hard to Recall Deliberately' pull in opposite directions if both are intended as general descriptions of the same trauma memory. Vivid, photograph-like recall can coexist with patchy retrieval, but paired without any qualifier it is clinically tense enough to question coherence.
+    item:        Triggers / Memory: Hard to Recall Deliberately
+    explanation: The trigger set does not cohere well with the stated trauma of witnessed childhood domestic violence. 'Doors opening or slamming' and 'Alcohol smell' are plausible domestic-violence cues, but 'Being in Nature' is hard to link to this trauma type unless unusual contextual details are present.
+    item:        Maladaptive Strategies / Triggers: Being in Nature
+    explanation: Cross-node coherence is weakened because the trigger profile mixes highly domestic/interpersonal cues (door slamming, alcohol smell) with 'Being in Nature,' while the memory items do not provide a contextual bridge explaining why a natural environment would cue this trauma.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,782
+  output:     4,336
+  total:      7,118
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Elijah, a 79-year-old African American man, sought help after decades of living with a past that
+felt both intensely present and frustratingly out of reach. His childhood was marked by a terrifying
+event he could only access in disconnected pieces, like shards of glass. He remembers hiding amongst
+the thick kudzu vines near his family’s rural home, the air heavy with the summer heat, as his
+father’s drunken shouts echoed from inside the small house. The sharp, acrid *smell of alcohol* on
+his father’s breath, mingled with the earthy scent of the woods, became inextricably linked to the
+escalating terror. He distinctly recalled the violent *slamming of a door* – a sound that punctuated
+his mother’s desperate cries – and a profound sense of helplessness as he remained frozen, unseen,
+in the dense undergrowth.
+
+For much of his adult life, Elijah found that even the faintest whiff of alcohol could plunge him
+back into that primal fear, his heart hammering in his chest, his breath catching. A sudden, sharp
+sound, like a *door slamming* shut at the warehouse where he’d worked for over fifty years, would
+cause him to flinch violently, his body bracing for an impact that wasn't there. These potent
+*triggers* frequently disrupted his days, leaving him agitated and on edge. In response, he
+developed a rigid set of coping mechanisms. He started to regularly *drink alcohol* after his
+shifts, a habit that deepened over the years, to numb the persistent anxiety and silence the echoes
+of the past. He also cultivated a tendency to *seek conflict*, often picking arguments with co-
+workers or creating drama in social settings, finding the external chaos a welcome distraction from
+the internal turmoil.
+
+What complicated matters further was the elusive nature of the trauma itself. When Elijah tried to
+deliberately remember what happened, he found it incredibly *difficult to access the memory*.
+Instead, he would be overwhelmed by *emotion without image*, a crushing wave of terror or sorrow
+that lacked any clear visual context, leaving him feeling adrift and confused. This *fragmented
+nature of his memories* meant he could never fully process the event, leaving him vulnerable to
+powerful emotional surges that then *became triggers* in themselves, intensifying his need for
+distraction. The experience of intense, disembodied fear, often sparked by the smell of alcohol or a
+sudden sound, made him constantly vigilant, fueling his reliance on unhealthy coping.
+
+His chosen strategies, while offering momentary relief, also subtly reinforced his struggles. His
+habit of *constant socialising*, ensuring he was never alone with his thoughts, meant he rarely had
+quiet time for reflection. This perpetual busyness, combined with his *substance use*, inadvertently
+made it even harder for him to access or make sense of the fragmented pieces of his past when he did
+attempt to recall them, keeping the trauma unresolved and preventing any coherent narrative from
+forming. Elijah’s tendency to *seek conflict* and his general irritability, often a side effect of
+his drinking, made him more sensitive to everyday noises like doors, or more likely to be in
+situations where alcohol was present, inadvertently increasing his exposure to the very *triggers*
+he was trying to avoid.
+
+Now, at 79, Elijah is tired. The endless cycle of avoidance and activation has taken its toll. His
+constant need for company, once a source of comfort, now feels exhausting, and his health is
+starting to decline from years of heavy drinking. He came to therapy because the old ways of coping
+no longer seem to work, and he fears he will die without ever truly understanding the ghosts that
+have haunted his life.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Elijah, a 79-year-old African American man, sought help after decades of living with a past that
+felt both intensely present and frustratingly out of reach. His childhood was marked by a terrifying
+event he could only access in disconnected pieces, like shards of glass. He remembers hiding amongst
+the thick kudzu vines near his family’s rural home, the air heavy with the summer heat, as his
+father’s drunken shouts echoed from inside the small house. The sharp, acrid *smell of alcohol* on
+his father’s breath, mingled with the earthy scent of the woods, became inextricably linked to the
+escalating terror. He distinctly recalled the violent *slamming of a door* – a sound that punctuated
+his mother’s desperate cries – and a profound sense of helplessness as he remained frozen, unseen,
+in the dense undergrowth.
+
+For much of his adult life, Elijah found that even the faintest whiff of alcohol could plunge him
+back into that primal fear, his heart hammering in his chest, his breath catching. A sudden, sharp
+sound, like a *door slamming* shut at the warehouse where he’d worked for over fifty years, would
+cause him to flinch violently, his body bracing for an impact that wasn't there. These potent
+*triggers* frequently disrupted his days, leaving him agitated and on edge. In response, he
+developed a rigid set of coping mechanisms. He started to regularly *drink alcohol* after his
+shifts, a habit that deepened over the years, to numb the persistent anxiety and silence the echoes
+of the past. He also cultivated a tendency to *seek conflict*, often picking arguments with co-
+workers or creating drama in social settings, finding the external chaos a welcome distraction from
+the internal turmoil.
+
+What complicated matters further was the elusive nature of the trauma itself. When Elijah tried to
+deliberately remember what happened, he found it incredibly *difficult to access the memory*.
+Instead, he would be overwhelmed by *emotion without image*, a crushing wave of terror or sorrow
+that lacked any clear visual context, leaving him feeling adrift and confused. This *fragmented
+nature of his memories* meant he could never fully process the event, leaving him vulnerable to
+powerful emotional surges that then *became triggers* in themselves, intensifying his need for
+distraction. The experience of intense, disembodied fear, often sparked by the smell of alcohol or a
+sudden sound, made him constantly vigilant, fueling his reliance on unhealthy coping.
+
+His chosen strategies, while offering momentary relief, also subtly reinforced his struggles. His
+habit of *constant socialising*, ensuring he was never alone with his thoughts, meant he rarely had
+quiet time for reflection. This perpetual busyness, combined with his *substance use*, inadvertently
+made it even harder for him to access or make sense of the fragmented pieces of his past when he did
+attempt to recall them, keeping the trauma unresolved and preventing any coherent narrative from
+forming. Elijah’s tendency to *seek conflict* and his general irritability, often a side effect of
+his drinking, made him more sensitive to everyday noises like doors, or more likely to be in
+situations where alcohol was present, inadvertently increasing his exposure to the very *triggers*
+he was trying to avoid.
+
+Now, at 79, Elijah is tired. The endless cycle of avoidance and activation has taken its toll. His
+constant need for company, once a source of comfort, now feels exhausting, and his health is
+starting to decline from years of heavy drinking. He came to therapy because the old ways of coping
+no longer seem to work, and he fears he will die without ever truly understanding the ghosts that
+have haunted his life.

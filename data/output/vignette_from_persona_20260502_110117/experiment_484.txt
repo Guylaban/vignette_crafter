@@ -1,0 +1,209 @@
+PERSONA 484  |  2026-05-02 12:19:19
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             77
+  gender          Male
+  ethnicity       African
+  relationship_status Married
+  occupation      School Principal
+  trauma_type     Assault
+  pcl5            70
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Alcohol): Alcohol smell
+    • Loss of Control: Lack of control
+    • Loss of Autonomy: Being forced to do something
+  Threat:
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+    • Startle Response: Feeling jumpy or easily startled
+    • Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+  Memory:
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+    • Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Self-Blame: The event happened because of the way I acted
+    • Can't Rely on Others: I can't rely on other people
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.9799
+  Triggers → Memory                                  0.6086
+  Triggers → Negative Appraisals                     0.2325
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0185
+  Negative Appraisals → Memory                       0.3832
+  Negative Appraisals → Triggers                     0.1382
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.1433
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.3026
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.2243
+  Threat → Negative Appraisals                       0.1461
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: For an assault trauma, the trigger pattern is difficult to reconcile clinically: explosion/bang sounds and hospital/antiseptic smells imply very different trauma contexts or aftermaths, with no accompanying memory or appraisal content linking them into a coherent assault narrative. This is more than merely unusual because the trigger set suggests mixed trauma cues rather than one assault profile.
+    item:        Threat / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: The appraisal 'My body has been permanently damaged by what happened' does not fit well with the rest of the profile. Threat items focus on immediate environmental danger and startle, while memory items center on grief, auditory recall, and emotional numbing; none support a prominent bodily injury theme. In the absence of corroborating assault-related injury cues, this appraisal appears mismatched.
+    item:        Negative Appraisals / Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened
+    explanation: Given the very strong Triggers → Threat edge, trigger items should plausibly feed the specific threat pattern. 'Being naked' can fit vulnerability and danger, but explosion sounds and hospital smells do not connect well to the selected threat items for a single assault formulation, making the trigger-to-threat linkage clinically incoherent.
+  [2] FAIL
+    item:        Triggers / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: For an assault trauma, hospital/antiseptic smell is only coherent if the assault involved serious injury or hospital treatment, but nothing in threat, memory, or appraisals anchors the trauma to a medical context. In this profile it stands out as insufficiently connected to the rest of the formulation.
+    item:        Negative Appraisals / Triggers: Vulnerability: Being naked
+    explanation: 'Being naked' as a trigger implies a sexual assault, humiliation, medical exposure, or a very specific vulnerability context. The other items do not support that context: threat items reflect generalized hypervigilance/startle, memory items do not indicate bodily violation or exposure, and appraisals focus on self-blame/protection of others rather than sexualized shame. This makes the trigger hard to reconcile with the rest of the profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Vulnerability: Being naked
+    explanation: For an assault trauma, 'being naked' as a trigger is not impossible, but without any corroborating memory, threat, or appraisal content suggesting sexual assault, humiliation, or clothing-related vulnerability, it stands out as poorly integrated with the rest of the profile. The other trigger items point to alcohol cues and loss of control, while threat items center on hypervigilance/startle; this specific trigger appears disconnected from the described trauma representation.
+    item:        Negative Appraisals / Negative Appraisals: Failed to Protect: I should have protected others and I failed
+    explanation: 'I should have protected others and I failed' implies the patient experienced the assault in a protector/caretaker role or alongside endangered others. No memory, trigger, or threat item references other people being harmed or the patient's responsibility toward them. The rest of the appraisals are self-focused incompetence/blame, so this item is the main cross-node inconsistency.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,074
+  output:       969
+  total:      4,043
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Abdul had been a school principal for most of his adult life, a man used to keeping a building calm
+by knowing every corridor, every student entrance, every way trouble could move through a room. The
+assault that changed him happened after hours, when he stayed late to finish paperwork and one of
+the men who came in smelling strongly of alcohol cornered him in his office. Abdul had tried to
+reason with him, then to step away, but the man forced him to comply with demands he did not consent
+to, and in that moment Abdul felt stripped of the authority and bodily control that had always
+defined him. Even now, the smell of alcohol carried the force of that night; if a colleague had been
+drinking at a staff gathering or a stranger passed too close in a lobby, his body tightened before
+he had time to think. He would immediately scan for exits as soon as he entered any room or
+building, and unexpected movement nearby could make him jerk as though danger were already upon him.
+The smell and the sense of being forced into something against his will did not only alert him; they
+pulled him back toward the event itself. Abdul could be sitting in his living room and, with one
+whiff from a guest or a reminder of being unable to say no, he would suddenly hear in his mind
+fragments of what he had heard during the assault, and the scene would rise up with painful clarity.
+On those occasions he often felt an overwhelming grief, grieving not only what had happened but the
+loss of the man he had believed himself to be. At other times he could recall the event and feel
+almost nothing, as if it had happened to a stranger, a numbness that unsettled him because it made
+the memory feel both distant and undeniable at once.
+
+Over the months that followed, Abdul came to believe that the assault had exposed a fundamental
+weakness in him. He told himself that it had happened because of the way he acted, that he had
+misjudged the man, not been forceful enough, not protected himself or his office, and that he could
+not rely on himself to keep himself safe. Because he had not been able to stop what was done to him,
+he also came to believe he could not rely on other people, including people he had once considered
+trustworthy. Those beliefs kept his body on alert. In meetings at the school he watched the door
+instead of the speakers, and in restaurants he positioned himself where he could see who was coming
+and going. If someone stepped behind him or moved too quickly across his field of vision, he felt
+his heart lurch and his muscles brace. The more he watched for danger, the more the world seemed to
+confirm it, and that vigilance fed the conviction that he was vulnerable and unprotected. It also
+fed the memories. Being on guard all day left him tired and raw, and in those tired moments the
+assault came back more sharply, often with the same sounds he had heard that night replaying in his
+head. Afterward he would pull back from people, leave events early, and avoid situations where
+alcohol might be present or where anyone might expect him to comply without question. Even at home
+he found reasons to keep distance from gatherings, which saddened his wife and made him feel guilty,
+but he felt more afraid of another forced encounter than of the growing quiet around him.
+
+As the pattern hardened, the memories and the vigilance began to tighten around each other. The more
+Abdul heard those inner fragments and felt the grief or numbness that followed, the more he searched
+rooms for exits and startled at movement, as if staying ready might prevent a repeat. Yet the act of
+scanning made him even more aware of what could happen, and that heightened alertness fed back into
+his judgment of himself and others. He thought that because he had not protected himself then, he
+could not trust his own instincts now; because others had not protected him, he could not trust them
+either. And when he believed that, everyday cues became more dangerous. A faint smell of alcohol at
+a school function, a colleague’s abrupt gesture, even being asked to stay in a room longer than he
+wished could feel loaded with the possibility of being cornered again. Abdul knew that his world had
+shrunk around these moments, and he finally came for help after his wife noticed how often he was
+leaving social events early and how tense he became whenever anyone approached from behind. What he
+feared most was losing whatever sense of control and dignity he had left; what he hoped for, though
+he said it quietly, was to be able to walk into a room, trust himself to stay there, and no longer
+feel that the past was waiting for him in every doorway.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Abdul had been a school principal for most of his adult life, a man used to keeping a building calm
+by knowing every corridor, every student entrance, every way trouble could move through a room. The
+assault that changed him happened after hours, when he stayed late to finish paperwork and one of
+the men who came in smelling strongly of alcohol cornered him in his office. Abdul had tried to
+reason with him, then to step away, but the man forced him to comply with demands he did not consent
+to, and in that moment Abdul felt stripped of the authority and bodily control that had always
+defined him. Even now, the smell of alcohol carried the force of that night; if a colleague had been
+drinking at a staff gathering or a stranger passed too close in a lobby, his body tightened before
+he had time to think. He would immediately scan for exits as soon as he entered any room or
+building, and unexpected movement nearby could make him jerk as though danger were already upon him.
+The smell and the sense of being forced into something against his will did not only alert him; they
+pulled him back toward the event itself. Abdul could be sitting in his living room and, with one
+whiff from a guest or a reminder of being unable to say no, he would suddenly hear in his mind
+fragments of what he had heard during the assault, and the scene would rise up with painful clarity.
+On those occasions he often felt an overwhelming grief, grieving not only what had happened but the
+loss of the man he had believed himself to be. At other times he could recall the event and feel
+almost nothing, as if it had happened to a stranger, a numbness that unsettled him because it made
+the memory feel both distant and undeniable at once.
+
+Over the months that followed, Abdul came to believe that the assault had exposed a fundamental
+weakness in him. He told himself that it had happened because of the way he acted, that he had
+misjudged the man, not been forceful enough, not protected himself or his office, and that he could
+not rely on himself to keep himself safe. Because he had not been able to stop what was done to him,
+he also came to believe he could not rely on other people, including people he had once considered
+trustworthy. Those beliefs kept his body on alert. In meetings at the school he watched the door
+instead of the speakers, and in restaurants he positioned himself where he could see who was coming
+and going. If someone stepped behind him or moved too quickly across his field of vision, he felt
+his heart lurch and his muscles brace. The more he watched for danger, the more the world seemed to
+confirm it, and that vigilance fed the conviction that he was vulnerable and unprotected. It also
+fed the memories. Being on guard all day left him tired and raw, and in those tired moments the
+assault came back more sharply, often with the same sounds he had heard that night replaying in his
+head. Afterward he would pull back from people, leave events early, and avoid situations where
+alcohol might be present or where anyone might expect him to comply without question. Even at home
+he found reasons to keep distance from gatherings, which saddened his wife and made him feel guilty,
+but he felt more afraid of another forced encounter than of the growing quiet around him.
+
+As the pattern hardened, the memories and the vigilance began to tighten around each other. The more
+Abdul heard those inner fragments and felt the grief or numbness that followed, the more he searched
+rooms for exits and startled at movement, as if staying ready might prevent a repeat. Yet the act of
+scanning made him even more aware of what could happen, and that heightened alertness fed back into
+his judgment of himself and others. He thought that because he had not protected himself then, he
+could not trust his own instincts now; because others had not protected him, he could not trust them
+either. And when he believed that, everyday cues became more dangerous. A faint smell of alcohol at
+a school function, a colleague’s abrupt gesture, even being asked to stay in a room longer than he
+wished could feel loaded with the possibility of being cornered again. Abdul knew that his world had
+shrunk around these moments, and he finally came for help after his wife noticed how often he was
+leaving social events early and how tense he became whenever anyone approached from behind. What he
+feared most was losing whatever sense of control and dignity he had left; what he hoped for, though
+he said it quietly, was to be able to walk into a room, trust himself to stay there, and no longer
+feel that the past was waiting for him in every doorway.

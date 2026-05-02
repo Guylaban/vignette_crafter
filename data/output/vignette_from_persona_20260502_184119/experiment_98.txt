@@ -1,0 +1,201 @@
+PERSONA 98  |  2026-05-02 20:51:06
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             58
+  gender          Male
+  ethnicity       African
+  relationship_status Married
+  occupation      Hairdresser
+  trauma_type     Mugging or robbery
+  pcl5            72
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Being Criticised: Being criticised or corrected
+    • Olfactory (Alcohol): Alcohol smell
+    • Perceived Threat: People acting suspiciously
+  Maladaptive Strategies:
+    • Self-Blame Rumination: I dwell on what I have done wrong
+    • Suppress Thoughts: try hard not think about the trauma
+    • Avoid People: avoid other people
+  Memory:
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.1229
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.2067
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.2704
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.2097
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0490
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, 'I can talk about what happened very easily' conflicts with the other two memory items, which describe intrusive, sensory-dominated, repeatedly replaying trauma memories. That combination is not impossible, but with no other items indicating organized narrative access, the 'very easily' wording pulls in the opposite direction and is clinically inconsistent within this node.
+    item:        Triggers / Memory: Visual Memories: My memories of the frightening event are mostly pictures or images.
+    explanation: The trigger set is hard to reconcile with the trauma type of mugging/robbery. 'Being around children' and 'Happy families' do not show a plausible thematic link to the reported trauma, and there are no accompanying threat or appraisal items to explain why these social/family cues would specifically trigger this patient's robbery-related PTSD.
+    item:        Maladaptive Strategies / Memory: Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    explanation: 'I pick arguments or create drama to distract myself from the trauma' is weakly supported by the rest of the profile. The formulation mainly links triggers and memory with maladaptive strategies, but the actual triggers and memory content given are socially/family themed and intrusive-image based; deliberate conflict-seeking does not fit clearly with those items and looks clinically disconnected from the rest of the profile.
+  [2] FAIL
+    item:        Triggers / Triggers: Children Present: Being around children
+    explanation: For a mugging/robbery trauma, triggers centered on children and idealized families are hard to link clinically unless there is additional trauma meaning not represented elsewhere. The memory items describe perceptual re-experiencing of the robbery, but these triggers imply family/child themes that are absent from the rest of the profile, making the trigger set feel disconnected from the trauma type.
+    item:        Maladaptive Strategies / Triggers: Idealized Families: Happy families
+    explanation: Within the Triggers node, 'children present' and 'happy families' suggest a loss/family-comparison theme, whereas 'being criticised or corrected' suggests interpersonal shame or sensitivity. These could coexist, but together they do not form a coherent trigger pattern tied to a robbery, especially given no threat or appraisal items supporting these meanings.
+  [3] FAIL
+    item:        Triggers / Triggers: Idealized Families: Happy families
+    explanation: 'Happy families' is a weakly plausible trigger for a mugging/robbery trauma and is hard to connect to the accompanying memory items, which are purely sensory/reliving-based and suggest trauma reminders tied more directly to the event. It does not fit well with the otherwise robbery-linked trigger pattern.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Seeking Conflict: I pick arguments or create drama to distract myself from the trauma
+    explanation: 'Seeking conflict/create drama' is not well supported by the rest of the profile. The formulation links triggers and memory to maladaptive strategies, but the selected triggers and memory items imply intrusive re-experiencing, for which suppression/avoidance is coherent; deliberate conflict-seeking appears clinically disconnected and unusually externalising relative to the rest of the profile.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,862
+  output:     5,479
+  total:      8,341
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Kwame is a fifty-eight-year-old hairdresser who runs a small shop in a busy neighborhood, married
+for thirty-two years. Nine months ago he was closing up late on a Thursday evening. A man emerged
+from the alley beside the shop, reeking of cheap whiskey, and demanded his cash. When Kwame
+hesitated the man shoved him against the wall and snarled, “You think you’re better than me? Look at
+you, shaking like a child.” Kwame handed over the day’s earnings. The man shoved him again, spat at
+his feet, and disappeared. Kwame stood frozen for a long moment, then locked the door and drove home
+in silence.
+
+The first pictures came that night. In his mind the image of the man’s face—pocked skin, bloodshot
+eyes—stuck like a photograph he could not look away from. Within days the memory had become a film:
+the smell of whiskey, the feel of the wall against his back, the insult, all of it playing over and
+over, sometimes in the middle of a haircut. When his wife asked what happened he found he could not
+answer. He knew the facts, but the words would not come—the event seemed to live somewhere beyond
+language, in sounds and sensations that resisted description.
+
+Now a customer’s criticism—even a gentle correction about a part line or a request for a trim—hits
+him like the robber’s words did. Just last week a woman said, “The left side is a little longer, can
+you fix it?” and Kwame’s throat tightened. The alcohol smell on a man waiting for a haircut does the
+same: the olfactory cue yanks him straight back into that alley, the film starting before he can
+stop it. When he notices a person lingering outside the shop—not doing anything overt—he is certain
+they are dangerous, watching him, and the replay begins again.
+
+What frightens Kwame most is that the memory does not simply arrive; it changes him. After a
+flashback he sits in the back room and goes over everything he might have done wrong. Should he have
+closed earlier? Should he have fought back? Should he have called the police? He dwells on these
+questions for hours, picking at his own choices until he feels worthless and ashamed. The shame
+makes him try even harder to suppress the images, to push them away, but suppression only seems to
+make the film run more frequently. He has started avoiding people altogether. He no longer takes
+evening haircuts. He leaves the shop early, walking fast with his head down. When a familiar client
+sits in his chair he finds himself cutting in silence, unwilling to engage, his hands trembling
+slightly. His wife notices that he has stopped attending their weekly dinner with friends. He tells
+her he is tired, but the truth is that being around anyone feels like a threat—one wrong word, one
+critical glance, and the whole scene will start again.
+
+Avoidance has created a loop he cannot see. Because he avoids social contact, he is never exposed to
+people who might confirm he is safe. Instead he grows more sensitized: every person who acts
+suspiciously becomes a sign of danger, and that perception triggers the memory, which triggers more
+self-blame, which drives him deeper into isolation. Even the salon—once a place of pride—has become
+a minefield. A client’s offhand complaint sets off the film, and then for the rest of the day he
+replays the criticism alongside the mugging, as if the two are the same failure.
+
+What finally brought Kwame to seek help was a morning last month when a man with a whiskey odor
+walked into the shop. Kwame excused himself, locked himself in the supply closet, and stood shaking
+until the man left. His wife found him sitting on the floor, unable to explain. She pushed him to
+call a therapist. Now, sitting in the waiting room, he is terrified that talking about the event
+will make the film play endlessly. But more than that he is exhausted—tired of the pictures, tired
+of the silence with his family, tired of a mind that turns every small moment into a reminder of his
+worst night. He hopes, quietly, that someone can help him stop the film from starting.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Kwame is a fifty-eight-year-old hairdresser who runs a small shop in a busy neighborhood, married
+for thirty-two years. Nine months ago he was closing up late on a Thursday evening. A man emerged
+from the alley beside the shop, reeking of cheap whiskey, and demanded his cash. When Kwame
+hesitated the man shoved him against the wall and snarled, “You think you’re better than me? Look at
+you, shaking like a child.” Kwame handed over the day’s earnings. The man shoved him again, spat at
+his feet, and disappeared. Kwame stood frozen for a long moment, then locked the door and drove home
+in silence.
+
+The first pictures came that night. In his mind the image of the man’s face—pocked skin, bloodshot
+eyes—stuck like a photograph he could not look away from. Within days the memory had become a film:
+the smell of whiskey, the feel of the wall against his back, the insult, all of it playing over and
+over, sometimes in the middle of a haircut. When his wife asked what happened he found he could not
+answer. He knew the facts, but the words would not come—the event seemed to live somewhere beyond
+language, in sounds and sensations that resisted description.
+
+Now a customer’s criticism—even a gentle correction about a part line or a request for a trim—hits
+him like the robber’s words did. Just last week a woman said, “The left side is a little longer, can
+you fix it?” and Kwame’s throat tightened. The alcohol smell on a man waiting for a haircut does the
+same: the olfactory cue yanks him straight back into that alley, the film starting before he can
+stop it. When he notices a person lingering outside the shop—not doing anything overt—he is certain
+they are dangerous, watching him, and the replay begins again.
+
+What frightens Kwame most is that the memory does not simply arrive; it changes him. After a
+flashback he sits in the back room and goes over everything he might have done wrong. Should he have
+closed earlier? Should he have fought back? Should he have called the police? He dwells on these
+questions for hours, picking at his own choices until he feels worthless and ashamed. The shame
+makes him try even harder to suppress the images, to push them away, but suppression only seems to
+make the film run more frequently. He has started avoiding people altogether. He no longer takes
+evening haircuts. He leaves the shop early, walking fast with his head down. When a familiar client
+sits in his chair he finds himself cutting in silence, unwilling to engage, his hands trembling
+slightly. His wife notices that he has stopped attending their weekly dinner with friends. He tells
+her he is tired, but the truth is that being around anyone feels like a threat—one wrong word, one
+critical glance, and the whole scene will start again.
+
+Avoidance has created a loop he cannot see. Because he avoids social contact, he is never exposed to
+people who might confirm he is safe. Instead he grows more sensitized: every person who acts
+suspiciously becomes a sign of danger, and that perception triggers the memory, which triggers more
+self-blame, which drives him deeper into isolation. Even the salon—once a place of pride—has become
+a minefield. A client’s offhand complaint sets off the film, and then for the rest of the day he
+replays the criticism alongside the mugging, as if the two are the same failure.
+
+What finally brought Kwame to seek help was a morning last month when a man with a whiskey odor
+walked into the shop. Kwame excused himself, locked himself in the supply closet, and stood shaking
+until the man left. His wife found him sitting on the floor, unable to explain. She pushed him to
+call a therapist. Now, sitting in the waiting room, he is terrified that talking about the event
+will make the film play endlessly. But more than that he is exhausted—tired of the pictures, tired
+of the silence with his family, tired of a mind that turns every small moment into a reminder of his
+worst night. He hopes, quietly, that someone can help him stop the film from starting.

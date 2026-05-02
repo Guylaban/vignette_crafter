@@ -1,0 +1,244 @@
+PERSONA 396  |  2026-05-02 20:11:35
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             41
+  gender          Male
+  ethnicity       South Asian
+  relationship_status Married
+  occupation      Graphic Designer
+  trauma_type     Police
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory Danger Cue: Burnt smell
+    • Authority Presence: Police
+    • Authority Figures: People in uniform
+  Maladaptive Strategies:
+    • Rehearse Conversations: rehearse what to say before any interaction
+    • Avoid Future Plans: Making any plans for the future
+    • Hypervigilance towards people: vigilant for dangerous people
+  Memory:
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+  Negative Appraisals:
+    • Mistrust: People can't be trusted
+    • World is Dangerous: The world is a dangerous place
+    • Betrayal: I was betrayed by someone I trusted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.5459
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.5816
+  Negative Appraisals → Triggers                     0.3042
+  Memory → Maladaptive Strategies                    0.3046
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.9196
+  Maladaptive Strategies → Negative Appraisals       0.6613
+  Maladaptive Strategies → Triggers                  0.0615
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Crash Imagery: Cars hit by accident
+    explanation: For a police trauma profile, the trigger set is not clinically coherent as a group. Physical touch can fit, but crash imagery and burnt smell together suggest a road traffic accident or fire-related trauma rather than police-related trauma, and there is no supporting memory or appraisal content tying these cues back to police trauma.
+    item:        Negative Appraisals / Triggers: Olfactory Danger Cue: Burnt smell
+    explanation: The contamination appraisal is hard to reconcile with the rest of the profile. It more commonly fits sexual assault or severe physical violation. Here it is unsupported by the trigger and memory items, which focus on fragmented recall and guilt rather than shame/violation themes.
+    item:        Maladaptive Strategies / Negative Appraisals: Contamination: I feel dirty or contaminated because of what happened
+    explanation: Hypervigilance towards dangerous people could occur after police trauma, but in this profile it is weakly supported because the triggers point toward accident/fire cues rather than interpersonal threat cues. This creates a cross-node mismatch between maladaptive strategy content and the rest of the selected items.
+  [2] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Contamination: I feel dirty or contaminated because of what happened
+    explanation: 'Contamination/feeling dirty' is more typically coherent with sexual assault or severe bodily violation trauma. In a police-trauma profile, it is hard to reconcile this appraisal unless there are other items indicating sexualized assault, humiliating bodily violation, or related memory content, which are absent here.
+    item:        Triggers / Triggers: Tactile (Touch): Physical touch
+    explanation: A tactile trigger of general physical touch would usually imply trauma involving bodily contact/restraint. That could occur in police trauma, but in this profile there is no supporting memory or appraisal content about physical restraint, assault, or contact-based threat. Given the rest of the profile emphasizes authority/police cues, danger, mistrust, and guilt, this broad touch trigger stands out as insufficiently supported and clinically hard to place.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,414
+  output:     7,725
+  total:     14,139
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Rohan, a 41-year-old graphic designer, found his world irrevocably altered after a devastating
+apartment building fire six months ago. He had been trying to help an elderly neighbour, Mrs.
+Sharma, evacuate amidst the smoke and chaos, but in the confusion, a fire marshal in uniform arrived
+and, misinterpreting his frantic efforts to pull her to safety, treated him with suspicion. Rohan
+was briefly detained, questioned aggressively by police, and later felt a profound sense of betrayal
+when Mrs. Sharma’s family, whom he had known for years, seemed to doubt his account, whispering
+about his "recklessness." This shattering experience left him with a deep conviction that people,
+particularly those in authority, simply couldn't be trusted, and that the world itself was a
+fundamentally dangerous place where good intentions could be twisted into accusations.
+
+Now, any hint of a burnt smell, even from a distant barbecue, can instantly plunge Rohan back into
+the chaotic scene, triggering fragmented and guilt-ridden images of the fire. The sight of police or
+any authority figures in uniform, whether a security guard or a postal worker, immediately brings
+forth a wave of anxiety, as his deeply held belief that the world is dangerous and people are
+untrustworthy intensifies his hypervigilance towards people. He finds himself constantly scanning
+his surroundings, certain that some new threat is lurking. What frightens Rohan most is his
+inability to articulate the event clearly; he knows what happened, but when he tries to explain the
+fire and its aftermath, he loses the thread, unable to find the words to describe it, leaving him
+feeling intensely guilty about his perceived failure to communicate his innocence or his
+helplessness. This profound difficulty in recalling and explaining the traumatic memory, further
+exacerbated by the pervasive sense of guilt, has led Rohan to develop a meticulous habit of
+rehearsing conversations before any interaction, carefully planning what to say to avoid
+misunderstandings or further accusations, a strategy that paradoxically makes his memories feel even
+more fragmented and controlled.
+
+This constant mental preparation, coupled with his hypervigilance towards people, has become a
+significant barrier in his life. He finds himself so consumed by the need to anticipate and control
+interactions, so certain that people can't be trusted, that he has started avoiding making any plans
+for the future, believing it's safer not to invest hope in a world he perceives as inherently
+dangerous. This avoidance of future plans, a direct consequence of his distressing memories and the
+belief that the world is dangerous, in turn reinforces his sense of hopelessness and the difficulty
+he experiences in bringing coherence to his traumatic memory. At work, his role as a graphic
+designer requires collaborative input, but his constant rehearsal of conversations and
+hypervigilance has made him withdrawn and suspicious of colleagues, leading to missed deadlines and
+strained professional relationships. The sight of a police car outside his office, a potent trigger,
+can send him into a spiral, making it impossible to focus on his design work for hours. His wife,
+concerned by his increasing isolation and inability to discuss their future, has urged him to seek
+help. Rohan arrives in therapy, exhausted and overwhelmed, desperate to find a way to escape the
+tightening grip of his fear, but still deeply afraid that any attempt to recount his experience will
+only confirm his worst fears about a world that betrayed him.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not convey that Rohan's negative appraisals influence or lead to specific stimuli becoming his triggers.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not convey that Rohan's maladaptive strategies influence or lead to specific stimuli becoming his triggers.
+
+  [2] PASS
+Rohan, a 41-year-old graphic designer, found his world irrevocably altered after a devastating
+apartment building fire six months ago. He had been trying to help an elderly neighbour, Mrs.
+Sharma, evacuate amidst the smoke and chaos, but in the confusion, a fire marshal in uniform arrived
+and, misinterpreting his frantic efforts to pull her to safety, treated him with suspicion. Rohan
+was briefly detained, questioned aggressively by police, and later felt a profound sense of betrayal
+when Mrs. Sharma’s family, whom he had known for years, seemed to doubt his account, whispering
+about his "recklessness." This shattering experience left him with a deep conviction that people,
+particularly those in authority, simply couldn't be trusted, and that the world itself was a
+fundamentally dangerous place where good intentions could be twisted into accusations. This
+pervasive belief that the world was inherently hostile and untrustworthy meant that ordinary
+stimuli, like the smell of smoke or the sight of someone in uniform, now registered not as benign,
+but as potent harbingers of potential betrayal and danger, constantly confirming his deepest fears.
+
+Now, any hint of a burnt smell, even from a distant barbecue, can instantly plunge Rohan back into
+the chaotic scene, triggering fragmented and guilt-ridden images of the fire. The sight of police or
+any authority figures in uniform, whether a security guard or a postal worker, immediately brings
+forth a wave of anxiety, as his deeply held belief that the world is dangerous and people are
+untrustworthy intensifies his hypervigilance towards people. He finds himself constantly scanning
+his surroundings, certain that some new threat is lurking. What frightens Rohan most is his
+inability to articulate the event clearly; he knows what happened, but when he tries to explain the
+fire and its aftermath, he loses the thread, unable to find the words to describe it, leaving him
+feeling intensely guilty about his perceived failure to communicate his innocence or his
+helplessness. This profound difficulty in recalling and explaining the traumatic memory, further
+exacerbated by the pervasive sense of guilt, has led Rohan to develop a meticulous habit of
+rehearsing conversations before any interaction, carefully planning what to say to avoid
+misunderstandings or further accusations, a strategy that paradoxically makes his memories feel even
+more fragmented and controlled. Each carefully planned interaction, while intended to protect him,
+also served as a constant internal reminder of his vulnerability and the underlying threat, making
+him exquisitely sensitive to any external cues—like a passing authority figure—that might disrupt
+his fragile sense of control and trigger his anxiety anew.
+
+This constant mental preparation, coupled with his hypervigilance towards people, has become a
+significant barrier in his life. He finds himself so consumed by the need to anticipate and control
+interactions, so certain that people can't be trusted, that he has started avoiding making any plans
+for the future, believing it's safer not to invest hope in a world he perceives as inherently
+dangerous. This avoidance of future plans, a direct consequence of his distressing memories and the
+belief that the world is dangerous, in turn reinforces his sense of hopelessness and the difficulty
+he experiences in bringing coherence to his traumatic memory. At work, his role as a graphic
+designer requires collaborative input, but his constant rehearsal of conversations and
+hypervigilance has made him withdrawn and suspicious of colleagues, leading to missed deadlines and
+strained professional relationships. The sight of a police car outside his office, a potent trigger,
+can send him into a spiral, making it impossible to focus on his design work for hours. His wife,
+concerned by his increasing isolation and inability to discuss their future, has urged him to seek
+help. Rohan arrives in therapy, exhausted and overwhelmed, desperate to find a way to escape the
+tightening grip of his fear, but still deeply afraid that any attempt to recount his experience will
+only confirm his worst fears about a world that betrayed him.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Rohan, a 41-year-old graphic designer, found his world irrevocably altered after a devastating
+apartment building fire six months ago. He had been trying to help an elderly neighbour, Mrs.
+Sharma, evacuate amidst the smoke and chaos, but in the confusion, a fire marshal in uniform arrived
+and, misinterpreting his frantic efforts to pull her to safety, treated him with suspicion. Rohan
+was briefly detained, questioned aggressively by police, and later felt a profound sense of betrayal
+when Mrs. Sharma’s family, whom he had known for years, seemed to doubt his account, whispering
+about his "recklessness." This shattering experience left him with a deep conviction that people,
+particularly those in authority, simply couldn't be trusted, and that the world itself was a
+fundamentally dangerous place where good intentions could be twisted into accusations. This
+pervasive belief that the world was inherently hostile and untrustworthy meant that ordinary
+stimuli, like the smell of smoke or the sight of someone in uniform, now registered not as benign,
+but as potent harbingers of potential betrayal and danger, constantly confirming his deepest fears.
+
+Now, any hint of a burnt smell, even from a distant barbecue, can instantly plunge Rohan back into
+the chaotic scene, triggering fragmented and guilt-ridden images of the fire. The sight of police or
+any authority figures in uniform, whether a security guard or a postal worker, immediately brings
+forth a wave of anxiety, as his deeply held belief that the world is dangerous and people are
+untrustworthy intensifies his hypervigilance towards people. He finds himself constantly scanning
+his surroundings, certain that some new threat is lurking. What frightens Rohan most is his
+inability to articulate the event clearly; he knows what happened, but when he tries to explain the
+fire and its aftermath, he loses the thread, unable to find the words to describe it, leaving him
+feeling intensely guilty about his perceived failure to communicate his innocence or his
+helplessness. This profound difficulty in recalling and explaining the traumatic memory, further
+exacerbated by the pervasive sense of guilt, has led Rohan to develop a meticulous habit of
+rehearsing conversations before any interaction, carefully planning what to say to avoid
+misunderstandings or further accusations, a strategy that paradoxically makes his memories feel even
+more fragmented and controlled. Each carefully planned interaction, while intended to protect him,
+also served as a constant internal reminder of his vulnerability and the underlying threat, making
+him exquisitely sensitive to any external cues—like a passing authority figure—that might disrupt
+his fragile sense of control and trigger his anxiety anew.
+
+This constant mental preparation, coupled with his hypervigilance towards people, has become a
+significant barrier in his life. He finds himself so consumed by the need to anticipate and control
+interactions, so certain that people can't be trusted, that he has started avoiding making any plans
+for the future, believing it's safer not to invest hope in a world he perceives as inherently
+dangerous. This avoidance of future plans, a direct consequence of his distressing memories and the
+belief that the world is dangerous, in turn reinforces his sense of hopelessness and the difficulty
+he experiences in bringing coherence to his traumatic memory. At work, his role as a graphic
+designer requires collaborative input, but his constant rehearsal of conversations and
+hypervigilance has made him withdrawn and suspicious of colleagues, leading to missed deadlines and
+strained professional relationships. The sight of a police car outside his office, a potent trigger,
+can send him into a spiral, making it impossible to focus on his design work for hours. His wife,
+concerned by his increasing isolation and inability to discuss their future, has urged him to seek
+help. Rohan arrives in therapy, exhausted and overwhelmed, desperate to find a way to escape the
+tightening grip of his fear, but still deeply afraid that any attempt to recount his experience will
+only confirm his worst fears about a world that betrayed him.

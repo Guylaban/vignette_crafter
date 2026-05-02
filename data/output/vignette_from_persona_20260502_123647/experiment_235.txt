@@ -1,0 +1,601 @@
+PERSONA 235  |  2026-05-02 18:36:39
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             50
+  gender          Male
+  ethnicity       African
+  relationship_status Married
+  occupation      Plumber
+  trauma_type     Assault
+  pcl5            73
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Threat:
+    • Safe Zone Only: I only feel safe in a very limited number of places
+    • Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+    • Sleep Problems: Trouble falling or staying asleep
+  Memory:
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+    • Nonverbal Memory: I can't seem to put the frightening event into words.
+  Negative Appraisals:
+    • No Longer Capable: I am no longer capable of doing the things that defined me
+    • Injustice: What happened to me was deeply unfair and nothing has been done about it
+    • Self-Doubt: I can't trust that I will do the right thing
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.7327
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0668
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.4979
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Memory: Guilt on Recall
+    explanation: The Memory node is internally strained: intense guilt, rage, and overwhelming grief on recall can co-occur, but selecting all three as core recall responses without any memory-content item suggests an over-broad affect cluster rather than a coherent memory profile.
+    item:        Memory / Memory: Rage on Recall
+    explanation: Cross-node coherence is weak between Negative Appraisals and Memory: 'No Accountability' aligns with anger/rage, but 'Contamination' is more typical of sexual trauma or morally violating trauma and is not well supported by the rest of the assault profile.
+    item:        Negative Appraisals / Memory: Grief on Recall
+    explanation: For an adult male assaulted in a non-sexual assault profile, 'Contamination: I feel dirty or contaminated because of what happened' is clinically hard to reconcile unless other items indicate sexual assault, bodily violation, or washing/avoidance themes, which are absent here.
+  [2] FAIL
+    item:        Threat / Memory: Guilt on Recall
+    explanation: For an adult male assault survivor, intense guilt, overwhelming grief, and feeling dirty/contaminated can occur, but this specific combination is hard to reconcile without any accompanying sexual-assault-type cues elsewhere in the profile. The contamination appraisal in particular pulls toward a trauma meaning not supported by the other selected items.
+    item:        Memory / Memory: Grief on Recall
+    explanation: Within the Memory node, 'Guilt on Recall' and 'Grief on Recall' are not contradictory, but paired with predominantly visual memories they imply a complex emotional recall profile that would usually be echoed in appraisals more directly tied to guilt/loss. Instead, the appraisal set emphasizes injustice, incapacity, and contamination, which do not form a tight thematic cluster.
+    item:        Negative Appraisals / Negative Appraisals: Contamination
+    explanation: The formulation has a strong Negative Appraisals → Threat link, so appraisals should plausibly explain the threat items. 'No Longer Capable' fits hypervigilance/feeling unsafe, but 'No Accountability' mainly reflects injustice and does not clearly drive 'Safe Zone Only' or 'Startle to Movement.' 'Contamination' especially does not map well to the selected threat items, making the appraisal-to-threat pattern clinically incoherent.
+  [3] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: Within Negative Appraisals, Self-Blame and No Accountability point in different directions of responsibility for the assault. A patient can feel both guilt and anger, but stated this strongly they suggest opposing appraisals about who is responsible.
+    item:        Memory / Negative Appraisals: No Accountability: The people responsible have faced no consequences
+    explanation: Memory item Guilt on Recall reinforces self-blame, which increases the inconsistency with the concurrent appraisal that perpetrators are the ones who should face consequences. The profile mixes strong perpetrator-focused blame with strong self-focused blame without a coherent bridge in the selected items.
+  [4] FAIL
+    item:        Negative Appraisals / Negative Appraisals: No Accountability
+    explanation: The negative appraisal items are dominated by external blame/injustice ('the people responsible have faced no consequences', 'what happened was deeply unfair and nothing has been done about it'), which fits an assault survivor, but this sits poorly with 'When I remember the event I feel intense guilt.' Intense guilt usually implies some degree of self-blame, responsibility, or perceived preventability. While mixed emotions are possible, this combination is clinically hard to reconcile here because the appraisal node contains no corresponding self-blaming belief and instead consistently locates responsibility outside the patient.
+    item:        Memory / Negative Appraisals: Injustice
+    explanation: Within the Memory node, 'Guilt on Recall' is not well aligned with the other memory qualities selected ('mostly pictures or images' and 'can't put the event into words'), which describe sensory, poorly elaborated trauma memory. Those memory-form items plausibly link to threat, but guilt-on-recall points to a different meaning structure that is not supported by the selected negative appraisals. Given the formulation's strongest active pathway is Negative Appraisals → Threat, the absence of guilt-based appraisals makes the guilt memory item feel disconnected from the rest of the profile.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     23,277
+  output:     2,753
+  total:     26,030
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Kwame, a 50-year-old plumber from an African background, had always prided himself on his ability to
+fix things — both in his work and in his life. However, ever since the night of the assault,
+everything changed. He had been returning home from a late job when he was confronted by a group of
+men in a dark alley. They demanded his wallet, and when he hesitated, they pushed him violently to
+the ground, kicking him repeatedly while he lay there helpless. The memory of that night haunted him
+relentlessly; he could still see the faces of his attackers, the cold gleam of a knife, and the
+sound of their laughter as they walked away, leaving him broken and battered.
+
+In the weeks that followed, Kwame found himself retreating into an increasingly narrow world. The
+once vibrant streets he had navigated with ease became sources of anxiety and dread. He could only
+feel safe in a limited number of familiar places, primarily his home, which now felt like a
+fortress. Each unexpected movement nearby — the rustle of leaves, a passing car — sent him into a
+state of panic, as if he were still under threat from his attackers. This constant state of hyper-
+vigilance was exhausting, leading to trouble falling asleep and staying asleep, his mind racing with
+intrusive memories that he could only visualize as fleeting images rather than articulate thoughts.
+The guilt he felt upon recalling the assault was overwhelming; he would replay the moment over and
+over, convinced that if he had acted differently, perhaps he could have avoided the attack
+altogether.
+
+This sense of guilt intertwined with a growing belief that he was no longer the man he used to be.
+Kwame felt as if he had lost a part of himself, the confident and capable plumber who could tackle
+any challenge. Instead, he was plagued by self-doubt, questioning his ability to handle even the
+simplest tasks, both at work and in his personal life. He could no longer trust himself to make the
+right decisions, haunted by the notion that he could fail again. This self-appraisal deepened his
+feelings of vulnerability, intensifying his perception of threat in the world around him. He became
+convinced that he would never be able to return to his previous life, feeling that nothing had been
+done to address the injustice he experienced.
+
+The memories of that terrible night became a constant companion, feeding into his fears and
+anxieties. Each time he recalled the event, it felt as though he were reliving it all over again,
+the images striking him with a sense of danger that rendered him powerless. He avoided crowded
+places, no longer willing to risk encountering anything that might remind him of the assault. His
+relationships with his wife and friends strained under the weight of his withdrawal. The social
+outings they had once enjoyed together now felt like insurmountable challenges, as he feared he
+might break down or lash out if something triggered his memories.
+
+As the months passed, Kwame's world shrank further, and he began to realize that he could no longer
+ignore the toll the trauma was taking on his life. The isolation, the guilt, the constant anxiety —
+they had become unbearable. He finally sought help, driven by a deep-seated hope that he might
+reclaim the life he once had. Yet, as he walked into the therapist's office, he couldn't shake the
+feeling that he might not be capable of facing the truths that lay ahead. What frightened him most
+was the fear that he would never be able to trust himself again, and that the man he used to be
+would remain forever lost in the shadows of that dark alley.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not illustrate how negative appraisals lead to a perceived threat in Kwame's experience.
+
+    ✗ edge:        Memory → Threat
+      explanation: The vignette fails to demonstrate how memories of the assault contribute to a sense of threat for Kwame.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not connect the sense of threat Kwame feels to the memories of the assault, lacking a clear causal relationship.
+
+  [2] FAIL
+Kwame, a 50-year-old plumber from an African background, had always prided himself on his ability to
+fix things — both in his work and in his life. However, ever since the night of the assault,
+everything changed. He had been returning home from a late job when he was confronted by a group of
+men in a dark alley. They demanded his wallet, and when he hesitated, they pushed him violently to
+the ground, kicking him repeatedly while he lay there helpless. The memory of that night haunted him
+relentlessly; he could still see the faces of his attackers, the cold gleam of a knife, and the
+sound of their laughter as they walked away, leaving him broken and battered.
+
+In the weeks that followed, Kwame found himself retreating into an increasingly narrow world. The
+once vibrant streets he had navigated with ease became sources of anxiety and dread. He could only
+feel safe in a limited number of familiar places, primarily his home, which now felt like a
+fortress. Each unexpected movement nearby — the rustle of leaves, a passing car — sent him into a
+state of panic, as if he were still under threat from his attackers. This constant state of hyper-
+vigilance was exhausting, leading to trouble falling asleep and staying asleep, his mind racing with
+intrusive memories that he could only visualize as fleeting images rather than articulate thoughts.
+The guilt he felt upon recalling the assault was overwhelming; he would replay the moment over and
+over, convinced that if he had acted differently, perhaps he could have avoided the attack
+altogether.
+
+This sense of guilt intertwined with a growing belief that he was no longer the man he used to be.
+Having decided that he was permanently vulnerable, Kwame walked into public spaces already braced
+for danger, the threat arriving with him before anything had happened. Kwame felt as if he had lost
+a part of himself, the confident and capable plumber who could tackle any challenge. Instead, he was
+plagued by self-doubt, questioning his ability to handle even the simplest tasks, both at work and
+in his personal life. He could no longer trust himself to make the right decisions, haunted by the
+notion that he could fail again. This persistent sense of danger kept him close to the event in his
+mind, as if he needed to keep reviewing it to stay one step ahead of whatever came next. This self-
+appraisal deepened his feelings of vulnerability, intensifying his perception of threat in the world
+around him. He became convinced that he would never be able to return to his previous life, feeling
+that nothing had been done to address the injustice he experienced.
+
+The memories of that terrible night became a constant companion, feeding into his fears and
+anxieties. Once the memory had surfaced, he couldn't shake the sense that the danger was still
+present — that it had simply moved into his body rather than gone away. Each time he recalled the
+event, it felt as though he were reliving it all over again, the images striking him with a sense of
+danger that rendered him powerless. He avoided crowded places, no longer willing to risk
+encountering anything that might remind him of the assault. His relationships with his wife and
+friends strained under the weight of his withdrawal. The social outings they had once enjoyed
+together now felt like insurmountable challenges, as he feared he might break down or lash out if
+something triggered his memories.
+
+As the months passed, Kwame's world shrank further, and he began to realize that he could no longer
+ignore the toll the trauma was taking on his life. The isolation, the guilt, the constant anxiety —
+they had become unbearable. He finally sought help, driven by a deep-seated hope that he might
+reclaim the life he once had. Yet, as he walked into the therapist's office, he couldn't shake the
+feeling that he might not be capable of facing the truths that lay ahead. What frightened him most
+was the fear that he would never be able to trust himself again, and that the man he used to be
+would remain forever lost in the shadows of that dark alley.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not convey how negative appraisals contribute to or create a sense of threat in Kwame's experience.
+
+    ✗ edge:        Memory → Threat
+      explanation: The vignette fails to show how the memory of the assault leads to a perceived threat in Kwame's present life.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not establish that the sense of threat influences or drives the memory of the traumatic event.
+
+  [3] FAIL
+Kwame, a 50-year-old plumber from an African background, had always prided himself on his ability to
+fix things — both in his work and in his life. However, ever since the night of the assault,
+everything changed. He had been returning home from a late job when he was confronted by a group of
+men in a dark alley. They demanded his wallet, and when he hesitated, they pushed him violently to
+the ground, kicking him repeatedly while he lay there helpless. The memory of that night haunted him
+relentlessly; he could still see the faces of his attackers, the cold gleam of a knife, and the
+sound of their laughter as they walked away, leaving him broken and battered.
+
+In the weeks that followed, Kwame found himself retreating into an increasingly narrow world. The
+once vibrant streets he had navigated with ease became sources of anxiety and dread. He could only
+feel safe in a limited number of familiar places, primarily his home, which now felt like a
+fortress. Each unexpected movement nearby — the rustle of leaves, a passing car — sent him into a
+state of panic, as if he were still under threat from his attackers. This constant state of hyper-
+vigilance was exhausting, leading to trouble falling asleep and staying asleep, his mind racing with
+intrusive memories that he could only visualize as fleeting images rather than articulate thoughts.
+The guilt he felt upon recalling the assault was overwhelming; he would replay the moment over and
+over, convinced that if he had acted differently, perhaps he could have avoided the attack
+altogether.
+
+This sense of guilt intertwined with a growing belief that he was no longer the man he used to be.
+His negative appraisals of himself — convinced that he was now permanently vulnerable — intensified
+his feelings of threat, leading him to believe every interaction carried the potential for danger.
+Having decided that he was permanently vulnerable, Kwame walked into public spaces already braced
+for danger, the threat arriving with him before anything had happened. Kwame felt as if he had lost
+a part of himself, the confident and capable plumber who could tackle any challenge. Instead, he was
+plagued by self-doubt, questioning his ability to handle even the simplest tasks, both at work and
+in his personal life. He could no longer trust himself to make the right decisions, haunted by the
+notion that he could fail again. This persistent sense of danger kept him close to the event in his
+mind, as if he needed to keep reviewing it to stay one step ahead of whatever came next. The
+overwhelming sense of threat he felt made the memories of the assault surge forth, as if they were a
+necessary reminder of the dangers he believed he must always be prepared for. This self-appraisal
+deepened his feelings of vulnerability, intensifying his perception of threat in the world around
+him. He became convinced that he would never be able to return to his previous life, feeling that
+nothing had been done to address the injustice he experienced.
+
+The memories of that terrible night became a constant companion, feeding into his fears and
+anxieties. Each time the memory surfaced, it felt as if the danger was still present, wrapping
+around him like a shroud, making him hyper-aware of his surroundings and the threats that might lurk
+just out of sight. Once the memory had surfaced, he couldn't shake the sense that the danger was
+still present — that it had simply moved into his body rather than gone away. Each time he recalled
+the event, it felt as though he were reliving it all over again, the images striking him with a
+sense of danger that rendered him powerless. He avoided crowded places, no longer willing to risk
+encountering anything that might remind him of the assault. His relationships with his wife and
+friends strained under the weight of his withdrawal. The social outings they had once enjoyed
+together now felt like insurmountable challenges, as he feared he might break down or lash out if
+something triggered his memories.
+
+As the months passed, Kwame's world shrank further, and he began to realize that he could no longer
+ignore the toll the trauma was taking on his life. The isolation, the guilt, the constant anxiety —
+they had become unbearable. He finally sought help, driven by a deep-seated hope that he might
+reclaim the life he once had. Yet, as he walked into the therapist's office, he couldn't shake the
+feeling that he might not be capable of facing the truths that lay ahead. What frightened him most
+was the fear that he would never be able to trust himself again, and that the man he used to be
+would remain forever lost in the shadows of that dark alley.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not clearly convey how Negative Appraisals influence the sense of Threat experienced by Kwame.
+
+    ✗ edge:        Memory → Threat
+      explanation: The vignette lacks a clear connection showing how Memory contributes to the sense of Threat.
+
+    ✗ edge:        Threat → Memory
+      explanation: There is no clear indication within the vignette that Threat influences the recollection of Memory.
+
+  [4] FAIL
+Kwame, a 50-year-old plumber from an African background, had always prided himself on his ability to
+fix things — both in his work and in his life. However, ever since the night of the assault,
+everything changed. He had been returning home from a late job when he was confronted by a group of
+men in a dark alley. They demanded his wallet, and when he hesitated, they pushed him violently to
+the ground, kicking him repeatedly while he lay there helpless. The memory of that night haunted him
+relentlessly; he could still see the faces of his attackers, the cold gleam of a knife, and the
+sound of their laughter as they walked away, leaving him broken and battered.
+
+In the weeks that followed, Kwame found himself retreating into an increasingly narrow world. The
+once vibrant streets he had navigated with ease became sources of anxiety and dread. He could only
+feel safe in a limited number of familiar places, primarily his home, which now felt like a
+fortress. Each unexpected movement nearby — the rustle of leaves, a passing car — sent him into a
+state of panic, as if he were still under threat from his attackers. This constant state of hyper-
+vigilance was exhausting, leading to trouble falling asleep and staying asleep, his mind racing with
+intrusive memories that he could only visualize as fleeting images rather than articulate thoughts.
+The guilt he felt upon recalling the assault was overwhelming; he would replay the moment over and
+over, convinced that if he had acted differently, perhaps he could have avoided the attack
+altogether.
+
+This sense of guilt intertwined with a growing belief that he was no longer the man he used to be.
+Kwame's negative appraisals reinforced his belief that he was permanently vulnerable, causing him to
+perceive every interaction as a potential threat, which only heightened his anxiety and fear. His
+negative appraisals of himself — convinced that he was now permanently vulnerable — intensified his
+feelings of threat, leading him to believe every interaction carried the potential for danger.
+Having decided that he was permanently vulnerable, Kwame walked into public spaces already braced
+for danger, the threat arriving with him before anything had happened. Kwame felt as if he had lost
+a part of himself, the confident and capable plumber who could tackle any challenge. Instead, he was
+plagued by self-doubt, questioning his ability to handle even the simplest tasks, both at work and
+in his personal life. He could no longer trust himself to make the right decisions, haunted by the
+notion that he could fail again. This persistent sense of danger kept him close to the event in his
+mind, as if he needed to keep reviewing it to stay one step ahead of whatever came next. The
+heightened sense of threat made it impossible for him to push the memories away, as they emerged
+unbidden, often in moments when he felt most vulnerable, flooding his mind with vivid images of the
+attack. The overwhelming sense of threat he felt made the memories of the assault surge forth, as if
+they were a necessary reminder of the dangers he believed he must always be prepared for. This self-
+appraisal deepened his feelings of vulnerability, intensifying his perception of threat in the world
+around him. He became convinced that he would never be able to return to his previous life, feeling
+that nothing had been done to address the injustice he experienced.
+
+The memories of that terrible night became a constant companion, feeding into his fears and
+anxieties. Each time the memory surfaced, it felt as if the danger was still present, wrapping
+around him like a shroud, making him hyper-aware of his surroundings and the threats that might lurk
+just out of sight. The memories of the assault invaded his thoughts with an immediacy that
+transformed his surroundings into a minefield, where the echoes of that night felt alive, making
+every shadow seem sinister and every noise a possible prelude to danger. Once the memory had
+surfaced, he couldn't shake the sense that the danger was still present — that it had simply moved
+into his body rather than gone away. Each time he recalled the event, it felt as though he were
+reliving it all over again, the images striking him with a sense of danger that rendered him
+powerless. He avoided crowded places, no longer willing to risk encountering anything that might
+remind him of the assault. His relationships with his wife and friends strained under the weight of
+his withdrawal. The social outings they had once enjoyed together now felt like insurmountable
+challenges, as he feared he might break down or lash out if something triggered his memories.
+
+As the months passed, Kwame's world shrank further, and he began to realize that he could no longer
+ignore the toll the trauma was taking on his life. The isolation, the guilt, the constant anxiety —
+they had become unbearable. He finally sought help, driven by a deep-seated hope that he might
+reclaim the life he once had. Yet, as he walked into the therapist's office, he couldn't shake the
+feeling that he might not be capable of facing the truths that lay ahead. What frightened him most
+was the fear that he would never be able to trust himself again, and that the man he used to be
+would remain forever lost in the shadows of that dark alley.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not establish a causal link between negative appraisals and the perception of threat.
+
+    ✗ edge:        Memory → Threat
+      explanation: The vignette does not convey that memories of the assault lead to a heightened perception of threat.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not illustrate that the sense of threat influences the recall of traumatic memories.
+
+  [5] FAIL
+Kwame, a 50-year-old plumber from an African background, had always prided himself on his ability to
+fix things — both in his work and in his life. However, ever since the night of the assault,
+everything changed. He had been returning home from a late job when he was confronted by a group of
+men in a dark alley. They demanded his wallet, and when he hesitated, they pushed him violently to
+the ground, kicking him repeatedly while he lay there helpless. The memory of that night haunted him
+relentlessly; he could still see the faces of his attackers, the cold gleam of a knife, and the
+sound of their laughter as they walked away, leaving him broken and battered.
+
+In the weeks that followed, Kwame found himself retreating into an increasingly narrow world. The
+once vibrant streets he had navigated with ease became sources of anxiety and dread. He could only
+feel safe in a limited number of familiar places, primarily his home, which now felt like a
+fortress. Each unexpected movement nearby — the rustle of leaves, a passing car — sent him into a
+state of panic, as if he were still under threat from his attackers. This constant state of hyper-
+vigilance was exhausting, leading to trouble falling asleep and staying asleep, his mind racing with
+intrusive memories that he could only visualize as fleeting images rather than articulate thoughts.
+The guilt he felt upon recalling the assault was overwhelming; he would replay the moment over and
+over, convinced that if he had acted differently, perhaps he could have avoided the attack
+altogether.
+
+This sense of guilt intertwined with a growing belief that he was no longer the man he used to be.
+Kwame's negative appraisals reinforced his belief that he was permanently vulnerable, causing him to
+perceive every interaction as a potential threat, which only heightened his anxiety and fear. His
+negative appraisals of himself — convinced that he was now permanently vulnerable — intensified his
+feelings of threat, leading him to believe every interaction carried the potential for danger. This
+belief that he was a target rather than simply unlucky made him hyper-aware of his surroundings, as
+he perceived every unfamiliar face as a potential threat, amplifying his anxiety with each
+encounter. Having decided that he was permanently vulnerable, Kwame walked into public spaces
+already braced for danger, the threat arriving with him before anything had happened. Kwame felt as
+if he had lost a part of himself, the confident and capable plumber who could tackle any challenge.
+Instead, he was plagued by self-doubt, questioning his ability to handle even the simplest tasks,
+both at work and in his personal life. He could no longer trust himself to make the right decisions,
+haunted by the notion that he could fail again. This persistent sense of danger kept him close to
+the event in his mind, as if he needed to keep reviewing it to stay one step ahead of whatever came
+next. The constant hyper-vigilance made it feel as if he were reliving the trauma repeatedly,
+reinforcing his belief that he could never fully escape the memories or their implications. The
+heightened sense of threat made it impossible for him to push the memories away, as they emerged
+unbidden, often in moments when he felt most vulnerable, flooding his mind with vivid images of the
+attack. The overwhelming sense of threat he felt made the memories of the assault surge forth, as if
+they were a necessary reminder of the dangers he believed he must always be prepared for. Once those
+memories surfaced, they intensified his perception of threat, wrapping around him like a shroud and
+making him feel as if the danger were still present, ready to strike at any moment. This self-
+appraisal deepened his feelings of vulnerability, intensifying his perception of threat in the world
+around him. He became convinced that he would never be able to return to his previous life, feeling
+that nothing had been done to address the injustice he experienced.
+
+The memories of that terrible night became a constant companion, feeding into his fears and
+anxieties. Each time the memory surfaced, it felt as if the danger was still present, wrapping
+around him like a shroud, making him hyper-aware of his surroundings and the threats that might lurk
+just out of sight. The memories of the assault invaded his thoughts with an immediacy that
+transformed his surroundings into a minefield, where the echoes of that night felt alive, making
+every shadow seem sinister and every noise a possible prelude to danger. On nights when the threat
+felt highest, the memories would break through unbidden, pulling him back into that moment, filling
+him with a sense of danger that rendered him powerless. Once the memory had surfaced, he couldn't
+shake the sense that the danger was still present — that it had simply moved into his body rather
+than gone away. Each time he recalled the event, it felt as though he were reliving it all over
+again, the images striking him with a sense of danger that rendered him powerless. He avoided
+crowded places, no longer willing to risk encountering anything that might remind him of the
+assault. His relationships with his wife and friends strained under the weight of his withdrawal.
+The social outings they had once enjoyed together now felt like insurmountable challenges, as he
+feared he might break down or lash out if something triggered his memories.
+
+As the months passed, Kwame's world shrank further, and he began to realize that he could no longer
+ignore the toll the trauma was taking on his life. The isolation, the guilt, the constant anxiety —
+they had become unbearable. He finally sought help, driven by a deep-seated hope that he might
+reclaim the life he once had. Yet, as he walked into the therapist's office, he couldn't shake the
+feeling that he might not be capable of facing the truths that lay ahead. What frightened him most
+was the fear that he would never be able to trust himself again, and that the man he used to be
+would remain forever lost in the shadows of that dark alley.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette fails to establish that negative appraisals lead to a sense of threat, missing the connection between Kwame's beliefs about his vulnerability and the perception of danger.
+
+    ✗ edge:        Memory → Threat
+      explanation: The vignette does not convey that the memory of the assault leads to a sense of threat, missing the causal relationship between his traumatic memories and the feelings of danger.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not indicate that a sense of threat leads to the memory surfacing, missing the connection that the perception of danger brings the traumatic memories to the forefront.
+
+  [6] FAIL
+Kwame, a 50-year-old plumber from an African background, had always prided himself on his ability to
+fix things — both in his work and in his life. However, ever since the night of the assault,
+everything changed. He had been returning home from a late job when he was confronted by a group of
+men in a dark alley. They demanded his wallet, and when he hesitated, they pushed him violently to
+the ground, kicking him repeatedly while he lay there helpless. The memory of that night haunted him
+relentlessly; he could still see the faces of his attackers, the cold gleam of a knife, and the
+sound of their laughter as they walked away, leaving him broken and battered.
+
+In the weeks that followed, Kwame found himself retreating into an increasingly narrow world. The
+once vibrant streets he had navigated with ease became sources of anxiety and dread. He could only
+feel safe in a limited number of familiar places, primarily his home, which now felt like a
+fortress. Each unexpected movement nearby — the rustle of leaves, a passing car — sent him into a
+state of panic, as if he were still under threat from his attackers. This constant state of hyper-
+vigilance was exhausting, leading to trouble falling asleep and staying asleep, his mind racing with
+intrusive memories that he could only visualize as fleeting images rather than articulate thoughts.
+The guilt he felt upon recalling the assault was overwhelming; he would replay the moment over and
+over, convinced that if he had acted differently, perhaps he could have avoided the attack
+altogether.
+
+This sense of guilt intertwined with a growing belief that he was no longer the man he used to be.
+Kwame's negative appraisals reinforced his belief that he was permanently vulnerable, causing him to
+perceive every interaction as a potential threat, which only heightened his anxiety and fear. His
+negative appraisals of himself — convinced that he was now permanently vulnerable — intensified his
+feelings of threat, leading him to believe every interaction carried the potential for danger. The
+belief that he was a target rather than simply unlucky made him hyper-aware of his surroundings,
+amplifying his anxiety with each encounter, as he felt that danger lurked just around every corner.
+This belief that he was a target rather than simply unlucky made him hyper-aware of his
+surroundings, as he perceived every unfamiliar face as a potential threat, amplifying his anxiety
+with each encounter. Having decided that he was permanently vulnerable, Kwame walked into public
+spaces already braced for danger, the threat arriving with him before anything had happened. Kwame
+felt as if he had lost a part of himself, the confident and capable plumber who could tackle any
+challenge. Instead, he was plagued by self-doubt, questioning his ability to handle even the
+simplest tasks, both at work and in his personal life. He could no longer trust himself to make the
+right decisions, haunted by the notion that he could fail again. This persistent sense of danger
+kept him close to the event in his mind, as if he needed to keep reviewing it to stay one step ahead
+of whatever came next. The more he felt threatened, the more the memories invaded his thoughts,
+turning every unfamiliar sound or shadow into a catalyst for re-experiencing the trauma. The
+constant hyper-vigilance made it feel as if he were reliving the trauma repeatedly, reinforcing his
+belief that he could never fully escape the memories or their implications. The heightened sense of
+threat made it impossible for him to push the memories away, as they emerged unbidden, often in
+moments when he felt most vulnerable, flooding his mind with vivid images of the attack. The
+overwhelming sense of threat he felt made the memories of the assault surge forth, as if they were a
+necessary reminder of the dangers he believed he must always be prepared for. Once those memories
+surfaced, he couldn't shake the sense that the danger was still present — that it had simply moved
+into his body rather than gone away, making him feel as though he were reliving the trauma all over
+again. Once those memories surfaced, they intensified his perception of threat, wrapping around him
+like a shroud and making him feel as if the danger were still present, ready to strike at any
+moment. This self-appraisal deepened his feelings of vulnerability, intensifying his perception of
+threat in the world around him. He became convinced that he would never be able to return to his
+previous life, feeling that nothing had been done to address the injustice he experienced.
+
+The memories of that terrible night became a constant companion, feeding into his fears and
+anxieties. On nights when the threat felt highest, the memory was hardest to keep at bay — it would
+surface in the dark, vivid and unwelcome, pulling him back into the moment of the assault. Each time
+the memory surfaced, it felt as if the danger was still present, wrapping around him like a shroud,
+making him hyper-aware of his surroundings and the threats that might lurk just out of sight. The
+memories of the assault invaded his thoughts with an immediacy that transformed his surroundings
+into a minefield, where the echoes of that night felt alive, making every shadow seem sinister and
+every noise a possible prelude to danger. On nights when the threat felt highest, the memories would
+break through unbidden, pulling him back into that moment, filling him with a sense of danger that
+rendered him powerless. Once the memory had surfaced, he couldn't shake the sense that the danger
+was still present — that it had simply moved into his body rather than gone away. Each time he
+recalled the event, it felt as though he were reliving it all over again, the images striking him
+with a sense of danger that rendered him powerless. He avoided crowded places, no longer willing to
+risk encountering anything that might remind him of the assault. His relationships with his wife and
+friends strained under the weight of his withdrawal. The social outings they had once enjoyed
+together now felt like insurmountable challenges, as he feared he might break down or lash out if
+something triggered his memories.
+
+As the months passed, Kwame's world shrank further, and he began to realize that he could no longer
+ignore the toll the trauma was taking on his life. The isolation, the guilt, the constant anxiety —
+they had become unbearable. He finally sought help, driven by a deep-seated hope that he might
+reclaim the life he once had. Yet, as he walked into the therapist's office, he couldn't shake the
+feeling that he might not be capable of facing the truths that lay ahead. What frightened him most
+was the fear that he would never be able to trust himself again, and that the man he used to be
+would remain forever lost in the shadows of that dark alley.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not establish that negative appraisals lead to a sense of threat in Kwame's experience.
+
+    ✗ edge:        Memory → Threat
+      explanation: The vignette does not convey that the memory influences his perception of threat.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette fails to show that the sense of threat impacts his memory of the traumatic event.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Kwame, a 50-year-old plumber from an African background, had always prided himself on his ability to
+fix things — both in his work and in his life. However, ever since the night of the assault,
+everything changed. He had been returning home from a late job when he was confronted by a group of
+men in a dark alley. They demanded his wallet, and when he hesitated, they pushed him violently to
+the ground, kicking him repeatedly while he lay there helpless. The memory of that night haunted him
+relentlessly; he could still see the faces of his attackers, the cold gleam of a knife, and the
+sound of their laughter as they walked away, leaving him broken and battered.
+
+In the weeks that followed, Kwame found himself retreating into an increasingly narrow world. The
+once vibrant streets he had navigated with ease became sources of anxiety and dread. He could only
+feel safe in a limited number of familiar places, primarily his home, which now felt like a
+fortress. Each unexpected movement nearby — the rustle of leaves, a passing car — sent him into a
+state of panic, as if he were still under threat from his attackers. This constant state of hyper-
+vigilance was exhausting, leading to trouble falling asleep and staying asleep, his mind racing with
+intrusive memories that he could only visualize as fleeting images rather than articulate thoughts.
+The guilt he felt upon recalling the assault was overwhelming; he would replay the moment over and
+over, convinced that if he had acted differently, perhaps he could have avoided the attack
+altogether.
+
+This sense of guilt intertwined with a growing belief that he was no longer the man he used to be.
+Kwame's negative appraisals reinforced his belief that he was permanently vulnerable, causing him to
+perceive every interaction as a potential threat, which only heightened his anxiety and fear. His
+negative appraisals of himself — convinced that he was now permanently vulnerable — intensified his
+feelings of threat, leading him to believe every interaction carried the potential for danger. The
+belief that he was a target rather than simply unlucky made him hyper-aware of his surroundings,
+amplifying his anxiety with each encounter, as he felt that danger lurked just around every corner.
+This belief that he was a target rather than simply unlucky made him hyper-aware of his
+surroundings, as he perceived every unfamiliar face as a potential threat, amplifying his anxiety
+with each encounter. Having decided that he was permanently vulnerable, Kwame walked into public
+spaces already braced for danger, the threat arriving with him before anything had happened. Kwame
+felt as if he had lost a part of himself, the confident and capable plumber who could tackle any
+challenge. Instead, he was plagued by self-doubt, questioning his ability to handle even the
+simplest tasks, both at work and in his personal life. He could no longer trust himself to make the
+right decisions, haunted by the notion that he could fail again. This persistent sense of danger
+kept him close to the event in his mind, as if he needed to keep reviewing it to stay one step ahead
+of whatever came next. The more he felt threatened, the more the memories invaded his thoughts,
+turning every unfamiliar sound or shadow into a catalyst for re-experiencing the trauma. The
+constant hyper-vigilance made it feel as if he were reliving the trauma repeatedly, reinforcing his
+belief that he could never fully escape the memories or their implications. The heightened sense of
+threat made it impossible for him to push the memories away, as they emerged unbidden, often in
+moments when he felt most vulnerable, flooding his mind with vivid images of the attack. The
+overwhelming sense of threat he felt made the memories of the assault surge forth, as if they were a
+necessary reminder of the dangers he believed he must always be prepared for. Once those memories
+surfaced, he couldn't shake the sense that the danger was still present — that it had simply moved
+into his body rather than gone away, making him feel as though he were reliving the trauma all over
+again. Once those memories surfaced, they intensified his perception of threat, wrapping around him
+like a shroud and making him feel as if the danger were still present, ready to strike at any
+moment. This self-appraisal deepened his feelings of vulnerability, intensifying his perception of
+threat in the world around him. He became convinced that he would never be able to return to his
+previous life, feeling that nothing had been done to address the injustice he experienced.
+
+The memories of that terrible night became a constant companion, feeding into his fears and
+anxieties. On nights when the threat felt highest, the memory was hardest to keep at bay — it would
+surface in the dark, vivid and unwelcome, pulling him back into the moment of the assault. Each time
+the memory surfaced, it felt as if the danger was still present, wrapping around him like a shroud,
+making him hyper-aware of his surroundings and the threats that might lurk just out of sight. The
+memories of the assault invaded his thoughts with an immediacy that transformed his surroundings
+into a minefield, where the echoes of that night felt alive, making every shadow seem sinister and
+every noise a possible prelude to danger. On nights when the threat felt highest, the memories would
+break through unbidden, pulling him back into that moment, filling him with a sense of danger that
+rendered him powerless. Once the memory had surfaced, he couldn't shake the sense that the danger
+was still present — that it had simply moved into his body rather than gone away. Each time he
+recalled the event, it felt as though he were reliving it all over again, the images striking him
+with a sense of danger that rendered him powerless. He avoided crowded places, no longer willing to
+risk encountering anything that might remind him of the assault. His relationships with his wife and
+friends strained under the weight of his withdrawal. The social outings they had once enjoyed
+together now felt like insurmountable challenges, as he feared he might break down or lash out if
+something triggered his memories.
+
+As the months passed, Kwame's world shrank further, and he began to realize that he could no longer
+ignore the toll the trauma was taking on his life. The isolation, the guilt, the constant anxiety —
+they had become unbearable. He finally sought help, driven by a deep-seated hope that he might
+reclaim the life he once had. Yet, as he walked into the therapist's office, he couldn't shake the
+feeling that he might not be capable of facing the truths that lay ahead. What frightened him most
+was the fear that he would never be able to trust himself again, and that the man he used to be
+would remain forever lost in the shadows of that dark alley.

@@ -1,0 +1,228 @@
+{
+  "persona_id": 221,
+  "source_persona_id": 221,
+  "experiment_timestamp": "2026-05-02 18:12:11",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-flash",
+      "persona_crafter": "gemini-2.5-flash",
+      "vignette_crafter": "gemini-2.5-flash",
+      "vignette_validator": "gemini-2.5-flash"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 29,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Single",
+    "occupation": "Salesperson",
+    "trauma_type": "Natural disaster",
+    "pcl5": 40
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Feeling Vulnerable",
+        "value": "Feeling emotionally vulnerable"
+      },
+      {
+        "key": "Spatial Triggers",
+        "value": "Physical locations"
+      },
+      {
+        "key": "Being in Nature",
+        "value": "Being in a natural environment similar to where it happened"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      },
+      {
+        "key": "Waking Alert",
+        "value": "I wake during the night to check whether I am safe"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Memory Gaps",
+        "value": "There are parts of the event that I simply cannot remember no matter how hard I try"
+      },
+      {
+        "key": "Terror on Recall",
+        "value": "Remembering the event brings back the same terror I felt at the time"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Identity Loss",
+        "value": "I feel like I don't know myself anymore"
+      },
+      {
+        "key": "Lost Meaning",
+        "value": "Nothing in my life feels meaningful anymore"
+      },
+      {
+        "key": "Can't Rely on Others",
+        "value": "I can't rely on other people"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.9033,
+    "Triggers -- Negative Appraisals": 0.6306,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.8697,
+    "Negative Appraisals -- Memory": 0.3002,
+    "Negative Appraisals -- Triggers": 0.284,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.5898,
+    "Memory -- Negative Appraisals": 0.6761,
+    "Memory -- Triggers": 0.0704,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.5866,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5456333333333334,
+  "edge_density": 0.45,
+  "vignette_word_count": 771,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Crash Imagery: Cars hit by accident",
+          "explanation": "'Crash Imagery: Cars hit by accident' is hard to reconcile with the validated trauma type of natural disaster. A car-crash-specific trigger suggests a different index trauma unless there is clear disaster-related context, which is not reflected elsewhere in the profile."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "'Rage on Recall' is not well supported by the rest of the profile, which otherwise centers on fear, vulnerability, dissociation/gaps, and interpersonal mistrust after a natural disaster. Intense rage could occur clinically, but here it lacks corroboration from threat or appraisal items and weakens overall coherence."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Crash Imagery"
+        ],
+        "Memory": [
+          "Rage on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Known People: Related people",
+          "explanation": "For a natural disaster trauma, 'related people' as a primary trigger is hard to justify unless they were directly linked to the event; with no supporting interpersonal trauma content elsewhere, this trigger is clinically questionable."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat in Silence: Unusual silence makes me feel something dangerous is about to happen",
+          "explanation": "The threat item about unusual silence implying imminent danger fits combat/interpersonal danger contexts more than natural disaster exposure, and it is not supported by the trigger or appraisal content here."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Known People"
+        ],
+        "Threat": [
+          "Threat in Silence"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 3,
+    "passed": 1,
+    "failed": 2,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 10922,
+    "output": 17413,
+    "total": 28335
+  },
+  "vignette": "Liam, a 29-year-old salesperson, first encountered the raw, unbridled power of nature two years ago during a solo hiking trip in a remote canyon. A sudden, torrential downpour turned the peaceful creek into a raging torrent in minutes, sweeping him away. He remembered the terrifying sensation of being utterly powerless, battered by the current, clinging desperately to a submerged tree root for hours before rescuers found him. The sheer force of the water, the confined space of the canyon, and the profound helplessness he felt have since become potent reminders of that day.\n\nIn the aftermath, Liam found himself grappling with a fragmented inner world. Even now, he experiences significant **memory gaps**, unable to recall crucial parts of being swept away, no matter how hard he tries. When fragments do surface, or when he encounters something that reminds him of the event, the **terror on recall** is immediate and overwhelming; it’s the same visceral panic he felt in the churning water. Often, he’ll be struck by the full emotional intensity of the event, a crushing wave of panic and despair, but without any clear image or memory to anchor it, leaving him disoriented and distressed. Because these vivid, emotional memories could erupt at any moment, Liam began to perceive more and more innocuous stimuli—the sound of heavy rain, the rustle of leaves, the feeling of enclosed spaces—as potent **triggers**, constantly on alert for their return. Each time these sensations startled him, they cemented his conviction that the world was an inherently hostile place, and that his old, carefree self was irretrievably lost.\n\nThese persistent and terrifying memories are a constant source of threat. The **terror on recall** frequently precipitates sudden, disorienting **flashbacks**, where Liam feels as if the stressful experience of being swept away is actually happening again, the roar of water in his ears, the cold grip of panic tightening his chest. Each time these vivid, terrifying images broke through, he was left with the crushing conviction that he simply **can't rely on other people** to keep him safe, and that the world itself was fundamentally unpredictable and dangerous. This acute sense of danger means he is perpetually **hypervigilant**, scanning his surroundings, especially when he’s out in **natural environments** or in **physical locations** that feel confined or unfamiliar, like new client offices. This constant vigilance extends into the night, where he often **wakes alert**, needing to check whether he is safe, his heart pounding. Liam had come to believe that he simply **can't rely on other people** to keep him safe, a belief reinforced by the feeling that the world itself is unpredictable and dangerous. His belief that he **can't rely on other people** and that **nothing in his life feels meaningful anymore** fuels his constant **hypervigilance**, making him expect danger around every corner and further exacerbating his **waking alert** states. He feels a profound **identity loss**, like he doesn't know himself anymore, and this sense of disconnect makes it incredibly difficult to integrate his fragmented memories of the traumatic event.\n\nHis negative appraisals also make him more sensitive to potential threats. Because he feels like he **doesn't know himself anymore** and that **nothing in his life feels meaningful anymore**, he perceives more situations as triggers, especially those where he experiences **feeling vulnerable**. For instance, a challenging sales negotiation where he feels exposed can instantly make him feel **vulnerable**, activating the old trauma. The constant demand of his sales job, which requires him to travel frequently and visit unfamiliar client sites, means he regularly encounters **spatial triggers**. Entering a new, enclosed office building can immediately bring back that sense of being trapped and out of control, making the **memory** of the flash flood rush back with its accompanying terror.\n\nThe relentless cycle has taken a toll on Liam’s life and career. He has started to decline out-of-town client visits, especially those that would take him through scenic routes or to offices in more suburban, green areas, fearing the **being in nature** trigger. This has impacted his sales performance, leading to missed targets and strained relationships with his manager and colleagues, subtly reinforcing his belief that he **can't rely on other people** and deepening his sense of **lost meaning** in his work. His pervasive **hypervigilance** and the energy it consumes have left him exhausted, further eroding his sense of purpose and reinforcing his conviction that **nothing in his life feels meaningful anymore**. Liam came to therapy because he's tired of living in constant fear, desperate to understand why he feels so disconnected from his past self, and hoping to find a way to navigate a world that now feels fundamentally unsafe."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Liam, a 29-year-old salesperson, first encountered the raw, unbridled power of nature two years ago during a solo hiking trip in a remote canyon. A sudden, torrential downpour turned the peaceful creek into a raging torrent in minutes, sweeping him away. He remembered the terrifying sensation of being utterly powerless, battered by the current, clinging desperately to a submerged tree root for hours before rescuers found him. The sheer force of the water, the confined space of the canyon, and the profound helplessness he felt have since become potent reminders of that day.\n\nIn the aftermath, Liam found himself grappling with a fragmented inner world. Even now, he experiences significant **memory gaps**, unable to recall crucial parts of being swept away, no matter how hard he tries. When fragments do surface, or when he encounters something that reminds him of the event, the **terror on recall** is immediate and overwhelming; it’s the same visceral panic he felt in the churning water. Often, he’ll be struck by the full emotional intensity of the event, a crushing wave of panic and despair, but without any clear image or memory to anchor it, leaving him disoriented and distressed.\n\nThese persistent and terrifying memories are a constant source of threat. The **terror on recall** frequently precipitates sudden, disorienting **flashbacks**, where Liam feels as if the stressful experience of being swept away is actually happening again, the roar of water in his ears, the cold grip of panic tightening his chest. This acute sense of danger means he is perpetually **hypervigilant**, scanning his surroundings, especially when he’s out in **natural environments** or in **physical locations** that feel confined or unfamiliar, like new client offices. This constant vigilance extends into the night, where he often **wakes alert**, needing to check whether he is safe, his heart pounding. Liam had come to believe that he simply **can't rely on other people** to keep him safe, a belief reinforced by the feeling that the world itself is unpredictable and dangerous. His belief that he **can't rely on other people** and that **nothing in his life feels meaningful anymore** fuels his constant **hypervigilance**, making him expect danger around every corner and further exacerbating his **waking alert** states. He feels a profound **identity loss**, like he doesn't know himself anymore, and this sense of disconnect makes it incredibly difficult to integrate his fragmented memories of the traumatic event.\n\nHis negative appraisals also make him more sensitive to potential threats. Because he feels like he **doesn't know himself anymore** and that **nothing in his life feels meaningful anymore**, he perceives more situations as triggers, especially those where he experiences **feeling vulnerable**. For instance, a challenging sales negotiation where he feels exposed can instantly make him feel **vulnerable**, activating the old trauma. The constant demand of his sales job, which requires him to travel frequently and visit unfamiliar client sites, means he regularly encounters **spatial triggers**. Entering a new, enclosed office building can immediately bring back that sense of being trapped and out of control, making the **memory** of the flash flood rush back with its accompanying terror.\n\nThe relentless cycle has taken a toll on Liam’s life and career. He has started to decline out-of-town client visits, especially those that would take him through scenic routes or to offices in more suburban, green areas, fearing the **being in nature** trigger. This has impacted his sales performance, leading to missed targets and strained relationships with his manager and colleagues, subtly reinforcing his belief that he **can't rely on other people** and deepening his sense of **lost meaning** in his work. His pervasive **hypervigilance** and the energy it consumes have left him exhausted, further eroding his sense of purpose and reinforcing his conviction that **nothing in his life feels meaningful anymore**. Liam came to therapy because he's tired of living in constant fear, desperate to understand why he feels so disconnected from his past self, and hoping to find a way to navigate a world that now feels fundamentally unsafe.", "passed": false, "violations": [{"edge": "Memory → Negative Appraisals", "explanation": "The vignette does not convey how the patient's intrusive memories or flashbacks directly lead to or influence his negative appraisals or beliefs about himself, others, or the world."}, {"edge": "Memory → Triggers", "explanation": "The vignette does not describe how the patient's intrusive memories or flashbacks cause him to develop new triggers or perceive existing stimuli as triggers."}], "violation_count": 2, "feedback": "REQUIRED EDGES MISSING:\n- Memory → Negative Appraisals: The vignette does not convey how the patient's intrusive memories or flashbacks directly lead to or influence his negative appraisals or beliefs about himself, others, or the world.\n  e.g. \"After the image broke through again, she caught herself thinking: if this keeps happening, there must be something deeply wrong with me.\"\n  e.g. \"The memory surfaced in the middle of a meeting and she spent the rest of the day convinced that everyone around her could see how broken she was.\"\n  e.g. \"Each time the flashback came, the thought that followed it was always the same — that she had let this happen, and that it said something permanent about who she was.\"\n- Memory → Triggers: The vignette does not describe how the patient's intrusive memories or flashbacks cause him to develop new triggers or perceive existing stimuli as triggers.\n  e.g. \"After the memory had surfaced, even the most ordinary things — a kettle whistling, a door slamming — felt like warnings she couldn't afford to ignore.\"\n  e.g. \"The intrusive image left her scanning every room she entered, cataloguing exits, tracking faces, unable to switch off.\"\n  e.g. \"Because the memory came back so vividly, she began to see threads of it everywhere: in strangers' faces, in certain times of day, in the quality of winter light.\""},
+
+    {"vignette": "Liam, a 29-year-old salesperson, first encountered the raw, unbridled power of nature two years ago during a solo hiking trip in a remote canyon. A sudden, torrential downpour turned the peaceful creek into a raging torrent in minutes, sweeping him away. He remembered the terrifying sensation of being utterly powerless, battered by the current, clinging desperately to a submerged tree root for hours before rescuers found him. The sheer force of the water, the confined space of the canyon, and the profound helplessness he felt have since become potent reminders of that day.\n\nIn the aftermath, Liam found himself grappling with a fragmented inner world. Even now, he experiences significant **memory gaps**, unable to recall crucial parts of being swept away, no matter how hard he tries. When fragments do surface, or when he encounters something that reminds him of the event, the **terror on recall** is immediate and overwhelming; it’s the same visceral panic he felt in the churning water. Often, he’ll be struck by the full emotional intensity of the event, a crushing wave of panic and despair, but without any clear image or memory to anchor it, leaving him disoriented and distressed. Because these vivid, emotional memories could erupt at any moment, Liam began to perceive more and more innocuous stimuli—the sound of heavy rain, the rustle of leaves, the feeling of enclosed spaces—as potent **triggers**, constantly on alert for their return.\n\nThese persistent and terrifying memories are a constant source of threat. The **terror on recall** frequently precipitates sudden, disorienting **flashbacks**, where Liam feels as if the stressful experience of being swept away is actually happening again, the roar of water in his ears, the cold grip of panic tightening his chest. Each time these vivid, terrifying images broke through, he was left with the crushing conviction that he simply **can't rely on other people** to keep him safe, and that the world itself was fundamentally unpredictable and dangerous. This acute sense of danger means he is perpetually **hypervigilant**, scanning his surroundings, especially when he’s out in **natural environments** or in **physical locations** that feel confined or unfamiliar, like new client offices. This constant vigilance extends into the night, where he often **wakes alert**, needing to check whether he is safe, his heart pounding. Liam had come to believe that he simply **can't rely on other people** to keep him safe, a belief reinforced by the feeling that the world itself is unpredictable and dangerous. His belief that he **can't rely on other people** and that **nothing in his life feels meaningful anymore** fuels his constant **hypervigilance**, making him expect danger around every corner and further exacerbating his **waking alert** states. He feels a profound **identity loss**, like he doesn't know himself anymore, and this sense of disconnect makes it incredibly difficult to integrate his fragmented memories of the traumatic event.\n\nHis negative appraisals also make him more sensitive to potential threats. Because he feels like he **doesn't know himself anymore** and that **nothing in his life feels meaningful anymore**, he perceives more situations as triggers, especially those where he experiences **feeling vulnerable**. For instance, a challenging sales negotiation where he feels exposed can instantly make him feel **vulnerable**, activating the old trauma. The constant demand of his sales job, which requires him to travel frequently and visit unfamiliar client sites, means he regularly encounters **spatial triggers**. Entering a new, enclosed office building can immediately bring back that sense of being trapped and out of control, making the **memory** of the flash flood rush back with its accompanying terror.\n\nThe relentless cycle has taken a toll on Liam’s life and career. He has started to decline out-of-town client visits, especially those that would take him through scenic routes or to offices in more suburban, green areas, fearing the **being in nature** trigger. This has impacted his sales performance, leading to missed targets and strained relationships with his manager and colleagues, subtly reinforcing his belief that he **can't rely on other people** and deepening his sense of **lost meaning** in his work. His pervasive **hypervigilance** and the energy it consumes have left him exhausted, further eroding his sense of purpose and reinforcing his conviction that **nothing in his life feels meaningful anymore**. Liam came to therapy because he's tired of living in constant fear, desperate to understand why he feels so disconnected from his past self, and hoping to find a way to navigate a world that now feels fundamentally unsafe.", "passed": false, "violations": [{"edge": "Triggers → Negative Appraisals", "explanation": "The vignette does not convey that specific triggers directly lead to negative appraisals."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Triggers → Negative Appraisals: The vignette does not convey that specific triggers directly lead to negative appraisals.\n  e.g. \"Every time she walked through that car park, the thought arrived with her: this is what your life is now — flinching at nothing.\"\n  e.g. \"Seeing a man in the same jacket made her think, with quiet certainty, that she would never stop being afraid.\"\n  e.g. \"The sound of raised voices next door told her, with a logic she couldn't argue with, that nowhere was ever really safe.\""},
+
+    {"vignette": "Liam, a 29-year-old salesperson, first encountered the raw, unbridled power of nature two years ago during a solo hiking trip in a remote canyon. A sudden, torrential downpour turned the peaceful creek into a raging torrent in minutes, sweeping him away. He remembered the terrifying sensation of being utterly powerless, battered by the current, clinging desperately to a submerged tree root for hours before rescuers found him. The sheer force of the water, the confined space of the canyon, and the profound helplessness he felt have since become potent reminders of that day.\n\nIn the aftermath, Liam found himself grappling with a fragmented inner world. Even now, he experiences significant **memory gaps**, unable to recall crucial parts of being swept away, no matter how hard he tries. When fragments do surface, or when he encounters something that reminds him of the event, the **terror on recall** is immediate and overwhelming; it’s the same visceral panic he felt in the churning water. Often, he’ll be struck by the full emotional intensity of the event, a crushing wave of panic and despair, but without any clear image or memory to anchor it, leaving him disoriented and distressed. Because these vivid, emotional memories could erupt at any moment, Liam began to perceive more and more innocuous stimuli—the sound of heavy rain, the rustle of leaves, the feeling of enclosed spaces—as potent **triggers**, constantly on alert for their return. Each time these sensations startled him, they cemented his conviction that the world was an inherently hostile place, and that his old, carefree self was irretrievably lost.\n\nThese persistent and terrifying memories are a constant source of threat. The **terror on recall** frequently precipitates sudden, disorienting **flashbacks**, where Liam feels as if the stressful experience of being swept away is actually happening again, the roar of water in his ears, the cold grip of panic tightening his chest. Each time these vivid, terrifying images broke through, he was left with the crushing conviction that he simply **can't rely on other people** to keep him safe, and that the world itself was fundamentally unpredictable and dangerous. This acute sense of danger means he is perpetually **hypervigilant**, scanning his surroundings, especially when he’s out in **natural environments** or in **physical locations** that feel confined or unfamiliar, like new client offices. This constant vigilance extends into the night, where he often **wakes alert**, needing to check whether he is safe, his heart pounding. Liam had come to believe that he simply **can't rely on other people** to keep him safe, a belief reinforced by the feeling that the world itself is unpredictable and dangerous. His belief that he **can't rely on other people** and that **nothing in his life feels meaningful anymore** fuels his constant **hypervigilance**, making him expect danger around every corner and further exacerbating his **waking alert** states. He feels a profound **identity loss**, like he doesn't know himself anymore, and this sense of disconnect makes it incredibly difficult to integrate his fragmented memories of the traumatic event.\n\nHis negative appraisals also make him more sensitive to potential threats. Because he feels like he **doesn't know himself anymore** and that **nothing in his life feels meaningful anymore**, he perceives more situations as triggers, especially those where he experiences **feeling vulnerable**. For instance, a challenging sales negotiation where he feels exposed can instantly make him feel **vulnerable**, activating the old trauma. The constant demand of his sales job, which requires him to travel frequently and visit unfamiliar client sites, means he regularly encounters **spatial triggers**. Entering a new, enclosed office building can immediately bring back that sense of being trapped and out of control, making the **memory** of the flash flood rush back with its accompanying terror.\n\nThe relentless cycle has taken a toll on Liam’s life and career. He has started to decline out-of-town client visits, especially those that would take him through scenic routes or to offices in more suburban, green areas, fearing the **being in nature** trigger. This has impacted his sales performance, leading to missed targets and strained relationships with his manager and colleagues, subtly reinforcing his belief that he **can't rely on other people** and deepening his sense of **lost meaning** in his work. His pervasive **hypervigilance** and the energy it consumes have left him exhausted, further eroding his sense of purpose and reinforcing his conviction that **nothing in his life feels meaningful anymore**. Liam came to therapy because he's tired of living in constant fear, desperate to understand why he feels so disconnected from his past self, and hoping to find a way to navigate a world that now feels fundamentally unsafe.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

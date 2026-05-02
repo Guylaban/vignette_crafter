@@ -1,0 +1,108 @@
+PERSONA 197  |  2026-05-01 17:59:45
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    craft_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             35
+  gender          Female
+  ethnicity       European
+  relationship_status Widowed
+  occupation      Community Organizer
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            46
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Compulsive Exercise: I push myself to exercise excessively
+    • Avoid Eye Contact: Making eye contact with other people
+    • Avoid Location: Going to or near the place where the event happened
+  Threat:
+    • Concentration: Having difficulty concentrating
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Sleep Problems: Trouble falling or staying asleep
+  Memory:
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • No Coherent Story: I cannot tell a clear story of what happened even to myself
+  Negative Appraisals:
+    • Lost Meaning: Nothing in my life feels meaningful anymore
+    • Permanent Damage: I have permanently changed for the worse
+    • Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.7776
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.5421
+  Memory → Threat                                    0.7217
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.5454
+  Threat → Memory                                    0.5166
+  Threat → Negative Appraisals                       0.3473
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0332
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.2661
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Uniform or Weapons: Military, police uniforms or weapons
+    explanation: These items suggest an ongoing external-danger or assault/combat-type threat context centered on armed perpetrators or authority figures. That is hard to reconcile with the indexed trauma of accidentally causing serious injury to another, where the dominant trauma-linked cues would more plausibly involve accident reminders, the injured person, driving/road contexts, guilt, or responsibility.
+    item:        Threat / Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    explanation: The threat profile is framed around current physical danger and staying alert for attack, which does not fit well with the trauma type. For accidentally injuring another person, threat is more likely to involve fear of causing harm again, losing control, or being blamed, rather than needing nighttime vigilance for external threat.
+    item:        Negative Appraisals / Hypervigilance: I have to be on guard all the time
+    explanation: This appraisal duplicates the same external-danger framing and sits awkwardly with the rest of the profile, which otherwise includes guilt/grief/disorganization themes more consistent with accidental harm. The mismatch is especially notable because Triggers are inactive in the formulation, so a specific armed-uniform cue is not well supported elsewhere in the profile.
+  [2] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Fear of Rage: I will not be able to control my anger and will do something terrible
+    explanation: The appraisal 'I will not be able to control my anger and will do something terrible' is hard to reconcile with the trauma context of accidentally causing serious injury to another and with the rest of the profile, which centers more on guilt, grief, fragmented memory, and loss of meaning than on fear of violent loss of control. Irritability can occur in PTSD, but this specific appraisal implies a salient aggression-risk theme that is not otherwise supported by the memory or strategy items.
+    item:        Maladaptive Strategies / Negative Appraisals: Helplessness: I can't stop bad things from happening to me
+    explanation: 'I can't stop bad things from happening to me' pulls toward a victimization/uncontrollable external danger theme, which is a weak fit for a profile centered on having accidentally injured someone else. In this case one would expect appraisals more about culpability, dangerous incompetence, or permanent moral damage. This item is not impossible, but in combination with the other selections it is theologically misaligned with the trauma meaning structure.
+  [3] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Helplessness: I can't stop bad things from happening to me
+    explanation: The appraisal of broad helplessness/victimization is a poor fit for the trauma type of accidentally causing serious injury to another; for this trauma, appraisals more typically center on guilt, responsibility, dangerousness of the self, or fear of causing harm again. This item is not impossible, but in the context of the other selected items it stands out as the least coherent appraisal.
+    item:        Threat / Threat: Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    explanation: Irritability/aggressive outbursts is not well supported by the rest of the profile. The memory and appraisal items center on grief, guilt/shame, loss of meaning, and permanent change, while the strategies are avoidance/compulsive control. That pattern suggests inwardly directed distress rather than externalized anger/aggression, so this item is the weakest cross-node fit.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     15,857
+  output:     1,051
+  total:     16,908
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  0 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+

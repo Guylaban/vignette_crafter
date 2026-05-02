@@ -1,0 +1,224 @@
+PERSONA 59  |  2026-05-02 16:10:39
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             21
+  gender          Female
+  ethnicity       Oceania
+  relationship_status In a relationship
+  occupation      Nurse
+  trauma_type     Combat
+  pcl5            67
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Auditory (Sirens): Sirens
+    • Somatic (Heart Racing): Own heart racing or pounding
+    • Auditory (Loud Noises): Loud noises
+  Maladaptive Strategies:
+    • Avoid Exercise: Exercise
+    • Avoid Positive Events: Situations that might make me feel happy or hopeful
+    • Checking Surroundings: constantly scan environment for signs of threat
+  Threat:
+    • Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+    • Scanning for Danger: I constantly scan my surroundings for signs of danger
+  Memory:
+    • Rage on Recall: When I remember the event I feel intense rage
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.8150
+  Triggers → Threat                                  0.8081
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.1054
+  Memory → Threat                                    0.2000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.8171
+  Threat → Maladaptive Strategies                    0.4029
+  Threat → Memory                                    0.4120
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9903
+  Maladaptive Strategies → Memory                    0.6872
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.8596
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, 'I can talk about what happened very easily' is hard to reconcile with simultaneously becoming so overwhelmed on recall that she has to stop and experiencing intense rage when remembering. Mild coexistence is possible, but 'very easily' directly opposes marked emotional disorganization on recall and is clinically inconsistent within the same node.
+    item:        Maladaptive Strategies / Memory: Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+    explanation: The maladaptive strategy 'Avoid Police' is poorly aligned with the rest of the profile and trauma type. For a combat trauma in a 21-year-old nurse, avoidance of police is not supported by the listed triggers, threat items, or memory content, which center on sirens, bodily arousal, transport, flashbacks, scanning, and rage/overwhelm. This looks like a strategy targeting a threat context not otherwise represented in the formulation or symptom profile.
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Police: Police
+    explanation: Avoiding police is hard to reconcile with the rest of the profile for a combat trauma survivor who is a nurse. The other selected items center on alarm, flashbacks, sirens, somatic arousal, and generalized danger scanning, but nothing else suggests police-specific threat, authority-related trauma meaning, or a law-enforcement context. This strategy appears disconnected from the trigger, threat, and memory content.
+    item:        Triggers / Public Transport: Bus riding
+    explanation: Bus riding as a selected trigger is not impossible, but in this profile it lacks a clear clinical link to the other chosen items. The active formulation strongly links triggers with threat and maladaptive strategies, yet the other trigger items are sirens and heart racing, and the threat/memory items emphasize flashbacking, rage, overwhelm, and danger scanning without any transport-related cueing. As selected here, this item feels insufficiently anchored to the rest of the combat-related profile.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,140
+  output:     6,594
+  total:      9,734
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Leilani, a 21-year-old nurse of Oceanian descent, had been deployed overseas, working in a field
+hospital when her life irrevocably shifted. The traumatic event occurred during a chaotic evening
+when her unit came under heavy fire. The air was thick with the **loud noises** of explosions and
+automatic gunfire, punctuated by the piercing wail of **sirens** from incoming medevac helicopters.
+Amidst the frantic rush to triage casualties, Leilani found her **own heart racing** uncontrollably,
+a terrifying drumbeat in her chest that she now associates with the sheer terror of being
+overwhelmed and helpless.
+
+Since returning home, Leilani has found that the echoes of that night are never far. Trying to
+recount the events of that deployment to her partner or therapist often proves impossible; when the
+**memory** of the chaos returns, she feels such an intense **rage on recall** and is so
+**overwhelmed by emotion that she has to stop**, finding herself **unable to find words to describe
+it**. This profound difficulty in articulating her experience means that the raw, unprocessed
+emotions of the memory continue to fester, contributing to a pervasive sense of **threat**.
+
+The ordinary sounds of her daily life have become landmines. A **siren** piercing the quiet of the
+city, or any sudden **loud noise** in the hospital corridors, immediately plunges Leilani into a
+state of heightened **threat**. She’ll experience sudden, vivid **flashbacks**, feeling as if she’s
+back in that field hospital, the adrenaline surging, and her body reacting as if the danger is
+present. These triggered moments of intense threat manifest as a profound **irritability**, making
+her snap at colleagues or withdraw sharply from her partner, as she finds herself **constantly
+scanning her surroundings for signs of danger**. This hypervigilance, born from the immediacy of the
+triggers, makes her question the safety of every environment.
+
+The sheer intensity of these triggered reactions, where a simple sound can instantly evoke a full-
+blown flashback, has led Leilani to adopt several **maladaptive strategies**. She has started to
+**avoid exercise**, fearing that the natural increase in her **own heart racing or pounding** will
+replicate the terrifying sensation from the trauma, thus triggering another overwhelming episode of
+threat. This avoidance is a direct response to her triggers and the threat they evoke. Furthermore,
+the constant state of **scanning for danger** and the accompanying irritability means she finds
+herself **checking her surroundings** almost compulsively, a strategy that paradoxically maintains
+her sense of threat by reinforcing the idea that danger is always lurking.
+
+The overwhelming nature of her **memories** and the raw emotions they evoke, particularly the rage,
+have also led Leilani to proactively **avoid situations that might make her feel happy or hopeful**.
+She fears that any positive emotion might make her vulnerable, or that the effort required would be
+too much, given the constant internal battle. This avoidance, a maladaptive strategy, serves to keep
+her memories in a state of unresolved distress, as she deprives herself of experiences that might
+offer new perspectives or emotional integration. These maladaptive strategies, while offering a
+temporary sense of control, ultimately feed back into her sense of **threat**, keeping her locked in
+a cycle of vigilance and fear. Her constant **checking surroundings** and avoidance behaviors mean
+she remains on high alert, solidifying the belief that danger is everywhere and enhancing her
+overall sense of threat. In turn, this sustained state of threat, with its accompanying irritability
+and hypervigilance, makes her even more sensitive to potential **triggers**, lowering her threshold
+for what constitutes a danger signal.
+
+Leilani’s difficulty with her **memories** also seems to make her more vulnerable to **triggers**.
+The fragmented, emotionally charged nature of her recollections means that any sensory input even
+vaguely related to the trauma can bypass her conscious processing and directly activate her threat
+response. Working as a nurse, Leilani is frequently exposed to **loud noises** and **sirens**, which
+often precipitate her intense **threat** responses. She’s noticed a pattern: the more she finds
+herself experiencing these overwhelming feelings of threat, the more her **memory** seems to
+fragment further, making it even harder to piece together what happened and intensifying the rage
+and overwhelm when she tries.
+
+Leilani eventually sought help when her relationship began to suffer. Her partner noticed her
+increasing **irritability** and withdrawal, her refusal to engage in activities they once enjoyed,
+and the way she’d flinch at sudden sounds, her eyes darting around the room. She longs for a life
+where a siren is just a siren, and her own heartbeat isn't a harbinger of terror. What frightens her
+most is the thought that she might never escape the grip of that chaotic night, perpetually stuck in
+a cycle of fear and avoidance.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Leilani, a 21-year-old nurse of Oceanian descent, had been deployed overseas, working in a field
+hospital when her life irrevocably shifted. The traumatic event occurred during a chaotic evening
+when her unit came under heavy fire. The air was thick with the **loud noises** of explosions and
+automatic gunfire, punctuated by the piercing wail of **sirens** from incoming medevac helicopters.
+Amidst the frantic rush to triage casualties, Leilani found her **own heart racing** uncontrollably,
+a terrifying drumbeat in her chest that she now associates with the sheer terror of being
+overwhelmed and helpless.
+
+Since returning home, Leilani has found that the echoes of that night are never far. Trying to
+recount the events of that deployment to her partner or therapist often proves impossible; when the
+**memory** of the chaos returns, she feels such an intense **rage on recall** and is so
+**overwhelmed by emotion that she has to stop**, finding herself **unable to find words to describe
+it**. This profound difficulty in articulating her experience means that the raw, unprocessed
+emotions of the memory continue to fester, contributing to a pervasive sense of **threat**.
+
+The ordinary sounds of her daily life have become landmines. A **siren** piercing the quiet of the
+city, or any sudden **loud noise** in the hospital corridors, immediately plunges Leilani into a
+state of heightened **threat**. She’ll experience sudden, vivid **flashbacks**, feeling as if she’s
+back in that field hospital, the adrenaline surging, and her body reacting as if the danger is
+present. These triggered moments of intense threat manifest as a profound **irritability**, making
+her snap at colleagues or withdraw sharply from her partner, as she finds herself **constantly
+scanning her surroundings for signs of danger**. This hypervigilance, born from the immediacy of the
+triggers, makes her question the safety of every environment.
+
+The sheer intensity of these triggered reactions, where a simple sound can instantly evoke a full-
+blown flashback, has led Leilani to adopt several **maladaptive strategies**. She has started to
+**avoid exercise**, fearing that the natural increase in her **own heart racing or pounding** will
+replicate the terrifying sensation from the trauma, thus triggering another overwhelming episode of
+threat. This avoidance is a direct response to her triggers and the threat they evoke. Furthermore,
+the constant state of **scanning for danger** and the accompanying irritability means she finds
+herself **checking her surroundings** almost compulsively, a strategy that paradoxically maintains
+her sense of threat by reinforcing the idea that danger is always lurking.
+
+The overwhelming nature of her **memories** and the raw emotions they evoke, particularly the rage,
+have also led Leilani to proactively **avoid situations that might make her feel happy or hopeful**.
+She fears that any positive emotion might make her vulnerable, or that the effort required would be
+too much, given the constant internal battle. This avoidance, a maladaptive strategy, serves to keep
+her memories in a state of unresolved distress, as she deprives herself of experiences that might
+offer new perspectives or emotional integration. These maladaptive strategies, while offering a
+temporary sense of control, ultimately feed back into her sense of **threat**, keeping her locked in
+a cycle of vigilance and fear. Her constant **checking surroundings** and avoidance behaviors mean
+she remains on high alert, solidifying the belief that danger is everywhere and enhancing her
+overall sense of threat. In turn, this sustained state of threat, with its accompanying irritability
+and hypervigilance, makes her even more sensitive to potential **triggers**, lowering her threshold
+for what constitutes a danger signal.
+
+Leilani’s difficulty with her **memories** also seems to make her more vulnerable to **triggers**.
+The fragmented, emotionally charged nature of her recollections means that any sensory input even
+vaguely related to the trauma can bypass her conscious processing and directly activate her threat
+response. Working as a nurse, Leilani is frequently exposed to **loud noises** and **sirens**, which
+often precipitate her intense **threat** responses. She’s noticed a pattern: the more she finds
+herself experiencing these overwhelming feelings of threat, the more her **memory** seems to
+fragment further, making it even harder to piece together what happened and intensifying the rage
+and overwhelm when she tries.
+
+Leilani eventually sought help when her relationship began to suffer. Her partner noticed her
+increasing **irritability** and withdrawal, her refusal to engage in activities they once enjoyed,
+and the way she’d flinch at sudden sounds, her eyes darting around the room. She longs for a life
+where a siren is just a siren, and her own heartbeat isn't a harbinger of terror. What frightens her
+most is the thought that she might never escape the grip of that chaotic night, perpetually stuck in
+a cycle of fear and avoidance.

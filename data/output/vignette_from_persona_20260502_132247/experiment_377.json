@@ -1,0 +1,189 @@
+{
+  "persona_id": 377,
+  "source_persona_id": 377,
+  "experiment_timestamp": "2026-05-02 16:21:57",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "claude-sonnet-4-6",
+      "persona_crafter": "claude-sonnet-4-6",
+      "vignette_crafter": "claude-sonnet-4-6",
+      "vignette_validator": "claude-sonnet-4-6"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 45,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Journalist",
+    "trauma_type": "Captivity",
+    "pcl5": 66
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Somatic Pain (Neck)",
+        "value": "Neck pain"
+      },
+      {
+        "key": "Tactile (Touch)",
+        "value": "Physical touch"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      },
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Terror on Recall",
+        "value": "Remembering the event brings back the same terror I felt at the time"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4755,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.1762,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9617,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5378,
+  "edge_density": 0.15,
+  "vignette_word_count": 726,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Checking Behind: I frequently look behind me to check if someone is following me",
+          "explanation": "For a captivity trauma profile, the threat pattern is dominated by loud sounds/startle and false alarms, but 'checking if someone is following me' implies a stalking/pursuit-based danger context that is not supported by the listed triggers or memory items. With strong Threat → Triggers and Memory → Triggers links, the threat content should connect plausibly to the trigger set; here the pursuit-focused checking stands out as clinically mismatched."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Within the memory node, recurrent replay and uncontrolled intrusions fit the formulation and trauma type, but intense shame on recall introduces a self-evaluative appraisal theme that is otherwise absent. Given that Negative Appraisals is not represented and Threat → Negative Appraisals / Memory → Negative Appraisals are inactive, this item does not cohere well with the otherwise sensory-intrusive memory profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Checking Behind"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Car Similarity: Similar cars",
+          "explanation": "For captivity trauma, 'similar cars' is hard to reconcile with the rest of the profile unless transport vehicles were a clearly central part of the trauma. The other selected trigger items and all Threat/Memory items point to a general captivity-style pattern of somatic/tactile cueing, intrusive replay, terror on recall, and hypervigilance to sudden sounds. A car-specific visual trigger stands out as insufficiently connected to the rest of this formulation and is the one item a clinician would most likely question."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Car Similarity"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3638,
+    "output": 966,
+    "total": 4604
+  },
+  "vignette": "Aleksander Voss, a 45-year-old investigative journalist of Polish-American descent, presented for psychological assessment following a period of sustained functional decline that had begun to threaten both his marriage and his career. He had been held captive for eleven days by a paramilitary faction while reporting in a conflict zone three years prior. During that time he had been kept in a dark, damp room, his wrists bound behind him, a rough hood periodically pulled over his head. His captors smelled strongly of cheap alcohol when they came close, and on at least two occasions he had been struck across the back of the neck and shoulders. He had been certain, on the third night, that he was about to be executed. He was not. He was eventually released through diplomatic negotiation, flown home, and told by his editors that he had been extraordinarily brave. He tried to believe them.\n\nThe first months after his return were marked by a vigilance that never fully switched off. Aleksander had come to believe that the world was fundamentally unpredictable in a way it had not seemed before — that danger could arrive without warning, as it had in that room. He was superalert in nearly every environment, scanning exits in restaurants, flinching at car horns, sleeping with the bedroom door ajar so he could hear the hallway. When unexpected sounds reached him — a door slamming in the newsroom, a colleague dropping a keyboard — his body responded before his mind could intervene, flooding with the certainty that something was wrong even when he could see plainly that nothing was. This state of chronic threat monitoring meant that his nervous system was rarely at rest, and in that state of heightened arousal, his memories of the captivity became far more accessible than he wanted them to be. The sound of raised voices from across the open-plan office was enough to drag him back into the dark room, and once the memory began, it did not merely visit — it played in full, a film he could not pause, carrying with it the same terror he had felt on the night he believed he would die. He would find himself gripping the edge of his desk, heart hammering, sweat cold at his collar, not entirely certain for a moment which reality he was in.\n\nWhat made this loop particularly punishing was that the memories themselves had begun to sensitise his body to specific sensations that had been present during the captivity. A stiffness in his neck — common enough for a man who spent long hours at a desk — could, without warning, pull the full weight of the trauma forward, as though the body remembered what the mind was trying to contain. Being touched on the shoulder by a colleague, even in greeting, produced an involuntary recoil that he found deeply embarrassing and could not explain in professional terms. The smell of alcohol at a work function, which as a journalist he encountered with some regularity, was perhaps the most destabilising trigger of all — it carried the proximity of his captors so precisely that his threat system responded as though they were in the room, sending him into a state of false alarm that could take hours to subside. He had begun declining evening press events, offering vague excuses to his editor, and his wife had noticed that he no longer joined her when friends came over for wine.\n\nThese withdrawals had accumulated quietly into something larger. His editor had asked, with careful concern, whether he was ready to return to international assignments. His wife had told him, gently but with evident strain, that she felt she was living with someone who was always waiting for something terrible to happen. Aleksander himself had described his inner life as exhausting — the watching, the replaying, the way his own body had become a source of ambush.\n\nWhat finally brought him to seek help was a morning when he woke from a nightmare, reached for his wife's hand in the dark, and found that even her touch made him flinch. He had lain there afterward, ashamed and frightened, and thought: this is not who I am. What he most hoped, he said quietly in the first session, was to be able to sit in a room without guarding the door."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Aleksander Voss, a 45-year-old investigative journalist of Polish-American descent, presented for psychological assessment following a period of sustained functional decline that had begun to threaten both his marriage and his career. He had been held captive for eleven days by a paramilitary faction while reporting in a conflict zone three years prior. During that time he had been kept in a dark, damp room, his wrists bound behind him, a rough hood periodically pulled over his head. His captors smelled strongly of cheap alcohol when they came close, and on at least two occasions he had been struck across the back of the neck and shoulders. He had been certain, on the third night, that he was about to be executed. He was not. He was eventually released through diplomatic negotiation, flown home, and told by his editors that he had been extraordinarily brave. He tried to believe them.\n\nThe first months after his return were marked by a vigilance that never fully switched off. Aleksander had come to believe that the world was fundamentally unpredictable in a way it had not seemed before — that danger could arrive without warning, as it had in that room. He was superalert in nearly every environment, scanning exits in restaurants, flinching at car horns, sleeping with the bedroom door ajar so he could hear the hallway. When unexpected sounds reached him — a door slamming in the newsroom, a colleague dropping a keyboard — his body responded before his mind could intervene, flooding with the certainty that something was wrong even when he could see plainly that nothing was. This state of chronic threat monitoring meant that his nervous system was rarely at rest, and in that state of heightened arousal, his memories of the captivity became far more accessible than he wanted them to be. The sound of raised voices from across the open-plan office was enough to drag him back into the dark room, and once the memory began, it did not merely visit — it played in full, a film he could not pause, carrying with it the same terror he had felt on the night he believed he would die. He would find himself gripping the edge of his desk, heart hammering, sweat cold at his collar, not entirely certain for a moment which reality he was in.\n\nWhat made this loop particularly punishing was that the memories themselves had begun to sensitise his body to specific sensations that had been present during the captivity. A stiffness in his neck — common enough for a man who spent long hours at a desk — could, without warning, pull the full weight of the trauma forward, as though the body remembered what the mind was trying to contain. Being touched on the shoulder by a colleague, even in greeting, produced an involuntary recoil that he found deeply embarrassing and could not explain in professional terms. The smell of alcohol at a work function, which as a journalist he encountered with some regularity, was perhaps the most destabilising trigger of all — it carried the proximity of his captors so precisely that his threat system responded as though they were in the room, sending him into a state of false alarm that could take hours to subside. He had begun declining evening press events, offering vague excuses to his editor, and his wife had noticed that he no longer joined her when friends came over for wine.\n\nThese withdrawals had accumulated quietly into something larger. His editor had asked, with careful concern, whether he was ready to return to international assignments. His wife had told him, gently but with evident strain, that she felt she was living with someone who was always waiting for something terrible to happen. Aleksander himself had described his inner life as exhausting — the watching, the replaying, the way his own body had become a source of ambush.\n\nWhat finally brought him to seek help was a morning when he woke from a nightmare, reached for his wife's hand in the dark, and found that even her touch made him flinch. He had lain there afterward, ashamed and frightened, and thought: this is not who I am. What he most hoped, he said quietly in the first session, was to be able to sit in a room without guarding the door.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

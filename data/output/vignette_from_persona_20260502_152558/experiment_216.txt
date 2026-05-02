@@ -1,0 +1,349 @@
+PERSONA 216  |  2026-05-02 19:18:15
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-pro
+    persona_crafter      gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             39
+  gender          Female
+  ethnicity       Latin American
+  relationship_status In a relationship
+  occupation      Detective
+  trauma_type     Witnessed domestic violence (childhood)
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Sweat/Body): Sweat or body odour
+    • Tactile (Touch): Physical touch
+    • Shouting: Shouting
+  Maladaptive Strategies:
+    • Self-Harm Distraction: I hurt myself physically to stop thinking about the event
+    • Avoid All Feelings: avoid anything that could cause negative or positive feelings
+    • Avoid Being Touched: Any form of physical contact with others
+  Threat:
+    • Waking Alert: I wake during the night to check whether I am safe
+    • Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+    • Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+  Memory:
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Fear Going Crazy: My reactions since the event mean that I am going crazy
+    • Self-Doubt: I can't trust that I will do the right thing
+    • Character Blame: The event happened to me because of the sort of person I am
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.1977
+  Triggers → Threat                                  0.5463
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.2216
+  Negative Appraisals → Maladaptive Strategies       0.1819
+  Negative Appraisals → Threat                       0.3231
+  Negative Appraisals → Memory                       0.4642
+  Negative Appraisals → Triggers                     0.8169
+  Memory → Maladaptive Strategies                    0.3753
+  Memory → Threat                                    0.2264
+  Memory → Negative Appraisals                       0.6029
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.5408
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9594
+  Maladaptive Strategies → Memory                    0.9816
+  Maladaptive Strategies → Negative Appraisals       0.6811
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.3387
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Violated Values: I acted in ways that go against who I am
+    explanation: For a childhood trauma of witnessed domestic violence, the appraisal 'I acted in ways that go against who I am' is hard to reconcile unless there is some additional perpetration or morally injurious behavior by the patient during the trauma. In this profile there are no memory or threat items indicating the patient did something blameworthy during the event, so this item is clinically hard to explain.
+    item:        Triggers / Triggers: Being Criticised: Being criticised or corrected
+    explanation: 'Being criticised or corrected' can occur in many PTSD presentations, but here it is weakly supported by the rest of the profile. The threat, memory, and appraisal items center on fear/safety, grief, and self-instability rather than interpersonal criticism or humiliation. Given the specified trauma and the other items selected, this trigger appears insufficiently linked to the formulation and surrounding symptoms.
+  [2] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: For childhood witnessed domestic violence, strong self-blame can occur, but the specific wording 'the event happened because of the way I acted' is hard to reconcile with a witness-child trauma unless there is some indication she directly intervened or was held responsible. The rest of the profile does not suggest that role, so this item is clinically questionable for this trauma context.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Open Spaces: Open or exposed spaces where I feel vulnerable
+    explanation: Avoiding open or exposed spaces implies a danger formulation centered on attack in public/exposed environments. The rest of the profile's triggers and memories are strongly interpersonal/domestic (shouting, touch, body odour, grief, visual memories of domestic violence), and the threat items emphasize checking safety/startle rather than fear of exposed outdoor space. This avoidance strategy does not fit the dominant trauma-linked threat pattern and is the least coherent item cross-node.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     11,791
+  output:    16,297
+  total:     28,088
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  3 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Detective Sofia Morales presented as a highly competent and controlled professional, a reputation
+that stood in stark contrast to the chaotic internal world she had inhabited for over thirty years.
+The trauma was not a single event but the atmosphere of her childhood, a landscape defined by her
+father’s unpredictable rage. The memories came not as a linear story she could recount, but as a
+series of stark, sensory snapshots. She spoke of them with a detached difficulty, finding it hard to
+deliberately access the narrative, yet being ambushed by the visuals: the image of her mother
+cowering, the blur of her father’s arm, the pattern on the floral wallpaper she would stare at to
+escape. The most potent fragments were tied to sound and smell—the roar of his voice and the sharp,
+sour scent of his sweat when he was enraged.
+
+These sensory fragments now dictate the terms of her daily existence. A raised voice in the
+precinct, the smell of body odour in a crowded elevator, or an unexpected touch on her arm can
+instantly collapse the decades between then and now. When a suspect she was interviewing last month
+began shouting, the sudden noise sent a jolt of terror through her, an immediate, physical certainty
+that she was in mortal danger. This state of high alert is now her baseline; she startles violently
+at any sudden movement in her periphery and finds herself unable to sit with her back to a door,
+whether in a briefing room or a restaurant. The conviction that she is unsafe is so profound that
+she often wakes in the middle of the night, heart pounding, to scan the dark bedroom and check that
+she is truly alone with her partner, Marco. These triggers, and the intense threat they provoke,
+have also poisoned her self-perception. The visceral fear she feels in these moments is, to her,
+proof that she is losing her mind. She has come to believe her reactions are not a normal response
+to trauma but a sign that she is fundamentally broken, that she is "going crazy."
+
+This deep-seated fear of her own mind and the constant feeling of being under threat have carved
+deep channels of avoidance into her life. In the aftermath of a trigger, or when a visual memory
+breaks through, the accompanying wave of overwhelming grief feels unbearable. Her immediate response
+is to shut down completely, to find a way to stop the cascade of feeling. She has become an expert
+at emotional numbing, striving to avoid anything that might stir strong feelings, positive or
+negative. This has created a painful distance in her relationship with Marco, as she flinches from
+his touch, denying them both the simplest forms of affection. When the numbing fails and the
+intrusive images or feelings become too intense, she resorts to a more desperate strategy, digging
+her nails into the flesh of her arm until the sharp, physical pain is enough to eclipse the
+emotional agony. This act, while providing momentary relief, only serves to reinforce her belief
+that she is damaged and out of control, tightening the loop of self-blame. She is convinced that
+what happened to her as a child was not random, but a result of the sort of person she is—a belief
+that makes her feel both perpetually vulnerable and utterly undeserving of safety.
+
+The strategies she uses to survive are now the architects of her suffering. By avoiding all emotion,
+she prevents any processing of the traumatic memories, ensuring they retain their raw, fragmented
+power. The self-harm leaves her feeling more ashamed and certain of her own flawed character. This
+constant cycle of negative self-appraisal makes her even more sensitive to potential triggers, as
+she scans her environment not just for external threats, but for anything that might provoke the
+internal chaos she fears so much. Her world has shrunk to a series of defensive manoeuvres. The
+hypervigilance she maintains to feel safe only exhausts her and primes her nervous system to
+overreact, making triggers more potent when they do occur. She came to therapy after a performance
+review where her captain noted her increasing detachment and a recent hesitation at a critical
+moment in the field. The comment struck at the heart of her deepest fear: that she can’t trust
+herself to do the right thing. For Sofia, the terror is no longer just about the past, but about a
+future where she loses her career, her relationship, and ultimately, herself.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not describe how the patient's negative beliefs about herself or the world influence her trauma memories.
+
+    ✗ edge:        Memory → Threat
+      explanation: The vignette does not state that the patient's intrusive memories lead to a sense of threat or danger.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette does not explain how the trauma memories themselves lead to or reinforce the patient's negative beliefs.
+
+  [2] FAIL
+Detective Sofia Morales presented as a highly competent and controlled professional, a reputation
+that stood in stark contrast to the chaotic internal world she had inhabited for over thirty years.
+The trauma was not a single event but the atmosphere of her childhood, a landscape defined by her
+father’s unpredictable rage. The memories came not as a linear story she could recount, but as a
+series of stark, sensory snapshots. She spoke of them with a detached difficulty, finding it hard to
+deliberately access the narrative, yet being ambushed by the visuals: the image of her mother
+cowering, the blur of her father’s arm, the pattern on the floral wallpaper she would stare at to
+escape. When these images surface, they are not memories of a past danger but feel like an
+immediate, present threat, leaving her with the visceral certainty that the violence is about to
+happen again, right now. The most potent fragments were tied to sound and smell—the roar of his
+voice and the sharp, sour scent of his sweat when he was enraged.
+
+These sensory fragments now dictate the terms of her daily existence. A raised voice in the
+precinct, the smell of body odour in a crowded elevator, or an unexpected touch on her arm can
+instantly collapse the decades between then and now. When a suspect she was interviewing last month
+began shouting, the sudden noise sent a jolt of terror through her, an immediate, physical certainty
+that she was in mortal danger. This state of high alert is now her baseline; she startles violently
+at any sudden movement in her periphery and finds herself unable to sit with her back to a door,
+whether in a briefing room or a restaurant. The conviction that she is unsafe is so profound that
+she often wakes in the middle of the night, heart pounding, to scan the dark bedroom and check that
+she is truly alone with her partner, Marco. These triggers, and the intense threat they provoke,
+have also poisoned her self-perception. The visceral fear she feels in these moments is, to her,
+proof that she is losing her mind. She has come to believe her reactions are not a normal response
+to trauma but a sign that she is fundamentally broken, that she is "going crazy."
+
+This deep-seated fear of her own mind and the constant feeling of being under threat have carved
+deep channels of avoidance into her life. In the aftermath of a trigger, or when a visual memory
+breaks through, the accompanying wave of overwhelming grief feels unbearable. Each time a fragment
+of the past intrudes on the present, it feels like a personal failing, reinforcing her belief that
+she is mentally unstable and fundamentally incapable of keeping herself safe. Her immediate response
+is to shut down completely, to find a way to stop the cascade of feeling. She has become an expert
+at emotional numbing, striving to avoid anything that might stir strong feelings, positive or
+negative. This has created a painful distance in her relationship with Marco, as she flinches from
+his touch, denying them both the simplest forms of affection. When the numbing fails and the
+intrusive images or feelings become too intense, she resorts to a more desperate strategy, digging
+her nails into the flesh of her arm until the sharp, physical pain is enough to eclipse the
+emotional agony. This act, while providing momentary relief, only serves to reinforce her belief
+that she is damaged and out of control, tightening the loop of self-blame. She is convinced that
+what happened to her as a child was not random, but a result of the sort of person she is—a belief
+that makes her feel both perpetually vulnerable and utterly undeserving of safety. This conviction
+that she is inherently flawed seems to call the memories forward, as if they are evidence to support
+the case against herself, each fragment replayed to confirm her own brokenness.
+
+The strategies she uses to survive are now the architects of her suffering. By avoiding all emotion,
+she prevents any processing of the traumatic memories, ensuring they retain their raw, fragmented
+power. The self-harm leaves her feeling more ashamed and certain of her own flawed character. This
+constant cycle of negative self-appraisal makes her even more sensitive to potential triggers, as
+she scans her environment not just for external threats, but for anything that might provoke the
+internal chaos she fears so much. Her world has shrunk to a series of defensive manoeuvres. The
+hypervigilance she maintains to feel safe only exhausts her and primes her nervous system to
+overreact, making triggers more potent when they do occur. She came to therapy after a performance
+review where her captain noted her increasing detachment and a recent hesitation at a critical
+moment in the field. The comment struck at the heart of her deepest fear: that she can’t trust
+herself to do the right thing. For Sofia, the terror is no longer just about the past, but about a
+future where she loses her career, her relationship, and ultimately, herself.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not state that the patient's general sense of threat makes her more sensitive or hyper-aware of her triggers.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not describe how the patient's maladaptive strategies (like avoidance or hypervigilance) lead to an increased or maintained sense of threat.
+
+  [3] PASS
+Detective Sofia Morales presented as a highly competent and controlled professional, a reputation
+that stood in stark contrast to the chaotic internal world she had inhabited for over thirty years.
+The trauma was not a single event but the atmosphere of her childhood, a landscape defined by her
+father’s unpredictable rage. The memories came not as a linear story she could recount, but as a
+series of stark, sensory snapshots. She spoke of them with a detached difficulty, finding it hard to
+deliberately access the narrative, yet being ambushed by the visuals: the image of her mother
+cowering, the blur of her father’s arm, the pattern on the floral wallpaper she would stare at to
+escape. When these images surface, they are not memories of a past danger but feel like an
+immediate, present threat, leaving her with the visceral certainty that the violence is about to
+happen again, right now. The most potent fragments were tied to sound and smell—the roar of his
+voice and the sharp, sour scent of his sweat when he was enraged.
+
+These sensory fragments now dictate the terms of her daily existence. A raised voice in the
+precinct, the smell of body odour in a crowded elevator, or an unexpected touch on her arm can
+instantly collapse the decades between then and now. When a suspect she was interviewing last month
+began shouting, the sudden noise sent a jolt of terror through her, an immediate, physical certainty
+that she was in mortal danger. This state of high alert is now her baseline; she startles violently
+at any sudden movement in her periphery and finds herself unable to sit with her back to a door,
+whether in a briefing room or a restaurant. Living at this pitch of alertness has made her hyper-
+aware of her surroundings, causing her to constantly scan for the specific sensory cues—a man's
+raised voice, the scent of sweat—that signal an impending attack. The conviction that she is unsafe
+is so profound that she often wakes in the middle of the night, heart pounding, to scan the dark
+bedroom and check that she is truly alone with her partner, Marco. These triggers, and the intense
+threat they provoke, have also poisoned her self-perception. The visceral fear she feels in these
+moments is, to her, proof that she is losing her mind. She has come to believe her reactions are not
+a normal response to trauma but a sign that she is fundamentally broken, that she is "going crazy."
+
+This deep-seated fear of her own mind and the constant feeling of being under threat have carved
+deep channels of avoidance into her life. In the aftermath of a trigger, or when a visual memory
+breaks through, the accompanying wave of overwhelming grief feels unbearable. Each time a fragment
+of the past intrudes on the present, it feels like a personal failing, reinforcing her belief that
+she is mentally unstable and fundamentally incapable of keeping herself safe. Her immediate response
+is to shut down completely, to find a way to stop the cascade of feeling. She has become an expert
+at emotional numbing, striving to avoid anything that might stir strong feelings, positive or
+negative. This has created a painful distance in her relationship with Marco, as she flinches from
+his touch, denying them both the simplest forms of affection. When the numbing fails and the
+intrusive images or feelings become too intense, she resorts to a more desperate strategy, digging
+her nails into the flesh of her arm until the sharp, physical pain is enough to eclipse the
+emotional agony. This act, while providing momentary relief, only serves to reinforce her belief
+that she is damaged and out of control, tightening the loop of self-blame. She is convinced that
+what happened to her as a child was not random, but a result of the sort of person she is—a belief
+that makes her feel both perpetually vulnerable and utterly undeserving of safety. This conviction
+that she is inherently flawed seems to call the memories forward, as if they are evidence to support
+the case against herself, each fragment replayed to confirm her own brokenness.
+
+The strategies she uses to survive are now the architects of her suffering. By avoiding all emotion,
+she prevents any processing of the traumatic memories, ensuring they retain their raw, fragmented
+power. The self-harm leaves her feeling more ashamed and certain of her own flawed character. This
+constant cycle of negative self-appraisal makes her even more sensitive to potential triggers, as
+she scans her environment not just for external threats, but for anything that might provoke the
+internal chaos she fears so much. Her world has shrunk to a series of defensive manoeuvres. The
+hypervigilance she maintains to feel safe only exhausts her and primes her nervous system to
+overreact, making triggers more potent when they do occur. By always avoiding strong emotions and
+retreating from perceived threats, she has never had the chance to learn that these situations might
+be safe, which has in turn kept her underlying sense of danger at a constant, critical level. She
+came to therapy after a performance review where her captain noted her increasing detachment and a
+recent hesitation at a critical moment in the field. The comment struck at the heart of her deepest
+fear: that she can’t trust herself to do the right thing. For Sofia, the terror is no longer just
+about the past, but about a future where she loses her career, her relationship, and ultimately,
+herself.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Detective Sofia Morales presented as a highly competent and controlled professional, a reputation
+that stood in stark contrast to the chaotic internal world she had inhabited for over thirty years.
+The trauma was not a single event but the atmosphere of her childhood, a landscape defined by her
+father’s unpredictable rage. The memories came not as a linear story she could recount, but as a
+series of stark, sensory snapshots. She spoke of them with a detached difficulty, finding it hard to
+deliberately access the narrative, yet being ambushed by the visuals: the image of her mother
+cowering, the blur of her father’s arm, the pattern on the floral wallpaper she would stare at to
+escape. When these images surface, they are not memories of a past danger but feel like an
+immediate, present threat, leaving her with the visceral certainty that the violence is about to
+happen again, right now. The most potent fragments were tied to sound and smell—the roar of his
+voice and the sharp, sour scent of his sweat when he was enraged.
+
+These sensory fragments now dictate the terms of her daily existence. A raised voice in the
+precinct, the smell of body odour in a crowded elevator, or an unexpected touch on her arm can
+instantly collapse the decades between then and now. When a suspect she was interviewing last month
+began shouting, the sudden noise sent a jolt of terror through her, an immediate, physical certainty
+that she was in mortal danger. This state of high alert is now her baseline; she startles violently
+at any sudden movement in her periphery and finds herself unable to sit with her back to a door,
+whether in a briefing room or a restaurant. Living at this pitch of alertness has made her hyper-
+aware of her surroundings, causing her to constantly scan for the specific sensory cues—a man's
+raised voice, the scent of sweat—that signal an impending attack. The conviction that she is unsafe
+is so profound that she often wakes in the middle of the night, heart pounding, to scan the dark
+bedroom and check that she is truly alone with her partner, Marco. These triggers, and the intense
+threat they provoke, have also poisoned her self-perception. The visceral fear she feels in these
+moments is, to her, proof that she is losing her mind. She has come to believe her reactions are not
+a normal response to trauma but a sign that she is fundamentally broken, that she is "going crazy."
+
+This deep-seated fear of her own mind and the constant feeling of being under threat have carved
+deep channels of avoidance into her life. In the aftermath of a trigger, or when a visual memory
+breaks through, the accompanying wave of overwhelming grief feels unbearable. Each time a fragment
+of the past intrudes on the present, it feels like a personal failing, reinforcing her belief that
+she is mentally unstable and fundamentally incapable of keeping herself safe. Her immediate response
+is to shut down completely, to find a way to stop the cascade of feeling. She has become an expert
+at emotional numbing, striving to avoid anything that might stir strong feelings, positive or
+negative. This has created a painful distance in her relationship with Marco, as she flinches from
+his touch, denying them both the simplest forms of affection. When the numbing fails and the
+intrusive images or feelings become too intense, she resorts to a more desperate strategy, digging
+her nails into the flesh of her arm until the sharp, physical pain is enough to eclipse the
+emotional agony. This act, while providing momentary relief, only serves to reinforce her belief
+that she is damaged and out of control, tightening the loop of self-blame. She is convinced that
+what happened to her as a child was not random, but a result of the sort of person she is—a belief
+that makes her feel both perpetually vulnerable and utterly undeserving of safety. This conviction
+that she is inherently flawed seems to call the memories forward, as if they are evidence to support
+the case against herself, each fragment replayed to confirm her own brokenness.
+
+The strategies she uses to survive are now the architects of her suffering. By avoiding all emotion,
+she prevents any processing of the traumatic memories, ensuring they retain their raw, fragmented
+power. The self-harm leaves her feeling more ashamed and certain of her own flawed character. This
+constant cycle of negative self-appraisal makes her even more sensitive to potential triggers, as
+she scans her environment not just for external threats, but for anything that might provoke the
+internal chaos she fears so much. Her world has shrunk to a series of defensive manoeuvres. The
+hypervigilance she maintains to feel safe only exhausts her and primes her nervous system to
+overreact, making triggers more potent when they do occur. By always avoiding strong emotions and
+retreating from perceived threats, she has never had the chance to learn that these situations might
+be safe, which has in turn kept her underlying sense of danger at a constant, critical level. She
+came to therapy after a performance review where her captain noted her increasing detachment and a
+recent hesitation at a critical moment in the field. The comment struck at the heart of her deepest
+fear: that she can’t trust herself to do the right thing. For Sofia, the terror is no longer just
+about the past, but about a future where she loses her career, her relationship, and ultimately,
+herself.

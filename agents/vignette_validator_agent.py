@@ -10,16 +10,17 @@ from configs.formulation_config import EDGE_EXAMPLES
 logger = logging.getLogger(__name__)
 
 
+def _normalize_edge(edge: str) -> str:
+    """Normalize edge string to canonical 'A → B' format regardless of arrow style."""
+    return edge.replace("->", "→").replace("→", " → ").replace("  →  ", " → ").strip()
+
+
 # ── Data models ───────────────────────────────────────────────────────────────
 
-class EdgeViolation(BaseModel):
-    edge:        str  # e.g. "Triggers → Memory"
-    explanation: str  # one sentence describing what causal link is missing
-
-
 class ValidationResult(BaseModel):
-    verdict:    Literal["PASS", "FAIL"]
-    violations: list[EdgeViolation] = []
+    verdict:                 Literal["PASS", "FAIL"]
+    violation_edges:         list[str] = []  # e.g. ["Triggers → Memory"]
+    violation_explanations:  list[str] = []  # parallel to violation_edges
 
 
 class VignetteValidatorContext(TypedDict):
@@ -63,8 +64,9 @@ class VignetteValidatorAgent(BaseAgent):
             return {"passed": False, "violations": [], "feedback": "Validation could not be parsed. Please rewrite the vignette cleanly."}
 
         required_edges = {f"{p} → {c}" for (p, c), v in edges.items() if v > 0}
-        violations = [{"edge": v.edge, "explanation": v.explanation}
-                      for v in result.violations if v.edge in required_edges]
+        violations = [{"edge": e, "explanation": ex}
+                      for e, ex in zip(result.violation_edges, result.violation_explanations)
+                      if _normalize_edge(e) in required_edges]
         feedback   = self._build_feedback(violations)
         passed     = len(violations) == 0
         logger.info("[%s] %s", self.name, "PASS" if passed else f"FAIL — {len(violations)} violation(s)")
@@ -96,10 +98,11 @@ class VignetteValidatorAgent(BaseAgent):
         for attempt in range(max_retries + 1):
             result = self.validate(vignette, context)
             attempts.append({
-                "vignette":   vignette,
-                "passed":     result["passed"],
-                "violations": result["violations"],
-                "feedback":   result["feedback"],
+                "vignette":        vignette,
+                "passed":          result["passed"],
+                "violations":      result["violations"],
+                "violation_count": len(result["violations"]),
+                "feedback":        result["feedback"],
             })
 
             if result["passed"]:

@@ -1,0 +1,110 @@
+PERSONA 20  |  2026-05-01 18:51:20
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    craft_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             44
+  gender          Female
+  ethnicity       South Asian
+  relationship_status Married
+  occupation      Retail Worker
+  trauma_type     Witnessed other trauma
+  pcl5            68
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Affective Expression: Crying
+    • Somatic (Dizziness): Feeling dizzy or lightheaded
+    • Event Recall: Talking about the event
+  Maladaptive Strategies:
+    • Checking Surroundings: constantly scan environment for signs of threat
+    • Meaning Seeking: I think about why the event has happened to me
+    • People Pleasing: go along with whatever others want to feel safe
+  Threat:
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Scanning for Danger: I constantly scan my surroundings for signs of danger
+    • Startle Response: Feeling jumpy or easily startled
+  Memory:
+    • Confused Sequence: I cannot put the memories of the event in the right order
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.8707
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0637
+  Memory → Threat                                    0.6264
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.4476
+  Threat → Maladaptive Strategies                    0.2744
+  Threat → Memory                                    0.2951
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0386
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.8013
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+    explanation: The threat profile is strongly centered on current external danger and hypervigilant escape planning (avoiding unfamiliar places, scanning exits), but the memory items emphasize disorganized recall plus grief and rage without a clear link to present-moment environmental threat. That makes the Threat ↔ Memory pattern only weakly coherent for a witnessed-trauma presentation.
+    item:        Memory / Threat: Scanning Exits: I scan for exits as soon as I enter any room or building
+    explanation: Within Memory, intense rage and overwhelming grief can co-occur, but with only three items and the third being confused sequence, the node reads as two different dominant emotional meanings of the trauma rather than one coherent memory profile. This is not impossible, but combined with the rest of the profile it creates a clinically mixed signal.
+    item:        Maladaptive Strategies / Memory: Rage on Recall: When I remember the event I feel intense rage
+    explanation: Maladaptive Strategies are not well aligned within-node: checking surroundings fits the threat items, but meaning seeking is a ruminative appraisal-focused strategy and people pleasing is an interpersonal safety strategy. Together they imply three different maintaining processes without support from Negative Appraisals or other nodes.
+  [2] FAIL
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: The threat node mixes core trauma-related threat responses (hypervigilance, scanning exits) with a nonspecific consequence item (difficulty concentrating). Concentration problems are common in PTSD, but here they do not clearly represent perceived current threat and are weakly aligned with the rest of the threat content.
+    item:        Memory / Memory: Rage on Recall: When I remember the event I feel intense rage
+    explanation: Within the memory node, intense rage on recall and overwhelming grief on recall can coexist, but paired with confused sequence they do not form a clearly coherent memory profile for a single witnessed-trauma account unless the event involved a very specific interpersonal betrayal/loss narrative. As presented, the emotional tone is mixed enough that a clinician would question whether these memory items are describing the same dominant trauma memory state.
+  [3] FAIL
+    item:        Triggers / Triggers: Auditory (Cars): Car sounds
+    explanation: The profile suggests a highly generalized interpersonal/public-space danger style (scanning exits, constant danger monitoring, checking surroundings) that is not anchored by the rest of the formulation. For a witnessed-other-trauma case, this could occur, but here the only concrete trigger cue is 'car sounds,' which implies a more specific event context. The threat items are broad and pervasive in a way that is hard to reconcile with the otherwise grief-dominated memory content.
+    item:        Threat / Threat: Scanning Exits: I scan for exits as soon as I enter any room or building
+    explanation: Within and across nodes, 'Checking Surroundings' is essentially the same behavior as the threat items 'Scanning for Danger' and 'Hypervigilance,' creating a near-duplicate symptom loop rather than distinct components. Given the formulation, Threat and Maladaptive Strategies should be plausibly linked but not indistinguishable copies of the same content.
+    item:        Maladaptive Strategies / Threat: Hypervigilance: Being superalert or watchful or on guard
+    explanation: The memory node is dominated by disorganization and overwhelming grief on recall, with no content suggesting ongoing intentional harm, entrapment, or assaultive threat. That makes the very strong public-space exit scanning pattern feel clinically mismatched: it implies an active expectation of immediate external danger that is not supported by the memory material or the specific trigger content provided.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     16,950
+  output:     1,299
+  total:     18,249
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  0 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+

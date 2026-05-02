@@ -1,5 +1,13 @@
 """Ehlers & Clark PTSD formulation — directed causal graph."""
 
+COMPONENT_SYNONYMS: dict[str, list[str]] = {
+    "Triggers":               ["triggering stimuli", "triggers", "reminders", "cues"],
+    "Negative Appraisals":    ["negative appraisals", "negative beliefs", "distorted beliefs", "appraisals"],
+    "Memory":                 ["intrusive memory", "traumatic memory", "trauma memory", "the memory"],
+    "Threat":                 ["sense of threat", "perceived threat", "feeling of danger", "threat"],
+    "Maladaptive Strategies": ["maladaptive strategies", "safety behaviours", "maladaptive coping", "avoidance"],
+}
+
 DIRECT_EDGES: dict = {
     ("Triggers", "Maladaptive Strategies"): 0,
     ("Triggers", "Threat"): 0,
@@ -19,6 +27,8 @@ DIRECT_EDGES: dict = {
     ("Threat", "Triggers"): 0,
     ("Maladaptive Strategies", "Memory"): 0,
     ("Maladaptive Strategies", "Negative Appraisals"): 0,
+    ("Maladaptive Strategies", "Triggers"): 0,
+    ("Maladaptive Strategies", "Threat"): 0,
 }
 
 EDGE_EXAMPLES: dict[tuple[str, str], list[str]] = {

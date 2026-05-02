@@ -117,10 +117,15 @@ class BaseAgent(ABC):
         parsed = None
         raw_text = ""
         if isinstance(raw, dict):
+            # Standard LangChain include_raw=True format: {"raw": AIMessage, "parsed": BaseModel}
             _count(raw.get("raw"))
             parsed = raw.get("parsed")
             raw_msg = raw.get("raw")
             raw_text = getattr(raw_msg, "content", "") if raw_msg else ""
+        elif hasattr(raw, "model_dump"):
+            # DeepSeek / open_source wrappers return the parsed model directly;
+            # token counting is already done inside their _StructuredOutputWrapper.
+            parsed = raw
         output = parsed.model_dump() if parsed is not None else {"parse_error": True}
         self.log_response(user_prompt, raw_text or "(no raw content)", output=output)
         return parsed

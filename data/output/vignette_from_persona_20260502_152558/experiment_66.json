@@ -1,0 +1,230 @@
+{
+  "persona_id": 66,
+  "source_persona_id": 66,
+  "experiment_timestamp": "2026-05-02 16:36:58",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-pro",
+      "persona_crafter": "gemini-2.5-pro",
+      "vignette_crafter": "gemini-2.5-pro",
+      "vignette_validator": "gemini-2.5-pro"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 55,
+    "gender": "Male",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "Painter",
+    "trauma_type": "Unexpected or traumatic death of a loved one",
+    "pcl5": 67
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Emergency Contexts",
+        "value": "Ambulances"
+      },
+      {
+        "key": "Workplace",
+        "value": "Workplace"
+      },
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Night Vigilance",
+        "value": "I find it harder to feel safe at night than during the day"
+      },
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Alert at Home",
+        "value": "I feel on guard even inside my own home"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Identity Loss",
+        "value": "I feel like I don't know myself anymore"
+      },
+      {
+        "key": "Isolation",
+        "value": "I feel isolated and set apart from others"
+      },
+      {
+        "key": "Life Destroyed",
+        "value": "My life has been destroyed by the trauma"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.6166,
+    "Triggers -- Memory": 0.6486,
+    "Triggers -- Negative Appraisals": 0.9671,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.7983,
+    "Negative Appraisals -- Memory": 0.1076,
+    "Negative Appraisals -- Triggers": 0.7494,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.6908,
+    "Memory -- Negative Appraisals": 0.3804,
+    "Memory -- Triggers": 0.6828,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.1592,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.3025,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5548454545454545,
+  "edge_density": 0.55,
+  "vignette_word_count": 772,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event",
+          "explanation": "Physical pain in the same body parts as during the event is hard to reconcile with the indexed trauma being an unexpected or traumatic death of a loved one, unless the patient was also physically injured during the event. That makes this item clinically implausible from the provided trauma context."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Mistrust: People can't be trusted",
+          "explanation": "A global mistrust appraisal is a weak fit with bereavement trauma unless there is some interpersonal betrayal, negligence, or assault-related context. The rest of the profile centers on loss, alarm, and isolation rather than interpersonal threat from other people, so this item is not well supported by the trauma type or the other selected items."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Pain Recall"
+        ],
+        "Negative Appraisals": [
+          "Mistrust"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Others Cycling: People cycling",
+          "explanation": "For trauma involving the unexpected death of a loved one, ambulances can plausibly cue the death context and workplace cues may be idiosyncratically linked, but 'People cycling' is hard to connect clinically unless the loved one died in a cycling-related incident, which is not reflected anywhere else in threat, appraisals, or memory. It stands out as a trigger with no supporting context in the rest of the profile."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "The memory profile is dominated by grief-related recall and affective reliving without clear imagery, which fits bereavement trauma. 'Intense shame' on recall is not impossible, but here it lacks support from the negative appraisals, which focus on identity loss, isolation, and life destruction rather than self-blame, guilt, or humiliation. In this profile, shame is insufficiently integrated with the rest of the formulation and trauma type."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Others Cycling"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 2,
+    "passed": 1,
+    "failed": 1,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 6775,
+    "output": 9633,
+    "total": 16408
+  },
+  "vignette": "Kofi had been a painter for thirty years, a man who found his world in color and form. His life with his wife, Ama, had been the steady ground beneath his feet. That ground vanished six months ago on a Tuesday. He was working on a large mural in a new corporate lobby, a swirl of blues and golds, when Ama stopped by with lunch. She was smiling, holding up the bag, when she simply collapsed onto the polished concrete floor. The memory is not a story for Kofi, but a series of searing, silent pictures: the vibrant fabric of her dress against the grey floor, the frantic look in the eyes of a security guard, the piercing blue-and-white flash of the ambulance lights reflecting in the lobby's glass walls. Because these fragments were so vivid and sensory, they seemed to prime his senses, making him acutely sensitive to anything in his environment that echoed them. He remembers no sound, only the overwhelming feeling of a world ending.\n\nIn the weeks that followed, these images became his unwelcome companions. He tried to return to the mural, believing that finishing it would be an act of honor. But stepping into the lobby, his workplace, was like stepping back into the moment of impact. The sight of the spot where she fell would instantly conjure the fragmented visual memories, and with them, an annihilating wave of grief. The distant wail of a siren on the street outside would cause his entire body to seize up, his muscles clenching in anticipation of a danger that had already struck. He had come to believe his life was utterly destroyed by that moment, and being in the place where it happened only cemented that conviction. He abandoned the commission, leaving the mural half-finished, and hasn't picked up a brush since.\n\nThis sense of a ruined life began to poison everything. The belief that he was no longer the man he once was—that vibrant, creative person was gone, replaced by this hollowed-out shell—left him feeling profoundly isolated from everyone, even his own family. It felt as if his mind, convinced of its own damage, would compulsively return to the scene of the crime, replaying the images of Ama’s collapse as if searching for proof of his irreparable state. This conviction of his own ruin made him exquisitely sensitive to any reminder of his loss; a conversation about someone's aging parent or a friend's illness would feel like a direct threat, a confirmation that the world was nothing but a series of tragedies waiting to happen. Because he felt so broken and apart from others, he could find no safety anywhere. Even in the familiar quiet of his own home, his body remained on high alert, coiled and tense as if awaiting another ambush. The nights are the worst, when the darkness seems to amplify every creak of the house, and he lies awake for hours, vigilant and certain that something terrible is about to happen.\n\nThe different facets of his suffering now feed one another in a relentless cycle. His constant physical tension seems to scan the world for threats, making him hyper-aware of triggers like ambulances or talk of loss, which in turn brings the memories flooding back. The more his body braces for another catastrophe, the more his mind seems to dredge up the images of the last one. Likewise, the memories themselves confirm his deepest fears: seeing Ama on the floor again proves that his life is indeed destroyed and that he is right to feel constantly on guard. Sometimes, the feeling comes without a clear picture—a sudden, crushing weight of grief and terror that descends for no reason, leaving him breathless. This disembodied emotion is almost worse than the images; it reinforces his fear that he is losing his mind, that he has been fundamentally and permanently broken by what happened.\n\nKofi’s world has shrunk to the four walls of his house. He avoids friends, knowing he cannot bear to hear them talk about their lives, their partners, their futures. The isolation he feels has become a physical reality he enforces himself. He came to therapy at the urging of his sister-in-law, who told him, \"Ama would not want you to disappear.\" Kofi isn't sure who he is anymore, or if the man he was can ever be found again. He is terrified of talking about that day, certain it will shatter what little is left of him, but a small, desperate part of him hopes to one day be able to stand in front of a canvas and feel something other than fear."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Kofi had been a painter for thirty years, a man who found his world in color and form. His life with his wife, Ama, had been the steady ground beneath his feet. That ground vanished six months ago on a Tuesday. He was working on a large mural in a new corporate lobby, a swirl of blues and golds, when Ama stopped by with lunch. She was smiling, holding up the bag, when she simply collapsed onto the polished concrete floor. The memory is not a story for Kofi, but a series of searing, silent pictures: the vibrant fabric of her dress against the grey floor, the frantic look in the eyes of a security guard, the piercing blue-and-white flash of the ambulance lights reflecting in the lobby's glass walls. He remembers no sound, only the overwhelming feeling of a world ending.\n\nIn the weeks that followed, these images became his unwelcome companions. He tried to return to the mural, believing that finishing it would be an act of honor. But stepping into the lobby, his workplace, was like stepping back into the moment of impact. The sight of the spot where she fell would instantly conjure the fragmented visual memories, and with them, an annihilating wave of grief. The distant wail of a siren on the street outside would cause his entire body to seize up, his muscles clenching in anticipation of a danger that had already struck. He had come to believe his life was utterly destroyed by that moment, and being in the place where it happened only cemented that conviction. He abandoned the commission, leaving the mural half-finished, and hasn't picked up a brush since.\n\nThis sense of a ruined life began to poison everything. The belief that he was no longer the man he once was—that vibrant, creative person was gone, replaced by this hollowed-out shell—left him feeling profoundly isolated from everyone, even his own family. This conviction of his own ruin made him exquisitely sensitive to any reminder of his loss; a conversation about someone's aging parent or a friend's illness would feel like a direct threat, a confirmation that the world was nothing but a series of tragedies waiting to happen. Because he felt so broken and apart from others, he could find no safety anywhere. Even in the familiar quiet of his own home, his body remained on high alert, coiled and tense as if awaiting another ambush. The nights are the worst, when the darkness seems to amplify every creak of the house, and he lies awake for hours, vigilant and certain that something terrible is about to happen.\n\nThe different facets of his suffering now feed one another in a relentless cycle. His constant physical tension seems to scan the world for threats, making him hyper-aware of triggers like ambulances or talk of loss, which in turn brings the memories flooding back. The more his body braces for another catastrophe, the more his mind seems to dredge up the images of the last one. Likewise, the memories themselves confirm his deepest fears: seeing Ama on the floor again proves that his life is indeed destroyed and that he is right to feel constantly on guard. Sometimes, the feeling comes without a clear picture—a sudden, crushing weight of grief and terror that descends for no reason, leaving him breathless. This disembodied emotion is almost worse than the images; it reinforces his fear that he is losing his mind, that he has been fundamentally and permanently broken by what happened.\n\nKofi’s world has shrunk to the four walls of his house. He avoids friends, knowing he cannot bear to hear them talk about their lives, their partners, their futures. The isolation he feels has become a physical reality he enforces himself. He came to therapy at the urging of his sister-in-law, who told him, \"Ama would not want you to disappear.\" Kofi isn't sure who he is anymore, or if the man he was can ever be found again. He is terrified of talking about that day, certain it will shatter what little is left of him, but a small, desperate part of him hopes to one day be able to stand in front of a canvas and feel something other than fear.", "passed": false, "violations": [{"edge": "Negative Appraisals -> Memory", "explanation": "The vignette does not describe a causal link where the patient's negative beliefs about himself or the world lead to the re-experiencing of the trauma memory."}, {"edge": "Memory -> Triggers", "explanation": "The vignette does not describe a causal link where the trauma memory increases the patient's sensitivity to triggers or reminders."}], "violation_count": 2, "feedback": "REQUIRED EDGES MISSING:\n- Negative Appraisals -> Memory: The vignette does not describe a causal link where the patient's negative beliefs about himself or the world lead to the re-experiencing of the trauma memory.\n- Memory -> Triggers: The vignette does not describe a causal link where the trauma memory increases the patient's sensitivity to triggers or reminders."},
+
+    {"vignette": "Kofi had been a painter for thirty years, a man who found his world in color and form. His life with his wife, Ama, had been the steady ground beneath his feet. That ground vanished six months ago on a Tuesday. He was working on a large mural in a new corporate lobby, a swirl of blues and golds, when Ama stopped by with lunch. She was smiling, holding up the bag, when she simply collapsed onto the polished concrete floor. The memory is not a story for Kofi, but a series of searing, silent pictures: the vibrant fabric of her dress against the grey floor, the frantic look in the eyes of a security guard, the piercing blue-and-white flash of the ambulance lights reflecting in the lobby's glass walls. Because these fragments were so vivid and sensory, they seemed to prime his senses, making him acutely sensitive to anything in his environment that echoed them. He remembers no sound, only the overwhelming feeling of a world ending.\n\nIn the weeks that followed, these images became his unwelcome companions. He tried to return to the mural, believing that finishing it would be an act of honor. But stepping into the lobby, his workplace, was like stepping back into the moment of impact. The sight of the spot where she fell would instantly conjure the fragmented visual memories, and with them, an annihilating wave of grief. The distant wail of a siren on the street outside would cause his entire body to seize up, his muscles clenching in anticipation of a danger that had already struck. He had come to believe his life was utterly destroyed by that moment, and being in the place where it happened only cemented that conviction. He abandoned the commission, leaving the mural half-finished, and hasn't picked up a brush since.\n\nThis sense of a ruined life began to poison everything. The belief that he was no longer the man he once was—that vibrant, creative person was gone, replaced by this hollowed-out shell—left him feeling profoundly isolated from everyone, even his own family. It felt as if his mind, convinced of its own damage, would compulsively return to the scene of the crime, replaying the images of Ama’s collapse as if searching for proof of his irreparable state. This conviction of his own ruin made him exquisitely sensitive to any reminder of his loss; a conversation about someone's aging parent or a friend's illness would feel like a direct threat, a confirmation that the world was nothing but a series of tragedies waiting to happen. Because he felt so broken and apart from others, he could find no safety anywhere. Even in the familiar quiet of his own home, his body remained on high alert, coiled and tense as if awaiting another ambush. The nights are the worst, when the darkness seems to amplify every creak of the house, and he lies awake for hours, vigilant and certain that something terrible is about to happen.\n\nThe different facets of his suffering now feed one another in a relentless cycle. His constant physical tension seems to scan the world for threats, making him hyper-aware of triggers like ambulances or talk of loss, which in turn brings the memories flooding back. The more his body braces for another catastrophe, the more his mind seems to dredge up the images of the last one. Likewise, the memories themselves confirm his deepest fears: seeing Ama on the floor again proves that his life is indeed destroyed and that he is right to feel constantly on guard. Sometimes, the feeling comes without a clear picture—a sudden, crushing weight of grief and terror that descends for no reason, leaving him breathless. This disembodied emotion is almost worse than the images; it reinforces his fear that he is losing his mind, that he has been fundamentally and permanently broken by what happened.\n\nKofi’s world has shrunk to the four walls of his house. He avoids friends, knowing he cannot bear to hear them talk about their lives, their partners, their futures. The isolation he feels has become a physical reality he enforces himself. He came to therapy at the urging of his sister-in-law, who told him, \"Ama would not want you to disappear.\" Kofi isn't sure who he is anymore, or if the man he was can ever be found again. He is terrified of talking about that day, certain it will shatter what little is left of him, but a small, desperate part of him hopes to one day be able to stand in front of a canvas and feel something other than fear.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,205 @@
+PERSONA 238  |  2026-05-02 19:46:37
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-chat
+    persona_crafter      deepseek-chat
+    vignette_crafter     deepseek-chat
+    vignette_validator   deepseek-chat
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             49
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      City Council Member
+  trauma_type     Combat
+  pcl5            42
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Sensory Distraction: I put on loud music or TV
+    • Thought Monitoring: constantly monitor own thoughts for signs of going crazy
+    • Avoid Being Touched: Any form of physical contact with others
+  Threat:
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+    • Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    • Sleep Problems: Trouble falling or staying asleep
+  Memory:
+    • Incomplete Picture: I feel like I am only remembering parts of what happened and the rest is missing
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+  Negative Appraisals:
+    • Body as Enemy: My body keeps reacting as if I am still in danger even when I am safe
+    • World is Dangerous: The world is a dangerous place
+    • Hypervigilance: I have to be on guard all the time
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.2768
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.4450
+  Memory → Threat                                    0.7496
+  Memory → Negative Appraisals                       0.8847
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.2921
+  Threat → Negative Appraisals                       0.4268
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0413
+  Maladaptive Strategies → Negative Appraisals       0.9489
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Lost Community: I have lost my connection to my community and culture
+    explanation: 'Lost Community and culture' is not impossible for a combat trauma survivor, but for a 49-year-old married male European city council member it is the least coherent appraisal in this profile and is weakly anchored to the rest of the selected nodes. The rest of the profile centers on bodily danger, touch/startle, fragmented trauma recall, and safety distrust; this item instead implies a culturally/community dislocation theme that is not supported elsewhere in Triggers/Threat/Memory/Maladaptive Strategies.
+    item:        Memory / Memory: Grief on Recall: When I remember the event I feel overwhelming grief
+    explanation: 'Overwhelming grief on recall' is not inherently inconsistent, but here it is the least coherent memory item relative to the formulation and other selected items. The profile is dominated by fear-based threat, bodily vulnerability, touch alarm, and cognitive disorganization of recall. A grief-dominant recall item without corresponding loss/bereavement appraisals or related strategies makes the memory cluster less internally aligned.
+  [2] FAIL
+    item:        Negative Appraisals / Physical Vulnerability: My body has been permanently damaged by what happened
+    explanation: The profile is largely coherent for a middle-aged male combat survivor, but this appraisal is the main mismatch. 'My body has been permanently damaged' implies a salient lasting physical injury. That idea is not supported elsewhere in the selected profile: memory items focus on fragmented, terror-laden recall; threat items emphasize current danger, mistrust of safety, startle to touch, and sleep disturbance; maladaptive strategies emphasize sensory distraction, thought monitoring, and avoidance of touch. There are no triggers selected, and no other items indicate ongoing medical consequences or trauma themes centered on bodily injury. In this profile, the appraisal reads as if it belongs to a different subtype centered on physical injury rather than the represented combat-related fear/terror formulation.
+  [3] FAIL
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: For a combat trauma profile in a 49-year-old male, this specific self-blame item is the main coherence problem. The rest of the profile centers on persistent danger, touch-triggered alarm, fragmented/terror-laden memory, and defensive avoidance, which fits combat-related PTSD. In contrast, 'the event happened because of the way I acted' implies a strong internal-causal guilt formulation that is not otherwise supported by the selected memory, threat, or strategy items. This makes the appraisal set less coherent with the overall profile and with the formulation, where Memory and Threat strongly feed Negative Appraisals focused on ongoing danger rather than responsibility for causing the trauma. Self-blame can occur in combat PTSD, but here it is insufficiently connected to the other selected items and stands out as the least clinically coherent item.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,985
+  output:       884
+  total:      3,869
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+David is a forty-nine-year-old city council member, married for over twenty years, who served a
+single deployment in a combat zone nearly two decades ago. The event that haunts him happened on a
+routine patrol: an improvised explosive device detonated beneath the lead vehicle in his convoy. He
+remembers the shockwave, the heat, the screaming—but only in fragments. When he tries to describe it
+to anyone, he loses the thread, unable to hold the sequence together, and the terror of that moment
+floods back as if he were still standing in the smoke. He has never been able to piece together a
+full account, and that incompleteness has come to feel like a personal failure.
+
+In the years since returning home, David has come to believe that the world is fundamentally
+dangerous, a conviction that hardened quietly over time. Even when his wife tells him they are safe
+in their own home, he finds it impossible to trust that reassurance. His body remains on alert, as
+though it has decided he is still in danger no matter what his mind knows. He feels betrayed by his
+own physical reactions—his heart racing, his muscles tensing—because they never seem to get the
+message that the war is over. This sense of the body as an enemy has made him hypervigilant; he
+scans every room he enters, every face in a crowd, convinced that threat is hiding just out of
+sight. He has to be on guard all the time, because relaxing even for a moment feels like an
+invitation to catastrophe.
+
+The hypervigilance feeds directly into his sleep problems. He lies awake most nights, his mind
+cycling through imagined scenarios of what could go wrong, and when he finally drifts off, fragments
+of the explosion surface in nightmares that jolt him back awake. The lack of rest only sharpens his
+sense that the world is hostile, and that he cannot let his guard down. On the rare occasions his
+wife touches him unexpectedly—a hand on his shoulder, a gentle nudge in bed—he reacts with alarm,
+flinching or pulling away before he can stop himself. This startle response has become a source of
+shame and distance between them, though he cannot seem to override it.
+
+To manage the constant pressure of his own vigilance, David has developed strategies that he knows
+are not healthy but that feel necessary. He puts on loud music or the television at high volume
+whenever he is alone, using the noise to drown out the intrusive images and the internal monitoring
+of his own thoughts. He spends a great deal of mental energy checking his own mind for signs that he
+is losing control, that he is going crazy, because the intensity of his fear sometimes feels like it
+must be a precursor to something worse. He has also begun to avoid all forms of physical contact
+with others, steering clear of handshakes at council meetings and sitting with his chair angled away
+from colleagues. These strategies provide a thin layer of control, but they also keep him isolated
+and exhausted.
+
+The more he avoids being touched, the more his memory of the explosion feels fragmented and
+incomplete—as if the act of pulling away from contact reinforces the sense that the past is
+something he cannot fully hold. And the more he monitors his thoughts and fills his environment with
+noise, the more he convinces himself that he is fragile, barely holding it together, which deepens
+his appraisal of the world as dangerous and his body as untrustworthy. The terror he feels when
+remembering the event is so vivid that it loops back and strengthens his need to distract himself,
+creating a cycle he cannot break on his own.
+
+What finally brought David to seek help was a moment at a public town hall meeting last month. A
+constituent touched his arm to get his attention, and he wheeled around with such force that the
+room went silent. He saw the shock on the woman's face, and later that night, lying awake, he
+realized he could not remember the rest of the meeting at all—only the flash of heat and the sound
+of the explosion, as if the two moments had merged. He is afraid that he is losing his grip, that
+his work and his marriage are slipping away, but he is equally afraid that if he stops being
+vigilant, something terrible will finally happen.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+David is a forty-nine-year-old city council member, married for over twenty years, who served a
+single deployment in a combat zone nearly two decades ago. The event that haunts him happened on a
+routine patrol: an improvised explosive device detonated beneath the lead vehicle in his convoy. He
+remembers the shockwave, the heat, the screaming—but only in fragments. When he tries to describe it
+to anyone, he loses the thread, unable to hold the sequence together, and the terror of that moment
+floods back as if he were still standing in the smoke. He has never been able to piece together a
+full account, and that incompleteness has come to feel like a personal failure.
+
+In the years since returning home, David has come to believe that the world is fundamentally
+dangerous, a conviction that hardened quietly over time. Even when his wife tells him they are safe
+in their own home, he finds it impossible to trust that reassurance. His body remains on alert, as
+though it has decided he is still in danger no matter what his mind knows. He feels betrayed by his
+own physical reactions—his heart racing, his muscles tensing—because they never seem to get the
+message that the war is over. This sense of the body as an enemy has made him hypervigilant; he
+scans every room he enters, every face in a crowd, convinced that threat is hiding just out of
+sight. He has to be on guard all the time, because relaxing even for a moment feels like an
+invitation to catastrophe.
+
+The hypervigilance feeds directly into his sleep problems. He lies awake most nights, his mind
+cycling through imagined scenarios of what could go wrong, and when he finally drifts off, fragments
+of the explosion surface in nightmares that jolt him back awake. The lack of rest only sharpens his
+sense that the world is hostile, and that he cannot let his guard down. On the rare occasions his
+wife touches him unexpectedly—a hand on his shoulder, a gentle nudge in bed—he reacts with alarm,
+flinching or pulling away before he can stop himself. This startle response has become a source of
+shame and distance between them, though he cannot seem to override it.
+
+To manage the constant pressure of his own vigilance, David has developed strategies that he knows
+are not healthy but that feel necessary. He puts on loud music or the television at high volume
+whenever he is alone, using the noise to drown out the intrusive images and the internal monitoring
+of his own thoughts. He spends a great deal of mental energy checking his own mind for signs that he
+is losing control, that he is going crazy, because the intensity of his fear sometimes feels like it
+must be a precursor to something worse. He has also begun to avoid all forms of physical contact
+with others, steering clear of handshakes at council meetings and sitting with his chair angled away
+from colleagues. These strategies provide a thin layer of control, but they also keep him isolated
+and exhausted.
+
+The more he avoids being touched, the more his memory of the explosion feels fragmented and
+incomplete—as if the act of pulling away from contact reinforces the sense that the past is
+something he cannot fully hold. And the more he monitors his thoughts and fills his environment with
+noise, the more he convinces himself that he is fragile, barely holding it together, which deepens
+his appraisal of the world as dangerous and his body as untrustworthy. The terror he feels when
+remembering the event is so vivid that it loops back and strengthens his need to distract himself,
+creating a cycle he cannot break on his own.
+
+What finally brought David to seek help was a moment at a public town hall meeting last month. A
+constituent touched his arm to get his attention, and he wheeled around with such force that the
+room went silent. He saw the shock on the woman's face, and later that night, lying awake, he
+realized he could not remember the rest of the meeting at all—only the flash of heat and the sound
+of the explosion, as if the two moments had merged. He is afraid that he is losing his grip, that
+his work and his marriage are slipping away, but he is equally afraid that if he stops being
+vigilant, something terrible will finally happen.

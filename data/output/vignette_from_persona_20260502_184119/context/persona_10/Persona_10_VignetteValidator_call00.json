@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "agent_name": "Persona_10_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-02 18:52:34"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Memory\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Maladaptive Strategies\n  - Triggers → Threat\n  - Triggers → Memory\n  - Memory → Threat\n  - Threat → Maladaptive Strategies\n  - Threat → Memory\n  - Threat → Triggers\n  - Maladaptive Strategies → Memory\n  - Maladaptive Strategies → Triggers\n  - Maladaptive Strategies → Threat\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nMārama grew up with a father whose anger arrived without warning—a raised voice, a slammed fist, and then the physical blow. She remembers some moments with startling clarity: the way his shadow fell across the kitchen floor, the smell of his sweat. But other parts are gone entirely, like a film with missing reels. What remains feels as though it happened to a different child, not to her. Now thirty, married, working as a plumber, she has built a life far from that house. Yet the past intrudes in ways she cannot control. A customer shouting across a job site, a supervisor’s calmly expressed frustration, even the sensation of being watched while she works under a sink—these moments trigger a cascade she barely understands. Her body tightens, her heart pounds, and she finds herself gasping at an unexpected footstep nearby. Her mind, she says, “goes somewhere else,” and the fragmented memories surface like shards of glass. She has learned to cope by pushing those thoughts away, by keeping her mind occupied with constant mental tasks, and by skipping meals—she lost eight pounds in the past two months. The restriction gives her a sense of control, but it also leaves her lightheaded and more vulnerable to the startle reflex that follows any sudden movement.\n\nThe causal loops are tight and self-reinforcing. When a colleague expresses even calm anger, Mārama’s body goes on alert, her concentration dissolves, and the alien, incomplete memories press closer. That immediate threat response makes her even more vigilant for the next angry tone, and the more she tries to suppress the memories, the more fragmented they become—and the more dangerous her environment feels. She often lies in bed after work, muscles still rigid, trying to distract herself with a podcast, but the effort of constant mental vigilance exhausts her, which in turn amplifies her sense of bodily tension. She has also noticed that the harder she avoids thinking about the trauma, the more likely she is to be startled by a sudden sound at the shop, as if her mind is scanning for threats even as it tries to look away. The undereating, she believes, helps her feel less—less emotion, less memory—but the physical weakness only makes her feel watched and exposed. Her husband has begun to worry; he sees her flinch when he enters a room quietly. Mārama came to therapy after a client’s angry outburst made her freeze under a bathroom sink for twenty minutes, unable to move or speak. What frightens her most is the sense that she is losing her grip on the present, that the past is not staying where it belongs. She hopes the therapy can help her feel safe in her own body again—and perhaps finally fill in the gaps that feel like they belong to someone else.\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Memory → Threat"
+    ],
+    "violation_explanations": [
+      "The vignette does not show that the trauma memory directly increases the sense of threat; threat and memory appear as concurrent responses to triggers, and maladaptive strategies affect both, but memory is not depicted as causing threat."
+    ]
+  }
+}

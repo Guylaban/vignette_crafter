@@ -1,0 +1,202 @@
+PERSONA 315  |  2026-05-02 19:20:12
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             65
+  gender          Male
+  ethnicity       North American
+  relationship_status Married
+  occupation      Prosecutor
+  trauma_type     Police violence
+  pcl5            65
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Moral Violation: People misbehaving
+    • Auditory (Language Confusion): Incomprehensible chatter
+    • Authority Presence: Police
+  Maladaptive Strategies:
+    • Sensory Distraction: I put on loud music or TV
+    • Reassurance Seeking: I keep asking others to reassure me that I am okay
+    • Checking Surroundings: constantly scan environment for signs of threat
+  Threat:
+    • Watching Others: I watch other people closely for signs that they might harm me
+    • Sleep Problems: Trouble falling or staying asleep
+    • Hypervigilance: Being superalert or watchful or on guard
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.5710
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.2635
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.6543
+  Maladaptive Strategies → Threat                    0.6927
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Funerals/Graves: Funerals, cemeteries, or grief-related events
+    explanation: The trigger set is not well anchored to the indexed trauma of police violence. 'Funerals/Graves' could occur if the trauma involved a death, but that link is not otherwise supported by the rest of the profile, making it a weak and clinically questionable trigger in this case.
+    item:        Threat / Triggers: Auditory (Language Confusion): Incomprehensible chatter
+    explanation: 'Incomprehensible chatter' is a nonspecific trigger that does not connect clearly to the other selected threat or strategy items, reducing coherence of the Triggers → Threat pattern.
+    item:        Maladaptive Strategies / Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm
+    explanation: 'Risky Behavior' is difficult to reconcile with the rest of the threat profile, which is dominated by hypervigilance and fear of harm. It points toward behavioral disinhibition rather than perceived external threat, and is not supported by the selected maladaptive strategies.
+  [2] FAIL
+    item:        Threat / Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm
+    explanation: 'Risky Behavior' is hard to reconcile with the rest of this profile. The trigger set centers on police presence, moral violation, and incomprehensible chatter, while the threat items emphasize hypervigilance and fear of being harmed. The maladaptive strategies are avoidance/distraction, reassurance seeking, and checking surroundings, which fit a fearful, threat-monitoring presentation. In contrast, taking excessive risks suggests a different behavioral style that is not supported elsewhere in the selected items or by the active edge pattern, making this item clinically incoherent within this profile.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,867
+  output:     4,186
+  total:      7,053
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Robert, a distinguished prosecutor of 65, sought therapy after decades of a career spent upholding
+the law, now finding himself profoundly unsettled by its very agents. The incident that shattered
+his peace occurred nearly two years ago. He had been walking home from a late evening at the office,
+taking a shortcut through a park where a small, impromptu gathering had turned into a minor public
+disturbance. Suddenly, sirens blared, and police vehicles swarmed the area. In the ensuing chaos,
+Robert witnessed what he perceived as a disproportionate and brutal response to a relatively minor
+infraction. He found himself caught in the periphery, pushed and yelled at, unable to make sense of
+the overlapping, **incomprehensible chatter** from radios and shouting officers. The sight of batons
+striking seemingly compliant individuals, the raw display of power, and the feeling of being utterly
+helpless despite his professional standing, imprinted itself deeply. It was a profound **moral
+violation** of his sense of justice, delivered by the very **authority presence** he had always
+worked alongside.
+
+Initially, Robert dismissed the lingering unease as temporary shock. But soon, the world began to
+feel subtly menacing. He found himself in a state of **hypervigilance**, constantly on edge, his
+senses acutely tuned to his surroundings. This pervasive sense of **threat** manifested particularly
+as **watching others**; in court, in grocery stores, even at family gatherings, he would
+meticulously observe people’s movements, expressions, and intentions, searching for any sign that
+they might harm him or those around him. The constant internal scanning made it almost impossible
+for him to truly relax, and he began experiencing significant **sleep problems**, struggling to fall
+asleep and waking frequently throughout the night, his mind racing.
+
+These unsettling internal states, the pervasive **threat** and the constant **hypervigilance**,
+inexorably led Robert to adopt a series of **maladaptive strategies** in an attempt to regain some
+control. When the anxiety became overwhelming, he would retreat to his study, putting on **loud
+music or TV** to create a wall of sound, hoping to drown out the intrusive thoughts and the
+perceived dangers lurking just beyond the noise. He also began **checking his surroundings** with
+increasing frequency, a habit that became particularly noticeable in his professional life. In the
+busy courthouse, during a recess, he would be seen scanning the hallway, assessing every face, every
+movement, rather than engaging in collegial conversation. At home, he would ask his wife, Maria,
+repeatedly, **“Are we okay? Is everything alright?”**, seeking constant **reassurance** that they
+were safe, that the world was not about to erupt into chaos.
+
+However, these very **maladaptive strategies** began to feed back into his distress. His **constant
+scanning of the environment for signs of threat** paradoxically made him more sensitive to potential
+**triggers**. A group of young men loitering near the courthouse, engaging in what he interpreted as
+**people misbehaving**, would immediately register as a heightened danger, confirming his need to be
+vigilant. Similarly, the sight of a patrol car, an **authority presence** he once respected, now
+triggered an immediate rush of adrenaline and fear, sending his hypervigilance soaring. This created
+a self-reinforcing loop where the very act of trying to manage his fear inadvertently sharpened his
+perception of danger. The temporary relief from **sensory distraction** or **reassurance seeking**
+was fleeting, with the underlying sense of **threat** returning quickly, sometimes more intensely,
+making his **sleep problems** even worse and further entrenching his belief that he lived in a
+perilous world.
+
+The cumulative effect on Robert’s life was profound. His incessant **reassurance seeking** began to
+wear on Maria, who, though patient, found herself increasingly drained by his pervasive anxiety. His
+focus at work, once legendary, had suffered; he found it harder to concentrate on complex legal
+arguments, often distracted by the need to **watch others** in the courtroom, or by the sudden surge
+of anxiety whenever he encountered an **authority presence**. He came to therapy exhausted, feeling
+trapped in a relentless cycle of fear, desperately hoping to find a way back to the man he once
+was—a man who felt safe in his own skin, and in the world he had dedicated his life to protecting.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Robert, a distinguished prosecutor of 65, sought therapy after decades of a career spent upholding
+the law, now finding himself profoundly unsettled by its very agents. The incident that shattered
+his peace occurred nearly two years ago. He had been walking home from a late evening at the office,
+taking a shortcut through a park where a small, impromptu gathering had turned into a minor public
+disturbance. Suddenly, sirens blared, and police vehicles swarmed the area. In the ensuing chaos,
+Robert witnessed what he perceived as a disproportionate and brutal response to a relatively minor
+infraction. He found himself caught in the periphery, pushed and yelled at, unable to make sense of
+the overlapping, **incomprehensible chatter** from radios and shouting officers. The sight of batons
+striking seemingly compliant individuals, the raw display of power, and the feeling of being utterly
+helpless despite his professional standing, imprinted itself deeply. It was a profound **moral
+violation** of his sense of justice, delivered by the very **authority presence** he had always
+worked alongside.
+
+Initially, Robert dismissed the lingering unease as temporary shock. But soon, the world began to
+feel subtly menacing. He found himself in a state of **hypervigilance**, constantly on edge, his
+senses acutely tuned to his surroundings. This pervasive sense of **threat** manifested particularly
+as **watching others**; in court, in grocery stores, even at family gatherings, he would
+meticulously observe people’s movements, expressions, and intentions, searching for any sign that
+they might harm him or those around him. The constant internal scanning made it almost impossible
+for him to truly relax, and he began experiencing significant **sleep problems**, struggling to fall
+asleep and waking frequently throughout the night, his mind racing.
+
+These unsettling internal states, the pervasive **threat** and the constant **hypervigilance**,
+inexorably led Robert to adopt a series of **maladaptive strategies** in an attempt to regain some
+control. When the anxiety became overwhelming, he would retreat to his study, putting on **loud
+music or TV** to create a wall of sound, hoping to drown out the intrusive thoughts and the
+perceived dangers lurking just beyond the noise. He also began **checking his surroundings** with
+increasing frequency, a habit that became particularly noticeable in his professional life. In the
+busy courthouse, during a recess, he would be seen scanning the hallway, assessing every face, every
+movement, rather than engaging in collegial conversation. At home, he would ask his wife, Maria,
+repeatedly, **“Are we okay? Is everything alright?”**, seeking constant **reassurance** that they
+were safe, that the world was not about to erupt into chaos.
+
+However, these very **maladaptive strategies** began to feed back into his distress. His **constant
+scanning of the environment for signs of threat** paradoxically made him more sensitive to potential
+**triggers**. A group of young men loitering near the courthouse, engaging in what he interpreted as
+**people misbehaving**, would immediately register as a heightened danger, confirming his need to be
+vigilant. Similarly, the sight of a patrol car, an **authority presence** he once respected, now
+triggered an immediate rush of adrenaline and fear, sending his hypervigilance soaring. This created
+a self-reinforcing loop where the very act of trying to manage his fear inadvertently sharpened his
+perception of danger. The temporary relief from **sensory distraction** or **reassurance seeking**
+was fleeting, with the underlying sense of **threat** returning quickly, sometimes more intensely,
+making his **sleep problems** even worse and further entrenching his belief that he lived in a
+perilous world.
+
+The cumulative effect on Robert’s life was profound. His incessant **reassurance seeking** began to
+wear on Maria, who, though patient, found herself increasingly drained by his pervasive anxiety. His
+focus at work, once legendary, had suffered; he found it harder to concentrate on complex legal
+arguments, often distracted by the need to **watch others** in the courtroom, or by the sudden surge
+of anxiety whenever he encountered an **authority presence**. He came to therapy exhausted, feeling
+trapped in a relentless cycle of fear, desperately hoping to find a way back to the man he once
+was—a man who felt safe in his own skin, and in the world he had dedicated his life to protecting.

@@ -1,0 +1,669 @@
+PERSONA 447  |  2026-05-02 23:07:57
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             71
+  gender          Female
+  ethnicity       South Eastern Asian
+  relationship_status Married
+  occupation      Lawyer
+  trauma_type     Assault
+  pcl5            71
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Auditory (Sounds): Related sounds
+    • Sexual Objectification: Being looked at sexually
+    • Somatic (Heart Racing): Own heart racing or pounding
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Threat in Delays: When something takes longer than expected I assume something bad is happening
+    • Night Vigilance: I find it harder to feel safe at night than during the day
+  Negative Appraisals:
+    • Body Unreliable: I can no longer trust my own body
+    • Hypervigilance: I have to be on guard all the time
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.8190
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.1737
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.5641
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.4687
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9991
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Being Praised: Receiving praise or positive attention
+    explanation: 'Being praised' is a hard-to-explain trigger in this profile. With assault trauma, the other trigger items (related sounds, being naked) plausibly cue danger/vulnerability, and the threat items are about danger and vigilance. Praise/positive attention points in a very different interpersonal direction and is not supported by corresponding appraisals or threat content, so it weakens cross-node coherence.
+    item:        Negative Appraisals / Negative Appraisals: Fear Going Crazy: My reactions since the event mean that I am going crazy
+    explanation: 'Fear going crazy' is poorly aligned with the rest of the profile. The threat items emphasize external danger and vigilance, and the trigger pattern centers on assault-related cues. A dominant appraisal of losing one's mind would usually be accompanied by threat content about internal loss of control or dissociation-like danger, which is absent here.
+  [2] FAIL
+    item:        Triggers / Triggers: Vulnerability: Being naked
+    explanation: For an assault trauma, the trigger pattern strongly suggests a sexual assault context (being naked, being looked at sexually). That is not impossible, but the rest of the profile does not support that specific context strongly enough to make the set cohere: there are no matching sexual-assault-linked threat or memory items, and the only bodily appraisal is about the body being unreliable rather than violated or contaminated.
+    item:        Negative Appraisals / Triggers: Sexual Objectification: Being looked at sexually
+    explanation: 'I can no longer trust my own body' is more typically linked to injury, dissociation, panic-like bodily cues, or medical trauma. It does not fit well with the mainly sexual-vulnerability trigger pattern unless there is additional supporting content, which is absent here.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     26,540
+  output:     3,217
+  total:     29,757
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Maya, a 71-year-old lawyer of South Eastern Asian descent, sat in her office, her fingers nervously
+tapping on the desk. It had been nearly a year since the night that had changed everything. On that
+fateful evening, while walking to her car after a late meeting, she was approached by a man who
+assaulted her. The memory still replayed vividly in her mind; the sound of his voice, the way he
+looked at her as if she were nothing more than an object to be used. That moment had engraved itself
+into her psyche, and now, even the slightest auditory trigger could send her spiraling into a state
+of panic. The faint sound of a car door slamming or the laughter of a group of men outside her
+office could make her heart race uncontrollably, leaving her gasping for breath as if she were
+reliving the moment of the attack.
+
+Since the assault, Maya felt a pervasive sense of threat lurking just beneath the surface of her
+daily life. She found herself consumed by strong negative emotions—fear that someone might attack
+her again, anger at the violation she had endured, and a deep-seated guilt that perhaps she could
+have done something differently to avoid it. Nights were particularly harrowing; she felt unsafe,
+her senses heightened as if danger lurked in every shadow. The hours stretched endlessly, and any
+delay in her husband’s return home would ignite a torrent of anxious thoughts. When he was late, her
+mind raced with the worst possibilities, and she could almost hear the echo of her own heartbeat,
+pounding in her ears like a warning bell.
+
+Maya had come to believe that her body was no longer a reliable vessel. The once confident woman who
+navigated high-stakes negotiations with ease now viewed her own physical reactions with suspicion.
+She was hypervigilant, always on guard, as if the world had become a treacherous landscape filled
+with hidden threats. Every sound felt amplified, and she would flinch at the slightest hint of
+someone looking at her in a way she deemed sexual. It was as though she wore an invisible shield,
+yet it was a shield that felt increasingly flimsy and ineffective. The world, once a familiar place,
+now seemed fraught with danger, and she often felt trapped in a reality that was hostile and
+unwelcoming.
+
+These negative appraisals fed into her sense of threat, creating a vicious cycle that left her
+feeling more isolated than ever. The more she doubted her body’s ability to keep her safe, the more
+she felt compelled to avoid situations where she could be vulnerable. Social gatherings became
+daunting; she declined invitations, fearing that being in an unfamiliar environment might trigger
+her memories and feelings of helplessness. Each time she opted out of an event, her world shrank
+just a little more, reinforcing her belief that the outside world was indeed a dangerous place. The
+avoidance, she rationalized, was a necessary precaution, a way to ensure her safety in a world that
+felt increasingly threatening.
+
+As months passed, Maya's life became a series of calculated decisions aimed at minimizing her
+exposure to triggers. Her office, once a vibrant hub of activity, felt stiflingly small. She would
+often leave early, avoiding the late-night sounds that haunted her. Colleagues noticed her
+withdrawal but attributed it to her workload, unaware of the internal battle she fought daily. The
+heart-pounding fear she experienced when faced with auditory reminders of her trauma was now her
+constant companion, and each incident of hypervigilance only solidified her belief that she could
+not afford to trust anyone or anything.
+
+Maya finally decided to seek help when she realized that her coping mechanisms were no longer
+sufficient. The isolation and fear had begun to seep into her marriage, straining her relationship
+with her husband, who felt helpless to comfort her. What frightened her most was the thought of
+losing the love and support she so desperately needed, and she feared that she might never regain
+her former self. As she prepared for her first therapy session, she felt a flicker of hope
+intertwined with dread. Could she overcome the shadows of her past? Could she reclaim her trust in
+her body and the world around her? As she sat waiting for the therapist to call her in, these
+questions swirled in her mind, a mix of trepidation and longing for relief.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not establish how triggers influence Maya's sense of threat.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not convey how triggers lead to Maya's negative appraisals.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not illustrate how negative appraisals contribute to her sense of threat.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not demonstrate how negative appraisals result in triggers.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not show how the sense of threat affects the occurrence of triggers.
+
+  [2] FAIL
+Maya, a 71-year-old lawyer of South Eastern Asian descent, sat in her office, her fingers nervously
+tapping on the desk. It had been nearly a year since the night that had changed everything. On that
+fateful evening, while walking to her car after a late meeting, she was approached by a man who
+assaulted her. The memory still replayed vividly in her mind; the sound of his voice, the way he
+looked at her as if she were nothing more than an object to be used. That moment had engraved itself
+into her psyche, and now, even the slightest auditory trigger could send her spiraling into a state
+of panic. The faint sound of a car door slamming or the laughter of a group of men outside her
+office could make her heart race uncontrollably, leaving her gasping for breath as if she were
+reliving the moment of the attack.
+
+Since the assault, Maya felt a pervasive sense of threat lurking just beneath the surface of her
+daily life. Every time she heard a sound reminiscent of that night, the sense of threat intensified,
+making her body respond as if danger were imminent, even in safe spaces. She found herself consumed
+by strong negative emotions—fear that someone might attack her again, anger at the violation she had
+endured, and a deep-seated guilt that perhaps she could have done something differently to avoid it.
+Nights were particularly harrowing; she felt unsafe, her senses heightened as if danger lurked in
+every shadow. The hours stretched endlessly, and any delay in her husband’s return home would ignite
+a torrent of anxious thoughts. When he was late, her mind raced with the worst possibilities, and
+she could almost hear the echo of her own heartbeat, pounding in her ears like a warning bell.
+
+Maya had come to believe that her body was no longer a reliable vessel. The once confident woman who
+navigated high-stakes negotiations with ease now viewed her own physical reactions with suspicion.
+She was hypervigilant, always on guard, as if the world had become a treacherous landscape filled
+with hidden threats. Every sound felt amplified, and she would flinch at the slightest hint of
+someone looking at her in a way she deemed sexual. It was as though she wore an invisible shield,
+yet it was a shield that felt increasingly flimsy and ineffective. This belief that she was
+unprotected turned innocuous situations into potential threats, leading her to flinch at voices or
+looks that reminded her of the attack. The world, once a familiar place, now seemed fraught with
+danger, and she often felt trapped in a reality that was hostile and unwelcoming.
+
+These negative appraisals fed into her sense of threat, creating a vicious cycle that left her
+feeling more isolated than ever. Her conviction that she was permanently vulnerable meant she
+approached new situations braced for danger, heightening her anxiety and exacerbating the threat she
+felt from the world around her. The more she doubted her body’s ability to keep her safe, the more
+she felt compelled to avoid situations where she could be vulnerable. Social gatherings became
+daunting; she declined invitations, fearing that being in an unfamiliar environment might trigger
+her memories and feelings of helplessness. Each time she opted out of an event, her world shrank
+just a little more, reinforcing her belief that the outside world was indeed a dangerous place. This
+belief that she couldn’t trust her own judgment meant that even familiar settings began to be laced
+with fear, where her mind meticulously searched for cues that could confirm her worst fears. The
+avoidance, she rationalized, was a necessary precaution, a way to ensure her safety in a world that
+felt increasingly threatening.
+
+As months passed, Maya's life became a series of calculated decisions aimed at minimizing her
+exposure to triggers. Her office, once a vibrant hub of activity, felt stiflingly small. The
+background hum of danger she carried everywhere made ordinary cues feel like messages, with each
+sound amplifying her sense of threat and escalating her hypervigilance. She would often leave early,
+avoiding the late-night sounds that haunted her. Colleagues noticed her withdrawal but attributed it
+to her workload, unaware of the internal battle she fought daily. The heart-pounding fear she
+experienced when faced with auditory reminders of her trauma was now her constant companion, and
+each incident of hypervigilance only solidified her belief that she could not afford to trust anyone
+or anything.
+
+Maya finally decided to seek help when she realized that her coping mechanisms were no longer
+sufficient. The isolation and fear had begun to seep into her marriage, straining her relationship
+with her husband, who felt helpless to comfort her. What frightened her most was the thought of
+losing the love and support she so desperately needed, and she feared that she might never regain
+her former self. As she prepared for her first therapy session, she felt a flicker of hope
+intertwined with dread. Could she overcome the shadows of her past? Could she reclaim her trust in
+her body and the world around her? As she sat waiting for the therapist to call her in, these
+questions swirled in her mind, a mix of trepidation and longing for relief.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not establish a connection where triggers lead to a sense of threat.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not establish a connection where triggers lead to negative appraisals.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not establish a connection where negative appraisals lead to a sense of threat.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not establish a connection where negative appraisals lead to triggers.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not establish a connection where a sense of threat leads to triggers.
+
+  [3] FAIL
+Maya, a 71-year-old lawyer of South Eastern Asian descent, sat in her office, her fingers nervously
+tapping on the desk. It had been nearly a year since the night that had changed everything. On that
+fateful evening, while walking to her car after a late meeting, she was approached by a man who
+assaulted her. The memory still replayed vividly in her mind; the sound of his voice, the way he
+looked at her as if she were nothing more than an object to be used. That moment had engraved itself
+into her psyche, and now, even the slightest auditory trigger could send her spiraling into a state
+of panic. The faint sound of a car door slamming or the laughter of a group of men outside her
+office could make her heart race uncontrollably, leaving her gasping for breath as if she were
+reliving the moment of the attack. Each of these sounds ignited a potent sense of threat, making her
+body react as if danger were imminent, reinforcing her belief that she was still under siege. Since
+the assault, Maya felt a pervasive sense of threat lurking just beneath the surface of her daily
+life. Every time she heard a sound reminiscent of that night, the sense of threat intensified,
+making her body respond as if danger were imminent, even in safe spaces. She found herself consumed
+by strong negative emotions—fear that someone might attack her again, anger at the violation she had
+endured, and a deep-seated guilt that perhaps she could have done something differently to avoid it.
+These feelings led her to view every potential trigger with suspicion, as each reminder of the
+assault further entrenched her belief that she was fundamentally unsafe. Nights were particularly
+harrowing; she felt unsafe, her senses heightened as if danger lurked in every shadow. The hours
+stretched endlessly, and any delay in her husband’s return home would ignite a torrent of anxious
+thoughts. When he was late, her mind raced with the worst possibilities, and she could almost hear
+the echo of her own heartbeat, pounding in her ears like a warning bell. Maya had come to believe
+that her body was no longer a reliable vessel. The once confident woman who navigated high-stakes
+negotiations with ease now viewed her own physical reactions with suspicion. She was hypervigilant,
+always on guard, as if the world had become a treacherous landscape filled with hidden threats.
+Every sound felt amplified, and she would flinch at the slightest hint of someone looking at her in
+a way she deemed sexual. It was as though she wore an invisible shield, yet it was a shield that
+felt increasingly flimsy and ineffective. This belief that she was unprotected turned innocuous
+situations into potential threats, leading her to flinch at voices or looks that reminded her of the
+attack. The world, once a familiar place, now seemed fraught with danger, and she often felt trapped
+in a reality that was hostile and unwelcoming. These negative appraisals fed into her sense of
+threat, creating a vicious cycle that left her feeling more isolated than ever. Her conviction that
+she was permanently vulnerable meant she approached new situations braced for danger, heightening
+her anxiety and exacerbating the threat she felt from the world around her. This anxiety would often
+manifest when she encountered a man wearing a similar jacket to her assailant; the sight would send
+her heart racing, confirming her fears and renewing her sense of danger. The more she doubted her
+body’s ability to keep her safe, the more she felt compelled to avoid situations where she could be
+vulnerable. Social gatherings became daunting; she declined invitations, fearing that being in an
+unfamiliar environment might trigger her memories and feelings of helplessness. Each time she opted
+out of an event, her world shrank just a little more, reinforcing her belief that the outside world
+was indeed a dangerous place. This belief that she couldn’t trust her own judgment meant that even
+familiar settings began to be laced with fear, where her mind meticulously searched for cues that
+could confirm her worst fears. The avoidance, she rationalized, was a necessary precaution, a way to
+ensure her safety in a world that felt increasingly threatening. As months passed, Maya's life
+became a series of calculated decisions aimed at minimizing her exposure to triggers. Yet, the
+heightened sense of threat that accompanied her daily life made even mundane experiences feel
+fraught with potential danger, turning the simplest cues into alarming reminders of her past trauma.
+Her office, once a vibrant hub of activity, felt stiflingly small. The background hum of danger she
+carried everywhere made ordinary cues feel like messages, with each sound amplifying her sense of
+threat and escalating her hypervigilance. Her conviction that she was permanently vulnerable meant
+that she entered new environments already braced for danger, a mindset that heightened her
+perception of threat even before anything occurred. She would often leave early, avoiding the late-
+night sounds that haunted her. Colleagues noticed her withdrawal but attributed it to her workload,
+unaware of the internal battle she fought daily. The heart-pounding fear she experienced when faced
+with auditory reminders of her trauma was now her constant companion, and each incident of
+hypervigilance only solidified her belief that she could not afford to trust anyone or anything.
+Maya finally decided to seek help when she realized that her coping mechanisms were no longer
+sufficient. The isolation and fear had begun to seep into her marriage, straining her relationship
+with her husband, who felt helpless to comfort her. What frightened her most was the thought of
+losing the love and support she so desperately needed, and she feared that she might never regain
+her former self. As she prepared for her first therapy session, she felt a flicker of hope
+intertwined with dread. Could she overcome the shadows of her past? Could she reclaim her trust in
+her body and the world around her? As she sat waiting for the therapist to call her in, these
+questions swirled in her mind, a mix of trepidation and longing for relief.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not explicitly convey how triggers lead to a sense of threat.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not show how negative appraisals lead to triggers.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not illustrate how a sense of threat influences the perception of triggers.
+
+  [4] FAIL
+Maya, a 71-year-old lawyer of South Eastern Asian descent, sat in her office, her fingers nervously
+tapping on the desk. It had been nearly a year since the night that had changed everything. On that
+fateful evening, while walking to her car after a late meeting, she was approached by a man who
+assaulted her. The memory still replayed vividly in her mind; the sound of his voice, the way he
+looked at her as if she were nothing more than an object to be used. That moment had engraved itself
+into her psyche, and now, even the slightest auditory trigger could send her spiraling into a state
+of panic. The faint sound of a car door slamming or the laughter of a group of men outside her
+office could make her heart race uncontrollably, leaving her gasping for breath as if she were
+reliving the moment of the attack. Each of these sounds ignited a potent sense of threat, making her
+body react as if danger were imminent, reinforcing her belief that she was still under siege. Since
+the assault, Maya felt a pervasive sense of threat lurking just beneath the surface of her daily
+life. Every time she heard a sound reminiscent of that night, the sense of threat intensified,
+making her body respond as if danger were imminent, even in safe spaces. The heightened sense of
+threat she experienced meant that even ordinary sounds — a doorbell ringing or laughter echoing from
+the street — would trigger her heart to race, confirming her worst fears and making her feel like
+she was back in that moment of vulnerability. She found herself consumed by strong negative
+emotions—fear that someone might attack her again, anger at the violation she had endured, and a
+deep-seated guilt that perhaps she could have done something differently to avoid it. Her conviction
+that the world was fundamentally unsafe meant that she became hyper-aware of her surroundings, and
+even the most benign situations began to feel charged with potential danger — a figure passing by on
+the street or the sound of footsteps behind her would trigger immediate anxiety, as if they were
+threats in waiting. These feelings led her to view every potential trigger with suspicion, as each
+reminder of the assault further entrenched her belief that she was fundamentally unsafe. Nights were
+particularly harrowing; she felt unsafe, her senses heightened as if danger lurked in every shadow.
+In this state of hypervigilance, every creak in the house or car that drove by outside felt like a
+signal of impending doom, reinforcing her belief that she was constantly on the edge of danger. The
+hours stretched endlessly, and any delay in her husband’s return home would ignite a torrent of
+anxious thoughts. When he was late, her mind raced with the worst possibilities, and she could
+almost hear the echo of her own heartbeat, pounding in her ears like a warning bell. Maya had come
+to believe that her body was no longer a reliable vessel. The once confident woman who navigated
+high-stakes negotiations with ease now viewed her own physical reactions with suspicion. She was
+hypervigilant, always on guard, as if the world had become a treacherous landscape filled with
+hidden threats. Every sound felt amplified, and she would flinch at the slightest hint of someone
+looking at her in a way she deemed sexual. It was as though she wore an invisible shield, yet it was
+a shield that felt increasingly flimsy and ineffective. This belief that she was unprotected turned
+innocuous situations into potential threats, leading her to flinch at voices or looks that reminded
+her of the attack. The world, once a familiar place, now seemed fraught with danger, and she often
+felt trapped in a reality that was hostile and unwelcoming. These negative appraisals fed into her
+sense of threat, creating a vicious cycle that left her feeling more isolated than ever. Her
+conviction that she was permanently vulnerable meant she approached new situations braced for
+danger, heightening her anxiety and exacerbating the threat she felt from the world around her. This
+anxiety would often manifest when she encountered a man wearing a similar jacket to her assailant;
+the sight would send her heart racing, confirming her fears and renewing her sense of danger. The
+more she doubted her body’s ability to keep her safe, the more she felt compelled to avoid
+situations where she could be vulnerable. Social gatherings became daunting; she declined
+invitations, fearing that being in an unfamiliar environment might trigger her memories and feelings
+of helplessness. Each time she opted out of an event, her world shrank just a little more,
+reinforcing her belief that the outside world was indeed a dangerous place. This belief that she
+couldn’t trust her own judgment meant that even familiar settings began to be laced with fear, where
+her mind meticulously searched for cues that could confirm her worst fears. The avoidance, she
+rationalized, was a necessary precaution, a way to ensure her safety in a world that felt
+increasingly threatening. As months passed, Maya's life became a series of calculated decisions
+aimed at minimizing her exposure to triggers. Yet, the heightened sense of threat that accompanied
+her daily life made even mundane experiences feel fraught with potential danger, turning the
+simplest cues into alarming reminders of her past trauma. Her office, once a vibrant hub of
+activity, felt stiflingly small. The background hum of danger she carried everywhere made ordinary
+cues feel like messages, with each sound amplifying her sense of threat and escalating her
+hypervigilance. Her conviction that she was permanently vulnerable meant that she entered new
+environments already braced for danger, a mindset that heightened her perception of threat even
+before anything occurred. She would often leave early, avoiding the late-night sounds that haunted
+her. Colleagues noticed her withdrawal but attributed it to her workload, unaware of the internal
+battle she fought daily. The heart-pounding fear she experienced when faced with auditory reminders
+of her trauma was now her constant companion, and each incident of hypervigilance only solidified
+her belief that she could not afford to trust anyone or anything. Maya finally decided to seek help
+when she realized that her coping mechanisms were no longer sufficient. The isolation and fear had
+begun to seep into her marriage, straining her relationship with her husband, who felt helpless to
+comfort her. What frightened her most was the thought of losing the love and support she so
+desperately needed, and she feared that she might never regain her former self. As she prepared for
+her first therapy session, she felt a flicker of hope intertwined with dread. Could she overcome the
+shadows of her past? Could she reclaim her trust in her body and the world around her? As she sat
+waiting for the therapist to call her in, these questions swirled in her mind, a mix of trepidation
+and longing for relief.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The relationship between triggers and threat is not explicitly stated, missing a connection that shows how triggers lead to a sense of threat.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The connection between negative appraisals and triggers is absent; it does not clarify how negative beliefs influence her experience of triggers.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: There is no clear link demonstrating how negative appraisals lead to a perceived threat, failing to show that her distorted beliefs exacerbate her sense of danger.
+
+  [5] FAIL
+Maya, a 71-year-old lawyer of South Eastern Asian descent, sat in her office, her fingers nervously
+tapping on the desk. It had been nearly a year since the night that had changed everything. On that
+fateful evening, while walking to her car after a late meeting, she was approached by a man who
+assaulted her. The memory still replayed vividly in her mind; the sound of his voice, the way he
+looked at her as if she were nothing more than an object to be used. That moment had engraved itself
+into her psyche, and now, even the slightest auditory trigger could send her spiraling into a state
+of panic. The faint sound of a car door slamming or the laughter of a group of men outside her
+office could make her heart race uncontrollably, leaving her gasping for breath as if she were
+reliving the moment of the attack. Each of these triggers sent a wave of panic through her, igniting
+a feeling of danger that felt as immediate and real as the original assault, reinforcing her
+conviction that the world was fraught with threats. Each of these sounds ignited a potent sense of
+threat, making her body react as if danger were imminent, reinforcing her belief that she was still
+under siege. Since the assault, Maya felt a pervasive sense of threat lurking just beneath the
+surface of her daily life. Every time she heard a sound reminiscent of that night, the sense of
+threat intensified, making her body respond as if danger were imminent, even in safe spaces. The
+heightened sense of threat she experienced meant that even ordinary sounds — a doorbell ringing or
+laughter echoing from the street — would trigger her heart to race, confirming her worst fears and
+making her feel like she was back in that moment of vulnerability. She found herself consumed by
+strong negative emotions—fear that someone might attack her again, anger at the violation she had
+endured, and a deep-seated guilt that perhaps she could have done something differently to avoid it.
+Her conviction that the world was fundamentally unsafe meant that she became hyper-aware of her
+surroundings, and even the most benign situations began to feel charged with potential danger — a
+figure passing by on the street or the sound of footsteps behind her would trigger immediate
+anxiety, as if they were threats in waiting. Once she concluded that she was permanently vulnerable,
+even the most ordinary stimuli snagged her attention; a casual glance from a stranger or the sound
+of laughter could become a confirmation of her worst fears. These feelings led her to view every
+potential trigger with suspicion, as each reminder of the assault further entrenched her belief that
+she was fundamentally unsafe. Her negative appraisals of her environment meant that the belief she
+was a target heightened her sense of threat, making every encounter feel like a test of her safety,
+one she was already failing before it had even begun. Nights were particularly harrowing; she felt
+unsafe, her senses heightened as if danger lurked in every shadow. In this state of hypervigilance,
+every creak in the house or car that drove by outside felt like a signal of impending doom,
+reinforcing her belief that she was constantly on the edge of danger. The hours stretched endlessly,
+and any delay in her husband’s return home would ignite a torrent of anxious thoughts. When he was
+late, her mind raced with the worst possibilities, and she could almost hear the echo of her own
+heartbeat, pounding in her ears like a warning bell. Maya had come to believe that her body was no
+longer a reliable vessel. The once confident woman who navigated high-stakes negotiations with ease
+now viewed her own physical reactions with suspicion. She was hypervigilant, always on guard, as if
+the world had become a treacherous landscape filled with hidden threats. Every sound felt amplified,
+and she would flinch at the slightest hint of someone looking at her in a way she deemed sexual. It
+was as though she wore an invisible shield, yet it was a shield that felt increasingly flimsy and
+ineffective. This belief that she was unprotected turned innocuous situations into potential
+threats, leading her to flinch at voices or looks that reminded her of the attack. The world, once a
+familiar place, now seemed fraught with danger, and she often felt trapped in a reality that was
+hostile and unwelcoming. These negative appraisals fed into her sense of threat, creating a vicious
+cycle that left her feeling more isolated than ever. Her conviction that she was permanently
+vulnerable meant she approached new situations braced for danger, heightening her anxiety and
+exacerbating the threat she felt from the world around her. This anxiety would often manifest when
+she encountered a man wearing a similar jacket to her assailant; the sight would send her heart
+racing, confirming her fears and renewing her sense of danger. The more she doubted her body’s
+ability to keep her safe, the more she felt compelled to avoid situations where she could be
+vulnerable. Social gatherings became daunting; she declined invitations, fearing that being in an
+unfamiliar environment might trigger her memories and feelings of helplessness. Each time she opted
+out of an event, her world shrank just a little more, reinforcing her belief that the outside world
+was indeed a dangerous place. This belief that she couldn’t trust her own judgment meant that even
+familiar settings began to be laced with fear, where her mind meticulously searched for cues that
+could confirm her worst fears. The avoidance, she rationalized, was a necessary precaution, a way to
+ensure her safety in a world that felt increasingly threatening. As months passed, Maya's life
+became a series of calculated decisions aimed at minimizing her exposure to triggers. Yet, the
+heightened sense of threat that accompanied her daily life made even mundane experiences feel
+fraught with potential danger, turning the simplest cues into alarming reminders of her past trauma.
+Her office, once a vibrant hub of activity, felt stiflingly small. The background hum of danger she
+carried everywhere made ordinary cues feel like messages, with each sound amplifying her sense of
+threat and escalating her hypervigilance. Her conviction that she was permanently vulnerable meant
+that she entered new environments already braced for danger, a mindset that heightened her
+perception of threat even before anything occurred. She would often leave early, avoiding the late-
+night sounds that haunted her. Colleagues noticed her withdrawal but attributed it to her workload,
+unaware of the internal battle she fought daily. The heart-pounding fear she experienced when faced
+with auditory reminders of her trauma was now her constant companion, and each incident of
+hypervigilance only solidified her belief that she could not afford to trust anyone or anything.
+Maya finally decided to seek help when she realized that her coping mechanisms were no longer
+sufficient. The isolation and fear had begun to seep into her marriage, straining her relationship
+with her husband, who felt helpless to comfort her. What frightened her most was the thought of
+losing the love and support she so desperately needed, and she feared that she might never regain
+her former self. As she prepared for her first therapy session, she felt a flicker of hope
+intertwined with dread. Could she overcome the shadows of her past? Could she reclaim her trust in
+her body and the world around her? As she sat waiting for the therapist to call her in, these
+questions swirled in her mind, a mix of trepidation and longing for relief.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not convey that triggers influence Maya's sense of threat.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not convey that negative appraisals influence the occurrence of triggers in Maya's experience.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not convey that her sense of threat leads to the occurrence of triggers.
+
+  [6] FAIL
+Maya, a 71-year-old lawyer of South Eastern Asian descent, sat in her office, her fingers nervously
+tapping on the desk. It had been nearly a year since the night that had changed everything. On that
+fateful evening, while walking to her car after a late meeting, she was approached by a man who
+assaulted her. The memory still replayed vividly in her mind; the sound of his voice, the way he
+looked at her as if she were nothing more than an object to be used. That moment had engraved itself
+into her psyche, and now, even the slightest auditory trigger could send her spiraling into a state
+of panic. The faint sound of a car door slamming or the laughter of a group of men outside her
+office could make her heart race uncontrollably, leaving her gasping for breath as if she were
+reliving the moment of the attack. These auditory triggers sent a wave of panic through her,
+igniting a feeling of danger that felt as immediate and real as the original assault, reinforcing
+her conviction that the world was fraught with threats. Each of these triggers sent a wave of panic
+through her, igniting a feeling of danger that felt as immediate and real as the original assault,
+reinforcing her conviction that the world was fraught with threats. Each of these sounds ignited a
+potent sense of threat, making her body react as if danger were imminent, reinforcing her belief
+that she was still under siege. Since the assault, Maya felt a pervasive sense of threat lurking
+just beneath the surface of her daily life. Living at that pitch of alertness, she found the world
+had become dense with reminders she couldn't stop reading — each ordinary cue amplifying her sense
+of threat and triggering her anxiety. Every time she heard a sound reminiscent of that night, the
+sense of threat intensified, making her body respond as if danger were imminent, even in safe
+spaces. The heightened sense of threat she experienced meant that even ordinary sounds — a doorbell
+ringing or laughter echoing from the street — would trigger her heart to race, confirming her worst
+fears and making her feel like she was back in that moment of vulnerability. She found herself
+consumed by strong negative emotions—fear that someone might attack her again, anger at the
+violation she had endured, and a deep-seated guilt that perhaps she could have done something
+differently to avoid it. Her conviction that the world was fundamentally unsafe meant that she
+became hyper-aware of her surroundings, and even the most benign situations began to feel charged
+with potential danger — a figure passing by on the street or the sound of footsteps behind her would
+trigger immediate anxiety, as if they were threats in waiting. Once she had concluded that the world
+was fundamentally unsafe, almost anything could confirm it — a figure in her periphery, the wrong
+tone of voice, footsteps behind her. Once she concluded that she was permanently vulnerable, even
+the most ordinary stimuli snagged her attention; a casual glance from a stranger or the sound of
+laughter could become a confirmation of her worst fears. These feelings led her to view every
+potential trigger with suspicion, as each reminder of the assault further entrenched her belief that
+she was fundamentally unsafe. Her negative appraisals of her environment meant that the belief she
+was a target heightened her sense of threat, making every encounter feel like a test of her safety,
+one she was already failing before it had even begun. Nights were particularly harrowing; she felt
+unsafe, her senses heightened as if danger lurked in every shadow. In this state of hypervigilance,
+every creak in the house or car that drove by outside felt like a signal of impending doom,
+reinforcing her belief that she was constantly on the edge of danger. The hours stretched endlessly,
+and any delay in her husband’s return home would ignite a torrent of anxious thoughts. When he was
+late, her mind raced with the worst possibilities, and she could almost hear the echo of her own
+heartbeat, pounding in her ears like a warning bell. Maya had come to believe that her body was no
+longer a reliable vessel. The once confident woman who navigated high-stakes negotiations with ease
+now viewed her own physical reactions with suspicion. She was hypervigilant, always on guard, as if
+the world had become a treacherous landscape filled with hidden threats. Every sound felt amplified,
+and she would flinch at the slightest hint of someone looking at her in a way she deemed sexual. It
+was as though she wore an invisible shield, yet it was a shield that felt increasingly flimsy and
+ineffective. This belief that she was unprotected turned innocuous situations into potential
+threats, leading her to flinch at voices or looks that reminded her of the attack. The world, once a
+familiar place, now seemed fraught with danger, and she often felt trapped in a reality that was
+hostile and unwelcoming. These negative appraisals fed into her sense of threat, creating a vicious
+cycle that left her feeling more isolated than ever. Her conviction that she was permanently
+vulnerable meant she approached new situations braced for danger, heightening her anxiety and
+exacerbating the threat she felt from the world around her. This anxiety would often manifest when
+she encountered a man wearing a similar jacket to her assailant; the sight would send her heart
+racing, confirming her fears and renewing her sense of danger. The more she doubted her body’s
+ability to keep her safe, the more she felt compelled to avoid situations where she could be
+vulnerable. Social gatherings became daunting; she declined invitations, fearing that being in an
+unfamiliar environment might trigger her memories and feelings of helplessness. Each time she opted
+out of an event, her world shrank just a little more, reinforcing her belief that the outside world
+was indeed a dangerous place. This belief that she couldn’t trust her own judgment meant that even
+familiar settings began to be laced with fear, where her mind meticulously searched for cues that
+could confirm her worst fears. The avoidance, she rationalized, was a necessary precaution, a way to
+ensure her safety in a world that felt increasingly threatening. As months passed, Maya's life
+became a series of calculated decisions aimed at minimizing her exposure to triggers. Yet, the
+heightened sense of threat that accompanied her daily life made even mundane experiences feel
+fraught with potential danger, turning the simplest cues into alarming reminders of her past trauma.
+Her office, once a vibrant hub of activity, felt stiflingly small. The background hum of danger she
+carried everywhere made ordinary cues feel like messages, with each sound amplifying her sense of
+threat and escalating her hypervigilance. Her conviction that she was permanently vulnerable meant
+that she entered new environments already braced for danger, a mindset that heightened her
+perception of threat even before anything occurred. She would often leave early, avoiding the late-
+night sounds that haunted her. Colleagues noticed her withdrawal but attributed it to her workload,
+unaware of the internal battle she fought daily. The heart-pounding fear she experienced when faced
+with auditory reminders of her trauma was now her constant companion, and each incident of
+hypervigilance only solidified her belief that she could not afford to trust anyone or anything.
+Maya finally decided to seek help when she realized that her coping mechanisms were no longer
+sufficient. The isolation and fear had begun to seep into her marriage, straining her relationship
+with her husband, who felt helpless to comfort her. What frightened her most was the thought of
+losing the love and support she so desperately needed, and she feared that she might never regain
+her former self. As she prepared for her first therapy session, she felt a flicker of hope
+intertwined with dread. Could she overcome the shadows of her past? Could she reclaim her trust in
+her body and the world around her? As she sat waiting for the therapist to call her in, these
+questions swirled in her mind, a mix of trepidation and longing for relief.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not establish a causal relationship where triggers lead to negative appraisals.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not establish a causal relationship where negative appraisals lead to triggers.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not establish a causal relationship where the sense of threat leads to triggers.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Maya, a 71-year-old lawyer of South Eastern Asian descent, sat in her office, her fingers nervously
+tapping on the desk. It had been nearly a year since the night that had changed everything. On that
+fateful evening, while walking to her car after a late meeting, she was approached by a man who
+assaulted her. The memory still replayed vividly in her mind; the sound of his voice, the way he
+looked at her as if she were nothing more than an object to be used. That moment had engraved itself
+into her psyche, and now, even the slightest auditory trigger could send her spiraling into a state
+of panic. The faint sound of a car door slamming or the laughter of a group of men outside her
+office could make her heart race uncontrollably, leaving her gasping for breath as if she were
+reliving the moment of the attack. These auditory triggers sent a wave of panic through her,
+igniting a feeling of danger that felt as immediate and real as the original assault, reinforcing
+her conviction that the world was fraught with threats. Each of these triggers sent a wave of panic
+through her, igniting a feeling of danger that felt as immediate and real as the original assault,
+reinforcing her conviction that the world was fraught with threats. Each of these sounds ignited a
+potent sense of threat, making her body react as if danger were imminent, reinforcing her belief
+that she was still under siege. Since the assault, Maya felt a pervasive sense of threat lurking
+just beneath the surface of her daily life. Living at that pitch of alertness, she found the world
+had become dense with reminders she couldn't stop reading — each ordinary cue amplifying her sense
+of threat and triggering her anxiety. Every time she heard a sound reminiscent of that night, the
+sense of threat intensified, making her body respond as if danger were imminent, even in safe
+spaces. The heightened sense of threat she experienced meant that even ordinary sounds — a doorbell
+ringing or laughter echoing from the street — would trigger her heart to race, confirming her worst
+fears and making her feel like she was back in that moment of vulnerability. She found herself
+consumed by strong negative emotions—fear that someone might attack her again, anger at the
+violation she had endured, and a deep-seated guilt that perhaps she could have done something
+differently to avoid it. Her conviction that the world was fundamentally unsafe meant that she
+became hyper-aware of her surroundings, and even the most benign situations began to feel charged
+with potential danger — a figure passing by on the street or the sound of footsteps behind her would
+trigger immediate anxiety, as if they were threats in waiting. Once she had concluded that the world
+was fundamentally unsafe, almost anything could confirm it — a figure in her periphery, the wrong
+tone of voice, footsteps behind her. Once she concluded that she was permanently vulnerable, even
+the most ordinary stimuli snagged her attention; a casual glance from a stranger or the sound of
+laughter could become a confirmation of her worst fears. These feelings led her to view every
+potential trigger with suspicion, as each reminder of the assault further entrenched her belief that
+she was fundamentally unsafe. Her negative appraisals of her environment meant that the belief she
+was a target heightened her sense of threat, making every encounter feel like a test of her safety,
+one she was already failing before it had even begun. Nights were particularly harrowing; she felt
+unsafe, her senses heightened as if danger lurked in every shadow. In this state of hypervigilance,
+every creak in the house or car that drove by outside felt like a signal of impending doom,
+reinforcing her belief that she was constantly on the edge of danger. The hours stretched endlessly,
+and any delay in her husband’s return home would ignite a torrent of anxious thoughts. When he was
+late, her mind raced with the worst possibilities, and she could almost hear the echo of her own
+heartbeat, pounding in her ears like a warning bell. Maya had come to believe that her body was no
+longer a reliable vessel. The once confident woman who navigated high-stakes negotiations with ease
+now viewed her own physical reactions with suspicion. She was hypervigilant, always on guard, as if
+the world had become a treacherous landscape filled with hidden threats. Every sound felt amplified,
+and she would flinch at the slightest hint of someone looking at her in a way she deemed sexual. It
+was as though she wore an invisible shield, yet it was a shield that felt increasingly flimsy and
+ineffective. This belief that she was unprotected turned innocuous situations into potential
+threats, leading her to flinch at voices or looks that reminded her of the attack. The world, once a
+familiar place, now seemed fraught with danger, and she often felt trapped in a reality that was
+hostile and unwelcoming. These negative appraisals fed into her sense of threat, creating a vicious
+cycle that left her feeling more isolated than ever. Her conviction that she was permanently
+vulnerable meant she approached new situations braced for danger, heightening her anxiety and
+exacerbating the threat she felt from the world around her. This anxiety would often manifest when
+she encountered a man wearing a similar jacket to her assailant; the sight would send her heart
+racing, confirming her fears and renewing her sense of danger. The more she doubted her body’s
+ability to keep her safe, the more she felt compelled to avoid situations where she could be
+vulnerable. Social gatherings became daunting; she declined invitations, fearing that being in an
+unfamiliar environment might trigger her memories and feelings of helplessness. Each time she opted
+out of an event, her world shrank just a little more, reinforcing her belief that the outside world
+was indeed a dangerous place. This belief that she couldn’t trust her own judgment meant that even
+familiar settings began to be laced with fear, where her mind meticulously searched for cues that
+could confirm her worst fears. The avoidance, she rationalized, was a necessary precaution, a way to
+ensure her safety in a world that felt increasingly threatening. As months passed, Maya's life
+became a series of calculated decisions aimed at minimizing her exposure to triggers. Yet, the
+heightened sense of threat that accompanied her daily life made even mundane experiences feel
+fraught with potential danger, turning the simplest cues into alarming reminders of her past trauma.
+Her office, once a vibrant hub of activity, felt stiflingly small. The background hum of danger she
+carried everywhere made ordinary cues feel like messages, with each sound amplifying her sense of
+threat and escalating her hypervigilance. Her conviction that she was permanently vulnerable meant
+that she entered new environments already braced for danger, a mindset that heightened her
+perception of threat even before anything occurred. She would often leave early, avoiding the late-
+night sounds that haunted her. Colleagues noticed her withdrawal but attributed it to her workload,
+unaware of the internal battle she fought daily. The heart-pounding fear she experienced when faced
+with auditory reminders of her trauma was now her constant companion, and each incident of
+hypervigilance only solidified her belief that she could not afford to trust anyone or anything.
+Maya finally decided to seek help when she realized that her coping mechanisms were no longer
+sufficient. The isolation and fear had begun to seep into her marriage, straining her relationship
+with her husband, who felt helpless to comfort her. What frightened her most was the thought of
+losing the love and support she so desperately needed, and she feared that she might never regain
+her former self. As she prepared for her first therapy session, she felt a flicker of hope
+intertwined with dread. Could she overcome the shadows of her past? Could she reclaim her trust in
+her body and the world around her? As she sat waiting for the therapist to call her in, these
+questions swirled in her mind, a mix of trepidation and longing for relief.

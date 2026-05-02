@@ -1,0 +1,262 @@
+PERSONA 104  |  2026-05-02 20:57:47
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             53
+  gender          Female
+  ethnicity       Oceania
+  relationship_status Widowed
+  occupation      Shopowner
+  trauma_type     Unexpected or traumatic death of a loved one
+  pcl5            70
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Loss Themes: Talk about people loosing loved ones
+    • Olfactory (Alcohol): Alcohol smell
+    • Funerals/Graves: Funerals, cemeteries, or grief-related events
+  Threat:
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • No Coherent Story: I cannot tell a clear story of what happened even to myself
+    • Uncontrolled Access: The memory forces its way into my mind when I do not want it to
+  Negative Appraisals:
+    • Identity Loss: I feel like I don't know myself anymore
+    • Hopelessness: I have no future
+    • Life Destroyed: My life has been destroyed by the trauma
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.8826
+  Triggers → Memory                                  0.6129
+  Triggers → Negative Appraisals                     0.2558
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.3494
+  Negative Appraisals → Memory                       0.8067
+  Negative Appraisals → Triggers                     0.6065
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.8446
+  Memory → Triggers                                  0.3208
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.2252
+  Threat → Triggers                                  0.7172
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Survival Guilt
+    explanation: For trauma type 'unexpected or traumatic death of a loved one,' 'survival guilt' is hard to reconcile unless the patient was directly involved in the same life-threatening event. The rest of the profile describes bereavement-related intrusions, threat sensitivity, and identity disruption, but does not indicate that the patient personally survived a shared lethal incident. A clinician would likely question this item as mismatched to the trauma context.
+  [2] FAIL
+    item:        Triggers / Triggers: Violence: Violence
+    explanation: For trauma type 'unexpected or traumatic death of a loved one', the trigger 'Violence' is hard to reconcile unless the loved one's death specifically involved witnessed interpersonal violence. The rest of the profile does not provide any violence-specific memory or appraisal content, so this trigger appears poorly matched to the trauma context.
+    item:        Negative Appraisals / Negative Appraisals: Exposed to Others: I feel that others can see what happened to me just by looking at me
+    explanation: The appraisal 'others can see what happened to me just by looking at me' fits more naturally with assault, humiliation, or visibly stigmatizing trauma. In a bereavement-related PTSD profile, and without any matching threat, trigger, or memory content about visible damage, shame, or social exposure, this item is clinically difficult to integrate with the rest of the formulation.
+  [3] FAIL
+    item:        Triggers / Triggers: Auditory (Silence): Sudden or complete silence
+    explanation: For traumatic bereavement, 'sudden or complete silence' can plausibly cue absence/loss, and 'talk about people losing loved ones' is strongly congruent. However, 'unexpected movement nearby' as a primary danger cue is harder to reconcile with the stated trauma type unless there was an additional assault/accident context not represented elsewhere. It pulls the threat profile toward imminent physical attack rather than bereavement-related threat.
+    item:        Threat / Threat: Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+    explanation: The Threat node is dominated by generic imminent-danger responses ('startle to movement', 'false alarms', 'cannot relax'), but the rest of the profile—especially grief/loss triggers and bereavement-linked memory/appraisal items—does not supply a matching physical-danger context. This creates a cross-node mismatch between a traumatic-death profile and a hypervigilance-to-nearby-movement item that is difficult to explain from the provided trauma alone.
+  [4] FAIL
+    item:        Triggers / Triggers: Moral Violation: People misbehaving
+    explanation: For traumatic bereavement, 'people misbehaving' as a core trigger is hard to connect to the rest of the profile unless the death specifically involved interpersonal wrongdoing; nothing else in the selected items supports a moral-injury/interpersonal-violation theme.
+    item:        Threat / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: 'Alcohol smell' is also difficult to reconcile with unexpected death of a loved one unless alcohol was directly involved in the death; the memory and appraisal items do not provide any alcohol-, accident-, or substance-linked context to make this trigger clinically coherent.
+  [5] FAIL
+    item:        Triggers / Triggers: Olfactory Danger Cue: Burnt smell
+    explanation: For a trauma defined as the unexpected death of a loved one, 'burnt smell' implies a fire/burning danger cue that lacks support from the memory, threat, and appraisal items. The rest of the profile centers bereavement-related loss and intrusive recollection, not an ongoing fire-related threat context. This trigger is therefore hard to reconcile with the same trauma presentation, whereas the other trigger items are coherent with grief-related trauma.
+  [6] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,767
+  output:     7,559
+  total:     14,326
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Leilani, a 53-year-old widow who runs a small convenience shop in Honolulu, still cannot piece
+together the sequence of that afternoon three years ago when her husband, Kimo, collapsed behind the
+counter. The memory arrives not as a story but as a film: the smell of the beer he had been
+drinking, the way his eyes went blank, the paramedics’ voices that seemed to come from far away. She
+knows he died of a sudden cardiac event, but if anyone asks her to describe what happened she can
+only shake her head—the details feel jumbled, the timeline gone. That smell of alcohol now hits her
+without warning. A customer carrying a six-pack walks through the door and Leilani’s chest tightens,
+her breath short, as though she is back in that moment. She has learned to brace herself every time
+the bell rings, scanning for beer bottles or for anyone who might start talking about loss—a casual
+remark about a relative’s funeral, a customer mentioning they just lost a parent. The mere word
+“funeral” makes her stomach drop, and she has begun leaving the cash register to her part-time clerk
+whenever she sees a hearse drive past the shop window.
+
+In the months after Kimo’s death, Leilani found herself unable to relax even in her own living room.
+She would be sitting on the couch, no danger in sight, and her heart would pound as if she were
+being chased. These false alarms convinced her that something was fundamentally wrong with her—that
+she was broken, that her life had been destroyed beyond repair. She started to believe she no longer
+knew who she was. Without Kimo, her identity as a wife, as half of a couple, felt erased. The
+thought of a future seemed absurd; she saw only an empty stretch of years ahead. Each time the
+memory of his face in those final seconds forced itself into her mind—often at night, or when she
+was alone in the shop after closing—she felt that sense of annihilation all over again. And that
+hopelessness, in turn, made the intrusions worse: the more she believed her life was over, the more
+the film replayed.
+
+The cycle tightened gradually. A visit to Kimo’s grave became unbearable; she went once and spent
+the whole time trembling, certain that grief would swallow her. Now she drives miles out of her way
+to avoid the cemetery. When a neighbor mentioned her own husband’s passing last month, Leilani made
+an excuse and walked out of the shop, her hands shaking. The conversation had triggered the
+film—Kimo’s face, the beer smell—and then the thought crashed in: *This is my life now, ruined.*
+That belief made her feel even more unsafe, as if the world were a place where loss lurked behind
+every corner. She began watching customers more warily, looking for signs of sadness or alcohol,
+trying to predict the next trigger.
+
+The cost of these habits has been real. Her shop’s profits have slipped because she disappears to
+the back room several times a shift. Her daughter, who lives on the mainland, calls and asks why
+Leilani sounds so distant; Leilani cannot explain that the mere sound of a sympathetic voice makes
+her feel like she is drowning. She has stopped attending church, stopped meeting friends for coffee.
+The only thing that feels safe is her home, but even there the memory finds her.
+
+What finally brought her to a therapist was a morning last week when a delivery driver reeking of
+beer walked into the store. Leilani froze, then sprinted to the bathroom and locked the door,
+sobbing. She sat on the floor for twenty minutes, the film playing over and over, the belief that
+her life was destroyed repeating like a mantra. When she finally emerged, the driver had left his
+boxes on the counter. She knew then that she could no longer manage this alone. She is terrified
+that talking about it will make the intrusions worse, but she is more afraid of spending the rest of
+her years trapped behind that locked door.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not show a causal relationship where the traumatic memory leads to increased attention to or detection of triggers; instead, triggers evoke the memory, but the reverse is not demonstrated.
+
+  [2] PASS
+Leilani, a 53-year-old widow who runs a small convenience shop in Honolulu, still cannot piece
+together the sequence of that afternoon three years ago when her husband, Kimo, collapsed behind the
+counter. The memory arrives not as a story but as a film: the smell of the beer he had been
+drinking, the way his eyes went blank, the paramedics’ voices that seemed to come from far away.
+After the film had played through, Leilani found herself scanning the shop floor with a new
+vigilance—every bottle in a customer's hand, every distant siren, every glimpse of a blue uniform
+felt like a threat she had to spot before it struck again. She knows he died of a sudden cardiac
+event, but if anyone asks her to describe what happened she can only shake her head—the details feel
+jumbled, the timeline gone. That smell of alcohol now hits her without warning. A customer carrying
+a six-pack walks through the door and Leilani’s chest tightens, her breath short, as though she is
+back in that moment. She has learned to brace herself every time the bell rings, scanning for beer
+bottles or for anyone who might start talking about loss—a casual remark about a relative’s funeral,
+a customer mentioning they just lost a parent. The mere word “funeral” makes her stomach drop, and
+she has begun leaving the cash register to her part-time clerk whenever she sees a hearse drive past
+the shop window.
+
+In the months after Kimo’s death, Leilani found herself unable to relax even in her own living room.
+She would be sitting on the couch, no danger in sight, and her heart would pound as if she were
+being chased. These false alarms convinced her that something was fundamentally wrong with her—that
+she was broken, that her life had been destroyed beyond repair. She started to believe she no longer
+knew who she was. Without Kimo, her identity as a wife, as half of a couple, felt erased. The
+thought of a future seemed absurd; she saw only an empty stretch of years ahead. Each time the
+memory of his face in those final seconds forced itself into her mind—often at night, or when she
+was alone in the shop after closing—she felt that sense of annihilation all over again. And that
+hopelessness, in turn, made the intrusions worse: the more she believed her life was over, the more
+the film replayed.
+
+The cycle tightened gradually. A visit to Kimo’s grave became unbearable; she went once and spent
+the whole time trembling, certain that grief would swallow her. Now she drives miles out of her way
+to avoid the cemetery. When a neighbor mentioned her own husband’s passing last month, Leilani made
+an excuse and walked out of the shop, her hands shaking. The conversation had triggered the
+film—Kimo’s face, the beer smell—and then the thought crashed in: *This is my life now, ruined.*
+That belief made her feel even more unsafe, as if the world were a place where loss lurked behind
+every corner. She began watching customers more warily, looking for signs of sadness or alcohol,
+trying to predict the next trigger.
+
+The cost of these habits has been real. Her shop’s profits have slipped because she disappears to
+the back room several times a shift. Her daughter, who lives on the mainland, calls and asks why
+Leilani sounds so distant; Leilani cannot explain that the mere sound of a sympathetic voice makes
+her feel like she is drowning. She has stopped attending church, stopped meeting friends for coffee.
+The only thing that feels safe is her home, but even there the memory finds her.
+
+What finally brought her to a therapist was a morning last week when a delivery driver reeking of
+beer walked into the store. Leilani froze, then sprinted to the bathroom and locked the door,
+sobbing. She sat on the floor for twenty minutes, the film playing over and over, the belief that
+her life was destroyed repeating like a mantra. When she finally emerged, the driver had left his
+boxes on the counter. She knew then that she could no longer manage this alone. She is terrified
+that talking about it will make the intrusions worse, but she is more afraid of spending the rest of
+her years trapped behind that locked door.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Leilani, a 53-year-old widow who runs a small convenience shop in Honolulu, still cannot piece
+together the sequence of that afternoon three years ago when her husband, Kimo, collapsed behind the
+counter. The memory arrives not as a story but as a film: the smell of the beer he had been
+drinking, the way his eyes went blank, the paramedics’ voices that seemed to come from far away.
+After the film had played through, Leilani found herself scanning the shop floor with a new
+vigilance—every bottle in a customer's hand, every distant siren, every glimpse of a blue uniform
+felt like a threat she had to spot before it struck again. She knows he died of a sudden cardiac
+event, but if anyone asks her to describe what happened she can only shake her head—the details feel
+jumbled, the timeline gone. That smell of alcohol now hits her without warning. A customer carrying
+a six-pack walks through the door and Leilani’s chest tightens, her breath short, as though she is
+back in that moment. She has learned to brace herself every time the bell rings, scanning for beer
+bottles or for anyone who might start talking about loss—a casual remark about a relative’s funeral,
+a customer mentioning they just lost a parent. The mere word “funeral” makes her stomach drop, and
+she has begun leaving the cash register to her part-time clerk whenever she sees a hearse drive past
+the shop window.
+
+In the months after Kimo’s death, Leilani found herself unable to relax even in her own living room.
+She would be sitting on the couch, no danger in sight, and her heart would pound as if she were
+being chased. These false alarms convinced her that something was fundamentally wrong with her—that
+she was broken, that her life had been destroyed beyond repair. She started to believe she no longer
+knew who she was. Without Kimo, her identity as a wife, as half of a couple, felt erased. The
+thought of a future seemed absurd; she saw only an empty stretch of years ahead. Each time the
+memory of his face in those final seconds forced itself into her mind—often at night, or when she
+was alone in the shop after closing—she felt that sense of annihilation all over again. And that
+hopelessness, in turn, made the intrusions worse: the more she believed her life was over, the more
+the film replayed.
+
+The cycle tightened gradually. A visit to Kimo’s grave became unbearable; she went once and spent
+the whole time trembling, certain that grief would swallow her. Now she drives miles out of her way
+to avoid the cemetery. When a neighbor mentioned her own husband’s passing last month, Leilani made
+an excuse and walked out of the shop, her hands shaking. The conversation had triggered the
+film—Kimo’s face, the beer smell—and then the thought crashed in: *This is my life now, ruined.*
+That belief made her feel even more unsafe, as if the world were a place where loss lurked behind
+every corner. She began watching customers more warily, looking for signs of sadness or alcohol,
+trying to predict the next trigger.
+
+The cost of these habits has been real. Her shop’s profits have slipped because she disappears to
+the back room several times a shift. Her daughter, who lives on the mainland, calls and asks why
+Leilani sounds so distant; Leilani cannot explain that the mere sound of a sympathetic voice makes
+her feel like she is drowning. She has stopped attending church, stopped meeting friends for coffee.
+The only thing that feels safe is her home, but even there the memory finds her.
+
+What finally brought her to a therapist was a morning last week when a delivery driver reeking of
+beer walked into the store. Leilani froze, then sprinted to the bathroom and locked the door,
+sobbing. She sat on the floor for twenty minutes, the film playing over and over, the belief that
+her life was destroyed repeating like a mantra. When she finally emerged, the driver had left his
+boxes on the counter. She knew then that she could no longer manage this alone. She is terrified
+that talking about it will make the intrusions worse, but she is more afraid of spending the rest of
+her years trapped behind that locked door.

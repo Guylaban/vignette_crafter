@@ -1,0 +1,246 @@
+{
+  "persona_id": 10,
+  "source_persona_id": 10,
+  "experiment_timestamp": "2026-05-02 18:53:59",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-reasoner",
+      "persona_crafter": "deepseek-reasoner",
+      "vignette_crafter": "deepseek-reasoner",
+      "vignette_validator": "deepseek-reasoner"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 30,
+    "gender": "Female",
+    "ethnicity": "Oceania",
+    "relationship_status": "Married",
+    "occupation": "Plumber",
+    "trauma_type": "Physical abuse by caregiver (childhood)",
+    "pcl5": 34
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Shouting",
+        "value": "Shouting"
+      },
+      {
+        "key": "Being Watched",
+        "value": "Feeling watched or observed"
+      },
+      {
+        "key": "Expressions of Anger",
+        "value": "Other people expressing anger, even calmly"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Undereating",
+        "value": "I avoid eating or restrict food as a way of coping"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      },
+      {
+        "key": "Mental Distraction",
+        "value": "keep mind occupied all the time"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Concentration",
+        "value": "Having difficulty concentrating"
+      },
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Partial Clarity",
+        "value": "Some moments of the event are extremely clear while others are completely blank"
+      },
+      {
+        "key": "Memory Feels Alien",
+        "value": "The memory feels like it belongs to someone else rather than to me"
+      },
+      {
+        "key": "Incomplete Picture",
+        "value": "I feel like I am only remembering parts of what happened and the rest is missing"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.5143,
+    "Triggers -- Threat": 0.8452,
+    "Triggers -- Memory": 0.0373,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.5848,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.6006,
+    "Threat -- Memory": 0.7886,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9844,
+    "Maladaptive Strategies -- Memory": 0.9005,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0539,
+    "Maladaptive Strategies -- Threat": 0.5247
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.58343,
+  "edge_density": 0.5,
+  "vignette_word_count": 523,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Weapons): Weapons or objects used as weapons",
+          "explanation": "For childhood physical abuse by a caregiver, shouting is coherent, but 'Weapons or objects used as weapons' is hard to reconcile with the rest of the profile because neither the trauma type nor the other items suggest weapon-based assault. It implies a more specific trauma context that is not reflected in the memory, threat, or coping items."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Heavy Makeup: heavy make-up",
+          "explanation": "'Heavy make-up' is difficult to connect to the active formulation. The strongest network links involve Triggers, Threat, Memory, and Maladaptive Strategies, but the other selected strategy items are about distraction and bodily control. Heavy make-up usually implies concealment, appearance management, or social camouflage, which is not supported by any corresponding threat, trigger, memory, or appraisal content here, making this item feel clinically disconnected from the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Weapons)"
+        ],
+        "Maladaptive Strategies": [
+          "Heavy Makeup"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Feelings: Allowing myself to feel any strong emotion",
+          "explanation": "'Avoid Feelings' is internally contradictory as written: 'Allowing myself to feel any strong emotion' describes the opposite of avoiding feelings, so this item is not clinically coherent within the Maladaptive Strategies node."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Feelings"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Seeking Conflict: I pick arguments or create drama to distract myself from the trauma",
+          "explanation": "Within Maladaptive Strategies, 'Seeking Conflict' and 'Undereating' describe two quite different coping styles that are not impossible together, but in this profile they are weakly anchored to the rest of the formulation and trauma presentation. 'Seeking Conflict' is especially hard to reconcile with the otherwise fear-based trigger/threat pattern centered on shouting, anger, being watched, hypervigilance, and fragmented memory from childhood physical abuse."
+        },
+        {
+          "component": "Threat",
+          "item": "Undereating: I avoid eating or restrict food as a way of coping",
+          "explanation": "'Undereating' is also poorly integrated with the rest of the selected items. No other items indicate food-, body-, or control-related coping themes, so this strategy appears to address a symptom domain not otherwise represented in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Seeking Conflict"
+        ],
+        "Threat": [
+          "Undereating"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 3,
+    "passed": 1,
+    "failed": 2,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 9180,
+    "output": 10099,
+    "total": 19279
+  },
+  "vignette": "Mārama grew up with a father whose anger arrived without warning—a raised voice, a slammed fist, and then the physical blow. She remembers some moments with startling clarity: the way his shadow fell across the kitchen floor, the smell of his sweat. But other parts are gone entirely, like a film with missing reels. What remains feels as though it happened to a different child, not to her. Now thirty, married, working as a plumber, she has built a life far from that house. Yet the past intrudes in ways she cannot control. A customer shouting across a job site, a supervisor’s calmly expressed frustration, even the sensation of being watched while she works under a sink—these moments trigger a cascade she barely understands. Her body tightens, her heart pounds, and she finds herself gasping at an unexpected footstep nearby. Her mind, she says, “goes somewhere else,” and the fragmented memories surface like shards of glass. Once those memories break through, she cannot shake the feeling that danger is right behind her—that the threat has followed her into the present. The persistent sense of danger kept her close to the event in her mind, as if she needed to keep reviewing it to stay one step ahead of whatever came next. She has learned to cope by pushing those thoughts away, by keeping her mind occupied with constant mental tasks, and by skipping meals—she lost eight pounds in the past two months. The restriction gives her a sense of control, but it also leaves her lightheaded and more vulnerable to the startle reflex that follows any sudden movement.\n\nThe causal loops are tight and self-reinforcing. When a colleague expresses even calm anger, Mārama’s body goes on alert, her concentration dissolves, and the alien, incomplete memories press closer. That immediate threat response makes her even more vigilant for the next angry tone, and the more she tries to suppress the memories, the more fragmented they become—and the more dangerous her environment feels. She often lies in bed after work, muscles still rigid, trying to distract herself with a podcast, but the effort of constant mental vigilance exhausts her, which in turn amplifies her sense of bodily tension. She has also noticed that the harder she avoids thinking about the trauma, the more likely she is to be startled by a sudden sound at the shop, as if her mind is scanning for threats even as it tries to look away. The undereating, she believes, helps her feel less—less emotion, less memory—but the physical weakness only makes her feel watched and exposed. Her husband has begun to worry; he sees her flinch when he enters a room quietly. Mārama came to therapy after a client’s angry outburst made her freeze under a bathroom sink for twenty minutes, unable to move or speak. What frightens her most is the sense that she is losing her grip on the present, that the past is not staying where it belongs. She hopes the therapy can help her feel safe in her own body again—and perhaps finally fill in the gaps that feel like they belong to someone else."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Mārama grew up with a father whose anger arrived without warning—a raised voice, a slammed fist, and then the physical blow. She remembers some moments with startling clarity: the way his shadow fell across the kitchen floor, the smell of his sweat. But other parts are gone entirely, like a film with missing reels. What remains feels as though it happened to a different child, not to her. Now thirty, married, working as a plumber, she has built a life far from that house. Yet the past intrudes in ways she cannot control. A customer shouting across a job site, a supervisor’s calmly expressed frustration, even the sensation of being watched while she works under a sink—these moments trigger a cascade she barely understands. Her body tightens, her heart pounds, and she finds herself gasping at an unexpected footstep nearby. Her mind, she says, “goes somewhere else,” and the fragmented memories surface like shards of glass. She has learned to cope by pushing those thoughts away, by keeping her mind occupied with constant mental tasks, and by skipping meals—she lost eight pounds in the past two months. The restriction gives her a sense of control, but it also leaves her lightheaded and more vulnerable to the startle reflex that follows any sudden movement.\n\nThe causal loops are tight and self-reinforcing. When a colleague expresses even calm anger, Mārama’s body goes on alert, her concentration dissolves, and the alien, incomplete memories press closer. That immediate threat response makes her even more vigilant for the next angry tone, and the more she tries to suppress the memories, the more fragmented they become—and the more dangerous her environment feels. She often lies in bed after work, muscles still rigid, trying to distract herself with a podcast, but the effort of constant mental vigilance exhausts her, which in turn amplifies her sense of bodily tension. She has also noticed that the harder she avoids thinking about the trauma, the more likely she is to be startled by a sudden sound at the shop, as if her mind is scanning for threats even as it tries to look away. The undereating, she believes, helps her feel less—less emotion, less memory—but the physical weakness only makes her feel watched and exposed. Her husband has begun to worry; he sees her flinch when he enters a room quietly. Mārama came to therapy after a client’s angry outburst made her freeze under a bathroom sink for twenty minutes, unable to move or speak. What frightens her most is the sense that she is losing her grip on the present, that the past is not staying where it belongs. She hopes the therapy can help her feel safe in her own body again—and perhaps finally fill in the gaps that feel like they belong to someone else.", "passed": false, "violations": [{"edge": "Memory → Threat", "explanation": "The vignette does not show that the trauma memory directly increases the sense of threat; threat and memory appear as concurrent responses to triggers, and maladaptive strategies affect both, but memory is not depicted as causing threat."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Memory → Threat: The vignette does not show that the trauma memory directly increases the sense of threat; threat and memory appear as concurrent responses to triggers, and maladaptive strategies affect both, but memory is not depicted as causing threat.\n  e.g. \"Once the memory had surfaced, she couldn't shake the sense that the danger was still present — that it had simply moved into her body rather than gone away.\"\n  e.g. \"The flashback left her standing in her own kitchen feeling hunted, even with the door locked and the lights on.\"\n  e.g. \"After the memory broke through, the threat felt immediate and physical — not something that had happened, but something that was still happening.\""},
+
+    {"vignette": "Mārama grew up with a father whose anger arrived without warning—a raised voice, a slammed fist, and then the physical blow. She remembers some moments with startling clarity: the way his shadow fell across the kitchen floor, the smell of his sweat. But other parts are gone entirely, like a film with missing reels. What remains feels as though it happened to a different child, not to her. Now thirty, married, working as a plumber, she has built a life far from that house. Yet the past intrudes in ways she cannot control. A customer shouting across a job site, a supervisor’s calmly expressed frustration, even the sensation of being watched while she works under a sink—these moments trigger a cascade she barely understands. Her body tightens, her heart pounds, and she finds herself gasping at an unexpected footstep nearby. Her mind, she says, “goes somewhere else,” and the fragmented memories surface like shards of glass. Once those memories break through, she cannot shake the feeling that danger is right behind her—that the threat has followed her into the present. She has learned to cope by pushing those thoughts away, by keeping her mind occupied with constant mental tasks, and by skipping meals—she lost eight pounds in the past two months. The restriction gives her a sense of control, but it also leaves her lightheaded and more vulnerable to the startle reflex that follows any sudden movement.\n\nThe causal loops are tight and self-reinforcing. When a colleague expresses even calm anger, Mārama’s body goes on alert, her concentration dissolves, and the alien, incomplete memories press closer. That immediate threat response makes her even more vigilant for the next angry tone, and the more she tries to suppress the memories, the more fragmented they become—and the more dangerous her environment feels. She often lies in bed after work, muscles still rigid, trying to distract herself with a podcast, but the effort of constant mental vigilance exhausts her, which in turn amplifies her sense of bodily tension. She has also noticed that the harder she avoids thinking about the trauma, the more likely she is to be startled by a sudden sound at the shop, as if her mind is scanning for threats even as it tries to look away. The undereating, she believes, helps her feel less—less emotion, less memory—but the physical weakness only makes her feel watched and exposed. Her husband has begun to worry; he sees her flinch when he enters a room quietly. Mārama came to therapy after a client’s angry outburst made her freeze under a bathroom sink for twenty minutes, unable to move or speak. What frightens her most is the sense that she is losing her grip on the present, that the past is not staying where it belongs. She hopes the therapy can help her feel safe in her own body again—and perhaps finally fill in the gaps that feel like they belong to someone else.", "passed": false, "violations": [{"edge": "Threat → Memory", "explanation": "There is no paragraph that causally conveys that sense of threat leads to the surfacing of trauma memories. The vignette describes triggers causing both threat and memory, and memory causing threat, but not threat causing memory."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Threat → Memory: There is no paragraph that causally conveys that sense of threat leads to the surfacing of trauma memories. The vignette describes triggers causing both threat and memory, and memory causing threat, but not threat causing memory.\n  e.g. \"Walking home on high alert, she passed a doorway and the memory was simply there — pulled out of her by the adrenaline, fully formed.\"\n  e.g. \"The persistent sense of danger kept her close to the event in her mind, as if she needed to keep reviewing it to stay one step ahead of whatever came next.\"\n  e.g. \"On nights when the threat felt highest, the memory was hardest to keep at bay — it would surface in the dark, vivid and unwelcome.\""},
+
+    {"vignette": "Mārama grew up with a father whose anger arrived without warning—a raised voice, a slammed fist, and then the physical blow. She remembers some moments with startling clarity: the way his shadow fell across the kitchen floor, the smell of his sweat. But other parts are gone entirely, like a film with missing reels. What remains feels as though it happened to a different child, not to her. Now thirty, married, working as a plumber, she has built a life far from that house. Yet the past intrudes in ways she cannot control. A customer shouting across a job site, a supervisor’s calmly expressed frustration, even the sensation of being watched while she works under a sink—these moments trigger a cascade she barely understands. Her body tightens, her heart pounds, and she finds herself gasping at an unexpected footstep nearby. Her mind, she says, “goes somewhere else,” and the fragmented memories surface like shards of glass. Once those memories break through, she cannot shake the feeling that danger is right behind her—that the threat has followed her into the present. The persistent sense of danger kept her close to the event in her mind, as if she needed to keep reviewing it to stay one step ahead of whatever came next. She has learned to cope by pushing those thoughts away, by keeping her mind occupied with constant mental tasks, and by skipping meals—she lost eight pounds in the past two months. The restriction gives her a sense of control, but it also leaves her lightheaded and more vulnerable to the startle reflex that follows any sudden movement.\n\nThe causal loops are tight and self-reinforcing. When a colleague expresses even calm anger, Mārama’s body goes on alert, her concentration dissolves, and the alien, incomplete memories press closer. That immediate threat response makes her even more vigilant for the next angry tone, and the more she tries to suppress the memories, the more fragmented they become—and the more dangerous her environment feels. She often lies in bed after work, muscles still rigid, trying to distract herself with a podcast, but the effort of constant mental vigilance exhausts her, which in turn amplifies her sense of bodily tension. She has also noticed that the harder she avoids thinking about the trauma, the more likely she is to be startled by a sudden sound at the shop, as if her mind is scanning for threats even as it tries to look away. The undereating, she believes, helps her feel less—less emotion, less memory—but the physical weakness only makes her feel watched and exposed. Her husband has begun to worry; he sees her flinch when he enters a room quietly. Mārama came to therapy after a client’s angry outburst made her freeze under a bathroom sink for twenty minutes, unable to move or speak. What frightens her most is the sense that she is losing her grip on the present, that the past is not staying where it belongs. She hopes the therapy can help her feel safe in her own body again—and perhaps finally fill in the gaps that feel like they belong to someone else.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

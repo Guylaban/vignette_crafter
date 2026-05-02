@@ -1,0 +1,189 @@
+PERSONA 41  |  2026-05-02 16:09:49
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-pro
+    persona_crafter      gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             37
+  gender          Male
+  ethnicity       African
+  relationship_status Single
+  occupation      Psychologist
+  trauma_type     Rape
+  pcl5            61
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Locked Spaces: Being in a locked or confined room
+    • Sexual Trauma Cues: Comments on sexual violence
+    • Male Presence: Being alone with men
+  Threat:
+    • Back to Wall: I feel unsafe unless my back is against a wall where I can see the room
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+  Negative Appraisals:
+    • Hopelessness: I have no future
+    • Helplessness: I can't stop bad things from happening to me
+    • Exposed to Others: I feel that others can see what happened to me just by looking at me
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.6411
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.8031
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.9533
+  Threat → Triggers                                  0.6115
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Sirens): Sirens
+    explanation: The trigger set is mostly coherent with rape trauma (locked/confined spaces, sexual-violence comments), but sirens are hard to connect to the rest of this profile and trauma context. With strong Negative Appraisals↔Threat and links from both to Triggers, the triggers should plausibly cue the patient's threat meanings; sirens do not fit the sexual-assault/confinement theme represented by the other trigger and appraisal items.
+    item:        Threat / Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm
+    explanation: Within Threat, hypervigilant unsafe-world items (back to wall, staying alert to sleep) fit well, but 'taking too many risks' pulls in the opposite direction and is hard to reconcile with the same immediate threat style. It also lacks support elsewhere in the profile, since no other items suggest disinhibition, anger, numbing, or self-destructive coping.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,833
+  output:     3,910
+  total:      6,743
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Samuel, a 37-year-old psychologist, presented with a quiet, almost unnerving stillness. It had been
+seven months since he attended a professional conference in another city, an event that had
+fractured his life. The assault occurred in a hotel room, perpetrated by an older, well-regarded
+colleague he had admired. After a day of panels, the man had invited Samuel to his room to discuss a
+research paper, locking the door behind them. The details of the hours that followed were a blur of
+disconnected sensory fragments, but the memory of the deadbolt clicking shut, the feeling of being
+trapped, and the complete loss of control were seared into his mind. This experience formed the
+bedrock of his current distress, making his own therapy office, once a sanctuary, feel like a
+potential trap.
+
+In the weeks following the assault, a pervasive sense of shame settled over him. Samuel became
+convinced that his trauma was visible to everyone, a stain on his character that others could see
+just by looking at him. He felt acutely exposed, especially around other men. This deep-seated
+belief that he was permanently marked and fundamentally helpless began to poison his perception of
+the world. Because he had come to believe he was incapable of preventing bad things from happening,
+his body remained in a constant state of high alert. He found himself unable to relax, even in his
+own apartment, and sleep became a nightly battle against the need to stay vigilant. The simple act
+of sitting in a cafe became an exercise in threat assessment; he could not settle unless his back
+was firmly against a wall, with a clear view of the entire room and all its exits.
+
+This state of perpetual, exhausting vigilance only served to confirm his worst fears about himself.
+The fact that he was unable to switch off the alarm, that his body hummed with a tension he could
+not release, felt like proof of his own brokenness. The constant scanning of his environment
+reinforced his conviction that he was utterly helpless, a man whose future had been stolen. Each
+night he lay awake, listening for nonexistent threats, the darkness would amplify his belief that he
+had no future, that his life as he knew it was over. This feedback loop was relentless: the more
+unsafe he felt, the more hopeless he became, and the more hopeless he became, the more he
+interpreted the world as a place of imminent danger.
+
+His hypervigilance made him exquisitely sensitive to reminders of the trauma. Because he was always
+scanning for danger, the presence of other men, especially in enclosed spaces, became almost
+unbearable. This was most acute in his professional life. The thought of being alone in his office
+with a male client, a routine part of his job for over a decade, now triggered a wave of panic. He
+began finding excuses to keep the door ajar, a breach of confidentiality that filled him with
+professional shame. The belief that he was exposed and helpless made these situations feel not just
+uncomfortable, but life-threatening. He started rescheduling or referring away male clients, a
+pattern his colleagues began to notice. When a news report or casual conversation touched on sexual
+violence, the words would land like physical blows, sending him spiraling back into the certainty
+that he was fragile and unsafe.
+
+The cycle has now ground his life to a halt. His practice, once a source of pride, is faltering. He
+avoids social gatherings and has cut off contact with most of his male friends. The isolation has
+become profound. Samuel finally sought therapy after a panic attack during a session with a new male
+client, where the simple act of the client shifting in his chair caused him to flinch so violently
+that he had to end the appointment abruptly. He sits in the therapy room now, his back pressed into
+the corner of the sofa, terrified that articulating his experience will make it more real. His
+greatest fear is that he is right—that he is permanently broken—and his only hope is to one day feel
+safe enough to close a door without feeling the walls closing in.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Samuel, a 37-year-old psychologist, presented with a quiet, almost unnerving stillness. It had been
+seven months since he attended a professional conference in another city, an event that had
+fractured his life. The assault occurred in a hotel room, perpetrated by an older, well-regarded
+colleague he had admired. After a day of panels, the man had invited Samuel to his room to discuss a
+research paper, locking the door behind them. The details of the hours that followed were a blur of
+disconnected sensory fragments, but the memory of the deadbolt clicking shut, the feeling of being
+trapped, and the complete loss of control were seared into his mind. This experience formed the
+bedrock of his current distress, making his own therapy office, once a sanctuary, feel like a
+potential trap.
+
+In the weeks following the assault, a pervasive sense of shame settled over him. Samuel became
+convinced that his trauma was visible to everyone, a stain on his character that others could see
+just by looking at him. He felt acutely exposed, especially around other men. This deep-seated
+belief that he was permanently marked and fundamentally helpless began to poison his perception of
+the world. Because he had come to believe he was incapable of preventing bad things from happening,
+his body remained in a constant state of high alert. He found himself unable to relax, even in his
+own apartment, and sleep became a nightly battle against the need to stay vigilant. The simple act
+of sitting in a cafe became an exercise in threat assessment; he could not settle unless his back
+was firmly against a wall, with a clear view of the entire room and all its exits.
+
+This state of perpetual, exhausting vigilance only served to confirm his worst fears about himself.
+The fact that he was unable to switch off the alarm, that his body hummed with a tension he could
+not release, felt like proof of his own brokenness. The constant scanning of his environment
+reinforced his conviction that he was utterly helpless, a man whose future had been stolen. Each
+night he lay awake, listening for nonexistent threats, the darkness would amplify his belief that he
+had no future, that his life as he knew it was over. This feedback loop was relentless: the more
+unsafe he felt, the more hopeless he became, and the more hopeless he became, the more he
+interpreted the world as a place of imminent danger.
+
+His hypervigilance made him exquisitely sensitive to reminders of the trauma. Because he was always
+scanning for danger, the presence of other men, especially in enclosed spaces, became almost
+unbearable. This was most acute in his professional life. The thought of being alone in his office
+with a male client, a routine part of his job for over a decade, now triggered a wave of panic. He
+began finding excuses to keep the door ajar, a breach of confidentiality that filled him with
+professional shame. The belief that he was exposed and helpless made these situations feel not just
+uncomfortable, but life-threatening. He started rescheduling or referring away male clients, a
+pattern his colleagues began to notice. When a news report or casual conversation touched on sexual
+violence, the words would land like physical blows, sending him spiraling back into the certainty
+that he was fragile and unsafe.
+
+The cycle has now ground his life to a halt. His practice, once a source of pride, is faltering. He
+avoids social gatherings and has cut off contact with most of his male friends. The isolation has
+become profound. Samuel finally sought therapy after a panic attack during a session with a new male
+client, where the simple act of the client shifting in his chair caused him to flinch so violently
+that he had to end the appointment abruptly. He sits in the therapy room now, his back pressed into
+the corner of the sofa, terrified that articulating his experience will make it more real. His
+greatest fear is that he is right—that he is permanently broken—and his only hope is to one day feel
+safe enough to close a door without feeling the walls closing in.

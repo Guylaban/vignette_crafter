@@ -1,0 +1,659 @@
+PERSONA 299  |  2026-05-02 11:49:41
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             57
+  gender          Female
+  ethnicity       South Eastern Asian
+  relationship_status Married
+  occupation      Shopowner
+  trauma_type     Child's life-threatening illness
+  pcl5            33
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Visual/Bodily Cues: Blood
+    • Visual (Needles/Medical): Medical equipment such as needles or drips
+    • Medical Procedures: Undergoing a medical examination or procedure
+  Maladaptive Strategies:
+    • Reassurance Seeking: I keep asking others to reassure me that I am okay
+    • Memory Erasure: I try to erase the memory of the event
+    • Avoid All Feelings: avoid anything that could cause negative or positive feelings
+  Threat:
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Scanning for Danger: I constantly scan my surroundings for signs of danger
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+  Memory:
+    • Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Emotion Without Image: Sometimes I feel the full emotional intensity of the event without any clear image or memory
+  Negative Appraisals:
+    • Injustice: What happened to me was deeply unfair and nothing has been done about it
+    • Institutional Failure: The people or institutions that should have protected me let me down
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0229
+  Triggers → Negative Appraisals                     0.6507
+  Negative Appraisals → Maladaptive Strategies       0.4043
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0667
+  Memory → Maladaptive Strategies                    0.0401
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.6115
+  Memory → Triggers                                  0.1820
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.5501
+  Threat → Negative Appraisals                       0.3758
+  Threat → Triggers                                  0.7162
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.8524
+  Maladaptive Strategies → Triggers                  0.8357
+  Maladaptive Strategies → Threat                    0.4489
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Object Throwing: Throwing objects
+    explanation: 'Throwing objects' is hard to reconcile as a trauma-linked trigger for a child's life-threatening illness unless the illness involved a highly unusual accident context; nothing else in the profile supports that context.
+    item:        Negative Appraisals / Triggers: Crash Imagery: Cars hit by accident
+    explanation: 'Cars hit by accident' suggests motor-vehicle collision imagery rather than a child's medical crisis. This trigger is not supported by the memory, threat, appraisal, or strategy items and pulls toward a different trauma type.
+  [2] FAIL
+    item:        Triggers / Triggers: Crash Imagery: Cars hit by accident
+    explanation: 'Cars hit by accident' is hard to reconcile with the indexed trauma of a child's life-threatening illness when the other trigger items are strongly medical (blood, needles/drips). It suggests a different trauma context rather than a plausible cue for the same event.
+    item:        Negative Appraisals / Negative Appraisals: Distrust Others: People are not what they seem
+    explanation: 'People are not what they seem' implies a broad interpersonal mistrust theme that is not well supported by the rest of the profile, which is centered on medical trauma, threat sensitivity, fragmented memory, and self-blame/injustice. This appraisal is possible but, in this item set, feels disconnected from the trauma formulation and other selected items.
+  [3] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: For a trauma centered on a child's life-threatening illness, strong self-blame can occur, but the specific item 'The event happened because of the way I acted' suggests direct causal responsibility for the illness in a way that is hard to reconcile with the rest of the profile unless there was a clear precipitating action. The accompanying appraisals focus more plausibly on unfairness and institutional failure, so this item is the least coherent appraisal in the set.
+    item:        Threat / Threat: Alert at Home: I feel on guard even inside my own home
+    explanation: The threat profile is very generalized and physical-environment focused ('on guard even inside my own home', 'constantly scan my surroundings for signs of danger'), which reads more like danger from external attack than threat linked to a child's medical crisis. With the selected triggers being medical cues and procedures, the threat items would more coherently involve fear of bad news, collapse, symptoms, or medical emergency recurrence rather than pervasive environmental scanning.
+    item:        Maladaptive Strategies / Threat: Scanning for Danger: I constantly scan my surroundings for signs of danger
+    explanation: 'Constantly scan my surroundings for signs of danger' is difficult to connect to the medical triggers, memory profile, and appraisals provided. It implies hypervigilance for external threat cues that is not otherwise represented in the formulation content of this case.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     25,004
+  output:     3,758
+  total:     28,762
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  5 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Mai, a 57-year-old shopowner from a South Eastern Asian family, described the start of her
+difficulties as the afternoon her son nearly died in hospital. He had been admitted suddenly with a
+life-threatening illness, and for days she watched him hooked to drips, needles taped into his arm,
+his skin pale beneath the fluorescent lights while staff moved briskly around him. She remembered
+the blood in the tubing and on the gauze, and how every medical procedure seemed to pull the same
+terrible thought through her body: that she had not protected him. Even now, when she tried to tell
+it, she could say only fragments. She knew what happened, but the details would not stay in words;
+sometimes the full force of the fear and guilt rose in her chest without any clear image at all. In
+those moments, the hospital scene returned only in pieces — the drip stand, the needle tray, the
+smell of antiseptic — and those fragments were enough to make her feel again that she had failed her
+son and that the people who should have protected him had let him down. What happened, she said, was
+deeply unfair, and the unfairness felt sharpened by the sense that she should have done more.
+
+In the months after he recovered, Mai found herself reacting to anything that resembled that time in
+the ward. The sight of blood in her shop, even a small cut on a customer’s hand, could pull her back
+into the old terror; medical equipment in clinics, syringes, drips, and the sight of a nurse
+preparing a procedure made her feel flooded before she could think. She noticed that when she tried
+to deliberately remember the event, the memory would not come in an orderly way, and that effort
+itself seemed to make the distress more intense. The less she could recall clearly, the more she
+felt certain that the memory held something intolerable, and that uncertainty fed her belief that
+she had failed and that something was still fundamentally unjust. Medical appointments became
+especially charged: the examination table, the smell of disinfectant, the sight of a needle tray
+could bring back the same wordless dread, and she would leave thinking that the situation was
+dangerous, that she had been powerless once, and that she must not let herself be caught unprepared
+again.
+
+That conviction changed how Mai lived. She kept asking her husband, her adult daughter, and even the
+doctor to reassure her that she was okay, but the relief never lasted. She tried to erase the memory
+altogether and avoided anything that could stir either negative or positive feelings, because even
+calm or tenderness felt risky if it might open the door to the old scene. Yet the more she pushed
+the memory away, the more it seemed to press back: a passing glimpse of a drip in a clinic, a smear
+of blood at the wet market, or the memory of her son lying still could all be enough to bring the
+whole emotional surge back. Each time that happened, her sense that the event had been a failure
+deepened, as if the very fact that she still could not put it into words meant she had never really
+dealt with it. She became more convinced that the institutions around her had let her down, that she
+herself had failed to protect her child, and that something about the world remained profoundly
+unsafe.
+
+By the time she sought help, the vigilance had become exhausting. Mai said she could not relax even
+in her own home, and in her shop she constantly scanned the surroundings for signs of danger,
+watching customers’ hands, any hint of injury, any medical news on the television in the corner. Her
+body reacted sharply when something reminded her of the hospital — her heart would race, her muscles
+tighten, and she would feel suddenly on edge, as though another emergency were about to begin. Those
+physical reactions made her more certain that danger was near, which in turn kept the old memories
+close, even when she wanted them gone. She had begun avoiding errands that might bring her into
+contact with clinics, and her husband noticed that she was less present with the family, less able
+to enjoy gatherings she once loved. What finally brought her in was not one single crisis but the
+growing fear that she was living as if the hospital had never ended. She came hoping to stop
+constantly checking for danger and to understand why the memory still overtook her, while fearing
+most that if she let herself remember fully, she would feel again that she had failed her son and
+could not bear it.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: No paragraph clearly shows triggers/reminders causing negative appraisals; the vignette shows triggers leading to fear and memory activation, but not to appraisals as a separate result.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: No paragraph clearly shows negative appraisals leading to triggers; Mai's beliefs about failure and unfairness are described, but they are not shown to generate new reminders or cues.
+
+    ✗ edge:        Threat → Memory
+      explanation: No paragraph clearly shows a perceived sense of threat driving the traumatic memory; the threat appears as a consequence of reminders and bodily reactions rather than an antecedent of memory activation.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: No paragraph clearly shows threat leading to negative appraisals; fear and danger are described, but not as causing her failure/unfairness beliefs.
+
+    ✗ edge:        Threat → Triggers
+      explanation: No paragraph clearly shows threat leading to triggers; the vignette presents reminders as preceding the sense of danger, not the other way around.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: No paragraph clearly shows maladaptive strategies causing negative appraisals; reassurance-seeking and avoidance are described, but not as producing her beliefs of failure or injustice.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: No paragraph clearly shows maladaptive strategies creating triggers; her avoidance and checking behaviors do not generate reminders or cues in the vignette.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: No paragraph clearly shows maladaptive strategies increasing threat; the vignette does not explicitly state that her avoidance or reassurance-seeking heightens her sense of danger.
+
+  [2] FAIL
+Mai, a 57-year-old shopowner from a South Eastern Asian family, described the start of her
+difficulties as the afternoon her son nearly died in hospital. He had been admitted suddenly with a
+life-threatening illness, and for days she watched him hooked to drips, needles taped into his arm,
+his skin pale beneath the fluorescent lights while staff moved briskly around him. She remembered
+the blood in the tubing and on the gauze, and how every medical procedure seemed to pull the same
+terrible thought through her body: that she had not protected him. Even now, when she tried to tell
+it, she could say only fragments. She knew what happened, but the details would not stay in words;
+sometimes the full force of the fear and guilt rose in her chest without any clear image at all. On
+the nights when she lay awake feeling that same danger again, the memory came back hardest, as
+though the sense of threat pulled her straight into the ward. The more unsafe she felt, the more her
+mind seemed to drag her back to the hospital scene so she could not relax. In those moments, the
+hospital scene returned only in pieces — the drip stand, the needle tray, the smell of antiseptic —
+and those fragments were enough to make her feel again that she had failed her son and that the
+people who should have protected him had let him down. The ongoing sense that something bad could
+happen again made that failure feel even more certain to her, as if her fear was proof that she had
+been right to doubt herself. Living with that constant alertness, she came to see the event not as a
+one-off crisis but as evidence that she and everyone around her had been powerless and that the
+world was not safe. What happened, she said, was deeply unfair, and the unfairness felt sharpened by
+the sense that she should have done more.
+
+In the months after he recovered, Mai found herself reacting to anything that resembled that time in
+the ward. Once those reminders appeared, they did not just startle her; they quickly turned into
+judgments that she was weak for still reacting, that she had not protected her son well enough, and
+that the whole ordeal had been unjust. Seeing blood in her shop or a nurse setting out a syringe
+seemed to confirm, in her mind, that something about her had failed and that the world had treated
+her son unfairly. The sight of blood in her shop, even a small cut on a customer’s hand, could pull
+her back into the old terror; medical equipment in clinics, syringes, drips, and the sight of a
+nurse preparing a procedure made her feel flooded before she could think. That fear then made
+ordinary moments feel like warnings: once she was already braced for danger, a raised voice in the
+back of the shop or a customer mentioning a hospital appointment could suddenly seem loaded with
+meaning. In that state, she was more likely to notice and keep noticing anything medical-shaped, as
+if her fear itself kept creating new reminders. She noticed that when she tried to deliberately
+remember the event, the memory would not come in an orderly way, and that effort itself seemed to
+make the distress more intense. The less she could recall clearly, the more she felt certain that
+the memory held something intolerable, and that uncertainty fed her belief that she had failed and
+that something was still fundamentally unjust. Medical appointments became especially charged: the
+examination table, the smell of disinfectant, the sight of a needle tray could bring back the same
+wordless dread, and she would leave thinking that the situation was dangerous, that she had been
+powerless once, and that she must not let herself be caught unprepared again.
+
+That conviction changed how Mai lived. She kept asking her husband, her adult daughter, and even the
+doctor to reassure her that she was okay, but the relief never lasted. She tried to erase the memory
+altogether and avoided anything that could stir either negative or positive feelings, because even
+calm or tenderness felt risky if it might open the door to the old scene. Yet the more she pushed
+the memory away, the more it seemed to press back: a passing glimpse of a drip in a clinic, a smear
+of blood at the wet market, or the memory of her son lying still could all be enough to bring the
+whole emotional surge back. Each time that happened, her sense that the event had been a failure
+deepened, as if the very fact that she still could not put it into words meant she had never really
+dealt with it. She became more convinced that the institutions around her had let her down, that she
+herself had failed to protect her child, and that something about the world remained profoundly
+unsafe.
+
+By the time she sought help, the vigilance had become exhausting. Mai said she could not relax even
+in her own home, and in her shop she constantly scanned the surroundings for signs of danger,
+watching customers’ hands, any hint of injury, any medical news on the television in the corner. Her
+body reacted sharply when something reminded her of the hospital — her heart would race, her muscles
+tighten, and she would feel suddenly on edge, as though another emergency were about to begin. Those
+physical reactions made her more certain that danger was near, which in turn kept the old memories
+close, even when she wanted them gone. She had begun avoiding errands that might bring her into
+contact with clinics, and her husband noticed that she was less present with the family, less able
+to enjoy gatherings she once loved. Those routines of avoidance quietly became reminders themselves:
+every time she took the longer route around the medical clinic near her shop, or sent someone else
+to the pharmacy, she was again marking the danger in her day. Because she never stayed long enough
+to see that nothing happened, the careful detours only kept her convinced that the threat was still
+active. What finally brought her in was not one single crisis but the growing fear that she was
+living as if the hospital had never ended. She came hoping to stop constantly checking for danger
+and to understand why the memory still overtook her, while fearing most that if she let herself
+remember fully, she would feel again that she had failed her son and could not bear it.
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette shows reminders leading to distress and judgments, but it does not clearly state that triggers themselves cause the intrusive memory in the same paragraph.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette describes reminders becoming judgments, but it does not explicitly convey that triggers drive the negative appraisals rather than merely co-occur with them.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette says fear makes her notice more reminders, but it does not clearly state that the memory itself generates new triggers/reminders.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette links threat to the memory and to fear, but it does not clearly state that threat directly produces triggers/reminders.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette describes avoidance and reassurance-seeking as responses to threat, but it does not clearly show that these maladaptive strategies increase her sense of threat.
+
+  [3] FAIL
+Mai, a 57-year-old shopowner from a South Eastern Asian family, described the start of her
+difficulties as the afternoon her son nearly died in hospital. He had been admitted suddenly with a
+life-threatening illness, and for days she watched him hooked to drips, needles taped into his arm,
+his skin pale beneath the fluorescent lights while staff moved briskly around him. She remembered
+the blood in the tubing and on the gauze, and how every medical procedure seemed to pull the same
+terrible thought through her body: that she had not protected him. Even now, when she tried to tell
+it, she could say only fragments. She knew what happened, but the details would not stay in words;
+sometimes the full force of the fear and guilt rose in her chest without any clear image at all.
+Already living on edge, she found that almost anything could tip into a warning — a raised voice
+near the counter, a flash of white coat in the clinic window by her shop, even the smell of
+disinfectant drifting from the medical building down the street. On the nights when she lay awake
+feeling that same danger again, the memory came back hardest, as though the sense of threat pulled
+her straight into the ward. The more unsafe she felt, the more her mind seemed to drag her back to
+the hospital scene so she could not relax. In those moments, the hospital scene returned only in
+pieces — the drip stand, the needle tray, the smell of antiseptic — and those fragments were enough
+to make her feel again that she had failed her son and that the people who should have protected him
+had let him down. Once the memory had surfaced, she began to notice medical-shaped things
+everywhere: the television news about hospitals, a customer’s bandaged hand, the pharmacy queue near
+her shop, each one turning into a fresh reminder before she could settle. The ongoing sense that
+something bad could happen again made that failure feel even more certain to her, as if her fear was
+proof that she had been right to doubt herself. Each reminder seemed to tell her, with painful
+logic, that she was still weak, still at fault, and that the unfairness of what had happened said
+something about how little protection her family could count on. When the hospital smell, the sight
+of a needle tray, or even a glimpse of blood in the shop caught her off guard, the whole scene
+flooded back at once, and with it came the thought that she had failed her son and that people like
+her were powerless when it really mattered. Living with that constant alertness, she came to see the
+event not as a one-off crisis but as evidence that she and everyone around her had been powerless
+and that the world was not safe. What happened, she said, was deeply unfair, and the unfairness felt
+sharpened by the sense that she should have done more.
+
+In the months after he recovered, Mai found herself reacting to anything that resembled that time in
+the ward. Once those reminders appeared, they did not just startle her; they quickly turned into
+judgments that she was weak for still reacting, that she had not protected her son well enough, and
+that the whole ordeal had been unjust. Seeing blood in her shop or a nurse setting out a syringe
+seemed to confirm, in her mind, that something about her had failed and that the world had treated
+her son unfairly. The sight of blood in her shop, even a small cut on a customer’s hand, could pull
+her back into the old terror; medical equipment in clinics, syringes, drips, and the sight of a
+nurse preparing a procedure made her feel flooded before she could think. That fear then made
+ordinary moments feel like warnings: once she was already braced for danger, a raised voice in the
+back of the shop or a customer mentioning a hospital appointment could suddenly seem loaded with
+meaning. In that state, she was more likely to notice and keep noticing anything medical-shaped, as
+if her fear itself kept creating new reminders. She noticed that when she tried to deliberately
+remember the event, the memory would not come in an orderly way, and that effort itself seemed to
+make the distress more intense. The less she could recall clearly, the more she felt certain that
+the memory held something intolerable, and that uncertainty fed her belief that she had failed and
+that something was still fundamentally unjust. Medical appointments became especially charged: the
+examination table, the smell of disinfectant, the sight of a needle tray could bring back the same
+wordless dread, and she would leave thinking that the situation was dangerous, that she had been
+powerless once, and that she must not let herself be caught unprepared again.
+
+That conviction changed how Mai lived. She kept asking her husband, her adult daughter, and even the
+doctor to reassure her that she was okay, but the relief never lasted. She tried to erase the memory
+altogether and avoided anything that could stir either negative or positive feelings, because even
+calm or tenderness felt risky if it might open the door to the old scene. Never staying long enough
+to see that nothing happened, she came to experience her detours and reassurance-seeking as proof
+that the danger had to be real and still waiting for her. Yet the more she pushed the memory away,
+the more it seemed to press back: a passing glimpse of a drip in a clinic, a smear of blood at the
+wet market, or the memory of her son lying still could all be enough to bring the whole emotional
+surge back. Each time that happened, her sense that the event had been a failure deepened, as if the
+very fact that she still could not put it into words meant she had never really dealt with it. She
+became more convinced that the institutions around her had let her down, that she herself had failed
+to protect her child, and that something about the world remained profoundly unsafe.
+
+By the time she sought help, the vigilance had become exhausting. Mai said she could not relax even
+in her own home, and in her shop she constantly scanned the surroundings for signs of danger,
+watching customers’ hands, any hint of injury, any medical news on the television in the corner. Her
+body reacted sharply when something reminded her of the hospital — her heart would race, her muscles
+tighten, and she would feel suddenly on edge, as though another emergency were about to begin. Those
+physical reactions made her more certain that danger was near, which in turn kept the old memories
+close, even when she wanted them gone. She had begun avoiding errands that might bring her into
+contact with clinics, and her husband noticed that she was less present with the family, less able
+to enjoy gatherings she once loved. Those routines of avoidance quietly became reminders themselves:
+every time she took the longer route around the medical clinic near her shop, or sent someone else
+to the pharmacy, she was again marking the danger in her day. Because she never stayed long enough
+to see that nothing happened, the careful detours only kept her convinced that the threat was still
+active. What finally brought her in was not one single crisis but the growing fear that she was
+living as if the hospital had never ended. She came hoping to stop constantly checking for danger
+and to understand why the memory still overtook her, while fearing most that if she let herself
+remember fully, she would feel again that she had failed her son and could not bear it.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette describes threat increasing distress and vigilance, but it does not clearly state that the sense of threat directly brings back the memory in a causal way within a single paragraph.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette links threat to feeling more certain of danger, but it does not explicitly show the sense of threat causing negative appraisals in the required causal relationship.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette shows reminders leading to fear and fear making more reminders salient, but it does not clearly state that threat itself generates triggers/reminders in a direct causal chain.
+
+  [4] FAIL
+Mai, a 57-year-old shopowner from a South Eastern Asian family, described the start of her
+difficulties as the afternoon her son nearly died in hospital. He had been admitted suddenly with a
+life-threatening illness, and for days she watched him hooked to drips, needles taped into his arm,
+his skin pale beneath the fluorescent lights while staff moved briskly around him. She remembered
+the blood in the tubing and on the gauze, and how every medical procedure seemed to pull the same
+terrible thought through her body: that she had not protected him. Even now, when she tried to tell
+it, she could say only fragments. She knew what happened, but the details would not stay in words;
+sometimes the full force of the fear and guilt rose in her chest without any clear image at all.
+Already living on edge, she found that almost anything could tip into a warning — a raised voice
+near the counter, a flash of white coat in the clinic window by her shop, even the smell of
+disinfectant drifting from the medical building down the street. On the nights when she lay awake
+feeling that same danger again, the memory came back hardest, as though the sense of threat pulled
+her straight into the ward. When the threat felt strongest, the hospital scene seemed to arrive of
+its own accord, as if her mind dragged her back there whenever she was most braced for danger. The
+more on guard she became, the less able she was to keep the memory at bay. The more unsafe she felt,
+the more her mind seemed to drag her back to the hospital scene so she could not relax. In those
+moments, the hospital scene returned only in pieces — the drip stand, the needle tray, the smell of
+antiseptic — and those fragments were enough to make her feel again that she had failed her son and
+that the people who should have protected him had let him down. Once the memory had surfaced, she
+began to notice medical-shaped things everywhere: the television news about hospitals, a customer’s
+bandaged hand, the pharmacy queue near her shop, each one turning into a fresh reminder before she
+could settle. The ongoing sense that something bad could happen again made that failure feel even
+more certain to her, as if her fear was proof that she had been right to doubt herself. Each
+reminder seemed to tell her, with painful logic, that she was still weak, still at fault, and that
+the unfairness of what had happened said something about how little protection her family could
+count on. When the hospital smell, the sight of a needle tray, or even a glimpse of blood in the
+shop caught her off guard, the whole scene flooded back at once, and with it came the thought that
+she had failed her son and that people like her were powerless when it really mattered. Living with
+that constant alertness, she came to see the event not as a one-off crisis but as evidence that she
+and everyone around her had been powerless and that the world was not safe. What happened, she said,
+was deeply unfair, and the unfairness felt sharpened by the sense that she should have done more.
+
+In the months after he recovered, Mai found herself reacting to anything that resembled that time in
+the ward. Once those reminders appeared, they did not just startle her; they quickly turned into
+judgments that she was weak for still reacting, that she had not protected her son well enough, and
+that the whole ordeal had been unjust. Seeing blood in her shop or a nurse setting out a syringe
+seemed to confirm, in her mind, that something about her had failed and that the world had treated
+her son unfairly. The constant sense of danger was the most convincing proof she had that she had
+not done enough to protect him. Feeling this afraid for so long, she came to believe that the world
+itself was unsafe and that she was the kind of person who could not keep her family out of harm's
+way. The sight of blood in her shop, even a small cut on a customer’s hand, could pull her back into
+the old terror; medical equipment in clinics, syringes, drips, and the sight of a nurse preparing a
+procedure made her feel flooded before she could think. That fear then made ordinary moments feel
+like warnings: once she was already braced for danger, a raised voice in the back of the shop or a
+customer mentioning a hospital appointment could suddenly seem loaded with meaning. In that state,
+she was more likely to notice and keep noticing anything medical-shaped, as if her fear itself kept
+creating new reminders. She noticed that when she tried to deliberately remember the event, the
+memory would not come in an orderly way, and that effort itself seemed to make the distress more
+intense. The less she could recall clearly, the more she felt certain that the memory held something
+intolerable, and that uncertainty fed her belief that she had failed and that something was still
+fundamentally unjust. Medical appointments became especially charged: the examination table, the
+smell of disinfectant, the sight of a needle tray could bring back the same wordless dread, and she
+would leave thinking that the situation was dangerous, that she had been powerless once, and that
+she must not let herself be caught unprepared again.
+
+That conviction changed how Mai lived. She kept asking her husband, her adult daughter, and even the
+doctor to reassure her that she was okay, but the relief never lasted. She tried to erase the memory
+altogether and avoided anything that could stir either negative or positive feelings, because even
+calm or tenderness felt risky if it might open the door to the old scene. Never staying long enough
+to see that nothing happened, she came to experience her detours and reassurance-seeking as proof
+that the danger had to be real and still waiting for her. Yet the more she pushed the memory away,
+the more it seemed to press back: a passing glimpse of a drip in a clinic, a smear of blood at the
+wet market, or the memory of her son lying still could all be enough to bring the whole emotional
+surge back. Each time that happened, her sense that the event had been a failure deepened, as if the
+very fact that she still could not put it into words meant she had never really dealt with it. She
+became more convinced that the institutions around her had let her down, that she herself had failed
+to protect her child, and that something about the world remained profoundly unsafe.
+
+By the time she sought help, the vigilance had become exhausting. Mai said she could not relax even
+in her own home, and in her shop she constantly scanned the surroundings for signs of danger,
+watching customers’ hands, any hint of injury, any medical news on the television in the corner.
+Living at that pitch of alertness, she found the world had become dense with reminders she could not
+stop reading. A van pulling up outside the shop, a customer mentioning a clinic appointment, even
+the hospital sign visible from the street could tip her back into the same state of alarm. Her body
+reacted sharply when something reminded her of the hospital — her heart would race, her muscles
+tighten, and she would feel suddenly on edge, as though another emergency were about to begin. Those
+physical reactions made her more certain that danger was near, which in turn kept the old memories
+close, even when she wanted them gone. She had begun avoiding errands that might bring her into
+contact with clinics, and her husband noticed that she was less present with the family, less able
+to enjoy gatherings she once loved. Those routines of avoidance quietly became reminders themselves:
+every time she took the longer route around the medical clinic near her shop, or sent someone else
+to the pharmacy, she was again marking the danger in her day. Because she never stayed long enough
+to see that nothing happened, the careful detours only kept her convinced that the threat was still
+active. What finally brought her in was not one single crisis but the growing fear that she was
+living as if the hospital had never ended. She came hoping to stop constantly checking for danger
+and to understand why the memory still overtook her, while fearing most that if she let herself
+remember fully, she would feel again that she had failed her son and could not bear it.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette does not clearly show the traumatic memory itself directly generating negative appraisals in the same paragraph, beyond the broader link to guilt and failure.
+
+    ✗ edge:        Threat → Memory
+      explanation: It describes threat as bringing back the memory, but not the reverse causal direction of the memory itself leading to threat.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: It shows avoidance and reassurance-seeking as responses to threat, but not that these maladaptive strategies themselves create or increase the sense of threat.
+
+  [5] PASS
+Mai, a 57-year-old shopowner from a South Eastern Asian family, described the start of her
+difficulties as the afternoon her son nearly died in hospital. He had been admitted suddenly with a
+life-threatening illness, and for days she watched him hooked to drips, needles taped into his arm,
+his skin pale beneath the fluorescent lights while staff moved briskly around him. She remembered
+the blood in the tubing and on the gauze, and how every medical procedure seemed to pull the same
+terrible thought through her body: that she had not protected him. Even now, when she tried to tell
+it, she could say only fragments. She knew what happened, but the details would not stay in words;
+sometimes the full force of the fear and guilt rose in her chest without any clear image at all.
+Already living on edge, she found that almost anything could tip into a warning — a raised voice
+near the counter, a flash of white coat in the clinic window by her shop, even the smell of
+disinfectant drifting from the medical building down the street. On the nights when she lay awake
+feeling that same danger again, the memory came back hardest, as though the sense of threat pulled
+her straight into the ward. When the threat felt strongest, the hospital scene seemed to arrive of
+its own accord, as if her mind dragged her back there whenever she was most braced for danger. The
+more on guard she became, the less able she was to keep the memory at bay. The more unsafe she felt,
+the more her mind seemed to drag her back to the hospital scene so she could not relax. In those
+moments, the hospital scene returned only in pieces — the drip stand, the needle tray, the smell of
+antiseptic — and those fragments were enough to make her feel again that she had failed her son and
+that the people who should have protected him had let him down. Once the memory had surfaced, she
+began to notice medical-shaped things everywhere: the television news about hospitals, a customer’s
+bandaged hand, the pharmacy queue near her shop, each one turning into a fresh reminder before she
+could settle. The ongoing sense that something bad could happen again made that failure feel even
+more certain to her, as if her fear was proof that she had been right to doubt herself. Each
+reminder seemed to tell her, with painful logic, that she was still weak, still at fault, and that
+the unfairness of what had happened said something about how little protection her family could
+count on. When the hospital smell, the sight of a needle tray, or even a glimpse of blood in the
+shop caught her off guard, the whole scene flooded back at once, and with it came the thought that
+she had failed her son and that people like her were powerless when it really mattered. Living with
+that constant alertness, she came to see the event not as a one-off crisis but as evidence that she
+and everyone around her had been powerless and that the world was not safe. What happened, she said,
+was deeply unfair, and the unfairness felt sharpened by the sense that she should have done more.
+
+In the months after he recovered, Mai found herself reacting to anything that resembled that time in
+the ward. Once those reminders appeared, they did not just startle her; they quickly turned into
+judgments that she was weak for still reacting, that she had not protected her son well enough, and
+that the whole ordeal had been unjust. When the memory of the ward broke through again — the drip
+stand, the needle tray, her son’s pale face under the fluorescent lights — it was followed almost
+immediately by the thought that there must be something deeply wrong with her for still being thrown
+back there so vividly. Each time it returned, she read it as evidence that she was weak, failed, and
+somehow permanently changed by what had happened. Seeing blood in her shop or a nurse setting out a
+syringe seemed to confirm, in her mind, that something about her had failed and that the world had
+treated her son unfairly. The constant sense of danger was the most convincing proof she had that
+she had not done enough to protect him. Feeling this afraid for so long, she came to believe that
+the world itself was unsafe and that she was the kind of person who could not keep her family out of
+harm's way. The sight of blood in her shop, even a small cut on a customer’s hand, could pull her
+back into the old terror; medical equipment in clinics, syringes, drips, and the sight of a nurse
+preparing a procedure made her feel flooded before she could think. That fear then made ordinary
+moments feel like warnings: once she was already braced for danger, a raised voice in the back of
+the shop or a customer mentioning a hospital appointment could suddenly seem loaded with meaning. In
+that state, she was more likely to notice and keep noticing anything medical-shaped, as if her fear
+itself kept creating new reminders. She noticed that when she tried to deliberately remember the
+event, the memory would not come in an orderly way, and that effort itself seemed to make the
+distress more intense. The less she could recall clearly, the more she felt certain that the memory
+held something intolerable, and that uncertainty fed her belief that she had failed and that
+something was still fundamentally unjust. At night, when the sense of danger was highest, the
+hospital scene would come back on its own, not because she wanted it but because her body seemed to
+drag her there, as if the warning feeling itself pulled the memory into focus. The more unsafe she
+felt, the more readily the scene surfaced in fragments, and those fragments made the danger feel
+even more real. Medical appointments became especially charged: the examination table, the smell of
+disinfectant, the sight of a needle tray could bring back the same wordless dread, and she would
+leave thinking that the situation was dangerous, that she had been powerless once, and that she must
+not let herself be caught unprepared again.
+
+That conviction changed how Mai lived. She kept asking her husband, her adult daughter, and even the
+doctor to reassure her that she was okay, but the relief never lasted. She tried to erase the memory
+altogether and avoided anything that could stir either negative or positive feelings, because even
+calm or tenderness felt risky if it might open the door to the old scene. Never staying long enough
+to see that nothing happened, she came to experience her detours and reassurance-seeking as proof
+that the danger had to be real and still waiting for her. Yet the more she pushed the memory away,
+the more it seemed to press back: a passing glimpse of a drip in a clinic, a smear of blood at the
+wet market, or the memory of her son lying still could all be enough to bring the whole emotional
+surge back. Each time that happened, her sense that the event had been a failure deepened, as if the
+very fact that she still could not put it into words meant she had never really dealt with it. She
+became more convinced that the institutions around her had let her down, that she herself had failed
+to protect her child, and that something about the world remained profoundly unsafe.
+
+By the time she sought help, the vigilance had become exhausting. Mai said she could not relax even
+in her own home, and in her shop she constantly scanned the surroundings for signs of danger,
+watching customers’ hands, any hint of injury, any medical news on the television in the corner.
+Living at that pitch of alertness, she found the world had become dense with reminders she could not
+stop reading. A van pulling up outside the shop, a customer mentioning a clinic appointment, even
+the hospital sign visible from the street could tip her back into the same state of alarm. Her body
+reacted sharply when something reminded her of the hospital — her heart would race, her muscles
+tighten, and she would feel suddenly on edge, as though another emergency were about to begin. Those
+physical reactions made her more certain that danger was near, which in turn kept the old memories
+close, even when she wanted them gone. She had begun avoiding errands that might bring her into
+contact with clinics, and her husband noticed that she was less present with the family, less able
+to enjoy gatherings she once loved. Those routines of avoidance quietly became reminders themselves:
+every time she took the longer route around the medical clinic near her shop, or sent someone else
+to the pharmacy, she was again marking the danger in her day. Because she never stayed long enough
+to see that nothing happened, the careful detours only kept her convinced that the threat was still
+active. What finally brought her in was not one single crisis but the growing fear that she was
+living as if the hospital had never ended. She came hoping to stop constantly checking for danger
+and to understand why the memory still overtook her, while fearing most that if she let herself
+remember fully, she would feel again that she had failed her son and could not bear it. Because she
+never stayed long enough with the reminder to find out it was safe, the detours and repeated
+reassurance began to feel like proof that there really was something to fear. In her mind, the very
+habits meant to keep her steady left the danger feeling as if it were still active and unresolved.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Mai, a 57-year-old shopowner from a South Eastern Asian family, described the start of her
+difficulties as the afternoon her son nearly died in hospital. He had been admitted suddenly with a
+life-threatening illness, and for days she watched him hooked to drips, needles taped into his arm,
+his skin pale beneath the fluorescent lights while staff moved briskly around him. She remembered
+the blood in the tubing and on the gauze, and how every medical procedure seemed to pull the same
+terrible thought through her body: that she had not protected him. Even now, when she tried to tell
+it, she could say only fragments. She knew what happened, but the details would not stay in words;
+sometimes the full force of the fear and guilt rose in her chest without any clear image at all.
+Already living on edge, she found that almost anything could tip into a warning — a raised voice
+near the counter, a flash of white coat in the clinic window by her shop, even the smell of
+disinfectant drifting from the medical building down the street. On the nights when she lay awake
+feeling that same danger again, the memory came back hardest, as though the sense of threat pulled
+her straight into the ward. When the threat felt strongest, the hospital scene seemed to arrive of
+its own accord, as if her mind dragged her back there whenever she was most braced for danger. The
+more on guard she became, the less able she was to keep the memory at bay. The more unsafe she felt,
+the more her mind seemed to drag her back to the hospital scene so she could not relax. In those
+moments, the hospital scene returned only in pieces — the drip stand, the needle tray, the smell of
+antiseptic — and those fragments were enough to make her feel again that she had failed her son and
+that the people who should have protected him had let him down. Once the memory had surfaced, she
+began to notice medical-shaped things everywhere: the television news about hospitals, a customer’s
+bandaged hand, the pharmacy queue near her shop, each one turning into a fresh reminder before she
+could settle. The ongoing sense that something bad could happen again made that failure feel even
+more certain to her, as if her fear was proof that she had been right to doubt herself. Each
+reminder seemed to tell her, with painful logic, that she was still weak, still at fault, and that
+the unfairness of what had happened said something about how little protection her family could
+count on. When the hospital smell, the sight of a needle tray, or even a glimpse of blood in the
+shop caught her off guard, the whole scene flooded back at once, and with it came the thought that
+she had failed her son and that people like her were powerless when it really mattered. Living with
+that constant alertness, she came to see the event not as a one-off crisis but as evidence that she
+and everyone around her had been powerless and that the world was not safe. What happened, she said,
+was deeply unfair, and the unfairness felt sharpened by the sense that she should have done more.
+
+In the months after he recovered, Mai found herself reacting to anything that resembled that time in
+the ward. Once those reminders appeared, they did not just startle her; they quickly turned into
+judgments that she was weak for still reacting, that she had not protected her son well enough, and
+that the whole ordeal had been unjust. When the memory of the ward broke through again — the drip
+stand, the needle tray, her son’s pale face under the fluorescent lights — it was followed almost
+immediately by the thought that there must be something deeply wrong with her for still being thrown
+back there so vividly. Each time it returned, she read it as evidence that she was weak, failed, and
+somehow permanently changed by what had happened. Seeing blood in her shop or a nurse setting out a
+syringe seemed to confirm, in her mind, that something about her had failed and that the world had
+treated her son unfairly. The constant sense of danger was the most convincing proof she had that
+she had not done enough to protect him. Feeling this afraid for so long, she came to believe that
+the world itself was unsafe and that she was the kind of person who could not keep her family out of
+harm's way. The sight of blood in her shop, even a small cut on a customer’s hand, could pull her
+back into the old terror; medical equipment in clinics, syringes, drips, and the sight of a nurse
+preparing a procedure made her feel flooded before she could think. That fear then made ordinary
+moments feel like warnings: once she was already braced for danger, a raised voice in the back of
+the shop or a customer mentioning a hospital appointment could suddenly seem loaded with meaning. In
+that state, she was more likely to notice and keep noticing anything medical-shaped, as if her fear
+itself kept creating new reminders. She noticed that when she tried to deliberately remember the
+event, the memory would not come in an orderly way, and that effort itself seemed to make the
+distress more intense. The less she could recall clearly, the more she felt certain that the memory
+held something intolerable, and that uncertainty fed her belief that she had failed and that
+something was still fundamentally unjust. At night, when the sense of danger was highest, the
+hospital scene would come back on its own, not because she wanted it but because her body seemed to
+drag her there, as if the warning feeling itself pulled the memory into focus. The more unsafe she
+felt, the more readily the scene surfaced in fragments, and those fragments made the danger feel
+even more real. Medical appointments became especially charged: the examination table, the smell of
+disinfectant, the sight of a needle tray could bring back the same wordless dread, and she would
+leave thinking that the situation was dangerous, that she had been powerless once, and that she must
+not let herself be caught unprepared again.
+
+That conviction changed how Mai lived. She kept asking her husband, her adult daughter, and even the
+doctor to reassure her that she was okay, but the relief never lasted. She tried to erase the memory
+altogether and avoided anything that could stir either negative or positive feelings, because even
+calm or tenderness felt risky if it might open the door to the old scene. Never staying long enough
+to see that nothing happened, she came to experience her detours and reassurance-seeking as proof
+that the danger had to be real and still waiting for her. Yet the more she pushed the memory away,
+the more it seemed to press back: a passing glimpse of a drip in a clinic, a smear of blood at the
+wet market, or the memory of her son lying still could all be enough to bring the whole emotional
+surge back. Each time that happened, her sense that the event had been a failure deepened, as if the
+very fact that she still could not put it into words meant she had never really dealt with it. She
+became more convinced that the institutions around her had let her down, that she herself had failed
+to protect her child, and that something about the world remained profoundly unsafe.
+
+By the time she sought help, the vigilance had become exhausting. Mai said she could not relax even
+in her own home, and in her shop she constantly scanned the surroundings for signs of danger,
+watching customers’ hands, any hint of injury, any medical news on the television in the corner.
+Living at that pitch of alertness, she found the world had become dense with reminders she could not
+stop reading. A van pulling up outside the shop, a customer mentioning a clinic appointment, even
+the hospital sign visible from the street could tip her back into the same state of alarm. Her body
+reacted sharply when something reminded her of the hospital — her heart would race, her muscles
+tighten, and she would feel suddenly on edge, as though another emergency were about to begin. Those
+physical reactions made her more certain that danger was near, which in turn kept the old memories
+close, even when she wanted them gone. She had begun avoiding errands that might bring her into
+contact with clinics, and her husband noticed that she was less present with the family, less able
+to enjoy gatherings she once loved. Those routines of avoidance quietly became reminders themselves:
+every time she took the longer route around the medical clinic near her shop, or sent someone else
+to the pharmacy, she was again marking the danger in her day. Because she never stayed long enough
+to see that nothing happened, the careful detours only kept her convinced that the threat was still
+active. What finally brought her in was not one single crisis but the growing fear that she was
+living as if the hospital had never ended. She came hoping to stop constantly checking for danger
+and to understand why the memory still overtook her, while fearing most that if she let herself
+remember fully, she would feel again that she had failed her son and could not bear it. Because she
+never stayed long enough with the reminder to find out it was safe, the detours and repeated
+reassurance began to feel like proof that there really was something to fear. In her mind, the very
+habits meant to keep her steady left the danger feeling as if it were still active and unresolved.

@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "agent_name": "Persona_149_PersonaValidator",
+    "role": "PersonaValidator",
+    "call_index": 1,
+    "timestamp": "2026-05-01 17:49:59"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a validator checking whether a PTSD patient's self-report profile is clinically coherent.\n\nDemographics and trauma type have already been validated. Your job is to check three things:\n1. Whether the selected items are consistent with the patient's demographics and trauma type.\n2. Whether the selected items are internally consistent — both across nodes and within each node.\n3. Whether the selected items are consistent with the cognitive formulation — items from a node should reflect the edge pattern of that node.\n\nSCOPE: Only flag items belonging to these five components: Triggers, Threat, Negative Appraisals, Memory, Maladaptive Strategies.\nDo NOT flag PCL-5 score, overall severity, or any meta-level concern — only flag individual items within the five components above.\n\nJUDGMENT GUIDELINES:\n\n- Clearly implausible vs merely unusual:\n  A combination is clearly implausible if a clinician would immediately question whether the items could describe the same patient with the same trauma.\n  Unusual or unexpected combinations are not enough to flag — real patients are heterogeneous.\n  Only flag when the mismatch is hard to explain clinically.\n\n- Within-node consistency:\n  Three items from the same node should not directly contradict each other.\n  Thematic redundancy is fine.\n  Flag only when two items within the same node express opposing clinical states.\n\n- Cross-node consistency:\n  The items across all nodes should describe a coherent patient.\n  Flag when items from different nodes pull in opposite directions in a way that cannot plausibly coexist \n  For example, triggers that imply a specific threat context that is entirely absent from the appraisals and memory items, or maladaptive strategies that address a symptom type not represented anywhere else in the profile.\n\n- Cognitive formulation alignment:\n  The cognitive formulation specifies which nodes are active and the strength of edges between them.\n  A strong edge between two nodes (e.g. Triggers → Threat) means those components are tightly linked for this patient — the self-report items from those nodes should reflect a plausible clinical connection.\n  Items from a node with no strong outgoing or incoming edges should not contradict the isolated role of that node.\n  Do not flag items solely because an edge is weak or absent — only flag when the items actively contradict the formulation structure.\n\n- PCL-5 severity:\n  The PCL-5 score reflects overall symptom severity.\n  Flag if the items selected across nodes are clearly mismatched with that severity level — either consistently too mild or consistently too severe relative to the score.\n\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following patient's self-report for clinical coherence with their demographics, trauma type, and cognitive formulation.\n\nPatient demographics:\n  age: 37\n  gender: Female\n  ethnicity: African\n  relationship_status: Divorced\n  occupation: Police Officer\n  trauma_type: Toxic chemical exposure\n  pcl5: 33\n\nCognitive formulation (Ehlers & Clark model):\nActive edges:\n  - Negative Appraisals → Maladaptive Strategies (strength: 0.56)\n  - Maladaptive Strategies → Negative Appraisals (strength: 0.29)\n  - Maladaptive Strategies → Triggers (strength: 0.44)\n\nInactive edges:\n  - Triggers → Maladaptive Strategies\n  - Triggers → Threat\n  - Triggers → Memory\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Threat\n  - Negative Appraisals → Memory\n  - Negative Appraisals → Triggers\n  - Memory → Maladaptive Strategies\n  - Memory → Threat\n  - Memory → Negative Appraisals\n  - Memory → Triggers\n  - Threat → Maladaptive Strategies\n  - Threat → Memory\n  - Threat → Negative Appraisals\n  - Threat → Triggers\n  - Maladaptive Strategies → Memory\n  - Maladaptive Strategies → Threat\n\nSelf-report items:\n  Triggers: Tactile (Restrained): Feeling physically restrained or held down, Olfactory (Sweat/Body): Sweat or body odour, Visual (Water/Flooding): Water, flooding, or large bodies of water\n  Maladaptive Strategies: Avoid Intimacy: Being emotionally close or intimate with others, Avoid Exercise: Exercise, Avoid Driving: Driving or being a passenger in a vehicle\n  Negative Appraisals: Contamination: I feel dirty or contaminated because of what happened, Character Blame: The event happened to me because of the sort of person I am, Injustice: What happened to me was deeply unfair and nothing has been done about it"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "issue_components": [
+      "Triggers",
+      "Maladaptive Strategies",
+      "Negative Appraisals"
+    ],
+    "issue_items": [
+      "Triggers: Tactile (Restrained): Feeling physically restrained or held down",
+      "Triggers: Visual (Water/Flooding): Water, flooding, or large bodies of water",
+      "Maladaptive Strategies: Avoid Intimacy: Being emotionally close or intimate with others",
+      "Maladaptive Strategies: Avoid Driving: Driving or being a passenger in a vehicle",
+      "Negative Appraisals: Character Blame: The event happened to me because of the sort of person I am"
+    ],
+    "issue_explanations": [
+      "For toxic chemical exposure, feeling physically restrained/held down is hard to reconcile as a trauma-linked trigger unless the trauma also prominently involved assault, capture, or forced restraint; nothing else in the profile supports that context.",
+      "Water/flooding/large bodies of water is not a plausible trigger theme for toxic chemical exposure and is not linked by the other items to contamination, exposure, or occupational hazard themes, making it clinically incoherent in this profile.",
+      "Avoiding emotional intimacy fits interpersonal/sexual trauma formulations more than toxic chemical exposure. With no corresponding interpersonal threat, betrayal, or shame-related memory content, this strategy does not cohere with the rest of the profile.",
+      "Avoiding driving/being a passenger suggests traffic collision or transport-related trauma. No trigger, appraisal, or memory item links the trauma to vehicles or travel, so this looks mismatched to the stated trauma type.",
+      "'The event happened to me because of the sort of person I am' implies global self-blame/characterological shame, which is difficult to reconcile with accidental or occupational toxic exposure in the absence of other self-blame or guilt themes tied to procedural error or negligence. Contamination and injustice fit better; this item is the main appraisal outlier."
+    ]
+  }
+}

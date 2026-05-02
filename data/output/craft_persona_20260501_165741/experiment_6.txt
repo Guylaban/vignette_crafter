@@ -1,0 +1,130 @@
+PERSONA 6  |  2026-05-01 17:00:32
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    craft_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             32
+  gender          Male
+  ethnicity       North American
+  relationship_status In a relationship
+  occupation      Carpenter
+  trauma_type     Toxic chemical exposure
+  pcl5            47
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Media Exposure: Related media content
+    • Victim Memories: Reminders of victims
+    • Conflict: Confrontations
+  Threat:
+    • Watching Others: I watch other people closely for signs that they might harm me
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+  Memory:
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+    • More Real Than Normal: My memories of the event feel more real and vivid than memories of ordinary things
+  Negative Appraisals:
+    • Others-Would-Cope: Somebody else would have stopped the event from happening
+    • Intrinsic Fault: There is something about me that made the event happen
+    • Lost Emotions: I will never be able to feel normal emotions again
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.5190
+  Triggers → Memory                                  0.4906
+  Triggers → Negative Appraisals                     0.7261
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.2506
+  Negative Appraisals → Triggers                     0.4130
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.6624
+  Memory → Negative Appraisals                       0.4170
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.6569
+  Threat → Negative Appraisals                       0.0700
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Conflict: Confrontations
+    explanation: The trauma type is toxic chemical exposure, but the trigger 'Conflict: Confrontations' implies interpersonal threat; this is weakly connected to the rest of the profile, which otherwise centers on reminders of the incident and victims.
+    item:        Threat / Threat: Watching Others: I watch other people closely for signs that they might harm me
+    explanation: Threat items are strongly interpersonal/assaultive ('watch other people closely for signs they might harm me'), which is hard to reconcile with a toxic chemical exposure trauma unless there was a prominent interpersonal component not reflected elsewhere in the profile.
+    item:        Negative Appraisals / Negative Appraisals: Others-Would-Cope: Somebody else would have stopped the event from happening
+    explanation: The appraisal 'Somebody else would have stopped the event from happening' suggests a preventable event with clear personal agency by another person; that is possible, but together with the interpersonal threat items it pulls the case toward an assault/blame formulation rather than toxic exposure.
+  [2] FAIL
+    item:        Triggers / Triggers: Conflict: Confrontations
+    explanation: For toxic chemical exposure, 'Conflict: Confrontations' is a weak fit as a primary trigger unless there is additional interpersonal trauma content; it does not connect well to the rest of the profile, which is centered on exposure reminders and intrusive memory.
+    item:        Threat / Threat: Watching Others: I watch other people closely for signs that they might harm me
+    explanation: The threat items are framed around interpersonal assault/harm ('people might harm me', scanning others for danger), which is hard to reconcile with a toxic chemical exposure trauma unless the event prominently involved intentional human threat. The rest of the profile does not support that interpersonal-threat formulation.
+    item:        Negative Appraisals / Negative Appraisals: Others-Would-Cope: Somebody else would have stopped the event from happening
+    explanation: 'Somebody else would have stopped the event from happening' and especially 'There is something about me that made the event happen' suggest strong personal causation/self-blame. For accidental toxic chemical exposure, this level of self-causation is not impossible, but here it is not supported by the other selected items, which emphasize sensory memory and generalized danger rather than responsibility for causing the event.
+  [3] FAIL
+    item:        Triggers / Triggers: Conflict: Confrontations
+    explanation: The profile is built around toxic chemical exposure, but 'Conflict: Confrontations' implies interpersonal conflict as a core trigger. That could occur secondarily, but here it is not supported by the memory items or by the rest of the trigger set, which otherwise centers on exposure-related reminders.
+    item:        Threat / Threat: Watching Others: I watch other people closely for signs that they might harm me
+    explanation: Threat items are strongly interpersonal ('watch other people closely for signs that they might harm me'), which fits assault/paranoia-type trauma better than toxic chemical exposure. With this trauma type, threat is more plausibly contamination, bodily harm, unseen environmental danger, or institutional negligence rather than imminent attack by other people.
+    item:        Negative Appraisals / Negative Appraisals: Somebody else would have stopped the event from happening
+    explanation: The negative appraisal 'Somebody else would have stopped the event from happening' is not impossible, but paired with 'There is something about me that made the event happen' it creates an implausible blame pattern for toxic chemical exposure: external-preventability by others and intrinsic personal causation are both endorsed without any bridging content. In this trauma context, one would expect appraisals about negligence, safety, health, or self-protection rather than strong intrinsic fault.
+  [4] FAIL
+    item:        Triggers / Triggers: Conflict: Confrontations
+    explanation: For toxic chemical exposure, 'Conflict: Confrontations' is a poor fit unless there was a salient interpersonal confrontation tied to the exposure; nothing else in the profile supports an assaultive/interpersonal trauma context.
+    item:        Threat / Threat: Watching Others: I watch other people closely for signs that they might harm me
+    explanation: The threat pattern centers on intentional interpersonal harm ('watch other people closely for signs that they might harm me'), which is difficult to reconcile with a toxic chemical exposure trauma and with the rest of the profile, which otherwise reflects non-interpersonal danger and intrusive memory/reactivity.
+  [5] FAIL
+    item:        Triggers / Triggers: Conflict: Confrontations
+    explanation: For toxic chemical exposure, 'Conflict: Confrontations' is not impossible but is weakly grounded in the stated trauma and is not supported by the rest of the profile, which otherwise centers on contamination/disaster-type reminders and intrusive memory responses. It introduces an interpersonal-threat trigger theme that is hard to connect clinically to the rest of the selected items.
+    item:        Threat / Threat: Watching Others: I watch other people closely for signs that they might harm me
+    explanation: 'Watching Others closely for signs that they might harm me' implies a predominantly interpersonal assault/paranoia-style threat expectation. That does not fit well with a toxic chemical exposure trauma when the rest of threat/memory items describe generalized danger reactivity and alarm responses rather than fear of intentional human attack.
+    item:        Negative Appraisals / Negative Appraisals: Others-Would-Cope: Somebody else would have stopped the event from happening
+    explanation: 'Somebody else would have stopped the event from happening' is not inherently impossible, but alongside 'There is something about me that made the event happen' it pulls toward two different causal formulations. In a toxic chemical exposure case, the stronger interpersonal-comparative blame item is not well integrated with the rest of the profile unless there is clear negligence/rescue-failure content elsewhere, which is absent.
+  [6] FAIL
+    item:        Triggers / Triggers: Conflict: Confrontations
+    explanation: For toxic chemical exposure, 'Conflict: Confrontations' is a weakly related trigger compared with exposure-related sensory or contamination cues; on its own it is not impossible, but here it pairs with interpersonal harm-focused threat items in a way that shifts the profile away from the stated trauma type.
+    item:        Threat / Threat: Watching Others: I watch other people closely for signs that they might harm me
+    explanation: The threat profile is centered on intentional interpersonal attack ('watch other people closely for signs that they might harm me') rather than toxic exposure, contamination, suffocation, bodily damage, or invisible environmental danger. This is hard to reconcile with the trauma type and with the rest of the selected memory items, which describe reliving of the exposure event rather than assault-related fear.
+    item:        Negative Appraisals / Negative Appraisals: Others-Would-Cope: Somebody else would have stopped the event from happening
+    explanation: 'Somebody else would have stopped the event from happening' is more coherent for preventable interpersonal or rescue-failure contexts; with toxic chemical exposure it is possible, but together with the interpersonal threat and confrontation trigger items it pulls the formulation toward an assault/conflict narrative not otherwise supported.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     31,376
+  output:     2,311
+  total:     33,687
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  0 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+

@@ -1,0 +1,180 @@
+PERSONA 68  |  2026-05-02 16:15:37
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             51
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Married
+  occupation      Hotel Manager
+  trauma_type     Toxic chemical exposure
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Stress: Stress
+    • Workplace: Workplace
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Threat:
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6183
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.1426
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: For toxic chemical exposure, the trigger pattern is not clinically well matched: 'Military Topics' suggests combat/war-related trauma cues, and 'Loss Themes' suggests bereavement-related reminders, while no trigger references fumes, smells, contamination, breathing difficulty, workplaces, or chemical hazards. This makes the trigger set hard to reconcile with the stated trauma type.
+    item:        Threat / Threat: Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: The threat items are internally coherent with a persecution/assault-style danger formulation ('someone is following me', needing to stay alert at night) rather than a toxic exposure formulation. They do not plausibly connect to the selected triggers, despite the strong Triggers → Threat edge that should link these nodes tightly.
+  [2] FAIL
+    item:        Triggers / Triggers: Loss Themes: Talk about people loosing loved ones
+    explanation: The trigger item about discussions of people losing loved ones is hard to reconcile with the indexed trauma of toxic chemical exposure. It implies bereavement-related trauma content that is not otherwise represented in the profile, making this trigger clinically implausible for the same patient unless the exposure involved deaths, which is not supported elsewhere.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: Within the Threat node, concentration difficulty is a broad nonspecific symptom, whereas sleep vigilance reflects an ongoing sense of current external danger. That combination can coexist, but in this profile the threat content is otherwise sparse and the selected triggers do not clearly support a coherent toxic-exposure-related danger schema, weakening internal coherence.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,593
+  output:     5,619
+  total:      8,212
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Nadia, a 51-year-old hotel manager, had always prided herself on her calm competence, a necessity in
+her demanding role. That changed sixteen months ago, during a routine inspection of a newly
+renovated wing. A maintenance error had led to a leak of a highly concentrated industrial cleaning
+chemical, and Nadia, walking into the poorly ventilated area, was overwhelmed by its acrid fumes.
+The experience was terrifying: a sudden constriction in her chest, burning in her throat, and an
+overwhelming sense of suffocation. She was rushed to the emergency room, the sterile, antiseptic
+smell of the hospital now inextricably linked with the terror of struggling to breathe.
+
+In the months that followed, life at the hotel, once a source of professional satisfaction, became a
+labyrinth of anxieties. The sheer stress of her job, a constant feature of managing a busy
+establishment, now acted as a potent catalyst for her distress. Any time Nadia encountered the high-
+pressure environment of her demanding role, that familiar surge of stress instantly ignited a
+cascade of physical reactions within her. Her heart would pound, her breath would catch, and she
+would find herself scanning the room, her body tensing as if bracing for another unseen attack.
+Later, these intense physical reactions made it nearly impossible for her to fall asleep, keeping
+her mind racing, needing to stay alert to any perceived danger, even in the quiet of her own
+bedroom.
+
+The once-familiar smells of cleaning products, particularly those with a sharp, antiseptic quality
+reminiscent of the hospital, became unbearable. Walking past a freshly cleaned corridor could
+trigger an immediate wave of nausea and panic, forcing her to detour or delegate tasks she once
+handled herself. What compounded Nadia’s distress was how this pervasive state of heightened threat,
+the feeling of needing to be constantly vigilant, paradoxically made her even more sensitive to
+potential dangers. Her sleep vigilance and hyper-alertness to unexpected or loud sounds meant that
+the ordinary, bustling noises of the hotel—a dropped tray, a service cart rolling by, even a sudden
+laugh from a guest—now immediately registered as menacing, amplifying her internal stress levels
+until the entire workplace felt like a minefield of potential threats.
+
+Nadia found herself increasingly avoiding parts of the hotel, particularly the service areas where
+strong cleaning products were stored or used. This led to her delegating more and more oversight to
+her assistant managers, creating friction and impacting her ability to fully manage her team. Her
+husband, though supportive, noticed her increasing irritability and the way she would flinch at
+sudden noises at home. She had come to believe that the world was a fundamentally unsafe place, and
+that she needed to be constantly on guard to avoid another catastrophic event. The exhaustion from
+her restless nights, spent in a state of semi-awareness, only intensified her physical reactivity,
+making her jumpier and more prone to perceiving threat in everyday situations.
+
+The cumulative effect of these changes weighed heavily on Nadia. She was tired of the constant
+tension, tired of feeling like a stranger in her own skin, and deeply concerned about her
+diminishing effectiveness at work. It was the growing distance she felt from her usually vibrant
+self, and the fear that she was losing control over her life, that finally led her to seek help. She
+hoped to find a way to reclaim her peace, to be able to walk through her hotel without the shadow of
+fear, and to finally get a full night’s sleep.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Nadia, a 51-year-old hotel manager, had always prided herself on her calm competence, a necessity in
+her demanding role. That changed sixteen months ago, during a routine inspection of a newly
+renovated wing. A maintenance error had led to a leak of a highly concentrated industrial cleaning
+chemical, and Nadia, walking into the poorly ventilated area, was overwhelmed by its acrid fumes.
+The experience was terrifying: a sudden constriction in her chest, burning in her throat, and an
+overwhelming sense of suffocation. She was rushed to the emergency room, the sterile, antiseptic
+smell of the hospital now inextricably linked with the terror of struggling to breathe.
+
+In the months that followed, life at the hotel, once a source of professional satisfaction, became a
+labyrinth of anxieties. The sheer stress of her job, a constant feature of managing a busy
+establishment, now acted as a potent catalyst for her distress. Any time Nadia encountered the high-
+pressure environment of her demanding role, that familiar surge of stress instantly ignited a
+cascade of physical reactions within her. Her heart would pound, her breath would catch, and she
+would find herself scanning the room, her body tensing as if bracing for another unseen attack.
+Later, these intense physical reactions made it nearly impossible for her to fall asleep, keeping
+her mind racing, needing to stay alert to any perceived danger, even in the quiet of her own
+bedroom.
+
+The once-familiar smells of cleaning products, particularly those with a sharp, antiseptic quality
+reminiscent of the hospital, became unbearable. Walking past a freshly cleaned corridor could
+trigger an immediate wave of nausea and panic, forcing her to detour or delegate tasks she once
+handled herself. What compounded Nadia’s distress was how this pervasive state of heightened threat,
+the feeling of needing to be constantly vigilant, paradoxically made her even more sensitive to
+potential dangers. Her sleep vigilance and hyper-alertness to unexpected or loud sounds meant that
+the ordinary, bustling noises of the hotel—a dropped tray, a service cart rolling by, even a sudden
+laugh from a guest—now immediately registered as menacing, amplifying her internal stress levels
+until the entire workplace felt like a minefield of potential threats.
+
+Nadia found herself increasingly avoiding parts of the hotel, particularly the service areas where
+strong cleaning products were stored or used. This led to her delegating more and more oversight to
+her assistant managers, creating friction and impacting her ability to fully manage her team. Her
+husband, though supportive, noticed her increasing irritability and the way she would flinch at
+sudden noises at home. She had come to believe that the world was a fundamentally unsafe place, and
+that she needed to be constantly on guard to avoid another catastrophic event. The exhaustion from
+her restless nights, spent in a state of semi-awareness, only intensified her physical reactivity,
+making her jumpier and more prone to perceiving threat in everyday situations.
+
+The cumulative effect of these changes weighed heavily on Nadia. She was tired of the constant
+tension, tired of feeling like a stranger in her own skin, and deeply concerned about her
+diminishing effectiveness at work. It was the growing distance she felt from her usually vibrant
+self, and the fear that she was losing control over her life, that finally led her to seek help. She
+hoped to find a way to reclaim her peace, to be able to walk through her hotel without the shadow of
+fear, and to finally get a full night’s sleep.

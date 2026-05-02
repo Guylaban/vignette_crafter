@@ -1,0 +1,119 @@
+PERSONA 96  |  2026-05-01 16:56:04
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    craft_persona
+  temperature: 0.7
+  max_retries: 2
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             76
+  gender          Female
+  ethnicity       European
+  relationship_status Divorced
+  occupation      Software Engineer
+  trauma_type     Trauma to a loved one
+  pcl5            38
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Old Memories: Old photos
+    • Auditory (Explosion): Explosion or bang sounds
+    • Expressions of Affection: Physical affection such as hugs
+  Maladaptive Strategies:
+    • Avoid Thinking: Thinking about the event
+    • Thought Suppression: I try to push them out of my mind
+    • Avoid Relaxation: avoid relaxing because it feels dangerous
+  Threat:
+    • Door and Lock Checking: I repeatedly check that doors and windows are locked
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+  Memory:
+    • Taste Vividness: I can taste what I tasted during the event when the memory returns
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event
+  Negative Appraisals:
+    • Body as Enemy: My body keeps reacting as if I am still in danger even when I am safe
+    • Self-Doubt: I can't trust that I will do the right thing
+    • Survival Guilt: I feel guilty for surviving when others did not
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.7636
+  Triggers → Threat                                  0.7668
+  Triggers → Memory                                  0.7659
+  Triggers → Negative Appraisals                     0.6183
+  Negative Appraisals → Maladaptive Strategies       0.4094
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0473
+  Negative Appraisals → Triggers                     0.3794
+  Memory → Maladaptive Strategies                    0.3290
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.6800
+  Memory → Triggers                                  0.2563
+  Threat → Maladaptive Strategies                    0.3509
+  Threat → Memory                                    0.3897
+  Threat → Negative Appraisals                       0.1753
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.2979
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.3445
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: For trauma to a loved one, an explosion/bang trigger is hard to reconcile unless the loved one’s trauma specifically involved a blast or violent accident; nothing else in the profile supports that context.
+    item:        Threat / Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: Door/window checking and safety-positioning imply an ongoing personal attack/home-intrusion style threat schema. That feels mismatched with the stated trauma type of trauma to a loved one, where threat is more often about loss, helplessness, or others’ safety rather than immediate physical danger to self.
+    item:        Memory / Threat: Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+    explanation: The memory items imply direct sensory and bodily re-experiencing of what happened to the patient herself (tasting during the event, pain in the same body parts). For trauma to a loved one, this is difficult to reconcile unless she directly underwent physical injury in the same event, which is not reflected elsewhere.
+    item:        Negative Appraisals / Memory: Taste Vividness: I can taste what I tasted during the event when the memory returns
+    explanation: Survival guilt can occur after trauma to a loved one, but phrased as 'surviving when others did not' it implies a shared life-threatening event in which she also could have died. That shared-disaster frame is not supported by the rest of the profile and clashes with the loved-one trauma framing.
+  [2] FAIL
+    item:        Memory / Memory: Taste Vividness
+    explanation: The trauma type is trauma to a loved one, but Taste Vividness and especially Pain Recall imply direct bodily exposure during the traumatic event. That is hard to reconcile with a loved-one trauma profile unless the patient was also physically involved, which is not reflected elsewhere in the profile.
+    item:        Threat / Memory: Pain Recall
+    explanation: Door and Lock Checking and Safe Seat Seeking suggest an ongoing personal safety / assault or home-intrusion threat style. In this profile, the trauma is harm to a loved one, while the appraisals and memory items do not otherwise indicate a coherent current threat theme centered on the patient's own physical security.
+    item:        Negative Appraisals / Threat: Door and Lock Checking
+    explanation: Survival Guilt can occur after trauma to a loved one, but here it is paired with Pain Recall and Taste Vividness, which together suggest the patient directly survived the traumatic event while others did not. That creates a clinically hard-to-explain mismatch with the stated trauma type of trauma to a loved one rather than direct interpersonal or disaster exposure.
+  [3] FAIL
+    item:        Triggers / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: For trauma to a loved one, 'explosion or bang sounds' implies a very specific violent/blast context that is not supported anywhere else in the profile; the rest of the items read more like indirect loss-related trauma, so this trigger is hard to place clinically.
+    item:        Threat / Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: Door/window checking and strong safe-seat seeking suggest an ongoing personal-attack/home-intrusion style threat focus. That threat pattern does not fit well with the reported trauma type of trauma to a loved one unless the loved-one trauma specifically involved threat to the patient, which is not otherwise reflected here.
+    item:        Memory / Threat: Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+    explanation: The memory items 'taste what I tasted during the event' and 'feel physical pain in the same body parts as during the event' imply direct bodily exposure during the traumatic event. That is difficult to reconcile with trauma to a loved one when the rest of the profile does not indicate the patient herself was physically present and injured.
+    item:        Negative Appraisals / Memory: Taste Vividness: I can taste what I tasted during the event when the memory returns
+    explanation: 'Survival guilt' specifically presumes that others died while the patient survived. That is possible, but combined with the bodily pain recall and explosion trigger it shifts the profile toward a mass-casualty/direct-survivor trauma narrative rather than a coherent loved-one trauma narrative.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     17,906
+  output:     1,257
+  total:     19,163
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  0 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+

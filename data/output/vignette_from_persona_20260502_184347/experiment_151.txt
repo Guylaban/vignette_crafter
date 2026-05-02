@@ -1,0 +1,212 @@
+PERSONA 151  |  2026-05-02 19:23:54
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-chat
+    persona_crafter      deepseek-chat
+    vignette_crafter     deepseek-chat
+    vignette_validator   deepseek-chat
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             60
+  gender          Male
+  ethnicity       European
+  relationship_status In a relationship
+  occupation      Warehouse Worker
+  trauma_type     Military
+  pcl5            62
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid Location: Going to or near the place where the event happened
+    • Avoid Similar Clothes: avoid wearing similar clothes
+    • Avoid Thinking: Thinking about the event
+  Memory:
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+  Negative Appraisals:
+    • Survival Guilt: I feel guilty for surviving when others did not
+    • Identity Loss: I feel like I don't know myself anymore
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.8219
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.2335
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0174
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.7336
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.9273
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Carry Weapon: carry weapon
+    explanation: The profile omits both Triggers and Threat entirely, yet includes carrying a weapon and persistent on-guard appraisals. For a 60-year-old male with military trauma, these items are individually plausible, but together they imply an active current-danger/threat system that is not represented elsewhere in the selected nodes and sits poorly with the formulation, where Threat and Triggers are not linked to the active network.
+    item:        Negative Appraisals / Hypervigilance: I have to be on guard all the time
+    explanation: 'I have to be on guard all the time' functions more like a live threat appraisal, but the formulation centers the case on a Negative Appraisals ↔ Memory ↔ Maladaptive Strategies loop, with Threat inactive. In the absence of any other threat-focused items, this item is the main source of incoherence.
+    item:        Memory / Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    explanation: 'Something in my surroundings can instantly bring back the full memory without warning' implies salient cue-driven triggering, but all Triggers edges are inactive and no Trigger items are selected. That does not by itself make triggered recall impossible, but combined with the otherwise appraisal/guilt/identity-focused formulation and profile, it is the least coherent memory item.
+  [2] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: This item is difficult to reconcile with the formulation because Threat is not otherwise represented in the self-report and all Threat-related edges are inactive. The rest of the profile is organized around guilt/identity loss and trauma memory, whereas constant threat scanning implies an active current-threat focus that is not supported by the selected Threat, Trigger, Appraisal, or Memory items. The avoidance items fit the military trauma context, but this hypervigilant checking behavior appears clinically disconnected from the rest of the profile.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,061
+  output:     1,071
+  total:      4,132
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Carl is a 60-year-old warehouse worker who lives with his partner of thirty years in a small
+Midwestern town. He came to therapy at her urging, after months of escalating withdrawal and what
+she described as a “darkness” that had settled over him. The trauma that haunts Carl occurred during
+his military service, forty years ago, when he was a young soldier in a convoy ambushed in a narrow,
+dusty ravine. He remembers the heat, the smell of diesel and blood, and the moment the truck in
+front of him hit an IED. He watched his closest friend, a man named Reyes, die instantly, while
+Carl—shocked but physically unharmed—was pulled from the wreckage. For decades, he told himself it
+was just part of the job, something to bury and move past. But in the last few years, the memories
+have refused to stay buried.
+
+When Carl tries to recall that day, he often finds himself stuck, unable to find the right words to
+describe what he saw or felt. He knows the facts, but the language to explain the terror and the
+guilt slips away, leaving him frustrated and mute. What does come back, unbidden and vivid, is the
+raw terror of the explosion—the same visceral fear he felt at that moment, as if he is back in the
+ravine. Worse than the fear is the guilt that surges with every memory. He has come to believe that
+he should have died instead of Reyes, that his survival was a mistake, a cosmic error. This belief
+has hollowed him out. He feels like he no longer knows who he is; the person he was before the
+ambush—a confident young man with a future—seems like a stranger. In its place is a hollow shell,
+certain that the world is fundamentally dangerous, that safety is an illusion. This conviction
+colors everything: a car backfiring on his street makes him drop to a crouch; a sudden loud noise in
+the warehouse sends his heart racing for hours.
+
+Because he is certain the world is dangerous, Carl has developed a rigid set of strategies to keep
+himself safe. He avoids driving anywhere near the old military base on the outskirts of town, taking
+a twenty-minute detour that makes his commute absurdly long. At work, he refuses to wear the navy-
+blue coveralls required by the warehouse, because they remind him of the uniform he wore that day.
+He told his supervisor he had a skin allergy, and now he wears old, loose-fitting clothes that
+violate the dress code, earning him repeated warnings. More than anything, he avoids thinking about
+the event itself. When a memory starts to surface—triggered by a news report about a faraway war, or
+the sight of a dusty pickup truck that resembles a military vehicle—he forces his mind to go blank,
+distracting himself with menial tasks or counting objects on the shelves. This avoidance has become
+a full-time job. His partner has noticed that he no longer watches any movies with action or
+violence, and he has stopped visiting his brother, who lives near the base. The more he avoids, the
+more the world shrinks, and the more he feels he has lost his identity. He has begun to feel that
+his avoidance is proof that he is broken, that the real Carl—the one who could face life—is gone
+forever.
+
+The memories themselves also drive his avoidance. When the terror of the ambush floods back, he
+feels an urgent need to escape his own mind. He will leave the dinner table mid-meal, or walk out of
+the grocery store, abandoning a full cart. He has learned that if he can just stop the memory from
+completing—by moving, by changing his environment—the guilt and fear will recede, at least
+temporarily. But the relief is short-lived. Each time he flees, his guilt deepens. He tells himself
+that he is a coward, that Reyes would have stayed and fought, that he does not deserve to be alive.
+This self-condemnation makes the next memory even more punishing, because it arrives already layered
+with shame. The cycle tightens: a memory triggers avoidance, avoidance confirms his guilt, and guilt
+makes the next memory more vivid and terrifying.
+
+In the warehouse, the most difficult moments come when he has to unload a truck from a dusty loading
+dock. The smell of dry dirt and exhaust can send him reeling. He has started requesting the
+quietest, most isolated shifts—the overnight inventory count—where he can work alone, in silence,
+with minimal triggers. His supervisor has noticed his declining reliability and has written him up
+twice for leaving his station without explanation. Carl knows his job is at risk, but he cannot
+explain why he flees. What frightens him most is the growing sense that he is disappearing. He came
+to therapy because his partner told him she was afraid to come home to a man who sometimes seems not
+to be there at all. Carl is afraid of the same thing. He is terrified that if he lets himself
+remember fully, he will drown in the guilt. But he is equally terrified that the avoidance is
+erasing him, piece by piece.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Carl is a 60-year-old warehouse worker who lives with his partner of thirty years in a small
+Midwestern town. He came to therapy at her urging, after months of escalating withdrawal and what
+she described as a “darkness” that had settled over him. The trauma that haunts Carl occurred during
+his military service, forty years ago, when he was a young soldier in a convoy ambushed in a narrow,
+dusty ravine. He remembers the heat, the smell of diesel and blood, and the moment the truck in
+front of him hit an IED. He watched his closest friend, a man named Reyes, die instantly, while
+Carl—shocked but physically unharmed—was pulled from the wreckage. For decades, he told himself it
+was just part of the job, something to bury and move past. But in the last few years, the memories
+have refused to stay buried.
+
+When Carl tries to recall that day, he often finds himself stuck, unable to find the right words to
+describe what he saw or felt. He knows the facts, but the language to explain the terror and the
+guilt slips away, leaving him frustrated and mute. What does come back, unbidden and vivid, is the
+raw terror of the explosion—the same visceral fear he felt at that moment, as if he is back in the
+ravine. Worse than the fear is the guilt that surges with every memory. He has come to believe that
+he should have died instead of Reyes, that his survival was a mistake, a cosmic error. This belief
+has hollowed him out. He feels like he no longer knows who he is; the person he was before the
+ambush—a confident young man with a future—seems like a stranger. In its place is a hollow shell,
+certain that the world is fundamentally dangerous, that safety is an illusion. This conviction
+colors everything: a car backfiring on his street makes him drop to a crouch; a sudden loud noise in
+the warehouse sends his heart racing for hours.
+
+Because he is certain the world is dangerous, Carl has developed a rigid set of strategies to keep
+himself safe. He avoids driving anywhere near the old military base on the outskirts of town, taking
+a twenty-minute detour that makes his commute absurdly long. At work, he refuses to wear the navy-
+blue coveralls required by the warehouse, because they remind him of the uniform he wore that day.
+He told his supervisor he had a skin allergy, and now he wears old, loose-fitting clothes that
+violate the dress code, earning him repeated warnings. More than anything, he avoids thinking about
+the event itself. When a memory starts to surface—triggered by a news report about a faraway war, or
+the sight of a dusty pickup truck that resembles a military vehicle—he forces his mind to go blank,
+distracting himself with menial tasks or counting objects on the shelves. This avoidance has become
+a full-time job. His partner has noticed that he no longer watches any movies with action or
+violence, and he has stopped visiting his brother, who lives near the base. The more he avoids, the
+more the world shrinks, and the more he feels he has lost his identity. He has begun to feel that
+his avoidance is proof that he is broken, that the real Carl—the one who could face life—is gone
+forever.
+
+The memories themselves also drive his avoidance. When the terror of the ambush floods back, he
+feels an urgent need to escape his own mind. He will leave the dinner table mid-meal, or walk out of
+the grocery store, abandoning a full cart. He has learned that if he can just stop the memory from
+completing—by moving, by changing his environment—the guilt and fear will recede, at least
+temporarily. But the relief is short-lived. Each time he flees, his guilt deepens. He tells himself
+that he is a coward, that Reyes would have stayed and fought, that he does not deserve to be alive.
+This self-condemnation makes the next memory even more punishing, because it arrives already layered
+with shame. The cycle tightens: a memory triggers avoidance, avoidance confirms his guilt, and guilt
+makes the next memory more vivid and terrifying.
+
+In the warehouse, the most difficult moments come when he has to unload a truck from a dusty loading
+dock. The smell of dry dirt and exhaust can send him reeling. He has started requesting the
+quietest, most isolated shifts—the overnight inventory count—where he can work alone, in silence,
+with minimal triggers. His supervisor has noticed his declining reliability and has written him up
+twice for leaving his station without explanation. Carl knows his job is at risk, but he cannot
+explain why he flees. What frightens him most is the growing sense that he is disappearing. He came
+to therapy because his partner told him she was afraid to come home to a man who sometimes seems not
+to be there at all. Carl is afraid of the same thing. He is terrified that if he lets himself
+remember fully, he will drown in the guilt. But he is equally terrified that the avoidance is
+erasing him, piece by piece.

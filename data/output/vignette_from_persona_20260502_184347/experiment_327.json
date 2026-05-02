@@ -1,0 +1,222 @@
+{
+  "persona_id": 327,
+  "source_persona_id": 327,
+  "experiment_timestamp": "2026-05-02 20:07:38",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-chat",
+      "persona_crafter": "deepseek-chat",
+      "vignette_crafter": "deepseek-chat",
+      "vignette_validator": "deepseek-chat"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 28,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Financial Analyst",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 75
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Media / News",
+        "value": "Related news"
+      },
+      {
+        "key": "Weather Similarity",
+        "value": "Similar weather conditions to when the event happened"
+      },
+      {
+        "key": "Children Present",
+        "value": "Being around children"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      },
+      {
+        "key": "Escape Route Planning",
+        "value": "I always identify escape routes before I feel comfortable anywhere"
+      },
+      {
+        "key": "Sleep Vigilance",
+        "value": "I have difficulty falling asleep because I need to stay alert"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      },
+      {
+        "key": "Blocked Before Complete",
+        "value": "I find myself pushing the memory away before I can fully recall it"
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Identity Loss",
+        "value": "I feel like I don't know myself anymore"
+      },
+      {
+        "key": "Unrecognisable Self",
+        "value": "The person I have become is unrecognisable to me"
+      },
+      {
+        "key": "Failed to Protect",
+        "value": "I should have protected others and I failed"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.6291,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.3279,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.8899,
+    "Negative Appraisals -- Triggers": 0.8733,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.3833,
+    "Memory -- Triggers": 0.53,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0248,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9883,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.580825,
+  "edge_density": 0.4,
+  "vignette_word_count": 677,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "The threat items are keyed to interpersonal assault/home-intrusion danger and pervasive escape planning, which is hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, threat would more plausibly involve medical catastrophe, sudden deterioration, or loss, rather than someone entering the home."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Threat: Escape Route Planning: I always identify escape routes before I feel comfortable anywhere",
+          "explanation": "These threat items also fit poorly with the rest of the profile: the triggers are news, emotional closeness, and weather similarity, none of which plausibly connect to monitoring for an intruder or scanning escape routes. Given the very strong Triggers ↔ Threat edges, the selected threat content should be tightly linked to the triggers, but here the content appears to come from a different trauma schema."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Intrusion Monitoring"
+        ],
+        "Negative Appraisals": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Emotional Closeness: Someone getting emotionally close to me",
+          "explanation": "For trauma involving a child's life-threatening illness, media/news and weather cues are plausible reminders, but 'someone getting emotionally close to me' is difficult to reconcile as a primary trauma trigger unless there is additional interpersonal trauma history. It does not fit well with the illness-focused threat and memory pattern described by the rest of the profile."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Dehumanization: I feel like an object, not like a person",
+          "explanation": "The negative appraisal set is dominated by severe depersonalisation/identity disturbance ('object, not a person'; 'don't know myself anymore'; 'unrecognisable to me'), which is hard to link coherently to the stated trauma type and to the rest of the profile. For a parent traumatised by a child's illness, appraisals would more plausibly center on guilt, responsibility, permanent danger, or inability to protect. This item especially feels clinically mismatched rather than merely unusual."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Emotional Closeness"
+        ],
+        "Negative Appraisals": [
+          "Dehumanization"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2905,
+    "output": 823,
+    "total": 3728
+  },
+  "vignette": "Nathan is a 28-year-old financial analyst who lives with his wife in a quiet suburban neighborhood. Two years ago, their infant daughter spent three weeks in the pediatric intensive care unit after being diagnosed with a severe respiratory infection that required intubation. Nathan remembers every detail of those twenty-one days: the exact pattern of the linoleum floor outside her room, the high, rhythmic sound of the ventilator, the way the doctors’ faces looked when they said she might not make it. These memories come back to him not as a story but as pictures—clear, frozen images that appear without warning. He has never been able to finish telling his wife the full sequence of what happened; whenever he tries, something inside him shuts it down before he reaches the end, leaving him with fragments of images and a thudding heart.\n\nThe experience fundamentally changed him. Nathan used to be someone who could sit through a whole meeting without looking at the door, someone who slept through the night without listening for changes in his daughter’s breathing. Now he does not recognize the person he has become. He feels like he lost himself somewhere in that hospital room, and the man who came out is a stranger—hypervigilant, brittle, always bracing. He is certain that he failed to protect his daughter, that he should have noticed her symptoms earlier, that a better father would have kept her safe. This belief has taken root so deeply that it colors everything. When he smells rain in the air—the weather was damp and gray the morning she was admitted—his mind immediately returns to those images, and the thought returns with them: *I failed her then, and I will fail her again.* The weather does not just remind him of the event; it feels like a signal that danger is returning, and that he will once again be powerless to stop it.\n\nAt work, Nathan’s desk is in a corner office on the eighteenth floor. He has mapped every exit route in the building and knows which stairwells lead to which streets. He tells himself this is just being prepared, but the truth is he cannot sit still in a room unless he knows exactly how to leave it. The vigilance has become automatic. He startles at the buzz of his office phone, at the sound of a colleague clearing their throat too sharply, at any unexpected noise. He knows intellectually that nothing is wrong, but his body reacts as if it is—his chest tightens, his palms sweat, and his mind floods with images of the hospital. These false alarms happen multiple times a day, and each one reinforces the sense that he is unsafe, that the world is a place where catastrophe strikes without warning.\n\nThe cycle tightens in ways Nathan cannot escape. The more he believes he failed, the more sensitive he becomes to anything that could trigger the memory. He has started avoiding news stories about sick children, changing the channel when a commercial for a children’s hospital comes on. He finds himself uneasy around children in public—not out of dislike, but because seeing them reminds him of his daughter’s small, still body in the hospital bed. His wife has noticed that he no longer wants to take their daughter to the playground, and she does not understand why. Nathan cannot explain it to her because he barely understands it himself. The triggers keep multiplying, and each one drags him back to the memory, and each return to the memory deepens his conviction that he is a different person now—someone broken, someone who failed at the most basic task of a parent. He is terrified that this is who he will be forever. It was his wife who finally convinced him to seek help, after she found him standing in their daughter’s doorway at three in the morning, unable to sleep, scanning the room for escape routes. He came because he does not want to be this person anymore, but he does not know if there is a way back."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Nathan is a 28-year-old financial analyst who lives with his wife in a quiet suburban neighborhood. Two years ago, their infant daughter spent three weeks in the pediatric intensive care unit after being diagnosed with a severe respiratory infection that required intubation. Nathan remembers every detail of those twenty-one days: the exact pattern of the linoleum floor outside her room, the high, rhythmic sound of the ventilator, the way the doctors’ faces looked when they said she might not make it. These memories come back to him not as a story but as pictures—clear, frozen images that appear without warning. He has never been able to finish telling his wife the full sequence of what happened; whenever he tries, something inside him shuts it down before he reaches the end, leaving him with fragments of images and a thudding heart.\n\nThe experience fundamentally changed him. Nathan used to be someone who could sit through a whole meeting without looking at the door, someone who slept through the night without listening for changes in his daughter’s breathing. Now he does not recognize the person he has become. He feels like he lost himself somewhere in that hospital room, and the man who came out is a stranger—hypervigilant, brittle, always bracing. He is certain that he failed to protect his daughter, that he should have noticed her symptoms earlier, that a better father would have kept her safe. This belief has taken root so deeply that it colors everything. When he smells rain in the air—the weather was damp and gray the morning she was admitted—his mind immediately returns to those images, and the thought returns with them: *I failed her then, and I will fail her again.* The weather does not just remind him of the event; it feels like a signal that danger is returning, and that he will once again be powerless to stop it.\n\nAt work, Nathan’s desk is in a corner office on the eighteenth floor. He has mapped every exit route in the building and knows which stairwells lead to which streets. He tells himself this is just being prepared, but the truth is he cannot sit still in a room unless he knows exactly how to leave it. The vigilance has become automatic. He startles at the buzz of his office phone, at the sound of a colleague clearing their throat too sharply, at any unexpected noise. He knows intellectually that nothing is wrong, but his body reacts as if it is—his chest tightens, his palms sweat, and his mind floods with images of the hospital. These false alarms happen multiple times a day, and each one reinforces the sense that he is unsafe, that the world is a place where catastrophe strikes without warning.\n\nThe cycle tightens in ways Nathan cannot escape. The more he believes he failed, the more sensitive he becomes to anything that could trigger the memory. He has started avoiding news stories about sick children, changing the channel when a commercial for a children’s hospital comes on. He finds himself uneasy around children in public—not out of dislike, but because seeing them reminds him of his daughter’s small, still body in the hospital bed. His wife has noticed that he no longer wants to take their daughter to the playground, and she does not understand why. Nathan cannot explain it to her because he barely understands it himself. The triggers keep multiplying, and each one drags him back to the memory, and each return to the memory deepens his conviction that he is a different person now—someone broken, someone who failed at the most basic task of a parent. He is terrified that this is who he will be forever. It was his wife who finally convinced him to seek help, after she found him standing in their daughter’s doorway at three in the morning, unable to sleep, scanning the room for escape routes. He came because he does not want to be this person anymore, but he does not know if there is a way back.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

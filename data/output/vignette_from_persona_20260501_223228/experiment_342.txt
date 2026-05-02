@@ -1,0 +1,214 @@
+PERSONA 342  |  2026-05-02 01:07:14
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             30
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Divorced
+  occupation      Bartender
+  trauma_type     Witnessed domestic violence (childhood)
+  pcl5            61
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Worst Case Rehearsal: mentally rehearse worst case scenarios to feel prepared
+    • Avoid Open Spaces: Open or exposed spaces where I feel vulnerable
+    • Emotion Control: I try hard to control my emotions
+  Threat:
+    • Threat in Movements: Sudden movements by others put me immediately on guard
+    • Safe Zone Only: I only feel safe in a very limited number of places
+    • Door and Lock Checking: I repeatedly check that doors and windows are locked
+  Memory:
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+    • Nonverbal Memory: I can't seem to put the frightening event into words.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Self-Doubt: I can't trust that I will do the right thing
+    • Mistrust: People can't be trusted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.7961
+  Negative Appraisals → Memory                       0.0680
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.8452
+  Memory → Negative Appraisals                       0.7571
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.8493
+  Threat → Memory                                    0.6583
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.7052
+  Maladaptive Strategies → Negative Appraisals       0.7594
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.2897
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Story Feels Unreal: The memory is so extreme it is hard to believe it actually happened to me.
+    explanation: Within the Memory node, these items are hard to reconcile with the rest of the profile. 'Story Feels Unreal' and especially 'Overwhelm on Recall' imply a disjointed, emotionally intense trauma memory, which fits the strong Memory↔Threat links. In contrast, 'Verbal Access: I can talk about what happened very easily' suggests unusually easy narrative access to the trauma and directly pulls against the other memory items. For a severe PTSD profile centered on intrusive, overwhelming childhood domestic violence memories, this Memory combination is clinically inconsistent.
+  [2] FAIL
+    item:        Memory / Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, these two items directly contradict each other: being able to talk about the trauma very easily is incompatible with simultaneously being unable to put the event into words. This is a clear within-node inconsistency.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,124
+  output:     1,017
+  total:      4,141
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Nadia is a 30-year-old Middle Eastern American woman who came to treatment after years of trying to
+live inside a world she experiences as narrow and precarious. She grew up in a home where violence
+between her parents could erupt without warning. Her clearest sensory impressions are not a tidy
+story but flashes: her father’s arm moving too fast, a chair scraping hard across the floor, her
+mother’s breath turning ragged, the slam of a door, the metallic click of locks afterward. As a
+child she would freeze and listen from the hallway, straining to tell from movement and sound
+whether the danger was about to get worse. Even now, when she tries to describe what she witnessed,
+she says she knows exactly what happened but cannot find words for it. If she pushes herself to
+talk, she becomes so flooded that she has to stop.
+
+Those early experiences left Nadia with a settled conviction that people are not to be trusted, and
+that she cannot rely on herself to do the right thing in a crisis. She has come to believe that when
+something turns dangerous, she will misread it or freeze, just as she feels she did as a child. That
+sense of mistrust and self-doubt keeps her body on alert. Sudden movements by other people,
+especially a quick reach across a room or a sharp turn of the shoulders, put her immediately on
+guard before she has time to think. She feels safe only in a very small number of places, mainly her
+apartment and one back storage area at work where she can see the door. At night she repeatedly
+checks the locks and windows, not once but over and over, because she does not trust either other
+people or her own first judgment that things are secure.
+
+Her work as a bartender brings these fears into daily life. In the bar, when customers stand
+abruptly, swing an arm while talking, or move behind the counter unexpectedly, Nadia’s whole body
+tightens. She scans exits and tracks where everyone is standing. Open spaces are particularly hard
+for her; being out on the floor during a busy shift, exposed from several directions, feels
+intolerably vulnerable, and she finds reasons to stay near enclosed corners or behind the bar.
+Because she feels under threat so easily, she tries to manage it by mentally rehearsing worst-case
+scenarios—what she would do if a customer became violent, if someone came through the door angry, if
+she had to escape through the back. She also works hard to control her emotions, believing that if
+she lets herself feel fear or panic, she will lose control completely.
+
+These efforts are meant to keep her safe, but they also keep the trauma close. When Nadia rehearses
+disaster in her head, the old scenes come back not as a coherent account but as bodily fragments and
+overpowering emotion. A customer’s sudden movement at work can pull up an image of her father’s arm
+or the sound of impact before she has words for what she is remembering. Because the memory arrives
+in this raw, nonverbal way, it feels immediate and dangerous, which only confirms for her that the
+threat is still everywhere. She has noticed that after a shift when she has been especially
+watchful, the memories are harder to hold onto long enough to explain; she goes blank, overwhelmed,
+and ashamed of not being able to say something so central to her own life.
+
+Over time, the ways Nadia copes have deepened her doubts about herself. She interprets the fact that
+she must rehearse every possible catastrophe as proof that she cannot rely on herself naturally. Her
+strict effort to control emotion feels, in her mind, like evidence that she is only barely holding
+together. Avoiding open spaces has made her life smaller; she turns down invitations, leaves crowded
+places early, and chooses routes home that keep her near buildings and away from exposed stretches.
+At work, coworkers have noticed she is most comfortable in restricted parts of the bar and can seem
+distant when the room gets busy. Nadia reads this as further confirmation that she cannot trust
+herself around people and cannot trust them either.
+
+The memories also feed that same conclusion. Each time she cannot put the childhood violence into
+words, she feels defective and uncertain, as though not being able to narrate it means she never
+really understood what was happening and still would not know what to do now. And because the
+memories are so overwhelming when they surface, she becomes even more vigilant for signs of danger,
+more certain that safety exists only in a few tightly controlled places. By the time she sought
+help, she was exhausted from living this way—checking locks repeatedly, bracing at sudden movements,
+silently playing out disasters before every shift. What finally brought her in was the fear that her
+world was shrinking to just a few safe zones, and the hope, still tentative, that she might learn
+how to remember what happened without being swallowed by it and without feeling that danger is
+waiting in every movement around her.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Nadia is a 30-year-old Middle Eastern American woman who came to treatment after years of trying to
+live inside a world she experiences as narrow and precarious. She grew up in a home where violence
+between her parents could erupt without warning. Her clearest sensory impressions are not a tidy
+story but flashes: her father’s arm moving too fast, a chair scraping hard across the floor, her
+mother’s breath turning ragged, the slam of a door, the metallic click of locks afterward. As a
+child she would freeze and listen from the hallway, straining to tell from movement and sound
+whether the danger was about to get worse. Even now, when she tries to describe what she witnessed,
+she says she knows exactly what happened but cannot find words for it. If she pushes herself to
+talk, she becomes so flooded that she has to stop.
+
+Those early experiences left Nadia with a settled conviction that people are not to be trusted, and
+that she cannot rely on herself to do the right thing in a crisis. She has come to believe that when
+something turns dangerous, she will misread it or freeze, just as she feels she did as a child. That
+sense of mistrust and self-doubt keeps her body on alert. Sudden movements by other people,
+especially a quick reach across a room or a sharp turn of the shoulders, put her immediately on
+guard before she has time to think. She feels safe only in a very small number of places, mainly her
+apartment and one back storage area at work where she can see the door. At night she repeatedly
+checks the locks and windows, not once but over and over, because she does not trust either other
+people or her own first judgment that things are secure.
+
+Her work as a bartender brings these fears into daily life. In the bar, when customers stand
+abruptly, swing an arm while talking, or move behind the counter unexpectedly, Nadia’s whole body
+tightens. She scans exits and tracks where everyone is standing. Open spaces are particularly hard
+for her; being out on the floor during a busy shift, exposed from several directions, feels
+intolerably vulnerable, and she finds reasons to stay near enclosed corners or behind the bar.
+Because she feels under threat so easily, she tries to manage it by mentally rehearsing worst-case
+scenarios—what she would do if a customer became violent, if someone came through the door angry, if
+she had to escape through the back. She also works hard to control her emotions, believing that if
+she lets herself feel fear or panic, she will lose control completely.
+
+These efforts are meant to keep her safe, but they also keep the trauma close. When Nadia rehearses
+disaster in her head, the old scenes come back not as a coherent account but as bodily fragments and
+overpowering emotion. A customer’s sudden movement at work can pull up an image of her father’s arm
+or the sound of impact before she has words for what she is remembering. Because the memory arrives
+in this raw, nonverbal way, it feels immediate and dangerous, which only confirms for her that the
+threat is still everywhere. She has noticed that after a shift when she has been especially
+watchful, the memories are harder to hold onto long enough to explain; she goes blank, overwhelmed,
+and ashamed of not being able to say something so central to her own life.
+
+Over time, the ways Nadia copes have deepened her doubts about herself. She interprets the fact that
+she must rehearse every possible catastrophe as proof that she cannot rely on herself naturally. Her
+strict effort to control emotion feels, in her mind, like evidence that she is only barely holding
+together. Avoiding open spaces has made her life smaller; she turns down invitations, leaves crowded
+places early, and chooses routes home that keep her near buildings and away from exposed stretches.
+At work, coworkers have noticed she is most comfortable in restricted parts of the bar and can seem
+distant when the room gets busy. Nadia reads this as further confirmation that she cannot trust
+herself around people and cannot trust them either.
+
+The memories also feed that same conclusion. Each time she cannot put the childhood violence into
+words, she feels defective and uncertain, as though not being able to narrate it means she never
+really understood what was happening and still would not know what to do now. And because the
+memories are so overwhelming when they surface, she becomes even more vigilant for signs of danger,
+more certain that safety exists only in a few tightly controlled places. By the time she sought
+help, she was exhausted from living this way—checking locks repeatedly, bracing at sudden movements,
+silently playing out disasters before every shift. What finally brought her in was the fear that her
+world was shrinking to just a few safe zones, and the hope, still tentative, that she might learn
+how to remember what happened without being swallowed by it and without feeling that danger is
+waiting in every movement around her.

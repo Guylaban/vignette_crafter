@@ -1,0 +1,233 @@
+PERSONA 345  |  2026-05-02 11:56:55
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             43
+  gender          Female
+  ethnicity       Oceania
+  relationship_status In a relationship
+  occupation      Physical Therapist
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            77
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Alcohol): Alcohol smell
+    • Event Recall: Talking about the event
+    • Trauma-Related Events: Trauma-related events
+  Maladaptive Strategies:
+    • Compulsive Spending: I spend money impulsively to distract or comfort myself
+    • Stay Near Exit: make sure to stay close to exit
+    • Drug Use: take drugs
+  Threat:
+    • Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • More Real Than Normal: My memories of the event feel more real and vivid than memories of ordinary things
+    • No Coherent Story: I cannot tell a clear story of what happened even to myself
+    • Shame on Recall: When I remember the event I feel intense shame
+  Negative Appraisals:
+    • Thought Avoidance: If I think about the event, I will not be able to handle it
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.9032
+  Triggers → Threat                                  0.1915
+  Triggers → Memory                                  0.9441
+  Triggers → Negative Appraisals                     0.6841
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.5409
+  Negative Appraisals → Memory                       0.5744
+  Negative Appraisals → Triggers                     0.1282
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.5030
+  Threat → Maladaptive Strategies                    0.9956
+  Threat → Memory                                    0.1183
+  Threat → Negative Appraisals                       0.8348
+  Threat → Triggers                                  0.7649
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.6192
+  Maladaptive Strategies → Triggers                  0.1513
+  Maladaptive Strategies → Threat                    0.0506
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        age
+    explanation: Occupation 'Retired' is implausible for age 30 because 'Retired' is only considered plausible at age 50 or older.
+  [2] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Betrayal: I was betrayed by someone I trusted
+    explanation: The appraisal of betrayal by a trusted person is hard to reconcile with the indexed trauma type of accidentally causing serious injury to another, unless there were additional interpersonal-trauma elements not represented elsewhere. It pulls the profile toward betrayal/interpersonal trauma rather than guilt-based accidental harm.
+    item:        Triggers / Triggers: Authority Commands: Being given orders or instructions
+    explanation: The trigger set centers on authority commands and family-related cues, which is possible but not well supported by the rest of the profile. With accidental injury to another, the most coherent triggers would usually connect to the accident context, harm, guilt, or responsibility; these selected cues lack a clear link to the memory and appraisal content presented.
+    item:        Threat / Triggers: Family-Related Comments: Comments on family
+    explanation: Family-related comments and idealized families imply loss, parenting/family injury, or comparison with intact families, but no corresponding memory or appraisal item explains why family cues are central. This makes the trigger pattern feel disconnected rather than tightly linked to the rest of the profile.
+    item:        Maladaptive Strategies / Triggers: Idealized Families: Happy families
+    explanation: The threat items describe pervasive danger monitoring for attack or violence across all environments, which fits assault/combat formulations better than accidentally injuring someone. They are difficult to connect to the selected memories, which emphasize vividness, disorganization, and shame rather than danger from external perpetrators.
+  [2] FAIL
+    item:        Triggers / Triggers: Family-Related Comments
+    explanation: The trigger set is centered on family/loss themes, which fits bereavement- or family-related trauma more than accidentally causing serious injury to another. For this trauma type, such triggers are hard to reconcile unless the injured person was a family member, which is not indicated elsewhere in the profile.
+    item:        Threat / Triggers: Idealized Families
+    explanation: The threat items reflect a pervasive danger/assault formulation (scanning exits, noticing weapons, on guard at home) rather than the likely core threat in perpetration-by-accident trauma, which is more often moral threat, fear of blame, or fear of causing harm again. These threat items are difficult to connect to the selected triggers and appraisals.
+    item:        Maladaptive Strategies / Triggers: Loss Themes
+    explanation: Within the formulation, Threat strongly drives Maladaptive Strategies, so a strategy like staying near exits should be tightly linked to a plausible danger-based threat profile. Because the threat content itself is poorly matched to the trauma type and other nodes, 'Stay Near Exit' also appears incoherent in this profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Idealized Families: Happy families
+    explanation: The trigger profile is centered on guilt/loss reminders (happy families, talk about losing loved ones, alcohol smell), which fits accidentally causing serious injury to another. In contrast, the threat items are dominated by generalized interpersonal/physical danger hypervigilance (scanning exits, noticing weapons, on guard at home), a pattern more typical of assault/combat trauma than guilt-based accidental injury.
+    item:        Threat / Threat: Scanning Exits: I scan for exits as soon as I enter any room or building
+    explanation: 'Stay near exit' mirrors the same pervasive danger/escape theme as the threat items, but the rest of the profile—especially negative appraisals and memory—focuses on shame, guilt, and disorganized vivid recall of having harmed someone. This creates a cross-node mismatch: the coping and threat responses address an ongoing attack-danger context not otherwise represented in the trauma meaning.
+    item:        Maladaptive Strategies / Threat: Alert at Home: I feel on guard even inside my own home
+    explanation: Given the formulation, Triggers strongly connect to Memory, Negative Appraisals, and Maladaptive Strategies, with only weak Triggers → Threat. The selected trigger items plausibly evoke shame/loss memories, but they do not clearly connect to the severe omnipresent danger threat pattern endorsed. That weakens coherence between node content and the edge pattern.
+  [4] FAIL
+    item:        Triggers / Triggers: Loss Themes: Talk about people loosing loved ones
+    explanation: For trauma of accidentally causing serious injury to another, the trigger about 'people losing loved ones' is a poor fit unless the injured person died or there was bereavement trauma; it conflicts with the specified trauma type of serious injury rather than death.
+    item:        Threat / Threat: Alert at Home: I feel on guard even inside my own home
+    explanation: The threat profile centers on generalized physical-danger/hypervigilance ('on guard even inside my own home', 'noticing weapons in any environment'), which is hard to reconcile with the rest of the profile that is dominated by guilt, shame, and event-related recall after having caused injury to another. Those threat items suggest assault/combat-style danger expectations not otherwise represented in memory or appraisals.
+    item:        Maladaptive Strategies / Threat: Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+    explanation: 'Stay near exit' similarly implies fear of immediate external danger or needing rapid escape from unsafe environments. In this profile, maladaptive strategies are otherwise distraction/substance-use based, and the core appraisals/memories are moral injury/guilt/shame focused; this specific escape-safety behavior is not well supported by the other selected items or trauma type.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,238
+  output:       974
+  total:      4,212
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Malia, a 43-year-old physical therapist with a long practice history in Oceania and a steady
+relationship that had once felt grounding, came for help after months of living as though the room
+around her might turn dangerous at any moment. The event she kept circling back to was a day at work
+when she was treating a patient after a routine session and, in a moment she still struggled to
+arrange into a clear sequence, something she did or failed to do contributed to a serious injury.
+Even now she could not tell a clean story of what happened, and when she tried, the details came in
+flashes rather than a narrative: the sound of panic, the look on the other person’s face, the awful
+certainty that her mistake had changed everything. What made it feel especially unbearable was how
+vividly it returned to her; the memory seemed more real and vivid than ordinary memories, and when
+it came back she was flooded with shame, as if she were back in that room all over again.
+
+Afterward, Malia began avoiding anything that might bring the scene too near. If she caught the
+smell of alcohol on someone’s breath—especially in social settings after work, or even in a bar near
+the clinic—her body jolted and she reached for ways to get away from herself. She started spending
+money impulsively on things she did not need, telling herself a new purchase or a sudden meal out
+would distract her or at least briefly comfort her. She also began taking drugs more often, not to
+get high so much as to blunt the edge of what she was carrying. And she made a habit of staying
+close to the exit wherever she went, positioning herself carefully in waiting rooms, restaurants,
+and staff meetings so she could leave quickly if her chest tightened. Those moments of avoidance
+were not random; they grew out of the instant fear, shame, and sensory pull that came with alcohol
+smell, talking about the event, or even being near trauma-related reminders, and they fed back into
+the same trouble. The more she used spending, drugs, and escape routes to get through the day, the
+more she came to fear her own reactions, and the more certain she became that if she thought about
+the incident she would not be able to handle it. She had come to believe the person she had become
+was unrecognisable to her, and that she would never forgive herself for not doing more to stop what
+happened.
+
+That belief set the tone for how she moved through the world. Malia was constantly scanning for
+danger, noticing potential weapons or objects that could be used as weapons in any
+environment—scissors on a desk, a heavy glass bottle on a café table, anything hard and sharp in a
+treatment room. The vigilance was exhausting, but it felt necessary because, in her mind, the event
+had proven how quickly things could go wrong. At the same time, the threat did not stay abstract.
+When she walked into a room where she saw a knife, or when the faint smell of alcohol drifted across
+a dinner table, the whole scene could snap into the old one and she would suddenly feel and act as
+if it were happening again. In those moments her memory sharpened into a vivid, near-cinematic
+certainty, and the harder she braced against that re-experiencing, the more she felt the shame and
+guilt closing in. That shame made her think about the event even less, but the attempt not to think
+about it only made the memory feel more intrusive when it came. Soon even ordinary situations
+carried the charge of a possible replay, and the slightest reminder could pull her back into the
+body sensations, fear, and self-condemnation she dreaded.
+
+Over time, the cycle began to touch her work. As a physical therapist, she spent her days in close
+contact with patients, equipment, and the practical demands of a clinic that could not be arranged
+around her fear. Still, she found herself choosing the treatment bay nearest the door, leaving
+social gatherings early, and keeping her distance whenever alcohol was present in post-work
+celebrations. What began as a way to cope made the world feel narrower and more dangerous, and that
+narrowing only strengthened her sense that she was not who she used to be. She came for treatment
+because she was tired of living on alert, ashamed of how she had been handling it, and frightened
+that one more cue—a smell, a conversation, a sharp object in view—would send her back into the same
+horrifying moment. What she most hoped for was a way to think about the event without collapsing
+into shame and panic, and what she most feared was that she would remain trapped in this state,
+forever unable to forgive herself or trust her own mind.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Malia, a 43-year-old physical therapist with a long practice history in Oceania and a steady
+relationship that had once felt grounding, came for help after months of living as though the room
+around her might turn dangerous at any moment. The event she kept circling back to was a day at work
+when she was treating a patient after a routine session and, in a moment she still struggled to
+arrange into a clear sequence, something she did or failed to do contributed to a serious injury.
+Even now she could not tell a clean story of what happened, and when she tried, the details came in
+flashes rather than a narrative: the sound of panic, the look on the other person’s face, the awful
+certainty that her mistake had changed everything. What made it feel especially unbearable was how
+vividly it returned to her; the memory seemed more real and vivid than ordinary memories, and when
+it came back she was flooded with shame, as if she were back in that room all over again.
+
+Afterward, Malia began avoiding anything that might bring the scene too near. If she caught the
+smell of alcohol on someone’s breath—especially in social settings after work, or even in a bar near
+the clinic—her body jolted and she reached for ways to get away from herself. She started spending
+money impulsively on things she did not need, telling herself a new purchase or a sudden meal out
+would distract her or at least briefly comfort her. She also began taking drugs more often, not to
+get high so much as to blunt the edge of what she was carrying. And she made a habit of staying
+close to the exit wherever she went, positioning herself carefully in waiting rooms, restaurants,
+and staff meetings so she could leave quickly if her chest tightened. Those moments of avoidance
+were not random; they grew out of the instant fear, shame, and sensory pull that came with alcohol
+smell, talking about the event, or even being near trauma-related reminders, and they fed back into
+the same trouble. The more she used spending, drugs, and escape routes to get through the day, the
+more she came to fear her own reactions, and the more certain she became that if she thought about
+the incident she would not be able to handle it. She had come to believe the person she had become
+was unrecognisable to her, and that she would never forgive herself for not doing more to stop what
+happened.
+
+That belief set the tone for how she moved through the world. Malia was constantly scanning for
+danger, noticing potential weapons or objects that could be used as weapons in any
+environment—scissors on a desk, a heavy glass bottle on a café table, anything hard and sharp in a
+treatment room. The vigilance was exhausting, but it felt necessary because, in her mind, the event
+had proven how quickly things could go wrong. At the same time, the threat did not stay abstract.
+When she walked into a room where she saw a knife, or when the faint smell of alcohol drifted across
+a dinner table, the whole scene could snap into the old one and she would suddenly feel and act as
+if it were happening again. In those moments her memory sharpened into a vivid, near-cinematic
+certainty, and the harder she braced against that re-experiencing, the more she felt the shame and
+guilt closing in. That shame made her think about the event even less, but the attempt not to think
+about it only made the memory feel more intrusive when it came. Soon even ordinary situations
+carried the charge of a possible replay, and the slightest reminder could pull her back into the
+body sensations, fear, and self-condemnation she dreaded.
+
+Over time, the cycle began to touch her work. As a physical therapist, she spent her days in close
+contact with patients, equipment, and the practical demands of a clinic that could not be arranged
+around her fear. Still, she found herself choosing the treatment bay nearest the door, leaving
+social gatherings early, and keeping her distance whenever alcohol was present in post-work
+celebrations. What began as a way to cope made the world feel narrower and more dangerous, and that
+narrowing only strengthened her sense that she was not who she used to be. She came for treatment
+because she was tired of living on alert, ashamed of how she had been handling it, and frightened
+that one more cue—a smell, a conversation, a sharp object in view—would send her back into the same
+horrifying moment. What she most hoped for was a way to think about the event without collapsing
+into shame and panic, and what she most feared was that she would remain trapped in this state,
+forever unable to forgive herself or trust her own mind.

@@ -1,0 +1,305 @@
+PERSONA 216  |  2026-05-02 18:07:07
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             39
+  gender          Female
+  ethnicity       Latin American
+  relationship_status In a relationship
+  occupation      Detective
+  trauma_type     Witnessed domestic violence (childhood)
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Sweat/Body): Sweat or body odour
+    • Tactile (Touch): Physical touch
+    • Shouting: Shouting
+  Maladaptive Strategies:
+    • Self-Harm Distraction: I hurt myself physically to stop thinking about the event
+    • Avoid All Feelings: avoid anything that could cause negative or positive feelings
+    • Avoid Being Touched: Any form of physical contact with others
+  Threat:
+    • Waking Alert: I wake during the night to check whether I am safe
+    • Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+    • Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+  Memory:
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Fear Going Crazy: My reactions since the event mean that I am going crazy
+    • Self-Doubt: I can't trust that I will do the right thing
+    • Character Blame: The event happened to me because of the sort of person I am
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.1977
+  Triggers → Threat                                  0.5463
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.2216
+  Negative Appraisals → Maladaptive Strategies       0.1819
+  Negative Appraisals → Threat                       0.3231
+  Negative Appraisals → Memory                       0.4642
+  Negative Appraisals → Triggers                     0.8169
+  Memory → Maladaptive Strategies                    0.3753
+  Memory → Threat                                    0.2264
+  Memory → Negative Appraisals                       0.6029
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.5408
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9594
+  Maladaptive Strategies → Memory                    0.9816
+  Maladaptive Strategies → Negative Appraisals       0.6811
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.3387
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Violated Values: I acted in ways that go against who I am
+    explanation: For a childhood trauma of witnessed domestic violence, the appraisal 'I acted in ways that go against who I am' is hard to reconcile unless there is some additional perpetration or morally injurious behavior by the patient during the trauma. In this profile there are no memory or threat items indicating the patient did something blameworthy during the event, so this item is clinically hard to explain.
+    item:        Triggers / Triggers: Being Criticised: Being criticised or corrected
+    explanation: 'Being criticised or corrected' can occur in many PTSD presentations, but here it is weakly supported by the rest of the profile. The threat, memory, and appraisal items center on fear/safety, grief, and self-instability rather than interpersonal criticism or humiliation. Given the specified trauma and the other items selected, this trigger appears insufficiently linked to the formulation and surrounding symptoms.
+  [2] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: For childhood witnessed domestic violence, strong self-blame can occur, but the specific wording 'the event happened because of the way I acted' is hard to reconcile with a witness-child trauma unless there is some indication she directly intervened or was held responsible. The rest of the profile does not suggest that role, so this item is clinically questionable for this trauma context.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Open Spaces: Open or exposed spaces where I feel vulnerable
+    explanation: Avoiding open or exposed spaces implies a danger formulation centered on attack in public/exposed environments. The rest of the profile's triggers and memories are strongly interpersonal/domestic (shouting, touch, body odour, grief, visual memories of domestic violence), and the threat items emphasize checking safety/startle rather than fear of exposed outdoor space. This avoidance strategy does not fit the dominant trauma-linked threat pattern and is the least coherent item cross-node.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      7,135
+  output:    15,593
+  total:     22,728
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Sofia grew up in the shadow of a violence that scarred her early years. She was just a child when
+her parents’ arguments escalated into terrifying physical confrontations, etching indelible images
+into her mind. She still carried vivid visual memories of her father’s enraged face, the desperate
+plea in her mother’s eyes, and the sounds of furniture crashing. What haunted her most was the acrid
+smell of sweat and fear, a scent that clung to the air during those moments, along with the sudden,
+jarring impact of physical touch as she tried to intervene or was pulled away. The memory of her
+father’s shouting, echoing through the small apartment, remained a constant, visceral threat.
+
+As she grew, these fragmented memories, often accompanied by overwhelming grief on recall, started
+to shape her world. When she tried to deliberately remember what happened, she found it difficult to
+access the full narrative, as if the details were locked away, leaving only the terrifying visual
+flashes. This difficulty only intensified her growing sense of self-doubt; she couldn't trust that
+she would do the right thing when it mattered, a feeling that began to solidify into a quiet,
+insidious belief that the event happened to her because of the sort of person she was.
+
+Now, at 39, working as a detective, Sofia's past constantly intruded on her present. The nature of
+her work, ironically, placed her in frequent contact with her most potent triggers. A raised voice
+during an interrogation, a suspect’s aggressive posture, or even the close confines of a patrol car
+where the smell of sweat and body odour lingered, could instantly transport her back. When these
+triggers arose, they would immediately activate a profound sense of threat, causing her to react as
+if she were in danger, startling to unexpected movements nearby, her body tensing, ready for a
+fight. This heightened state of alert often led her to adopt maladaptive strategies, such as
+flinching away from any form of physical contact, even from her partner, creating a growing distance
+between them.
+
+The constant vigilance born from her work environment meant that even at home, Sofia would
+frequently wake during the night, her heart pounding, compelled to check whether she was safe. This
+pervasive sense of threat only reinforced her reliance on maladaptive strategies; she found herself
+increasingly avoiding anything that could cause negative or even positive feelings, preferring a
+numb detachment to the unpredictable intensity of emotions. This emotional avoidance, in turn, made
+it even harder to deliberately access her memories of the past, leaving them as isolated,
+frightening images rather than integrated experiences.
+
+Her reactions since the event, particularly her tendency to jump and her constant need to scan her
+surroundings, had led Sofia to a chilling conviction that she was going crazy. This deeply held
+negative appraisal that she was losing her mind then fueled her use of maladaptive strategies; when
+overwhelmed, she would hurt herself physically, digging her nails into her palm or pinching her
+skin, as a desperate attempt to stop thinking about the event. Paradoxically, these acts of self-
+harm, intended to provide control, only reinforced her belief that she was indeed losing her grip,
+deepening her self-doubt and the insidious character blame that had taken root years ago.
+
+The tightening grip of these cycles was becoming unbearable. Her fear of going crazy, coupled with
+her inability to trust herself, intensified her hypervigilance, making her even more sensitive to
+potential triggers. She now found herself meticulously choosing where to sit in any public space,
+always seeking a safe or protected spot with her back to the wall, a habit that had become second
+nature. This constant state of threat, in turn, directly fed into her maladaptive strategies,
+pushing her further into emotional numbness and physical avoidance. The cumulative effect of these
+interwoven patterns—her avoidance maintaining her fragmented memories, her self-harm reinforcing her
+negative appraisals, and her heightened threat perception making her more susceptible to
+triggers—had left her exhausted and isolated. Sofia finally sought help, desperately hoping to
+escape the relentless cycle that was slowly consuming her life, terrified that she might truly be
+losing herself.
+
+    ✗ edge:        Triggers -> Negative Appraisals
+      explanation: The vignette does not convey that triggers directly influence or lead to negative appraisals.
+
+    ✗ edge:        Negative Appraisals -> Threat
+      explanation: The vignette does not convey that negative appraisals directly influence or lead to a sense of threat.
+
+    ✗ edge:        Negative Appraisals -> Memory
+      explanation: The vignette does not convey that negative appraisals directly influence or lead to memory issues.
+
+    ✗ edge:        Memory -> Maladaptive Strategies
+      explanation: The vignette does not convey that memory directly influences or leads to maladaptive strategies.
+
+    ✗ edge:        Maladaptive Strategies -> Threat
+      explanation: The vignette does not convey that maladaptive strategies directly influence or lead to a sense of threat.
+
+  [2] PASS
+Sofia grew up in the shadow of a violence that scarred her early years. She was just a child when
+her parents’ arguments escalated into terrifying physical confrontations, etching indelible images
+into her mind. She still carried vivid visual memories of her father’s enraged face, the desperate
+plea in her mother’s eyes, and the sounds of furniture crashing. What haunted her most was the acrid
+smell of sweat and fear, a scent that clung to the air during those moments, along with the sudden,
+jarring impact of physical touch as she tried to intervene or was pulled away. The memory of her
+father’s shouting, echoing through the small apartment, remained a constant, visceral threat.
+
+As she grew, these fragmented memories, often accompanied by overwhelming grief on recall, started
+to shape her world. When she tried to deliberately remember what happened, she found it difficult to
+access the full narrative, as if the details were locked away, leaving only the terrifying visual
+flashes. The inability to make coherent sense of these scattered, terrifying fragments drove her to
+avoid any situation that might inadvertently trigger them, leading her to withdraw from social
+interactions and emotional intimacy as a way to prevent the painful, incomplete flashbacks. This
+difficulty only intensified her growing sense of self-doubt; she couldn't trust that she would do
+the right thing when it mattered, a feeling that began to solidify into a quiet, insidious belief
+that the event happened to her because of the sort of person she was. This deeply ingrained self-
+blame and the associated shame made it even harder for her to consciously revisit the traumatic
+memories, as if her mind was protecting her from confronting what she perceived as her own failing,
+leaving the event fragmented and incomplete.
+
+Now, at 39, working as a detective, Sofia's past constantly intruded on her present. The nature of
+her work, ironically, placed her in frequent contact with her most potent triggers. A raised voice
+during an interrogation, a suspect’s aggressive posture, or even the close confines of a patrol car
+where the smell of sweat and body odour lingered, could instantly transport her back. When these
+triggers arose, they would immediately activate a profound sense of threat, causing her to react as
+if she were in danger, startling to unexpected movements nearby, her body tensing, ready for a
+fight. This immediate and overwhelming reaction to triggers reinforced her deep-seated belief that
+there was something inherently wrong with her, that she was fundamentally flawed, and that she was
+losing control. This heightened state of alert often led her to adopt maladaptive strategies, such
+as flinching away from any form of physical contact, even from her partner, creating a growing
+distance between them. While these strategies offered temporary relief, they ultimately deepened her
+sense of isolation and vulnerability, making her feel even more exposed and unprotected, thus
+intensifying her overall sense of threat.
+
+The constant vigilance born from her work environment meant that even at home, Sofia would
+frequently wake during the night, her heart pounding, compelled to check whether she was safe. This
+pervasive sense of threat only reinforced her reliance on maladaptive strategies; she found herself
+increasingly avoiding anything that could cause negative or even positive feelings, preferring a
+numb detachment to the unpredictable intensity of emotions. This emotional avoidance, in turn, made
+it even harder to deliberately access her memories of the past, leaving them as isolated,
+frightening images rather than integrated experiences.
+
+Her reactions since the event, particularly her tendency to jump and her constant need to scan her
+surroundings, had led Sofia to a chilling conviction that she was going crazy. This deeply held
+negative appraisal that she was losing her mind then fueled her use of maladaptive strategies; when
+overwhelmed, she would hurt herself physically, digging her nails into her palm or pinching her
+skin, as a desperate attempt to stop thinking about the event. This conviction that she was losing
+her mind made her feel constantly vulnerable and unsafe, as if her own internal world was an
+unpredictable source of danger, thereby intensifying her overall sense of threat. Paradoxically,
+these acts of self-harm, intended to provide control, only reinforced her belief that she was indeed
+losing her grip, deepening her self-doubt and the insidious character blame that had taken root
+years ago.
+
+The tightening grip of these cycles was becoming unbearable. Her fear of going crazy, coupled with
+her inability to trust herself, intensified her hypervigilance, making her even more sensitive to
+potential triggers. She now found herself meticulously choosing where to sit in any public space,
+always seeking a safe or protected spot with her back to the wall, a habit that had become second
+nature. This constant state of threat, in turn, directly fed into her maladaptive strategies,
+pushing her further into emotional numbness and physical avoidance. The cumulative effect of these
+interwoven patterns—her avoidance maintaining her fragmented memories, her self-harm reinforcing her
+negative appraisals, and her heightened threat perception making her more susceptible to
+triggers—had left her exhausted and isolated. Sofia finally sought help, desperately hoping to
+escape the relentless cycle that was slowly consuming her life, terrified that she might truly be
+losing herself.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Sofia grew up in the shadow of a violence that scarred her early years. She was just a child when
+her parents’ arguments escalated into terrifying physical confrontations, etching indelible images
+into her mind. She still carried vivid visual memories of her father’s enraged face, the desperate
+plea in her mother’s eyes, and the sounds of furniture crashing. What haunted her most was the acrid
+smell of sweat and fear, a scent that clung to the air during those moments, along with the sudden,
+jarring impact of physical touch as she tried to intervene or was pulled away. The memory of her
+father’s shouting, echoing through the small apartment, remained a constant, visceral threat.
+
+As she grew, these fragmented memories, often accompanied by overwhelming grief on recall, started
+to shape her world. When she tried to deliberately remember what happened, she found it difficult to
+access the full narrative, as if the details were locked away, leaving only the terrifying visual
+flashes. The inability to make coherent sense of these scattered, terrifying fragments drove her to
+avoid any situation that might inadvertently trigger them, leading her to withdraw from social
+interactions and emotional intimacy as a way to prevent the painful, incomplete flashbacks. This
+difficulty only intensified her growing sense of self-doubt; she couldn't trust that she would do
+the right thing when it mattered, a feeling that began to solidify into a quiet, insidious belief
+that the event happened to her because of the sort of person she was. This deeply ingrained self-
+blame and the associated shame made it even harder for her to consciously revisit the traumatic
+memories, as if her mind was protecting her from confronting what she perceived as her own failing,
+leaving the event fragmented and incomplete.
+
+Now, at 39, working as a detective, Sofia's past constantly intruded on her present. The nature of
+her work, ironically, placed her in frequent contact with her most potent triggers. A raised voice
+during an interrogation, a suspect’s aggressive posture, or even the close confines of a patrol car
+where the smell of sweat and body odour lingered, could instantly transport her back. When these
+triggers arose, they would immediately activate a profound sense of threat, causing her to react as
+if she were in danger, startling to unexpected movements nearby, her body tensing, ready for a
+fight. This immediate and overwhelming reaction to triggers reinforced her deep-seated belief that
+there was something inherently wrong with her, that she was fundamentally flawed, and that she was
+losing control. This heightened state of alert often led her to adopt maladaptive strategies, such
+as flinching away from any form of physical contact, even from her partner, creating a growing
+distance between them. While these strategies offered temporary relief, they ultimately deepened her
+sense of isolation and vulnerability, making her feel even more exposed and unprotected, thus
+intensifying her overall sense of threat.
+
+The constant vigilance born from her work environment meant that even at home, Sofia would
+frequently wake during the night, her heart pounding, compelled to check whether she was safe. This
+pervasive sense of threat only reinforced her reliance on maladaptive strategies; she found herself
+increasingly avoiding anything that could cause negative or even positive feelings, preferring a
+numb detachment to the unpredictable intensity of emotions. This emotional avoidance, in turn, made
+it even harder to deliberately access her memories of the past, leaving them as isolated,
+frightening images rather than integrated experiences.
+
+Her reactions since the event, particularly her tendency to jump and her constant need to scan her
+surroundings, had led Sofia to a chilling conviction that she was going crazy. This deeply held
+negative appraisal that she was losing her mind then fueled her use of maladaptive strategies; when
+overwhelmed, she would hurt herself physically, digging her nails into her palm or pinching her
+skin, as a desperate attempt to stop thinking about the event. This conviction that she was losing
+her mind made her feel constantly vulnerable and unsafe, as if her own internal world was an
+unpredictable source of danger, thereby intensifying her overall sense of threat. Paradoxically,
+these acts of self-harm, intended to provide control, only reinforced her belief that she was indeed
+losing her grip, deepening her self-doubt and the insidious character blame that had taken root
+years ago.
+
+The tightening grip of these cycles was becoming unbearable. Her fear of going crazy, coupled with
+her inability to trust herself, intensified her hypervigilance, making her even more sensitive to
+potential triggers. She now found herself meticulously choosing where to sit in any public space,
+always seeking a safe or protected spot with her back to the wall, a habit that had become second
+nature. This constant state of threat, in turn, directly fed into her maladaptive strategies,
+pushing her further into emotional numbness and physical avoidance. The cumulative effect of these
+interwoven patterns—her avoidance maintaining her fragmented memories, her self-harm reinforcing her
+negative appraisals, and her heightened threat perception making her more susceptible to
+triggers—had left her exhausted and isolated. Sofia finally sought help, desperately hoping to
+escape the relentless cycle that was slowly consuming her life, terrified that she might truly be
+losing herself.

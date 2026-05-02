@@ -1,0 +1,226 @@
+{
+  "persona_id": 128,
+  "source_persona_id": 128,
+  "experiment_timestamp": "2026-05-02 21:31:05",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-reasoner",
+      "persona_crafter": "deepseek-reasoner",
+      "vignette_crafter": "deepseek-reasoner",
+      "vignette_validator": "deepseek-reasoner"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 80,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Widowed",
+    "occupation": "Social Worker",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 45
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      },
+      {
+        "key": "Visual (Needles/Medical)",
+        "value": "Medical equipment such as needles or drips"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      },
+      {
+        "key": "Thought Suppression",
+        "value": "I try to push them out of my mind"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Violated Values",
+        "value": "I acted in ways that go against who I am"
+      },
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Helplessness",
+        "value": "I can't stop bad things from happening to me"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.5473,
+    "Triggers -- Negative Appraisals": 0.571,
+    "Negative Appraisals -- Maladaptive Strategies": 0.3304,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.869,
+    "Negative Appraisals -- Triggers": 0.862,
+    "Memory -- Maladaptive Strategies": 0.5358,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.8212,
+    "Memory -- Triggers": 0.4595,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7363,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6369444444444444,
+  "edge_density": 0.45,
+  "vignette_word_count": 639,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Weapons): Weapons or objects used as weapons",
+          "explanation": "For trauma type of a child's life-threatening illness, weapon-related visual triggers are hard to reconcile unless there is additional unreported violent trauma. Hospital smells and loss-related conversations fit, but weapons/object-as-weapon cues are clinically implausible for the same index trauma."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Fear of Harm: You can never know who will harm you",
+          "explanation": "The appraisal 'You can never know who will harm you' implies interpersonal danger/assailant threat, which is poorly matched to the validated trauma of a child's serious illness. This also aligns awkwardly with the rest of the profile, which is otherwise illness/loss/moral injury themed rather than assault-based."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Weapons)"
+        ],
+        "Negative Appraisals": [
+          "Fear of Harm"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "'Intense rage on recall' is hard to reconcile with the rest of this profile for an 80-year-old mother traumatized by a child's life-threatening illness. The other items center on helplessness, permanent change, loss-related and hospital triggers, and intrusive affect without image. Distress, fear, guilt, grief, or sadness would fit more coherently; rage is not impossible, but here it is insufficiently supported by any corresponding appraisal or trigger content and stands out as clinically incongruent."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Face Hiding: cover face with hands",
+          "explanation": "'Cover face with hands' is not well supported as a maladaptive strategy in this profile. The active formulation links maladaptive strategies mainly to negative appraisals and memory, and the other strategies chosen (avoid going out, thought suppression) fit intrusive distress and negative beliefs. Face hiding is more typical of acute shame/panic/social exposure and is not clearly connected to the hospital/loss triggers, intrusive memory pattern, or appraisals provided, making it the least coherent item in this set."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Rage on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Face Hiding"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 2,
+    "passed": 1,
+    "failed": 1,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 6499,
+    "output": 7225,
+    "total": 13724
+  },
+  "vignette": "When Fatima’s son, then ten years old, was diagnosed with leukemia, the world narrowed to the chemical burn of antiseptic and the cold gleam of IV poles. She spent weeks at his bedside, gripping his hand while needles found his veins, trying to believe the doctors’ promises. But beneath the hospital glare, something in her cracked. She began to feel that she was not fighting hard enough, that her fear made her weak—that in her desperation to be strong for him, she had acted in ways that betrayed her own values. She had snapped at a nurse, she had prayed in a way that felt like bargaining, she had let her son see her cry. It was, she later told herself, a permanent violation of who she was. And when he recovered, she did not feel relief; she felt hollow, convinced she had changed for the worse.\n\nDecades later, at eighty, Fatima is a retired social worker who once helped others navigate grief. Now she cannot bear to hear anyone talk about losing a loved one. A neighbor’s casual mention of a funeral sends a jolt through her chest—not an image, but a full emotional onslaught: the same raw grief and helplessness she felt in that hospital room, rising without warning. This is the memory without image that torments her. The feeling arrives unbidden, often when she least expects it, and each time it reinforces her belief that she is irreparably broken. She has come to believe that she cannot stop bad things from happening, and that her own actions during her son’s illness mark her as fundamentally flawed. Because she believed herself fundamentally flawed and helpless, staying home and pushing away any thought of her son’s illness felt to her not as avoidance but as the only rational way to survive.\n\nThe causal loop tightens. When she catches the smell of antiseptic in a pharmacy, the memory punches through—again no picture, just terror and the smell itself, and then the self-reproach floods in: *I failed him.* These triggers make her negative appraisals feel undeniable, and in turn, her belief in her helplessness makes her hypersensitive to any reminder of loss or illness. A doctor’s office sign, a relative’s mention of a check-up—she interprets these as threats. Meanwhile, the intrusive memories themselves leave her on high alert, so that even a distant siren seems to confirm that danger is everywhere.\n\nTo manage, Fatima has withdrawn. She avoids going out unless absolutely necessary, especially to places where she might see medical equipment or hear conversations about illness. She tries to push the memories from her mind, clamping down on them as soon as they surface. But these strategies only deepen her conviction that she is permanently damaged. Each time she suppresses a thought, she proves to herself that she cannot control her own mind. Each time she stays home, she confirms that she is no longer the person she was. The avoidance feeds the negative appraisals, and the negative appraisals make the memories more punishing. She has become a prisoner in her own home, isolated from friends and family, and in quiet moments she thinks, *This is who I am now.*\n\nThere is one more turn. The helplessness she feels—the sense that she cannot stop bad things—actually pulls the memories back. A stray thought about her son triggers not gratitude, but grief, and then the accusations return. Her grandson recently asked why she never visits anymore, and Fatima felt the familiar wave of emotion without any image: just the weight of her own failure, permanent and inescapable.\n\nShe sought help because her daughter, worried, insisted. What Fatima fears most is that she will never feel like herself again. What she hopes—barely—is that someone might show her a way to live without the constant intrusion of a past she cannot outrun."
+,
+
+  "vignette_attempts": [
+    {"vignette": "When Fatima’s son, then ten years old, was diagnosed with leukemia, the world narrowed to the chemical burn of antiseptic and the cold gleam of IV poles. She spent weeks at his bedside, gripping his hand while needles found his veins, trying to believe the doctors’ promises. But beneath the hospital glare, something in her cracked. She began to feel that she was not fighting hard enough, that her fear made her weak—that in her desperation to be strong for him, she had acted in ways that betrayed her own values. She had snapped at a nurse, she had prayed in a way that felt like bargaining, she had let her son see her cry. It was, she later told herself, a permanent violation of who she was. And when he recovered, she did not feel relief; she felt hollow, convinced she had changed for the worse.\n\nDecades later, at eighty, Fatima is a retired social worker who once helped others navigate grief. Now she cannot bear to hear anyone talk about losing a loved one. A neighbor’s casual mention of a funeral sends a jolt through her chest—not an image, but a full emotional onslaught: the same raw grief and helplessness she felt in that hospital room, rising without warning. This is the memory without image that torments her. The feeling arrives unbidden, often when she least expects it, and each time it reinforces her belief that she is irreparably broken. She has come to believe that she cannot stop bad things from happening, and that her own actions during her son’s illness mark her as fundamentally flawed.\n\nThe causal loop tightens. When she catches the smell of antiseptic in a pharmacy, the memory punches through—again no picture, just terror and the smell itself, and then the self-reproach floods in: *I failed him.* These triggers make her negative appraisals feel undeniable, and in turn, her belief in her helplessness makes her hypersensitive to any reminder of loss or illness. A doctor’s office sign, a relative’s mention of a check-up—she interprets these as threats. Meanwhile, the intrusive memories themselves leave her on high alert, so that even a distant siren seems to confirm that danger is everywhere.\n\nTo manage, Fatima has withdrawn. She avoids going out unless absolutely necessary, especially to places where she might see medical equipment or hear conversations about illness. She tries to push the memories from her mind, clamping down on them as soon as they surface. But these strategies only deepen her conviction that she is permanently damaged. Each time she suppresses a thought, she proves to herself that she cannot control her own mind. Each time she stays home, she confirms that she is no longer the person she was. The avoidance feeds the negative appraisals, and the negative appraisals make the memories more punishing. She has become a prisoner in her own home, isolated from friends and family, and in quiet moments she thinks, *This is who I am now.*\n\nThere is one more turn. The helplessness she feels—the sense that she cannot stop bad things—actually pulls the memories back. A stray thought about her son triggers not gratitude, but grief, and then the accusations return. Her grandson recently asked why she never visits anymore, and Fatima felt the familiar wave of emotion without any image: just the weight of her own failure, permanent and inescapable.\n\nShe sought help because her daughter, worried, insisted. What Fatima fears most is that she will never feel like herself again. What she hopes—barely—is that someone might show her a way to live without the constant intrusion of a past she cannot outrun.", "passed": false, "violations": [{"edge": "Negative Appraisals → Maladaptive Strategies", "explanation": "The vignette does not show that negative appraisals (e.g., belief she is permanently damaged) drive or lead to maladaptive strategies (e.g., avoidance, suppression); instead, it shows the reverse causal direction."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Negative Appraisals → Maladaptive Strategies: The vignette does not show that negative appraisals (e.g., belief she is permanently damaged) drive or lead to maladaptive strategies (e.g., avoidance, suppression); instead, it shows the reverse causal direction.\n  e.g. \"If she had concluded that the world was dangerous and she was defenceless, staying home wasn't avoidance — it was the only rational thing to do.\"\n  e.g. \"The belief that speaking about it would make things worse kept her silent in her sessions, offering fragments instead of the whole picture.\"\n  e.g. \"Having decided that her feelings couldn't be trusted, she worked hard to stay numb — and had become quite good at it.\""},
+
+    {"vignette": "When Fatima’s son, then ten years old, was diagnosed with leukemia, the world narrowed to the chemical burn of antiseptic and the cold gleam of IV poles. She spent weeks at his bedside, gripping his hand while needles found his veins, trying to believe the doctors’ promises. But beneath the hospital glare, something in her cracked. She began to feel that she was not fighting hard enough, that her fear made her weak—that in her desperation to be strong for him, she had acted in ways that betrayed her own values. She had snapped at a nurse, she had prayed in a way that felt like bargaining, she had let her son see her cry. It was, she later told herself, a permanent violation of who she was. And when he recovered, she did not feel relief; she felt hollow, convinced she had changed for the worse.\n\nDecades later, at eighty, Fatima is a retired social worker who once helped others navigate grief. Now she cannot bear to hear anyone talk about losing a loved one. A neighbor’s casual mention of a funeral sends a jolt through her chest—not an image, but a full emotional onslaught: the same raw grief and helplessness she felt in that hospital room, rising without warning. This is the memory without image that torments her. The feeling arrives unbidden, often when she least expects it, and each time it reinforces her belief that she is irreparably broken. She has come to believe that she cannot stop bad things from happening, and that her own actions during her son’s illness mark her as fundamentally flawed. Because she believed herself fundamentally flawed and helpless, staying home and pushing away any thought of her son’s illness felt to her not as avoidance but as the only rational way to survive.\n\nThe causal loop tightens. When she catches the smell of antiseptic in a pharmacy, the memory punches through—again no picture, just terror and the smell itself, and then the self-reproach floods in: *I failed him.* These triggers make her negative appraisals feel undeniable, and in turn, her belief in her helplessness makes her hypersensitive to any reminder of loss or illness. A doctor’s office sign, a relative’s mention of a check-up—she interprets these as threats. Meanwhile, the intrusive memories themselves leave her on high alert, so that even a distant siren seems to confirm that danger is everywhere.\n\nTo manage, Fatima has withdrawn. She avoids going out unless absolutely necessary, especially to places where she might see medical equipment or hear conversations about illness. She tries to push the memories from her mind, clamping down on them as soon as they surface. But these strategies only deepen her conviction that she is permanently damaged. Each time she suppresses a thought, she proves to herself that she cannot control her own mind. Each time she stays home, she confirms that she is no longer the person she was. The avoidance feeds the negative appraisals, and the negative appraisals make the memories more punishing. She has become a prisoner in her own home, isolated from friends and family, and in quiet moments she thinks, *This is who I am now.*\n\nThere is one more turn. The helplessness she feels—the sense that she cannot stop bad things—actually pulls the memories back. A stray thought about her son triggers not gratitude, but grief, and then the accusations return. Her grandson recently asked why she never visits anymore, and Fatima felt the familiar wave of emotion without any image: just the weight of her own failure, permanent and inescapable.\n\nShe sought help because her daughter, worried, insisted. What Fatima fears most is that she will never feel like herself again. What she hopes—barely—is that someone might show her a way to live without the constant intrusion of a past she cannot outrun.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

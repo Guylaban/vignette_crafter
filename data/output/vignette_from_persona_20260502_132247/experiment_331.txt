@@ -1,0 +1,215 @@
+PERSONA 331  |  2026-05-02 16:00:18
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-sonnet-4-6
+    persona_crafter      claude-sonnet-4-6
+    vignette_crafter     claude-sonnet-4-6
+    vignette_validator   claude-sonnet-4-6
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             73
+  gender          Female
+  ethnicity       North American
+  relationship_status Widowed
+  occupation      Painter
+  trauma_type     Man-made disaster
+  pcl5            47
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Affective Expression: Crying
+    • Tactile (Touch): Physical touch
+    • Olfactory (Alcohol): Alcohol smell
+  Threat:
+    • Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    • Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    • Sleep Problems: Trouble falling or staying asleep
+  Memory:
+    • Photographic Recall: Remembering what happened during the frightening event is just like looking at photographs of it in my mind.
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+  Negative Appraisals:
+    • Life Not Worth Living: I am not sure my life is worth living anymore
+    • Lost Emotions: I will never be able to feel normal emotions again
+    • Shattered Beliefs: My beliefs about how the world works have been completely destroyed
+  Maladaptive Strategies:
+    • Avoid News: News reports about events similar to what happened to me
+    • Suppress Thoughts: try hard not think about the trauma
+    • Mental Distraction: keep mind occupied all the time
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.8604
+  Triggers → Memory                                  0.9313
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.9556
+  Negative Appraisals → Memory                       0.2102
+  Negative Appraisals → Triggers                     0.9695
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.3959
+  Memory → Negative Appraisals                       0.4271
+  Memory → Triggers                                  0.3287
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0841
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Idealized Families: Happy families
+    explanation: The trigger set is weakly anchored to the stated trauma type and does not connect well to the threat profile. For a man-made disaster, 'happy families' and 'physical touch' can occur, but paired with the specific threat item about someone entering the home, they suggest very different trauma contexts. That makes the Triggers → Threat link clinically incoherent here.
+    item:        Threat / Triggers: Tactile (Touch): Physical touch
+    explanation: 'Intrusion Monitoring' implies a current interpersonal/home-invasion danger schema. The rest of the profile points more toward grief, guilt, and sensory reliving of a disaster rather than fear of an intruder entering the home. This is a hard-to-explain mismatch across Threat, Memory, and Triggers.
+    item:        Memory / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The memory items are coherent with severe re-experiencing, but they align better with trauma-cued reliving than with the selected threat of home-entry monitoring. This weakens the strong Triggers → Memory and Triggers → Threat pattern because the chosen triggers do not plausibly evoke that specific threat state.
+    item:        Negative Appraisals / Negative Appraisals: Lost Meaning: Nothing in my life feels meaningful anymore
+    explanation: Within Negative Appraisals, the items form a strongly depressive/nihilistic cluster ('nothing meaningful,' 'life not worth living,' 'never feel normal emotions again'). That can coexist with PTSD, but in this profile it is insufficiently connected to the selected triggers and threat items, which are much more narrow and hypervigilance-based.
+    item:        Maladaptive Strategies / Negative Appraisals: Life Not Worth Living: I am not sure my life is worth living anymore
+    explanation: Maladaptive Strategies has no items selected, which is not itself a problem, but because the formulation isolates this node, the remaining nodes need to cohere on their own. They do not: the trigger/threat content suggests one trauma context while memory/appraisal content suggests another.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      4,007
+  output:     1,051
+  total:      5,058
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Miriam Calloway is a 73-year-old widowed painter who presented for her initial assessment carrying a
+canvas tote bag and speaking carefully, as though she had rehearsed what she was willing to say. She
+lives alone in a small house on the outskirts of a mid-sized Ohio town, where she has kept a studio
+for decades. She was referred by her primary care physician after her sleep difficulties and what
+she described as "losing herself" had persisted for over a year following a gas explosion at a
+community arts centre she had attended regularly. The blast, caused by a ruptured industrial line
+that building management had been warned about months earlier, killed two people and injured several
+others. Miriam was in a back hallway when the explosion occurred. She was thrown against a wall and
+lay on the concrete floor in the dark, unable to move, surrounded by the acrid smell of gas and
+burning material, while a man nearby wept loudly and uncontrollably. She was eventually pulled out
+by emergency responders, but for what she described as an indeterminate stretch of time, she was
+certain she was going to die there, alone, on a cold floor, in a building that should have been
+safe.
+
+In the weeks that followed, Miriam found that certain things returned her immediately to the
+hallway. The smell of alcohol-based solvents — unavoidable in her own studio — would stop her at the
+door, her chest tightening, her body bracing as though the floor might give way. When someone cried
+near her, even on television, she would feel her pulse spike and her attention narrow. Physical
+touch, even gentle contact from her daughter during visits, could send a wave of alarm through her
+that she could not explain and could not stop. These triggers did not simply unsettle her — they
+pulled her directly into memory, vivid and unmoving, as though she were looking at a series of
+photographs she had not consented to keep: the angle of the hallway ceiling, the particular
+darkness, her own hand flat against the concrete. With those images came a bodily certainty that her
+limbs were pressed against the floor again, her back against the wall, her body arranged in the
+posture of someone waiting to die. And with the memories came guilt — a persistent, irrational
+conviction that she had failed to warn others, that she had not acted, that she had simply lain
+there.
+
+That guilt had hardened, over months, into something more structural. Miriam had come to believe
+that the world did not operate the way she had spent seventy-three years assuming it did — that
+institutions could not be trusted, that safety was a story people told themselves, that she herself
+was somehow changed in a way that could not be undone. She was not sure, she said quietly, that her
+life was worth living anymore. She no longer believed she would feel ordinary emotions again; what
+she experienced instead was a kind of flatness interrupted by alarm. These appraisals had a way of
+sharpening her vigilance — she lay awake at night listening for sounds at the doors and windows,
+certain that her sense of threat was now permanently recalibrated. She was frequently irritable with
+the few people she saw, and her daughter had begun visiting less often, a loss Miriam registered
+with a grief she could not fully access. The negative beliefs also seemed to lower her threshold for
+being triggered — a world perceived as fundamentally unsafe meant that the smell of solvent or the
+sound of crying carried a weight they might not otherwise have borne. And when memories surfaced,
+they did not soften her appraisals but confirmed them, cycling back into the conviction that she was
+permanently altered and permanently at risk, which in turn kept her body in a state of readiness
+that made sleep almost impossible.
+
+To manage all of this, Miriam had stopped watching the news entirely and kept her television tuned
+only to gardening programmes. She worked to keep her mind occupied at all hours — listening to
+audiobooks while she painted, filling silence aggressively. She tried hard not to think about the
+explosion, pushing images away the moment they surfaced. Her studio output, once prolific, had
+slowed considerably; she could rarely tolerate the smell of the solvents long enough to work for
+more than an hour.
+
+What finally brought her in was her daughter's tearful plea during a recent visit — the crying
+itself had triggered an episode, and Miriam had asked her to leave. She arrived at the clinic
+hoping, she said, to feel like herself again, and most afraid that she no longer knew who that was.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Miriam Calloway is a 73-year-old widowed painter who presented for her initial assessment carrying a
+canvas tote bag and speaking carefully, as though she had rehearsed what she was willing to say. She
+lives alone in a small house on the outskirts of a mid-sized Ohio town, where she has kept a studio
+for decades. She was referred by her primary care physician after her sleep difficulties and what
+she described as "losing herself" had persisted for over a year following a gas explosion at a
+community arts centre she had attended regularly. The blast, caused by a ruptured industrial line
+that building management had been warned about months earlier, killed two people and injured several
+others. Miriam was in a back hallway when the explosion occurred. She was thrown against a wall and
+lay on the concrete floor in the dark, unable to move, surrounded by the acrid smell of gas and
+burning material, while a man nearby wept loudly and uncontrollably. She was eventually pulled out
+by emergency responders, but for what she described as an indeterminate stretch of time, she was
+certain she was going to die there, alone, on a cold floor, in a building that should have been
+safe.
+
+In the weeks that followed, Miriam found that certain things returned her immediately to the
+hallway. The smell of alcohol-based solvents — unavoidable in her own studio — would stop her at the
+door, her chest tightening, her body bracing as though the floor might give way. When someone cried
+near her, even on television, she would feel her pulse spike and her attention narrow. Physical
+touch, even gentle contact from her daughter during visits, could send a wave of alarm through her
+that she could not explain and could not stop. These triggers did not simply unsettle her — they
+pulled her directly into memory, vivid and unmoving, as though she were looking at a series of
+photographs she had not consented to keep: the angle of the hallway ceiling, the particular
+darkness, her own hand flat against the concrete. With those images came a bodily certainty that her
+limbs were pressed against the floor again, her back against the wall, her body arranged in the
+posture of someone waiting to die. And with the memories came guilt — a persistent, irrational
+conviction that she had failed to warn others, that she had not acted, that she had simply lain
+there.
+
+That guilt had hardened, over months, into something more structural. Miriam had come to believe
+that the world did not operate the way she had spent seventy-three years assuming it did — that
+institutions could not be trusted, that safety was a story people told themselves, that she herself
+was somehow changed in a way that could not be undone. She was not sure, she said quietly, that her
+life was worth living anymore. She no longer believed she would feel ordinary emotions again; what
+she experienced instead was a kind of flatness interrupted by alarm. These appraisals had a way of
+sharpening her vigilance — she lay awake at night listening for sounds at the doors and windows,
+certain that her sense of threat was now permanently recalibrated. She was frequently irritable with
+the few people she saw, and her daughter had begun visiting less often, a loss Miriam registered
+with a grief she could not fully access. The negative beliefs also seemed to lower her threshold for
+being triggered — a world perceived as fundamentally unsafe meant that the smell of solvent or the
+sound of crying carried a weight they might not otherwise have borne. And when memories surfaced,
+they did not soften her appraisals but confirmed them, cycling back into the conviction that she was
+permanently altered and permanently at risk, which in turn kept her body in a state of readiness
+that made sleep almost impossible.
+
+To manage all of this, Miriam had stopped watching the news entirely and kept her television tuned
+only to gardening programmes. She worked to keep her mind occupied at all hours — listening to
+audiobooks while she painted, filling silence aggressively. She tried hard not to think about the
+explosion, pushing images away the moment they surfaced. Her studio output, once prolific, had
+slowed considerably; she could rarely tolerate the smell of the solvents long enough to work for
+more than an hour.
+
+What finally brought her in was her daughter's tearful plea during a recent visit — the crying
+itself had triggered an episode, and Miriam had asked her to leave. She arrived at the clinic
+hoping, she said, to feel like herself again, and most afraid that she no longer knew who that was.

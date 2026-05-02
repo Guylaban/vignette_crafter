@@ -1,0 +1,198 @@
+{
+  "persona_id": 256,
+  "source_persona_id": 256,
+  "experiment_timestamp": "2026-05-02 18:33:52",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-flash",
+      "persona_crafter": "gemini-2.5-flash",
+      "vignette_crafter": "gemini-2.5-flash",
+      "vignette_validator": "gemini-2.5-flash"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 35,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Single",
+    "occupation": "Special Education Teacher",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 58
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Shouting",
+        "value": "Shouting"
+      },
+      {
+        "key": "Somatic Pain (Neck)",
+        "value": "Neck pain"
+      },
+      {
+        "key": "Authority Presence",
+        "value": "Police"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      },
+      {
+        "key": "Scanning Exits",
+        "value": "I scan for exits as soon as I enter any room or building"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Photographic Recall",
+        "value": "Remembering what happened during the frightening event is just like looking at photographs of it in my mind."
+      },
+      {
+        "key": "Rage on Recall",
+        "value": "When I remember the event I feel intense rage"
+      },
+      {
+        "key": "Guilt on Recall",
+        "value": "When I remember the event I feel intense guilt"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Self-Comparison",
+        "value": "Somebody else would not have gotten into this situation"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "I have to be on guard all the time"
+      },
+      {
+        "key": "Inadequacy",
+        "value": "I am inadequate"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0632,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.9637,
+    "Negative Appraisals -- Memory": 0.2066,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.5402,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.9135,
+    "Threat -- Negative Appraisals": 0.8248,
+    "Threat -- Triggers": 0.8948,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6295428571428571,
+  "edge_density": 0.35,
+  "vignette_word_count": 625,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Failed Role: I have failed in my most important role in life",
+          "explanation": "For a 35-year-old single male special education teacher reporting a mugging/robbery, 'I have failed in my most important role in life' is hard to link coherently to the rest of the profile. The other appraisals center on self-blame and persistent danger, but this item implies a salient role failure theme (e.g. partner/parent/protector) that is not otherwise represented in triggers, threat, or memory."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Within Memory, intense shame and intense rage on recall can coexist, but paired with a mugging/robbery and the rest of this profile they pull toward different meanings of the event without enough support elsewhere. Shame would usually connect to strong self-blame/humiliation themes, while rage would connect to injustice/anger themes; the profile does not integrate both clearly."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Failed Role"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 2,
+    "passed": 1,
+    "failed": 1,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 6437,
+    "output": 6951,
+    "total": 13388
+  },
+  "vignette": "David, a 35-year-old special education teacher, sought therapy after months of struggling with the aftermath of a violent mugging. He vividly recalled the night he was attacked while walking home from a late meeting. It was a dark, quiet street when two figures emerged, demanding his wallet. The sudden burst of “shouting” had been terrifying, followed by a struggle where he felt a sharp, intense “neck pain” as he was thrown against a wall. The attackers fled, and he remembered the disorienting sight of \"police\" lights flashing as they arrived, an image that had since become unsettling.\n\nIn the weeks that followed, David found himself plagued by the event. His memories were startlingly clear, a \"photographic recall\" where he could see every detail \"just like looking at photographs in his mind.\" These intrusive images were often accompanied by an overwhelming \"rage\" at his attackers and an intense \"guilt\" about what he hadn't done, what he could have done differently. He had come to believe that \"somebody else would not have gotten into this situation,\" fueling a pervasive sense of \"inadequacy.\" This conviction that he was fundamentally inadequate made the memory of the attack even more salient, constantly replaying in his mind as undeniable proof of his failure.\n\nDavid noticed that certain everyday occurrences now instantly transported him back to that night. A student’s sudden outburst of \"shouting\" in his special education classroom, for instance, would immediately trigger these vivid, intrusive \"memories,\" flooding his mind with the scene of the attack. Similarly, an unexpected twinge of \"neck pain,\" even from sleeping awkwardly, could bring the whole terrifying sequence back with brutal clarity.\n\nThese intrusive memories, with their intense emotional charge, quickly escalated his internal state into one of profound \"threat.\" He would suddenly experience \"flashbacks,\" feeling and acting \"as if the stressful experience were actually happening again,\" losing touch with his present surroundings. In this heightened state, he found himself \"unable to relax,\" even in the supposed safety of his own apartment. This constant sense of impending danger was compounded by his deep-seated conviction that \"I have to be on guard all the time,\" a \"hypervigilance\" that kept his nervous system on edge and intensified his perception of threat. This pervasive feeling that he was always in danger, combined with his belief that \"I am inadequate\" to protect himself, severely amplified his sense of threat, making him feel perpetually vulnerable.\n\nThe perpetual state of \"threat\" David endured had profound repercussions. The constant vigilance and the fear of being caught off guard reinforced his negative self-appraisals; if he was always on edge, always scanning, it must mean he truly was \"inadequate\" and that \"somebody else would not have gotten into this situation.\" This persistent internal alarm also made him exquisitely sensitive to potential \"triggers.\" He’d find himself flinching at distant sirens, interpreting them as an \"authority presence\" like the police, or becoming agitated by any raised voice, even if it was just children playing, because his system was already primed for danger. The sheer exhaustion from this constant state of \"threat\" also began to affect his memory, making it harder to focus and sometimes leading to more fragmented and intrusive recollections of the event itself.\n\nAt work, David started \"scanning for exits as soon as he entered any room or building,\" a new habit that made him appear distracted and distant to his colleagues. This constant vigilance and the internal battles he faced meant he was less present for his students, and his once-vibrant classroom felt increasingly like a place he needed to escape. He knew he couldn't continue living this way, perpetually trapped in the echoes of that night, and finally sought help, hoping to find a way to reclaim his sense of safety and competence."
+,
+
+  "vignette_attempts": [
+    {"vignette": "David, a 35-year-old special education teacher, sought therapy after months of struggling with the aftermath of a violent mugging. He vividly recalled the night he was attacked while walking home from a late meeting. It was a dark, quiet street when two figures emerged, demanding his wallet. The sudden burst of “shouting” had been terrifying, followed by a struggle where he felt a sharp, intense “neck pain” as he was thrown against a wall. The attackers fled, and he remembered the disorienting sight of \"police\" lights flashing as they arrived, an image that had since become unsettling.\n\nIn the weeks that followed, David found himself plagued by the event. His memories were startlingly clear, a \"photographic recall\" where he could see every detail \"just like looking at photographs in his mind.\" These intrusive images were often accompanied by an overwhelming \"rage\" at his attackers and an intense \"guilt\" about what he hadn't done, what he could have done differently. He had come to believe that \"somebody else would not have gotten into this situation,\" fueling a pervasive sense of \"inadequacy.\"\n\nDavid noticed that certain everyday occurrences now instantly transported him back to that night. A student’s sudden outburst of \"shouting\" in his special education classroom, for instance, would immediately trigger these vivid, intrusive \"memories,\" flooding his mind with the scene of the attack. Similarly, an unexpected twinge of \"neck pain,\" even from sleeping awkwardly, could bring the whole terrifying sequence back with brutal clarity.\n\nThese intrusive memories, with their intense emotional charge, quickly escalated his internal state into one of profound \"threat.\" He would suddenly experience \"flashbacks,\" feeling and acting \"as if the stressful experience were actually happening again,\" losing touch with his present surroundings. In this heightened state, he found himself \"unable to relax,\" even in the supposed safety of his own apartment. This constant sense of impending danger was compounded by his deep-seated conviction that \"I have to be on guard all the time,\" a \"hypervigilance\" that kept his nervous system on edge and intensified his perception of threat. This pervasive feeling that he was always in danger, combined with his belief that \"I am inadequate\" to protect himself, severely amplified his sense of threat, making him feel perpetually vulnerable.\n\nThe perpetual state of \"threat\" David endured had profound repercussions. The constant vigilance and the fear of being caught off guard reinforced his negative self-appraisals; if he was always on edge, always scanning, it must mean he truly was \"inadequate\" and that \"somebody else would not have gotten into this situation.\" This persistent internal alarm also made him exquisitely sensitive to potential \"triggers.\" He’d find himself flinching at distant sirens, interpreting them as an \"authority presence\" like the police, or becoming agitated by any raised voice, even if it was just children playing, because his system was already primed for danger. The sheer exhaustion from this constant state of \"threat\" also began to affect his memory, making it harder to focus and sometimes leading to more fragmented and intrusive recollections of the event itself.\n\nAt work, David started \"scanning for exits as soon as he entered any room or building,\" a new habit that made him appear distracted and distant to his colleagues. This constant vigilance and the internal battles he faced meant he was less present for his students, and his once-vibrant classroom felt increasingly like a place he needed to escape. He knew he couldn't continue living this way, perpetually trapped in the echoes of that night, and finally sought help, hoping to find a way to reclaim his sense of safety and competence.", "passed": false, "violations": [{"edge": "Negative Appraisals → Memory", "explanation": "The vignette does not explicitly state how David's negative appraisals influence or lead to his intrusive memories."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Negative Appraisals → Memory: The vignette does not explicitly state how David's negative appraisals influence or lead to his intrusive memories.\n  e.g. \"The belief that she was permanently changed kept bringing her back to the moment it had happened, as if she needed to locate exactly where she had been lost.\"\n  e.g. \"Telling herself that she should have seen it coming made the memory more vivid and easier to find — it sat there waiting, proof of her failure.\"\n  e.g. \"The conviction that she was weak fed directly into the flashback, colouring it, making it worse: she wasn't just there again, she was there again and helpless.\""},
+
+    {"vignette": "David, a 35-year-old special education teacher, sought therapy after months of struggling with the aftermath of a violent mugging. He vividly recalled the night he was attacked while walking home from a late meeting. It was a dark, quiet street when two figures emerged, demanding his wallet. The sudden burst of “shouting” had been terrifying, followed by a struggle where he felt a sharp, intense “neck pain” as he was thrown against a wall. The attackers fled, and he remembered the disorienting sight of \"police\" lights flashing as they arrived, an image that had since become unsettling.\n\nIn the weeks that followed, David found himself plagued by the event. His memories were startlingly clear, a \"photographic recall\" where he could see every detail \"just like looking at photographs in his mind.\" These intrusive images were often accompanied by an overwhelming \"rage\" at his attackers and an intense \"guilt\" about what he hadn't done, what he could have done differently. He had come to believe that \"somebody else would not have gotten into this situation,\" fueling a pervasive sense of \"inadequacy.\" This conviction that he was fundamentally inadequate made the memory of the attack even more salient, constantly replaying in his mind as undeniable proof of his failure.\n\nDavid noticed that certain everyday occurrences now instantly transported him back to that night. A student’s sudden outburst of \"shouting\" in his special education classroom, for instance, would immediately trigger these vivid, intrusive \"memories,\" flooding his mind with the scene of the attack. Similarly, an unexpected twinge of \"neck pain,\" even from sleeping awkwardly, could bring the whole terrifying sequence back with brutal clarity.\n\nThese intrusive memories, with their intense emotional charge, quickly escalated his internal state into one of profound \"threat.\" He would suddenly experience \"flashbacks,\" feeling and acting \"as if the stressful experience were actually happening again,\" losing touch with his present surroundings. In this heightened state, he found himself \"unable to relax,\" even in the supposed safety of his own apartment. This constant sense of impending danger was compounded by his deep-seated conviction that \"I have to be on guard all the time,\" a \"hypervigilance\" that kept his nervous system on edge and intensified his perception of threat. This pervasive feeling that he was always in danger, combined with his belief that \"I am inadequate\" to protect himself, severely amplified his sense of threat, making him feel perpetually vulnerable.\n\nThe perpetual state of \"threat\" David endured had profound repercussions. The constant vigilance and the fear of being caught off guard reinforced his negative self-appraisals; if he was always on edge, always scanning, it must mean he truly was \"inadequate\" and that \"somebody else would not have gotten into this situation.\" This persistent internal alarm also made him exquisitely sensitive to potential \"triggers.\" He’d find himself flinching at distant sirens, interpreting them as an \"authority presence\" like the police, or becoming agitated by any raised voice, even if it was just children playing, because his system was already primed for danger. The sheer exhaustion from this constant state of \"threat\" also began to affect his memory, making it harder to focus and sometimes leading to more fragmented and intrusive recollections of the event itself.\n\nAt work, David started \"scanning for exits as soon as he entered any room or building,\" a new habit that made him appear distracted and distant to his colleagues. This constant vigilance and the internal battles he faced meant he was less present for his students, and his once-vibrant classroom felt increasingly like a place he needed to escape. He knew he couldn't continue living this way, perpetually trapped in the echoes of that night, and finally sought help, hoping to find a way to reclaim his sense of safety and competence.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

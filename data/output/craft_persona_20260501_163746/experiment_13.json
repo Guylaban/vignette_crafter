@@ -1,0 +1,239 @@
+{
+  "persona_id": 13,
+  "source_persona_id": null,
+  "experiment_timestamp": "2026-05-01 16:40:54",
+  "config": {
+    "pipeline": "craft_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 2,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 56,
+    "gender": "Male",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Widowed",
+    "occupation": "Nun",
+    "trauma_type": "Refugee",
+    "pcl5": 57
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Therapy Content",
+        "value": "avoid thinking about anything discussed in therapy"
+      },
+      {
+        "key": "Compulsive Exercise",
+        "value": "I push myself to exercise excessively"
+      },
+      {
+        "key": "Avoid Intimacy",
+        "value": "Being emotionally close or intimate with others"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Cannot Trust Safety",
+        "value": "Even when others tell me I am safe I find it impossible to believe it"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      },
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Confused Sequence",
+        "value": "I cannot put the memories of the event in the right order"
+      },
+      {
+        "key": "Pain Recall",
+        "value": "When the memory returns I feel physical pain in the same parts of my body as during the event"
+      },
+      {
+        "key": "Overwhelm on Recall",
+        "value": "When the memory returns I feel so overwhelmed by emotion that I have to stop"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Lost Faith",
+        "value": "I have lost my faith in people, life, or a higher power"
+      },
+      {
+        "key": "Survival Guilt",
+        "value": "I feel guilty for surviving when others did not"
+      },
+      {
+        "key": "Failed to Protect",
+        "value": "I should have protected others and I failed"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.9409,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.437,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.6668,
+    "Threat -- Memory": 0.901,
+    "Threat -- Negative Appraisals": 0.6702,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.7002,
+    "Maladaptive Strategies -- Negative Appraisals": 0.1999,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.3854
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Threat",
+    "Memory → Maladaptive Strategies",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Threat",
+    "Memory → Maladaptive Strategies",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.612675,
+  "edge_density": 0.4,
+  "vignette_word_count": 0,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Demographics/trauma type",
+          "item": "occupation: Nun",
+          "explanation": "The profile states a 56-year-old male with occupation listed as 'Nun,' which is demographically implausible and would call the overall self-report context into question."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Lost Faith",
+          "explanation": "'Lost Faith' can fit refugee trauma, but paired with the occupation 'Nun' it becomes clinically contradictory because the occupational identity itself is incompatible with the stated gender/demographics."
+        }
+      ],
+      "problematic_items": {
+        "Demographics/trauma type": [
+          "occupation"
+        ],
+        "Negative Appraisals": [
+          "Negative Appraisals"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Demographics",
+          "item": "occupation: Nun",
+          "explanation": "The demographic profile is internally inconsistent: a 56-year-old male is listed with the occupation 'Nun,' which is not clinically plausible and would call the profile into question."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Flashbacks",
+          "explanation": "Within the allowed symptom components, 'Flashbacks' is misclassified under Threat rather than Memory/re-experiencing. Given the formulation, Threat strongly influences Memory, but this item reflects reliving rather than current threat appraisal, so its placement makes the node pattern less coherent."
+        }
+      ],
+      "problematic_items": {
+        "Demographics": [
+          "occupation"
+        ],
+        "Threat": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Demographics/trauma consistency",
+          "item": "occupation: Nun",
+          "explanation": "The demographic profile is clinically incoherent: a 56-year-old male is listed with the occupation 'Nun,' which is incompatible with the stated gender and would make the self-report profile questionable."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Lost Faith: I have lost my faith in people, life, or a higher power",
+          "explanation": "'Lost Faith' may fit refugee trauma in general, but in the context of a male patient identified as a nun, the demographic inconsistency makes this item especially suspect because it depends on a religious-role context that is itself not coherent."
+        }
+      ],
+      "problematic_items": {
+        "Demographics/trauma consistency": [
+          "occupation"
+        ],
+        "Negative Appraisals": [
+          "Negative Appraisals"
+        ]
+      }
+    }
+  ],
+  "validation_summary": {
+    "attempts": 0,
+    "passed": 0,
+    "failed": 0,
+    "ultimately_passed": null
+  },
+  "token_usage": {
+    "input": 8919,
+    "output": 573,
+    "total": 9492
+  },
+  "vignette": ""
+,
+
+  "vignette_attempts": [
+  ]
+}

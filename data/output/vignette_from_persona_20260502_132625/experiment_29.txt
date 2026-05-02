@@ -1,0 +1,234 @@
+PERSONA 29  |  2026-05-02 13:35:06
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-haiku-4-5
+    persona_crafter      claude-haiku-4-5
+    vignette_crafter     claude-haiku-4-5
+    vignette_validator   claude-haiku-4-5
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             19
+  gender          Male
+  ethnicity       North American
+  relationship_status Single
+  occupation      Fast Food Worker
+  trauma_type     Natural disaster
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Rehearse Conversations: rehearse what to say before any interaction
+    • Avoid Stressors: avoid anything that could be stressful
+    • Suppress Thoughts: try hard not think about the trauma
+  Memory:
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+    • Olfactory Recall: When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened.
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Lost Happiness: I used to be a happy person but now I am always miserable.
+    • Permanent Damage: I have permanently changed for the worse
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.9460
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.7854
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.4635
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.4842
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: The maladaptive strategies are strongly social-evaluative and interpersonal (avoiding evaluation, avoiding conflict, rehearsing conversations), which is hard to reconcile with the indexed trauma type of natural disaster and with the rest of the profile, which contains no social threat, shame, or interpersonal trauma content to explain these strategies.
+    item:        Memory / Avoid Conflict: Any situation that might involve disagreement or confrontation
+    explanation: Within the cognitive formulation, the strongest pathway is Negative Appraisals → Maladaptive Strategies. However, the selected negative appraisals focus on global identity change, chronic misery, and self-blame for being in the situation, while the selected strategies are specifically about managing social scrutiny and interpersonal interactions. That is a weak clinical fit: the strategies do not plausibly follow from the appraisals provided.
+    item:        Negative Appraisals / Rehearse Conversations: rehearse what to say before any interaction
+    explanation: Memory and appraisals are only partly coherent: terror on recall and olfactory recall fit disaster trauma, but rage on recall is less well supported by the rest of the profile because there is no accompanying appraisal about betrayal, preventability by others, or injustice that would explain intense anger as a central recall response.
+  [2] FAIL
+    item:        Memory / Memory: Rage on Recall
+    explanation: For a natural-disaster trauma, intense rage specifically on recall is hard to reconcile with the rest of the profile, which otherwise centers on terror, misery, self-change, and generalized avoidance rather than anger at a person or agent. Rage can occur, but here it lacks support from the other selected items and is the least coherent memory item.
+    item:        Negative Appraisals / Negative Appraisals: Self-Comparison
+    explanation: 'Somebody else would not have gotten into this situation' implies preventable personal failure in getting into the trauma. With a natural disaster, this appraisal is difficult to justify unless there was a very specific risky decision context, which is not reflected elsewhere in the profile. The other appraisals focus on post-trauma change and unhappiness, making this item the clearest mismatch.
+  [3] FAIL
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: For a natural disaster trauma, strong self-blame framed as 'the event happened because of the way I acted' is hard to justify clinically unless the disaster involved a very specific preventable action by the patient. In the absence of any such context, this appraisal is implausible for the indexed trauma.
+    item:        Maladaptive Strategies / Avoid Conflict: Any situation that might involve disagreement or confrontation
+    explanation: The maladaptive strategies are predominantly interpersonal/social-safety behaviors (avoiding conflict, rehearsing conversations) that fit social threat or shame-based trauma formulations more than a natural disaster PTSD presentation. They do not connect well to the memory/appraisal content provided.
+  [4] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: The profile includes active hypervigilant threat-monitoring ('constantly scan environment for signs of threat') and a global danger appraisal, but the formulation specifies Threat as effectively inactive, with no active links involving Threat and no active Trigger pathways. For a natural-disaster case, these items imply an ongoing threat-focused maintenance pattern that is not supported by the stated formulation.
+    item:        Negative Appraisals / World is Dangerous: The world is a dangerous place
+    explanation: This is not just a weak-edge issue: both items explicitly center current external danger/threat, whereas the active formulation is concentrated on Negative Appraisals ↔ Memory and Negative Appraisals ↔ Maladaptive Strategies without Threat involvement. The remaining items fit a self-focused/post-traumatic change formulation, making these threat-focused items the main incoherent elements.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      4,001
+  output:     1,173
+  total:      5,174
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+# Marcus's Story
+
+Marcus was seventeen when the tornado touched down outside Omaha. He'd been working his shift at the
+Burger King on Highway 275 when the manager shouted to get everyone away from the windows. He
+remembered the sound first—a roar like nothing he'd ever heard, a freight train amplified a thousand
+times, filling his chest with a vibration he could feel in his teeth. The lights had flickered once,
+twice, then died. In the darkness, he'd crouched with three coworkers in the walk-in freezer,
+listening to the building scream around them. When they finally emerged, the restaurant was gutted.
+The roof was gone. The smell—wet concrete, torn insulation, something chemical and acrid—had filled
+his lungs, and even now, nineteen months later, when Marcus closed his eyes and let himself think
+about that day, he could taste it at the back of his throat.
+
+The physical injuries had healed within weeks. A fractured wrist, some lacerations. But something
+else had fractured too, something Marcus couldn't see in a mirror or wrap in a cast. For months
+afterward, he'd tried to push through it. He'd returned to work within two weeks, convinced that
+showing up, staying normal, would prove the tornado hadn't changed him. But the more he tried to
+move forward, the more he became convinced that he couldn't—that whatever person he'd been before
+that freezer was gone for good. The realization had crept up on him slowly. He used to joke around
+with coworkers, used to look forward to things. Now he felt hollowed out, a shell of someone else's
+life. He had become unrecognizable to himself, and the thought terrified him in a way that made no
+sense, because it was his own mind doing the recognizing.
+
+When memories of the tornado surfaced—and they did, unbidden, at random moments—they came with the
+full force of the original terror. A car alarm in the parking lot would trigger a flash of the
+freezer darkness. The smell of the industrial kitchen would suddenly morph into that acrid chemical
+stench, and his body would respond as though the danger were happening again, right then, his heart
+hammering, his breath shallow. The images were vivid and intrusive: the manager's face in the moment
+before they ran, the texture of the metal shelving he'd gripped. These memories weren't like normal
+remembering; they felt like reliving, complete with the same suffocating dread he'd felt trapped in
+that freezer. Because he'd come to believe that he was fundamentally and permanently damaged, that
+the tornado had rewired something essential in him, every intrusive memory felt like confirmation.
+Each time the terror returned, it reinforced his conviction that he was broken now, that this was
+his new reality.
+
+Desperate to escape the thoughts and the memories and the unbearable feeling of being someone he
+didn't recognize, Marcus had begun to construct barriers around himself. Before any
+conversation—with a customer, a coworker, his mother—he would rehearse what he might say, running
+through possible exchanges in his head like a script, trying to anticipate what might go wrong and
+how he might control it. He avoided anything that felt remotely stressful: he'd stopped going to his
+friend Diego's house because the drive took him past the highway where the tornado had touched down;
+he'd declined his cousin's wedding invitation because crowds felt overwhelming; he'd even started
+taking shifts at the quietest times, avoiding the busy lunch rush. And whenever the thoughts
+came—the images, the smells, the creeping certainty that he was irreparably changed—he would try
+with all his strength not to think about them, pushing them away, distracting himself with his phone
+or his work, anything to keep the memories at bay.
+
+But the avoidance had a cost he hadn't anticipated. By rehearsing conversations and controlling
+every interaction, by shrinking his world to only the safest scenarios, Marcus had reinforced his
+own sense that he couldn't handle normal life anymore—that the world was too dangerous and he was
+too fragile. His attempts to suppress the thoughts often backfired; the harder he pushed them away,
+the more forcefully they returned. And his growing isolation, the way he'd withdrawn from people and
+places, had left him with fewer ways to challenge the belief that he was permanently damaged. He'd
+missed Diego's birthday dinner. His mother had stopped asking him to family events. Two months ago,
+his manager had asked if he was okay, and Marcus had said nothing, just shrugged and gone back to
+the register. He wasn't okay. He was nineteen years old and felt like a stranger in his own skin,
+and the person he used to be—the one who could laugh, who had plans, who wasn't afraid all the
+time—felt like someone he'd read about in a story, not someone he'd ever actually been.
+
+It was his mother who finally insisted he talk to someone. Marcus had resisted, convinced that
+therapy wouldn't help someone as broken as he was, but he'd come to the appointment anyway, still
+rehearsing what he might say, still braced for the moment when his own mind would betray him again
+with an image or a smell or that terrible sense of falling that had no bottom.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+# Marcus's Story
+
+Marcus was seventeen when the tornado touched down outside Omaha. He'd been working his shift at the
+Burger King on Highway 275 when the manager shouted to get everyone away from the windows. He
+remembered the sound first—a roar like nothing he'd ever heard, a freight train amplified a thousand
+times, filling his chest with a vibration he could feel in his teeth. The lights had flickered once,
+twice, then died. In the darkness, he'd crouched with three coworkers in the walk-in freezer,
+listening to the building scream around them. When they finally emerged, the restaurant was gutted.
+The roof was gone. The smell—wet concrete, torn insulation, something chemical and acrid—had filled
+his lungs, and even now, nineteen months later, when Marcus closed his eyes and let himself think
+about that day, he could taste it at the back of his throat.
+
+The physical injuries had healed within weeks. A fractured wrist, some lacerations. But something
+else had fractured too, something Marcus couldn't see in a mirror or wrap in a cast. For months
+afterward, he'd tried to push through it. He'd returned to work within two weeks, convinced that
+showing up, staying normal, would prove the tornado hadn't changed him. But the more he tried to
+move forward, the more he became convinced that he couldn't—that whatever person he'd been before
+that freezer was gone for good. The realization had crept up on him slowly. He used to joke around
+with coworkers, used to look forward to things. Now he felt hollowed out, a shell of someone else's
+life. He had become unrecognizable to himself, and the thought terrified him in a way that made no
+sense, because it was his own mind doing the recognizing.
+
+When memories of the tornado surfaced—and they did, unbidden, at random moments—they came with the
+full force of the original terror. A car alarm in the parking lot would trigger a flash of the
+freezer darkness. The smell of the industrial kitchen would suddenly morph into that acrid chemical
+stench, and his body would respond as though the danger were happening again, right then, his heart
+hammering, his breath shallow. The images were vivid and intrusive: the manager's face in the moment
+before they ran, the texture of the metal shelving he'd gripped. These memories weren't like normal
+remembering; they felt like reliving, complete with the same suffocating dread he'd felt trapped in
+that freezer. Because he'd come to believe that he was fundamentally and permanently damaged, that
+the tornado had rewired something essential in him, every intrusive memory felt like confirmation.
+Each time the terror returned, it reinforced his conviction that he was broken now, that this was
+his new reality.
+
+Desperate to escape the thoughts and the memories and the unbearable feeling of being someone he
+didn't recognize, Marcus had begun to construct barriers around himself. Before any
+conversation—with a customer, a coworker, his mother—he would rehearse what he might say, running
+through possible exchanges in his head like a script, trying to anticipate what might go wrong and
+how he might control it. He avoided anything that felt remotely stressful: he'd stopped going to his
+friend Diego's house because the drive took him past the highway where the tornado had touched down;
+he'd declined his cousin's wedding invitation because crowds felt overwhelming; he'd even started
+taking shifts at the quietest times, avoiding the busy lunch rush. And whenever the thoughts
+came—the images, the smells, the creeping certainty that he was irreparably changed—he would try
+with all his strength not to think about them, pushing them away, distracting himself with his phone
+or his work, anything to keep the memories at bay.
+
+But the avoidance had a cost he hadn't anticipated. By rehearsing conversations and controlling
+every interaction, by shrinking his world to only the safest scenarios, Marcus had reinforced his
+own sense that he couldn't handle normal life anymore—that the world was too dangerous and he was
+too fragile. His attempts to suppress the thoughts often backfired; the harder he pushed them away,
+the more forcefully they returned. And his growing isolation, the way he'd withdrawn from people and
+places, had left him with fewer ways to challenge the belief that he was permanently damaged. He'd
+missed Diego's birthday dinner. His mother had stopped asking him to family events. Two months ago,
+his manager had asked if he was okay, and Marcus had said nothing, just shrugged and gone back to
+the register. He wasn't okay. He was nineteen years old and felt like a stranger in his own skin,
+and the person he used to be—the one who could laugh, who had plans, who wasn't afraid all the
+time—felt like someone he'd read about in a story, not someone he'd ever actually been.
+
+It was his mother who finally insisted he talk to someone. Marcus had resisted, convinced that
+therapy wouldn't help someone as broken as he was, but he'd come to the appointment anyway, still
+rehearsing what he might say, still braced for the moment when his own mind would betray him again
+with an image or a smell or that terrible sense of falling that had no bottom.

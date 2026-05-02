@@ -54,7 +54,10 @@ def render_sidebar_selector() -> tuple:
         index=default_exp_index,
         key="sidebar_experiment_select",
     )
-    experiment_dir = next(e["path"] for e in experiments if e["name"] == selected_exp_name)
+    experiment_dir = next((e["path"] for e in experiments if e["name"] == selected_exp_name), None)
+    if experiment_dir is None:
+        st.sidebar.warning("Selected experiment not found.")
+        return None, None
 
     # ── Persona selector ───────────────────────────────────────────────────
     personas = get_personas(experiment_dir)
@@ -78,7 +81,10 @@ def render_sidebar_selector() -> tuple:
         key="sidebar_persona_select",
     )
 
-    persona_path = next(p["path"] for p in personas if p["persona_id"] == selected_persona_id)
+    persona_path = next((p["path"] for p in personas if p["persona_id"] == selected_persona_id), None)
+    if persona_path is None:
+        st.sidebar.warning("Selected persona not found.")
+        return experiment_dir, None
     persona_data = load_persona(persona_path)
 
     # Persist selection in session state so other pages can see it

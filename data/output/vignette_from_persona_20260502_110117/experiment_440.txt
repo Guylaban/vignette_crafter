@@ -1,0 +1,333 @@
+PERSONA 440  |  2026-05-02 12:12:12
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             56
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Divorced
+  occupation      Detective
+  trauma_type     Physical abuse by caregiver (childhood)
+  pcl5            62
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory Danger Cue: Burnt smell
+    • Victim Similarity: People who look similar to the victims
+    • Positive Emotion Confusion: Positive emotions
+  Maladaptive Strategies:
+    • Avoid Similar Clothes: avoid wearing similar clothes
+    • Memory Detachment: I detach myself from the memories
+    • Avoid People: avoid other people
+  Threat:
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+    • Rage on Recall: When I remember the event I feel intense rage
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+  Negative Appraisals:
+    • Shattered Beliefs: My beliefs about how the world works have been completely destroyed
+    • Bad Coper: My reactions since the event show that I am a lousy coper
+    • Character Blame: The event happened to me because of the sort of person I am
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3139
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0368
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.9902
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.3682
+  Memory → Threat                                    0.2385
+  Memory → Negative Appraisals                       0.0697
+  Memory → Triggers                                  0.0709
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.8633
+  Threat → Triggers                                  0.2359
+  Maladaptive Strategies → Memory                    0.2886
+  Maladaptive Strategies → Negative Appraisals       0.9021
+  Maladaptive Strategies → Triggers                  0.2685
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+    explanation: The inaction/self-blame item is hard to reconcile with the indexed trauma of childhood physical abuse by a caregiver. In a child victim context, 'not doing more to stop what happened' implies agency that is typically not clinically plausible for the same trauma profile; a more general shame/self-blame item would fit, but this specific omission-guilt wording is questionable.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: Within the Threat node, 'difficulty concentrating' is not a threat appraisal but a general arousal/cognitive symptom. The other Threat items reflect current danger and hypervigilance ('strong physical reactions to reminders', 'need to stay alert to fall asleep'). This item weakens within-node coherence and does not match the node's formulation role as perceived current threat.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      8,601
+  output:     2,481
+  total:     11,082
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Liam, a 56-year-old detective of Oceania background, came to treatment after years of carrying a
+childhood that still seemed to sit inside every shift and every quiet moment at home. He described
+being raised by a caregiver whose physical abuse was sudden, humiliating, and impossible to predict:
+the smell of something burnt in the kitchen would sometimes be the only warning before a blow, and
+even now that same acrid scent could pull him back without preparation to the cramped rooms, the
+heat, and the fear of waiting for what came next. He had learned to scan people quickly, especially
+those who looked like the men who had hurt him in childhood, and to mistrust even small flashes of
+warmth or ease. What unsettled him most was that positive emotion itself could feel dangerous, as if
+a rare moment of relief was the moment before something terrible happened. When he tried to talk
+about what had happened, he often lost the thread entirely and could not finish the story, and he
+would come away feeling that his own reactions proved he was a lousy coper and that there must be
+something fundamentally wrong with the kind of person he was. Over time, those beliefs had hardened
+into a conviction that the world did not operate by any rules he could trust; it had, in his words,
+“completely broken” the way he thought life was supposed to work.
+
+Those meanings fed his memory in painful ways. When Liam tried to explain the abuse, the account
+would fragment, and the more he struggled to tell it in order, the more his mind would snap to
+vivid, uninvited scenes: a hand raised, the stale heat of the room, the burnt smell hanging in the
+air. The recollection was not distant or narrative in shape; it arrived with the force of something
+happening again, and with it came intense rage that made his jaw clench and his chest tighten. He
+said that the memory could be triggered instantly by something in his surroundings, as though his
+mind had learned to stand ready for a return of the old danger. At work, in the station or out on a
+scene, if he caught even a faint burnt odor from wiring, a kitchen fire, or scorched material, he
+would be thrown back into the abuse before he had time to think. If someone in the street or in a
+file photo resembled one of the victims he had seen over the years, he would feel the memory sharpen
+again, not only of the childhood assaults but of his own powerlessness in the face of them. His
+belief that his world had been shattered, and that he himself had somehow invited the treatment,
+kept the memories bound to shame and anger rather than history. The more he blamed himself, the more
+the scenes seemed to confirm that he had been weak all along, and the more he tried to explain, the
+less coherent the story became.
+
+To manage this, Liam narrowed his life. He avoided other people whenever he could, ate lunch alone,
+and found reasons not to linger after work. He had even started avoiding clothes that resembled what
+he had worn at certain times in childhood, because the wrong shirt could make him feel exposed and
+stranded in an old role he hated. At the same time, pulling away from people and from the memories
+gave the recollections more room to intrude. When he detached himself from them, they returned less
+as something observed than as something that broke through abruptly, and that unpredictability made
+him even more alert. He remained superalert at home and on duty, having difficulty falling asleep
+because he needed to stay watchful, and he noticed that his body reacted strongly whenever something
+reminded him of the abuse. He would jolt at small sounds, pace the house, and keep checking the door
+or the stove, as though the next threat might be waiting in the ordinary details of the room. That
+constant guardedness made it easier for the burnt smell, the sight of a similar face, or even a
+burst of unexpected happiness to catch him unprepared, and each fresh reminder seemed to confirm his
+conviction that the world could turn instantly. The more he withdrew and monitored for danger, the
+more isolated and self-critical he became, certain that these were the failures of a man who had not
+coped well enough and who could never quite keep himself safe.
+
+By the time he sought help, the cycle had begun to cost him his marriage, his sleep, and his
+confidence at work. He was still functioning as a detective, but he was exhausted by the effort of
+staying on guard and frightened that one wrong smell or one unexpected moment of feeling good would
+throw him back into the old scenes in front of colleagues or suspects. What brought him in was the
+sense that the life he had built around vigilance was shrinking, and that he was becoming more cut
+off from everyone he cared about. He said he wanted relief, but what he feared most was that the
+memories would keep arriving without warning and prove, once again, that he was not someone who
+could ever truly withstand them.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette shows reminders leading to avoidance or hypervigilance, but it does not clearly state that triggers themselves drive Liam’s maladaptive strategies in a causal way within one paragraph.
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette states that a burnt smell and similar faces cue the memory, but it does not clearly present triggers as causing the traumatic memory in the required causal direction.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette says self-blaming beliefs keep the memories bound to shame, but it does not explicitly show negative appraisals driving the traumatic memory itself in a causal sequence.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette shows the memory being triggered by surroundings, but it does not explicitly state that the memory then leads to new triggers or increased triggering stimuli.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette describes threat feelings increasing self-criticism, but it does not clearly show a sense of threat producing negative appraisals in the required causal relationship.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette shows avoidance and monitoring making him more alert and vulnerable to reminders, but it does not clearly state that maladaptive strategies cause the memory to recur in a causal way.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette shows withdrawal increasing self-criticism, but it does not clearly state that maladaptive strategies lead to negative appraisals in the required causal relationship.
+
+  [2] PASS
+Liam, a 56-year-old detective of Oceania background, came to treatment after years of carrying a
+childhood that still seemed to sit inside every shift and every quiet moment at home. He described
+being raised by a caregiver whose physical abuse was sudden, humiliating, and impossible to predict:
+the smell of something burnt in the kitchen would sometimes be the only warning before a blow, and
+even now that same acrid scent could pull him back without preparation to the cramped rooms, the
+heat, and the fear of waiting for what came next. He had learned to scan people quickly, especially
+those who looked like the men who had hurt him in childhood, and to mistrust even small flashes of
+warmth or ease. The smell did not just remind him of the abuse; it would drag him straight back into
+one of those childhood rooms, so vividly that for a moment he was no longer in the present at all. A
+burnt pan at home or scorched wiring at the station could do it before he had time to steady
+himself. When that burnt smell came up at work or on the street, Liam would stop what he was doing,
+move away from people, and keep checking the room until he felt he had some control again; the
+reminder itself drove the avoidance and the constant watchfulness. It was easier to add distance
+than to risk being caught off guard by it again. What unsettled him most was that positive emotion
+itself could feel dangerous, as if a rare moment of relief was the moment before something terrible
+happened. When he tried to talk about what had happened, he often lost the thread entirely and could
+not finish the story, and he would come away feeling that his own reactions proved he was a lousy
+coper and that there must be something fundamentally wrong with the kind of person he was. The more
+he told himself that he should have handled it better, the more the memory seemed to come forward on
+its own, as if his mind kept returning him to the scene to prove the point he feared was true. His
+self-blame made the abuse feel less like something that had happened to him and more like evidence
+that he was weak. Over time, those beliefs had hardened into a conviction that the world did not
+operate by any rules he could trust; it had, in his words, “completely broken” the way he thought
+life was supposed to work.
+
+Those meanings fed his memory in painful ways. When Liam tried to explain the abuse, the account
+would fragment, and the more he struggled to tell it in order, the more his mind would snap to
+vivid, uninvited scenes: a hand raised, the stale heat of the room, the burnt smell hanging in the
+air. The recollection was not distant or narrative in shape; it arrived with the force of something
+happening again, and with it came intense rage that made his jaw clench and his chest tighten. He
+said that the memory could be triggered instantly by something in his surroundings, as though his
+mind had learned to stand ready for a return of the old danger. Once it had burst back like that, he
+started noticing possible warnings everywhere — the whine of wiring, the smell of a kitchen gone too
+hot, the hard set of a stranger’s face. After the memory had flooded him, ordinary details began to
+look like they might be the next sign of trouble. At work, in the station or out on a scene, if he
+caught even a faint burnt odor from wiring, a kitchen fire, or scorched material, he would be thrown
+back into the abuse before he had time to think. If someone in the street or in a file photo
+resembled one of the victims he had seen over the years, he would feel the memory sharpen again, not
+only of the childhood assaults but of his own powerlessness in the face of them. Feeling that danger
+so constantly made his view of himself harsher, and he came to take it as proof that his life had
+been altered in some permanent way. The threat he felt every day quietly confirmed his belief that
+he was not the kind of man who got to feel safe. His belief that his world had been shattered, and
+that he himself had somehow invited the treatment, kept the memories bound to shame and anger rather
+than history. The more he blamed himself, the more the scenes seemed to confirm that he had been
+weak all along, and the more he tried to explain, the less coherent the story became.
+
+To manage this, Liam narrowed his life. He avoided other people whenever he could, ate lunch alone,
+and found reasons not to linger after work. He had even started avoiding clothes that resembled what
+he had worn at certain times in childhood, because the wrong shirt could make him feel exposed and
+stranded in an old role he hated. The more he kept the experience at a distance, the less it seemed
+to stay put; weeks of not talking about it left the memory intact and raw, so that when it did
+surface it came back with a force that felt fresh. What he had thought would keep him safe had, in
+practice, kept the scene close to hand. At the same time, pulling away from people and from the
+memories gave the recollections more room to intrude. When he detached himself from them, they
+returned less as something observed than as something that broke through abruptly, and that
+unpredictability made him even more alert. Each time he chose to leave early, sit apart, or keep his
+distance, the decision carried its own quiet message: that he needed those precautions because he
+could not simply cope like other people. Over time, those habits became another source of the belief
+that he was fragile and permanently behind everyone else. He remained superalert at home and on
+duty, having difficulty falling asleep because he needed to stay watchful, and he noticed that his
+body reacted strongly whenever something reminded him of the abuse. He would jolt at small sounds,
+pace the house, and keep checking the door or the stove, as though the next threat might be waiting
+in the ordinary details of the room. That constant guardedness made it easier for the burnt smell,
+the sight of a similar face, or even a burst of unexpected happiness to catch him unprepared, and
+each fresh reminder seemed to confirm his conviction that the world could turn instantly. The more
+he withdrew and monitored for danger, the more isolated and self-critical he became, certain that
+these were the failures of a man who had not coped well enough and who could never quite keep
+himself safe.
+
+By the time he sought help, the cycle had begun to cost him his marriage, his sleep, and his
+confidence at work. He was still functioning as a detective, but he was exhausted by the effort of
+staying on guard and frightened that one wrong smell or one unexpected moment of feeling good would
+throw him back into the old scenes in front of colleagues or suspects. What brought him in was the
+sense that the life he had built around vigilance was shrinking, and that he was becoming more cut
+off from everyone he cared about. He said he wanted relief, but what he feared most was that the
+memories would keep arriving without warning and prove, once again, that he was not someone who
+could ever truly withstand them.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Liam, a 56-year-old detective of Oceania background, came to treatment after years of carrying a
+childhood that still seemed to sit inside every shift and every quiet moment at home. He described
+being raised by a caregiver whose physical abuse was sudden, humiliating, and impossible to predict:
+the smell of something burnt in the kitchen would sometimes be the only warning before a blow, and
+even now that same acrid scent could pull him back without preparation to the cramped rooms, the
+heat, and the fear of waiting for what came next. He had learned to scan people quickly, especially
+those who looked like the men who had hurt him in childhood, and to mistrust even small flashes of
+warmth or ease. The smell did not just remind him of the abuse; it would drag him straight back into
+one of those childhood rooms, so vividly that for a moment he was no longer in the present at all. A
+burnt pan at home or scorched wiring at the station could do it before he had time to steady
+himself. When that burnt smell came up at work or on the street, Liam would stop what he was doing,
+move away from people, and keep checking the room until he felt he had some control again; the
+reminder itself drove the avoidance and the constant watchfulness. It was easier to add distance
+than to risk being caught off guard by it again. What unsettled him most was that positive emotion
+itself could feel dangerous, as if a rare moment of relief was the moment before something terrible
+happened. When he tried to talk about what had happened, he often lost the thread entirely and could
+not finish the story, and he would come away feeling that his own reactions proved he was a lousy
+coper and that there must be something fundamentally wrong with the kind of person he was. The more
+he told himself that he should have handled it better, the more the memory seemed to come forward on
+its own, as if his mind kept returning him to the scene to prove the point he feared was true. His
+self-blame made the abuse feel less like something that had happened to him and more like evidence
+that he was weak. Over time, those beliefs had hardened into a conviction that the world did not
+operate by any rules he could trust; it had, in his words, “completely broken” the way he thought
+life was supposed to work.
+
+Those meanings fed his memory in painful ways. When Liam tried to explain the abuse, the account
+would fragment, and the more he struggled to tell it in order, the more his mind would snap to
+vivid, uninvited scenes: a hand raised, the stale heat of the room, the burnt smell hanging in the
+air. The recollection was not distant or narrative in shape; it arrived with the force of something
+happening again, and with it came intense rage that made his jaw clench and his chest tighten. He
+said that the memory could be triggered instantly by something in his surroundings, as though his
+mind had learned to stand ready for a return of the old danger. Once it had burst back like that, he
+started noticing possible warnings everywhere — the whine of wiring, the smell of a kitchen gone too
+hot, the hard set of a stranger’s face. After the memory had flooded him, ordinary details began to
+look like they might be the next sign of trouble. At work, in the station or out on a scene, if he
+caught even a faint burnt odor from wiring, a kitchen fire, or scorched material, he would be thrown
+back into the abuse before he had time to think. If someone in the street or in a file photo
+resembled one of the victims he had seen over the years, he would feel the memory sharpen again, not
+only of the childhood assaults but of his own powerlessness in the face of them. Feeling that danger
+so constantly made his view of himself harsher, and he came to take it as proof that his life had
+been altered in some permanent way. The threat he felt every day quietly confirmed his belief that
+he was not the kind of man who got to feel safe. His belief that his world had been shattered, and
+that he himself had somehow invited the treatment, kept the memories bound to shame and anger rather
+than history. The more he blamed himself, the more the scenes seemed to confirm that he had been
+weak all along, and the more he tried to explain, the less coherent the story became.
+
+To manage this, Liam narrowed his life. He avoided other people whenever he could, ate lunch alone,
+and found reasons not to linger after work. He had even started avoiding clothes that resembled what
+he had worn at certain times in childhood, because the wrong shirt could make him feel exposed and
+stranded in an old role he hated. The more he kept the experience at a distance, the less it seemed
+to stay put; weeks of not talking about it left the memory intact and raw, so that when it did
+surface it came back with a force that felt fresh. What he had thought would keep him safe had, in
+practice, kept the scene close to hand. At the same time, pulling away from people and from the
+memories gave the recollections more room to intrude. When he detached himself from them, they
+returned less as something observed than as something that broke through abruptly, and that
+unpredictability made him even more alert. Each time he chose to leave early, sit apart, or keep his
+distance, the decision carried its own quiet message: that he needed those precautions because he
+could not simply cope like other people. Over time, those habits became another source of the belief
+that he was fragile and permanently behind everyone else. He remained superalert at home and on
+duty, having difficulty falling asleep because he needed to stay watchful, and he noticed that his
+body reacted strongly whenever something reminded him of the abuse. He would jolt at small sounds,
+pace the house, and keep checking the door or the stove, as though the next threat might be waiting
+in the ordinary details of the room. That constant guardedness made it easier for the burnt smell,
+the sight of a similar face, or even a burst of unexpected happiness to catch him unprepared, and
+each fresh reminder seemed to confirm his conviction that the world could turn instantly. The more
+he withdrew and monitored for danger, the more isolated and self-critical he became, certain that
+these were the failures of a man who had not coped well enough and who could never quite keep
+himself safe.
+
+By the time he sought help, the cycle had begun to cost him his marriage, his sleep, and his
+confidence at work. He was still functioning as a detective, but he was exhausted by the effort of
+staying on guard and frightened that one wrong smell or one unexpected moment of feeling good would
+throw him back into the old scenes in front of colleagues or suspects. What brought him in was the
+sense that the life he had built around vigilance was shrinking, and that he was becoming more cut
+off from everyone he cared about. He said he wanted relief, but what he feared most was that the
+memories would keep arriving without warning and prove, once again, that he was not someone who
+could ever truly withstand them.

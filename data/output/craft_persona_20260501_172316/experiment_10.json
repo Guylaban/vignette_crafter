@@ -1,0 +1,233 @@
+{
+  "persona_id": 10,
+  "source_persona_id": null,
+  "experiment_timestamp": "2026-05-01 17:25:33",
+  "config": {
+    "pipeline": "craft_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 26,
+    "gender": "Male",
+    "ethnicity": "Latin American",
+    "relationship_status": "In a relationship",
+    "occupation": "Insurance Agent",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 51
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Authority Presence",
+        "value": "Police"
+      },
+      {
+        "key": "Being Watched",
+        "value": "Feeling watched or observed"
+      },
+      {
+        "key": "Perceived Threat",
+        "value": "People acting suspiciously"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      },
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Sleep Vigilance",
+        "value": "I have difficulty falling asleep because I need to stay alert"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Auditory Recall",
+        "value": "When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event."
+      },
+      {
+        "key": "Pain Recall",
+        "value": "When the memory returns I feel physical pain in the same parts of my body as during the event"
+      },
+      {
+        "key": "Fragmented Pieces",
+        "value": "My memories of the event come in disconnected pieces that do not fit together"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "No Accountability",
+        "value": "The people responsible have faced no consequences"
+      },
+      {
+        "key": "Injustice",
+        "value": "What happened to me was deeply unfair and nothing has been done about it"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      },
+      {
+        "key": "Mental Distraction",
+        "value": "keep mind occupied all the time"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.9063,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.4293,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0135,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.2693,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.4334,
+    "Memory -- Triggers": 0.0845,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.8362,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.42464285714285716,
+  "edge_density": 0.35,
+  "vignette_word_count": 0,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Sexual Trauma Cues: Comments on sexual violence",
+          "explanation": "For a mugging or robbery trauma, 'comments on sexual violence' is a hard-to-explain trigger unless there is unreported sexual victimization; it is not clinically coherent with the stated trauma type and the rest of the profile, which centers on threat/vigilance and injustice after robbery."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Lost Emotions: I will never be able to feel normal emotions again",
+          "explanation": "'I will never be able to feel normal emotions again' is a broad, severe numbing/permanent-change appraisal that is weakly supported by the rest of the selected items, which otherwise focus on danger, vigilance, sensory memory, and injustice/accountability. It does not directly contradict them, but in this profile it stands out as insufficiently linked to the active edge pattern and selected nodes."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Sexual Trauma Cues"
+        ],
+        "Negative Appraisals": [
+          "Lost Emotions"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "No Coherent Story: I cannot tell a clear story of what happened even to myself",
+          "explanation": "The memory profile mixes vivid sensory re-experiencing (auditory recall, pain recall) with a severe disorganization claim ('cannot tell a clear story even to myself'). While not impossible, for a single-incident mugging this level of global narrative incoherence is the least coherent item in the node and is harder to reconcile with the otherwise specific, sensory memory content."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Missing Maladaptive Strategies items",
+          "explanation": "No Maladaptive Strategies items were provided, so the required five-component self-report profile is incomplete and cannot be fully evaluated for coherence across all specified components."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "No Coherent Story"
+        ],
+        "Maladaptive Strategies": [
+          "Missing Maladaptive Strategies items"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 0,
+    "passed": 0,
+    "failed": 0,
+    "ultimately_passed": null
+  },
+  "token_usage": {
+    "input": 10903,
+    "output": 516,
+    "total": 11419
+  },
+  "vignette": ""
+,
+
+  "vignette_attempts": [
+  ]
+}

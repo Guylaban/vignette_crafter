@@ -1,0 +1,203 @@
+PERSONA 194  |  2026-05-02 19:35:13
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-chat
+    persona_crafter      deepseek-chat
+    vignette_crafter     deepseek-chat
+    vignette_validator   deepseek-chat
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             35
+  gender          Female
+  ethnicity       European
+  relationship_status Married
+  occupation      Counselor
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            46
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid Eye Contact: Making eye contact with other people
+    • Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Sleep Problems: Trouble falling or staying asleep
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • No Coherent Story: I cannot tell a clear story of what happened even to myself
+  Negative Appraisals:
+    • Lost Meaning: Nothing in my life feels meaningful anymore
+    • Self-Blame: The event happened because of the way I acted
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.7776
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.5421
+  Memory → Threat                                    0.7217
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.5454
+  Threat → Memory                                    0.5166
+  Threat → Negative Appraisals                       0.3473
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0332
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.2661
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Uniform or Weapons: Military, police uniforms or weapons
+    explanation: 'Avoid Uniform or Weapons' is hard to reconcile with the indexed trauma of accidentally causing serious injury to another unless there is additional unreported trauma involving military, police, or armed threat. It introduces a highly specific cue set not supported by the other nodes.
+    item:        Negative Appraisals / Hypervigilance: I have to be on guard all the time
+    explanation: The appraisal 'I have to be on guard all the time' and the threat item 'I need to stay alert' imply ongoing external danger surveillance. For a guilt-based accident trauma, this is possible but, alongside the rest of the profile, it pulls toward a current-threat/assault formulation rather than the stated trauma context.
+    item:        Threat / Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    explanation: These vigilance-focused items cluster around danger-monitoring, whereas the memory and appraisal content otherwise fit grief/guilt and disorganization after causing injury. That mismatch is clinically harder to explain than ordinary heterogeneity.
+  [2] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Fear of Rage: I will not be able to control my anger and will do something terrible
+    explanation: The profile is centered on guilt, grief, and fragmented memory after accidentally causing serious injury, which is coherent, but the anger/rage theme is not well integrated with the rest of the formulation. Fear of losing control of anger plus irritability/aggressive behavior suggests a prominent violence/rage presentation that is not otherwise reflected in the memory content, appraisals, or strategies tied to this trauma type.
+    item:        Threat / Threat: Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    explanation: Compulsive exercise appears poorly connected to the rest of the selected items. The other maladaptive strategies are avoidance-based and directly related to interpersonal shame or medical reminders, whereas excessive exercise implies a separate regulation strategy that is not supported by the rest of the profile or the specified edge pattern.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Compulsive Exercise: I push myself to exercise excessively
+    explanation: Given the active formulation, Memory and Threat should be tightly linked. The memory items emphasize fragmentation and grief, while the threat items are limited to nonspecific arousal symptoms (concentration, irritability, sleep) rather than a trauma-linked sense of current threat. This makes the irritability/anger strand especially weakly anchored in the stated cognitive formulation.
+  [3] FAIL
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: The Threat node is dominated by generic arousal/distress items (concentration and sleep problems) rather than a sense of current threat linked to the trauma. Given the formulation, Threat is strongly driven by memory and negative appraisals, so threat items should more clearly reflect ongoing danger, guilt-based threat, or feared consequences connected to having seriously injured someone.
+    item:        Negative Appraisals / Threat: Sleep Problems: Trouble falling or staying asleep
+    explanation: 'Nothing in my life feels meaningful anymore' is a broad depressive/existential appraisal that is not well anchored to this trauma profile. The other appraisal items are specifically guilt/responsibility based (self-blame, failed to protect), which fit the trauma type and the strong Negative Appraisals → Threat edge; this item pulls the node toward a different syndrome and weakens internal coherence.
+    item:        Maladaptive Strategies / Negative Appraisals: Lost Meaning: Nothing in my life feels meaningful anymore
+    explanation: Avoiding eye contact is hard to connect specifically to accidentally causing serious injury to another unless there are accompanying appraisals about others judging or condemning her. No such interpersonal-judgment threat/appraisal is represented elsewhere, so this strategy is weakly integrated with the rest of the profile.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,932
+  output:       851
+  total:      3,783
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Elena, a 35-year-old counselor, had always prided herself on her steady hands and clear judgment.
+That changed in a single, frozen moment six months ago. Driving home from a late client session on a
+rain-slicked highway, she glanced down to adjust the radio for just a second. When she looked up, a
+man was standing on the shoulder, his bicycle flipped onto the asphalt. She swerved, but the thud
+was unmistakable. She remembers the sound—a dull, wet impact—more clearly than the sight. The man
+survived, but with a traumatic brain injury that left him permanently disabled. Elena was not
+charged; the accident was ruled a tragic misfortune. But in her own mind, the verdict was immediate
+and absolute: she had killed a life, even if the body was still breathing. She could not tell a
+clear story of what happened, even to herself. The memory came in disconnected pieces—the radio
+dial, the rain on the windshield, the paramedic’s boots—that refused to fit together into a coherent
+narrative.
+
+In the weeks that followed, Elena’s sense of self began to dissolve. The event happened because of
+the way she acted, she believed; she had failed to protect a stranger, and that failure meant she
+was no longer the person she thought she was. Nothing in her life felt meaningful anymore. Her work
+as a counselor, once a calling, now felt like a cruel joke—how could she guide others through their
+pain when she had caused such irreversible harm? These appraisals, in turn, fed a constant state of
+threat. She developed trouble falling asleep, her mind replaying the disjointed fragments on a loop,
+and when she did sleep, she woke with strong negative feelings—shame and guilt so acute they felt
+physical. She became hypervigilant, her eyes scanning every roadside for cyclists, every hospital
+sign triggering a spike of dread. The more vigilant she became, the more the fragmented memory
+surfaced, and the more she blamed herself: *See? You are right to be afraid. You are dangerous.*
+
+Elena’s attempts to manage this state only tightened the cycle. She began to suppress thoughts of
+the accident, trying hard not to think about it, but the suppression backfired—the more she pushed
+the memory away, the more it intruded in disconnected, grief-soaked pieces. She also started
+avoiding eye contact with other people, certain that if they looked closely, they would see the
+guilt written on her face. This avoidance fed her hypervigilance; without the corrective experience
+of another person’s neutral gaze, she remained convinced that everyone was a potential judge. The
+hypervigilance, in turn, drove more avoidance: she began taking back roads to work to avoid the
+stretch of highway where it happened, and she refused to drive past the local hospital, even if it
+added twenty minutes to her commute. At work, she found herself canceling sessions with clients who
+had experienced car accidents, her stomach clenching at the thought of their stories.
+
+The memory remained stubbornly fragmented, and the grief on recall was overwhelming. When she
+accidentally saw an ambulance on a street corner last week, she froze, and the pieces came back not
+as a story but as a sensory flood—the wet sound, the rain, the boots. That evening, her husband
+found her sitting on the bathroom floor, unable to speak. He had noticed her pulling away for
+months, but she could not explain why. She was certain that if she told him the truth—that she was a
+person who had ruined another life—he would leave. The avoidance had become a way of life. What
+finally brought Elena to seek help was not her own suffering, but a quiet ultimatum from her
+supervisor, who had noticed her declining engagement and the missed sessions. Elena is terrified
+that therapy will confirm what she already believes: that she is irredeemable. But she is also
+exhausted, and for the first time, she is willing to admit that she cannot keep the fragments at bay
+alone.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Elena, a 35-year-old counselor, had always prided herself on her steady hands and clear judgment.
+That changed in a single, frozen moment six months ago. Driving home from a late client session on a
+rain-slicked highway, she glanced down to adjust the radio for just a second. When she looked up, a
+man was standing on the shoulder, his bicycle flipped onto the asphalt. She swerved, but the thud
+was unmistakable. She remembers the sound—a dull, wet impact—more clearly than the sight. The man
+survived, but with a traumatic brain injury that left him permanently disabled. Elena was not
+charged; the accident was ruled a tragic misfortune. But in her own mind, the verdict was immediate
+and absolute: she had killed a life, even if the body was still breathing. She could not tell a
+clear story of what happened, even to herself. The memory came in disconnected pieces—the radio
+dial, the rain on the windshield, the paramedic’s boots—that refused to fit together into a coherent
+narrative.
+
+In the weeks that followed, Elena’s sense of self began to dissolve. The event happened because of
+the way she acted, she believed; she had failed to protect a stranger, and that failure meant she
+was no longer the person she thought she was. Nothing in her life felt meaningful anymore. Her work
+as a counselor, once a calling, now felt like a cruel joke—how could she guide others through their
+pain when she had caused such irreversible harm? These appraisals, in turn, fed a constant state of
+threat. She developed trouble falling asleep, her mind replaying the disjointed fragments on a loop,
+and when she did sleep, she woke with strong negative feelings—shame and guilt so acute they felt
+physical. She became hypervigilant, her eyes scanning every roadside for cyclists, every hospital
+sign triggering a spike of dread. The more vigilant she became, the more the fragmented memory
+surfaced, and the more she blamed herself: *See? You are right to be afraid. You are dangerous.*
+
+Elena’s attempts to manage this state only tightened the cycle. She began to suppress thoughts of
+the accident, trying hard not to think about it, but the suppression backfired—the more she pushed
+the memory away, the more it intruded in disconnected, grief-soaked pieces. She also started
+avoiding eye contact with other people, certain that if they looked closely, they would see the
+guilt written on her face. This avoidance fed her hypervigilance; without the corrective experience
+of another person’s neutral gaze, she remained convinced that everyone was a potential judge. The
+hypervigilance, in turn, drove more avoidance: she began taking back roads to work to avoid the
+stretch of highway where it happened, and she refused to drive past the local hospital, even if it
+added twenty minutes to her commute. At work, she found herself canceling sessions with clients who
+had experienced car accidents, her stomach clenching at the thought of their stories.
+
+The memory remained stubbornly fragmented, and the grief on recall was overwhelming. When she
+accidentally saw an ambulance on a street corner last week, she froze, and the pieces came back not
+as a story but as a sensory flood—the wet sound, the rain, the boots. That evening, her husband
+found her sitting on the bathroom floor, unable to speak. He had noticed her pulling away for
+months, but she could not explain why. She was certain that if she told him the truth—that she was a
+person who had ruined another life—he would leave. The avoidance had become a way of life. What
+finally brought Elena to seek help was not her own suffering, but a quiet ultimatum from her
+supervisor, who had noticed her declining engagement and the missed sessions. Elena is terrified
+that therapy will confirm what she already believes: that she is irredeemable. But she is also
+exhausted, and for the first time, she is willing to admit that she cannot keep the fragments at bay
+alone.

@@ -1,0 +1,251 @@
+PERSONA 269  |  2026-05-02 00:34:05
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             80
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Widowed
+  occupation      Data Scientist
+  trauma_type     Relief worker in war zone
+  pcl5            50
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Moral Violation: People misbehaving
+    • Entrapment: Having no options
+    • Dream Residue: Waking up from a nightmare
+  Maladaptive Strategies:
+    • Avoid News: News reports about events similar to what happened to me
+    • Rehearse Conversations: rehearse what to say before any interaction
+    • Checking Surroundings: constantly scan environment for signs of threat
+  Memory:
+    • Reliving Event: When I remember the frightening event I feel like it is happening right now.
+    • Feels Present Not Past: The memory feels like it is happening right now rather than something that is over
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+  Negative Appraisals:
+    • Fear Going Crazy: My reactions since the event mean that I am going crazy
+    • Fear of Rage: I will not be able to control my anger and will do something terrible
+    • World is Dangerous: The world is a dangerous place
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.1161
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0264
+  Triggers → Negative Appraisals                     0.2741
+  Negative Appraisals → Maladaptive Strategies       0.5356
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.1271
+  Negative Appraisals → Triggers                     0.3609
+  Memory → Maladaptive Strategies                    0.4030
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3404
+  Memory → Triggers                                  0.3761
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.3887
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.1976
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: no items selected
+    explanation: The cognitive formulation isolates Threat completely, so absence of Threat items is not itself a problem; however, the current profile strongly emphasizes trauma-memory reexperiencing and appraisals without any explicit threat content, making the night-specific avoidance item look weakly anchored to the rest of the selected profile.
+    item:        Maladaptive Strategies / Avoid Night: Going out at night or being outside after dark
+    explanation: 'Avoid Night' implies fear linked to darkness/outdoor danger, but there are no Threat items and no memory/trigger content tied to night-time, darkness, or outdoor contexts. For this relief-worker trauma, that strategy is not impossible, but in this profile it is the least coherent item because it addresses a threat context not otherwise represented across Triggers, Memory, or Negative Appraisals.
+  [2] FAIL
+    item:        Threat / Threat: Hypervigilance: Being superalert or watchful or on guard
+    explanation: The formulation isolates Threat completely: all edges to and from Threat are inactive. Yet the selected Threat items are central, high-intensity PTSD threat responses and are also mirrored elsewhere. This makes Threat functionally active in a way that contradicts the formulation structure.
+    item:        Negative Appraisals / Threat: Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+    explanation: Threat: Flashbacks and Threat: Physical Reactivity are tightly linked to the Memory and Triggers nodes, but the formulation specifies no active links involving Threat. Including these as Threat items makes the profile inconsistent with the stated node architecture.
+    item:        Triggers / Threat: Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    explanation: Negative Appraisals: Hypervigilance and Maladaptive Strategies: Checking Surroundings both imply an ongoing current-danger/threat monitoring pattern, which again makes Threat clinically central despite Threat being fully disconnected in the formulation.
+    item:        Maladaptive Strategies / Negative Appraisals: Hypervigilance: I have to be on guard all the time
+    explanation: Triggers: Entrapment: Having no options is the least coherent trigger relative to the rest of the profile. The remaining items focus on moral reminders and nightmare residue, while appraisals and strategies emphasize vigilance, rage, and fear of losing control. Entrapment could occur, but here it lacks a clear connection to the rest of the selected content and weakens coherence.
+  [3] FAIL
+    item:        Threat / Threat: Flashbacks
+    explanation: The cognitive formulation isolates Threat completely: all edges to and from Threat are inactive. However, the selected Threat items describe a prominent, connected threat response cluster (flashbacks, strong physical reactivity, concentration problems from reminders), which is difficult to reconcile with a formulation in which Threat has no active links to Triggers, Memory, Negative Appraisals, or Maladaptive Strategies.
+    item:        Negative Appraisals / Threat: Physical Reactivity
+    explanation: Negative Appraisals: Hypervigilance functions more like a current threat/safety-state belief and implies an active Threat system. That sits poorly with the formulation's fully inactive Threat node, especially when paired with checking surroundings and reactivity/flashback-type threat items.
+  [4] FAIL
+    item:        Threat / Threat: Physical Reactivity
+    explanation: The Threat node is clinically misaligned with the formulation: all incoming and outgoing Threat edges are inactive, so Threat should be relatively isolated or not central. However, the selected threat items describe an active symptomatic threat response cluster (strong emotional/physical reactivity and concentration disruption) that appears tightly tied to triggers and memory intrusions. This creates a contradiction with the formulation structure, especially given concurrent trigger and memory items that imply exactly the kind of reminder-linked threat activation the model marks as inactive. The other nodes are broadly coherent with each other and with the trauma type.
+  [5] FAIL
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: The Threat node is clinically incoherent with the provided cognitive formulation. Threat has no active incoming or outgoing edges, so it should not appear as a tightly integrated maintaining component. Yet all three selected Threat items are non-specific PTSD symptom/severity indicators rather than a coherent sense of current threat, and they are not meaningfully linked to the active Triggers, Memory, Negative Appraisals, and Maladaptive Strategies pattern.
+  [6] FAIL
+    item:        Threat / Threat: Scanning for Danger
+    explanation: Threat is structurally isolated in the formulation, but 'Scanning for Danger' is tightly mirrored by both Maladaptive Strategies: 'Checking Surroundings' and Negative Appraisals: 'I have to be on guard all the time,' making threat function as an active linked node rather than an isolated one.
+    item:        Negative Appraisals / Negative Appraisals: Hypervigilance
+    explanation: Negative Appraisals: 'I have to be on guard all the time' overlaps almost exactly with Threat: 'Scanning for Danger' and Maladaptive Strategies: 'Checking Surroundings,' which contradicts the formulation because Threat has no active links to or from these nodes.
+    item:        Triggers / Threat: Negative Emotions
+    explanation: Threat: 'Negative Emotions' is very broad and non-specific, while the rest of the profile centers on intrusive reliving, moral/entrapment triggers, and vigilance-based coping; as a Threat item it does not fit the otherwise isolated, weakly integrated role of threat in this formulation.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,278
+  output:     1,058
+  total:      4,336
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+At 80, Minh Tran still speaks about the war-zone deployment as if parts of it are unfolding in the
+next room. Years earlier, as a relief worker coordinating food and medical distribution in a
+besieged city, he had spent days negotiating with armed men at makeshift checkpoints while families
+waited behind him. The moment that stays with him most sharply came when a truck of supplies was
+blocked and civilians were shoved back from the road. He remembers the chaos of people pleading, the
+humiliation and cruelty of men misusing power, and the sickening conviction that there were no good
+options left to him. If he argued, he risked provoking violence; if he complied, he felt he was
+participating in something unforgivable. That scene now seems to organize much of what still
+troubles him: people behaving badly, any situation in which he feels cornered, and the disorienting
+minutes after waking from a nightmare all strike him with a force that feels out of proportion to
+the present but entirely faithful to what happened there.
+
+In the years since returning to the United States, Minh has continued working as a data scientist,
+mostly remotely after his wife died. Even in ordinary professional settings, the old meanings flood
+back. In video meetings, if a colleague talks over someone junior or behaves selfishly, Minh feels a
+jolt of moral alarm. If a project discussion narrows and he feels boxed into a decision, he becomes
+tense and fixed on escape routes, as though once again there are no acceptable choices. On mornings
+when he wakes from a nightmare, the residue of it clings to him so strongly that the day begins
+under threat. In those moments he is certain the world is dangerous, and what frightens him most is
+how quickly anger rises in him; he has come to believe these reactions may mean he is going crazy,
+or that he could lose control of his rage and do something terrible.
+
+Those triggers do not stay as thoughts for long. When a client call is scheduled, he rehearses every
+possible exchange beforehand, trying to prevent being trapped or provoked. If he has slept badly
+after a nightmare, he avoids news coverage altogether, especially reports about sieges, displaced
+civilians, or aid failures, because even a headline can pull him back. He also scans constantly: in
+the grocery store, in the lobby of his apartment building, even while sitting at his computer, his
+eyes move to doors, faces, sudden noises. What began as a way to stay safe has gradually narrowed
+his days. He turns down collaborative meetings when he can, keeps conversations brief, and
+structures his work around control and predictability.
+
+The memories themselves are not experienced as recollections. Minh describes them as a film that
+starts playing without his consent, with the same road, the same pleading voices, the same split-
+second calculations. When it comes, he is not remembering from a distance; he feels it happening
+right now. A raised voice in a meeting, the sight of petty cruelty in public, or that trapped
+feeling when options seem to close can bring the whole sequence forward with such immediacy that his
+body goes rigid and ready. After nights broken by nightmares, this happens even more easily, and he
+moves through the morning as if the city around him were only a thin layer over the checkpoint road.
+
+These episodes feed the meanings he has made of himself and the world. Each time the memory arrives
+so vividly, Minh takes it as evidence that something in his mind is breaking down. When he notices
+how angry he feels at other people’s selfishness or bullying, he does not experience that as
+understandable outrage but as proof that he may someday erupt. Because he sees the world as
+fundamentally dangerous, he watches more closely for signs of moral violation or entrapment, and
+this makes those very moments stand out everywhere to him: in news clips he tries not to watch, in
+overheard conversations, in routine workplace disagreements. The more he anticipates them, the more
+quickly they seem to find him.
+
+His efforts to manage this have also deepened the problem. Rehearsing conversations leaves him
+entering interactions already keyed up, listening for the line that will corner or provoke him.
+Constantly checking his surroundings means he is repeatedly noticing the very cues that set him off.
+Avoiding the news gives temporary relief, but when something slips through—an image on a homepage, a
+radio report in a rideshare—it hits with full force, and the old film runs again. He has become
+increasingly irritable, snapping at coworkers in ways that shame him afterward, then withdrawing
+further because that feels like proof his anger is dangerous.
+
+Minh finally sought help after abruptly ending a long call with a junior analyst who had simply
+challenged one of his assumptions. For several minutes afterward he stood in his kitchen trembling,
+heart pounding, convinced he had nearly become the man he feared. He is asking for treatment now
+because he is exhausted by living in a body that feels constantly braced for danger, and because he
+wants to believe that these reactions do not mean he is losing his mind. More than anything, he
+hopes he can learn to wake from a nightmare and know, fully, that he is here and not there.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+At 80, Minh Tran still speaks about the war-zone deployment as if parts of it are unfolding in the
+next room. Years earlier, as a relief worker coordinating food and medical distribution in a
+besieged city, he had spent days negotiating with armed men at makeshift checkpoints while families
+waited behind him. The moment that stays with him most sharply came when a truck of supplies was
+blocked and civilians were shoved back from the road. He remembers the chaos of people pleading, the
+humiliation and cruelty of men misusing power, and the sickening conviction that there were no good
+options left to him. If he argued, he risked provoking violence; if he complied, he felt he was
+participating in something unforgivable. That scene now seems to organize much of what still
+troubles him: people behaving badly, any situation in which he feels cornered, and the disorienting
+minutes after waking from a nightmare all strike him with a force that feels out of proportion to
+the present but entirely faithful to what happened there.
+
+In the years since returning to the United States, Minh has continued working as a data scientist,
+mostly remotely after his wife died. Even in ordinary professional settings, the old meanings flood
+back. In video meetings, if a colleague talks over someone junior or behaves selfishly, Minh feels a
+jolt of moral alarm. If a project discussion narrows and he feels boxed into a decision, he becomes
+tense and fixed on escape routes, as though once again there are no acceptable choices. On mornings
+when he wakes from a nightmare, the residue of it clings to him so strongly that the day begins
+under threat. In those moments he is certain the world is dangerous, and what frightens him most is
+how quickly anger rises in him; he has come to believe these reactions may mean he is going crazy,
+or that he could lose control of his rage and do something terrible.
+
+Those triggers do not stay as thoughts for long. When a client call is scheduled, he rehearses every
+possible exchange beforehand, trying to prevent being trapped or provoked. If he has slept badly
+after a nightmare, he avoids news coverage altogether, especially reports about sieges, displaced
+civilians, or aid failures, because even a headline can pull him back. He also scans constantly: in
+the grocery store, in the lobby of his apartment building, even while sitting at his computer, his
+eyes move to doors, faces, sudden noises. What began as a way to stay safe has gradually narrowed
+his days. He turns down collaborative meetings when he can, keeps conversations brief, and
+structures his work around control and predictability.
+
+The memories themselves are not experienced as recollections. Minh describes them as a film that
+starts playing without his consent, with the same road, the same pleading voices, the same split-
+second calculations. When it comes, he is not remembering from a distance; he feels it happening
+right now. A raised voice in a meeting, the sight of petty cruelty in public, or that trapped
+feeling when options seem to close can bring the whole sequence forward with such immediacy that his
+body goes rigid and ready. After nights broken by nightmares, this happens even more easily, and he
+moves through the morning as if the city around him were only a thin layer over the checkpoint road.
+
+These episodes feed the meanings he has made of himself and the world. Each time the memory arrives
+so vividly, Minh takes it as evidence that something in his mind is breaking down. When he notices
+how angry he feels at other people’s selfishness or bullying, he does not experience that as
+understandable outrage but as proof that he may someday erupt. Because he sees the world as
+fundamentally dangerous, he watches more closely for signs of moral violation or entrapment, and
+this makes those very moments stand out everywhere to him: in news clips he tries not to watch, in
+overheard conversations, in routine workplace disagreements. The more he anticipates them, the more
+quickly they seem to find him.
+
+His efforts to manage this have also deepened the problem. Rehearsing conversations leaves him
+entering interactions already keyed up, listening for the line that will corner or provoke him.
+Constantly checking his surroundings means he is repeatedly noticing the very cues that set him off.
+Avoiding the news gives temporary relief, but when something slips through—an image on a homepage, a
+radio report in a rideshare—it hits with full force, and the old film runs again. He has become
+increasingly irritable, snapping at coworkers in ways that shame him afterward, then withdrawing
+further because that feels like proof his anger is dangerous.
+
+Minh finally sought help after abruptly ending a long call with a junior analyst who had simply
+challenged one of his assumptions. For several minutes afterward he stood in his kitchen trembling,
+heart pounding, convinced he had nearly become the man he feared. He is asking for treatment now
+because he is exhausted by living in a body that feels constantly braced for danger, and because he
+wants to believe that these reactions do not mean he is losing his mind. More than anything, he
+hopes he can learn to wake from a nightmare and know, fully, that he is here and not there.

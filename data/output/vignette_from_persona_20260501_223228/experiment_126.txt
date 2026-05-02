@@ -1,0 +1,699 @@
+PERSONA 126  |  2026-05-01 23:30:16
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             47
+  gender          Female
+  ethnicity       South Asian
+  relationship_status Divorced
+  occupation      Clergy/Pastor
+  trauma_type     Torture
+  pcl5            53
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Gustatory (Taste): A specific taste associated with the event
+    • Affective Expression: Crying
+    • Event Recall: Talking about the event
+  Maladaptive Strategies:
+    • Restrict Eating: control eating strictly to feel in control
+    • Hypervigilance towards people: vigilant for dangerous people
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    • Body Reacts Before Mind: My body reacts to danger before I have even had time to think
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Partial Clarity: Some moments of the event are extremely clear while others are completely blank
+  Negative Appraisals:
+    • Thought Avoidance: If I think about the event, I will not be able to handle it
+    • Hopelessness: I have no future
+    • No Longer Capable: I am no longer capable of doing the things that defined me
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.7180
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.1592
+  Triggers → Negative Appraisals                     0.3485
+  Negative Appraisals → Maladaptive Strategies       0.8015
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.7935
+  Negative Appraisals → Triggers                     0.8451
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.7779
+  Memory → Negative Appraisals                       0.4754
+  Memory → Triggers                                  0.8431
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.7705
+  Threat → Triggers                                  0.7735
+  Maladaptive Strategies → Memory                    0.7402
+  Maladaptive Strategies → Negative Appraisals       0.4662
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.9823
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Emotional Closeness: Someone getting emotionally close to me
+    explanation: The trigger profile is dominated by interpersonal closeness plus taste and crying. For torture, gustatory and affective-expression triggers are plausible, but emotional closeness as a primary trigger is less well integrated with the rest of the profile, which contains no interpersonal betrayal/shame/relationship-based appraisals or memories to explain why closeness itself would be a salient cue. This creates a cross-node mismatch rather than a direct impossibility.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Gambling: I gamble to distract myself or feel excitement
+    explanation: Gambling stands out as weakly connected to the rest of the formulation. The strongest active pathways involve triggers, negative appraisals, memory, and threat, but the other selected strategies are control/safety based (restrict eating, hypervigilance), whereas gambling is a sensation-seeking/distracting behavior with no support from the memory, threat, or appraisal items. It reads like a separate coping pattern rather than part of the same PTSD-maintaining loop.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: 'Concentration' is not a threat belief/state in the same way as the other threat items. 'Cannot Trust Safety' and 'Body Reacts Before Mind' reflect ongoing sense of current threat, but concentration difficulty is a nonspecific cognitive symptom and does not cohere tightly within the Threat node. Given the formulation emphasizes Memory → Threat and Maladaptive Strategies → Threat, a more direct threat-related item would be expected.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     27,625
+  output:     3,039
+  total:     30,664
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Anjali Mehta is a 47-year-old South Asian American pastor who came to treatment after months of
+telling her congregation that she was “just tired” and then finding that even the ordinary rituals
+of ministry had become hard to bear. During a period overseas doing church-related humanitarian
+work, she was detained, interrogated, and tortured. What stays with her are not a complete set of
+memories so much as sharp, unbearable fragments: the taste forced into her mouth, the sound of
+herself crying, the pressure of having to answer questions while trying to speak. Some moments are
+searingly clear and others vanish entirely. She can describe one instant with painful precision and
+then reaches a blank space she cannot cross, and when those pieces return she is flooded with guilt,
+as if she should have endured differently or protected someone by saying less or more.
+
+Since returning home, the triggers are woven into the life she is trying to resume. In pastoral
+visits and after Sunday services, church members often press food on her, and a particular taste can
+stop her cold before she has formed any thought about why. Her body lurches into alarm first; she
+feels the danger in her throat, stomach, and chest before her mind catches up. Crying—especially
+when she hears someone sob during prayer—or simply being asked to talk about what happened can pull
+up disconnected pieces of the detention, a few images suddenly vivid while the rest remains missing.
+Those broken recollections leave her feeling intensely guilty and more convinced that she cannot
+handle what is in her own mind.
+
+Because she has come to believe that if she lets herself think about the torture she will be
+overwhelmed, Anjali works hard to keep it out of awareness. She suppresses thoughts, cuts off
+conversations that move too close to the subject, and has become rigid about food, telling herself
+that strict control over eating is the only way to stay steady. At church potlucks and in
+parishioners’ homes, she avoids unfamiliar dishes and often claims she has already eaten. The more
+frightened she becomes by the idea of losing control internally, the more tightly she tries to
+manage what she consumes and what she allows herself to remember. She has also grown markedly
+watchful around people, scanning faces, tone of voice, and small shifts in posture for signs of
+threat, as if danger might be concealed behind friendliness.
+
+These efforts have not brought relief. Pushing the memories away seems to leave them more
+disjointed, so that what returns does so in abrupt pieces rather than a story she can place in the
+past. That fragmentation itself deepens her despair. When she cannot make the memory cohere, she
+takes it as evidence that something in her has been permanently damaged, and she has begun to say,
+quietly and with shame, that she is no longer capable of doing the work that once defined her. She
+used to be the person others leaned on in crisis; now she worries she has no future beyond enduring
+the next day without breaking apart.
+
+Her sense of present danger has thickened over time. Because the memories arrive as disconnected
+flashes and her body reacts before she can think, reassurance from others does not reach her.
+Colleagues tell her she is safe in her church office, yet she remains superalert, listening for
+footsteps in the hallway and watching who enters the sanctuary. This constant on-guard feeling feeds
+her conviction that safety cannot be trusted anywhere, which in turn makes ordinary cues more
+potent. A parishioner crying in her office, a well-meant question about her time abroad, even the
+prospect of communion elements or shared meals can feel charged before anything has happened, and
+she braces herself as though the past is about to recur.
+
+That fear has started to alter her ministry in concrete ways. She delegates pastoral counseling when
+she expects tears, shortens visits that might lead to personal disclosure, and avoids communal meals
+after services. She tells herself these are sensible limits, but privately she hears them as proof
+that she is failing in her calling. The more she reads her retreat from others as evidence that she
+is diminished, the more hopeless she feels; the more hopeless she feels, the less able she is to
+risk remembering, speaking, or eating freely. By the time she sought help, she was dreading Sunday
+mornings, not because she no longer cared about her congregation, but because every part of the role
+exposed her to crying, questions, food, and people she could not stop scanning. What finally brought
+her in was the fear that if this continued, she would have to leave the ministry entirely. What she
+wants, though she says it cautiously, is to believe that her life is not over and that she might
+someday stand at the altar, hear another person weep, and remain fully present instead of
+disappearing into terror.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not clearly state that Anjali’s negative appraisals themselves make cues or reminders become triggers.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not clearly convey that the trauma memory or its fragments themselves lead to the perception of later cues as triggers.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not explicitly link Anjali’s avoidance, suppression, or safety behaviours as causing an increased sense of threat.
+
+  [2] FAIL
+Anjali Mehta is a 47-year-old South Asian American pastor who came to treatment after months of
+telling her congregation that she was “just tired” and then finding that even the ordinary rituals
+of ministry had become hard to bear. During a period overseas doing church-related humanitarian
+work, she was detained, interrogated, and tortured. What stays with her are not a complete set of
+memories so much as sharp, unbearable fragments: the taste forced into her mouth, the sound of
+herself crying, the pressure of having to answer questions while trying to speak. Some moments are
+searingly clear and others vanish entirely. She can describe one instant with painful precision and
+then reaches a blank space she cannot cross, and when those pieces return she is flooded with guilt,
+as if she should have endured differently or protected someone by saying less or more.
+
+Since returning home, the triggers are woven into the life she is trying to resume. In pastoral
+visits and after Sunday services, church members often press food on her, and a particular taste can
+stop her cold before she has formed any thought about why. Her body lurches into alarm first; she
+feels the danger in her throat, stomach, and chest before her mind catches up. Crying—especially
+when she hears someone sob during prayer—or simply being asked to talk about what happened can pull
+up disconnected pieces of the detention, a few images suddenly vivid while the rest remains missing.
+Those broken recollections leave her feeling intensely guilty and more convinced that she cannot
+handle what is in her own mind.
+
+Because she has come to believe that if she lets herself think about the torture she will be
+overwhelmed, Anjali works hard to keep it out of awareness. She suppresses thoughts, cuts off
+conversations that move too close to the subject, and has become rigid about food, telling herself
+that strict control over eating is the only way to stay steady. At church potlucks and in
+parishioners’ homes, she avoids unfamiliar dishes and often claims she has already eaten. The more
+frightened she becomes by the idea of losing control internally, the more tightly she tries to
+manage what she consumes and what she allows herself to remember. She has also grown markedly
+watchful around people, scanning faces, tone of voice, and small shifts in posture for signs of
+threat, as if danger might be concealed behind friendliness. Because she kept cutting short
+conversations, refusing food, and steering herself away from anything that might test her fear, she
+never remained in those moments long enough to learn that they could pass without catastrophe, and
+the danger therefore continued to feel immediate and real.
+
+These efforts have not brought relief. Pushing the memories away seems to leave them more
+disjointed, so that what returns does so in abrupt pieces rather than a story she can place in the
+past. After one of those jagged fragments surfaced, the rest of the day often became newly hazardous
+to her; the sound of someone crying down the hall, a question asked too directly, even the taste of
+a familiar dish could seem charged with the unfinished memory and seize her before she could orient
+herself. That fragmentation itself deepens her despair. When she cannot make the memory cohere, she
+takes it as evidence that something in her has been permanently damaged, and she has begun to say,
+quietly and with shame, that she is no longer capable of doing the work that once defined her. Once
+she had come to see herself as damaged and unable to trust her own mind, ordinary ambiguities
+stopped feeling ordinary; a parishioner’s tears, an unexpected question, or food offered after
+worship more readily registered as signs that she was about to lose control again. She used to be
+the person others leaned on in crisis; now she worries she has no future beyond enduring the next
+day without breaking apart.
+
+Her sense of present danger has thickened over time. Because the memories arrive as disconnected
+flashes and her body reacts before she can think, reassurance from others does not reach her.
+Colleagues tell her she is safe in her church office, yet she remains superalert, listening for
+footsteps in the hallway and watching who enters the sanctuary. This constant on-guard feeling feeds
+her conviction that safety cannot be trusted anywhere, which in turn makes ordinary cues more
+potent. A parishioner crying in her office, a well-meant question about her time abroad, even the
+prospect of communion elements or shared meals can feel charged before anything has happened, and
+she braces herself as though the past is about to recur.
+
+That fear has started to alter her ministry in concrete ways. She delegates pastoral counseling when
+she expects tears, shortens visits that might lead to personal disclosure, and avoids communal meals
+after services. She tells herself these are sensible limits, but privately she hears them as proof
+that she is failing in her calling. The more she reads her retreat from others as evidence that she
+is diminished, the more hopeless she feels; the more hopeless she feels, the less able she is to
+risk remembering, speaking, or eating freely. By the time she sought help, she was dreading Sunday
+mornings, not because she no longer cared about her congregation, but because every part of the role
+exposed her to crying, questions, food, and people she could not stop scanning. What finally brought
+her in was the fear that if this continued, she would have to leave the ministry entirely. What she
+wants, though she says it cautiously, is to believe that her life is not over and that she might
+someday stand at the altar, hear another person weep, and remain fully present instead of
+disappearing into terror.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not clearly show that Anjali’s negative appraisals directly cause or intensify triggers/reminders within the same paragraph.
+
+  [3] FAIL
+Anjali Mehta is a 47-year-old South Asian American pastor who came to treatment after months of
+telling her congregation that she was “just tired” and then finding that even the ordinary rituals
+of ministry had become hard to bear. During a period overseas doing church-related humanitarian
+work, she was detained, interrogated, and tortured. What stays with her are not a complete set of
+memories so much as sharp, unbearable fragments: the taste forced into her mouth, the sound of
+herself crying, the pressure of having to answer questions while trying to speak. Some moments are
+searingly clear and others vanish entirely. She can describe one instant with painful precision and
+then reaches a blank space she cannot cross, and when those pieces return she is flooded with guilt,
+as if she should have endured differently or protected someone by saying less or more.
+
+Since returning home, the triggers are woven into the life she is trying to resume. In pastoral
+visits and after Sunday services, church members often press food on her, and a particular taste can
+stop her cold before she has formed any thought about why. Her body lurches into alarm first; she
+feels the danger in her throat, stomach, and chest before her mind catches up. Crying—especially
+when she hears someone sob during prayer—or simply being asked to talk about what happened can pull
+up disconnected pieces of the detention, a few images suddenly vivid while the rest remains missing.
+Those broken recollections leave her feeling intensely guilty and more convinced that she cannot
+handle what is in her own mind.
+
+Because she has come to believe that if she lets herself think about the torture she will be
+overwhelmed, Anjali works hard to keep it out of awareness. She suppresses thoughts, cuts off
+conversations that move too close to the subject, and has become rigid about food, telling herself
+that strict control over eating is the only way to stay steady. At church potlucks and in
+parishioners’ homes, she avoids unfamiliar dishes and often claims she has already eaten. The more
+frightened she becomes by the idea of losing control internally, the more tightly she tries to
+manage what she consumes and what she allows herself to remember. She has also grown markedly
+watchful around people, scanning faces, tone of voice, and small shifts in posture for signs of
+threat, as if danger might be concealed behind friendliness. Because she kept cutting short
+conversations, refusing food, and steering herself away from anything that might test her fear, she
+never remained in those moments long enough to learn that they could pass without catastrophe, and
+the danger therefore continued to feel immediate and real.
+
+These efforts have not brought relief. Pushing the memories away seems to leave them more
+disjointed, so that what returns does so in abrupt pieces rather than a story she can place in the
+past. After one of those jagged fragments surfaced, the rest of the day often became newly hazardous
+to her; the sound of someone crying down the hall, a question asked too directly, even the taste of
+a familiar dish could seem charged with the unfinished memory and seize her before she could orient
+herself. That fragmentation itself deepens her despair. When she cannot make the memory cohere, she
+takes it as evidence that something in her has been permanently damaged, and she has begun to say,
+quietly and with shame, that she is no longer capable of doing the work that once defined her. With
+that conviction in place, she moves through church life expecting herself to be thrown off balance,
+and cues she once would have absorbed without notice now catch hard: a parishioner’s tears, a direct
+question, or food pressed into her hands feels immediately loaded because she assumes she cannot
+trust her own mind to stay steady. Once she had come to see herself as damaged and unable to trust
+her own mind, ordinary ambiguities stopped feeling ordinary; a parishioner’s tears, an unexpected
+question, or food offered after worship more readily registered as signs that she was about to lose
+control again. She used to be the person others leaned on in crisis; now she worries she has no
+future beyond enduring the next day without breaking apart.
+
+Her sense of present danger has thickened over time. Because the memories arrive as disconnected
+flashes and her body reacts before she can think, reassurance from others does not reach her.
+Colleagues tell her she is safe in her church office, yet she remains superalert, listening for
+footsteps in the hallway and watching who enters the sanctuary. This constant on-guard feeling feeds
+her conviction that safety cannot be trusted anywhere, which in turn makes ordinary cues more
+potent. A parishioner crying in her office, a well-meant question about her time abroad, even the
+prospect of communion elements or shared meals can feel charged before anything has happened, and
+she braces herself as though the past is about to recur.
+
+That fear has started to alter her ministry in concrete ways. She delegates pastoral counseling when
+she expects tears, shortens visits that might lead to personal disclosure, and avoids communal meals
+after services. She tells herself these are sensible limits, but privately she hears them as proof
+that she is failing in her calling. The more she reads her retreat from others as evidence that she
+is diminished, the more hopeless she feels; the more hopeless she feels, the less able she is to
+risk remembering, speaking, or eating freely. By the time she sought help, she was dreading Sunday
+mornings, not because she no longer cared about her congregation, but because every part of the role
+exposed her to crying, questions, food, and people she could not stop scanning. What finally brought
+her in was the fear that if this continued, she would have to leave the ministry entirely. What she
+wants, though she says it cautiously, is to believe that her life is not over and that she might
+someday stand at the altar, hear another person weep, and remain fully present instead of
+disappearing into terror.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette describes triggers evoking alarm and memories, but does not clearly state within one paragraph that triggers lead Anjali to use avoidance or other maladaptive strategies.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: Although negative appraisals make cues feel more loaded, the vignette does not clearly convey in one paragraph that her negative beliefs cause triggers themselves to arise or become triggering stimuli.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: Threat is described as making ordinary cues more potent, but there is no clear same-paragraph statement that her sense of threat leads directly to negative appraisals or distorted beliefs.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette shows avoidance maintaining threat and fragmented memory, but does not clearly state within one paragraph that maladaptive strategies lead to stronger negative appraisals about herself or her situation.
+
+  [4] FAIL
+Anjali Mehta is a 47-year-old South Asian American pastor who came to treatment after months of
+telling her congregation that she was “just tired” and then finding that even the ordinary rituals
+of ministry had become hard to bear. During a period overseas doing church-related humanitarian
+work, she was detained, interrogated, and tortured. What stays with her are not a complete set of
+memories so much as sharp, unbearable fragments: the taste forced into her mouth, the sound of
+herself crying, the pressure of having to answer questions while trying to speak. Some moments are
+searingly clear and others vanish entirely. She can describe one instant with painful precision and
+then reaches a blank space she cannot cross, and when those pieces return she is flooded with guilt,
+as if she should have endured differently or protected someone by saying less or more.
+
+Since returning home, the triggers are woven into the life she is trying to resume. In pastoral
+visits and after Sunday services, church members often press food on her, and a particular taste can
+stop her cold before she has formed any thought about why. After moments like that, Anjali becomes
+immediately strategic: she leaves receptions early, keeps water or mints with her to override any
+lingering taste, and avoids parishioners' kitchens whenever she can, because once a cue has caught
+hold of her she is certain the safest option is to get away before the rest of the reaction builds.
+Her body lurches into alarm first; she feels the danger in her throat, stomach, and chest before her
+mind catches up. Crying—especially when she hears someone sob during prayer—or simply being asked to
+talk about what happened can pull up disconnected pieces of the detention, a few images suddenly
+vivid while the rest remains missing. Those broken recollections leave her feeling intensely guilty
+and more convinced that she cannot handle what is in her own mind.
+
+Because she has come to believe that if she lets herself think about the torture she will be
+overwhelmed, Anjali works hard to keep it out of awareness. She suppresses thoughts, cuts off
+conversations that move too close to the subject, and has become rigid about food, telling herself
+that strict control over eating is the only way to stay steady. At church potlucks and in
+parishioners’ homes, she avoids unfamiliar dishes and often claims she has already eaten. The more
+frightened she becomes by the idea of losing control internally, the more tightly she tries to
+manage what she consumes and what she allows herself to remember. She has also grown markedly
+watchful around people, scanning faces, tone of voice, and small shifts in posture for signs of
+threat, as if danger might be concealed behind friendliness. Because she kept cutting short
+conversations, refusing food, and steering herself away from anything that might test her fear, she
+never remained in those moments long enough to learn that they could pass without catastrophe, and
+the danger therefore continued to feel immediate and real.
+
+These efforts have not brought relief. Pushing the memories away seems to leave them more
+disjointed, so that what returns does so in abrupt pieces rather than a story she can place in the
+past. After one of those jagged fragments surfaced, the rest of the day often became newly hazardous
+to her; the sound of someone crying down the hall, a question asked too directly, even the taste of
+a familiar dish could seem charged with the unfinished memory and seize her before she could orient
+herself. That fragmentation itself deepens her despair. When she cannot make the memory cohere, she
+takes it as evidence that something in her has been permanently damaged, and she has begun to say,
+quietly and with shame, that she is no longer capable of doing the work that once defined her.
+Having come to see herself as damaged and unreliable, she moves through ordinary church life
+expecting to be thrown off balance, and that expectation makes cues she once would have absorbed
+without notice—a parishioner's tears, a direct question, food pressed into her hands—stand out
+immediately as things that could undo her. With that conviction in place, she moves through church
+life expecting herself to be thrown off balance, and cues she once would have absorbed without
+notice now catch hard: a parishioner’s tears, a direct question, or food pressed into her hands
+feels immediately loaded because she assumes she cannot trust her own mind to stay steady. Once she
+had come to see herself as damaged and unable to trust her own mind, ordinary ambiguities stopped
+feeling ordinary; a parishioner’s tears, an unexpected question, or food offered after worship more
+readily registered as signs that she was about to lose control again. She used to be the person
+others leaned on in crisis; now she worries she has no future beyond enduring the next day without
+breaking apart.
+
+Her sense of present danger has thickened over time. Because the memories arrive as disconnected
+flashes and her body reacts before she can think, reassurance from others does not reach her.
+Feeling this endangered so often has become, in her own mind, its own kind of proof: if her body
+will not let down its guard even in her church office, then she takes that as evidence that safety
+is no longer meant for her and that something in her has been fundamentally altered. Colleagues tell
+her she is safe in her church office, yet she remains superalert, listening for footsteps in the
+hallway and watching who enters the sanctuary. This constant on-guard feeling feeds her conviction
+that safety cannot be trusted anywhere, which in turn makes ordinary cues more potent. A parishioner
+crying in her office, a well-meant question about her time abroad, even the prospect of communion
+elements or shared meals can feel charged before anything has happened, and she braces herself as
+though the past is about to recur.
+
+That fear has started to alter her ministry in concrete ways. She delegates pastoral counseling when
+she expects tears, shortens visits that might lead to personal disclosure, and avoids communal meals
+after services. Each time she has to arrange her day around these precautions, it lands on her as
+further evidence that she cannot cope in the way she once could; the very fact that she still needs
+all this managing confirms, to her, that she is diminished and no longer trustworthy in her role.
+She tells herself these are sensible limits, but privately she hears them as proof that she is
+failing in her calling. The more she reads her retreat from others as evidence that she is
+diminished, the more hopeless she feels; the more hopeless she feels, the less able she is to risk
+remembering, speaking, or eating freely. By the time she sought help, she was dreading Sunday
+mornings, not because she no longer cared about her congregation, but because every part of the role
+exposed her to crying, questions, food, and people she could not stop scanning. What finally brought
+her in was the fear that if this continued, she would have to leave the ministry entirely. What she
+wants, though she says it cautiously, is to believe that her life is not over and that she might
+someday stand at the altar, hear another person weep, and remain fully present instead of
+disappearing into terror.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not clearly state in the same paragraph that Anjali’s negative appraisals directly cause or increase triggers/cues to arise or be perceived as triggers.
+
+  [5] FAIL
+Anjali Mehta is a 47-year-old South Asian American pastor who came to treatment after months of
+telling her congregation that she was “just tired” and then finding that even the ordinary rituals
+of ministry had become hard to bear. During a period overseas doing church-related humanitarian
+work, she was detained, interrogated, and tortured. What stays with her are not a complete set of
+memories so much as sharp, unbearable fragments: the taste forced into her mouth, the sound of
+herself crying, the pressure of having to answer questions while trying to speak. Some moments are
+searingly clear and others vanish entirely. She can describe one instant with painful precision and
+then reaches a blank space she cannot cross, and when those pieces return she is flooded with guilt,
+as if she should have endured differently or protected someone by saying less or more.
+
+Since returning home, the triggers are woven into the life she is trying to resume. In pastoral
+visits and after Sunday services, church members often press food on her, and a particular taste can
+stop her cold before she has formed any thought about why. After moments like that, Anjali becomes
+immediately strategic: she leaves receptions early, keeps water or mints with her to override any
+lingering taste, and avoids parishioners' kitchens whenever she can, because once a cue has caught
+hold of her she is certain the safest option is to get away before the rest of the reaction builds.
+Her body lurches into alarm first; she feels the danger in her throat, stomach, and chest before her
+mind catches up. Crying—especially when she hears someone sob during prayer—or simply being asked to
+talk about what happened can pull up disconnected pieces of the detention, a few images suddenly
+vivid while the rest remains missing. Those broken recollections leave her feeling intensely guilty
+and more convinced that she cannot handle what is in her own mind.
+
+Because she has come to believe that if she lets herself think about the torture she will be
+overwhelmed, Anjali works hard to keep it out of awareness. She suppresses thoughts, cuts off
+conversations that move too close to the subject, and has become rigid about food, telling herself
+that strict control over eating is the only way to stay steady. At church potlucks and in
+parishioners’ homes, she avoids unfamiliar dishes and often claims she has already eaten. The more
+frightened she becomes by the idea of losing control internally, the more tightly she tries to
+manage what she consumes and what she allows herself to remember. She has also grown markedly
+watchful around people, scanning faces, tone of voice, and small shifts in posture for signs of
+threat, as if danger might be concealed behind friendliness. Because she kept cutting short
+conversations, refusing food, and steering herself away from anything that might test her fear, she
+never remained in those moments long enough to learn that they could pass without catastrophe, and
+the danger therefore continued to feel immediate and real.
+
+These efforts have not brought relief. Pushing the memories away seems to leave them more
+disjointed, so that what returns does so in abrupt pieces rather than a story she can place in the
+past. After one of those jagged fragments surfaced, the rest of the day often became newly hazardous
+to her; the sound of someone crying down the hall, a question asked too directly, even the taste of
+a familiar dish could seem charged with the unfinished memory and seize her before she could orient
+herself. That fragmentation itself deepens her despair. When she cannot make the memory cohere, she
+takes it as evidence that something in her has been permanently damaged, and she has begun to say,
+quietly and with shame, that she is no longer capable of doing the work that once defined her.
+Because she had come to view herself as damaged and unable to trust her own mind, things she would
+once have barely noticed in church life now caught and held her attention as possible signs that she
+was about to come undone—a parishioner’s tears, a direct question after service, food pressed into
+her hands. Having come to see herself as damaged and unreliable, she moves through ordinary church
+life expecting to be thrown off balance, and that expectation makes cues she once would have
+absorbed without notice—a parishioner's tears, a direct question, food pressed into her hands—stand
+out immediately as things that could undo her. With that conviction in place, she moves through
+church life expecting herself to be thrown off balance, and cues she once would have absorbed
+without notice now catch hard: a parishioner’s tears, a direct question, or food pressed into her
+hands feels immediately loaded because she assumes she cannot trust her own mind to stay steady.
+Once she had come to see herself as damaged and unable to trust her own mind, ordinary ambiguities
+stopped feeling ordinary; a parishioner’s tears, an unexpected question, or food offered after
+worship more readily registered as signs that she was about to lose control again. She used to be
+the person others leaned on in crisis; now she worries she has no future beyond enduring the next
+day without breaking apart.
+
+Her sense of present danger has thickened over time. Because the memories arrive as disconnected
+flashes and her body reacts before she can think, reassurance from others does not reach her.
+Feeling this endangered so often has become, in her own mind, its own kind of proof: if her body
+will not let down its guard even in her church office, then she takes that as evidence that safety
+is no longer meant for her and that something in her has been fundamentally altered. Colleagues tell
+her she is safe in her church office, yet she remains superalert, listening for footsteps in the
+hallway and watching who enters the sanctuary. This constant on-guard feeling feeds her conviction
+that safety cannot be trusted anywhere, which in turn makes ordinary cues more potent. A parishioner
+crying in her office, a well-meant question about her time abroad, even the prospect of communion
+elements or shared meals can feel charged before anything has happened, and she braces herself as
+though the past is about to recur.
+
+That fear has started to alter her ministry in concrete ways. She delegates pastoral counseling when
+she expects tears, shortens visits that might lead to personal disclosure, and avoids communal meals
+after services. Each time she has to arrange her day around these precautions, it lands on her as
+further evidence that she cannot cope in the way she once could; the very fact that she still needs
+all this managing confirms, to her, that she is diminished and no longer trustworthy in her role.
+She tells herself these are sensible limits, but privately she hears them as proof that she is
+failing in her calling. The more she reads her retreat from others as evidence that she is
+diminished, the more hopeless she feels; the more hopeless she feels, the less able she is to risk
+remembering, speaking, or eating freely. By the time she sought help, she was dreading Sunday
+mornings, not because she no longer cared about her congregation, but because every part of the role
+exposed her to crying, questions, food, and people she could not stop scanning. What finally brought
+her in was the fear that if this continued, she would have to leave the ministry entirely. What she
+wants, though she says it cautiously, is to believe that her life is not over and that she might
+someday stand at the altar, hear another person weep, and remain fully present instead of
+disappearing into terror.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not clearly state in the same paragraph that triggers or cues lead Anjali to negative appraisals or self-beliefs, rather than to alarm or avoidance.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not clearly state in the same paragraph that Anjali’s negative appraisals themselves cause or intensify the traumatic memory or its return.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not clearly state in the same paragraph that the traumatic memory itself generates or increases sensitivity to triggers/cues, rather than that fragmented memories and bodily alarm coexist with later cue reactivity.
+
+  [6] PASS
+Anjali Mehta is a 47-year-old South Asian American pastor who came to treatment after months of
+telling her congregation that she was “just tired” and then finding that even the ordinary rituals
+of ministry had become hard to bear. During a period overseas doing church-related humanitarian
+work, she was detained, interrogated, and tortured. What stays with her are not a complete set of
+memories so much as sharp, unbearable fragments: the taste forced into her mouth, the sound of
+herself crying, the pressure of having to answer questions while trying to speak. Some moments are
+searingly clear and others vanish entirely. She can describe one instant with painful precision and
+then reaches a blank space she cannot cross, and when those pieces return she is flooded with guilt,
+as if she should have endured differently or protected someone by saying less or more.
+
+Since returning home, the triggers are woven into the life she is trying to resume. In pastoral
+visits and after Sunday services, church members often press food on her, and a particular taste can
+stop her cold before she has formed any thought about why. After moments like that, Anjali becomes
+immediately strategic: she leaves receptions early, keeps water or mints with her to override any
+lingering taste, and avoids parishioners' kitchens whenever she can, because once a cue has caught
+hold of her she is certain the safest option is to get away before the rest of the reaction builds.
+Her body lurches into alarm first; she feels the danger in her throat, stomach, and chest before her
+mind catches up. Crying—especially when she hears someone sob during prayer—or simply being asked to
+talk about what happened can pull up disconnected pieces of the detention, a few images suddenly
+vivid while the rest remains missing. Those broken recollections leave her feeling intensely guilty
+and more convinced that she cannot handle what is in her own mind.
+
+Because she has come to believe that if she lets herself think about the torture she will be
+overwhelmed, Anjali works hard to keep it out of awareness. She suppresses thoughts, cuts off
+conversations that move too close to the subject, and has become rigid about food, telling herself
+that strict control over eating is the only way to stay steady. At church potlucks and in
+parishioners’ homes, she avoids unfamiliar dishes and often claims she has already eaten. The more
+frightened she becomes by the idea of losing control internally, the more tightly she tries to
+manage what she consumes and what she allows herself to remember. She has also grown markedly
+watchful around people, scanning faces, tone of voice, and small shifts in posture for signs of
+threat, as if danger might be concealed behind friendliness. Because she kept cutting short
+conversations, refusing food, and steering herself away from anything that might test her fear, she
+never remained in those moments long enough to learn that they could pass without catastrophe, and
+the danger therefore continued to feel immediate and real. Each time a parishioner’s tears, an
+offered dish, or a direct question caught her off guard, the same judgment landed hard: this is what
+she had become now, someone fragile and unreliable who could be undone by ordinary church life.
+
+These efforts have not brought relief. Pushing the memories away seems to leave them more
+disjointed, so that what returns does so in abrupt pieces rather than a story she can place in the
+past. After one of those fragments broke through, she moved through the rest of the day as though
+traces of it were everywhere; a taste at coffee hour, someone crying in a side room, or a question
+asked too directly all stood out more sharply, as if the memory itself had taught her what to fear.
+After one of those jagged fragments surfaced, the rest of the day often became newly hazardous to
+her; the sound of someone crying down the hall, a question asked too directly, even the taste of a
+familiar dish could seem charged with the unfinished memory and seize her before she could orient
+herself. That fragmentation itself deepens her despair. When she cannot make the memory cohere, she
+takes it as evidence that something in her has been permanently damaged, and she has begun to say,
+quietly and with shame, that she is no longer capable of doing the work that once defined her. That
+conviction that she was damaged seemed to pull her back toward the detention itself, as if her mind
+kept returning to those sharp fragments to confirm that this was the moment she had been ruined.
+Because she had come to view herself as damaged and unable to trust her own mind, things she would
+once have barely noticed in church life now caught and held her attention as possible signs that she
+was about to come undone—a parishioner’s tears, a direct question after service, food pressed into
+her hands. Having come to see herself as damaged and unreliable, she moves through ordinary church
+life expecting to be thrown off balance, and that expectation makes cues she once would have
+absorbed without notice—a parishioner's tears, a direct question, food pressed into her hands—stand
+out immediately as things that could undo her. With that conviction in place, she moves through
+church life expecting herself to be thrown off balance, and cues she once would have absorbed
+without notice now catch hard: a parishioner’s tears, a direct question, or food pressed into her
+hands feels immediately loaded because she assumes she cannot trust her own mind to stay steady.
+Once she had come to see herself as damaged and unable to trust her own mind, ordinary ambiguities
+stopped feeling ordinary; a parishioner’s tears, an unexpected question, or food offered after
+worship more readily registered as signs that she was about to lose control again. She used to be
+the person others leaned on in crisis; now she worries she has no future beyond enduring the next
+day without breaking apart.
+
+Her sense of present danger has thickened over time. Because the memories arrive as disconnected
+flashes and her body reacts before she can think, reassurance from others does not reach her.
+Feeling this endangered so often has become, in her own mind, its own kind of proof: if her body
+will not let down its guard even in her church office, then she takes that as evidence that safety
+is no longer meant for her and that something in her has been fundamentally altered. Colleagues tell
+her she is safe in her church office, yet she remains superalert, listening for footsteps in the
+hallway and watching who enters the sanctuary. This constant on-guard feeling feeds her conviction
+that safety cannot be trusted anywhere, which in turn makes ordinary cues more potent. A parishioner
+crying in her office, a well-meant question about her time abroad, even the prospect of communion
+elements or shared meals can feel charged before anything has happened, and she braces herself as
+though the past is about to recur.
+
+That fear has started to alter her ministry in concrete ways. She delegates pastoral counseling when
+she expects tears, shortens visits that might lead to personal disclosure, and avoids communal meals
+after services. Each time she has to arrange her day around these precautions, it lands on her as
+further evidence that she cannot cope in the way she once could; the very fact that she still needs
+all this managing confirms, to her, that she is diminished and no longer trustworthy in her role.
+She tells herself these are sensible limits, but privately she hears them as proof that she is
+failing in her calling. The more she reads her retreat from others as evidence that she is
+diminished, the more hopeless she feels; the more hopeless she feels, the less able she is to risk
+remembering, speaking, or eating freely. By the time she sought help, she was dreading Sunday
+mornings, not because she no longer cared about her congregation, but because every part of the role
+exposed her to crying, questions, food, and people she could not stop scanning. What finally brought
+her in was the fear that if this continued, she would have to leave the ministry entirely. What she
+wants, though she says it cautiously, is to believe that her life is not over and that she might
+someday stand at the altar, hear another person weep, and remain fully present instead of
+disappearing into terror.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Anjali Mehta is a 47-year-old South Asian American pastor who came to treatment after months of
+telling her congregation that she was “just tired” and then finding that even the ordinary rituals
+of ministry had become hard to bear. During a period overseas doing church-related humanitarian
+work, she was detained, interrogated, and tortured. What stays with her are not a complete set of
+memories so much as sharp, unbearable fragments: the taste forced into her mouth, the sound of
+herself crying, the pressure of having to answer questions while trying to speak. Some moments are
+searingly clear and others vanish entirely. She can describe one instant with painful precision and
+then reaches a blank space she cannot cross, and when those pieces return she is flooded with guilt,
+as if she should have endured differently or protected someone by saying less or more.
+
+Since returning home, the triggers are woven into the life she is trying to resume. In pastoral
+visits and after Sunday services, church members often press food on her, and a particular taste can
+stop her cold before she has formed any thought about why. After moments like that, Anjali becomes
+immediately strategic: she leaves receptions early, keeps water or mints with her to override any
+lingering taste, and avoids parishioners' kitchens whenever she can, because once a cue has caught
+hold of her she is certain the safest option is to get away before the rest of the reaction builds.
+Her body lurches into alarm first; she feels the danger in her throat, stomach, and chest before her
+mind catches up. Crying—especially when she hears someone sob during prayer—or simply being asked to
+talk about what happened can pull up disconnected pieces of the detention, a few images suddenly
+vivid while the rest remains missing. Those broken recollections leave her feeling intensely guilty
+and more convinced that she cannot handle what is in her own mind.
+
+Because she has come to believe that if she lets herself think about the torture she will be
+overwhelmed, Anjali works hard to keep it out of awareness. She suppresses thoughts, cuts off
+conversations that move too close to the subject, and has become rigid about food, telling herself
+that strict control over eating is the only way to stay steady. At church potlucks and in
+parishioners’ homes, she avoids unfamiliar dishes and often claims she has already eaten. The more
+frightened she becomes by the idea of losing control internally, the more tightly she tries to
+manage what she consumes and what she allows herself to remember. She has also grown markedly
+watchful around people, scanning faces, tone of voice, and small shifts in posture for signs of
+threat, as if danger might be concealed behind friendliness. Because she kept cutting short
+conversations, refusing food, and steering herself away from anything that might test her fear, she
+never remained in those moments long enough to learn that they could pass without catastrophe, and
+the danger therefore continued to feel immediate and real. Each time a parishioner’s tears, an
+offered dish, or a direct question caught her off guard, the same judgment landed hard: this is what
+she had become now, someone fragile and unreliable who could be undone by ordinary church life.
+
+These efforts have not brought relief. Pushing the memories away seems to leave them more
+disjointed, so that what returns does so in abrupt pieces rather than a story she can place in the
+past. After one of those fragments broke through, she moved through the rest of the day as though
+traces of it were everywhere; a taste at coffee hour, someone crying in a side room, or a question
+asked too directly all stood out more sharply, as if the memory itself had taught her what to fear.
+After one of those jagged fragments surfaced, the rest of the day often became newly hazardous to
+her; the sound of someone crying down the hall, a question asked too directly, even the taste of a
+familiar dish could seem charged with the unfinished memory and seize her before she could orient
+herself. That fragmentation itself deepens her despair. When she cannot make the memory cohere, she
+takes it as evidence that something in her has been permanently damaged, and she has begun to say,
+quietly and with shame, that she is no longer capable of doing the work that once defined her. That
+conviction that she was damaged seemed to pull her back toward the detention itself, as if her mind
+kept returning to those sharp fragments to confirm that this was the moment she had been ruined.
+Because she had come to view herself as damaged and unable to trust her own mind, things she would
+once have barely noticed in church life now caught and held her attention as possible signs that she
+was about to come undone—a parishioner’s tears, a direct question after service, food pressed into
+her hands. Having come to see herself as damaged and unreliable, she moves through ordinary church
+life expecting to be thrown off balance, and that expectation makes cues she once would have
+absorbed without notice—a parishioner's tears, a direct question, food pressed into her hands—stand
+out immediately as things that could undo her. With that conviction in place, she moves through
+church life expecting herself to be thrown off balance, and cues she once would have absorbed
+without notice now catch hard: a parishioner’s tears, a direct question, or food pressed into her
+hands feels immediately loaded because she assumes she cannot trust her own mind to stay steady.
+Once she had come to see herself as damaged and unable to trust her own mind, ordinary ambiguities
+stopped feeling ordinary; a parishioner’s tears, an unexpected question, or food offered after
+worship more readily registered as signs that she was about to lose control again. She used to be
+the person others leaned on in crisis; now she worries she has no future beyond enduring the next
+day without breaking apart.
+
+Her sense of present danger has thickened over time. Because the memories arrive as disconnected
+flashes and her body reacts before she can think, reassurance from others does not reach her.
+Feeling this endangered so often has become, in her own mind, its own kind of proof: if her body
+will not let down its guard even in her church office, then she takes that as evidence that safety
+is no longer meant for her and that something in her has been fundamentally altered. Colleagues tell
+her she is safe in her church office, yet she remains superalert, listening for footsteps in the
+hallway and watching who enters the sanctuary. This constant on-guard feeling feeds her conviction
+that safety cannot be trusted anywhere, which in turn makes ordinary cues more potent. A parishioner
+crying in her office, a well-meant question about her time abroad, even the prospect of communion
+elements or shared meals can feel charged before anything has happened, and she braces herself as
+though the past is about to recur.
+
+That fear has started to alter her ministry in concrete ways. She delegates pastoral counseling when
+she expects tears, shortens visits that might lead to personal disclosure, and avoids communal meals
+after services. Each time she has to arrange her day around these precautions, it lands on her as
+further evidence that she cannot cope in the way she once could; the very fact that she still needs
+all this managing confirms, to her, that she is diminished and no longer trustworthy in her role.
+She tells herself these are sensible limits, but privately she hears them as proof that she is
+failing in her calling. The more she reads her retreat from others as evidence that she is
+diminished, the more hopeless she feels; the more hopeless she feels, the less able she is to risk
+remembering, speaking, or eating freely. By the time she sought help, she was dreading Sunday
+mornings, not because she no longer cared about her congregation, but because every part of the role
+exposed her to crying, questions, food, and people she could not stop scanning. What finally brought
+her in was the fear that if this continued, she would have to leave the ministry entirely. What she
+wants, though she says it cautiously, is to believe that her life is not over and that she might
+someday stand at the altar, hear another person weep, and remain fully present instead of
+disappearing into terror.

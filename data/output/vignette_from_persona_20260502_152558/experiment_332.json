@@ -1,0 +1,191 @@
+{
+  "persona_id": 332,
+  "source_persona_id": 332,
+  "experiment_timestamp": "2026-05-02 21:26:08",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-pro",
+      "persona_crafter": "gemini-2.5-pro",
+      "vignette_crafter": "gemini-2.5-pro",
+      "vignette_validator": "gemini-2.5-pro"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 43,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "IT Support",
+    "trauma_type": "Physical abuse by caregiver (childhood)",
+    "pcl5": 55
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Being in Nature",
+        "value": "Being in a natural environment similar to where it happened"
+      },
+      {
+        "key": "Event Recall",
+        "value": "Talking about the event"
+      },
+      {
+        "key": "Locked Spaces",
+        "value": "Being in a locked or confined room"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Concentration",
+        "value": "Having difficulty concentrating"
+      },
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Intrinsic Fault",
+        "value": "There is something about me that made the event happen"
+      },
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      },
+      {
+        "key": "Character Blame",
+        "value": "The event happened to me because of the sort of person I am"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.4489,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.763,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.1261,
+    "Threat -- Triggers": 0.1116,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.3624,
+  "edge_density": 0.2,
+  "vignette_word_count": 677,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened",
+          "explanation": "The Negative Appraisals node is internally inconsistent for childhood physical abuse by a caregiver. 'Intrinsic Fault' fits a child abuse formulation, but 'Violated Values' implies the patient believes she herself committed morally troubling actions, which is hard to reconcile with being a child victim unless there is additional unreported perpetration or compliance behavior. 'Physical Vulnerability' as permanent bodily damage is also a distinct injury-based appraisal that is not supported elsewhere in the profile. Taken together, these three appraisals do not form a coherent single appraisal pattern."
+        },
+        {
+          "component": "Triggers",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "'Being in Nature' is difficult to reconcile with the trauma type of repeated physical abuse by a caregiver unless the abuse specifically occurred in a natural/outdoor setting. The rest of the profile points to interpersonal danger, shame, and hypervigilance rather than context-specific outdoor reminders, so this trigger looks trauma-incongruent."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Physical Vulnerability"
+        ],
+        "Triggers": [
+          "Negative Appraisals"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "For childhood physical abuse by a caregiver, the selected negative appraisals are mostly coherent when they center on shame, defectiveness, and self-blame (e.g., intrinsic fault, defective self). However, 'I acted in ways that go against who I am' implies perpetration or morally troubling behavior by the patient, which is hard to reconcile with the trauma type unless there is additional context not represented elsewhere. Within the node, it pulls in a different direction from the other appraisals, which depict the patient as harmed/defective rather than as having committed value-violating actions."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Violated Values"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2815,
+    "output": 3866,
+    "total": 6681
+  },
+  "vignette": "Imani is a 43-year-old married woman working in IT support, who presented for therapy reporting decades of anxiety and a pervasive sense of being \"on edge.\" The roots of her distress trace back to her childhood, specifically to the summers she was sent to stay with an aunt in a rural part of the country. For infractions as minor as tracking mud into the house, her aunt’s punishment was to lock her in a small, windowless tool shed at the edge of the woods. Imani would spend hours in the dark, listening to the sounds of the forest press in on her, convinced she had been abandoned. The experience left an indelible mark, one that has shaped her adult life in ways she is only now beginning to untangle.\n\nOver the years, Imani came to believe that what happened to her was not merely an act of cruelty, but a just consequence of her own nature. She developed a core conviction that there is something intrinsically wrong with her, that the abuse occurred because of the sort of person she is. This deeply held negative appraisal of herself has conditioned her to experience the world as a place of imminent danger. Believing she is fundamentally defective and deserving of punishment, her body remains in a state of constant, exhausting vigilance. She describes this as a persistent tension in her shoulders and jaw, a readiness to react that never subsides. This hyperarousal makes it difficult to focus on the complex technical problems her IT job requires, and she often finds herself rereading the same lines of code, her mind having drifted to scan for some unspecified threat. Her belief in her own inherent fault also makes her exquisitely sensitive to any reminder of the original trauma, making her world shrink around a growing list of triggers.\n\nThis sense of threat is not abstract; it manifests in sudden, overwhelming physical reactions to seemingly benign situations. Recently at work, she was called to the main server room, a secure area that requires a key card and locks automatically. The heavy click of the magnetic lock (`Locked Spaces`) sent a jolt of pure panic through her. Her heart hammered against her ribs, and the cool, conditioned air felt suddenly suffocating. She knew, logically, that she was in no danger, but her body reacted as if the shed door had just been bolted. This powerful physiological response (`Threat`) only serves to deepen her conviction that she is broken; she sees these false alarms as further evidence that there is something profoundly wrong with her as a person. Each panic attack becomes another piece of data confirming her deepest fear about her own character.\n\nThe feedback loop is relentless. The more her body screams danger, the more she believes she is flawed, and the more flawed she feels, the more danger she perceives. This state of constant threat also intensifies her reactivity to triggers. After the incident in the server room, the mere thought of entering a confined space is now enough to make her hands tremble. When her husband recently suggested a weekend camping trip to a state park, envisioning a relaxing escape, Imani felt a surge of terror. The idea of being in a natural environment, surrounded by the sounds of the woods at night, felt unbearable. Her sharp, immediate refusal left him confused and hurt, creating a distance between them she doesn't know how to bridge. She couldn't explain that talking about it, even in the abstract, felt like reliving it.\n\nImani finally sought therapy after her supervisor commented on her recent difficulty with concentration and her visible distress following the server room incident. She is terrified of losing her job, a source of pride and stability, and is increasingly aware of the growing chasm in her marriage. She feels trapped in a cycle of fear and self-blame, and expressed a desperate, quiet hope to one day feel safe in her own skin, to believe that what happened to her as a child was not a reflection of her worth."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Imani is a 43-year-old married woman working in IT support, who presented for therapy reporting decades of anxiety and a pervasive sense of being \"on edge.\" The roots of her distress trace back to her childhood, specifically to the summers she was sent to stay with an aunt in a rural part of the country. For infractions as minor as tracking mud into the house, her aunt’s punishment was to lock her in a small, windowless tool shed at the edge of the woods. Imani would spend hours in the dark, listening to the sounds of the forest press in on her, convinced she had been abandoned. The experience left an indelible mark, one that has shaped her adult life in ways she is only now beginning to untangle.\n\nOver the years, Imani came to believe that what happened to her was not merely an act of cruelty, but a just consequence of her own nature. She developed a core conviction that there is something intrinsically wrong with her, that the abuse occurred because of the sort of person she is. This deeply held negative appraisal of herself has conditioned her to experience the world as a place of imminent danger. Believing she is fundamentally defective and deserving of punishment, her body remains in a state of constant, exhausting vigilance. She describes this as a persistent tension in her shoulders and jaw, a readiness to react that never subsides. This hyperarousal makes it difficult to focus on the complex technical problems her IT job requires, and she often finds herself rereading the same lines of code, her mind having drifted to scan for some unspecified threat. Her belief in her own inherent fault also makes her exquisitely sensitive to any reminder of the original trauma, making her world shrink around a growing list of triggers.\n\nThis sense of threat is not abstract; it manifests in sudden, overwhelming physical reactions to seemingly benign situations. Recently at work, she was called to the main server room, a secure area that requires a key card and locks automatically. The heavy click of the magnetic lock (`Locked Spaces`) sent a jolt of pure panic through her. Her heart hammered against her ribs, and the cool, conditioned air felt suddenly suffocating. She knew, logically, that she was in no danger, but her body reacted as if the shed door had just been bolted. This powerful physiological response (`Threat`) only serves to deepen her conviction that she is broken; she sees these false alarms as further evidence that there is something profoundly wrong with her as a person. Each panic attack becomes another piece of data confirming her deepest fear about her own character.\n\nThe feedback loop is relentless. The more her body screams danger, the more she believes she is flawed, and the more flawed she feels, the more danger she perceives. This state of constant threat also intensifies her reactivity to triggers. After the incident in the server room, the mere thought of entering a confined space is now enough to make her hands tremble. When her husband recently suggested a weekend camping trip to a state park, envisioning a relaxing escape, Imani felt a surge of terror. The idea of being in a natural environment, surrounded by the sounds of the woods at night, felt unbearable. Her sharp, immediate refusal left him confused and hurt, creating a distance between them she doesn't know how to bridge. She couldn't explain that talking about it, even in the abstract, felt like reliving it.\n\nImani finally sought therapy after her supervisor commented on her recent difficulty with concentration and her visible distress following the server room incident. She is terrified of losing her job, a source of pride and stability, and is increasingly aware of the growing chasm in her marriage. She feels trapped in a cycle of fear and self-blame, and expressed a desperate, quiet hope to one day feel safe in her own skin, to believe that what happened to her as a child was not a reflection of her worth.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

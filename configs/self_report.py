@@ -415,10 +415,8 @@ MALADAPTIVE_STRATEGIES: dict[str, str] = {
     # --- original items ---
     "Suppress Thoughts":             "try hard not think about the trauma",
     "Mental Distraction":            "keep mind occupied all the time",
-    "Emotion Control":               "control feelings",
     "Alcohol Use":                   "drink alcohol",
     "Drug Use":                      "take drugs",
-    "Emotional Numbing":             "numb emotions",
     "Avoid All Feelings":            "avoid anything that could cause negative or positive feelings",
     "Rumination: Prevention":        "ruminate about how event could have been prevented",
     "Rumination: Revenge":           "ruminate about how to get even with assailant",
@@ -426,16 +424,13 @@ MALADAPTIVE_STRATEGIES: dict[str, str] = {
     "Avoid Similar Clothes":         "avoid wearing similar clothes",
     "Carry Weapon":                  "carry weapon",
     "Hypervigilance towards people": "vigilant for dangerous people",
-    "Avoid Crowds":                  "avoid crowded places",
     "Stay Near Exit":                "make sure to stay close to exit",
     "Mirror Checking":               "keep checking mirrors",
-    "Avoid Future Plans":            "do not make any plans for the future",
     "Avoid Friends":                 "avoid seeing friends",
     "Stop Enjoyment":                "give up pleasant activities",
     "Avoid People":                  "avoid other people",
     "Face Hiding":                   "cover face with hands",
     "Heavy Makeup":                  "heavy make-up",
-    "Avoid Eye Contact":             "look down",
     "Delay Sleep":                   "stay up until very late",
     "Avoid Stressors":               "avoid anything that could be stressful",
     # --- new items ---
@@ -448,9 +443,7 @@ MALADAPTIVE_STRATEGIES: dict[str, str] = {
     "Sit With Back to Wall":         "always sit with back against a wall to see the room",
     # Safety behaviours — interpersonal
     "Never Alone":                   "make sure never to be alone with another person",
-    "Avoid Intimacy":                "avoid all emotional or physical closeness with others",
     "Rehearse Conversations":        "rehearse what to say before any interaction",
-    "Reassurance Seeking":           "repeatedly ask others for reassurance that I am safe",
     "Avoid Assertiveness":           "never disagree or assert myself to avoid conflict",
     "People Pleasing":               "go along with whatever others want to feel safe",
     # Cognitive safety behaviours
@@ -467,15 +460,12 @@ MALADAPTIVE_STRATEGIES: dict[str, str] = {
     "Self-Harm":                     "hurt myself physically to release overwhelming feelings",
     "Restrict Eating":               "control eating strictly to feel in control",
     "Overeat":                       "eat excessively to manage distress",
-    "Compulsive Exercise":           "exercise excessively to manage distress or feel in control",
     # Avoidance of internal states
     "Avoid Relaxation":              "avoid relaxing because it feels dangerous",
-    "Avoid Sleep":                   "resist falling asleep to avoid nightmares",
     "Avoid Positive Feelings":       "push away positive emotions because they feel unsafe",
     "Avoid Therapy Content":         "avoid thinking about anything discussed in therapy",
     # Occupational & social functioning
     "Overwork":                      "work excessively to avoid being alone with thoughts",
     "Isolate Completely":            "cut off all contact with friends and family",
     "Drop Responsibilities":         "give up important responsibilities to stay safe or avoid triggers",
-    "Avoid Medical Care":            "avoid medical or psychological appointments",
 }

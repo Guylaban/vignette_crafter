@@ -1,6 +1,7 @@
 import random
 from configs.formulation_config import DIRECT_EDGES
-from configs.demographics import AGE, GENDER, ETHNICITY, RELATIONSHIP_STATUS, OCCUPATION, TRAUMA_TYPE, PCL5
+from configs.demographics import (AGE, GENDER, ETHNICITY, RELATIONSHIP_STATUS, OCCUPATION, TRAUMA_TYPE, PCL5,
+                                   RELATIONSHIP_WEIGHTS_BY_AGE)
 from configs.self_report import (TRIGGERS, NEGATIVE_APPRAISALS, MEMORY,
                                   THREAT, MALADAPTIVE_STRATEGIES,
                                   DISTRACTION_STRATEGIES, AVOIDANCE_STRATEGIES)
@@ -18,13 +19,26 @@ _NODE_POOLS: dict[str, dict] = {
 
 # ── Sampling ──────────────────────────────────────────────────────────────────
 
+def _weights_for_age(age: int, table: list[tuple]) -> dict:
+    """Return the weight dict for the given age from an age-bracket table."""
+    for (lo, hi), weights in table:
+        if lo <= age <= hi:
+            return weights
+    return table[-1][1]  # fallback to last bracket
+
+
+def _sample_relationship(age: int) -> str:
+    weights = _weights_for_age(age, RELATIONSHIP_WEIGHTS_BY_AGE)
+    return random.choices(list(weights.keys()), weights=list(weights.values()))[0]
+
+
 def sample_demographics() -> dict:
-    """Sample a random patient demographics profile."""
+    age = random.randint(AGE["min"], AGE["max"])
     return {
-        "age":                 random.randint(AGE["min"], AGE["max"]),
+        "age":                 age,
         "gender":              random.choices(list(GENDER), weights=list(GENDER.values()))[0],
         "ethnicity":           random.choice(ETHNICITY),
-        "relationship_status": random.choice(RELATIONSHIP_STATUS),
+        "relationship_status": _sample_relationship(age),
         "occupation":          random.choice(OCCUPATION),
         "trauma_type":         random.choice(TRAUMA_TYPE),
         "pcl5":                random.randint(PCL5["min"], PCL5["max"]),
@@ -37,7 +51,7 @@ def resample_demographics_fields(demographics: dict, fields: list[str]) -> dict:
         "age":                 lambda: random.randint(AGE["min"], AGE["max"]),
         "gender":              lambda: random.choices(list(GENDER), weights=list(GENDER.values()))[0],
         "ethnicity":           lambda: random.choice(ETHNICITY),
-        "relationship_status": lambda: random.choice(RELATIONSHIP_STATUS),
+        "relationship_status": lambda: _sample_relationship(demographics.get("age", 40)),
         "occupation":          lambda: random.choice(OCCUPATION),
         "trauma_type":         lambda: random.choice(TRAUMA_TYPE),
         "pcl5":                lambda: random.randint(PCL5["min"], PCL5["max"]),
@@ -85,9 +99,7 @@ def sample_cognitive_model(node_prob: float = 0.7, edge_prob: float = 0.5) -> di
         )
         for (p, c) in DIRECT_EDGES
     }
-    active_nodes = list(dict.fromkeys(
-        n for (p, c), w in edges.items() if w > 0 for n in (p, c)
-    ))
+    active_nodes = [n for n in _ALL_NODES if n in active_set]
     return {"edges": edges, "active_nodes": active_nodes}
 
 

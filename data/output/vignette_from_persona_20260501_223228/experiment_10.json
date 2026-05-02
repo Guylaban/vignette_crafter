@@ -1,0 +1,248 @@
+{
+  "persona_id": 10,
+  "source_persona_id": 10,
+  "experiment_timestamp": "2026-05-01 22:37:04",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 30,
+    "gender": "Female",
+    "ethnicity": "Oceania",
+    "relationship_status": "Married",
+    "occupation": "Plumber",
+    "trauma_type": "Physical abuse by caregiver (childhood)",
+    "pcl5": 34
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Shouting",
+        "value": "Shouting"
+      },
+      {
+        "key": "Being Watched",
+        "value": "Feeling watched or observed"
+      },
+      {
+        "key": "Expressions of Anger",
+        "value": "Other people expressing anger, even calmly"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Undereating",
+        "value": "I avoid eating or restrict food as a way of coping"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      },
+      {
+        "key": "Mental Distraction",
+        "value": "keep mind occupied all the time"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Concentration",
+        "value": "Having difficulty concentrating"
+      },
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Partial Clarity",
+        "value": "Some moments of the event are extremely clear while others are completely blank"
+      },
+      {
+        "key": "Memory Feels Alien",
+        "value": "The memory feels like it belongs to someone else rather than to me"
+      },
+      {
+        "key": "Incomplete Picture",
+        "value": "I feel like I am only remembering parts of what happened and the rest is missing"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.5143,
+    "Triggers -- Threat": 0.8452,
+    "Triggers -- Memory": 0.0373,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.5848,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.6006,
+    "Threat -- Memory": 0.7886,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9844,
+    "Maladaptive Strategies -- Memory": 0.9005,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0539,
+    "Maladaptive Strategies -- Threat": 0.5247
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.58343,
+  "edge_density": 0.5,
+  "vignette_word_count": 1145,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Weapons): Weapons or objects used as weapons",
+          "explanation": "For childhood physical abuse by a caregiver, shouting is coherent, but 'Weapons or objects used as weapons' is hard to reconcile with the rest of the profile because neither the trauma type nor the other items suggest weapon-based assault. It implies a more specific trauma context that is not reflected in the memory, threat, or coping items."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Heavy Makeup: heavy make-up",
+          "explanation": "'Heavy make-up' is difficult to connect to the active formulation. The strongest network links involve Triggers, Threat, Memory, and Maladaptive Strategies, but the other selected strategy items are about distraction and bodily control. Heavy make-up usually implies concealment, appearance management, or social camouflage, which is not supported by any corresponding threat, trigger, memory, or appraisal content here, making this item feel clinically disconnected from the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Weapons)"
+        ],
+        "Maladaptive Strategies": [
+          "Heavy Makeup"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Feelings: Allowing myself to feel any strong emotion",
+          "explanation": "'Avoid Feelings' is internally contradictory as written: 'Allowing myself to feel any strong emotion' describes the opposite of avoiding feelings, so this item is not clinically coherent within the Maladaptive Strategies node."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Feelings"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Seeking Conflict: I pick arguments or create drama to distract myself from the trauma",
+          "explanation": "Within Maladaptive Strategies, 'Seeking Conflict' and 'Undereating' describe two quite different coping styles that are not impossible together, but in this profile they are weakly anchored to the rest of the formulation and trauma presentation. 'Seeking Conflict' is especially hard to reconcile with the otherwise fear-based trigger/threat pattern centered on shouting, anger, being watched, hypervigilance, and fragmented memory from childhood physical abuse."
+        },
+        {
+          "component": "Threat",
+          "item": "Undereating: I avoid eating or restrict food as a way of coping",
+          "explanation": "'Undereating' is also poorly integrated with the rest of the selected items. No other items indicate food-, body-, or control-related coping themes, so this strategy appears to address a symptom domain not otherwise represented in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Seeking Conflict"
+        ],
+        "Threat": [
+          "Undereating"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 4,
+    "passed": 1,
+    "failed": 3,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 16376,
+    "output": 1975,
+    "total": 18351
+  },
+  "vignette": "Mele was raised in a house where danger announced itself in ordinary human cues: her caregiver’s voice rising from the next room, the fixed sense of being watched for mistakes, the controlled face of anger that could turn physical without warning. She remembers standing very still in the kitchen as a child, trying to read the set of an adult jaw or the sound of footsteps, knowing that even calm anger could end with being grabbed or hit. What stayed with her into adulthood was not a single coherent narrative but a fractured set of impressions: a hand at her arm, the smell of the room, the feeling of bracing. Some moments are painfully sharp while whole stretches are blank, and when she speaks about it she often sounds as if she is describing something that happened to another girl rather than to herself.\n\nNow 30 and working as a plumber, Mele spends much of her day in other people’s homes and job sites where she is moving through tight spaces with coworkers, clients, and supervisors nearby. The settings repeatedly bring her into contact with the same cues that once meant danger. If a customer starts shouting from another room about a leak, if she notices someone standing behind her watching while she works under a sink, or if a coworker shows irritation in an otherwise controlled voice, her body reacts before she can think. She goes rigid and tense, loses track of what tool she was reaching for, and jolts when someone moves unexpectedly beside her. In those moments her attention narrows to scanning the room and the people in it, and the ordinary workplace starts to feel charged, as if threat is gathering around her.\n\nThese encounters do not just unsettle her in the moment; they also pull up the broken quality of the abuse memories. A man’s raised voice in a basement or the sensation of being observed while she works can bring back one vivid fragment with no beginning or end, while the rest remains missing. The image arrives detached and strange, as if it belongs to somebody else, and the gaps around it frighten her almost as much as the fragment itself. Because the memory comes in pieces, she cannot place it securely in the past, and that incompleteness leaves her feeling less certain about what is happening around her now.\n\nOver time, Mele has come to live in a state of constant readiness that seems to feed on those fractured memories. The less complete the memory feels, the more she scans for signs that something bad is about to happen; and the more keyed up she becomes, the harder it is for her to hold a full picture in mind. When danger felt that close, she treated control as the only thing standing between her and being overwhelmed: she kept herself relentlessly busy, pushed the abuse out of mind, and restricted food because being occupied and slightly numb seemed safer than giving fear any room to catch up with her. Living at that pitch of alertness, she found the workday had become crowded with reminders: a client lingering in a doorway, a voice carrying down the hall, even someone pausing behind her while she worked could register as a warning because her body was already expecting danger. Already braced for danger, she finds that the workday fills up with cues that start to feel like warnings: a client pausing in a doorway, footsteps coming down basement stairs, even someone quietly standing behind her to ask a question can register as the kind of reminder her body is primed to seize on. She describes losing concentration mid-task, then being startled by a coworker stepping into view, then catching only another flash of childhood experience rather than a whole memory. When she is this tense, even neutral observation by others can feel loaded, and calm annoyance on someone else’s face is quickly read as the start of something dangerous.\n\nTo manage this, she has built her days around not letting her mind settle. After difficult calls she skips meals, saying that restricting food gives her a feeling of control and blunts everything else. But these habits also keep confirming, in her own mind and body, that the danger must still be immediate; because she is always braced, distracted, or half-starved, she never stays with a situation long enough to learn that a raised voice or someone behind her at work is not inevitably the start of harm. Over time those habits have made the world feel more densely marked by the abuse. The jobs she rushes through, the rooms she cannot bear to linger in, and the quiet moments she works so hard to eliminate have themselves become reminders, each one silently signaling the places and states of mind she associates with being unsafe. She keeps herself mentally occupied at all times—podcasts in the truck, constant planning of the next repair, repetitive checking of inventory—because if there is a quiet moment, the fragments come closer. She also tries hard not to think about the abuse at all. Yet the effort to push it away seems to make the memory even less integrated; what remains are isolated flashes and a stronger sense that the memory is alien to her. By the end of the day, being underfed and mentally strained leaves her more jittery, less focused, and more physically reactive to sudden movement.\n\nThose coping habits have begun to shape what she can tolerate. She times jobs to avoid being around clients for long, rushes through tasks when she feels watched, and sometimes chooses cramped solo work over better-paying assignments with teams. The more she structures her day around staying busy, not eating, and forcing thoughts down, the more easily shouting or anger catches her off guard, and the more quickly she is launched back into that tense, vigilant state. Her husband has noticed that she comes home wired and distant, eating very little and unable to settle even in their own house if voices rise on television or a neighbor argues outside.\n\nMele sought help after snapping at a coworker who approached from the side while she was concentrating on a pipe repair; she recoiled so sharply that she hit her head and then could not focus for the rest of the job. What frightened her most was how immediate it felt, as if her body had decided she was a child again before she knew what was happening. She is afraid that if this keeps tightening, she will lose control at work or stop being able to do the job she is proud of. At the same time, she wants to understand why the memories come in pieces and hopes she might learn how to be in a room with other people’s anger without feeling that danger is already there."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Mele was raised in a house where danger announced itself in ordinary human cues: her caregiver’s voice rising from the next room, the fixed sense of being watched for mistakes, the controlled face of anger that could turn physical without warning. She remembers standing very still in the kitchen as a child, trying to read the set of an adult jaw or the sound of footsteps, knowing that even calm anger could end with being grabbed or hit. What stayed with her into adulthood was not a single coherent narrative but a fractured set of impressions: a hand at her arm, the smell of the room, the feeling of bracing. Some moments are painfully sharp while whole stretches are blank, and when she speaks about it she often sounds as if she is describing something that happened to another girl rather than to herself.\n\nNow 30 and working as a plumber, Mele spends much of her day in other people’s homes and job sites where she is moving through tight spaces with coworkers, clients, and supervisors nearby. The settings repeatedly bring her into contact with the same cues that once meant danger. If a customer starts shouting from another room about a leak, if she notices someone standing behind her watching while she works under a sink, or if a coworker shows irritation in an otherwise controlled voice, her body reacts before she can think. She goes rigid and tense, loses track of what tool she was reaching for, and jolts when someone moves unexpectedly beside her. In those moments her attention narrows to scanning the room and the people in it, and the ordinary workplace starts to feel charged, as if threat is gathering around her.\n\nThese encounters do not just unsettle her in the moment; they also pull up the broken quality of the abuse memories. A man’s raised voice in a basement or the sensation of being observed while she works can bring back one vivid fragment with no beginning or end, while the rest remains missing. The image arrives detached and strange, as if it belongs to somebody else, and the gaps around it frighten her almost as much as the fragment itself. Because the memory comes in pieces, she cannot place it securely in the past, and that incompleteness leaves her feeling less certain about what is happening around her now.\n\nOver time, Mele has come to live in a state of constant readiness that seems to feed on those fractured memories. The less complete the memory feels, the more she scans for signs that something bad is about to happen; and the more keyed up she becomes, the harder it is for her to hold a full picture in mind. She describes losing concentration mid-task, then being startled by a coworker stepping into view, then catching only another flash of childhood experience rather than a whole memory. When she is this tense, even neutral observation by others can feel loaded, and calm annoyance on someone else’s face is quickly read as the start of something dangerous.\n\nTo manage this, she has built her days around not letting her mind settle. After difficult calls she skips meals, saying that restricting food gives her a feeling of control and blunts everything else. She keeps herself mentally occupied at all times—podcasts in the truck, constant planning of the next repair, repetitive checking of inventory—because if there is a quiet moment, the fragments come closer. She also tries hard not to think about the abuse at all. Yet the effort to push it away seems to make the memory even less integrated; what remains are isolated flashes and a stronger sense that the memory is alien to her. By the end of the day, being underfed and mentally strained leaves her more jittery, less focused, and more physically reactive to sudden movement.\n\nThose coping habits have begun to shape what she can tolerate. She times jobs to avoid being around clients for long, rushes through tasks when she feels watched, and sometimes chooses cramped solo work over better-paying assignments with teams. The more she structures her day around staying busy, not eating, and forcing thoughts down, the more easily shouting or anger catches her off guard, and the more quickly she is launched back into that tense, vigilant state. Her husband has noticed that she comes home wired and distant, eating very little and unable to settle even in their own house if voices rise on television or a neighbor argues outside.\n\nMele sought help after snapping at a coworker who approached from the side while she was concentrating on a pipe repair; she recoiled so sharply that she hit her head and then could not focus for the rest of the job. What frightened her most was how immediate it felt, as if her body had decided she was a child again before she knew what was happening. She is afraid that if this keeps tightening, she will lose control at work or stop being able to do the job she is proud of. At the same time, she wants to understand why the memories come in pieces and hopes she might learn how to be in a room with other people’s anger without feeling that danger is already there.", "passed": false, "violations": [{"edge": "Threat → Triggers", "explanation": "The vignette shows triggers causing threat, but it does not clearly state that feeling threatened increases sensitivity to or generation of triggers/reminders."}, {"edge": "Maladaptive Strategies → Triggers", "explanation": "The vignette describes avoidance, restriction, and mental overcontrol worsening threat and memory problems, but it does not explicitly convey that these maladaptive strategies lead to more triggers or reminders."}], "violation_count": 2, "feedback": "REQUIRED EDGES MISSING:\n- Threat → Triggers: The vignette shows triggers causing threat, but it does not clearly state that feeling threatened increases sensitivity to or generation of triggers/reminders.\n  e.g. \"Already running on threat, she found that almost anything could tip into a warning — a van parked at an odd angle, a light left on that shouldn't have been.\"\n  e.g. \"The background hum of danger she carried everywhere made ordinary cues feel like messages — each one confirming what her body already believed.\"\n  e.g. \"Living at that pitch of alertness, she found the world had become dense with reminders she couldn't stop reading.\"\n- Maladaptive Strategies → Triggers: The vignette describes avoidance, restriction, and mental overcontrol worsening threat and memory problems, but it does not explicitly convey that these maladaptive strategies lead to more triggers or reminders.\n  e.g. \"Each place she avoided became a reminder in itself — the long way round she walked every morning was its own daily acknowledgement of what had happened.\"\n  e.g. \"Her safety behaviours had drawn a map of the event around her: everything she couldn't do, everywhere she couldn't go, every person she kept at arm's length.\"\n  e.g. \"The avoidance had grown in all directions until the city was full of routes she no longer used and things she could no longer say.\""},
+
+    {"vignette": "Mele was raised in a house where danger announced itself in ordinary human cues: her caregiver’s voice rising from the next room, the fixed sense of being watched for mistakes, the controlled face of anger that could turn physical without warning. She remembers standing very still in the kitchen as a child, trying to read the set of an adult jaw or the sound of footsteps, knowing that even calm anger could end with being grabbed or hit. What stayed with her into adulthood was not a single coherent narrative but a fractured set of impressions: a hand at her arm, the smell of the room, the feeling of bracing. Some moments are painfully sharp while whole stretches are blank, and when she speaks about it she often sounds as if she is describing something that happened to another girl rather than to herself.\n\nNow 30 and working as a plumber, Mele spends much of her day in other people’s homes and job sites where she is moving through tight spaces with coworkers, clients, and supervisors nearby. The settings repeatedly bring her into contact with the same cues that once meant danger. If a customer starts shouting from another room about a leak, if she notices someone standing behind her watching while she works under a sink, or if a coworker shows irritation in an otherwise controlled voice, her body reacts before she can think. She goes rigid and tense, loses track of what tool she was reaching for, and jolts when someone moves unexpectedly beside her. In those moments her attention narrows to scanning the room and the people in it, and the ordinary workplace starts to feel charged, as if threat is gathering around her.\n\nThese encounters do not just unsettle her in the moment; they also pull up the broken quality of the abuse memories. A man’s raised voice in a basement or the sensation of being observed while she works can bring back one vivid fragment with no beginning or end, while the rest remains missing. The image arrives detached and strange, as if it belongs to somebody else, and the gaps around it frighten her almost as much as the fragment itself. Because the memory comes in pieces, she cannot place it securely in the past, and that incompleteness leaves her feeling less certain about what is happening around her now.\n\nOver time, Mele has come to live in a state of constant readiness that seems to feed on those fractured memories. The less complete the memory feels, the more she scans for signs that something bad is about to happen; and the more keyed up she becomes, the harder it is for her to hold a full picture in mind. Already braced for danger, she finds that the workday fills up with cues that start to feel like warnings: a client pausing in a doorway, footsteps coming down basement stairs, even someone quietly standing behind her to ask a question can register as the kind of reminder her body is primed to seize on. She describes losing concentration mid-task, then being startled by a coworker stepping into view, then catching only another flash of childhood experience rather than a whole memory. When she is this tense, even neutral observation by others can feel loaded, and calm annoyance on someone else’s face is quickly read as the start of something dangerous.\n\nTo manage this, she has built her days around not letting her mind settle. After difficult calls she skips meals, saying that restricting food gives her a feeling of control and blunts everything else. Over time those habits have made the world feel more densely marked by the abuse. The jobs she rushes through, the rooms she cannot bear to linger in, and the quiet moments she works so hard to eliminate have themselves become reminders, each one silently signaling the places and states of mind she associates with being unsafe. She keeps herself mentally occupied at all times—podcasts in the truck, constant planning of the next repair, repetitive checking of inventory—because if there is a quiet moment, the fragments come closer. She also tries hard not to think about the abuse at all. Yet the effort to push it away seems to make the memory even less integrated; what remains are isolated flashes and a stronger sense that the memory is alien to her. By the end of the day, being underfed and mentally strained leaves her more jittery, less focused, and more physically reactive to sudden movement.\n\nThose coping habits have begun to shape what she can tolerate. She times jobs to avoid being around clients for long, rushes through tasks when she feels watched, and sometimes chooses cramped solo work over better-paying assignments with teams. The more she structures her day around staying busy, not eating, and forcing thoughts down, the more easily shouting or anger catches her off guard, and the more quickly she is launched back into that tense, vigilant state. Her husband has noticed that she comes home wired and distant, eating very little and unable to settle even in their own house if voices rise on television or a neighbor argues outside.\n\nMele sought help after snapping at a coworker who approached from the side while she was concentrating on a pipe repair; she recoiled so sharply that she hit her head and then could not focus for the rest of the job. What frightened her most was how immediate it felt, as if her body had decided she was a child again before she knew what was happening. She is afraid that if this keeps tightening, she will lose control at work or stop being able to do the job she is proud of. At the same time, she wants to understand why the memories come in pieces and hopes she might learn how to be in a room with other people’s anger without feeling that danger is already there.", "passed": false, "violations": [{"edge": "Threat → Triggers", "explanation": "The vignette shows triggers generating threat and threat making neutral cues feel dangerous reminders, but it does not clearly state within a single paragraph that Mele’s sense of threat itself causes or drives triggers/reminders."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Threat → Triggers: The vignette shows triggers generating threat and threat making neutral cues feel dangerous reminders, but it does not clearly state within a single paragraph that Mele’s sense of threat itself causes or drives triggers/reminders.\n  e.g. \"Already running on threat, she found that almost anything could tip into a warning — a van parked at an odd angle, a light left on that shouldn't have been.\"\n  e.g. \"The background hum of danger she carried everywhere made ordinary cues feel like messages — each one confirming what her body already believed.\"\n  e.g. \"Living at that pitch of alertness, she found the world had become dense with reminders she couldn't stop reading.\""},
+
+    {"vignette": "Mele was raised in a house where danger announced itself in ordinary human cues: her caregiver’s voice rising from the next room, the fixed sense of being watched for mistakes, the controlled face of anger that could turn physical without warning. She remembers standing very still in the kitchen as a child, trying to read the set of an adult jaw or the sound of footsteps, knowing that even calm anger could end with being grabbed or hit. What stayed with her into adulthood was not a single coherent narrative but a fractured set of impressions: a hand at her arm, the smell of the room, the feeling of bracing. Some moments are painfully sharp while whole stretches are blank, and when she speaks about it she often sounds as if she is describing something that happened to another girl rather than to herself.\n\nNow 30 and working as a plumber, Mele spends much of her day in other people’s homes and job sites where she is moving through tight spaces with coworkers, clients, and supervisors nearby. The settings repeatedly bring her into contact with the same cues that once meant danger. If a customer starts shouting from another room about a leak, if she notices someone standing behind her watching while she works under a sink, or if a coworker shows irritation in an otherwise controlled voice, her body reacts before she can think. She goes rigid and tense, loses track of what tool she was reaching for, and jolts when someone moves unexpectedly beside her. In those moments her attention narrows to scanning the room and the people in it, and the ordinary workplace starts to feel charged, as if threat is gathering around her.\n\nThese encounters do not just unsettle her in the moment; they also pull up the broken quality of the abuse memories. A man’s raised voice in a basement or the sensation of being observed while she works can bring back one vivid fragment with no beginning or end, while the rest remains missing. The image arrives detached and strange, as if it belongs to somebody else, and the gaps around it frighten her almost as much as the fragment itself. Because the memory comes in pieces, she cannot place it securely in the past, and that incompleteness leaves her feeling less certain about what is happening around her now.\n\nOver time, Mele has come to live in a state of constant readiness that seems to feed on those fractured memories. The less complete the memory feels, the more she scans for signs that something bad is about to happen; and the more keyed up she becomes, the harder it is for her to hold a full picture in mind. Living at that pitch of alertness, she found the workday had become crowded with reminders: a client lingering in a doorway, a voice carrying down the hall, even someone pausing behind her while she worked could register as a warning because her body was already expecting danger. Already braced for danger, she finds that the workday fills up with cues that start to feel like warnings: a client pausing in a doorway, footsteps coming down basement stairs, even someone quietly standing behind her to ask a question can register as the kind of reminder her body is primed to seize on. She describes losing concentration mid-task, then being startled by a coworker stepping into view, then catching only another flash of childhood experience rather than a whole memory. When she is this tense, even neutral observation by others can feel loaded, and calm annoyance on someone else’s face is quickly read as the start of something dangerous.\n\nTo manage this, she has built her days around not letting her mind settle. After difficult calls she skips meals, saying that restricting food gives her a feeling of control and blunts everything else. Over time those habits have made the world feel more densely marked by the abuse. The jobs she rushes through, the rooms she cannot bear to linger in, and the quiet moments she works so hard to eliminate have themselves become reminders, each one silently signaling the places and states of mind she associates with being unsafe. She keeps herself mentally occupied at all times—podcasts in the truck, constant planning of the next repair, repetitive checking of inventory—because if there is a quiet moment, the fragments come closer. She also tries hard not to think about the abuse at all. Yet the effort to push it away seems to make the memory even less integrated; what remains are isolated flashes and a stronger sense that the memory is alien to her. By the end of the day, being underfed and mentally strained leaves her more jittery, less focused, and more physically reactive to sudden movement.\n\nThose coping habits have begun to shape what she can tolerate. She times jobs to avoid being around clients for long, rushes through tasks when she feels watched, and sometimes chooses cramped solo work over better-paying assignments with teams. The more she structures her day around staying busy, not eating, and forcing thoughts down, the more easily shouting or anger catches her off guard, and the more quickly she is launched back into that tense, vigilant state. Her husband has noticed that she comes home wired and distant, eating very little and unable to settle even in their own house if voices rise on television or a neighbor argues outside.\n\nMele sought help after snapping at a coworker who approached from the side while she was concentrating on a pipe repair; she recoiled so sharply that she hit her head and then could not focus for the rest of the job. What frightened her most was how immediate it felt, as if her body had decided she was a child again before she knew what was happening. She is afraid that if this keeps tightening, she will lose control at work or stop being able to do the job she is proud of. At the same time, she wants to understand why the memories come in pieces and hopes she might learn how to be in a room with other people’s anger without feeling that danger is already there.", "passed": false, "violations": [{"edge": "Threat → Maladaptive Strategies", "explanation": "The vignette does not clearly state in the same paragraph that Mele’s sense of threat directly leads her to use maladaptive strategies such as food restriction, over-busyness, or thought suppression."}, {"edge": "Maladaptive Strategies → Threat", "explanation": "The vignette does not clearly state in the same paragraph that Mele’s maladaptive strategies directly increase or intensify her sense of threat."}], "violation_count": 2, "feedback": "REQUIRED EDGES MISSING:\n- Threat → Maladaptive Strategies: The vignette does not clearly state in the same paragraph that Mele’s sense of threat directly leads her to use maladaptive strategies such as food restriction, over-busyness, or thought suppression.\n  e.g. \"When the threat felt this close, planning her exit from every room she entered wasn't a symptom — it was just sensible.\"\n  e.g. \"She had found that checking the locks twice was the only thing that allowed her body to settle enough to sleep, so she checked them twice.\"\n  e.g. \"The only way to move through the world at that level of fear was to make it smaller — fewer places, fewer people, fewer chances for something to go wrong.\"\n- Maladaptive Strategies → Threat: The vignette does not clearly state in the same paragraph that Mele’s maladaptive strategies directly increase or intensify her sense of threat.\n  e.g. \"Never having stayed in a situation long enough to find out it was safe, her body had never received the evidence it needed — the threat remained as high as the day it was set.\"\n  e.g. \"The checking and the avoidance had kept her alive, in her nervous system's accounting, which meant the danger they were responding to must be real and ongoing.\"\n  e.g. \"Without ever testing the feeling, she had no way to know that the threat was not what her body insisted it was — the safety behaviours had sealed that possibility off.\""},
+
+    {"vignette": "Mele was raised in a house where danger announced itself in ordinary human cues: her caregiver’s voice rising from the next room, the fixed sense of being watched for mistakes, the controlled face of anger that could turn physical without warning. She remembers standing very still in the kitchen as a child, trying to read the set of an adult jaw or the sound of footsteps, knowing that even calm anger could end with being grabbed or hit. What stayed with her into adulthood was not a single coherent narrative but a fractured set of impressions: a hand at her arm, the smell of the room, the feeling of bracing. Some moments are painfully sharp while whole stretches are blank, and when she speaks about it she often sounds as if she is describing something that happened to another girl rather than to herself.\n\nNow 30 and working as a plumber, Mele spends much of her day in other people’s homes and job sites where she is moving through tight spaces with coworkers, clients, and supervisors nearby. The settings repeatedly bring her into contact with the same cues that once meant danger. If a customer starts shouting from another room about a leak, if she notices someone standing behind her watching while she works under a sink, or if a coworker shows irritation in an otherwise controlled voice, her body reacts before she can think. She goes rigid and tense, loses track of what tool she was reaching for, and jolts when someone moves unexpectedly beside her. In those moments her attention narrows to scanning the room and the people in it, and the ordinary workplace starts to feel charged, as if threat is gathering around her.\n\nThese encounters do not just unsettle her in the moment; they also pull up the broken quality of the abuse memories. A man’s raised voice in a basement or the sensation of being observed while she works can bring back one vivid fragment with no beginning or end, while the rest remains missing. The image arrives detached and strange, as if it belongs to somebody else, and the gaps around it frighten her almost as much as the fragment itself. Because the memory comes in pieces, she cannot place it securely in the past, and that incompleteness leaves her feeling less certain about what is happening around her now.\n\nOver time, Mele has come to live in a state of constant readiness that seems to feed on those fractured memories. The less complete the memory feels, the more she scans for signs that something bad is about to happen; and the more keyed up she becomes, the harder it is for her to hold a full picture in mind. When danger felt that close, she treated control as the only thing standing between her and being overwhelmed: she kept herself relentlessly busy, pushed the abuse out of mind, and restricted food because being occupied and slightly numb seemed safer than giving fear any room to catch up with her. Living at that pitch of alertness, she found the workday had become crowded with reminders: a client lingering in a doorway, a voice carrying down the hall, even someone pausing behind her while she worked could register as a warning because her body was already expecting danger. Already braced for danger, she finds that the workday fills up with cues that start to feel like warnings: a client pausing in a doorway, footsteps coming down basement stairs, even someone quietly standing behind her to ask a question can register as the kind of reminder her body is primed to seize on. She describes losing concentration mid-task, then being startled by a coworker stepping into view, then catching only another flash of childhood experience rather than a whole memory. When she is this tense, even neutral observation by others can feel loaded, and calm annoyance on someone else’s face is quickly read as the start of something dangerous.\n\nTo manage this, she has built her days around not letting her mind settle. After difficult calls she skips meals, saying that restricting food gives her a feeling of control and blunts everything else. But these habits also keep confirming, in her own mind and body, that the danger must still be immediate; because she is always braced, distracted, or half-starved, she never stays with a situation long enough to learn that a raised voice or someone behind her at work is not inevitably the start of harm. Over time those habits have made the world feel more densely marked by the abuse. The jobs she rushes through, the rooms she cannot bear to linger in, and the quiet moments she works so hard to eliminate have themselves become reminders, each one silently signaling the places and states of mind she associates with being unsafe. She keeps herself mentally occupied at all times—podcasts in the truck, constant planning of the next repair, repetitive checking of inventory—because if there is a quiet moment, the fragments come closer. She also tries hard not to think about the abuse at all. Yet the effort to push it away seems to make the memory even less integrated; what remains are isolated flashes and a stronger sense that the memory is alien to her. By the end of the day, being underfed and mentally strained leaves her more jittery, less focused, and more physically reactive to sudden movement.\n\nThose coping habits have begun to shape what she can tolerate. She times jobs to avoid being around clients for long, rushes through tasks when she feels watched, and sometimes chooses cramped solo work over better-paying assignments with teams. The more she structures her day around staying busy, not eating, and forcing thoughts down, the more easily shouting or anger catches her off guard, and the more quickly she is launched back into that tense, vigilant state. Her husband has noticed that she comes home wired and distant, eating very little and unable to settle even in their own house if voices rise on television or a neighbor argues outside.\n\nMele sought help after snapping at a coworker who approached from the side while she was concentrating on a pipe repair; she recoiled so sharply that she hit her head and then could not focus for the rest of the job. What frightened her most was how immediate it felt, as if her body had decided she was a child again before she knew what was happening. She is afraid that if this keeps tightening, she will lose control at work or stop being able to do the job she is proud of. At the same time, she wants to understand why the memories come in pieces and hopes she might learn how to be in a room with other people’s anger without feeling that danger is already there.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

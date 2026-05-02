@@ -1,0 +1,185 @@
+PERSONA 189  |  2026-05-02 17:48:14
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             72
+  gender          Female
+  ethnicity       African
+  relationship_status Widowed
+  occupation      Forester
+  trauma_type     Civilian in war zone
+  pcl5            64
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Nighttime/Dark: Night-time or waking up in the dark
+    • Auditory (Explosion): Explosion or bang sounds
+    • Perceived Threat: People acting suspiciously
+  Maladaptive Strategies:
+    • Sensory Distraction: I put on loud music or TV
+    • Checking Surroundings: constantly scan environment for signs of threat
+    • Hypervigilance towards people: vigilant for dangerous people
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0701
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Being Alone: Being alone in a room or building
+    explanation: The item is not a maladaptive strategy but describes an avoided situation/trigger-like context. It is internally mismatched with the other strategy items, which are actual coping behaviors (covering face, using loud music/TV). It also weakens cross-node coherence because the profile contains no corresponding threat, appraisal, or memory content explaining why being alone is specifically targeted.
+  [2] FAIL
+    item:        Triggers / Triggers: Object Throwing: Throwing objects
+    explanation: The trigger set is partly coherent for a civilian in a war zone (gunshot noise, darkness), but 'Throwing objects' is hard to reconcile as a salient trauma-related trigger without any supporting threat, memory, or appraisal content linking thrown objects to the war trauma.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Face Hiding: cover face with hands
+    explanation: The maladaptive strategies are not internally coherent with the formulation or with each other as the only active node pair is a very weak Maladaptive Strategies → Triggers link, yet the selected strategies imply multiple different symptom targets (acute fear concealment, sensory suppression, hypervigilant threat monitoring) without corresponding threat, memory, or appraisal content.
+  [3] FAIL
+    item:        Triggers / Triggers: Auditory/Threat: Gunshot noise
+    explanation: The trigger items are plausible for a civilian in a war zone, but the profile is not internally coherent with the cognitive formulation because all links from Triggers to other nodes are inactive and no Threat, Memory, or Negative Appraisal items are present to give these highly specific combat-like auditory triggers any connected meaning in the formulation.
+    item:        Maladaptive Strategies / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: Using loud music or TV as sensory distraction sits awkwardly with the dominant trigger pattern of gunshot and explosion sounds: this strategy relies on additional intense auditory input despite the only reported triggers being threatening noises. That is a hard-to-explain within-profile mismatch unless other non-auditory symptoms are present, which are not reported here.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,648
+  output:     5,241
+  total:      7,889
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Decades ago, Asha, then a young woman in her home country, had experienced the unimaginable. She
+remembered the night vividly: the sudden, deafening *boom* that shook their small village near the
+edge of the dense forest she knew so well. It was an attack, swift and brutal, under the shroud of
+darkness. She had hidden, pressing herself into the damp earth, the cries of her neighbours echoing
+with the terrifying sounds of gunfire and more explosions. What haunted her most was the sight of
+shadowy figures moving through the trees, their intentions unclear, but undeniably menacing. She had
+survived, but a part of her remained trapped in that terrifying night.
+
+Now, at 72, Asha carried the weight of that night with her daily, even in the serene forests of her
+adopted home in the United States. Her occupation as a forester, which she deeply loved, became a
+constant battleground. The deepening twilight, or waking up alone in her dark home, would instantly
+plunge her back into that primal fear, her heart pounding with the memory of the village under
+siege. Any sudden, loud bang – a distant backfire from a logging truck, the crack of a branch under
+strain, or even thunder – would send a jolt of terror through her, making her freeze, scanning
+frantically for the source, convinced for a split second that the war had returned.
+
+Her days were consumed by an almost ceaseless vigilance. When working deep in the forest, Asha would
+constantly scan her surroundings, her eyes darting between the trees, assessing every rustle, every
+shadow. This checking, while an attempt to secure her safety, often heightened her sensitivity,
+making her more prone to interpreting ambiguous sounds as immediate threats. She was hypervigilant
+towards people too; any unfamiliar person encountered on a trail, or even a new face in the local
+town, was scrutinized with an intense, wary gaze, her mind immediately racing through potential
+dangers. She had come to believe that trusting anyone too readily was a perilous mistake, a lesson
+etched into her by the betrayal and violence she witnessed.
+
+To manage the relentless anxiety, Asha had developed a repertoire of strategies. At home, especially
+as night fell, she would put on loud music or keep the television blaring, the cacophony a desperate
+attempt to drown out the silence that felt pregnant with unseen threats, and to distract her from
+the intrusive images that often surfaced. Yet, even as the noise filled the air, a deep part of Asha
+remained on edge, sometimes making her even more sensitive to the sudden, sharp sounds she was
+trying to escape, like a distant backfire that would send her heart racing. Her constant scanning of
+the dense forest around her, while intended to ensure safety, sometimes made her particularly
+susceptible to the rustle of leaves or the snap of a twig, which could instantly escalate into a
+perceived threat.
+
+This relentless state of alert had taken a significant toll. Asha, though physically robust for her
+age, felt perpetually exhausted. Her social life, already diminished since her husband’s passing,
+had dwindled further; she found it difficult to relax around others, always searching for signs of
+danger, always on guard. Her work, once a source of peace, now felt like a high-stakes mission,
+demanding every ounce of her mental energy. The cumulative burden of decades living in this state of
+hyper-arousal finally brought her to seek help. Asha yearned for a night of undisturbed sleep, for a
+moment in the forest where she could simply breathe without fear, but she was terrified that the
+vigilance that had saved her life so long ago was now an inseparable part of her, and that she might
+never truly feel safe again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Decades ago, Asha, then a young woman in her home country, had experienced the unimaginable. She
+remembered the night vividly: the sudden, deafening *boom* that shook their small village near the
+edge of the dense forest she knew so well. It was an attack, swift and brutal, under the shroud of
+darkness. She had hidden, pressing herself into the damp earth, the cries of her neighbours echoing
+with the terrifying sounds of gunfire and more explosions. What haunted her most was the sight of
+shadowy figures moving through the trees, their intentions unclear, but undeniably menacing. She had
+survived, but a part of her remained trapped in that terrifying night.
+
+Now, at 72, Asha carried the weight of that night with her daily, even in the serene forests of her
+adopted home in the United States. Her occupation as a forester, which she deeply loved, became a
+constant battleground. The deepening twilight, or waking up alone in her dark home, would instantly
+plunge her back into that primal fear, her heart pounding with the memory of the village under
+siege. Any sudden, loud bang – a distant backfire from a logging truck, the crack of a branch under
+strain, or even thunder – would send a jolt of terror through her, making her freeze, scanning
+frantically for the source, convinced for a split second that the war had returned.
+
+Her days were consumed by an almost ceaseless vigilance. When working deep in the forest, Asha would
+constantly scan her surroundings, her eyes darting between the trees, assessing every rustle, every
+shadow. This checking, while an attempt to secure her safety, often heightened her sensitivity,
+making her more prone to interpreting ambiguous sounds as immediate threats. She was hypervigilant
+towards people too; any unfamiliar person encountered on a trail, or even a new face in the local
+town, was scrutinized with an intense, wary gaze, her mind immediately racing through potential
+dangers. She had come to believe that trusting anyone too readily was a perilous mistake, a lesson
+etched into her by the betrayal and violence she witnessed.
+
+To manage the relentless anxiety, Asha had developed a repertoire of strategies. At home, especially
+as night fell, she would put on loud music or keep the television blaring, the cacophony a desperate
+attempt to drown out the silence that felt pregnant with unseen threats, and to distract her from
+the intrusive images that often surfaced. Yet, even as the noise filled the air, a deep part of Asha
+remained on edge, sometimes making her even more sensitive to the sudden, sharp sounds she was
+trying to escape, like a distant backfire that would send her heart racing. Her constant scanning of
+the dense forest around her, while intended to ensure safety, sometimes made her particularly
+susceptible to the rustle of leaves or the snap of a twig, which could instantly escalate into a
+perceived threat.
+
+This relentless state of alert had taken a significant toll. Asha, though physically robust for her
+age, felt perpetually exhausted. Her social life, already diminished since her husband’s passing,
+had dwindled further; she found it difficult to relax around others, always searching for signs of
+danger, always on guard. Her work, once a source of peace, now felt like a high-stakes mission,
+demanding every ounce of her mental energy. The cumulative burden of decades living in this state of
+hyper-arousal finally brought her to seek help. Asha yearned for a night of undisturbed sleep, for a
+moment in the forest where she could simply breathe without fear, but she was terrified that the
+vigilance that had saved her life so long ago was now an inseparable part of her, and that she might
+never truly feel safe again.

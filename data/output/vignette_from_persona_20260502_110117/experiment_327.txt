@@ -1,0 +1,210 @@
+PERSONA 327  |  2026-05-02 11:54:02
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             28
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Financial Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Media / News: Related news
+    • Weather Similarity: Similar weather conditions to when the event happened
+    • Children Present: Being around children
+  Threat:
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+  Memory:
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Identity Loss: I feel like I don't know myself anymore
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6291
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.3279
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.8899
+  Negative Appraisals → Triggers                     0.8733
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3833
+  Memory → Triggers                                  0.5300
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0248
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9883
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The threat items are keyed to interpersonal assault/home-intrusion danger and pervasive escape planning, which is hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, threat would more plausibly involve medical catastrophe, sudden deterioration, or loss, rather than someone entering the home.
+    item:        Negative Appraisals / Threat: Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    explanation: These threat items also fit poorly with the rest of the profile: the triggers are news, emotional closeness, and weather similarity, none of which plausibly connect to monitoring for an intruder or scanning escape routes. Given the very strong Triggers ↔ Threat edges, the selected threat content should be tightly linked to the triggers, but here the content appears to come from a different trauma schema.
+  [2] FAIL
+    item:        Triggers / Triggers: Emotional Closeness: Someone getting emotionally close to me
+    explanation: For trauma involving a child's life-threatening illness, media/news and weather cues are plausible reminders, but 'someone getting emotionally close to me' is difficult to reconcile as a primary trauma trigger unless there is additional interpersonal trauma history. It does not fit well with the illness-focused threat and memory pattern described by the rest of the profile.
+    item:        Negative Appraisals / Negative Appraisals: Dehumanization: I feel like an object, not like a person
+    explanation: The negative appraisal set is dominated by severe depersonalisation/identity disturbance ('object, not a person'; 'don't know myself anymore'; 'unrecognisable to me'), which is hard to link coherently to the stated trauma type and to the rest of the profile. For a parent traumatised by a child's illness, appraisals would more plausibly center on guilt, responsibility, permanent danger, or inability to protect. This item especially feels clinically mismatched rather than merely unusual.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,036
+  output:       966
+  total:      4,002
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Evan, a 28-year-old European American financial analyst, had been doing well by ordinary measures
+before his son’s illness, working long hours during the week and returning home each evening to a
+small apartment he shared with his wife. The crisis began when his toddler suddenly became gravely
+unwell, spiking a frightening fever and being rushed through emergency rooms and inpatient tests
+before doctors could stabilize him. Evan remembers the hours as a chain of fluorescent hallways,
+clipped voices, and the crushing sense that his child might die while he stood there unable to fix
+it. Since that period, certain moments have become loaded with alarm: a breaking-news alert about a
+pediatric illness, a stretch of cold rain outside the office windows, or a colleague’s child
+appearing in the break room can all make his body tighten before he has even had time to think. In
+those moments he reacts as if something terrible is about to happen, scanning exits in restaurants
+and conference rooms, choosing seats nearest the door, and lying awake at night needing to stay
+alert because he cannot trust that he will be ready if danger comes again.
+
+What Evan finds most disturbing is that the fear does not stay on the surface. The same weather that
+once coincided with the hospital calls now seems to carry the illness back into the present for him,
+and the sight of children in public makes his attention snap to the possibility of loss. He has come
+to believe that his mind has changed in a way he cannot recognize, that he no longer knows himself,
+and that the man he has become is unfamiliar even to him. He often says that he should have
+protected others and failed, a belief that takes on particular force when he sees news about sick
+children or hears parents talking in the grocery store. Those reminders make him feel newly
+implicated, as if the world is asking him again whether he will be ready next time, and he cannot
+bear that question. At work, after an email about a pediatric charity event or a news clip on
+someone’s screen, he will find himself stepping away, checking the hall, and trying to calm the
+surge of dread by planning how he could get out quickly if something happened.
+
+His memory of the illness remains strikingly vivid and detailed, but it comes to him mostly in
+pictures: the small body under hospital blankets, the red glow of monitor lights, his wife’s hand
+gripping the chair arm, the doctor’s mouth moving while he waited for the verdict. At the same time,
+he finds himself pushing the memory away before he can fully recall it, stopping short whenever the
+images start to assemble into a complete scene. He has learned that if he lets himself follow the
+memory all the way through, he is flooded with the same shame and sense of failure, and that makes
+the images come back even more sharply. The pictures then seem to confirm what he already fears
+about himself—that he was not enough, that he should have done more—and that conviction keeps the
+memory close even as he tries to shut it down.
+
+Those memories, in turn, have made the present feel dangerous in a way he cannot shake. When he
+notices the first dark clouds before a storm, or hears a news segment about a child’s
+hospitalization, he feels the old hospital terror rush back and immediately starts scanning for ways
+to leave, as if every room might become another waiting room. Children present the hardest test of
+all: at family gatherings he stands rigidly near the door, watching the children play and feeling
+the same need to escape and prepare that he felt in the hospital. The more he notices these cues,
+the more he believes they are proof that he has changed into someone unstable and failed, which
+makes him want to keep the memory at bay and stay away from anything that could bring it forward
+again. Over weeks, that pattern has narrowed his life; he avoids staying late at the office when a
+storm is rolling in, turns off the television when medical stories appear, and has begun declining
+invitations where friends’ children will be present, leaving his wife to explain his absences.
+
+By the time he sought help, Evan was sleeping poorly because he needed to stay alert, checking the
+apartment locks and mentally rehearsing how to get out of buildings before he could relax in them.
+He was most afraid that he would remain permanently unrecognizable to himself and that his constant
+sense of danger would keep him from being the father and husband he wants to be. What brought him in
+was the realization that he was no longer simply remembering the illness; he was organizing his days
+around it, and he feared that if he did not get help he would keep living as though his son’s near-
+death were happening all over again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Evan, a 28-year-old European American financial analyst, had been doing well by ordinary measures
+before his son’s illness, working long hours during the week and returning home each evening to a
+small apartment he shared with his wife. The crisis began when his toddler suddenly became gravely
+unwell, spiking a frightening fever and being rushed through emergency rooms and inpatient tests
+before doctors could stabilize him. Evan remembers the hours as a chain of fluorescent hallways,
+clipped voices, and the crushing sense that his child might die while he stood there unable to fix
+it. Since that period, certain moments have become loaded with alarm: a breaking-news alert about a
+pediatric illness, a stretch of cold rain outside the office windows, or a colleague’s child
+appearing in the break room can all make his body tighten before he has even had time to think. In
+those moments he reacts as if something terrible is about to happen, scanning exits in restaurants
+and conference rooms, choosing seats nearest the door, and lying awake at night needing to stay
+alert because he cannot trust that he will be ready if danger comes again.
+
+What Evan finds most disturbing is that the fear does not stay on the surface. The same weather that
+once coincided with the hospital calls now seems to carry the illness back into the present for him,
+and the sight of children in public makes his attention snap to the possibility of loss. He has come
+to believe that his mind has changed in a way he cannot recognize, that he no longer knows himself,
+and that the man he has become is unfamiliar even to him. He often says that he should have
+protected others and failed, a belief that takes on particular force when he sees news about sick
+children or hears parents talking in the grocery store. Those reminders make him feel newly
+implicated, as if the world is asking him again whether he will be ready next time, and he cannot
+bear that question. At work, after an email about a pediatric charity event or a news clip on
+someone’s screen, he will find himself stepping away, checking the hall, and trying to calm the
+surge of dread by planning how he could get out quickly if something happened.
+
+His memory of the illness remains strikingly vivid and detailed, but it comes to him mostly in
+pictures: the small body under hospital blankets, the red glow of monitor lights, his wife’s hand
+gripping the chair arm, the doctor’s mouth moving while he waited for the verdict. At the same time,
+he finds himself pushing the memory away before he can fully recall it, stopping short whenever the
+images start to assemble into a complete scene. He has learned that if he lets himself follow the
+memory all the way through, he is flooded with the same shame and sense of failure, and that makes
+the images come back even more sharply. The pictures then seem to confirm what he already fears
+about himself—that he was not enough, that he should have done more—and that conviction keeps the
+memory close even as he tries to shut it down.
+
+Those memories, in turn, have made the present feel dangerous in a way he cannot shake. When he
+notices the first dark clouds before a storm, or hears a news segment about a child’s
+hospitalization, he feels the old hospital terror rush back and immediately starts scanning for ways
+to leave, as if every room might become another waiting room. Children present the hardest test of
+all: at family gatherings he stands rigidly near the door, watching the children play and feeling
+the same need to escape and prepare that he felt in the hospital. The more he notices these cues,
+the more he believes they are proof that he has changed into someone unstable and failed, which
+makes him want to keep the memory at bay and stay away from anything that could bring it forward
+again. Over weeks, that pattern has narrowed his life; he avoids staying late at the office when a
+storm is rolling in, turns off the television when medical stories appear, and has begun declining
+invitations where friends’ children will be present, leaving his wife to explain his absences.
+
+By the time he sought help, Evan was sleeping poorly because he needed to stay alert, checking the
+apartment locks and mentally rehearsing how to get out of buildings before he could relax in them.
+He was most afraid that he would remain permanently unrecognizable to himself and that his constant
+sense of danger would keep him from being the father and husband he wants to be. What brought him in
+was the realization that he was no longer simply remembering the illness; he was organizing his days
+around it, and he feared that if he did not get help he would keep living as though his son’s near-
+death were happening all over again.

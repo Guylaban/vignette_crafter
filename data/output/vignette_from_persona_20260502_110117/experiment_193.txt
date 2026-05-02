@@ -1,0 +1,207 @@
+PERSONA 193  |  2026-05-02 11:32:05
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             68
+  gender          Female
+  ethnicity       North American
+  relationship_status Married
+  occupation      Retired
+  trauma_type     Unexpected or traumatic death of a loved one
+  pcl5            66
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Busyness: I work hard at keeping busy with other things
+    • Avoid People: avoid other people
+    • Avoid Social Contacts: Seeing people that I socialised with before the event
+  Threat:
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+  Negative Appraisals:
+    • Isolation: I feel isolated and set apart from others
+    • Belong Nowhere: I no longer belong anywhere
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.7616
+  Negative Appraisals → Threat                       0.6451
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.6353
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.5246
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Overworking: I throw myself into work or tasks to keep my mind occupied
+    explanation: For a 68-year-old retired patient, 'Overworking' is questionable as phrased because it implies a current work role; while keeping busy with tasks is plausible, the specific work-focused item is a poor fit to the demographic context.
+    item:        Negative Appraisals / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' is hard to link coherently to the indexed trauma of unexpected death of a loved one and to the rest of the profile. It suggests social/performance concerns that are not reflected in the threat or appraisal items and does not fit the formulation's main Negative Appraisals ↔ Threat loop.
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Being Touched: Any form of physical contact with others
+    explanation: For trauma type of unexpected death of a loved one, 'Avoid Being Touched' is hard to explain clinically unless there is interpersonal assault or bodily violation content, which is not present elsewhere in the profile. It appears mismatched to the trauma context and to the other selected items.
+    item:        Threat / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' suggests shame about appearance/performance or social evaluative threat, but the rest of the profile centers bereavement-related guilt, isolation, and generalized danger. This strategy does not connect well to the stated trauma type or to the active appraisal-threat loop.
+    item:        Negative Appraisals / Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    explanation: The threat items depict pervasive physical danger and inability to feel safe anywhere. In bereavement PTSD this can occur, but here the appraisals provided are mainly isolation and self-blame rather than danger-based meanings. The strong Negative Appraisals ↔ Threat loop is not well reflected because the appraisals do not explain this specific form of persistent external danger.
+  [3] FAIL
+    item:        Maladaptive Strategies / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' is hard to reconcile with the rest of the profile and the trauma type of traumatic bereavement. The other selected items center on grief-related self-blame, isolation, and generalized danger, but fear of being evaluated for appearance/performance suggests a social-evaluative concern not otherwise represented in threat, memory, triggers, or appraisals.
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: 'Self-Blame' can occur after the unexpected death of a loved one, but in this profile it sits awkwardly beside the chosen maladaptive strategies and threat items. If the patient blames herself for the death, one would expect linked strategies or threat content tied to guilt, responsibility, rumination, or death-related cues; instead the profile emphasizes social withdrawal and generic unsafety, making this item insufficiently integrated with the rest.
+    item:        Threat / Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    explanation: 'Cannot Trust Safety' is not impossible in PTSD, but with traumatic bereavement and no trigger or memory items selected, the threat profile becomes very generalized. In combination with the social-evaluative avoidance item, it creates a mixed formulation in which the source of danger is unclear: bereavement-related guilt/loss versus broad physical danger versus fear of scrutiny. This weakens coherence across nodes given the active Negative Appraisals ↔ Threat linkage.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,885
+  output:       919
+  total:      3,804
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Marilyn, a 68-year-old North American woman, came to treatment more than a year after her husband’s
+sudden death, describing herself as “still living in the day it happened.” The loss had been
+unexpected and violent in its impact: one evening he had been laughing with her at the kitchen
+table, and within hours he was gone following an acute medical emergency that left no time for
+goodbyes or preparation. In the weeks after the death, Marilyn found herself returning again and
+again to the same terrible thought that she should have protected him and failed, even though she
+could not point to anything she might realistically have done differently. That belief settled over
+her with a sense of deep isolation, as if she had been left outside a life that other people could
+still enter. She said she no longer belonged anywhere, not at family gatherings, not with neighbors,
+not even in her own home, because every room reminded her of what she had lost and of what she
+believed she had not managed to prevent. From that place, she began working hard at keeping busy
+with other things. At first it was practical—laundry, reorganizing drawers, sorting bills—but it
+gradually became a way of outrunning the thought that she had failed. She filled her retired days
+with chores, errands, television, and small projects because stillness gave her too much room to
+feel the shame and grief that rose whenever she thought about the night he died.
+
+Marilyn’s sense of being set apart did not stay as a belief alone; it also sharpened the way her
+body reacted. She described feeling constantly tense, as if she were braced for some new blow, and
+said she could not relax even in places she knew were safe, like her own den or bedroom. The more
+she kept herself occupied and away from people, the more her body seemed to stay on guard, never
+fully coming down from that state of readiness. She noticed tight shoulders, a clenched jaw, and a
+startle that made ordinary sounds feel abrupt and threatening. The same bodily alertness fed back
+into her mind. When her heart raced or her muscles tightened, she took it as evidence that danger
+was still near and that she had not really gotten through what happened. That physical tension made
+her more certain that something bad could happen again, and the certainty deepened her belief that
+she was alone in carrying it. What frightened her most was not only the memory of her husband’s
+death, but the sense that her body was acting as if it expected another catastrophe and that she
+could not trust herself to feel safe.
+
+Over the following months, Marilyn’s efforts to stay busy and keep people at a distance became part
+of the way she managed the days, yet they also kept her nervous system wound tight. She avoided
+other people whenever she could, and especially avoided seeing the friends and couples she had
+socialized with before the event, because their ordinary conversations made her feel more
+conspicuously widowed and out of place. Her retired life shrank around the house and a few necessary
+errands, with only brief contact at the grocery store or pharmacy. Each time she turned down an
+invitation or stayed home instead of going out, the relief was immediate, but it never lasted. The
+quiet gave her more time to notice the tension in her body, and the tension brought back the same
+negative feelings—fear, horror, anger, guilt, and shame—that had first attached themselves to her
+husband’s death. Those feelings made her more convinced that she was isolated and had no place among
+other people, so she withdrew further, and the pattern became harder to interrupt.
+
+By the time she sought help, Marilyn said she was exhausted by the effort of holding herself
+together. She was still functioning in a narrow way, but it felt increasingly brittle, as though she
+were one jarring reminder or one unexpected social contact away from becoming overwhelmed. She
+wanted to stop living in this guarded, solitary way, yet she was also afraid that if she let herself
+slow down, the full weight of her belief that she had failed to protect her husband would catch up
+with her. What brought her in finally was the growing realization that she was not simply grieving;
+she was stuck in a life organized around being tense, busy, and apart. What she most hoped for was
+to feel safe enough to rest, and what she most feared was that without help she would remain
+permanently outside the world she once shared with him.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Marilyn, a 68-year-old North American woman, came to treatment more than a year after her husband’s
+sudden death, describing herself as “still living in the day it happened.” The loss had been
+unexpected and violent in its impact: one evening he had been laughing with her at the kitchen
+table, and within hours he was gone following an acute medical emergency that left no time for
+goodbyes or preparation. In the weeks after the death, Marilyn found herself returning again and
+again to the same terrible thought that she should have protected him and failed, even though she
+could not point to anything she might realistically have done differently. That belief settled over
+her with a sense of deep isolation, as if she had been left outside a life that other people could
+still enter. She said she no longer belonged anywhere, not at family gatherings, not with neighbors,
+not even in her own home, because every room reminded her of what she had lost and of what she
+believed she had not managed to prevent. From that place, she began working hard at keeping busy
+with other things. At first it was practical—laundry, reorganizing drawers, sorting bills—but it
+gradually became a way of outrunning the thought that she had failed. She filled her retired days
+with chores, errands, television, and small projects because stillness gave her too much room to
+feel the shame and grief that rose whenever she thought about the night he died.
+
+Marilyn’s sense of being set apart did not stay as a belief alone; it also sharpened the way her
+body reacted. She described feeling constantly tense, as if she were braced for some new blow, and
+said she could not relax even in places she knew were safe, like her own den or bedroom. The more
+she kept herself occupied and away from people, the more her body seemed to stay on guard, never
+fully coming down from that state of readiness. She noticed tight shoulders, a clenched jaw, and a
+startle that made ordinary sounds feel abrupt and threatening. The same bodily alertness fed back
+into her mind. When her heart raced or her muscles tightened, she took it as evidence that danger
+was still near and that she had not really gotten through what happened. That physical tension made
+her more certain that something bad could happen again, and the certainty deepened her belief that
+she was alone in carrying it. What frightened her most was not only the memory of her husband’s
+death, but the sense that her body was acting as if it expected another catastrophe and that she
+could not trust herself to feel safe.
+
+Over the following months, Marilyn’s efforts to stay busy and keep people at a distance became part
+of the way she managed the days, yet they also kept her nervous system wound tight. She avoided
+other people whenever she could, and especially avoided seeing the friends and couples she had
+socialized with before the event, because their ordinary conversations made her feel more
+conspicuously widowed and out of place. Her retired life shrank around the house and a few necessary
+errands, with only brief contact at the grocery store or pharmacy. Each time she turned down an
+invitation or stayed home instead of going out, the relief was immediate, but it never lasted. The
+quiet gave her more time to notice the tension in her body, and the tension brought back the same
+negative feelings—fear, horror, anger, guilt, and shame—that had first attached themselves to her
+husband’s death. Those feelings made her more convinced that she was isolated and had no place among
+other people, so she withdrew further, and the pattern became harder to interrupt.
+
+By the time she sought help, Marilyn said she was exhausted by the effort of holding herself
+together. She was still functioning in a narrow way, but it felt increasingly brittle, as though she
+were one jarring reminder or one unexpected social contact away from becoming overwhelmed. She
+wanted to stop living in this guarded, solitary way, yet she was also afraid that if she let herself
+slow down, the full weight of her belief that she had failed to protect her husband would catch up
+with her. What brought her in finally was the growing realization that she was not simply grieving;
+she was stuck in a life organized around being tense, busy, and apart. What she most hoped for was
+to feel safe enough to rest, and what she most feared was that without help she would remain
+permanently outside the world she once shared with him.

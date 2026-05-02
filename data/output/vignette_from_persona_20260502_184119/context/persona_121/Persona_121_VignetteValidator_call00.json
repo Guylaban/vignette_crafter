@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "agent_name": "Persona_121_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-02 21:19:23"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Negative Appraisals\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Maladaptive Strategies\n  - Triggers → Threat\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Maladaptive Strategies\n  - Negative Appraisals → Threat\n  - Negative Appraisals → Triggers\n  - Threat → Maladaptive Strategies\n  - Threat → Negative Appraisals\n  - Threat → Triggers\n  - Maladaptive Strategies → Negative Appraisals\n  - Maladaptive Strategies → Triggers\n  - Maladaptive Strategies → Threat\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nThe night the hurricane hit the coastal city, Amara was still on call at the teaching hospital. She was twenty years old, the youngest surgical intern in the program, and she had felt invincible. When the storm surge flooded the ground floor, she and three attending physicians climbed to the roof. For hours, in the dark and screaming wind, she held onto a ventilation pipe, watching water swallow the city below. One of the attendings lost his grip and was swept away. Amara was rescued at dawn, hypothermic and silent, but physically unharmed. She finished her internship, passed her boards, and became a surgeon—but something inside her had shattered in the dark that night.\n\nNow, at twenty-one, Amara works in the same hospital system, but the building feels haunted. Every shift brings triggers: the sound of rain against the OR windows, a sudden siren from the ambulance bay, the shift from daylight to dusk as evening surgery runs late. When the weather turns and the sky darkens, her body reacts before her mind does—her heart pounds, her hands tremble, and she feels a wave of heat wash through her. She has grown hypervigilant, scanning every monitor for alarms, jumping at the clatter of a dropped instrument, her startle reflex always on high alert. She tries to control these reactions by forcing herself to breathe slowly, but the effort exhausts her. She has come to believe that the trauma destroyed her ability to feel safe in her own skin—her life, she thinks, has been destroyed by that night. She cannot rely on herself anymore; during complex procedures, a small doubt spirals into a certainty that she will make a fatal mistake. She feels helpless, convinced that no matter what she does, something terrible will happen again.\n\nTo manage the constant dread, Amara has developed strategies that she knows are not working but cannot stop. She avoids exercise entirely—even a brisk walk raises her heart rate, and that sensation immediately plunges her back into the panic of that night, her body screaming that she is drowning again. In the OR, she suppresses every emotion: when a senior surgeon criticizes her, she nods and agrees, becoming overly compliant, swallowing her own judgment. She has learned that if she stays quiet and agreeable, threats seem to pass more quickly. But this only deepens her sense of helplessness. She notices that the more she controls her emotions, the more sensitive she becomes to reminders—a drop of rain on the window, a forgotten overhead light clicking off—each one feels like a premonition. And the more hypervigilant she is, the more she interprets ordinary sounds as danger signals, which reinforces her belief that she cannot protect herself.\n\nThe consequences are accumulating. Her attending recently noted that she seems \"distracted and jumpy\" during surgery, and she was passed over for a lead role in a complex case. She began to dread the night shift because of the darkness and the quiet, even though she used to prefer it. Last week, a routine thunderstorm sent her into a full panic during a procedure; she had to hand off the scalpel and step out. That was when she finally called the hospital's employee assistance program. She is terrified that she is ruining her career, but at the consult she could only whisper, \"I can't stop bad things from happening to me. What if I hurt someone?\" She now sits in the therapist's office, hoping for a way to stop the cycle, but also certain that nothing will ever feel safe again.\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Negative Appraisals → Maladaptive Strategies",
+      "Negative Appraisals → Threat",
+      "Negative Appraisals → Triggers"
+    ],
+    "violation_explanations": [
+      "No paragraph conveys that negative appraisals (e.g., beliefs of helplessness) drive or lead to maladaptive strategies like avoidance or suppression.",
+      "No paragraph conveys that negative appraisals cause a sense of threat; instead threat often precedes or reinforces appraisals.",
+      "No paragraph conveys that negative appraisals increase sensitivity to triggers; increased sensitivity is attributed to maladaptive strategies or hypervigilance."
+    ]
+  }
+}

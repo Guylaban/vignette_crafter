@@ -1,0 +1,189 @@
+{
+  "persona_id": 377,
+  "source_persona_id": 377,
+  "experiment_timestamp": "2026-05-02 12:01:40",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4-mini",
+      "persona_crafter": "gpt-5.4-mini",
+      "vignette_crafter": "gpt-5.4-mini",
+      "vignette_validator": "gpt-5.4-mini"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 45,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Journalist",
+    "trauma_type": "Captivity",
+    "pcl5": 66
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Somatic Pain (Neck)",
+        "value": "Neck pain"
+      },
+      {
+        "key": "Tactile (Touch)",
+        "value": "Physical touch"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      },
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Terror on Recall",
+        "value": "Remembering the event brings back the same terror I felt at the time"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4755,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.1762,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9617,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5378,
+  "edge_density": 0.15,
+  "vignette_word_count": 693,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Checking Behind: I frequently look behind me to check if someone is following me",
+          "explanation": "For a captivity trauma profile, the threat pattern is dominated by loud sounds/startle and false alarms, but 'checking if someone is following me' implies a stalking/pursuit-based danger context that is not supported by the listed triggers or memory items. With strong Threat → Triggers and Memory → Triggers links, the threat content should connect plausibly to the trigger set; here the pursuit-focused checking stands out as clinically mismatched."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Within the memory node, recurrent replay and uncontrolled intrusions fit the formulation and trauma type, but intense shame on recall introduces a self-evaluative appraisal theme that is otherwise absent. Given that Negative Appraisals is not represented and Threat → Negative Appraisals / Memory → Negative Appraisals are inactive, this item does not cohere well with the otherwise sensory-intrusive memory profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Checking Behind"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Car Similarity: Similar cars",
+          "explanation": "For captivity trauma, 'similar cars' is hard to reconcile with the rest of the profile unless transport vehicles were a clearly central part of the trauma. The other selected trigger items and all Threat/Memory items point to a general captivity-style pattern of somatic/tactile cueing, intrusive replay, terror on recall, and hypervigilance to sudden sounds. A car-specific visual trigger stands out as insufficiently connected to the rest of this formulation and is the one item a clinician would most likely question."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Car Similarity"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2743,
+    "output": 820,
+    "total": 3563
+  },
+  "vignette": "Daniel Weiss was 45, a married journalist who had built his life around being the person who went toward difficult stories rather than away from them. That changed after he was held captive while on assignment abroad, when armed men blindfolded him, kept him in a cramped room, and repeatedly grabbed him by the neck to force him to stay still and obey. He was released alive, but he came home with the uneasy sense that part of him had never left that room. In the weeks that followed, the memory would force its way into his mind when he did not want it to, and when it came it did not feel like a story he was recalling from a distance. Daniel described it as if the scene were projected in front of him, like a film that played over and over: the dim light, the pressure on his throat, the sound of men moving just outside the door. Each replay brought back the same terror he had felt at the time, with no real sense that the danger belonged to the past.\n\nAt first he tried to keep working, telling himself that returning to the newsroom would restore some control. Instead, he found himself on edge in ways that made ordinary life feel dangerous. He was superalert and watchful wherever he went, scanning hallways, exits, and the faces of strangers as if he were still waiting for someone to come for him. Unexpected or loud sounds—someone dropping a binder in the newsroom, a door slamming in the apartment building, a sudden shout from the street—would send him immediately into alarm. He knew, intellectually, that he was safe, but he often reacted as if he were in danger even when nothing was actually wrong. That constant state of alertness made it harder for the captivity memory to stay in the background; the more keyed up he became, the more readily the images broke through, and every intrusion arrived with the same visceral terror. Once those memories surged, they also sharpened the things his body had learned to fear, so that pain in his neck, a hand placed on his shoulder by a colleague, or the smell of alcohol drifting from someone’s breath could suddenly feel loaded with threat.\n\nOver time, Daniel began organizing his life around avoiding those jolting moments. He took longer routes through the office to avoid crowded lifts and narrow corridors, and he became careful about social lunches because the smell of alcohol from a nearby table could make his stomach tighten and his attention snap back to the captivity. He asked his wife not to hug him from behind and would stiffen if she touched the back of his neck while passing him in the kitchen. What frightened him most was not only the memory itself, but how quickly it could be set off by something as small as a touch or a twinge of pain in his neck, as if his body were still waiting for the next grab. Because he was constantly on guard for sounds, for contact, and for the faintest echo of the room where he had been held, those cues began to dominate his days. The more he watched for danger, the more places and situations felt contaminated by it, and the easier it became for the captivity to return uninvited.\n\nBy the time he sought help, Daniel had become increasingly withdrawn at home and less settled at work, where interviews in busy environments and unexpected noise in the newsroom left him tense and distracted. He was ashamed that, after surviving something so extreme, he still found himself flinching from a hand on the neck or feeling trapped by the smell of alcohol at a colleague’s dinner. What brought him to treatment was the realization that he was no longer simply remembering what happened; he was living as though it could happen again at any moment. He came hoping to recover enough calm to be with his wife without bracing himself, to sit through a workday without constant scanning, and to stop feeling that his own mind was dragging him back into captivity."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Daniel Weiss was 45, a married journalist who had built his life around being the person who went toward difficult stories rather than away from them. That changed after he was held captive while on assignment abroad, when armed men blindfolded him, kept him in a cramped room, and repeatedly grabbed him by the neck to force him to stay still and obey. He was released alive, but he came home with the uneasy sense that part of him had never left that room. In the weeks that followed, the memory would force its way into his mind when he did not want it to, and when it came it did not feel like a story he was recalling from a distance. Daniel described it as if the scene were projected in front of him, like a film that played over and over: the dim light, the pressure on his throat, the sound of men moving just outside the door. Each replay brought back the same terror he had felt at the time, with no real sense that the danger belonged to the past.\n\nAt first he tried to keep working, telling himself that returning to the newsroom would restore some control. Instead, he found himself on edge in ways that made ordinary life feel dangerous. He was superalert and watchful wherever he went, scanning hallways, exits, and the faces of strangers as if he were still waiting for someone to come for him. Unexpected or loud sounds—someone dropping a binder in the newsroom, a door slamming in the apartment building, a sudden shout from the street—would send him immediately into alarm. He knew, intellectually, that he was safe, but he often reacted as if he were in danger even when nothing was actually wrong. That constant state of alertness made it harder for the captivity memory to stay in the background; the more keyed up he became, the more readily the images broke through, and every intrusion arrived with the same visceral terror. Once those memories surged, they also sharpened the things his body had learned to fear, so that pain in his neck, a hand placed on his shoulder by a colleague, or the smell of alcohol drifting from someone’s breath could suddenly feel loaded with threat.\n\nOver time, Daniel began organizing his life around avoiding those jolting moments. He took longer routes through the office to avoid crowded lifts and narrow corridors, and he became careful about social lunches because the smell of alcohol from a nearby table could make his stomach tighten and his attention snap back to the captivity. He asked his wife not to hug him from behind and would stiffen if she touched the back of his neck while passing him in the kitchen. What frightened him most was not only the memory itself, but how quickly it could be set off by something as small as a touch or a twinge of pain in his neck, as if his body were still waiting for the next grab. Because he was constantly on guard for sounds, for contact, and for the faintest echo of the room where he had been held, those cues began to dominate his days. The more he watched for danger, the more places and situations felt contaminated by it, and the easier it became for the captivity to return uninvited.\n\nBy the time he sought help, Daniel had become increasingly withdrawn at home and less settled at work, where interviews in busy environments and unexpected noise in the newsroom left him tense and distracted. He was ashamed that, after surviving something so extreme, he still found himself flinching from a hand on the neck or feeling trapped by the smell of alcohol at a colleague’s dinner. What brought him to treatment was the realization that he was no longer simply remembering what happened; he was living as though it could happen again at any moment. He came hoping to recover enough calm to be with his wife without bracing himself, to sit through a workday without constant scanning, and to stop feeling that his own mind was dragging him back into captivity.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

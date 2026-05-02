@@ -1,0 +1,195 @@
+PERSONA 98  |  2026-05-02 11:16:32
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             58
+  gender          Male
+  ethnicity       African
+  relationship_status Married
+  occupation      Hairdresser
+  trauma_type     Mugging or robbery
+  pcl5            72
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Being Criticised: Being criticised or corrected
+    • Olfactory (Alcohol): Alcohol smell
+    • Perceived Threat: People acting suspiciously
+  Maladaptive Strategies:
+    • Self-Blame Rumination: I dwell on what I have done wrong
+    • Suppress Thoughts: try hard not think about the trauma
+    • Avoid People: avoid other people
+  Memory:
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.1229
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.2067
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.2704
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.2097
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0490
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, 'I can talk about what happened very easily' conflicts with the other two memory items, which describe intrusive, sensory-dominated, repeatedly replaying trauma memories. That combination is not impossible, but with no other items indicating organized narrative access, the 'very easily' wording pulls in the opposite direction and is clinically inconsistent within this node.
+    item:        Triggers / Memory: Visual Memories: My memories of the frightening event are mostly pictures or images.
+    explanation: The trigger set is hard to reconcile with the trauma type of mugging/robbery. 'Being around children' and 'Happy families' do not show a plausible thematic link to the reported trauma, and there are no accompanying threat or appraisal items to explain why these social/family cues would specifically trigger this patient's robbery-related PTSD.
+    item:        Maladaptive Strategies / Memory: Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    explanation: 'I pick arguments or create drama to distract myself from the trauma' is weakly supported by the rest of the profile. The formulation mainly links triggers and memory with maladaptive strategies, but the actual triggers and memory content given are socially/family themed and intrusive-image based; deliberate conflict-seeking does not fit clearly with those items and looks clinically disconnected from the rest of the profile.
+  [2] FAIL
+    item:        Triggers / Triggers: Children Present: Being around children
+    explanation: For a mugging/robbery trauma, triggers centered on children and idealized families are hard to link clinically unless there is additional trauma meaning not represented elsewhere. The memory items describe perceptual re-experiencing of the robbery, but these triggers imply family/child themes that are absent from the rest of the profile, making the trigger set feel disconnected from the trauma type.
+    item:        Maladaptive Strategies / Triggers: Idealized Families: Happy families
+    explanation: Within the Triggers node, 'children present' and 'happy families' suggest a loss/family-comparison theme, whereas 'being criticised or corrected' suggests interpersonal shame or sensitivity. These could coexist, but together they do not form a coherent trigger pattern tied to a robbery, especially given no threat or appraisal items supporting these meanings.
+  [3] FAIL
+    item:        Triggers / Triggers: Idealized Families: Happy families
+    explanation: 'Happy families' is a weakly plausible trigger for a mugging/robbery trauma and is hard to connect to the accompanying memory items, which are purely sensory/reliving-based and suggest trauma reminders tied more directly to the event. It does not fit well with the otherwise robbery-linked trigger pattern.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Seeking Conflict: I pick arguments or create drama to distract myself from the trauma
+    explanation: 'Seeking conflict/create drama' is not well supported by the rest of the profile. The formulation links triggers and memory to maladaptive strategies, but the selected triggers and memory items imply intrusive re-experiencing, for which suppression/avoidance is coherent; deliberate conflict-seeking appears clinically disconnected and unusually externalising relative to the rest of the profile.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,816
+  output:       867
+  total:      3,683
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Jamal, a 58-year-old African American man who had spent most of his adult life cutting hair in a
+small neighborhood salon, came to treatment after his wife said she no longer recognized how
+withdrawn and tense he had become. The robbery had happened just after closing one winter evening,
+when he was locking up the shop and counting the day’s cash by the counter. Two men approached from
+the alley, one of them smelling strongly of alcohol before either spoke, and their manner shifted
+from uncertain to threatening in a way Jamal still described as suspicious, like they were circling
+him and deciding what to do. One shoved him against the wall, demanded the money, and struck him
+hard enough to leave him stunned; what stayed with Jamal most was not a neat story he could tell,
+but flashes of the men’s faces, the glint of the knife, his own hands dropping the bills, and the
+sound of his wife’s voice in his head later asking how it had happened so fast. He said he knew what
+happened, but when he tried to explain it, the words would not come; it was all “just pictures,” as
+if the scene kept arriving in fragments he could not arrange into language. Those pictures replayed
+like a film over and over, especially at night, and the more they returned, the more he found
+himself scanning the street for people acting suspiciously and tensing whenever he caught alcohol on
+someone’s breath or coat.
+
+In the weeks that followed, Jamal noticed that criticism and correction began to sting in a new way.
+In the salon, if a customer complained that he had cut too much hair off one side, or if a fellow
+stylist casually corrected his technique, he felt the same hot rush of shame and danger that had
+come with the robbery, as though being wrong in front of another person might somehow make him
+vulnerable again. Those moments sent him back to the alley in his mind: the sudden threat, the
+shove, the helplessness, the pictures that would not stay still. He came to dread the return of
+those images, because once they started he would spend hours trying to force them away, clenching
+his jaw and telling himself not to think about it, not to picture the knife, not to remember the
+smell of alcohol on the man’s breath. Yet the harder he tried to suppress it, the more forcefully it
+seemed to break through, and afterward he would dwell on what he had done wrong—whether he should
+have left the shop earlier, whether he should have looked more alert, whether he had somehow invited
+it by not being careful enough. That self-blame made him even more watchful in public, and the
+watchfulness kept the event alive; every suspicious glance on the sidewalk, every man speaking too
+loudly near the storefront, every whiff of liquor at the end of the day pulled him back into the
+same frightened state.
+
+By the time he sought help, Jamal had narrowed his life to an effort to avoid other people as much
+as possible. He stopped lingering after work, no longer accepted invitations from longtime friends,
+and let his wife handle errands that would have brought him into crowded stores or onto busy blocks.
+At the salon he still worked, but he kept to the chair, moved quickly between clients, and avoided
+conversation that might feel like criticism. Even there, with scissors in hand and the familiar
+smell of shampoo in the air, he watched the door too often, bracing whenever someone entered looking
+edgy or uncertain. He had come to believe that if he stayed guarded enough and kept his thoughts
+pushed down, he could prevent the memories from taking over and could avoid the kind of situation
+that had trapped him once before. Instead, the isolation gave the memories more room to play, and
+the memories made him more eager to withdraw and more easily startled by the very cues that reminded
+him of the mugging. By the time his wife insisted he speak to someone, Jamal was exhausted by the
+loop of fear, blame, and vigilance, and what he wanted most was to stop feeling that every critical
+remark, every smell of alcohol, and every suspicious stranger meant danger was about to begin again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Jamal, a 58-year-old African American man who had spent most of his adult life cutting hair in a
+small neighborhood salon, came to treatment after his wife said she no longer recognized how
+withdrawn and tense he had become. The robbery had happened just after closing one winter evening,
+when he was locking up the shop and counting the day’s cash by the counter. Two men approached from
+the alley, one of them smelling strongly of alcohol before either spoke, and their manner shifted
+from uncertain to threatening in a way Jamal still described as suspicious, like they were circling
+him and deciding what to do. One shoved him against the wall, demanded the money, and struck him
+hard enough to leave him stunned; what stayed with Jamal most was not a neat story he could tell,
+but flashes of the men’s faces, the glint of the knife, his own hands dropping the bills, and the
+sound of his wife’s voice in his head later asking how it had happened so fast. He said he knew what
+happened, but when he tried to explain it, the words would not come; it was all “just pictures,” as
+if the scene kept arriving in fragments he could not arrange into language. Those pictures replayed
+like a film over and over, especially at night, and the more they returned, the more he found
+himself scanning the street for people acting suspiciously and tensing whenever he caught alcohol on
+someone’s breath or coat.
+
+In the weeks that followed, Jamal noticed that criticism and correction began to sting in a new way.
+In the salon, if a customer complained that he had cut too much hair off one side, or if a fellow
+stylist casually corrected his technique, he felt the same hot rush of shame and danger that had
+come with the robbery, as though being wrong in front of another person might somehow make him
+vulnerable again. Those moments sent him back to the alley in his mind: the sudden threat, the
+shove, the helplessness, the pictures that would not stay still. He came to dread the return of
+those images, because once they started he would spend hours trying to force them away, clenching
+his jaw and telling himself not to think about it, not to picture the knife, not to remember the
+smell of alcohol on the man’s breath. Yet the harder he tried to suppress it, the more forcefully it
+seemed to break through, and afterward he would dwell on what he had done wrong—whether he should
+have left the shop earlier, whether he should have looked more alert, whether he had somehow invited
+it by not being careful enough. That self-blame made him even more watchful in public, and the
+watchfulness kept the event alive; every suspicious glance on the sidewalk, every man speaking too
+loudly near the storefront, every whiff of liquor at the end of the day pulled him back into the
+same frightened state.
+
+By the time he sought help, Jamal had narrowed his life to an effort to avoid other people as much
+as possible. He stopped lingering after work, no longer accepted invitations from longtime friends,
+and let his wife handle errands that would have brought him into crowded stores or onto busy blocks.
+At the salon he still worked, but he kept to the chair, moved quickly between clients, and avoided
+conversation that might feel like criticism. Even there, with scissors in hand and the familiar
+smell of shampoo in the air, he watched the door too often, bracing whenever someone entered looking
+edgy or uncertain. He had come to believe that if he stayed guarded enough and kept his thoughts
+pushed down, he could prevent the memories from taking over and could avoid the kind of situation
+that had trapped him once before. Instead, the isolation gave the memories more room to play, and
+the memories made him more eager to withdraw and more easily startled by the very cues that reminded
+him of the mugging. By the time his wife insisted he speak to someone, Jamal was exhausted by the
+loop of fear, blame, and vigilance, and what he wanted most was to stop feeling that every critical
+remark, every smell of alcohol, and every suspicious stranger meant danger was about to begin again.

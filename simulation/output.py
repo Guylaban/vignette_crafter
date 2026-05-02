@@ -46,21 +46,6 @@ def write_json(output: dict, f):
     f.write("  ]\n}\n")
 
 
-def write_summary_json(output: dict, path):
-    """Write a compact summary JSON: config, demographics, all self-report fields, vignette."""
-    summary = {
-        "persona_id":        output["persona_id"],
-        "timestamp":         output["experiment_timestamp"],
-        "config":            output.get("config", {}),
-        "demographics":      output.get("demographics", {}),
-        "self_report":       output.get("self_report", {}),
-        "agg_edges":         output.get("agg_edges", {}),
-        "validation_summary": output.get("validation_summary", {}),
-        "vignette":          output.get("vignette", ""),
-    }
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(summary, f, indent=2, ensure_ascii=False)
-
 
 def write_txt(output: dict, path):
     """Write a human-readable vignette report."""
@@ -153,16 +138,9 @@ def write_txt(output: dict, path):
             status = "PASS" if attempt["passed"] else "FAIL"
             f.write(f"\n  [{i}] {status}\n")
             f.write(wrap(attempt["vignette"]) + "\n")
-            for v in attempt.get("satisfied_edges", []):
-                f.write(f"\n    ✓ edge:        {v['edge']}\n")
-                f.write(f"      explanation: {v['explanation']}\n")
-                if v.get("quote"):
-                    f.write(f"      quote:       \"{v['quote']}\"\n")
             for v in attempt.get("violations", []):
                 f.write(f"\n    ✗ edge:        {v['edge']}\n")
                 f.write(f"      explanation: {v['explanation']}\n")
-                if v.get("quote"):
-                    f.write(f"      quote:       \"{v['quote']}\"\n")
 
         # ── Vignette (final) ─────────────────────────────────────────────────
         f.write(section("VIGNETTE (final)"))

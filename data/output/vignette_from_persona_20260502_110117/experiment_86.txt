@@ -1,0 +1,192 @@
+PERSONA 86  |  2026-05-02 11:14:44
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             79
+  gender          Female
+  ethnicity       Latin American
+  relationship_status Widowed
+  occupation      Combat Pilot
+  trauma_type     Police violence
+  pcl5            80
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Crowding: Crowded places
+    • Auditory (Sirens): Sirens
+    • Authority Presence: Police
+  Maladaptive Strategies:
+    • Delay Sleep: stay up until very late
+    • Avoid Similar Clothes: avoid wearing similar clothes
+    • Checking Surroundings: constantly scan environment for signs of threat
+  Threat:
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+  Memory:
+    • Snapshot Memory: I remember the frightening event as a few moments, and each moment is a picture in my mind.
+    • Olfactory Recall: When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened.
+    • Sudden Pieces: Fragments of the memory appear suddenly without warning and then disappear
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.7320
+  Triggers → Memory                                  0.0213
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.6962
+  Memory → Threat                                    0.7891
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.4438
+  Threat → Memory                                    0.1747
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.8830
+  Maladaptive Strategies → Memory                    0.3816
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Relationship Reminders: When people say things like my ex
+    explanation: The trigger items are hard to reconcile with the indexed trauma of police violence. 'My ex' is a relationship-specific cue and pregnancy/birth cues are highly specific to reproductive or interpersonal trauma; neither fits the rest of the profile, which otherwise centers on threat, weapons, and sensory fragments more consistent with assault/violence exposure. This is more than unusual because there is no corresponding memory or appraisal content linking police violence to ex-partner or childbirth themes.
+    item:        Maladaptive Strategies / Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general
+    explanation: 'Avoid wearing similar clothes' lacks a plausible anchor in the rest of the profile. There is no trigger or memory item about uniforms, clothing, or appearance cues, so this strategy appears to target a symptom pattern not represented elsewhere. Given the strong Memory→Maladaptive Strategies linkage, the selected strategies should be more clearly connected to the reported sensory/fragmented memory content.
+  [2] FAIL
+    item:        Triggers / Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general
+    explanation: Pregnancy/birth reminders are hard to reconcile with the stated trauma type of police violence and the rest of the profile. None of the threat, memory, or strategy items suggest a perinatal, infant-related, or childbirth-linked trauma theme, so this trigger appears clinically disconnected from the reported trauma.
+    item:        Maladaptive Strategies / Overworking: I throw myself into work or tasks to keep my mind occupied
+    explanation: Overworking is less coherent with this patient's demographics and the rest of the symptom pattern. In a 79-year-old widowed patient, 'throwing myself into work' is less plausible unless supported elsewhere, and the profile instead centers on sensory reminders, hypervigilance, and avoidance of trauma-linked cues. This coping item is not impossible, but in this profile it appears weakly anchored compared with the other selected strategies.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,881
+  output:       833
+  total:      3,714
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Rosa had spent much of her life in airfields and control rooms, but the event that now organized her
+days happened on a street outside a government building after a peaceful demonstration. At 79,
+widowed and living alone in a small apartment not far from her daughter’s family, she still
+described herself first as a combat pilot, someone trained to keep steady under pressure. Yet one
+afternoon, when police moved into the crowd, the sound of sirens cut through the shouting and she
+found herself hemmed in by bodies and flashing lights, with officers advancing in dark uniforms and
+weapons visible at their belts. What struck her most was how quickly her body reacted: her heart
+pounded, her muscles tightened, and she became certain that being in a crowd, hearing sirens, or
+seeing police again could mean danger before she had time to think. In the weeks after, she began
+noticing that even a busy market or a line at the pharmacy made her scan for exits and for anyone
+carrying something that could be used as a weapon. She could not relax in places others considered
+safe, because the moment she felt crowded or heard a siren in the distance, her body seemed to
+return to that street and she braced herself for harm.
+
+Rosa also found that the memory did not stay in one piece. She described it as a series of
+photographs: the first push of the crowd, a line of officers, a flash of a baton, the metallic smell
+of the air and the sharp odor she could still sometimes catch when she thought about it. Pieces of
+the scene would arrive without warning and vanish just as quickly, leaving her disoriented and
+tense. The more these fragments intruded, the more she tried to manage them by changing her
+routines. She began staying up until very late because sleep felt like a vulnerable time, when the
+pictures could come back more forcefully. She stopped wearing clothes that reminded her of what she
+had worn that day, even certain colors and cuts that felt too close to the scene. At home, and
+especially when she was out alone, she constantly checked her surroundings, studying hands,
+waistbands, and nearby objects as if a threat could emerge from any corner.
+
+That vigilance did not calm her for long. Rosa had come to believe that if she let herself relax,
+something bad would catch her off guard, and that belief kept her body on alert from morning to
+night. In a grocery store she would feel a wave of physical reaction the moment someone brushed past
+her or a loud sound echoed down the aisle. In the clinic waiting room she sat near the door, already
+watching the hallway, and she noticed potential weapons in ordinary places: a glass bottle, a heavy
+umbrella stand, the metal end of a cane. Those moments fed back into the memory, because the
+smallest reminder could split the event open again—an image of police moving toward her, the smell
+in the air, the crowd closing in. And once the memory started, even briefly, her chest tightened and
+she was back to anticipating danger. The expectation of danger made crowded places and sirens even
+more potent, and each new trigger reinforced her certainty that she had to keep scanning.
+
+Over months, the costs spread into her life. She planned errands at odd hours to avoid crowds,
+turned down invitations, and let her daughter do more of the shopping. She remained proud of having
+endured violence before, but now her world had narrowed around avoiding the sights and sounds that
+set off the same alarm. The late nights left her exhausted, yet she resisted going to bed because
+she feared the sudden pieces of memory that appeared when the apartment was quiet. What finally
+brought Rosa to seek help was that she no longer trusted herself to move through the city without
+feeling under threat, and she was frightened by how much of her day was spent checking, bracing, and
+remembering. She came hoping to sleep again and to walk past a crowd or hear a siren without her
+body acting as if the police were coming for her.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Rosa had spent much of her life in airfields and control rooms, but the event that now organized her
+days happened on a street outside a government building after a peaceful demonstration. At 79,
+widowed and living alone in a small apartment not far from her daughter’s family, she still
+described herself first as a combat pilot, someone trained to keep steady under pressure. Yet one
+afternoon, when police moved into the crowd, the sound of sirens cut through the shouting and she
+found herself hemmed in by bodies and flashing lights, with officers advancing in dark uniforms and
+weapons visible at their belts. What struck her most was how quickly her body reacted: her heart
+pounded, her muscles tightened, and she became certain that being in a crowd, hearing sirens, or
+seeing police again could mean danger before she had time to think. In the weeks after, she began
+noticing that even a busy market or a line at the pharmacy made her scan for exits and for anyone
+carrying something that could be used as a weapon. She could not relax in places others considered
+safe, because the moment she felt crowded or heard a siren in the distance, her body seemed to
+return to that street and she braced herself for harm.
+
+Rosa also found that the memory did not stay in one piece. She described it as a series of
+photographs: the first push of the crowd, a line of officers, a flash of a baton, the metallic smell
+of the air and the sharp odor she could still sometimes catch when she thought about it. Pieces of
+the scene would arrive without warning and vanish just as quickly, leaving her disoriented and
+tense. The more these fragments intruded, the more she tried to manage them by changing her
+routines. She began staying up until very late because sleep felt like a vulnerable time, when the
+pictures could come back more forcefully. She stopped wearing clothes that reminded her of what she
+had worn that day, even certain colors and cuts that felt too close to the scene. At home, and
+especially when she was out alone, she constantly checked her surroundings, studying hands,
+waistbands, and nearby objects as if a threat could emerge from any corner.
+
+That vigilance did not calm her for long. Rosa had come to believe that if she let herself relax,
+something bad would catch her off guard, and that belief kept her body on alert from morning to
+night. In a grocery store she would feel a wave of physical reaction the moment someone brushed past
+her or a loud sound echoed down the aisle. In the clinic waiting room she sat near the door, already
+watching the hallway, and she noticed potential weapons in ordinary places: a glass bottle, a heavy
+umbrella stand, the metal end of a cane. Those moments fed back into the memory, because the
+smallest reminder could split the event open again—an image of police moving toward her, the smell
+in the air, the crowd closing in. And once the memory started, even briefly, her chest tightened and
+she was back to anticipating danger. The expectation of danger made crowded places and sirens even
+more potent, and each new trigger reinforced her certainty that she had to keep scanning.
+
+Over months, the costs spread into her life. She planned errands at odd hours to avoid crowds,
+turned down invitations, and let her daughter do more of the shopping. She remained proud of having
+endured violence before, but now her world had narrowed around avoiding the sights and sounds that
+set off the same alarm. The late nights left her exhausted, yet she resisted going to bed because
+she feared the sudden pieces of memory that appeared when the apartment was quiet. What finally
+brought Rosa to seek help was that she no longer trusted herself to move through the city without
+feeling under threat, and she was frightened by how much of her day was spent checking, bracing, and
+remembering. She came hoping to sleep again and to walk past a crowd or hear a siren without her
+body acting as if the police were coming for her.

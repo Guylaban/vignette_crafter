@@ -1,0 +1,199 @@
+{
+  "persona_id": 103,
+  "source_persona_id": 103,
+  "experiment_timestamp": "2026-05-02 17:10:50",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-pro",
+      "persona_crafter": "gemini-2.5-pro",
+      "vignette_crafter": "gemini-2.5-pro",
+      "vignette_validator": "gemini-2.5-pro"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 39,
+    "gender": "Male",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Interior Designer",
+    "trauma_type": "Unexpected or traumatic death of a loved one",
+    "pcl5": 39
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Anniversaries",
+        "value": "The anniversary of the event"
+      },
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      },
+      {
+        "key": "Funerals/Graves",
+        "value": "Funerals, cemeteries, or grief-related events"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Worst Case Rehearsal",
+        "value": "mentally rehearse worst case scenarios to feel prepared"
+      },
+      {
+        "key": "Avoid Anniversaries",
+        "value": "Dates or anniversaries connected to the event"
+      },
+      {
+        "key": "Avoid Grief Reminders",
+        "value": "Anything that reminds me of someone I have lost"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      },
+      {
+        "key": "Body Reacts Before Mind",
+        "value": "My body reacts to danger before I have even had time to think"
+      },
+      {
+        "key": "Irritability",
+        "value": "Irritable behavior, angry outbursts, or acting aggressively"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.6147,
+    "Triggers -- Threat": 0.9309,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.4625,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.4203
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Maladaptive Strategies",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Maladaptive Strategies",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6071,
+  "edge_density": 0.2,
+  "vignette_word_count": 715,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Animal Phobia: Talks or photos about snakes",
+          "explanation": "These trigger items are not clinically coherent with the indexed trauma of unexpected/traumatic death of a loved one. Snake-related and pregnancy/birth reminders imply trauma contexts unrelated to bereavement, and there is no supporting threat or memory content linking them to this loss."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "Avoiding military/police uniforms or weapons similarly implies a trauma context involving violence, combat, or armed threat, which is unsupported by the stated trauma type and by the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Animal Phobia"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "For an index trauma of unexpected/traumatic death of a loved one, pregnancy/birth reminders are hard to justify unless the death specifically involved childbirth or infant loss; nothing else in the profile supports that context. This makes the trigger clinically implausible relative to the stated trauma type."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Avoid Uniform or Weapons: Military, police uniforms or weapons",
+          "explanation": "Avoiding military/police uniforms or weapons implies a trauma context involving combat, assault, or armed responders. That does not fit the rest of this bereavement-focused profile and is not supported by the other trigger, threat, or strategy items, so it appears incoherent with the trauma type and overall formulation."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Pregnancy/Birth Reminders"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Uniform or Weapons"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2868,
+    "output": 3494,
+    "total": 6362
+  },
+  "vignette": "Sameer had always taken pride in his ability to create order and beauty from chaos, a skill central to his work as an interior designer. For eighteen months, however, the chaos had been internal, a storm that began the night his younger brother, Rohan, collapsed from a sudden, fatal heart attack in the middle of a family dinner. One moment they were laughing over a shared memory, the next there was a sickening thud, a panicked call to 911, and a silence that swallowed the house whole. That silence, and the image of his brother on the floor, became the blueprint for his fear.\n\nIn the months that followed, the world became mined with reminders of his loss. He first noticed it at work, when an older client began discussing redesigning her home after her husband passed away. As she spoke about grief, Sameer felt a cold jolt, his heart hammering against his ribs before his mind could even process her words. He was no longer in the client’s sunlit living room but back in his parents’ house, the scent of the evening meal thick in the air, the world tilting on its axis. He felt a surge of raw, undirected anger and had to excuse himself, claiming a sudden headache. This pattern solidified: any mention of loss, the sight of a cemetery on his commute, or the approach of a significant date would trigger this same visceral response. His body would react as if the original threat were happening all over again, flooding him with panic and a sharp, irritable edge that began to fray his relationships.\n\nThe sheer terror of these moments, the feeling of being ambushed by the past, drove him to seek some semblance of control. He began a new, private ritual: mentally rehearsing the worst possible outcomes for everyone he loved. If his wife was late from work, he wouldn't just worry; he would meticulously construct the entire scenario of a car crash in his mind, from the screech of tires to the imagined phone call. He reasoned that if he could just anticipate every tragedy, he would never be caught so unprepared again. When the first anniversary of Rohan's death approached, the mere thought of the date sent a wave of dread through him. To preempt the inevitable pain, he booked a non-refundable trip out of the country, insisting to his wife that they needed a distraction, effectively erasing the day from the calendar. This avoidance became his primary defense; he would change the channel if a somber news story came on, or find an excuse to leave a conversation if a friend started talking about a sick relative.\n\nThese strategies, meant to protect him, began to form a cage. The constant mental rehearsal of worst-case scenarios didn't leave him feeling prepared; it left him in a perpetual state of high alert. He was tense and jumpy, and the irritability that once only flared up after a trigger became his baseline mood. He would snap at his wife for minor things, his patience worn thin by the exhausting work of anticipating disaster. His attempts to avoid grief reminders meant that Rohan was becoming a forbidden topic in their home, a ghost he was trying to wall off. His wife, who desperately wanted to share her own sorrow, found herself grieving alone. The very strategies he employed to manage the overwhelming sense of threat were, in fact, amplifying it, making the world feel like a more dangerous and unpredictable place from which he needed to retreat even further.\n\nWhat finally brought Sameer to therapy was the approach of the second anniversary. His wife, Priya, told him quietly that she would be visiting Rohan’s grave this year, with or without him. She confessed that his anger and his rigid avoidance were making her feel as though she were losing him, too. The realization struck him with the force of a physical blow: in his desperate effort to manage the memory of one loss, he was actively precipitating another. He is now terrified that letting go of his rituals will mean letting the full horror of that night consume him, but a deeper fear has taken root—the fear of what will be left of his life and his marriage if he doesn't."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Sameer had always taken pride in his ability to create order and beauty from chaos, a skill central to his work as an interior designer. For eighteen months, however, the chaos had been internal, a storm that began the night his younger brother, Rohan, collapsed from a sudden, fatal heart attack in the middle of a family dinner. One moment they were laughing over a shared memory, the next there was a sickening thud, a panicked call to 911, and a silence that swallowed the house whole. That silence, and the image of his brother on the floor, became the blueprint for his fear.\n\nIn the months that followed, the world became mined with reminders of his loss. He first noticed it at work, when an older client began discussing redesigning her home after her husband passed away. As she spoke about grief, Sameer felt a cold jolt, his heart hammering against his ribs before his mind could even process her words. He was no longer in the client’s sunlit living room but back in his parents’ house, the scent of the evening meal thick in the air, the world tilting on its axis. He felt a surge of raw, undirected anger and had to excuse himself, claiming a sudden headache. This pattern solidified: any mention of loss, the sight of a cemetery on his commute, or the approach of a significant date would trigger this same visceral response. His body would react as if the original threat were happening all over again, flooding him with panic and a sharp, irritable edge that began to fray his relationships.\n\nThe sheer terror of these moments, the feeling of being ambushed by the past, drove him to seek some semblance of control. He began a new, private ritual: mentally rehearsing the worst possible outcomes for everyone he loved. If his wife was late from work, he wouldn't just worry; he would meticulously construct the entire scenario of a car crash in his mind, from the screech of tires to the imagined phone call. He reasoned that if he could just anticipate every tragedy, he would never be caught so unprepared again. When the first anniversary of Rohan's death approached, the mere thought of the date sent a wave of dread through him. To preempt the inevitable pain, he booked a non-refundable trip out of the country, insisting to his wife that they needed a distraction, effectively erasing the day from the calendar. This avoidance became his primary defense; he would change the channel if a somber news story came on, or find an excuse to leave a conversation if a friend started talking about a sick relative.\n\nThese strategies, meant to protect him, began to form a cage. The constant mental rehearsal of worst-case scenarios didn't leave him feeling prepared; it left him in a perpetual state of high alert. He was tense and jumpy, and the irritability that once only flared up after a trigger became his baseline mood. He would snap at his wife for minor things, his patience worn thin by the exhausting work of anticipating disaster. His attempts to avoid grief reminders meant that Rohan was becoming a forbidden topic in their home, a ghost he was trying to wall off. His wife, who desperately wanted to share her own sorrow, found herself grieving alone. The very strategies he employed to manage the overwhelming sense of threat were, in fact, amplifying it, making the world feel like a more dangerous and unpredictable place from which he needed to retreat even further.\n\nWhat finally brought Sameer to therapy was the approach of the second anniversary. His wife, Priya, told him quietly that she would be visiting Rohan’s grave this year, with or without him. She confessed that his anger and his rigid avoidance were making her feel as though she were losing him, too. The realization struck him with the force of a physical blow: in his desperate effort to manage the memory of one loss, he was actively precipitating another. He is now terrified that letting go of his rituals will mean letting the full horror of that night consume him, but a deeper fear has taken root—the fear of what will be left of his life and his marriage if he doesn't.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

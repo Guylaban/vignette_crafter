@@ -1,0 +1,201 @@
+PERSONA 318  |  2026-05-02 11:52:49
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             66
+  gender          Female
+  ethnicity       North American
+  relationship_status Widowed
+  occupation      Model
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            41
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Threat:
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Concentration: Having difficulty concentrating
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+  Negative Appraisals:
+    • Self-Comparison: Somebody else would not have gotten into this situation
+    • Humiliation: I feel permanently humiliated by what happened
+    • Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.3797
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened
+    explanation: For a trauma of accidentally causing serious injury to another, the appraisal that the patient's own body has been permanently damaged is hard to reconcile with the rest of the profile unless she was also physically injured, which is not reflected elsewhere. The other selected appraisals center on self-blame and humiliation, which fit this trauma type, but this item introduces a different trauma meaning without supporting threat, memory, trigger, or strategy content.
+  [2] FAIL
+    item:        Threat / Threat: Safe Zone Only: I only feel safe in a very limited number of places
+    explanation: The threat items imply a broad, ongoing danger/vulnerability pattern focused on personal safety (restricted safe places, nighttime checking for safety). For a trauma involving accidentally causing serious injury to another person, this is hard to reconcile unless there is additional trauma involving danger to self; the threat content would more plausibly center on fear of causing harm again, moral threat, or social/legal consequences.
+    item:        Negative Appraisals / Threat: Waking Alert: I wake during the night to check whether I am safe
+    explanation: Within the formulation, the only active edge is Threat → Negative Appraisals, so threat and appraisals should show a plausible thematic link. Here the threat items center on physical safety and hypervigilance, while the appraisals center on guilt, self-blame, and humiliation about having caused harm. That disconnect suggests the selected threat items are not well aligned with the appraisals for this trauma type.
+  [3] FAIL
+    item:        Threat / Threat: Waking Alert: I wake during the night to check whether I am safe
+    explanation: For trauma of accidentally causing serious injury to another, the threat profile is poorly matched: nocturnal checking for safety and inability to relax in safe places imply an ongoing danger/victimization-based fear response, but the appraisals center on guilt and self-blame about causing harm. That combination is hard to reconcile clinically without any items about fear of legal retaliation, being attacked, or another external threat.
+    item:        Negative Appraisals / Threat: Cannot Relax: I am unable to relax even when I know I am in a safe place
+    explanation: Within the formulation, the only active link is Threat → Negative Appraisals, so threat items should plausibly feed the selected appraisals. Here the threat items suggest current physical danger/hypervigilance, whereas the negative appraisals are predominantly moral self-judgment and shame. Humiliation in particular is weakly connected to the stated threat content, making the cross-node pattern clinically incoherent.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,764
+  output:       911
+  total:      3,675
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Marilyn had built a life around being composed in front of others. At sixty-six, a widowed model
+still in demand for local print work and occasional catalog shoots, she was used to holding herself
+upright, smiling when directed, and making her body look effortless. But that poise had shattered on
+an afternoon months earlier when she was backing her car out of a crowded grocery parking lot and a
+pedestrian stepped into her path at the worst possible moment. Marilyn heard the sickening thud and
+saw the woman fall hard, clutching her leg and shoulder. The injury turned out to be serious enough
+to require emergency care, and Marilyn has carried the scene ever since as if it were stamped into
+her mind. What has haunted her most is not only the sound and the sight of it, but the conviction
+that she should have prevented it. She has come to believe that somebody else would not have gotten
+into that situation, that she should have seen it sooner, stopped sooner, been more careful, more
+alert, more deserving of ordinary mercy than she was.
+
+In the weeks after the accident, Marilyn found that her body never really let her rest. Even at
+home, in the quiet of the condo she shares with memories of her husband, she felt unable to relax,
+as though her muscles were waiting for a blow. Her shoulders stayed tight, her jaw clenched without
+her noticing, and she described being ready to react to danger even when nothing was happening. That
+constant tension made it hard for her to settle into a book, follow a conversation, or keep track of
+paperwork for her modeling jobs. She would read the same paragraph over and over, then lose the
+thread entirely, which only fed her sense that something was wrong with her. She began to watch
+herself as much as she watched the road, and that state of being on alert kept returning the
+accident to the center of her mind.
+
+As the weeks passed, the accident came to feel less like something that had happened and more like
+evidence against her character. Because her body remained so keyed up, she found herself scanning
+for signs of danger in parking lots, at crosswalks, and anywhere she had to move around other
+people. Each jolt of tension seemed to confirm her own harsh conclusions: she was permanently
+humiliated by what happened, exposed as careless in a way no one should see. Marilyn said the shame
+felt public even when she was alone, as if the woman she struck, and anyone who heard about it,
+could see exactly who she was. She replayed the moment of impact and the seconds before it,
+torturing herself with the thought that she had not done enough to stop what happened. She will
+never forgive herself, she said, for the split second when she hesitated, for trusting that she had
+enough space, for not anticipating the pedestrian sooner. The harder it became for her body to stand
+down, the more certain she became that the accident said something permanent and unforgivable about
+her.
+
+That conviction has gradually reshaped her daily life. Marilyn still goes to shoots, but the studio
+parking lot and the drives across town now feel charged with danger. Before leaving home, she checks
+and rechecks mirrors and surroundings, and even then she arrives tense, already braced. She has
+refused a few errands she used to enjoy, and she finds herself preoccupied during appointments, her
+concentration slipping whenever a car door slams or someone crosses quickly in front of her. In the
+quiet moments afterward, the same sentence returns with brutal force: somebody else would not have
+gotten into this situation. It is not simply that she regrets the accident; she experiences it as a
+humiliating proof that she failed in a way others would not have failed. The body tension, the
+difficulty concentrating, and the sense of being permanently marked by the event have folded
+together until she now lives as though she must stay on guard against both another catastrophe and
+her own judgment.
+
+Marilyn finally sought help after noticing that she was no longer just frightened of driving; she
+was frightened of what the accident had made of her. She came in saying she wants to stop carrying
+the scene around like a verdict, but she is most afraid that if she lets her guard down, she will
+prove once again that she cannot be trusted. At the same time, she still hopes that someone can help
+her find a way to remember what happened without feeling condemned by it.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Marilyn had built a life around being composed in front of others. At sixty-six, a widowed model
+still in demand for local print work and occasional catalog shoots, she was used to holding herself
+upright, smiling when directed, and making her body look effortless. But that poise had shattered on
+an afternoon months earlier when she was backing her car out of a crowded grocery parking lot and a
+pedestrian stepped into her path at the worst possible moment. Marilyn heard the sickening thud and
+saw the woman fall hard, clutching her leg and shoulder. The injury turned out to be serious enough
+to require emergency care, and Marilyn has carried the scene ever since as if it were stamped into
+her mind. What has haunted her most is not only the sound and the sight of it, but the conviction
+that she should have prevented it. She has come to believe that somebody else would not have gotten
+into that situation, that she should have seen it sooner, stopped sooner, been more careful, more
+alert, more deserving of ordinary mercy than she was.
+
+In the weeks after the accident, Marilyn found that her body never really let her rest. Even at
+home, in the quiet of the condo she shares with memories of her husband, she felt unable to relax,
+as though her muscles were waiting for a blow. Her shoulders stayed tight, her jaw clenched without
+her noticing, and she described being ready to react to danger even when nothing was happening. That
+constant tension made it hard for her to settle into a book, follow a conversation, or keep track of
+paperwork for her modeling jobs. She would read the same paragraph over and over, then lose the
+thread entirely, which only fed her sense that something was wrong with her. She began to watch
+herself as much as she watched the road, and that state of being on alert kept returning the
+accident to the center of her mind.
+
+As the weeks passed, the accident came to feel less like something that had happened and more like
+evidence against her character. Because her body remained so keyed up, she found herself scanning
+for signs of danger in parking lots, at crosswalks, and anywhere she had to move around other
+people. Each jolt of tension seemed to confirm her own harsh conclusions: she was permanently
+humiliated by what happened, exposed as careless in a way no one should see. Marilyn said the shame
+felt public even when she was alone, as if the woman she struck, and anyone who heard about it,
+could see exactly who she was. She replayed the moment of impact and the seconds before it,
+torturing herself with the thought that she had not done enough to stop what happened. She will
+never forgive herself, she said, for the split second when she hesitated, for trusting that she had
+enough space, for not anticipating the pedestrian sooner. The harder it became for her body to stand
+down, the more certain she became that the accident said something permanent and unforgivable about
+her.
+
+That conviction has gradually reshaped her daily life. Marilyn still goes to shoots, but the studio
+parking lot and the drives across town now feel charged with danger. Before leaving home, she checks
+and rechecks mirrors and surroundings, and even then she arrives tense, already braced. She has
+refused a few errands she used to enjoy, and she finds herself preoccupied during appointments, her
+concentration slipping whenever a car door slams or someone crosses quickly in front of her. In the
+quiet moments afterward, the same sentence returns with brutal force: somebody else would not have
+gotten into this situation. It is not simply that she regrets the accident; she experiences it as a
+humiliating proof that she failed in a way others would not have failed. The body tension, the
+difficulty concentrating, and the sense of being permanently marked by the event have folded
+together until she now lives as though she must stay on guard against both another catastrophe and
+her own judgment.
+
+Marilyn finally sought help after noticing that she was no longer just frightened of driving; she
+was frightened of what the accident had made of her. She came in saying she wants to stop carrying
+the scene around like a verdict, but she is most afraid that if she lets her guard down, she will
+prove once again that she cannot be trusted. At the same time, she still hopes that someone can help
+her find a way to remember what happened without feeling condemned by it.

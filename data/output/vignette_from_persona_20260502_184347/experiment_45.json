@@ -1,0 +1,224 @@
+{
+  "persona_id": 45,
+  "source_persona_id": 45,
+  "experiment_timestamp": "2026-05-02 18:56:01",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-chat",
+      "persona_crafter": "deepseek-chat",
+      "vignette_crafter": "deepseek-chat",
+      "vignette_validator": "deepseek-chat"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 37,
+    "gender": "Male",
+    "ethnicity": "Latin American",
+    "relationship_status": "Divorced",
+    "occupation": "Social Ministry Worker",
+    "trauma_type": "Physical abuse by romantic partner",
+    "pcl5": 48
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Tactile (Restrained)",
+        "value": "Feeling physically restrained or held down"
+      },
+      {
+        "key": "Auditory (Door)",
+        "value": "Doors opening or slamming"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Location",
+        "value": "Going to or near the place where the event happened"
+      },
+      {
+        "key": "Freeze When Threatened",
+        "value": "freeze completely when feeling threatened"
+      },
+      {
+        "key": "Emotion Control",
+        "value": "I try hard to control my emotions"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      },
+      {
+        "key": "Door and Lock Checking",
+        "value": "I repeatedly check that doors and windows are locked"
+      },
+      {
+        "key": "Night Vigilance",
+        "value": "I find it harder to feel safe at night than during the day"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      },
+      {
+        "key": "Auditory Recall",
+        "value": "When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event."
+      },
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.4759,
+    "Triggers -- Threat": 0.8487,
+    "Triggers -- Memory": 0.8836,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4066,
+    "Threat -- Maladaptive Strategies": 0.2027,
+    "Threat -- Memory": 0.0828,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.7668,
+    "Maladaptive Strategies -- Memory": 0.9892,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.1276,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5315444444444445,
+  "edge_density": 0.45,
+  "vignette_word_count": 739,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips",
+          "explanation": "These triggers are hard to reconcile with the stated trauma of physical abuse by a romantic partner. 'Feeling restrained or held down' fits well, but medical equipment and helicopter sounds suggest a medical, combat, or accident context that is not represented in the Threat, Memory, Appraisals, or Strategy items."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "Because Triggers has strong links to Threat and Memory in the formulation, the trigger content should plausibly connect to the patient's danger cues and trauma memories. The profile's Threat items center on interpersonal hypervigilance in close environments (silence, nearby movement, lock checking), and Memory items do not contain medical or aircraft content, making these two triggers clinically incoherent with the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Needles/Medical)"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "'Helicopter or aircraft sounds' is hard to reconcile with the stated trauma type of physical abuse by a romantic partner unless there is additional undisclosed trauma exposure; it does not fit the rest of the profile, which centers on interpersonal/domestic threat cues such as restraint, doors, movement, and lock checking."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat in Silence: Unusual silence makes me feel something dangerous is about to happen",
+          "explanation": "'Unusual silence makes me feel something dangerous is about to happen' is not impossible, but paired with the otherwise specifically interpersonal/domestic cue pattern it weakens coherence because it suggests a different threat context without support from memory or appraisal items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Helicopter)"
+        ],
+        "Threat": [
+          "Threat in Silence"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2989,
+    "output": 893,
+    "total": 3882
+  },
+  "vignette": "Diego is a 37-year-old social ministry worker who came to therapy at the urging of his supervisor, after several months of what he described as “falling apart.” The event that shattered his sense of safety happened two years ago, during the final months of his marriage. His partner, who had been drinking heavily, pinned him against the wall of their apartment hallway by his throat, his back pressed into the drywall, the door slamming shut behind them. He could smell the alcohol on her breath, sharp and close, as she held him there, his arms pinned, his feet barely touching the ground. He had never been physically overpowered before, and the shock of it — the visceral certainty that he could not move, could not breathe — stayed lodged in his body long after he left.\n\nIn the weeks that followed, Diego found himself unable to go near that apartment building. He would take the long way to the grocery store, circling three blocks out of his way, telling himself it was just practical. But the avoidance spread. He began to freeze when a colleague touched his shoulder unexpectedly, his whole body going rigid, his breath catching. He tried to control this reaction by clamping down on his emotions, keeping his face neutral, his voice flat, telling himself that if he just didn’t react, the feeling would pass. But the freezing only got worse. At night, he checked the locks on his front door three times before bed, then again after he turned off the light. He found it harder to feel safe after dark, lying awake, listening for footsteps, for the sound of a door opening.\n\nThe memories came with a strange, unwanted clarity. When he recalled the event, he could hear the slam of the door, the scrape of her shoes, the sound of his own breathing. The memory was so vivid it felt like being pulled back into that hallway. And with it came a wave of grief so overwhelming he sometimes had to sit down — grief for the marriage, for the person he thought she was, for the version of himself who had trusted her. The grief was not about the physical pain; it was about the loss of safety, the loss of believing he was safe anywhere.\n\nThese memories themselves became a trigger. The more he remembered, the more the world felt dangerous. A sudden movement in his peripheral vision at the ministry office would make him flinch, his heart hammering, as if the threat were immediate. The smell of alcohol on a parishioner’s breath at a community dinner would send a jolt through him, and he would find himself scanning the room for exits, his hands cold. The threat felt constant, and the constant vigilance exhausted him.\n\nThe causal loop tightened. The triggers — the smell, the sound of a door, the feeling of being restrained — would spike his threat system, and his threat system would then make the memories more vivid, more intrusive. The memories, in turn, made the world feel more dangerous, and the danger made him more vigilant. His maladaptive strategies — the freezing, the emotional control, the avoidance — were meant to manage the threat, but they only made the memories more frequent. Freezing in place when a door slammed left him stuck in the memory, unable to move away from it. Controlling his emotions meant he never processed the grief, so it returned, unbidden, every time he remembered. And the avoidance of the apartment building meant he never tested the belief that it was safe, so the threat remained high.\n\nThe cycle became his daily life. At work, he could no longer lead evening prayer groups because the darkness made him feel exposed. He stopped visiting a parishioner who lived near the old apartment. His supervisor noticed he was jumpy, withdrawn, and that he had started leaving community dinners early. Diego knew something was wrong, but he was certain that if he let himself feel the grief, it would swallow him whole. What finally brought him to the clinic was a moment at the ministry office when a door slammed in the wind and he dropped to his knees, his hands over his head, unable to speak. He came because he was afraid of what he might do if it happened again, and because, underneath that, he was afraid he would never feel safe anywhere again."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Diego is a 37-year-old social ministry worker who came to therapy at the urging of his supervisor, after several months of what he described as “falling apart.” The event that shattered his sense of safety happened two years ago, during the final months of his marriage. His partner, who had been drinking heavily, pinned him against the wall of their apartment hallway by his throat, his back pressed into the drywall, the door slamming shut behind them. He could smell the alcohol on her breath, sharp and close, as she held him there, his arms pinned, his feet barely touching the ground. He had never been physically overpowered before, and the shock of it — the visceral certainty that he could not move, could not breathe — stayed lodged in his body long after he left.\n\nIn the weeks that followed, Diego found himself unable to go near that apartment building. He would take the long way to the grocery store, circling three blocks out of his way, telling himself it was just practical. But the avoidance spread. He began to freeze when a colleague touched his shoulder unexpectedly, his whole body going rigid, his breath catching. He tried to control this reaction by clamping down on his emotions, keeping his face neutral, his voice flat, telling himself that if he just didn’t react, the feeling would pass. But the freezing only got worse. At night, he checked the locks on his front door three times before bed, then again after he turned off the light. He found it harder to feel safe after dark, lying awake, listening for footsteps, for the sound of a door opening.\n\nThe memories came with a strange, unwanted clarity. When he recalled the event, he could hear the slam of the door, the scrape of her shoes, the sound of his own breathing. The memory was so vivid it felt like being pulled back into that hallway. And with it came a wave of grief so overwhelming he sometimes had to sit down — grief for the marriage, for the person he thought she was, for the version of himself who had trusted her. The grief was not about the physical pain; it was about the loss of safety, the loss of believing he was safe anywhere.\n\nThese memories themselves became a trigger. The more he remembered, the more the world felt dangerous. A sudden movement in his peripheral vision at the ministry office would make him flinch, his heart hammering, as if the threat were immediate. The smell of alcohol on a parishioner’s breath at a community dinner would send a jolt through him, and he would find himself scanning the room for exits, his hands cold. The threat felt constant, and the constant vigilance exhausted him.\n\nThe causal loop tightened. The triggers — the smell, the sound of a door, the feeling of being restrained — would spike his threat system, and his threat system would then make the memories more vivid, more intrusive. The memories, in turn, made the world feel more dangerous, and the danger made him more vigilant. His maladaptive strategies — the freezing, the emotional control, the avoidance — were meant to manage the threat, but they only made the memories more frequent. Freezing in place when a door slammed left him stuck in the memory, unable to move away from it. Controlling his emotions meant he never processed the grief, so it returned, unbidden, every time he remembered. And the avoidance of the apartment building meant he never tested the belief that it was safe, so the threat remained high.\n\nThe cycle became his daily life. At work, he could no longer lead evening prayer groups because the darkness made him feel exposed. He stopped visiting a parishioner who lived near the old apartment. His supervisor noticed he was jumpy, withdrawn, and that he had started leaving community dinners early. Diego knew something was wrong, but he was certain that if he let himself feel the grief, it would swallow him whole. What finally brought him to the clinic was a moment at the ministry office when a door slammed in the wind and he dropped to his knees, his hands over his head, unable to speak. He came because he was afraid of what he might do if it happened again, and because, underneath that, he was afraid he would never feel safe anywhere again.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

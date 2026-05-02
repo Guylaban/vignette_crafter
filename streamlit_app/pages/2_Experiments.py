@@ -2,6 +2,7 @@
 2_Experiments.py — browse all past experiment runs and their personas.
 """
 
+import logging
 import sys
 from pathlib import Path
 
@@ -11,6 +12,8 @@ if str(_STREAMLIT_APP_DIR) not in sys.path:
 
 import pandas as pd
 import streamlit as st
+
+logger = logging.getLogger(__name__)
 
 from utils.loader import get_experiments, get_personas, load_persona
 
@@ -23,7 +26,8 @@ def _build_persona_table(experiment_dir: Path) -> pd.DataFrame:
     for p in get_personas(experiment_dir):
         try:
             data = load_persona(p["path"])
-        except Exception:
+        except Exception as e:
+            logger.warning("Failed to load persona %s: %s", p["path"], e)
             continue
 
         demo = data.get("demographics", {})

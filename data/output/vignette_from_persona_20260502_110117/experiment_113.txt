@@ -1,0 +1,219 @@
+PERSONA 113  |  2026-05-02 11:18:47
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             46
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Widowed
+  occupation      Auditor
+  trauma_type     Natural disaster
+  pcl5            41
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Feeling Happy: Feeling happy or relaxed
+    • Spatial Triggers: Physical locations
+    • Nighttime/Dark: Night-time or waking up in the dark
+  Maladaptive Strategies:
+    • Smoking: I smoke
+    • Avoid Relaxation: avoid relaxing because it feels dangerous
+    • Avoid Talking: Talking with others about the event or its aftermath
+  Threat:
+    • Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+    • Threat in Silence: Unusual silence makes me feel something dangerous is about to happen
+    • Threat in Delays: When something takes longer than expected I assume something bad is happening
+  Memory:
+    • Olfactory Recall: When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened.
+    • Taste Vividness: I can taste what I tasted during the event when the memory returns
+    • Story Feels Unreal: The memory is so extreme it is hard to believe it actually happened to me
+  Negative Appraisals:
+    • Helplessness: I can't stop bad things from happening to me
+    • Emotional Numbness: I feel dead inside
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.8188
+  Triggers → Threat                                  0.4205
+  Triggers → Memory                                  0.1222
+  Triggers → Negative Appraisals                     0.4842
+  Negative Appraisals → Maladaptive Strategies       0.6508
+  Negative Appraisals → Threat                       0.2512
+  Negative Appraisals → Memory                       0.5964
+  Negative Appraisals → Triggers                     0.5175
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.1747
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.4114
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.8797
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.6105
+  Maladaptive Strategies → Triggers                  0.4869
+  Maladaptive Strategies → Threat                    0.4167
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        age
+    explanation: Occupation 'Student' is implausible for age 73 because 'Student' is flagged as implausible if age > 40.
+  [2] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Others Cycling
+    explanation: For a natural-disaster trauma, 'People cycling' is a hard-to-explain trigger unless there is disaster-specific context, which is not supported by the rest of the profile. The other items do not provide a plausible link to bicycles/cyclists.
+    item:        Threat / Triggers: Male Presence
+    explanation: 'Being alone with men' implies an interpersonal/assault-related trigger context that is not reflected in the trauma type or elsewhere in the profile, making it clinically incoherent here.
+    item:        Negative Appraisals / Threat: Avoid Unfamiliar Places
+    explanation: Avoidance of unfamiliar places due to inability to assess danger can occur in PTSD, but alongside the selected triggers it pulls toward an interpersonal/urban threat pattern rather than a natural-disaster pattern. This becomes problematic because the threat items are not meaningfully linked to the disaster-specific cues represented elsewhere.
+  [2] FAIL
+    item:        Triggers / Triggers: Male Presence: Being alone with men
+    explanation: For a natural-disaster trauma, 'being alone with men' is hard to reconcile as a primary trauma-linked trigger unless there is additional interpersonal trauma not represented elsewhere. The other trigger items are disaster-plausible (locations, relaxed state), so this item stands out as clinically incoherent with the stated trauma type.
+    item:        Negative Appraisals / Negative Appraisals: Mistrust: People can't be trusted
+    explanation: 'People can't be trusted' suggests an interpersonal betrayal/assault formulation rather than a natural-disaster formulation. In the context of the rest of the profile, this appraisal does not connect plausibly to the disaster-linked threat and memory items and appears trauma-type inconsistent.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,233
+  output:       997
+  total:      4,230
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Mikaere Tupu, a 46-year-old widowed auditor of Māori and Samoan background, came to treatment months
+after a cyclone tore through the coastal town where he and his wife had lived. During the storm, the
+house shook so violently that he could hear the roof panels slamming and, outside, the strange
+silence between gusts before the next surge of wind and water. He lost power, phone service, and
+then his wife, who was swept away when they tried to reach higher ground. In the chaotic hours that
+followed, the smell of brackish mud and splintered timber, and the bitter taste of dirty water and
+fuel, seemed to lodge in him. Even now, when the memory comes back, Mikaere says it is hard to
+believe it happened to him at all; it feels too extreme, like something he watched happen to someone
+else. Yet the memory is not distant. At night, especially when he wakes in the dark, the smell of
+damp sludge can rush back, and with it the taste he remembers from the floodwater, as if his body is
+replaying the disaster before he can think.
+
+In the weeks after the cyclone, Mikaere began to notice that moments of ease were not restful for
+him but dangerous. If he found himself feeling happy for a few minutes—at work after finishing a
+difficult audit, or at home when a conversation with his sister briefly lifted his mood—he would
+suddenly feel exposed, as though calm invited punishment. Those moments were followed by a sharp
+pull into smoking, stepping outside for cigarette after cigarette, and by a reflex to shut down any
+chance of talking about what had happened. He avoided conversations with neighbors about the storm’s
+aftermath, and when coworkers asked how he was managing, he gave a brief nod and changed the
+subject. He had come to believe that if he let himself relax, something terrible would happen again,
+and that belief made even ordinary warmth feel unsafe. The more he protected himself by smoking,
+avoiding rest, and keeping silent, the more he felt his world narrowing around the same thought: he
+could not stop bad things from happening to him. That sense of helplessness deepened his conviction
+that the world was dangerous and left him feeling dead inside, as if whatever had been vibrant in
+him before the cyclone had been drained away.
+
+The more numb and helpless Mikaere felt, the more his mind seemed to scan for danger. Unfamiliar
+places became intolerable because he could not assess what might happen there, so he stopped taking
+new routes for work and avoided visiting clients in offices he did not know well. At home, unusual
+silence could jolt him immediately; if the neighborhood went quiet or if a meeting at the office
+dragged on longer than expected, he assumed something bad was unfolding just beyond view. Those
+expectations were not abstract. They were tied to the disaster itself, when the air had gone eerily
+still before the next violent blast of wind, and when delays in hearing from emergency services had
+felt like confirmation that help would not come. Once that kind of threat state was active, his
+memory became more vivid and invasive. A quiet room could bring the smell of wet earth back to him,
+and the taste of salt and fuel, and those sensations made the world around him seem newly menacing.
+Even a brief moment of happiness, a softer evening at home, could pull him back into the storm in
+miniature, as if his body mistrusted peace and kept searching for the next collapse.
+
+To manage all of this, Mikaere clung to habits that seemed protective in the short term but kept
+feeding the pattern. He smoked to steady himself, avoided relaxing because stillness felt dangerous,
+and refused to talk in any depth about his wife’s death or the aftermath. Those strategies gave him
+the illusion of control, but they also kept his grief and fear unprocessed, and that only
+strengthened the belief that he was permanently unsafe and on his own. The more he withdrew, the
+more unfamiliar even ordinary places felt, and the more silence, delay, or a sudden good mood at
+work could trigger the sense that danger was near. His avoidance also meant that his days remained
+organized around escape rather than recovery; he stopped meeting friends after work, declined
+invitations to family gatherings, and became less available in his role as an auditor because he
+could not tolerate being sent somewhere unpredictable. By the time he presented for help, he was
+sleeping poorly, waking into darkness with his heart racing, and spending much of the day braced for
+the next sign that disaster was about to strike. What finally brought Mikaere in was the fear that
+he was disappearing into a life built around smoke, silence, and vigilance, and he said he was
+hoping, more than anything, to feel safe enough to rest without waiting for the world to break
+again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Mikaere Tupu, a 46-year-old widowed auditor of Māori and Samoan background, came to treatment months
+after a cyclone tore through the coastal town where he and his wife had lived. During the storm, the
+house shook so violently that he could hear the roof panels slamming and, outside, the strange
+silence between gusts before the next surge of wind and water. He lost power, phone service, and
+then his wife, who was swept away when they tried to reach higher ground. In the chaotic hours that
+followed, the smell of brackish mud and splintered timber, and the bitter taste of dirty water and
+fuel, seemed to lodge in him. Even now, when the memory comes back, Mikaere says it is hard to
+believe it happened to him at all; it feels too extreme, like something he watched happen to someone
+else. Yet the memory is not distant. At night, especially when he wakes in the dark, the smell of
+damp sludge can rush back, and with it the taste he remembers from the floodwater, as if his body is
+replaying the disaster before he can think.
+
+In the weeks after the cyclone, Mikaere began to notice that moments of ease were not restful for
+him but dangerous. If he found himself feeling happy for a few minutes—at work after finishing a
+difficult audit, or at home when a conversation with his sister briefly lifted his mood—he would
+suddenly feel exposed, as though calm invited punishment. Those moments were followed by a sharp
+pull into smoking, stepping outside for cigarette after cigarette, and by a reflex to shut down any
+chance of talking about what had happened. He avoided conversations with neighbors about the storm’s
+aftermath, and when coworkers asked how he was managing, he gave a brief nod and changed the
+subject. He had come to believe that if he let himself relax, something terrible would happen again,
+and that belief made even ordinary warmth feel unsafe. The more he protected himself by smoking,
+avoiding rest, and keeping silent, the more he felt his world narrowing around the same thought: he
+could not stop bad things from happening to him. That sense of helplessness deepened his conviction
+that the world was dangerous and left him feeling dead inside, as if whatever had been vibrant in
+him before the cyclone had been drained away.
+
+The more numb and helpless Mikaere felt, the more his mind seemed to scan for danger. Unfamiliar
+places became intolerable because he could not assess what might happen there, so he stopped taking
+new routes for work and avoided visiting clients in offices he did not know well. At home, unusual
+silence could jolt him immediately; if the neighborhood went quiet or if a meeting at the office
+dragged on longer than expected, he assumed something bad was unfolding just beyond view. Those
+expectations were not abstract. They were tied to the disaster itself, when the air had gone eerily
+still before the next violent blast of wind, and when delays in hearing from emergency services had
+felt like confirmation that help would not come. Once that kind of threat state was active, his
+memory became more vivid and invasive. A quiet room could bring the smell of wet earth back to him,
+and the taste of salt and fuel, and those sensations made the world around him seem newly menacing.
+Even a brief moment of happiness, a softer evening at home, could pull him back into the storm in
+miniature, as if his body mistrusted peace and kept searching for the next collapse.
+
+To manage all of this, Mikaere clung to habits that seemed protective in the short term but kept
+feeding the pattern. He smoked to steady himself, avoided relaxing because stillness felt dangerous,
+and refused to talk in any depth about his wife’s death or the aftermath. Those strategies gave him
+the illusion of control, but they also kept his grief and fear unprocessed, and that only
+strengthened the belief that he was permanently unsafe and on his own. The more he withdrew, the
+more unfamiliar even ordinary places felt, and the more silence, delay, or a sudden good mood at
+work could trigger the sense that danger was near. His avoidance also meant that his days remained
+organized around escape rather than recovery; he stopped meeting friends after work, declined
+invitations to family gatherings, and became less available in his role as an auditor because he
+could not tolerate being sent somewhere unpredictable. By the time he presented for help, he was
+sleeping poorly, waking into darkness with his heart racing, and spending much of the day braced for
+the next sign that disaster was about to strike. What finally brought Mikaere in was the fear that
+he was disappearing into a life built around smoke, silence, and vigilance, and he said he was
+hoping, more than anything, to feel safe enough to rest without waiting for the world to break
+again.

@@ -1,0 +1,93 @@
+PERSONA 68  |  2026-05-01 19:00:37
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    craft_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             51
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Married
+  occupation      Hotel Manager
+  trauma_type     Toxic chemical exposure
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Stress: Stress
+    • Workplace: Workplace
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Threat:
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6183
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.1426
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: For toxic chemical exposure, the trigger pattern is not clinically well matched: 'Military Topics' suggests combat/war-related trauma cues, and 'Loss Themes' suggests bereavement-related reminders, while no trigger references fumes, smells, contamination, breathing difficulty, workplaces, or chemical hazards. This makes the trigger set hard to reconcile with the stated trauma type.
+    item:        Threat / Threat: Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: The threat items are internally coherent with a persecution/assault-style danger formulation ('someone is following me', needing to stay alert at night) rather than a toxic exposure formulation. They do not plausibly connect to the selected triggers, despite the strong Triggers → Threat edge that should link these nodes tightly.
+  [2] FAIL
+    item:        Triggers / Triggers: Loss Themes: Talk about people loosing loved ones
+    explanation: The trigger item about discussions of people losing loved ones is hard to reconcile with the indexed trauma of toxic chemical exposure. It implies bereavement-related trauma content that is not otherwise represented in the profile, making this trigger clinically implausible for the same patient unless the exposure involved deaths, which is not supported elsewhere.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: Within the Threat node, concentration difficulty is a broad nonspecific symptom, whereas sleep vigilance reflects an ongoing sense of current external danger. That combination can coexist, but in this profile the threat content is otherwise sparse and the selected triggers do not clearly support a coherent toxic-exposure-related danger schema, weakening internal coherence.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      9,390
+  output:       701
+  total:     10,091
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  0 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+

@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "agent_name": "Persona_461_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-02 17:00:54"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Memory\n  - Negative Appraisals\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Maladaptive Strategies\n  - Triggers → Memory\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Maladaptive Strategies\n  - Negative Appraisals → Triggers\n  - Memory → Maladaptive Strategies\n  - Memory → Negative Appraisals\n  - Maladaptive Strategies → Memory\n  - Maladaptive Strategies → Negative Appraisals\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nKiet Pham is a 77-year-old Vietnamese American man, married and still working part-time as a firefighter in a mid-sized Midwestern city — a role he has held, in one form or another, for nearly four decades. He presented for psychological evaluation after his wife of fifty-one years told him, with quiet desperation, that she no longer recognized the man she had married. His PCL-5 score of 40 places him in the moderate-to-severe range, and the clinical picture that emerged across intake and early sessions is one of a man caught in a tightening loop he has neither the language nor the permission to name.\n\nKiet was eleven years old when the bombing began in his village in the Mekong Delta. He describes a morning that started like any other — the smell of cook-fire smoke, the sound of his younger sister calling his name — and then a concussive blast that seemed to erase the air itself. A neighboring family was killed. Kiet was thrown from his feet. When he found his footing again, there was blood on his hands that was not his own, and the name his sister had been calling echoed in the sudden silence. He does not speak of this at length. What he offers comes in fragments, and the fragments are vivid — startlingly so. His memories of that morning are exceptionally clear and detailed, he says, more like a film he is forced to watch than something that happened to a child sixty-six years ago. That quality of vividness is itself part of the burden: the memory forces its way into his mind without invitation, arriving whole and uninstructed. And yet, in the same breath, he will say that it feels like it happened to someone else — that the boy in the memory cannot be him, cannot be continuous with the man sitting in the chair across from the clinician. This dissociative quality does not diminish the intrusions; it makes them stranger and harder to metabolize.\n\nIn his work as a firefighter, the triggers are unavoidable. When an ambulance passes the station with its siren cycling through its lower registers, or when a controlled burn produces a percussion that carries across the yard, Kiet feels the morning return before he has consciously registered the sound. The name of a colleague — a young man named Minh, the same name as the neighbor killed in the blast — is enough to stop him mid-sentence. These sensory encounters do not merely recall the memory; they seem to unlock it, and the unlocking arrives alongside a particular shame. He had come to believe, in the months since symptoms intensified, that a stronger man — a smarter man — would not have been standing in that street. Someone else would not have gotten into this situation. The triggers do not only produce intrusions; they confirm his worst self-assessment, and that assessment, once activated, sends him scanning the firehouse and the surrounding block for signs of threat he cannot name but cannot stop looking for.\n\nThe negative appraisals have a way of generating their own dangers. When Kiet believes he is fundamentally diminished — that he feels like an object moved by events rather than a person who acts — he becomes hypervigilant to any stimulus that might confirm it, and the very act of scanning sharpens his sensitivity to the sounds and names that trigger him most. He had also come to believe, with a certainty that frightened him, that if he allowed himself to think about the event directly, something in him would break irreparably. This conviction drove him to avoid sleep and lying in the dark, where the memory found him most reliably. He began staying up until two or three in the morning, watching television with the volume low, and his wife began sleeping in the guest room. The sleep deprivation that followed did not quiet the memories — it made them more insistent, more vivid, and the exhaustion made his appraisals of himself crueler and more absolute. He also found himself, in unguarded moments, constructing elaborate revenge fantasies directed at figures from that morning — a habit that briefly relieved the helplessness but ultimately reinforced his sense that he remained trapped in something unresolved.\n\nWhat finally brought Kiet to seek help was not his wife's plea, though that mattered. It was a shift at the firehouse three months ago when, upon hearing a controlled detonation from a construction site two blocks away, he dropped to the ground in front of three junior colleagues. He felt, he said, like a thing that had been knocked over. He is most afraid that nothing can be done. He is most hoping, tentatively and without much conviction, that he might be wrong about that.\n"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "id": "toolu_01KddXiDTKyLsJt1gsegpobP",
+          "caller": {
+            "type": "direct"
+          },
+          "input": {
+            "verdict": "FAIL",
+            "violation_edges": [
+              "Maladaptive Strategies → Memory",
+              "Maladaptive Strategies → Negative Appraisals"
+            ],
+            "violation_explanations": [
+              "No paragraph establishes that Kiet's maladaptive strategies (e.g., sleep avoidance, staying up late, revenge fantasies) causally lead to or intensify the intrusive memory itself — the vignette notes sleep deprivation made memories 'more insistent and vivid,' but this is framed as a consequence of sleep deprivation rather than of the avoidance strategy driving the memory.",
+              "No paragraph clearly conveys that Kiet's maladaptive strategies (avoidance, revenge fantasies, safety behaviours) causally produce or worsen his negative appraisals — the vignette mentions the revenge fantasies 'reinforced his sense of being trapped' but does not link the broader set of maladaptive strategies to generating or intensifying the negative self-appraisals (e.g., feeling diminished, blaming himself for being in the street)."
+            ]
+          },
+          "name": "ValidationResult",
+          "type": "tool_use"
+        }
+      ]
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Maladaptive Strategies → Memory",
+      "Maladaptive Strategies → Negative Appraisals"
+    ],
+    "violation_explanations": [
+      "No paragraph establishes that Kiet's maladaptive strategies (e.g., sleep avoidance, staying up late, revenge fantasies) causally lead to or intensify the intrusive memory itself — the vignette notes sleep deprivation made memories 'more insistent and vivid,' but this is framed as a consequence of sleep deprivation rather than of the avoidance strategy driving the memory.",
+      "No paragraph clearly conveys that Kiet's maladaptive strategies (avoidance, revenge fantasies, safety behaviours) causally produce or worsen his negative appraisals — the vignette mentions the revenge fantasies 'reinforced his sense of being trapped' but does not link the broader set of maladaptive strategies to generating or intensifying the negative self-appraisals (e.g., feeling diminished, blaming himself for being in the street)."
+    ]
+  }
+}

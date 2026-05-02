@@ -1,0 +1,222 @@
+{
+  "persona_id": 86,
+  "source_persona_id": 86,
+  "experiment_timestamp": "2026-05-02 20:36:48",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-reasoner",
+      "persona_crafter": "deepseek-reasoner",
+      "vignette_crafter": "deepseek-reasoner",
+      "vignette_validator": "deepseek-reasoner"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 79,
+    "gender": "Female",
+    "ethnicity": "Latin American",
+    "relationship_status": "Widowed",
+    "occupation": "Combat Pilot",
+    "trauma_type": "Police violence",
+    "pcl5": 80
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Crowding",
+        "value": "Crowded places"
+      },
+      {
+        "key": "Auditory (Sirens)",
+        "value": "Sirens"
+      },
+      {
+        "key": "Authority Presence",
+        "value": "Police"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Delay Sleep",
+        "value": "stay up until very late"
+      },
+      {
+        "key": "Avoid Similar Clothes",
+        "value": "avoid wearing similar clothes"
+      },
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      },
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Noticing Weapons",
+        "value": "I notice potential weapons or dangerous objects in any environment"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Snapshot Memory",
+        "value": "I remember the frightening event as a few moments, and each moment is a picture in my mind."
+      },
+      {
+        "key": "Olfactory Recall",
+        "value": "When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened."
+      },
+      {
+        "key": "Sudden Pieces",
+        "value": "Fragments of the memory appear suddenly without warning and then disappear"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.732,
+    "Triggers -- Memory": 0.0213,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.6962,
+    "Memory -- Threat": 0.7891,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.4438,
+    "Threat -- Memory": 0.1747,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.883,
+    "Maladaptive Strategies -- Memory": 0.3816,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5152125,
+  "edge_density": 0.4,
+  "vignette_word_count": 802,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Relationship Reminders: When people say things like my ex",
+          "explanation": "The trigger items are hard to reconcile with the indexed trauma of police violence. 'My ex' is a relationship-specific cue and pregnancy/birth cues are highly specific to reproductive or interpersonal trauma; neither fits the rest of the profile, which otherwise centers on threat, weapons, and sensory fragments more consistent with assault/violence exposure. This is more than unusual because there is no corresponding memory or appraisal content linking police violence to ex-partner or childbirth themes."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "'Avoid wearing similar clothes' lacks a plausible anchor in the rest of the profile. There is no trigger or memory item about uniforms, clothing, or appearance cues, so this strategy appears to target a symptom pattern not represented elsewhere. Given the strong Memory→Maladaptive Strategies linkage, the selected strategies should be more clearly connected to the reported sensory/fragmented memory content."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Relationship Reminders"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "Pregnancy/birth reminders are hard to reconcile with the stated trauma type of police violence and the rest of the profile. None of the threat, memory, or strategy items suggest a perinatal, infant-related, or childbirth-linked trauma theme, so this trigger appears clinically disconnected from the reported trauma."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Overworking: I throw myself into work or tasks to keep my mind occupied",
+          "explanation": "Overworking is less coherent with this patient's demographics and the rest of the symptom pattern. In a 79-year-old widowed patient, 'throwing myself into work' is less plausible unless supported elsewhere, and the profile instead centers on sensory reminders, hypervigilance, and avoidance of trauma-linked cues. This coping item is not impossible, but in this profile it appears weakly anchored compared with the other selected strategies."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Pregnancy/Birth Reminders"
+        ],
+        "Maladaptive Strategies": [
+          "Overworking"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3060,
+    "output": 4347,
+    "total": 7407
+  },
+  "vignette": "Carmen, a 79-year-old retired combat pilot, still carries herself with the erect posture and measured calm of someone who once commanded million-dollar aircraft. She was widowed twelve years ago and lives alone in a quiet suburban neighborhood. Her trauma, however, did not come from the sky—it came from a clear afternoon two years ago, during a routine traffic stop. She had been driving home from the grocery store when a police cruiser pulled her over for a broken taillight. What followed was a blur of shouting, a sudden yank from her car, and the cold pressure of a knee on her back as an officer accused her of reaching for a weapon—a weapon she did not have. She still remembers it not as a continuous story but as a handful of frozen snapshots: the officer’s face contorted with anger, the asphalt grit against her cheek, the sharp smell of exhaust and sweat mixing with the metallic tang of blood from a split lip. Those moments, each a vivid picture, return without warning, often accompanied by the olfactory echo of that day—diesel fumes and the faint scent of a dusty uniform—that makes her stomach turn.\n\nIn the months that followed, Carmen began to notice that certain sounds could shatter her composure. A siren wailing two blocks away would send her heart racing, her palms slick, her breath shallow. She could not relax even in the safety of her own living room; she would find herself scanning the street through the blinds, noting every passing car, every pedestrian who might be an officer in plain clothes. Crowded places—the supermarket, the pharmacy—became unbearable because there were too many people to watch, too many potential threats. She started to notice weapons everywhere: a long-handled umbrella could be a baton, a child’s toy gun looked too real, a folded pocket knife on a neighbor’s belt made her freeze. This constant vigilance, the body’s refusal to believe she was safe, only brought the memory rushing back. The more her body reacted—the tight chest, the ringing ears—the more the snapshots came, unbidden, as if her own fear was a key that unlocked the scene again and again.\n\nTo manage this intrusion, Carmen developed a set of strategies that gradually reshaped her daily life. She began to avoid any clothing that resembled what she had been wearing that day: a light blue blouse and dark slacks. She donated every similar garment and now dressed only in bright colors or patterns, hoping to break the association. She also postponed sleep until two or three in the morning, staying awake with the television on low, because the moment she closed her eyes the fragments would come, and she would lie rigid, waiting for the smells and images to pass. Whenever she left the house—and she left less and less—she would check her surroundings obsessively: a glance over the shoulder at every corner, a scan of parked cars, a note of any figure in uniform. But these actions, meant to give her control, often backfired. Her constant scanning would catch a police cruiser idling at a gas station, and the sight would trigger a sudden piece of the memory—a glimpse of the officer’s badge, the feel of the handcuffs biting her wrists. The avoidance itself became a reminder.\n\nThe tightest loop formed between her hypervigilance and her environment. The more she could not relax, the more she noticed potential weapons and threatening presences, and that awareness made her even more sensitive to triggers like sirens or crowds. Each time she heard a siren, her body reacted, and the reaction summoned the memory, which in turn strengthened her conviction that danger was everywhere. She had come to believe that her own physical responses were warnings that another attack was imminent. When she saw a police car, she would cross the street or duck into a store, her heart pounding so hard she could feel it in her throat. The world became a landscape of cues she could not escape.\n\nCarmen finally sought help because her grandson, who visits every Sunday, noticed she no longer went to church or to the community center where she used to play dominoes. She admitted to him that she was terrified of leaving the house, terrified of the police who were supposed to keep the peace, and terrified of the memories that came when she least expected them. What frightens her most now is the idea that she will spend her remaining years trapped in a living room, scanning the windows, waiting for a knock she dreads and cannot explain. She hopes, quietly, that talking about it might loosen the grip of those frozen moments, so she can once again walk outside without feeling as if the afternoon she was pulled from her car is happening all over again."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Carmen, a 79-year-old retired combat pilot, still carries herself with the erect posture and measured calm of someone who once commanded million-dollar aircraft. She was widowed twelve years ago and lives alone in a quiet suburban neighborhood. Her trauma, however, did not come from the sky—it came from a clear afternoon two years ago, during a routine traffic stop. She had been driving home from the grocery store when a police cruiser pulled her over for a broken taillight. What followed was a blur of shouting, a sudden yank from her car, and the cold pressure of a knee on her back as an officer accused her of reaching for a weapon—a weapon she did not have. She still remembers it not as a continuous story but as a handful of frozen snapshots: the officer’s face contorted with anger, the asphalt grit against her cheek, the sharp smell of exhaust and sweat mixing with the metallic tang of blood from a split lip. Those moments, each a vivid picture, return without warning, often accompanied by the olfactory echo of that day—diesel fumes and the faint scent of a dusty uniform—that makes her stomach turn.\n\nIn the months that followed, Carmen began to notice that certain sounds could shatter her composure. A siren wailing two blocks away would send her heart racing, her palms slick, her breath shallow. She could not relax even in the safety of her own living room; she would find herself scanning the street through the blinds, noting every passing car, every pedestrian who might be an officer in plain clothes. Crowded places—the supermarket, the pharmacy—became unbearable because there were too many people to watch, too many potential threats. She started to notice weapons everywhere: a long-handled umbrella could be a baton, a child’s toy gun looked too real, a folded pocket knife on a neighbor’s belt made her freeze. This constant vigilance, the body’s refusal to believe she was safe, only brought the memory rushing back. The more her body reacted—the tight chest, the ringing ears—the more the snapshots came, unbidden, as if her own fear was a key that unlocked the scene again and again.\n\nTo manage this intrusion, Carmen developed a set of strategies that gradually reshaped her daily life. She began to avoid any clothing that resembled what she had been wearing that day: a light blue blouse and dark slacks. She donated every similar garment and now dressed only in bright colors or patterns, hoping to break the association. She also postponed sleep until two or three in the morning, staying awake with the television on low, because the moment she closed her eyes the fragments would come, and she would lie rigid, waiting for the smells and images to pass. Whenever she left the house—and she left less and less—she would check her surroundings obsessively: a glance over the shoulder at every corner, a scan of parked cars, a note of any figure in uniform. But these actions, meant to give her control, often backfired. Her constant scanning would catch a police cruiser idling at a gas station, and the sight would trigger a sudden piece of the memory—a glimpse of the officer’s badge, the feel of the handcuffs biting her wrists. The avoidance itself became a reminder.\n\nThe tightest loop formed between her hypervigilance and her environment. The more she could not relax, the more she noticed potential weapons and threatening presences, and that awareness made her even more sensitive to triggers like sirens or crowds. Each time she heard a siren, her body reacted, and the reaction summoned the memory, which in turn strengthened her conviction that danger was everywhere. She had come to believe that her own physical responses were warnings that another attack was imminent. When she saw a police car, she would cross the street or duck into a store, her heart pounding so hard she could feel it in her throat. The world became a landscape of cues she could not escape.\n\nCarmen finally sought help because her grandson, who visits every Sunday, noticed she no longer went to church or to the community center where she used to play dominoes. She admitted to him that she was terrified of leaving the house, terrified of the police who were supposed to keep the peace, and terrified of the memories that came when she least expected them. What frightens her most now is the idea that she will spend her remaining years trapped in a living room, scanning the windows, waiting for a knock she dreads and cannot explain. She hopes, quietly, that talking about it might loosen the grip of those frozen moments, so she can once again walk outside without feeling as if the afternoon she was pulled from her car is happening all over again.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,784 @@
+PERSONA 418  |  2026-05-02 22:28:10
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             29
+  gender          Female
+  ethnicity       South Eastern Asian
+  relationship_status Single
+  occupation      Combat Pilot
+  trauma_type     Trauma to a loved one
+  pcl5            60
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Discomfort: Feeling uncomfortable
+    • Event Recall: Talking about the event
+    • Loss Themes: Talk about people loosing loved ones
+  Maladaptive Strategies:
+    • Suppress Thoughts: try hard not think about the trauma
+    • Avoid Reminders: Being reminded of the event by others
+    • Avoid New Relationships: Starting new friendships or relationships
+  Memory:
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Photographic Recall: Remembering what happened during the frightening event is just like looking at photographs of it in my mind.
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+  Negative Appraisals:
+    • Defective Self: There is something wrong with me as a person
+    • Can't Rely on Others: I can't rely on other people
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.4040
+  Triggers → Negative Appraisals                     0.7662
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.4476
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.9436
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.2282
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.6064
+  Maladaptive Strategies → Negative Appraisals       0.2515
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Perceived Threat: People acting suspiciously
+    explanation: The trigger set leans strongly toward direct combat/attack cues (suspicious people, gunshot noise), which is hard to reconcile with the validated trauma type of trauma to a loved one unless the loved one’s trauma specifically occurred in a combat or shooting context. As written, these triggers suggest personal threat exposure more than reminders of harm to a loved one.
+    item:        Negative Appraisals / Triggers: Auditory/Threat: Gunshot noise
+    explanation: The appraisal 'I acted in ways that go against who I am' implies prominent moral injury/self-blame for one’s own actions. That can occur after trauma to a loved one, but here there are no corresponding memory details or other appraisals linking the loved one’s trauma to the patient’s own actions/omissions. In this profile it pulls toward a different trauma meaning than the rest of the items and is not well supported by the selected trigger and memory content.
+  [2] FAIL
+    item:        Triggers / Triggers: Auditory/Threat: Gunshot noise
+    explanation: For trauma to a loved one, gunshot noise as a prominent trigger is hard to reconcile unless the loved one's trauma specifically involved gunfire. Nothing in the rest of the profile supports a gunfire/combat-linked bereavement context, so this trigger appears trauma-context mismatched.
+    item:        Negative Appraisals / Negative Appraisals: Violated Values: I acted in ways that go against who I am
+    explanation: The appraisal 'I acted in ways that go against who I am' implies morally injurious personal action during the event. That is difficult to reconcile with the stated trauma type of trauma to a loved one unless there is additional context about the patient's own actions. The rest of the profile centers on loss, mistrust, and intrusive recall rather than perpetration-related guilt, making this item stand out as clinically incoherent.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     30,042
+  output:     4,584
+  total:     34,626
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Fiona, a 29-year-old combat pilot of South Eastern Asian descent, had always dreamed of flying. The
+adrenaline, the thrill, and the sense of purpose it brought her made her an excellent pilot.
+However, her world shifted dramatically after a traumatic event that would haunt her everyday life.
+During a routine training mission, her best friend and co-pilot, Maya, was killed in a tragic
+accident when their aircraft malfunctioned mid-flight. Fiona had been in control of the aircraft
+when it happened, and although it was an unforeseen mechanical failure, the weight of her friend’s
+death pressed heavily on her shoulders. The sounds of the engines, the sight of the cockpit, and the
+smell of jet fuel became constant reminders of that fateful day.
+
+Now, every time she was around her colleagues, discussions about missions and the dangers of flying
+would spark a deep discomfort within her. She would feel her heart race at the mention of “losing
+someone” in the field, as if the words were a trigger that pulled her back into the cockpit,
+reliving the harrowing moment she could not prevent. This discomfort would often lead to a rush of
+memories, flooding her thoughts with vivid images of Maya’s last moments. It was as if her memories
+were a film that played on repeat, forcing her to confront what she desperately wanted to forget.
+Each reminder took her deeper into a spiral of guilt and shame, reinforcing her belief that she had
+failed to protect Maya when it mattered most. Fiona had come to believe that there was something
+fundamentally wrong with her; she felt defective, unworthy of the camaraderie she once cherished.
+
+To cope, Fiona began to suppress her thoughts, actively trying not to think about the trauma while
+pushing away reminders of her loss. She avoided any situations that could evoke memories of Maya or
+the accident, even steering clear of conversations that might lead her down that painful path. This
+avoidance extended beyond her professional life; she found herself resisting friendships and new
+relationships, convinced that allowing anyone close would only lead to further loss. She feared that
+if she let anyone in, she might inadvertently put them in danger, just as she had with Maya. This
+belief only deepened her feelings of isolation, leaving her feeling trapped in her own head.
+
+Fiona’s memories were often triggered without warning. A distant sound of an aircraft taking off or
+the sight of a group of pilots laughing and bonding would send her back to that moment of chaos.
+Those memories would emerge unbidden, as though they were photographs she could not escape. Each
+time she was reminded of the event, the same guilt and regret would wash over her, tightening the
+grip of her negative appraisals. She was left feeling more alone, grappling with the belief that she
+could not rely on anyone else to understand her pain. In her mind, she had failed not only Maya but
+also herself; she could not shake the conviction that she should have noticed the signs, should have
+done something differently.
+
+This cycle of memory and maladaptive strategies only perpetuated her symptoms. Each time she tried
+to avoid thinking about the accident, her mind would retaliate by replaying the event with
+relentless clarity. The more she attempted to suppress her thoughts, the more vivid her memories
+became, creating a frustrating paradox where her strategies for coping led her deeper into the
+trauma. The connection between her actions and her feelings became painfully evident; in her
+attempts to shield herself from pain, she was inadvertently reinforcing her guilt and feelings of
+inadequacy.
+
+After months of struggling with the weight of her experiences, Fiona finally found the courage to
+seek help. The decision came after a particularly jarring moment at work when a new pilot joined the
+team and innocently asked her about her past missions. Fiona felt a wave of discomfort wash over
+her, a familiar sensation that underscored her isolation. She hoped to find relief from the constant
+reminders and the overwhelming guilt that had come to define her life. What frightened her most was
+the thought of living with this pain indefinitely, but she also held onto a glimmer of hope that
+perhaps, through therapy, she might learn to heal and reconnect with the world she had once loved so
+deeply.
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette does not clearly convey that triggers (like discussions about missions) lead to memories of the traumatic event.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not show that triggers (discussions about missions) lead to negative appraisals (her feelings of guilt).
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not establish a connection where negative appraisals (feelings of inadequacy) specifically lead to memories of the trauma.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The relationship between memories and maladaptive strategies (her avoidance) is not clearly indicated as causal.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not illustrate that her maladaptive strategies (avoidance) lead to negative appraisals (her feelings of guilt and inadequacy).
+
+  [2] FAIL
+Fiona, a 29-year-old combat pilot of South Eastern Asian descent, had always dreamed of flying. The
+adrenaline, the thrill, and the sense of purpose it brought her made her an excellent pilot.
+However, her world shifted dramatically after a traumatic event that would haunt her everyday life.
+During a routine training mission, her best friend and co-pilot, Maya, was killed in a tragic
+accident when their aircraft malfunctioned mid-flight. Fiona had been in control of the aircraft
+when it happened, and although it was an unforeseen mechanical failure, the weight of her friend’s
+death pressed heavily on her shoulders. The sounds of the engines, the sight of the cockpit, and the
+smell of jet fuel became constant reminders of that fateful day.
+
+Now, every time she was around her colleagues, discussions about missions and the dangers of flying
+would spark a deep discomfort within her. She would feel her heart race at the mention of “losing
+someone” in the field, as if the words were a trigger that pulled her back into the cockpit,
+reliving the harrowing moment she could not prevent. This discomfort would often lead to a rush of
+memories, flooding her thoughts with vivid images of Maya’s last moments. It was as if her memories
+were a film that played on repeat, forcing her to confront what she desperately wanted to forget.
+Each reminder took her deeper into a spiral of guilt and shame, reinforcing her belief that she had
+failed to protect Maya when it mattered most. Fiona had come to believe that there was something
+fundamentally wrong with her; she felt defective, unworthy of the camaraderie she once cherished.
+
+To cope, Fiona began to suppress her thoughts, actively trying not to think about the trauma while
+pushing away reminders of her loss. She avoided any situations that could evoke memories of Maya or
+the accident, even steering clear of conversations that might lead her down that painful path. This
+avoidance extended beyond her professional life; she found herself resisting friendships and new
+relationships, convinced that allowing anyone close would only lead to further loss. She feared that
+if she let anyone in, she might inadvertently put them in danger, just as she had with Maya. This
+belief only deepened her feelings of isolation, leaving her feeling trapped in her own head.
+
+Fiona’s memories were often triggered without warning. A distant sound of an aircraft taking off or
+the sight of a group of pilots laughing and bonding would send her back to that moment of chaos.
+Those memories would emerge unbidden, as though they were photographs she could not escape. Each
+time she was reminded of the event, the same guilt and regret would wash over her, tightening the
+grip of her negative appraisals. She was left feeling more alone, grappling with the belief that she
+could not rely on anyone else to understand her pain. In her mind, she had failed not only Maya but
+also herself; she could not shake the conviction that she should have noticed the signs, should have
+done something differently.
+
+This cycle of memory and maladaptive strategies only perpetuated her symptoms. Each time she tried
+to avoid thinking about the accident, her mind would retaliate by replaying the event with
+relentless clarity. The more she attempted to suppress her thoughts, the more vivid her memories
+became, creating a frustrating paradox where her strategies for coping led her deeper into the
+trauma. The connection between her actions and her feelings became painfully evident; in her
+attempts to shield herself from pain, she was inadvertently reinforcing her guilt and feelings of
+inadequacy.
+
+After months of struggling with the weight of her experiences, Fiona finally found the courage to
+seek help. The decision came after a particularly jarring moment at work when a new pilot joined the
+team and innocently asked her about her past missions. Fiona felt a wave of discomfort wash over
+her, a familiar sensation that underscored her isolation. She hoped to find relief from the constant
+reminders and the overwhelming guilt that had come to define her life. What frightened her most was
+the thought of living with this pain indefinitely, but she also held onto a glimmer of hope that
+perhaps, through therapy, she might learn to heal and reconnect with the world she had once loved so
+deeply. "These discussions would pull her back into vivid memories of that day in the cockpit, where
+the chaos of the accident replayed in her mind with unsettling clarity." "Each time she was reminded
+of the accident, the guilt would rise within her, whispering that she had failed to protect Maya,
+deepening her belief that she was unworthy." "This conviction echoed in her mind, leading her back
+to the moment of the crash, fueling her sense of helplessness and reinforcing the belief that she
+was forever changed." "Each time she avoided a conversation or connection, it reinforced her
+feelings of inadequacy, leaving her to believe that she must be more fragile than others who could
+face their past." "She had learned that her attempts to suppress these memories only led her deeper
+into despair, making her feel as though she could never escape the weight of her guilt."
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette does not explicitly establish that triggers lead to memory recall, as required.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not clearly indicate that triggers lead to negative appraisals in Fiona's case.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not show that negative appraisals influence her memory of the trauma directly.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not convey that memory recall drives her maladaptive strategies for coping with her trauma.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette lacks a connection that shows memory recalls lead to triggers being activated again.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette does not establish that her maladaptive strategies lead to her memories being exacerbated.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not show that her maladaptive strategies influence her negative appraisals.
+
+  [3] FAIL
+Fiona, a 29-year-old combat pilot of South Eastern Asian descent, had always dreamed of flying. The
+adrenaline, the thrill, and the sense of purpose it brought her made her an excellent pilot.
+However, her world shifted dramatically after a traumatic event that would haunt her everyday life.
+During a routine training mission, her best friend and co-pilot, Maya, was killed in a tragic
+accident when their aircraft malfunctioned mid-flight. Fiona had been in control of the aircraft
+when it happened, and although it was an unforeseen mechanical failure, the weight of her friend’s
+death pressed heavily on her shoulders. The sounds of the engines, the sight of the cockpit, and the
+smell of jet fuel became constant reminders of that fateful day. Now, every time she was around her
+colleagues, discussions about missions and the dangers of flying would spark a deep discomfort
+within her. She would feel her heart race at the mention of “losing someone” in the field, as if the
+words were a trigger that pulled her back into the cockpit, reliving the harrowing moment she could
+not prevent. This discomfort would often lead to a rush of memories, flooding her thoughts with
+vivid images of Maya’s last moments. It was as if her memories were a film that played on repeat,
+forcing her to confront what she desperately wanted to forget. Each reminder took her deeper into a
+spiral of guilt and shame, reinforcing her belief that she had failed to protect Maya when it
+mattered most. Fiona had come to believe that there was something fundamentally wrong with her; she
+felt defective, unworthy of the camaraderie she once cherished. To cope, Fiona began to suppress her
+thoughts, actively trying not to think about the trauma while pushing away reminders of her loss.
+She avoided any situations that could evoke memories of Maya or the accident, even steering clear of
+conversations that might lead her down that painful path. This avoidance extended beyond her
+professional life; she found herself resisting friendships and new relationships, convinced that
+allowing anyone close would only lead to further loss. She feared that if she let anyone in, she
+might inadvertently put them in danger, just as she had with Maya. This belief only deepened her
+feelings of isolation, leaving her feeling trapped in her own head. Fiona’s memories were often
+triggered without warning. A distant sound of an aircraft taking off or the sight of a group of
+pilots laughing and bonding would send her back to that moment of chaos. Those memories would emerge
+unbidden, as though they were photographs she could not escape. Each time she was reminded of the
+event, the same guilt and regret would wash over her, tightening the grip of her negative
+appraisals. She was left feeling more alone, grappling with the belief that she could not rely on
+anyone else to understand her pain. In her mind, she had failed not only Maya but also herself; she
+could not shake the conviction that she should have noticed the signs, should have done something
+differently. This cycle of memory and maladaptive strategies only perpetuated her symptoms. "It was
+as if the memories became more vivid with each attempt to suppress them, leading her to employ
+avoidance strategies that only seemed to intensify the pain she was trying to escape." Each time she
+tried to avoid thinking about the accident, her mind would retaliate by replaying the event with
+relentless clarity. "Her avoidance of connections only reinforced her feelings of fragility, as she
+began to believe that she was somehow weaker than others who could face their past openly." The more
+she attempted to suppress her thoughts, the more vivid her memories became, creating a frustrating
+paradox where her strategies for coping led her deeper into the trauma. The connection between her
+actions and her feelings became painfully evident; in her attempts to shield herself from pain, she
+was inadvertently reinforcing her guilt and feelings of inadequacy. After months of struggling with
+the weight of her experiences, Fiona finally found the courage to seek help. The decision came after
+a particularly jarring moment at work when a new pilot joined the team and innocently asked her
+about her past missions. Fiona felt a wave of discomfort wash over her, a familiar sensation that
+underscored her isolation. She hoped to find relief from the constant reminders and the overwhelming
+guilt that had come to define her life. "Each time she was confronted with those reminders, they
+whispered to her that she was unworthy, deepening her conviction that she would never be able to
+escape her past." What frightened her most was the thought of living with this pain indefinitely,
+but she also held onto a glimmer of hope that perhaps, through therapy, she might learn to heal and
+reconnect with the world she had once loved so deeply. "These discussions would pull her back into
+vivid memories of that day in the cockpit, where the chaos of the accident replayed in her mind with
+unsettling clarity." "Each time she was reminded of the accident, the guilt would rise within her,
+whispering that she had failed to protect Maya, deepening her belief that she was unworthy." "This
+conviction echoed in her mind, leading her back to the moment of the crash, fueling her sense of
+helplessness and reinforcing the belief that she was forever changed." "Each time she avoided a
+conversation or connection, it reinforced her feelings of inadequacy, leaving her to believe that
+she must be more fragile than others who could face their past." "She had learned that her attempts
+to suppress these memories only led her deeper into despair, making her feel as though she could
+never escape the weight of her guilt." "Every time her heart raced at the mention of danger, it
+would trigger a wave of recollections, pulling her back into that cockpit, where the chaos of the
+accident became painfully real again." "This belief often dragged her back to the moment of the
+crash, as she replayed the scene in her mind, searching for signs she missed, convinced that she had
+failed at the most critical moment." "Once those memories surfaced, even mundane sounds became laden
+with significance, leaving her on high alert as if she were still in the cockpit, scanning for
+danger." "Each time she retreated further into herself, it solidified her sense of inadequacy, as if
+the act of avoiding her trauma was proof that she could not cope like others could."
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette does not establish a clear causal connection between triggers and memories, meaning it doesn't show how triggers influence the emergence of memories.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not clarify how triggers lead to negative appraisals, as it fails to demonstrate that triggers directly influence Fiona's negative beliefs about herself.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not show that negative appraisals lead to memories, failing to establish that Fiona's distorted beliefs about herself affect her recollection of the traumatic event.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not connect memories to maladaptive strategies, meaning it doesn't illustrate how her trauma memories influence her coping strategies.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not establish a connection from memories to triggers, as it does not show how memories influence the presence of triggers in Fiona's life.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette fails to demonstrate that maladaptive strategies lead to the emergence of memories, meaning it doesn't clarify how her avoidance affects her recollection of the trauma.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not illustrate how maladaptive strategies influence negative appraisals, as it does not show that her coping strategies affect her beliefs about herself.
+
+  [4] FAIL
+Fiona, a 29-year-old combat pilot of South Eastern Asian descent, had always dreamed of flying. The
+adrenaline, the thrill, and the sense of purpose it brought her made her an excellent pilot.
+However, her world shifted dramatically after a traumatic event that would haunt her everyday life.
+During a routine training mission, her best friend and co-pilot, Maya, was killed in a tragic
+accident when their aircraft malfunctioned mid-flight. Fiona had been in control of the aircraft
+when it happened, and although it was an unforeseen mechanical failure, the weight of her friend’s
+death pressed heavily on her shoulders. The sounds of the engines, the sight of the cockpit, and the
+smell of jet fuel became constant reminders of that fateful day. Now, every time she was around her
+colleagues, discussions about missions and the dangers of flying would spark a deep discomfort
+within her. She would feel her heart race at the mention of “losing someone” in the field, as if the
+words were a trigger that pulled her back into the cockpit, reliving the harrowing moment she could
+not prevent. This discomfort would often lead to a rush of memories, flooding her thoughts with
+vivid images of Maya’s last moments. It was as if her memories were a film that played on repeat,
+forcing her to confront what she desperately wanted to forget. Each reminder took her deeper into a
+spiral of guilt and shame, reinforcing her belief that she had failed to protect Maya when it
+mattered most. Fiona had come to believe that there was something fundamentally wrong with her; she
+felt defective, unworthy of the camaraderie she once cherished. To cope, Fiona began to suppress her
+thoughts, actively trying not to think about the trauma while pushing away reminders of her loss.
+She avoided any situations that could evoke memories of Maya or the accident, even steering clear of
+conversations that might lead her down that painful path. This avoidance extended beyond her
+professional life; she found herself resisting friendships and new relationships, convinced that
+allowing anyone close would only lead to further loss. She feared that if she let anyone in, she
+might inadvertently put them in danger, just as she had with Maya. This belief only deepened her
+feelings of isolation, leaving her feeling trapped in her own head. Fiona’s memories were often
+triggered without warning. A distant sound of an aircraft taking off or the sight of a group of
+pilots laughing and bonding would send her back to that moment of chaos. Those memories would emerge
+unbidden, as though they were photographs she could not escape. Each time she was reminded of the
+event, the same guilt and regret would wash over her, tightening the grip of her negative
+appraisals. She was left feeling more alone, grappling with the belief that she could not rely on
+anyone else to understand her pain. In her mind, she had failed not only Maya but also herself; she
+could not shake the conviction that she should have noticed the signs, should have done something
+differently. This cycle of memory and maladaptive strategies only perpetuated her symptoms. "It was
+as if the memories became more vivid with each attempt to suppress them, leading her to employ
+avoidance strategies that only seemed to intensify the pain she was trying to escape." Each time she
+tried to avoid thinking about the accident, her mind would retaliate by replaying the event with
+relentless clarity. "Her avoidance of connections only reinforced her feelings of fragility, as she
+began to believe that she was somehow weaker than others who could face their past openly." The more
+she attempted to suppress her thoughts, the more vivid her memories became, creating a frustrating
+paradox where her strategies for coping led her deeper into the trauma. "Fiona realized that her
+avoidance strategies, meant to protect her, only served to amplify her memories, making her feel as
+though she was reliving the trauma every day." The connection between her actions and her feelings
+became painfully evident; in her attempts to shield herself from pain, she was inadvertently
+reinforcing her guilt and feelings of inadequacy. After months of struggling with the weight of her
+experiences, Fiona finally found the courage to seek help. The decision came after a particularly
+jarring moment at work when a new pilot joined the team and innocently asked her about her past
+missions. Fiona felt a wave of discomfort wash over her, a familiar sensation that underscored her
+isolation. She hoped to find relief from the constant reminders and the overwhelming guilt that had
+come to define her life. "Each time she was confronted with those reminders, they whispered to her
+that she was unworthy, deepening her conviction that she would never be able to escape her past."
+What frightened her most was the thought of living with this pain indefinitely, but she also held
+onto a glimmer of hope that perhaps, through therapy, she might learn to heal and reconnect with the
+world she had once loved so deeply. "These discussions would pull her back into vivid memories of
+that day in the cockpit, where the chaos of the accident replayed in her mind with unsettling
+clarity." "Each time she was reminded of the accident, the guilt would rise within her, whispering
+that she had failed to protect Maya, deepening her belief that she was unworthy." "This conviction
+echoed in her mind, leading her back to the moment of the crash, fueling her sense of helplessness
+and reinforcing the belief that she was forever changed." "Each time she avoided a conversation or
+connection, it reinforced her feelings of inadequacy, leaving her to believe that she must be more
+fragile than others who could face their past." "She had learned that her attempts to suppress these
+memories only led her deeper into despair, making her feel as though she could never escape the
+weight of her guilt." "This struggle only reinforced her belief that she was fragile; the more she
+avoided confronting her trauma, the more she felt like she was proving her own weaknesses." "Every
+time her heart raced at the mention of danger, it would trigger a wave of recollections, pulling her
+back into that cockpit, where the chaos of the accident became painfully real again." "This belief
+often dragged her back to the moment of the crash, as she replayed the scene in her mind, searching
+for signs she missed, convinced that she had failed at the most critical moment." "Once those
+memories surfaced, even mundane sounds became laden with significance, leaving her on high alert as
+if she were still in the cockpit, scanning for danger." "Each time she retreated further into
+herself, it solidified her sense of inadequacy, as if the act of avoiding her trauma was proof that
+she could not cope like others could." "The echoes of guilt from those memories would lead her to
+think that she was solely responsible for Maya’s death, reinforcing her belief that she was weak and
+unworthy of the life she once led." "Every time she caught a glimpse of a pilot's uniform or heard
+the roar of an aircraft, it reminded her of her inability to protect Maya, solidifying her
+conviction that she was destined to fail again." "Each sudden reminder would pull her back into
+vivid recollections of that fateful day, making it feel as if the trauma was happening all over
+again, and she could see no escape from the pain." "This fear was compounded by her memories, which
+replayed the accident with painful clarity, each recollection reinforcing her belief that she would
+only cause more harm." "Every time she tried to avoid thinking about the accident, these memories
+would surge back with even greater intensity, proving to her that her strategies were futile."
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette describes triggers but does not establish how they influence or lead to the formation of memories.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette mentions triggers but does not connect them to negative appraisals or beliefs that result from them.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: While negative appraisals are present, the vignette does not show their influence on memory formation or recall.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The connection between memory and the use of maladaptive strategies is not clearly established in the vignette.
+
+    ✗ edge:        Memory → Triggers
+      explanation: Although memories are described, there is no direct connection showing how they can lead to further triggers.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: Maladaptive strategies are mentioned, but their relationship with memory is not explicitly stated in the vignette.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette describes maladaptive strategies but does not connect them to negative appraisals or beliefs.
+
+  [5] FAIL
+Fiona, a 29-year-old combat pilot of South Eastern Asian descent, had always dreamed of flying. The
+adrenaline, the thrill, and the sense of purpose it brought her made her an excellent pilot.
+However, her world shifted dramatically after a traumatic event that would haunt her everyday life.
+During a routine training mission, her best friend and co-pilot, Maya, was killed in a tragic
+accident when their aircraft malfunctioned mid-flight. Fiona had been in control of the aircraft
+when it happened, and although it was an unforeseen mechanical failure, the weight of her friend’s
+death pressed heavily on her shoulders. The sounds of the engines, the sight of the cockpit, and the
+smell of jet fuel became constant reminders of that fateful day. Now, every time she was around her
+colleagues, discussions about missions and the dangers of flying would spark a deep discomfort
+within her. She would feel her heart race at the mention of “losing someone” in the field, as if the
+words were a trigger that pulled her back into the cockpit, reliving the harrowing moment she could
+not prevent. The moment her heart began to race, it was as if the memories flooded back, each
+recollection sharp and vivid, making her feel the weight of that day all over again. This discomfort
+would often lead to a rush of memories, flooding her thoughts with vivid images of Maya’s last
+moments. It was as if her memories were a film that played on repeat, forcing her to confront what
+she desperately wanted to forget. Each reminder took her deeper into a spiral of guilt and shame,
+reinforcing her belief that she had failed to protect Maya when it mattered most. Each time she was
+reminded of her perceived failure, it solidified her conviction that she was unworthy, leading her
+to believe that she would never be able to escape the shadow of her past. Fiona had come to believe
+that there was something fundamentally wrong with her; she felt defective, unworthy of the
+camaraderie she once cherished. To cope, Fiona began to suppress her thoughts, actively trying not
+to think about the trauma while pushing away reminders of her loss. She avoided any situations that
+could evoke memories of Maya or the accident, even steering clear of conversations that might lead
+her down that painful path. This avoidance extended beyond her professional life; she found herself
+resisting friendships and new relationships, convinced that allowing anyone close would only lead to
+further loss. She feared that if she let anyone in, she might inadvertently put them in danger, just
+as she had with Maya. Her avoidance was rooted in a belief that she was somehow flawed, reinforcing
+the notion that she was not only putting herself at risk by connecting with others but also
+condemning them to share her pain. This belief only deepened her feelings of isolation, leaving her
+feeling trapped in her own head. Fiona’s memories were often triggered without warning. The weight
+of her guilt would often bring the memories rushing back, compelling her to relive those moments, as
+if she were still in the cockpit, desperately searching for a solution she knew she had failed to
+find. A distant sound of an aircraft taking off or the sight of a group of pilots laughing and
+bonding would send her back to that moment of chaos. Those memories would emerge unbidden, as though
+they were photographs she could not escape. Each time she was reminded of the event, the same guilt
+and regret would wash over her, tightening the grip of her negative appraisals. She was left feeling
+more alone, grappling with the belief that she could not rely on anyone else to understand her pain.
+In her mind, she had failed not only Maya but also herself; she could not shake the conviction that
+she should have noticed the signs, should have done something differently. This cycle of memory and
+maladaptive strategies only perpetuated her symptoms. The memories she struggled to suppress seemed
+to emerge more forcefully, each recollection intensifying her need to avoid anything that might
+remind her of that day, creating a vicious cycle that felt impossible to break. "It was as if the
+memories became more vivid with each attempt to suppress them, leading her to employ avoidance
+strategies that only seemed to intensify the pain she was trying to escape." Each time she tried to
+avoid thinking about the accident, her mind would retaliate by replaying the event with relentless
+clarity. In trying to push those memories away, she inadvertently kept them alive, making them more
+potent and unyielding, as if her efforts to escape were merely feeding the trauma that haunted her.
+"Her avoidance of connections only reinforced her feelings of fragility, as she began to believe
+that she was somehow weaker than others who could face their past openly." The more she attempted to
+suppress her thoughts, the more vivid her memories became, creating a frustrating paradox where her
+strategies for coping led her deeper into the trauma. "Fiona realized that her avoidance strategies,
+meant to protect her, only served to amplify her memories, making her feel as though she was
+reliving the trauma every day." The connection between her actions and her feelings became painfully
+evident; in her attempts to shield herself from pain, she was inadvertently reinforcing her guilt
+and feelings of inadequacy. After months of struggling with the weight of her experiences, Fiona
+finally found the courage to seek help. The decision came after a particularly jarring moment at
+work when a new pilot joined the team and innocently asked her about her past missions. Fiona felt a
+wave of discomfort wash over her, a familiar sensation that underscored her isolation. She hoped to
+find relief from the constant reminders and the overwhelming guilt that had come to define her life.
+"Each time she was confronted with those reminders, they whispered to her that she was unworthy,
+deepening her conviction that she would never be able to escape her past." What frightened her most
+was the thought of living with this pain indefinitely, but she also held onto a glimmer of hope that
+perhaps, through therapy, she might learn to heal and reconnect with the world she had once loved so
+deeply. "These discussions would pull her back into vivid memories of that day in the cockpit, where
+the chaos of the accident replayed in her mind with unsettling clarity." "Each time she was reminded
+of the accident, the guilt would rise within her, whispering that she had failed to protect Maya,
+deepening her belief that she was unworthy." "This conviction echoed in her mind, leading her back
+to the moment of the crash, fueling her sense of helplessness and reinforcing the belief that she
+was forever changed." "Each time she avoided a conversation or connection, it reinforced her
+feelings of inadequacy, leaving her to believe that she must be more fragile than others who could
+face their past." "She had learned that her attempts to suppress these memories only led her deeper
+into despair, making her feel as though she could never escape the weight of her guilt." "This
+struggle only reinforced her belief that she was fragile; the more she avoided confronting her
+trauma, the more she felt like she was proving her own weaknesses." "Every time her heart raced at
+the mention of danger, it would trigger a wave of recollections, pulling her back into that cockpit,
+where the chaos of the accident became painfully real again." "This belief often dragged her back to
+the moment of the crash, as she replayed the scene in her mind, searching for signs she missed,
+convinced that she had failed at the most critical moment." "Once those memories surfaced, even
+mundane sounds became laden with significance, leaving her on high alert as if she were still in the
+cockpit, scanning for danger." "Each time she retreated further into herself, it solidified her
+sense of inadequacy, as if the act of avoiding her trauma was proof that she could not cope like
+others could." "The echoes of guilt from those memories would lead her to think that she was solely
+responsible for Maya’s death, reinforcing her belief that she was weak and unworthy of the life she
+once led." "Every time she caught a glimpse of a pilot's uniform or heard the roar of an aircraft,
+it reminded her of her inability to protect Maya, solidifying her conviction that she was destined
+to fail again." "Each sudden reminder would pull her back into vivid recollections of that fateful
+day, making it feel as if the trauma was happening all over again, and she could see no escape from
+the pain." "This fear was compounded by her memories, which replayed the accident with painful
+clarity, each recollection reinforcing her belief that she would only cause more harm." "Every time
+she tried to avoid thinking about the accident, these memories would surge back with even greater
+intensity, proving to her that her strategies were futile."
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette does not clearly convey how triggers lead to memories.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not clearly convey how triggers lead to negative appraisals.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not clearly convey how negative appraisals influence memories.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how memories influence maladaptive strategies.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not clearly convey how memories influence triggers.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette does not clearly convey how maladaptive strategies influence memories.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not clearly convey how maladaptive strategies influence negative appraisals.
+
+  [6] FAIL
+Fiona, a 29-year-old combat pilot of South Eastern Asian descent, had always dreamed of flying. The
+adrenaline, the thrill, and the sense of purpose it brought her made her an excellent pilot.
+However, her world shifted dramatically after a traumatic event that would haunt her everyday life.
+During a routine training mission, her best friend and co-pilot, Maya, was killed in a tragic
+accident when their aircraft malfunctioned mid-flight. Fiona had been in control of the aircraft
+when it happened, and although it was an unforeseen mechanical failure, the weight of her friend’s
+death pressed heavily on her shoulders. The sounds of the engines, the sight of the cockpit, and the
+smell of jet fuel became constant reminders of that fateful day. Now, every time she was around her
+colleagues, discussions about missions and the dangers of flying would spark a deep discomfort
+within her. She would feel her heart race at the mention of “losing someone” in the field, as if the
+words were a trigger that pulled her back into the cockpit, reliving the harrowing moment she could
+not prevent. The moment her heart began to race, it was as if the memories flooded back, each
+recollection sharp and vivid, making her feel the weight of that day all over again. This discomfort
+would often lead to a rush of memories, flooding her thoughts with vivid images of Maya’s last
+moments. It was as if her memories were a film that played on repeat, forcing her to confront what
+she desperately wanted to forget. Each reminder took her deeper into a spiral of guilt and shame,
+reinforcing her belief that she had failed to protect Maya when it mattered most. Each time she was
+reminded of her perceived failure, it solidified her conviction that she was unworthy, leading her
+to believe that she would never be able to escape the shadow of her past. Fiona had come to believe
+that there was something fundamentally wrong with her; she felt defective, unworthy of the
+camaraderie she once cherished. To cope, Fiona began to suppress her thoughts, actively trying not
+to think about the trauma while pushing away reminders of her loss. She avoided any situations that
+could evoke memories of Maya or the accident, even steering clear of conversations that might lead
+her down that painful path. This avoidance extended beyond her professional life; she found herself
+resisting friendships and new relationships, convinced that allowing anyone close would only lead to
+further loss. She feared that if she let anyone in, she might inadvertently put them in danger, just
+as she had with Maya. Her avoidance was rooted in a belief that she was somehow flawed, reinforcing
+the notion that she was not only putting herself at risk by connecting with others but also
+condemning them to share her pain. This belief only deepened her feelings of isolation, leaving her
+feeling trapped in her own head. Fiona’s memories were often triggered without warning. The weight
+of her guilt would often bring the memories rushing back, compelling her to relive those moments, as
+if she were still in the cockpit, desperately searching for a solution she knew she had failed to
+find. A distant sound of an aircraft taking off or the sight of a group of pilots laughing and
+bonding would send her back to that moment of chaos. Those memories would emerge unbidden, as though
+they were photographs she could not escape. Each time she was reminded of the event, the same guilt
+and regret would wash over her, tightening the grip of her negative appraisals. She was left feeling
+more alone, grappling with the belief that she could not rely on anyone else to understand her pain.
+In her mind, she had failed not only Maya but also herself; she could not shake the conviction that
+she should have noticed the signs, should have done something differently. This cycle of memory and
+maladaptive strategies only perpetuated her symptoms. The memories she struggled to suppress seemed
+to emerge more forcefully, each recollection intensifying her need to avoid anything that might
+remind her of that day, creating a vicious cycle that felt impossible to break. "It was as if the
+memories became more vivid with each attempt to suppress them, leading her to employ avoidance
+strategies that only seemed to intensify the pain she was trying to escape." Each time she tried to
+avoid thinking about the accident, her mind would retaliate by replaying the event with relentless
+clarity. In trying to push those memories away, she inadvertently kept them alive, making them more
+potent and unyielding, as if her efforts to escape were merely feeding the trauma that haunted her.
+"Her avoidance of connections only reinforced her feelings of fragility, as she began to believe
+that she was somehow weaker than others who could face their past openly." The more she attempted to
+suppress her thoughts, the more vivid her memories became, creating a frustrating paradox where her
+strategies for coping led her deeper into the trauma. "Fiona realized that her avoidance strategies,
+meant to protect her, only served to amplify her memories, making her feel as though she was
+reliving the trauma every day." The connection between her actions and her feelings became painfully
+evident; in her attempts to shield herself from pain, she was inadvertently reinforcing her guilt
+and feelings of inadequacy. "Feeling trapped by these memories, Fiona began to employ avoidance
+strategies, convinced that steering clear of triggers would shield her from the pain of reliving her
+trauma." After months of struggling with the weight of her experiences, Fiona finally found the
+courage to seek help. "Yet each time she engaged in these avoidance strategies, she felt a growing
+sense of fragility, convinced that she was weaker than others who could face their past." The
+decision came after a particularly jarring moment at work when a new pilot joined the team and
+innocently asked her about her past missions. Fiona felt a wave of discomfort wash over her, a
+familiar sensation that underscored her isolation. She hoped to find relief from the constant
+reminders and the overwhelming guilt that had come to define her life. "Each time she was confronted
+with those reminders, they whispered to her that she was unworthy, deepening her conviction that she
+would never be able to escape her past." What frightened her most was the thought of living with
+this pain indefinitely, but she also held onto a glimmer of hope that perhaps, through therapy, she
+might learn to heal and reconnect with the world she had once loved so deeply. "These discussions
+would pull her back into vivid memories of that day in the cockpit, where the chaos of the accident
+replayed in her mind with unsettling clarity." "Each time she was reminded of the accident, the
+guilt would rise within her, whispering that she had failed to protect Maya, deepening her belief
+that she was unworthy." "This conviction echoed in her mind, leading her back to the moment of the
+crash, fueling her sense of helplessness and reinforcing the belief that she was forever changed."
+"Each time she avoided a conversation or connection, it reinforced her feelings of inadequacy,
+leaving her to believe that she must be more fragile than others who could face their past." "She
+had learned that her attempts to suppress these memories only led her deeper into despair, making
+her feel as though she could never escape the weight of her guilt." "This struggle only reinforced
+her belief that she was fragile; the more she avoided confronting her trauma, the more she felt like
+she was proving her own weaknesses." "Every time her heart raced at the mention of danger, it would
+trigger a wave of recollections, pulling her back into that cockpit, where the chaos of the accident
+became painfully real again." "This belief often dragged her back to the moment of the crash, as she
+replayed the scene in her mind, searching for signs she missed, convinced that she had failed at the
+most critical moment." "Once those memories surfaced, even mundane sounds became laden with
+significance, leaving her on high alert as if she were still in the cockpit, scanning for danger."
+"Each time she retreated further into herself, it solidified her sense of inadequacy, as if the act
+of avoiding her trauma was proof that she could not cope like others could." "The echoes of guilt
+from those memories would lead her to think that she was solely responsible for Maya’s death,
+reinforcing her belief that she was weak and unworthy of the life she once led." "Every time she
+caught a glimpse of a pilot's uniform or heard the roar of an aircraft, it reminded her of her
+inability to protect Maya, solidifying her conviction that she was destined to fail again." "Each
+sudden reminder would pull her back into vivid recollections of that fateful day, making it feel as
+if the trauma was happening all over again, and she could see no escape from the pain." "This fear
+was compounded by her memories, which replayed the accident with painful clarity, each recollection
+reinforcing her belief that she would only cause more harm." "Every time she tried to avoid thinking
+about the accident, these memories would surge back with even greater intensity, proving to her that
+her strategies were futile." "The sound of those words would evoke a flood of memories, pulling her
+deeper into the recollections of that tragic day, making every detail sharper and more vivid than
+before." "Each time she was jolted by those memories, they would remind her of her perceived failure
+to protect Maya, reinforcing the belief that she was unworthy and fragile." "This belief often led
+her to replay the traumatic memories, as though searching for evidence that would justify her
+feelings of inadequacy and guilt." "These memories would cling to her, each recollection amplifying
+her guilt and reinforcing her conviction that she was destined to fail again." "Her efforts to
+protect herself led her to withdraw, which only deepened her sense of isolation and reinforced her
+belief that she was unworthy of connection." "The more vividly those memories resurfaced, the more
+she felt compelled to avoid situations that might remind her of her failure, creating a cycle that
+felt impossible to escape."
+
+    ✗ edge:        Triggers → Memory
+      explanation: The relationship where triggers influence memory is absent; while triggers are present, there's no direct connection indicating they lead to the formation or recollection of memories.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The relationship where triggers influence negative appraisals is missing; triggers are described, but no causal link to negative beliefs is established.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The edge where negative appraisals lead to memory is missing; negative beliefs are mentioned, but there’s no indication that they drive or affect memory recall.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The relationship where memory influences maladaptive strategies is missing; memories are discussed, but there's no clear connection showing they lead to avoidance behaviors.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The edge where maladaptive strategies lead to negative appraisals is missing; while avoidance is described, it doesn't illustrate how these strategies reinforce negative beliefs.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Fiona, a 29-year-old combat pilot of South Eastern Asian descent, had always dreamed of flying. The
+adrenaline, the thrill, and the sense of purpose it brought her made her an excellent pilot.
+However, her world shifted dramatically after a traumatic event that would haunt her everyday life.
+During a routine training mission, her best friend and co-pilot, Maya, was killed in a tragic
+accident when their aircraft malfunctioned mid-flight. Fiona had been in control of the aircraft
+when it happened, and although it was an unforeseen mechanical failure, the weight of her friend’s
+death pressed heavily on her shoulders. The sounds of the engines, the sight of the cockpit, and the
+smell of jet fuel became constant reminders of that fateful day. Now, every time she was around her
+colleagues, discussions about missions and the dangers of flying would spark a deep discomfort
+within her. She would feel her heart race at the mention of “losing someone” in the field, as if the
+words were a trigger that pulled her back into the cockpit, reliving the harrowing moment she could
+not prevent. The moment her heart began to race, it was as if the memories flooded back, each
+recollection sharp and vivid, making her feel the weight of that day all over again. This discomfort
+would often lead to a rush of memories, flooding her thoughts with vivid images of Maya’s last
+moments. It was as if her memories were a film that played on repeat, forcing her to confront what
+she desperately wanted to forget. Each reminder took her deeper into a spiral of guilt and shame,
+reinforcing her belief that she had failed to protect Maya when it mattered most. Each time she was
+reminded of her perceived failure, it solidified her conviction that she was unworthy, leading her
+to believe that she would never be able to escape the shadow of her past. Fiona had come to believe
+that there was something fundamentally wrong with her; she felt defective, unworthy of the
+camaraderie she once cherished. To cope, Fiona began to suppress her thoughts, actively trying not
+to think about the trauma while pushing away reminders of her loss. She avoided any situations that
+could evoke memories of Maya or the accident, even steering clear of conversations that might lead
+her down that painful path. This avoidance extended beyond her professional life; she found herself
+resisting friendships and new relationships, convinced that allowing anyone close would only lead to
+further loss. She feared that if she let anyone in, she might inadvertently put them in danger, just
+as she had with Maya. Her avoidance was rooted in a belief that she was somehow flawed, reinforcing
+the notion that she was not only putting herself at risk by connecting with others but also
+condemning them to share her pain. This belief only deepened her feelings of isolation, leaving her
+feeling trapped in her own head. Fiona’s memories were often triggered without warning. The weight
+of her guilt would often bring the memories rushing back, compelling her to relive those moments, as
+if she were still in the cockpit, desperately searching for a solution she knew she had failed to
+find. A distant sound of an aircraft taking off or the sight of a group of pilots laughing and
+bonding would send her back to that moment of chaos. Those memories would emerge unbidden, as though
+they were photographs she could not escape. Each time she was reminded of the event, the same guilt
+and regret would wash over her, tightening the grip of her negative appraisals. She was left feeling
+more alone, grappling with the belief that she could not rely on anyone else to understand her pain.
+In her mind, she had failed not only Maya but also herself; she could not shake the conviction that
+she should have noticed the signs, should have done something differently. This cycle of memory and
+maladaptive strategies only perpetuated her symptoms. The memories she struggled to suppress seemed
+to emerge more forcefully, each recollection intensifying her need to avoid anything that might
+remind her of that day, creating a vicious cycle that felt impossible to break. "It was as if the
+memories became more vivid with each attempt to suppress them, leading her to employ avoidance
+strategies that only seemed to intensify the pain she was trying to escape." Each time she tried to
+avoid thinking about the accident, her mind would retaliate by replaying the event with relentless
+clarity. In trying to push those memories away, she inadvertently kept them alive, making them more
+potent and unyielding, as if her efforts to escape were merely feeding the trauma that haunted her.
+"Her avoidance of connections only reinforced her feelings of fragility, as she began to believe
+that she was somehow weaker than others who could face their past openly." The more she attempted to
+suppress her thoughts, the more vivid her memories became, creating a frustrating paradox where her
+strategies for coping led her deeper into the trauma. "Fiona realized that her avoidance strategies,
+meant to protect her, only served to amplify her memories, making her feel as though she was
+reliving the trauma every day." The connection between her actions and her feelings became painfully
+evident; in her attempts to shield herself from pain, she was inadvertently reinforcing her guilt
+and feelings of inadequacy. "Feeling trapped by these memories, Fiona began to employ avoidance
+strategies, convinced that steering clear of triggers would shield her from the pain of reliving her
+trauma." After months of struggling with the weight of her experiences, Fiona finally found the
+courage to seek help. "Yet each time she engaged in these avoidance strategies, she felt a growing
+sense of fragility, convinced that she was weaker than others who could face their past." The
+decision came after a particularly jarring moment at work when a new pilot joined the team and
+innocently asked her about her past missions. Fiona felt a wave of discomfort wash over her, a
+familiar sensation that underscored her isolation. She hoped to find relief from the constant
+reminders and the overwhelming guilt that had come to define her life. "Each time she was confronted
+with those reminders, they whispered to her that she was unworthy, deepening her conviction that she
+would never be able to escape her past." What frightened her most was the thought of living with
+this pain indefinitely, but she also held onto a glimmer of hope that perhaps, through therapy, she
+might learn to heal and reconnect with the world she had once loved so deeply. "These discussions
+would pull her back into vivid memories of that day in the cockpit, where the chaos of the accident
+replayed in her mind with unsettling clarity." "Each time she was reminded of the accident, the
+guilt would rise within her, whispering that she had failed to protect Maya, deepening her belief
+that she was unworthy." "This conviction echoed in her mind, leading her back to the moment of the
+crash, fueling her sense of helplessness and reinforcing the belief that she was forever changed."
+"Each time she avoided a conversation or connection, it reinforced her feelings of inadequacy,
+leaving her to believe that she must be more fragile than others who could face their past." "She
+had learned that her attempts to suppress these memories only led her deeper into despair, making
+her feel as though she could never escape the weight of her guilt." "This struggle only reinforced
+her belief that she was fragile; the more she avoided confronting her trauma, the more she felt like
+she was proving her own weaknesses." "Every time her heart raced at the mention of danger, it would
+trigger a wave of recollections, pulling her back into that cockpit, where the chaos of the accident
+became painfully real again." "This belief often dragged her back to the moment of the crash, as she
+replayed the scene in her mind, searching for signs she missed, convinced that she had failed at the
+most critical moment." "Once those memories surfaced, even mundane sounds became laden with
+significance, leaving her on high alert as if she were still in the cockpit, scanning for danger."
+"Each time she retreated further into herself, it solidified her sense of inadequacy, as if the act
+of avoiding her trauma was proof that she could not cope like others could." "The echoes of guilt
+from those memories would lead her to think that she was solely responsible for Maya’s death,
+reinforcing her belief that she was weak and unworthy of the life she once led." "Every time she
+caught a glimpse of a pilot's uniform or heard the roar of an aircraft, it reminded her of her
+inability to protect Maya, solidifying her conviction that she was destined to fail again." "Each
+sudden reminder would pull her back into vivid recollections of that fateful day, making it feel as
+if the trauma was happening all over again, and she could see no escape from the pain." "This fear
+was compounded by her memories, which replayed the accident with painful clarity, each recollection
+reinforcing her belief that she would only cause more harm." "Every time she tried to avoid thinking
+about the accident, these memories would surge back with even greater intensity, proving to her that
+her strategies were futile." "The sound of those words would evoke a flood of memories, pulling her
+deeper into the recollections of that tragic day, making every detail sharper and more vivid than
+before." "Each time she was jolted by those memories, they would remind her of her perceived failure
+to protect Maya, reinforcing the belief that she was unworthy and fragile." "This belief often led
+her to replay the traumatic memories, as though searching for evidence that would justify her
+feelings of inadequacy and guilt." "These memories would cling to her, each recollection amplifying
+her guilt and reinforcing her conviction that she was destined to fail again." "Her efforts to
+protect herself led her to withdraw, which only deepened her sense of isolation and reinforced her
+belief that she was unworthy of connection." "The more vividly those memories resurfaced, the more
+she felt compelled to avoid situations that might remind her of her failure, creating a cycle that
+felt impossible to escape."

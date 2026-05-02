@@ -1,0 +1,262 @@
+{
+  "persona_id": 20,
+  "source_persona_id": 20,
+  "experiment_timestamp": "2026-05-02 13:32:11",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "claude-haiku-4-5",
+      "persona_crafter": "claude-haiku-4-5",
+      "vignette_crafter": "claude-haiku-4-5",
+      "vignette_validator": "claude-haiku-4-5"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 44,
+    "gender": "Female",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Retail Worker",
+    "trauma_type": "Witnessed other trauma",
+    "pcl5": 68
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Affective Expression",
+        "value": "Crying"
+      },
+      {
+        "key": "Somatic (Dizziness)",
+        "value": "Feeling dizzy or lightheaded"
+      },
+      {
+        "key": "Event Recall",
+        "value": "Talking about the event"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Meaning Seeking",
+        "value": "I think about why the event has happened to me"
+      },
+      {
+        "key": "People Pleasing",
+        "value": "go along with whatever others want to feel safe"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      },
+      {
+        "key": "Scanning for Danger",
+        "value": "I constantly scan my surroundings for signs of danger"
+      },
+      {
+        "key": "Startle Response",
+        "value": "Feeling jumpy or easily startled"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Confused Sequence",
+        "value": "I cannot put the memories of the event in the right order"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      },
+      {
+        "key": "Overwhelm on Recall",
+        "value": "When the memory returns I feel so overwhelmed by emotion that I have to stop"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.8707,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0637,
+    "Memory -- Threat": 0.6264,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4476,
+    "Threat -- Maladaptive Strategies": 0.2744,
+    "Threat -- Memory": 0.2951,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0386,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.8013,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.427225,
+  "edge_density": 0.4,
+  "vignette_word_count": 812,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger",
+          "explanation": "The threat profile is strongly centered on current external danger and hypervigilant escape planning (avoiding unfamiliar places, scanning exits), but the memory items emphasize disorganized recall plus grief and rage without a clear link to present-moment environmental threat. That makes the Threat ↔ Memory pattern only weakly coherent for a witnessed-trauma presentation."
+        },
+        {
+          "component": "Memory",
+          "item": "Threat: Scanning Exits: I scan for exits as soon as I enter any room or building",
+          "explanation": "Within Memory, intense rage and overwhelming grief can co-occur, but with only three items and the third being confused sequence, the node reads as two different dominant emotional meanings of the trauma rather than one coherent memory profile. This is not impossible, but combined with the rest of the profile it creates a clinically mixed signal."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "Maladaptive Strategies are not well aligned within-node: checking surroundings fits the threat items, but meaning seeking is a ruminative appraisal-focused strategy and people pleasing is an interpersonal safety strategy. Together they imply three different maintaining processes without support from Negative Appraisals or other nodes."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Avoid Unfamiliar Places"
+        ],
+        "Memory": [
+          "Threat"
+        ],
+        "Maladaptive Strategies": [
+          "Memory"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Concentration: Having difficulty concentrating",
+          "explanation": "The threat node mixes core trauma-related threat responses (hypervigilance, scanning exits) with a nonspecific consequence item (difficulty concentrating). Concentration problems are common in PTSD, but here they do not clearly represent perceived current threat and are weakly aligned with the rest of the threat content."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "Within the memory node, intense rage on recall and overwhelming grief on recall can coexist, but paired with confused sequence they do not form a clearly coherent memory profile for a single witnessed-trauma account unless the event involved a very specific interpersonal betrayal/loss narrative. As presented, the emotional tone is mixed enough that a clinician would question whether these memory items are describing the same dominant trauma memory state."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Concentration"
+        ],
+        "Memory": [
+          "Rage on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Cars): Car sounds",
+          "explanation": "The profile suggests a highly generalized interpersonal/public-space danger style (scanning exits, constant danger monitoring, checking surroundings) that is not anchored by the rest of the formulation. For a witnessed-other-trauma case, this could occur, but here the only concrete trigger cue is 'car sounds,' which implies a more specific event context. The threat items are broad and pervasive in a way that is hard to reconcile with the otherwise grief-dominated memory content."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Scanning Exits: I scan for exits as soon as I enter any room or building",
+          "explanation": "Within and across nodes, 'Checking Surroundings' is essentially the same behavior as the threat items 'Scanning for Danger' and 'Hypervigilance,' creating a near-duplicate symptom loop rather than distinct components. Given the formulation, Threat and Maladaptive Strategies should be plausibly linked but not indistinguishable copies of the same content."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Threat: Hypervigilance: Being superalert or watchful or on guard",
+          "explanation": "The memory node is dominated by disorganization and overwhelming grief on recall, with no content suggesting ongoing intentional harm, entrapment, or assaultive threat. That makes the very strong public-space exit scanning pattern feel clinically mismatched: it implies an active expectation of immediate external danger that is not supported by the memory material or the specific trigger content provided."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Cars)"
+        ],
+        "Threat": [
+          "Scanning Exits"
+        ],
+        "Maladaptive Strategies": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 4011,
+    "output": 1124,
+    "total": 5135
+  },
+  "vignette": "# Priya\n\nPriya was forty-four when her younger brother collapsed on the kitchen floor of their parents' home in New Jersey. She had been visiting for the weekend, helping her mother prepare for Diwali. One moment Arjun was laughing at something their father said; the next, he was on his back, his body rigid and then convulsing, his eyes rolled back. Priya watched him seize for what felt like an eternity but was probably less than two minutes. She stood frozen, unable to move or call out, her mind fragmenting into disconnected images: his hand striking the tile, her mother's scream, the way his head turned at an angle that looked wrong. An aneurysm, the hospital said later. He survived but was left with significant neurological damage. Priya had witnessed the moment her brother's life cleaved in two, and something in her had fractured along with it.\n\nIn the months that followed, Priya returned to her job at the Target in Paramus, but the world had become a place where catastrophe could arrive without warning. She found herself replaying fragments of that day—her brother's arm flailing, the terrible silence before the ambulance arrived—but the pieces would not arrange themselves in any coherent order. When she tried to recall the sequence of events, the memories slipped and scattered. One moment she was certain she had been standing by the refrigerator; the next, she was convinced she had been in the doorway. The uncertainty itself became maddening, as though her mind was refusing to organize what it had witnessed, and this refusal kept the trauma alive and present.\n\nThe dizziness started without warning. One afternoon, while restocking shelves near the front of the store, a customer began crying—upset about a return. The sound of her voice, the visible distress, triggered something in Priya. Suddenly, the fluorescent lights seemed too bright, the store too crowded, and the ground tilted beneath her feet. She gripped the shelf to steady herself, her heart racing. When she tried to talk to her manager about what had happened, about why she had needed to sit down for twenty minutes, the words caught in her throat. Talking about the event—about Arjun, about what she had seen—brought the memory rushing back with such overwhelming force that she felt her chest tighten and her eyes blur with grief she could not contain. She learned quickly not to speak about it.\n\nInstead, Priya began to watch. She scanned the store constantly, her eyes moving from customer to customer, noting who looked unstable, who seemed agitated, where the exits were. At home, she checked the locks three times before bed. In the car, she monitored every vehicle around her. Her husband, Rahul, would find her staring out the window at night, her body tense. This hypervigilance, this constant alert, felt necessary—a way of preventing another catastrophe. But the scanning itself became a trigger. The more she watched for danger, the more her mind reached for the memory of that day, pulling it forward unbidden. Every moment of heightened awareness seemed to crack open the door to the fragmented images she could not order or control.\n\nThe threat felt constant, lurking just beneath the surface of ordinary moments. Being around people who were emotional became intolerable because their distress activated her startle response; she would jump at sudden movements or raised voices. Feeling jumpy all the time exhausted her, and so she began to manage her environment more carefully. She stopped attending family gatherings where emotions ran high. She went along with whatever Rahul wanted—his choice of restaurant, his preference for quiet evenings—not because she genuinely wanted these things, but because accommodating him felt safer than asserting her own needs and risking conflict or emotional expression from him. This people-pleasing, this constant yielding, temporarily quieted her internal alarm system, but it also meant she was never truly at rest. She was always monitoring, always adjusting, always bracing for the next moment when someone else's grief or distress might trigger the cascade of fragmented memories and overwhelming emotion she could no longer contain.\n\nSix months into this cycle, Priya's retail manager pulled her aside. Her performance had slipped; she was calling in sick more often, and customers had complained that she seemed distant or anxious. Rahul had begun to withdraw, frustrated by her emotional distance and her increasing need to control their environment. Priya realized that she was disappearing—becoming smaller, more constrained, more afraid. It was this recognition, coupled with a moment last week when her niece asked why Auntie never came to see her anymore, that finally prompted Priya to seek help. She sat in the therapist's office, her hands trembling slightly, and said: \"I can't keep the memory straight. I can't make it make sense. And I'm so afraid that if I don't stay vigilant, it will happen again. To someone else. To me.\""
+,
+
+  "vignette_attempts": [
+    {"vignette": "# Priya\n\nPriya was forty-four when her younger brother collapsed on the kitchen floor of their parents' home in New Jersey. She had been visiting for the weekend, helping her mother prepare for Diwali. One moment Arjun was laughing at something their father said; the next, he was on his back, his body rigid and then convulsing, his eyes rolled back. Priya watched him seize for what felt like an eternity but was probably less than two minutes. She stood frozen, unable to move or call out, her mind fragmenting into disconnected images: his hand striking the tile, her mother's scream, the way his head turned at an angle that looked wrong. An aneurysm, the hospital said later. He survived but was left with significant neurological damage. Priya had witnessed the moment her brother's life cleaved in two, and something in her had fractured along with it.\n\nIn the months that followed, Priya returned to her job at the Target in Paramus, but the world had become a place where catastrophe could arrive without warning. She found herself replaying fragments of that day—her brother's arm flailing, the terrible silence before the ambulance arrived—but the pieces would not arrange themselves in any coherent order. When she tried to recall the sequence of events, the memories slipped and scattered. One moment she was certain she had been standing by the refrigerator; the next, she was convinced she had been in the doorway. The uncertainty itself became maddening, as though her mind was refusing to organize what it had witnessed, and this refusal kept the trauma alive and present.\n\nThe dizziness started without warning. One afternoon, while restocking shelves near the front of the store, a customer began crying—upset about a return. The sound of her voice, the visible distress, triggered something in Priya. Suddenly, the fluorescent lights seemed too bright, the store too crowded, and the ground tilted beneath her feet. She gripped the shelf to steady herself, her heart racing. When she tried to talk to her manager about what had happened, about why she had needed to sit down for twenty minutes, the words caught in her throat. Talking about the event—about Arjun, about what she had seen—brought the memory rushing back with such overwhelming force that she felt her chest tighten and her eyes blur with grief she could not contain. She learned quickly not to speak about it.\n\nInstead, Priya began to watch. She scanned the store constantly, her eyes moving from customer to customer, noting who looked unstable, who seemed agitated, where the exits were. At home, she checked the locks three times before bed. In the car, she monitored every vehicle around her. Her husband, Rahul, would find her staring out the window at night, her body tense. This hypervigilance, this constant alert, felt necessary—a way of preventing another catastrophe. But the scanning itself became a trigger. The more she watched for danger, the more her mind reached for the memory of that day, pulling it forward unbidden. Every moment of heightened awareness seemed to crack open the door to the fragmented images she could not order or control.\n\nThe threat felt constant, lurking just beneath the surface of ordinary moments. Being around people who were emotional became intolerable because their distress activated her startle response; she would jump at sudden movements or raised voices. Feeling jumpy all the time exhausted her, and so she began to manage her environment more carefully. She stopped attending family gatherings where emotions ran high. She went along with whatever Rahul wanted—his choice of restaurant, his preference for quiet evenings—not because she genuinely wanted these things, but because accommodating him felt safer than asserting her own needs and risking conflict or emotional expression from him. This people-pleasing, this constant yielding, temporarily quieted her internal alarm system, but it also meant she was never truly at rest. She was always monitoring, always adjusting, always bracing for the next moment when someone else's grief or distress might trigger the cascade of fragmented memories and overwhelming emotion she could no longer contain.\n\nSix months into this cycle, Priya's retail manager pulled her aside. Her performance had slipped; she was calling in sick more often, and customers had complained that she seemed distant or anxious. Rahul had begun to withdraw, frustrated by her emotional distance and her increasing need to control their environment. Priya realized that she was disappearing—becoming smaller, more constrained, more afraid. It was this recognition, coupled with a moment last week when her niece asked why Auntie never came to see her anymore, that finally prompted Priya to seek help. She sat in the therapist's office, her hands trembling slightly, and said: \"I can't keep the memory straight. I can't make it make sense. And I'm so afraid that if I don't stay vigilant, it will happen again. To someone else. To me.\"", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

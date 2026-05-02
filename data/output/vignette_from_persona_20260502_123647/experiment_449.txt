@@ -1,0 +1,748 @@
+PERSONA 449  |  2026-05-02 23:10:40
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             27
+  gender          Non-binary
+  ethnicity       Oceania
+  relationship_status In a relationship
+  occupation      Special Education Teacher
+  trauma_type     Stalking
+  pcl5            34
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Being Followed: Feeling followed or tracked
+    • Being Watched: Feeling watched or observed
+    • Auditory (Footsteps): Footsteps behind or nearby
+  Maladaptive Strategies:
+    • Rumination: Prevention: ruminate about how event could have been prevented
+    • Avoid Relaxation: avoid relaxing because it feels dangerous
+    • Checking Surroundings: constantly scan environment for signs of threat
+  Threat:
+    • Scanning for Danger: I constantly scan my surroundings for signs of danger
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Threat in Movements: Sudden movements by others put me immediately on guard
+  Memory:
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Partial Clarity: Some moments of the event are extremely clear while others are completely blank
+    • Incomplete Picture: I feel like I am only remembering parts of what happened and the rest is missing
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.7591
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.7579
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.8167
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.2212
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.9812
+  Maladaptive Strategies → Threat                    0.2620
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Crash Imagery: Cars hit by accident
+    explanation: 'Cars hit by accident' is hard to reconcile with a stalking trauma when no other trigger, memory, threat, or strategy item references motor vehicle incidents; it suggests a different trauma context rather than a stalking-related cue.
+    item:        Threat / Threat: Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    explanation: The threat items emphasize a broad ongoing danger/hypervigilance profile, but the formulation specifically has Triggers → Threat inactive and only weak Maladaptive Strategies → Threat. With no stalking-specific threat content elsewhere, these threat items feel disconnected from the rest of the selected profile.
+    item:        Memory / Threat: Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+    explanation: High alert to unexpected or loud sounds is plausible in PTSD generally, but here it does not connect clearly to the stalking-specific cues, memory content, or the inactive Triggers → Threat pathway, making the threat profile insufficiently coherent with the formulation.
+  [2] FAIL
+    item:        Threat / Threat: Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: 'Checking Behind' functions more like a safety behaviour/maladaptive strategy than a pure threat belief/state. In this profile, threat should remain relatively weakly linked, while maladaptive strategies are strongly tied to triggers and memory; placing this behaviour under Threat creates a formulation mismatch.
+    item:        Memory / Memory: Rage on Recall: When I remember the event I feel intense rage
+    explanation: Within the Memory node, 'Photographic Recall' and 'Fragmented Pieces' pull in opposite directions if both are endorsed as core descriptions of the same stalking trauma memory. One implies vivid, coherent snapshot-like recall, while the other implies disorganised, disconnected memory. These can sometimes coexist in nuanced form, but as parallel selected items they are clinically tense enough to question.
+  [3] FAIL
+    item:        Memory / Memory: Photographic Recall
+    explanation: Within the Memory node, 'Photographic Recall' suggests the event is remembered as a highly coherent, picture-like replay, while 'Fragmented Pieces' indicates the memory is disconnected and does not fit together. Although 'Partial Clarity' can coexist with either, the simultaneous endorsement of fully photographic recall and markedly fragmented/disconnected memory is hard to reconcile as a single memory profile.
+    item:        Threat / Memory: Fragmented Pieces
+    explanation: The Threat item 'Threat in Sounds' is less well aligned with the stalking trauma context and the formulation structure than the other selected items. The trigger profile centers on being followed/tracked and a specific texture, while the threat profile centers on generalized sound-based hypervigilance without corresponding sound-related triggers or memory content. Given that Triggers → Threat is inactive, this sound-focused threat item sits awkwardly with the rest of the profile.
+  [4] FAIL
+    item:        Triggers / Triggers: Feeling Happy: Feeling happy or relaxed
+    explanation: The trigger set is partly coherent for stalking ('Being Followed' and possibly a tactile cue), but 'Feeling happy or relaxed' is hard to reconcile with the rest of the profile. The patient’s threat and strategy items center on persistent vigilance, danger monitoring, and avoidance of relaxation; a positive internal state as a trigger is not impossible, but here it lacks support from appraisals and memory content and sits awkwardly beside stalking-specific trigger content.
+    item:        Threat / Threat: Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+    explanation: Threat is framed around generalized hyperarousal to loud/unexpected sounds, whereas the trauma-specific material elsewhere is strongly stalking-focused ('Being Followed,' surveillance/tracking themes, avoid relaxing because it feels dangerous). Loud-sound threat sensitivity can occur in PTSD, but in this profile it is the least connected threat item and weakly linked to the stalking-based trigger-memory-strategy pattern.
+  [5] FAIL
+    item:        Threat / Threat: Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+    explanation: The Threat node mixes two different phenomena: 'Body on Alert' and 'Scanning for Danger' describe ongoing threat monitoring, but 'Flashbacks' is a re-experiencing/memory phenomenon rather than a threat appraisal. Given this profile's formulation, threat has only a weak link to memory and no active trigger→threat pathway, so placing flashbacks here makes the node clinically incoherent.
+    item:        Triggers / Triggers: Tactile (Texture): A specific texture associated with the event
+    explanation: For stalking trauma, 'feeling followed' and 'being watched' are highly coherent triggers, but a very specific tactile texture cue is hard to reconcile unless the stalking involved a distinctive physical-contact or object-based element. Because the memory items are broadly fragmented and incomplete rather than tied to a sensory object/context, this texture trigger stands out as insufficiently supported by the rest of the profile.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Self-Harm Distraction: I hurt myself physically to stop thinking about the event
+    explanation: Self-harm used specifically to stop thinking about the event is possible clinically, but in this profile the maladaptive strategies are otherwise dominated by trigger-linked hypervigilance/avoidance (rumination about prevention, avoiding relaxation). With no negative appraisal content and no broader affect-regulation pattern elsewhere, this extreme coping strategy is poorly integrated with the rest of the selected items and is hard to explain from the stated formulation.
+  [6] FAIL
+    item:        Triggers / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: The stalking-related trigger items 'Being Followed' and 'Being Watched' fit the trauma type, but 'Alcohol smell' is not meaningfully linked to the rest of the profile. There are no memory, appraisal, or strategy items suggesting alcohol was part of the stalking trauma, so this trigger appears disconnected from the clinical theme.
+    item:        Threat / Threat: Body on Alert: My body feels constantly tense and ready to react to danger
+    explanation: The Threat node is dominated by generalized hypervigilance and scanning-for-danger items, but the formulation specifies Triggers → Threat as inactive and only a weak Maladaptive Strategies → Threat link. With no Negative Appraisals items and highly trigger-linked memory/strategy content, this level of persistent threat activation is not well integrated with the rest of the profile and is the main coherence problem.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     27,145
+  output:     3,709
+  total:     30,854
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Kaimana was a 27-year-old special education teacher living in a vibrant neighborhood in Seattle.
+Their life had been filled with laughter and creativity, but for the past year, a shadow loomed over
+them, stemming from the relentless experience of being stalked by an ex-partner. The violation of
+feeling watched and followed had become a suffocating reality, leading Kaimana to a state of
+hypervigilance that bleeds into every aspect of their daily life. They often recounted the chilling
+moments when they first realized they were being stalked: the anxious glances over their shoulder,
+the dread that accompanied familiar paths, and the way their heart raced at the sound of footsteps
+trailing behind them, even when they were alone. These memories, fragmented and disjointed, haunted
+them, leaving Kaimana with a sense of panic that grew more pronounced with time.
+
+As the stalking escalated, Kaimana’s sense of reality began to fracture. They often found themselves
+lost in ruminative thoughts about how the situation could have been prevented, endlessly turning
+over what they might have said or done differently. This rumination served as both a coping
+mechanism and a prison, trapping them in a cycle of blame and regret. Whenever Kaimana attempted to
+relax, an overwhelming sense of danger would grip them, compelling them to avoid any situation that
+could leave them vulnerable. Instead of unwinding, they would scan their environment incessantly,
+checking for any signs of their stalker. Each sudden movement by others sent a jolt of fear coursing
+through their body, reinforcing their belief that danger lurked around every corner.
+
+The disconnection within their memories mirrored their emotional state. Kaimana often experienced
+moments of clarity interspersed with blank spots, like watching a movie with missing scenes. They
+could vividly recall the moments of confrontation, but other details felt like wisps of smoke,
+slipping through their fingers just when they thought they grasped them. This incomplete picture
+only fueled their anxiety and the haunting feeling that they were losing control. The more they
+tried to piece together their memories, the more pronounced their hypervigilance became. They were
+left with a constant sense of threat, as though the shadows of their past were chasing them
+relentlessly, forcing them into a state of perpetual alertness.
+
+In the days that followed, Kaimana became increasingly aware of how their maladaptive strategies
+reinforced their fears. The need to check their surroundings became a compulsion, creating a
+feedback loop that heightened their anxiety. Each time they felt the urge to scan for danger, the
+act only deepened their sense of being followed, as if their very vigilance were attracting more
+threats. In the classroom, their students noticed something was off; Kaimana would often zone out,
+lost in thought, or flinch at the sound of a door creaking. These reactions, born from their
+internal turmoil, began to affect their relationships with colleagues and students alike, creating a
+wall of isolation around them.
+
+As Kaimana navigated through life, they struggled to maintain the facade of normalcy while battling
+the specter of their trauma. They had come to believe that if they could just avoid certain
+situations or people, they would be safe. Yet, this avoidance only served to reinforce the cycle of
+fear and anxiety. At night, they found themselves lying in bed, paralyzed by the thought of being
+watched, replaying the events over and over in their mind, feeling trapped between the memories of
+the past and the present threats that loomed large.
+
+Finally, the accumulated weight of their experiences led Kaimana to seek help. They felt exhausted
+and terrified, hoping to reclaim the life that had been stolen from them. What frightened Kaimana
+most was the thought that they might never feel safe again, that they would remain ensnared in this
+cycle of fear and avoidance. Yet, beneath that fear was a flicker of hope—a hope that perhaps,
+through therapy, they could begin to piece together their fragmented memories and find a way to
+breathe freely once more.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not establish a causal connection between triggers and maladaptive strategies, failing to show how triggers lead to avoidance behaviors.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: While memory is discussed, there is no clear connection made between memory and maladaptive strategies, leaving the relationship between the two unestablished.
+
+    ✗ edge:        Threat → Memory
+      explanation: Although the threat is present, there is no direct link made to how the sense of threat influences the memory, missing the connection.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not convey how maladaptive strategies reinforce the sense of threat, thus lacking the causal relationship.
+
+  [2] FAIL
+Kaimana was a 27-year-old special education teacher living in a vibrant neighborhood in Seattle.
+Their life had been filled with laughter and creativity, but for the past year, a shadow loomed over
+them, stemming from the relentless experience of being stalked by an ex-partner. The violation of
+feeling watched and followed had become a suffocating reality, leading Kaimana to a state of
+hypervigilance that bleeds into every aspect of their daily life. They often recounted the chilling
+moments when they first realized they were being stalked: the anxious glances over their shoulder,
+the dread that accompanied familiar paths, and the way their heart raced at the sound of footsteps
+trailing behind them, even when they were alone. When these memories surfaced, Kaimana often felt an
+overwhelming urge to avoid certain places altogether, opting for longer routes to work or skipping
+social events, convinced that any familiar path might provoke the same panic again. These memories,
+fragmented and disjointed, haunted them, leaving Kaimana with a sense of panic that grew more
+pronounced with time.
+
+As the stalking escalated, Kaimana’s sense of reality began to fracture. They often found themselves
+lost in ruminative thoughts about how the situation could have been prevented, endlessly turning
+over what they might have said or done differently. This rumination served as both a coping
+mechanism and a prison, trapping them in a cycle of blame and regret. Whenever Kaimana attempted to
+relax, an overwhelming sense of danger would grip them, compelling them to avoid any situation that
+could leave them vulnerable. Instead of unwinding, they would scan their environment incessantly,
+checking for any signs of their stalker. Each sudden movement by others sent a jolt of fear coursing
+through their body, reinforcing their belief that danger lurked around every corner.
+
+The disconnection within their memories mirrored their emotional state. As Kaimana struggled to
+piece together their memories, they found themselves avoiding reminders of the trauma, such as
+conversations about relationships or even watching romantic films, fearing that these triggers would
+rekindle the disorienting feelings of vulnerability and fear. Kaimana often experienced moments of
+clarity interspersed with blank spots, like watching a movie with missing scenes. They could vividly
+recall the moments of confrontation, but other details felt like wisps of smoke, slipping through
+their fingers just when they thought they grasped them. This incomplete picture only fueled their
+anxiety and the haunting feeling that they were losing control. The more they tried to piece
+together their memories, the more pronounced their hypervigilance became. This hypervigilance kept
+Kaimana on edge, as they often found that when they felt threatened, the memories of the stalking
+would rush back with vivid clarity, as if their mind was trying to warn them of the danger that
+persisted. They were left with a constant sense of threat, as though the shadows of their past were
+chasing them relentlessly, forcing them into a state of perpetual alertness.
+
+In the days that followed, Kaimana became increasingly aware of how their maladaptive strategies
+reinforced their fears. The need to check their surroundings became a compulsion, creating a
+feedback loop that heightened their anxiety. Each time Kaimana felt the need to scan for danger,
+their anxiety spiked, reinforcing the belief that they were still in danger, and leaving them
+feeling even more threatened as they believed their vigilance was necessary for survival. Each time
+they felt the urge to scan for danger, the act only deepened their sense of being followed, as if
+their very vigilance were attracting more threats. In the classroom, their students noticed
+something was off; Kaimana would often zone out, lost in thought, or flinch at the sound of a door
+creaking. These reactions, born from their internal turmoil, began to affect their relationships
+with colleagues and students alike, creating a wall of isolation around them.
+
+As Kaimana navigated through life, they struggled to maintain the facade of normalcy while battling
+the specter of their trauma. They had come to believe that if they could just avoid certain
+situations or people, they would be safe. Yet, this avoidance only served to reinforce the cycle of
+fear and anxiety. At night, they found themselves lying in bed, paralyzed by the thought of being
+watched, replaying the events over and over in their mind, feeling trapped between the memories of
+the past and the present threats that loomed large.
+
+Finally, the accumulated weight of their experiences led Kaimana to seek help. They felt exhausted
+and terrified, hoping to reclaim the life that had been stolen from them. What frightened Kaimana
+most was the thought that they might never feel safe again, that they would remain ensnared in this
+cycle of fear and avoidance. Yet, beneath that fear was a flicker of hope—a hope that perhaps,
+through therapy, they could begin to piece together their fragmented memories and find a way to
+breathe freely once more.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not convey how triggers lead to maladaptive strategies, such as avoidance.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not show how memory influences maladaptive strategies, like the urge to avoid due to memories of the trauma.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not indicate that maladaptive strategies, such as scanning for danger, reinforce the presence of triggers.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not illustrate how maladaptive strategies contribute to a heightened sense of threat.
+
+  [3] FAIL
+Kaimana was a 27-year-old special education teacher living in a vibrant neighborhood in Seattle.
+Their life had been filled with laughter and creativity, but for the past year, a shadow loomed over
+them, stemming from the relentless experience of being stalked by an ex-partner. The violation of
+feeling watched and followed had become a suffocating reality, leading Kaimana to a state of
+hypervigilance that bleeds into every aspect of their daily life. They often recounted the chilling
+moments when they first realized they were being stalked: the anxious glances over their shoulder,
+the dread that accompanied familiar paths, and the way their heart raced at the sound of footsteps
+trailing behind them, even when they were alone. When these memories surfaced, Kaimana often felt an
+overwhelming urge to avoid certain places altogether, opting for longer routes to work or skipping
+social events, convinced that any familiar path might provoke the same panic again. This avoidance
+became a strategy to manage their anxiety, as Kaimana believed that steering clear of these triggers
+would keep them safe, even if it meant sacrificing connections with friends and the joy of
+spontaneous outings. These memories, fragmented and disjointed, haunted them, leaving Kaimana with a
+sense of panic that grew more pronounced with time.
+
+As the stalking escalated, Kaimana’s sense of reality began to fracture. They often found themselves
+lost in ruminative thoughts about how the situation could have been prevented, endlessly turning
+over what they might have said or done differently. This rumination served as both a coping
+mechanism and a prison, trapping them in a cycle of blame and regret. Whenever Kaimana attempted to
+relax, an overwhelming sense of danger would grip them, compelling them to avoid any situation that
+could leave them vulnerable. Instead of unwinding, they would scan their environment incessantly,
+checking for any signs of their stalker. Each sudden movement by others sent a jolt of fear coursing
+through their body, reinforcing their belief that danger lurked around every corner.
+
+The disconnection within their memories mirrored their emotional state. As Kaimana struggled to
+piece together their memories, they found themselves avoiding reminders of the trauma, such as
+conversations about relationships or even watching romantic films, fearing that these triggers would
+rekindle the disorienting feelings of vulnerability and fear. In doing so, Kaimana developed a
+pattern of evasion, believing that if they didn't engage with potentially triggering subjects, they
+could stave off the flood of distressing thoughts that often accompanied those memories. Kaimana
+often experienced moments of clarity interspersed with blank spots, like watching a movie with
+missing scenes. They could vividly recall the moments of confrontation, but other details felt like
+wisps of smoke, slipping through their fingers just when they thought they grasped them. This
+incomplete picture only fueled their anxiety and the haunting feeling that they were losing control.
+The more they tried to piece together their memories, the more pronounced their hypervigilance
+became. This hypervigilance kept Kaimana on edge, as they often found that when they felt
+threatened, the memories of the stalking would rush back with vivid clarity, as if their mind was
+trying to warn them of the danger that persisted. They were left with a constant sense of threat, as
+though the shadows of their past were chasing them relentlessly, forcing them into a state of
+perpetual alertness.
+
+In the days that followed, Kaimana became increasingly aware of how their maladaptive strategies
+reinforced their fears. The need to check their surroundings became a compulsion, creating a
+feedback loop that heightened their anxiety. Each time Kaimana engaged in these safety behaviors,
+the world felt more dangerous, confirming their belief that they must always be on guard, thus
+reinforcing the cycle of fear and avoidance. Each time Kaimana felt the need to scan for danger,
+their anxiety spiked, reinforcing the belief that they were still in danger, and leaving them
+feeling even more threatened as they believed their vigilance was necessary for survival. This
+compulsion to check their surroundings not only heightened their anxiety but also perpetuated the
+feeling of being in constant peril, as they felt that their vigilance was a necessary response to an
+ongoing threat. Each time they felt the urge to scan for danger, the act only deepened their sense
+of being followed, as if their very vigilance were attracting more threats. In the classroom, their
+students noticed something was off; Kaimana would often zone out, lost in thought, or flinch at the
+sound of a door creaking. These reactions, born from their internal turmoil, began to affect their
+relationships with colleagues and students alike, creating a wall of isolation around them.
+
+As Kaimana navigated through life, they struggled to maintain the facade of normalcy while battling
+the specter of their trauma. They had come to believe that if they could just avoid certain
+situations or people, they would be safe. Yet, this avoidance only served to reinforce the cycle of
+fear and anxiety. At night, they found themselves lying in bed, paralyzed by the thought of being
+watched, replaying the events over and over in their mind, feeling trapped between the memories of
+the past and the present threats that loomed large.
+
+Finally, the accumulated weight of their experiences led Kaimana to seek help. They felt exhausted
+and terrified, hoping to reclaim the life that had been stolen from them. What frightened Kaimana
+most was the thought that they might never feel safe again, that they would remain ensnared in this
+cycle of fear and avoidance. Yet, beneath that fear was a flicker of hope—a hope that perhaps,
+through therapy, they could begin to piece together their fragmented memories and find a way to
+breathe freely once more.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how triggers influence the development of maladaptive strategies.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not make a clear connection between memory and the use of maladaptive strategies.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette fails to establish a causal relationship between threat and memory.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not illustrate how maladaptive strategies lead to the identification of triggers.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not present a clear link between maladaptive strategies and the sense of threat.
+
+  [4] FAIL
+Kaimana was a 27-year-old special education teacher living in a vibrant neighborhood in Seattle.
+Their life had been filled with laughter and creativity, but for the past year, a shadow loomed over
+them, stemming from the relentless experience of being stalked by an ex-partner. The violation of
+feeling watched and followed had become a suffocating reality, leading Kaimana to a state of
+hypervigilance that bleeds into every aspect of their daily life. They often recounted the chilling
+moments when they first realized they were being stalked: the anxious glances over their shoulder,
+the dread that accompanied familiar paths, and the way their heart raced at the sound of footsteps
+trailing behind them, even when they were alone. When these memories surfaced, Kaimana often felt an
+overwhelming urge to avoid certain places altogether, opting for longer routes to work or skipping
+social events, convinced that any familiar path might provoke the same panic again. This avoidance
+became a strategy to manage their anxiety, as Kaimana believed that steering clear of these triggers
+would keep them safe, even if it meant sacrificing connections with friends and the joy of
+spontaneous outings. These memories, fragmented and disjointed, haunted them, leaving Kaimana with a
+sense of panic that grew more pronounced with time. As the stalking escalated, Kaimana’s sense of
+reality began to fracture. They often found themselves lost in ruminative thoughts about how the
+situation could have been prevented, endlessly turning over what they might have said or done
+differently. This rumination served as both a coping mechanism and a prison, trapping them in a
+cycle of blame and regret. Whenever Kaimana attempted to relax, an overwhelming sense of danger
+would grip them, compelling them to avoid any situation that could leave them vulnerable. Instead of
+unwinding, they would scan their environment incessantly, checking for any signs of their stalker.
+Each sudden movement by others sent a jolt of fear coursing through their body, reinforcing their
+belief that danger lurked around every corner. The disconnection within their memories mirrored
+their emotional state. As Kaimana struggled to piece together their memories, they found themselves
+avoiding reminders of the trauma, such as conversations about relationships or even watching
+romantic films, fearing that these triggers would rekindle the disorienting feelings of
+vulnerability and fear. In doing so, Kaimana developed a pattern of evasion, believing that if they
+didn't engage with potentially triggering subjects, they could stave off the flood of distressing
+thoughts that often accompanied those memories. Kaimana often experienced moments of clarity
+interspersed with blank spots, like watching a movie with missing scenes. They could vividly recall
+the moments of confrontation, but other details felt like wisps of smoke, slipping through their
+fingers just when they thought they grasped them. This incomplete picture only fueled their anxiety
+and the haunting feeling that they were losing control. The more they tried to piece together their
+memories, the more pronounced their hypervigilance became. This hypervigilance kept Kaimana on edge,
+as they often found that when they felt threatened, the memories of the stalking would rush back
+with vivid clarity, as if their mind was trying to warn them of the danger that persisted. They were
+left with a constant sense of threat, as though the shadows of their past were chasing them
+relentlessly, forcing them into a state of perpetual alertness. In the days that followed, Kaimana
+became increasingly aware of how their maladaptive strategies reinforced their fears. The need to
+check their surroundings became a compulsion, creating a feedback loop that heightened their
+anxiety. Each time Kaimana engaged in these safety behaviors, the world felt more dangerous,
+confirming their belief that they must always be on guard, thus reinforcing the cycle of fear and
+avoidance. Each time Kaimana felt the need to scan for danger, their anxiety spiked, reinforcing the
+belief that they were still in danger, and leaving them feeling even more threatened as they
+believed their vigilance was necessary for survival. This compulsion to check their surroundings not
+only heightened their anxiety but also perpetuated the feeling of being in constant peril, as they
+felt that their vigilance was a necessary response to an ongoing threat. Each time they felt the
+urge to scan for danger, the act only deepened their sense of being followed, as if their very
+vigilance were attracting more threats. In the classroom, their students noticed something was off;
+Kaimana would often zone out, lost in thought, or flinch at the sound of a door creaking. These
+reactions, born from their internal turmoil, began to affect their relationships with colleagues and
+students alike, creating a wall of isolation around them. As Kaimana navigated through life, they
+struggled to maintain the facade of normalcy while battling the specter of their trauma. They had
+come to believe that if they could just avoid certain situations or people, they would be safe. Yet,
+this avoidance only served to reinforce the cycle of fear and anxiety. At night, they found
+themselves lying in bed, paralyzed by the thought of being watched, replaying the events over and
+over in their mind, feeling trapped between the memories of the past and the present threats that
+loomed large. Finally, the accumulated weight of their experiences led Kaimana to seek help. They
+felt exhausted and terrified, hoping to reclaim the life that had been stolen from them. What
+frightened Kaimana most was the thought that they might never feel safe again, that they would
+remain ensnared in this cycle of fear and avoidance. "This avoidance strategy led Kaimana to develop
+a heightened sensitivity to potential triggers, as they began to see familiar locations as threats
+that must be circumvented at all costs, reinforcing the cycle of fear they were caught in." Yet,
+beneath that fear was a flicker of hope—a hope that perhaps, through therapy, they could begin to
+piece together their fragmented memories and find a way to breathe freely once more. "These
+behaviors, aimed at keeping themselves safe, inadvertently marked the boundaries of their triggers,
+as Kaimana began to see every unexpected sound or interruption as a potential threat, drawing a map
+of avoidance around their life." "In doing so, they inadvertently crafted a shield of maladaptive
+strategies, believing that if they could keep these memories at bay, they could stave off the
+distress that threatened to consume them." "This persistent sense of danger kept Kaimana's traumatic
+memories fresh in their mind, as if they needed to keep reviewing the events to stay vigilant
+against the perceived threats that surrounded them." "Their reliance on these maladaptive strategies
+only deepened their sense of threat, as they never allowed themselves the opportunity to experience
+safety and learn that the danger they felt was not as omnipresent as they believed."
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not convey how triggers lead to maladaptive strategies.
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette does not convey how triggers lead to memory.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not convey how memory leads to maladaptive strategies.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not convey how maladaptive strategies lead to triggers.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not convey how maladaptive strategies lead to a sense of threat.
+
+  [5] FAIL
+Kaimana was a 27-year-old special education teacher living in a vibrant neighborhood in Seattle.
+Their life had been filled with laughter and creativity, but for the past year, a shadow loomed over
+them, stemming from the relentless experience of being stalked by an ex-partner. The violation of
+feeling watched and followed had become a suffocating reality, leading Kaimana to a state of
+hypervigilance that bleeds into every aspect of their daily life. They often recounted the chilling
+moments when they first realized they were being stalked: the anxious glances over their shoulder,
+the dread that accompanied familiar paths, and the way their heart raced at the sound of footsteps
+trailing behind them, even when they were alone. These moments triggered a cascade of memories that
+would flood Kaimana's mind, pulling them back to those terrifying instances of feeling pursued,
+reinforcing their sense of vulnerability. When these memories surfaced, Kaimana often felt an
+overwhelming urge to avoid certain places altogether, opting for longer routes to work or skipping
+social events, convinced that any familiar path might provoke the same panic again. This avoidance
+became a strategy to manage their anxiety, as Kaimana believed that steering clear of these triggers
+would keep them safe, even if it meant sacrificing connections with friends and the joy of
+spontaneous outings. These memories, fragmented and disjointed, haunted them, leaving Kaimana with a
+sense of panic that grew more pronounced with time. As the stalking escalated, Kaimana’s sense of
+reality began to fracture. They often found themselves lost in ruminative thoughts about how the
+situation could have been prevented, endlessly turning over what they might have said or done
+differently. This rumination served as both a coping mechanism and a prison, trapping them in a
+cycle of blame and regret. As the memories played over and over, Kaimana found themselves resorting
+to maladaptive strategies, like keeping the television on loud to drown out the intrusive thoughts,
+believing that silence would only invite the memories back. Whenever Kaimana attempted to relax, an
+overwhelming sense of danger would grip them, compelling them to avoid any situation that could
+leave them vulnerable. Instead of unwinding, they would scan their environment incessantly, checking
+for any signs of their stalker. Each sudden movement by others sent a jolt of fear coursing through
+their body, reinforcing their belief that danger lurked around every corner. The disconnection
+within their memories mirrored their emotional state. As Kaimana struggled to piece together their
+memories, they found themselves avoiding reminders of the trauma, such as conversations about
+relationships or even watching romantic films, fearing that these triggers would rekindle the
+disorienting feelings of vulnerability and fear. In doing so, Kaimana developed a pattern of
+evasion, believing that if they didn't engage with potentially triggering subjects, they could stave
+off the flood of distressing thoughts that often accompanied those memories. Kaimana often
+experienced moments of clarity interspersed with blank spots, like watching a movie with missing
+scenes. They could vividly recall the moments of confrontation, but other details felt like wisps of
+smoke, slipping through their fingers just when they thought they grasped them. This incomplete
+picture only fueled their anxiety and the haunting feeling that they were losing control. The more
+they tried to piece together their memories, the more pronounced their hypervigilance became. This
+hypervigilance kept Kaimana on edge, as they often found that when they felt threatened, the
+memories of the stalking would rush back with vivid clarity, as if their mind was trying to warn
+them of the danger that persisted. They were left with a constant sense of threat, as though the
+shadows of their past were chasing them relentlessly, forcing them into a state of perpetual
+alertness. In the days that followed, Kaimana became increasingly aware of how their maladaptive
+strategies reinforced their fears. The need to check their surroundings became a compulsion,
+creating a feedback loop that heightened their anxiety. Each time Kaimana engaged in these safety
+behaviors, the world felt more dangerous, confirming their belief that they must always be on guard,
+thus reinforcing the cycle of fear and avoidance. Each time Kaimana felt the need to scan for
+danger, their anxiety spiked, reinforcing the belief that they were still in danger, and leaving
+them feeling even more threatened as they believed their vigilance was necessary for survival. This
+ongoing need to stay alert and avoid situations that felt unsafe only perpetuated their feelings of
+threat, as they never allowed themselves the opportunity to experience moments of calm or safety.
+This compulsion to check their surroundings not only heightened their anxiety but also perpetuated
+the feeling of being in constant peril, as they felt that their vigilance was a necessary response
+to an ongoing threat. Each time they felt the urge to scan for danger, the act only deepened their
+sense of being followed, as if their very vigilance were attracting more threats. In the classroom,
+their students noticed something was off; Kaimana would often zone out, lost in thought, or flinch
+at the sound of a door creaking. These reactions, born from their internal turmoil, began to affect
+their relationships with colleagues and students alike, creating a wall of isolation around them. As
+Kaimana navigated through life, they struggled to maintain the facade of normalcy while battling the
+specter of their trauma. They had come to believe that if they could just avoid certain situations
+or people, they would be safe. Yet, this avoidance only served to reinforce the cycle of fear and
+anxiety. At night, they found themselves lying in bed, paralyzed by the thought of being watched,
+replaying the events over and over in their mind, feeling trapped between the memories of the past
+and the present threats that loomed large. Finally, the accumulated weight of their experiences led
+Kaimana to seek help. They felt exhausted and terrified, hoping to reclaim the life that had been
+stolen from them. What frightened Kaimana most was the thought that they might never feel safe
+again, that they would remain ensnared in this cycle of fear and avoidance. "This avoidance strategy
+led Kaimana to develop a heightened sensitivity to potential triggers, as they began to see familiar
+locations as threats that must be circumvented at all costs, reinforcing the cycle of fear they were
+caught in." Yet, beneath that fear was a flicker of hope—a hope that perhaps, through therapy, they
+could begin to piece together their fragmented memories and find a way to breathe freely once more.
+"These behaviors, aimed at keeping themselves safe, inadvertently marked the boundaries of their
+triggers, as Kaimana began to see every unexpected sound or interruption as a potential threat,
+drawing a map of avoidance around their life." "In doing so, they inadvertently crafted a shield of
+maladaptive strategies, believing that if they could keep these memories at bay, they could stave
+off the distress that threatened to consume them." "This persistent sense of danger kept Kaimana's
+traumatic memories fresh in their mind, as if they needed to keep reviewing the events to stay
+vigilant against the perceived threats that surrounded them." "Their reliance on these maladaptive
+strategies only deepened their sense of threat, as they never allowed themselves the opportunity to
+experience safety and learn that the danger they felt was not as omnipresent as they believed." Yet,
+every time they chose to avoid a place or event, it only deepened the connection between those
+triggers and their fear, creating a map of avoidance that constantly reminded them of their trauma.
+Each time Kaimana engaged in these safety behaviors, they felt an increased sense of threat, as if
+their vigilance confirmed that danger was still very much present in their lives.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not convey how triggers lead to the use of maladaptive strategies.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not convey how memories influence the use of maladaptive strategies.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not convey how the sense of threat influences memory recall.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not convey how maladaptive strategies lead to the identification of triggers.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not convey how maladaptive strategies reinforce the sense of threat.
+
+  [6] FAIL
+Kaimana was a 27-year-old special education teacher living in a vibrant neighborhood in Seattle.
+Their life had been filled with laughter and creativity, but for the past year, a shadow loomed over
+them, stemming from the relentless experience of being stalked by an ex-partner. The violation of
+feeling watched and followed had become a suffocating reality, leading Kaimana to a state of
+hypervigilance that bleeds into every aspect of their daily life. They often recounted the chilling
+moments when they first realized they were being stalked: the anxious glances over their shoulder,
+the dread that accompanied familiar paths, and the way their heart raced at the sound of footsteps
+trailing behind them, even when they were alone. These moments triggered a cascade of memories that
+would flood Kaimana's mind, pulling them back to those terrifying instances of feeling pursued,
+reinforcing their sense of vulnerability. When these memories surfaced, Kaimana often felt an
+overwhelming urge to avoid certain places altogether, opting for longer routes to work or skipping
+social events, convinced that any familiar path might provoke the same panic again. This avoidance
+became a strategy to manage their anxiety, as Kaimana believed that steering clear of these triggers
+would keep them safe, even if it meant sacrificing connections with friends and the joy of
+spontaneous outings. Each place they avoided became a reminder in itself — the long way round they
+walked every morning was its own daily acknowledgment of what had happened, reinforcing the need to
+stay away from those locations. These memories, fragmented and disjointed, haunted them, leaving
+Kaimana with a sense of panic that grew more pronounced with time. As the stalking escalated,
+Kaimana’s sense of reality began to fracture. The persistent sense of danger kept Kaimana close to
+the event in their mind, as if they needed to keep reviewing it to stay one step ahead of whatever
+came next, which made it harder to escape the memories. They often found themselves lost in
+ruminative thoughts about how the situation could have been prevented, endlessly turning over what
+they might have said or done differently. This rumination served as both a coping mechanism and a
+prison, trapping them in a cycle of blame and regret. As the memories played over and over, Kaimana
+found themselves resorting to maladaptive strategies, like keeping the television on loud to drown
+out the intrusive thoughts, believing that silence would only invite the memories back. To avoid the
+memories that surged during quiet moments, Kaimana had learned that if they kept the noise high
+enough, the thoughts couldn't get a foothold — silence had become the enemy. Whenever Kaimana
+attempted to relax, an overwhelming sense of danger would grip them, compelling them to avoid any
+situation that could leave them vulnerable. Instead of unwinding, they would scan their environment
+incessantly, checking for any signs of their stalker. Each sudden movement by others sent a jolt of
+fear coursing through their body, reinforcing their belief that danger lurked around every corner.
+This ongoing need to stay alert and avoid situations that felt unsafe only perpetuated their
+feelings of threat, as Kaimana had never stayed in a situation long enough to find out it was safe,
+leaving their nervous system convinced that danger was still very much present. The disconnection
+within their memories mirrored their emotional state. As Kaimana struggled to piece together their
+memories, they found themselves avoiding reminders of the trauma, such as conversations about
+relationships or even watching romantic films, fearing that these triggers would rekindle the
+disorienting feelings of vulnerability and fear. In doing so, Kaimana developed a pattern of
+evasion, believing that if they didn't engage with potentially triggering subjects, they could stave
+off the flood of distressing thoughts that often accompanied those memories. Kaimana often
+experienced moments of clarity interspersed with blank spots, like watching a movie with missing
+scenes. When the memories surged, the feelings of threat became palpable, and Kaimana struggled to
+push them down, fearing that revisiting the past would only amplify their anxiety. They could
+vividly recall the moments of confrontation, but other details felt like wisps of smoke, slipping
+through their fingers just when they thought they grasped them. This incomplete picture only fueled
+their anxiety and the haunting feeling that they were losing control. The more they tried to piece
+together their memories, the more pronounced their hypervigilance became. This hypervigilance kept
+Kaimana on edge, as they often found that when they felt threatened, the memories of the stalking
+would rush back with vivid clarity, as if their mind was trying to warn them of the danger that
+persisted. They were left with a constant sense of threat, as though the shadows of their past were
+chasing them relentlessly, forcing them into a state of perpetual alertness. In the days that
+followed, Kaimana became increasingly aware of how their maladaptive strategies reinforced their
+fears. The need to check their surroundings became a compulsion, creating a feedback loop that
+heightened their anxiety. Each time Kaimana engaged in these safety behaviors, the world felt more
+dangerous, confirming their belief that they must always be on guard, thus reinforcing the cycle of
+fear and avoidance. Each time Kaimana felt the need to scan for danger, their anxiety spiked,
+reinforcing the belief that they were still in danger, and leaving them feeling even more threatened
+as they believed their vigilance was necessary for survival. This ongoing need to stay alert and
+avoid situations that felt unsafe only perpetuated their feelings of threat, as they never allowed
+themselves the opportunity to experience moments of calm or safety. This compulsion to check their
+surroundings not only heightened their anxiety but also perpetuated the feeling of being in constant
+peril, as they felt that their vigilance was a necessary response to an ongoing threat. Each time
+they felt the urge to scan for danger, the act only deepened their sense of being followed, as if
+their very vigilance were attracting more threats. In the classroom, their students noticed
+something was off; Kaimana would often zone out, lost in thought, or flinch at the sound of a door
+creaking. Their safety behaviors had drawn a map of the event around them: everything they couldn't
+do, everywhere they couldn't go, every person they kept at arm's length, which left Kaimana feeling
+more isolated from those around them. These reactions, born from their internal turmoil, began to
+affect their relationships with colleagues and students alike, creating a wall of isolation around
+them. As Kaimana navigated through life, they struggled to maintain the facade of normalcy while
+battling the specter of their trauma. They had come to believe that if they could just avoid certain
+situations or people, they would be safe. Yet, this avoidance only served to reinforce the cycle of
+fear and anxiety. At night, they found themselves lying in bed, paralyzed by the thought of being
+watched, replaying the events over and over in their mind, feeling trapped between the memories of
+the past and the present threats that loomed large. Finally, the accumulated weight of their
+experiences led Kaimana to seek help. They felt exhausted and terrified, hoping to reclaim the life
+that had been stolen from them. What frightened Kaimana most was the thought that they might never
+feel safe again, that they would remain ensnared in this cycle of fear and avoidance. "This
+avoidance strategy led Kaimana to develop a heightened sensitivity to potential triggers, as they
+began to see familiar locations as threats that must be circumvented at all costs, reinforcing the
+cycle of fear they were caught in." Yet, beneath that fear was a flicker of hope—a hope that
+perhaps, through therapy, they could begin to piece together their fragmented memories and find a
+way to breathe freely once more. "These behaviors, aimed at keeping themselves safe, inadvertently
+marked the boundaries of their triggers, as Kaimana began to see every unexpected sound or
+interruption as a potential threat, drawing a map of avoidance around their life." "In doing so,
+they inadvertently crafted a shield of maladaptive strategies, believing that if they could keep
+these memories at bay, they could stave off the distress that threatened to consume them." "This
+persistent sense of danger kept Kaimana's traumatic memories fresh in their mind, as if they needed
+to keep reviewing the events to stay vigilant against the perceived threats that surrounded them."
+"Their reliance on these maladaptive strategies only deepened their sense of threat, as they never
+allowed themselves the opportunity to experience safety and learn that the danger they felt was not
+as omnipresent as they believed." Yet, every time they chose to avoid a place or event, it only
+deepened the connection between those triggers and their fear, creating a map of avoidance that
+constantly reminded them of their trauma. Each time Kaimana engaged in these safety behaviors, they
+felt an increased sense of threat, as if their vigilance confirmed that danger was still very much
+present in their lives.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not convey how triggers influence the use of maladaptive strategies.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette fails to illustrate how memories influence the use of maladaptive strategies.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not demonstrate how the sense of threat influences the memories.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not show how maladaptive strategies influence triggers.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not indicate how maladaptive strategies influence the sense of threat.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Kaimana was a 27-year-old special education teacher living in a vibrant neighborhood in Seattle.
+Their life had been filled with laughter and creativity, but for the past year, a shadow loomed over
+them, stemming from the relentless experience of being stalked by an ex-partner. The violation of
+feeling watched and followed had become a suffocating reality, leading Kaimana to a state of
+hypervigilance that bleeds into every aspect of their daily life. They often recounted the chilling
+moments when they first realized they were being stalked: the anxious glances over their shoulder,
+the dread that accompanied familiar paths, and the way their heart raced at the sound of footsteps
+trailing behind them, even when they were alone. These moments triggered a cascade of memories that
+would flood Kaimana's mind, pulling them back to those terrifying instances of feeling pursued,
+reinforcing their sense of vulnerability. When these memories surfaced, Kaimana often felt an
+overwhelming urge to avoid certain places altogether, opting for longer routes to work or skipping
+social events, convinced that any familiar path might provoke the same panic again. This avoidance
+became a strategy to manage their anxiety, as Kaimana believed that steering clear of these triggers
+would keep them safe, even if it meant sacrificing connections with friends and the joy of
+spontaneous outings. Each place they avoided became a reminder in itself — the long way round they
+walked every morning was its own daily acknowledgment of what had happened, reinforcing the need to
+stay away from those locations. These memories, fragmented and disjointed, haunted them, leaving
+Kaimana with a sense of panic that grew more pronounced with time. As the stalking escalated,
+Kaimana’s sense of reality began to fracture. The persistent sense of danger kept Kaimana close to
+the event in their mind, as if they needed to keep reviewing it to stay one step ahead of whatever
+came next, which made it harder to escape the memories. They often found themselves lost in
+ruminative thoughts about how the situation could have been prevented, endlessly turning over what
+they might have said or done differently. This rumination served as both a coping mechanism and a
+prison, trapping them in a cycle of blame and regret. As the memories played over and over, Kaimana
+found themselves resorting to maladaptive strategies, like keeping the television on loud to drown
+out the intrusive thoughts, believing that silence would only invite the memories back. To avoid the
+memories that surged during quiet moments, Kaimana had learned that if they kept the noise high
+enough, the thoughts couldn't get a foothold — silence had become the enemy. Whenever Kaimana
+attempted to relax, an overwhelming sense of danger would grip them, compelling them to avoid any
+situation that could leave them vulnerable. Instead of unwinding, they would scan their environment
+incessantly, checking for any signs of their stalker. Each sudden movement by others sent a jolt of
+fear coursing through their body, reinforcing their belief that danger lurked around every corner.
+This ongoing need to stay alert and avoid situations that felt unsafe only perpetuated their
+feelings of threat, as Kaimana had never stayed in a situation long enough to find out it was safe,
+leaving their nervous system convinced that danger was still very much present. The disconnection
+within their memories mirrored their emotional state. As Kaimana struggled to piece together their
+memories, they found themselves avoiding reminders of the trauma, such as conversations about
+relationships or even watching romantic films, fearing that these triggers would rekindle the
+disorienting feelings of vulnerability and fear. In doing so, Kaimana developed a pattern of
+evasion, believing that if they didn't engage with potentially triggering subjects, they could stave
+off the flood of distressing thoughts that often accompanied those memories. Kaimana often
+experienced moments of clarity interspersed with blank spots, like watching a movie with missing
+scenes. When the memories surged, the feelings of threat became palpable, and Kaimana struggled to
+push them down, fearing that revisiting the past would only amplify their anxiety. They could
+vividly recall the moments of confrontation, but other details felt like wisps of smoke, slipping
+through their fingers just when they thought they grasped them. This incomplete picture only fueled
+their anxiety and the haunting feeling that they were losing control. The more they tried to piece
+together their memories, the more pronounced their hypervigilance became. This hypervigilance kept
+Kaimana on edge, as they often found that when they felt threatened, the memories of the stalking
+would rush back with vivid clarity, as if their mind was trying to warn them of the danger that
+persisted. They were left with a constant sense of threat, as though the shadows of their past were
+chasing them relentlessly, forcing them into a state of perpetual alertness. In the days that
+followed, Kaimana became increasingly aware of how their maladaptive strategies reinforced their
+fears. The need to check their surroundings became a compulsion, creating a feedback loop that
+heightened their anxiety. Each time Kaimana engaged in these safety behaviors, the world felt more
+dangerous, confirming their belief that they must always be on guard, thus reinforcing the cycle of
+fear and avoidance. Each time Kaimana felt the need to scan for danger, their anxiety spiked,
+reinforcing the belief that they were still in danger, and leaving them feeling even more threatened
+as they believed their vigilance was necessary for survival. This ongoing need to stay alert and
+avoid situations that felt unsafe only perpetuated their feelings of threat, as they never allowed
+themselves the opportunity to experience moments of calm or safety. This compulsion to check their
+surroundings not only heightened their anxiety but also perpetuated the feeling of being in constant
+peril, as they felt that their vigilance was a necessary response to an ongoing threat. Each time
+they felt the urge to scan for danger, the act only deepened their sense of being followed, as if
+their very vigilance were attracting more threats. In the classroom, their students noticed
+something was off; Kaimana would often zone out, lost in thought, or flinch at the sound of a door
+creaking. Their safety behaviors had drawn a map of the event around them: everything they couldn't
+do, everywhere they couldn't go, every person they kept at arm's length, which left Kaimana feeling
+more isolated from those around them. These reactions, born from their internal turmoil, began to
+affect their relationships with colleagues and students alike, creating a wall of isolation around
+them. As Kaimana navigated through life, they struggled to maintain the facade of normalcy while
+battling the specter of their trauma. They had come to believe that if they could just avoid certain
+situations or people, they would be safe. Yet, this avoidance only served to reinforce the cycle of
+fear and anxiety. At night, they found themselves lying in bed, paralyzed by the thought of being
+watched, replaying the events over and over in their mind, feeling trapped between the memories of
+the past and the present threats that loomed large. Finally, the accumulated weight of their
+experiences led Kaimana to seek help. They felt exhausted and terrified, hoping to reclaim the life
+that had been stolen from them. What frightened Kaimana most was the thought that they might never
+feel safe again, that they would remain ensnared in this cycle of fear and avoidance. "This
+avoidance strategy led Kaimana to develop a heightened sensitivity to potential triggers, as they
+began to see familiar locations as threats that must be circumvented at all costs, reinforcing the
+cycle of fear they were caught in." Yet, beneath that fear was a flicker of hope—a hope that
+perhaps, through therapy, they could begin to piece together their fragmented memories and find a
+way to breathe freely once more. "These behaviors, aimed at keeping themselves safe, inadvertently
+marked the boundaries of their triggers, as Kaimana began to see every unexpected sound or
+interruption as a potential threat, drawing a map of avoidance around their life." "In doing so,
+they inadvertently crafted a shield of maladaptive strategies, believing that if they could keep
+these memories at bay, they could stave off the distress that threatened to consume them." "This
+persistent sense of danger kept Kaimana's traumatic memories fresh in their mind, as if they needed
+to keep reviewing the events to stay vigilant against the perceived threats that surrounded them."
+"Their reliance on these maladaptive strategies only deepened their sense of threat, as they never
+allowed themselves the opportunity to experience safety and learn that the danger they felt was not
+as omnipresent as they believed." Yet, every time they chose to avoid a place or event, it only
+deepened the connection between those triggers and their fear, creating a map of avoidance that
+constantly reminded them of their trauma. Each time Kaimana engaged in these safety behaviors, they
+felt an increased sense of threat, as if their vigilance confirmed that danger was still very much
+present in their lives.

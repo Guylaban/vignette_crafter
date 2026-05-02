@@ -1,0 +1,229 @@
+PERSONA 331  |  2026-05-02 20:08:30
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-chat
+    persona_crafter      deepseek-chat
+    vignette_crafter     deepseek-chat
+    vignette_validator   deepseek-chat
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             73
+  gender          Female
+  ethnicity       North American
+  relationship_status Widowed
+  occupation      Painter
+  trauma_type     Man-made disaster
+  pcl5            47
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Affective Expression: Crying
+    • Tactile (Touch): Physical touch
+    • Olfactory (Alcohol): Alcohol smell
+  Threat:
+    • Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    • Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    • Sleep Problems: Trouble falling or staying asleep
+  Memory:
+    • Photographic Recall: Remembering what happened during the frightening event is just like looking at photographs of it in my mind.
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+  Negative Appraisals:
+    • Life Not Worth Living: I am not sure my life is worth living anymore
+    • Lost Emotions: I will never be able to feel normal emotions again
+    • Shattered Beliefs: My beliefs about how the world works have been completely destroyed
+  Maladaptive Strategies:
+    • Avoid News: News reports about events similar to what happened to me
+    • Suppress Thoughts: try hard not think about the trauma
+    • Mental Distraction: keep mind occupied all the time
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.8604
+  Triggers → Memory                                  0.9313
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.9556
+  Negative Appraisals → Memory                       0.2102
+  Negative Appraisals → Triggers                     0.9695
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.3959
+  Memory → Negative Appraisals                       0.4271
+  Memory → Triggers                                  0.3287
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0841
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Idealized Families: Happy families
+    explanation: The trigger set is weakly anchored to the stated trauma type and does not connect well to the threat profile. For a man-made disaster, 'happy families' and 'physical touch' can occur, but paired with the specific threat item about someone entering the home, they suggest very different trauma contexts. That makes the Triggers → Threat link clinically incoherent here.
+    item:        Threat / Triggers: Tactile (Touch): Physical touch
+    explanation: 'Intrusion Monitoring' implies a current interpersonal/home-invasion danger schema. The rest of the profile points more toward grief, guilt, and sensory reliving of a disaster rather than fear of an intruder entering the home. This is a hard-to-explain mismatch across Threat, Memory, and Triggers.
+    item:        Memory / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The memory items are coherent with severe re-experiencing, but they align better with trauma-cued reliving than with the selected threat of home-entry monitoring. This weakens the strong Triggers → Memory and Triggers → Threat pattern because the chosen triggers do not plausibly evoke that specific threat state.
+    item:        Negative Appraisals / Negative Appraisals: Lost Meaning: Nothing in my life feels meaningful anymore
+    explanation: Within Negative Appraisals, the items form a strongly depressive/nihilistic cluster ('nothing meaningful,' 'life not worth living,' 'never feel normal emotions again'). That can coexist with PTSD, but in this profile it is insufficiently connected to the selected triggers and threat items, which are much more narrow and hypervigilance-based.
+    item:        Maladaptive Strategies / Negative Appraisals: Life Not Worth Living: I am not sure my life is worth living anymore
+    explanation: Maladaptive Strategies has no items selected, which is not itself a problem, but because the formulation isolates this node, the remaining nodes need to cohere on their own. They do not: the trigger/threat content suggests one trauma context while memory/appraisal content suggests another.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,263
+  output:     1,105
+  total:      4,368
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Martha was 68 when the ceiling of the community center collapsed during a holiday dinner. She had
+been standing near the dessert table, holding a plate of her famous pecan pie, when the old wooden
+beams gave way with a sound like a cannon shot. She remembered the smell of splintered pine and
+spilled wine, the way a woman’s scream seemed to come from everywhere at once. For a long moment,
+she was pinned beneath a fallen beam, her cheek pressed against the cold linoleum, her left arm
+twisted beneath her. She could hear people shouting, could feel the weight of the debris on her
+back, and what she remembered most vividly—what she could still see, years later, as though it were
+a photograph projected onto the inside of her eyelids—was the pattern of the ceiling tiles above
+her, a grid of tiny holes, just before everything went dark. She had been an artist all her life, a
+painter of landscapes and still lifes, and that image had burned itself into her visual memory with
+a permanence she could not shake.
+
+In the months that followed, Martha found that the memory came with a physical reenactment she could
+not control. Whenever the recollection surfaced, her body would stiffen into that same pinned
+position, her left arm pressing against her ribs, her cheek tilting toward an invisible floor. And
+with the memory came a crushing guilt: she had been the one to suggest the venue, had insisted that
+the community center was perfect for the dinner. She had convinced her husband, who had been
+reluctant to attend, and he had been standing only a few feet away when the beam fell. He had
+survived, but the guilt had not faded with time. She had come to believe that her judgment was
+fundamentally flawed, that the world was a place where ceilings fell without warning, where her own
+choices could bring harm to the people she loved. Her beliefs about how the world works had been
+completely destroyed. She was not sure her life was worth living anymore, and she had begun to feel
+that she would never be able to feel normal emotions again.
+
+Martha worked from a studio in her home, a converted garage where she had painted for forty years.
+But the studio had become a place of vigilance rather than creation. She would be mixing paint on
+her palette when a creak from the roof would make her freeze, her heart hammering, her eyes fixed on
+the ceiling. She had started listening for sounds that might mean someone was entering her home,
+even during the day, even when she knew she was alone. Sleep had become fragmented; she would lie
+awake in the dark, tracking the groan of the house settling, certain that the ceiling was about to
+give way. Her therapist had noted that Martha’s irritability had grown—she snapped at neighbors who
+knocked unexpectedly, and she had ended a phone call with her daughter by shouting, then hanging up,
+then crying for an hour.
+
+The triggers were everywhere, and each one pulled her back into the memory. The smell of alcohol on
+a passerby’s breath—someone walking past her on the sidewalk—would bring the image of spilled wine
+on linoleum, and she would feel her body stiffen, her arm pressing against her ribs. Physical touch,
+even a hand on her shoulder from a well-meaning friend, made her flinch and pull away, because her
+body remembered the weight of the beam. And crying—she had started to cry at unexpected moments, and
+the sight of her own tears in the mirror would trigger the memory of the woman’s scream, and she
+would feel the guilt wash over her again, and she would become convinced that she would never feel
+normal emotions, which only made her cry harder.
+
+She had developed a set of strategies to manage the chaos. She tried hard not to think about the
+trauma, pushing the images away whenever they began to surface, but the suppression required
+constant effort. She kept her mind occupied all the time—she listened to audiobooks while she
+painted, she watched television while she ate, she played word games on her phone while she waited
+for water to boil. She avoided news reports about building collapses or natural disasters, changing
+the channel or leaving the room if a story came on. But the avoidance had narrowed her world. She no
+longer visited restaurants with high ceilings. She had stopped going to the grocery store because
+the overhead lights, suspended on wires, reminded her of the community center. Her daughter had
+started doing her shopping, and Martha was grateful, but she was also ashamed.
+
+What finally brought her to seek help was a morning in late November, three years after the
+collapse. She had been standing in her studio, brush in hand, staring at a blank canvas, when she
+heard a car backfire in the street. The sound was distant and ordinary, but her body had reacted as
+though the ceiling were falling again. She had dropped the brush, had pressed herself against the
+wall, had felt her left arm curl against her ribs, and when the moment passed, she had stood there
+shaking, unable to pick up the brush. She was afraid that she was losing the ability to paint, the
+one thing that had given her life meaning. She was afraid that her life was not worth living. But
+she was also, for the first time, willing to say that out loud.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Martha was 68 when the ceiling of the community center collapsed during a holiday dinner. She had
+been standing near the dessert table, holding a plate of her famous pecan pie, when the old wooden
+beams gave way with a sound like a cannon shot. She remembered the smell of splintered pine and
+spilled wine, the way a woman’s scream seemed to come from everywhere at once. For a long moment,
+she was pinned beneath a fallen beam, her cheek pressed against the cold linoleum, her left arm
+twisted beneath her. She could hear people shouting, could feel the weight of the debris on her
+back, and what she remembered most vividly—what she could still see, years later, as though it were
+a photograph projected onto the inside of her eyelids—was the pattern of the ceiling tiles above
+her, a grid of tiny holes, just before everything went dark. She had been an artist all her life, a
+painter of landscapes and still lifes, and that image had burned itself into her visual memory with
+a permanence she could not shake.
+
+In the months that followed, Martha found that the memory came with a physical reenactment she could
+not control. Whenever the recollection surfaced, her body would stiffen into that same pinned
+position, her left arm pressing against her ribs, her cheek tilting toward an invisible floor. And
+with the memory came a crushing guilt: she had been the one to suggest the venue, had insisted that
+the community center was perfect for the dinner. She had convinced her husband, who had been
+reluctant to attend, and he had been standing only a few feet away when the beam fell. He had
+survived, but the guilt had not faded with time. She had come to believe that her judgment was
+fundamentally flawed, that the world was a place where ceilings fell without warning, where her own
+choices could bring harm to the people she loved. Her beliefs about how the world works had been
+completely destroyed. She was not sure her life was worth living anymore, and she had begun to feel
+that she would never be able to feel normal emotions again.
+
+Martha worked from a studio in her home, a converted garage where she had painted for forty years.
+But the studio had become a place of vigilance rather than creation. She would be mixing paint on
+her palette when a creak from the roof would make her freeze, her heart hammering, her eyes fixed on
+the ceiling. She had started listening for sounds that might mean someone was entering her home,
+even during the day, even when she knew she was alone. Sleep had become fragmented; she would lie
+awake in the dark, tracking the groan of the house settling, certain that the ceiling was about to
+give way. Her therapist had noted that Martha’s irritability had grown—she snapped at neighbors who
+knocked unexpectedly, and she had ended a phone call with her daughter by shouting, then hanging up,
+then crying for an hour.
+
+The triggers were everywhere, and each one pulled her back into the memory. The smell of alcohol on
+a passerby’s breath—someone walking past her on the sidewalk—would bring the image of spilled wine
+on linoleum, and she would feel her body stiffen, her arm pressing against her ribs. Physical touch,
+even a hand on her shoulder from a well-meaning friend, made her flinch and pull away, because her
+body remembered the weight of the beam. And crying—she had started to cry at unexpected moments, and
+the sight of her own tears in the mirror would trigger the memory of the woman’s scream, and she
+would feel the guilt wash over her again, and she would become convinced that she would never feel
+normal emotions, which only made her cry harder.
+
+She had developed a set of strategies to manage the chaos. She tried hard not to think about the
+trauma, pushing the images away whenever they began to surface, but the suppression required
+constant effort. She kept her mind occupied all the time—she listened to audiobooks while she
+painted, she watched television while she ate, she played word games on her phone while she waited
+for water to boil. She avoided news reports about building collapses or natural disasters, changing
+the channel or leaving the room if a story came on. But the avoidance had narrowed her world. She no
+longer visited restaurants with high ceilings. She had stopped going to the grocery store because
+the overhead lights, suspended on wires, reminded her of the community center. Her daughter had
+started doing her shopping, and Martha was grateful, but she was also ashamed.
+
+What finally brought her to seek help was a morning in late November, three years after the
+collapse. She had been standing in her studio, brush in hand, staring at a blank canvas, when she
+heard a car backfire in the street. The sound was distant and ordinary, but her body had reacted as
+though the ceiling were falling again. She had dropped the brush, had pressed herself against the
+wall, had felt her left arm curl against her ribs, and when the moment passed, she had stood there
+shaking, unable to pick up the brush. She was afraid that she was losing the ability to paint, the
+one thing that had given her life meaning. She was afraid that her life was not worth living. But
+she was also, for the first time, willing to say that out loud.

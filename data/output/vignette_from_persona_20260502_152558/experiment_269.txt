@@ -1,0 +1,355 @@
+PERSONA 269  |  2026-05-02 20:09:02
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-pro
+    persona_crafter      gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             80
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Widowed
+  occupation      Data Scientist
+  trauma_type     Relief worker in war zone
+  pcl5            50
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Moral Violation: People misbehaving
+    • Entrapment: Having no options
+    • Dream Residue: Waking up from a nightmare
+  Maladaptive Strategies:
+    • Avoid News: News reports about events similar to what happened to me
+    • Rehearse Conversations: rehearse what to say before any interaction
+    • Checking Surroundings: constantly scan environment for signs of threat
+  Memory:
+    • Reliving Event: When I remember the frightening event I feel like it is happening right now.
+    • Feels Present Not Past: The memory feels like it is happening right now rather than something that is over
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+  Negative Appraisals:
+    • Fear Going Crazy: My reactions since the event mean that I am going crazy
+    • Fear of Rage: I will not be able to control my anger and will do something terrible
+    • World is Dangerous: The world is a dangerous place
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.1161
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0264
+  Triggers → Negative Appraisals                     0.2741
+  Negative Appraisals → Maladaptive Strategies       0.5356
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.1271
+  Negative Appraisals → Triggers                     0.3609
+  Memory → Maladaptive Strategies                    0.4030
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3404
+  Memory → Triggers                                  0.3761
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.3887
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.1976
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: no items selected
+    explanation: The cognitive formulation isolates Threat completely, so absence of Threat items is not itself a problem; however, the current profile strongly emphasizes trauma-memory reexperiencing and appraisals without any explicit threat content, making the night-specific avoidance item look weakly anchored to the rest of the selected profile.
+    item:        Maladaptive Strategies / Avoid Night: Going out at night or being outside after dark
+    explanation: 'Avoid Night' implies fear linked to darkness/outdoor danger, but there are no Threat items and no memory/trigger content tied to night-time, darkness, or outdoor contexts. For this relief-worker trauma, that strategy is not impossible, but in this profile it is the least coherent item because it addresses a threat context not otherwise represented across Triggers, Memory, or Negative Appraisals.
+  [2] FAIL
+    item:        Threat / Threat: Hypervigilance: Being superalert or watchful or on guard
+    explanation: The formulation isolates Threat completely: all edges to and from Threat are inactive. Yet the selected Threat items are central, high-intensity PTSD threat responses and are also mirrored elsewhere. This makes Threat functionally active in a way that contradicts the formulation structure.
+    item:        Negative Appraisals / Threat: Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+    explanation: Threat: Flashbacks and Threat: Physical Reactivity are tightly linked to the Memory and Triggers nodes, but the formulation specifies no active links involving Threat. Including these as Threat items makes the profile inconsistent with the stated node architecture.
+    item:        Triggers / Threat: Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    explanation: Negative Appraisals: Hypervigilance and Maladaptive Strategies: Checking Surroundings both imply an ongoing current-danger/threat monitoring pattern, which again makes Threat clinically central despite Threat being fully disconnected in the formulation.
+    item:        Maladaptive Strategies / Negative Appraisals: Hypervigilance: I have to be on guard all the time
+    explanation: Triggers: Entrapment: Having no options is the least coherent trigger relative to the rest of the profile. The remaining items focus on moral reminders and nightmare residue, while appraisals and strategies emphasize vigilance, rage, and fear of losing control. Entrapment could occur, but here it lacks a clear connection to the rest of the selected content and weakens coherence.
+  [3] FAIL
+    item:        Threat / Threat: Flashbacks
+    explanation: The cognitive formulation isolates Threat completely: all edges to and from Threat are inactive. However, the selected Threat items describe a prominent, connected threat response cluster (flashbacks, strong physical reactivity, concentration problems from reminders), which is difficult to reconcile with a formulation in which Threat has no active links to Triggers, Memory, Negative Appraisals, or Maladaptive Strategies.
+    item:        Negative Appraisals / Threat: Physical Reactivity
+    explanation: Negative Appraisals: Hypervigilance functions more like a current threat/safety-state belief and implies an active Threat system. That sits poorly with the formulation's fully inactive Threat node, especially when paired with checking surroundings and reactivity/flashback-type threat items.
+  [4] FAIL
+    item:        Threat / Threat: Physical Reactivity
+    explanation: The Threat node is clinically misaligned with the formulation: all incoming and outgoing Threat edges are inactive, so Threat should be relatively isolated or not central. However, the selected threat items describe an active symptomatic threat response cluster (strong emotional/physical reactivity and concentration disruption) that appears tightly tied to triggers and memory intrusions. This creates a contradiction with the formulation structure, especially given concurrent trigger and memory items that imply exactly the kind of reminder-linked threat activation the model marks as inactive. The other nodes are broadly coherent with each other and with the trauma type.
+  [5] FAIL
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: The Threat node is clinically incoherent with the provided cognitive formulation. Threat has no active incoming or outgoing edges, so it should not appear as a tightly integrated maintaining component. Yet all three selected Threat items are non-specific PTSD symptom/severity indicators rather than a coherent sense of current threat, and they are not meaningfully linked to the active Triggers, Memory, Negative Appraisals, and Maladaptive Strategies pattern.
+  [6] FAIL
+    item:        Threat / Threat: Scanning for Danger
+    explanation: Threat is structurally isolated in the formulation, but 'Scanning for Danger' is tightly mirrored by both Maladaptive Strategies: 'Checking Surroundings' and Negative Appraisals: 'I have to be on guard all the time,' making threat function as an active linked node rather than an isolated one.
+    item:        Negative Appraisals / Negative Appraisals: Hypervigilance
+    explanation: Negative Appraisals: 'I have to be on guard all the time' overlaps almost exactly with Threat: 'Scanning for Danger' and Maladaptive Strategies: 'Checking Surroundings,' which contradicts the formulation because Threat has no active links to or from these nodes.
+    item:        Triggers / Threat: Negative Emotions
+    explanation: Threat: 'Negative Emotions' is very broad and non-specific, while the rest of the profile centers on intrusive reliving, moral/entrapment triggers, and vigilance-based coping; as a Threat item it does not fit the otherwise isolated, weakly integrated role of threat in this formulation.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     11,133
+  output:    11,934
+  total:     23,067
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  3 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Bao, an eighty-year-old data scientist, presented for treatment after his granddaughter found him in
+his apartment, trembling with rage over a misdelivered package. It was the culmination of nearly
+sixty years of a carefully managed, yet deeply unstable, internal peace. His life’s work was in
+finding patterns in chaos, yet he could not find a way to order the fragments of his own past. As a
+young man, he had volunteered as a relief worker during the fall of Saigon. He described being
+trapped in a makeshift clinic within a refugee compound when it was overrun. He was hidden by a
+local doctor in a supply closet, forced to listen for hours to the sounds of violence, of commands
+being barked, and of people behaving in ways he still calls, with quiet horror, “simply wrong.” That
+feeling of absolute helplessness, of having no options while witnessing a profound moral violation,
+became the anchor for everything that followed.
+
+For decades, the memories remained mostly dormant. But in the years since his wife’s passing, they
+have returned with a vengeance. Now, the slightest trigger can bring the past crashing into the
+present. A heated argument between neighbours in the hallway of his building, with its echoes of
+aggression and misbehaviour, is enough to ignite the cascade. The sounds transport him back to the
+closet, and the memory begins to play not as a recollection, but as a live event. He reports that it
+feels like “a film that plays over and over,” the smells of antiseptic and dust so real he can taste
+them. In these moments, the memory feels as if it is “happening right now rather than something that
+is over,” a sensory replay that erases the sixty years between then and now. The horror of reliving
+the event confirms his deepest fears: that the world is an irredeemably dangerous place, and that
+the ferocity of the rage he feels in response means he will inevitably do something terrible.
+
+These beliefs have reshaped his life into a series of rigid, protective manoeuvres. Because he is
+certain he might lose control of his anger, he rehearses what to say before any interaction, from a
+phone call with his daughter to a simple greeting with the building’s doorman, hoping to preempt any
+possible conflict. This fear that he is “going crazy,” a conclusion he draws from the sheer
+vividness of his flashbacks, compels him to constantly scan his environment for signs of threat, his
+body perpetually tense and ready to react. His apartment, once a shared home, has become a fortress.
+He avoids all news reports about global conflicts, changing the channel frantically if an image of
+soldiers or refugees appears. These strategies, however, offer no relief. By avoiding any reminder
+of conflict, he prevents his mind from ever learning that the present is safe, which keeps the
+memories locked in their raw, unprocessed state. His constant scanning for danger only makes him
+more likely to notice potential triggers, sensitizing him to the very things he fears.
+
+The cycle is relentless and self-sustaining. Waking from a nightmare leaves a residue of dread that
+primes him to perceive threat in the morning’s interactions. An intrusive memory, sparked by a car
+backfiring on the street, will lead him to spend the rest of the afternoon locked inside, avoiding
+the news and checking his surroundings. The belief that the world is dangerous makes him interpret
+any ambiguity, like an unfamiliar car parked outside, as a potential threat, which in turn can
+trigger the memory of the compound. The memory itself, with its core theme of entrapment, sensitizes
+him to any situation where he feels he has no options, whether it’s a traffic jam or a long queue at
+the pharmacy. His body feels constantly on alert, and he suffers from a persistent irritability that
+often erupts into angry outbursts over trivialities, which only reinforces his terror that he is a
+danger to others.
+
+Bao sought help because he sees the logic of his own trap but cannot disable it. The man who built a
+career on elegant code and predictive models is now caught in a recursive loop he cannot exit. He
+fears not the past, but the future—a future where he loses control completely, drives away his
+family, and dies alone with the ghosts of a day from half a century ago. He hopes, he stated with
+the careful precision of a scientist proposing a hypothesis, that therapy might help him finally
+write the past into a different kind of code, one that allows it to be history rather than a
+recurring, terrible present.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not describe triggers directly influencing the patient's negative appraisals; instead, triggers activate the trauma memory, which in turn reinforces his negative beliefs.
+
+  [2] FAIL
+Bao, an eighty-year-old data scientist, presented for treatment after his granddaughter found him in
+his apartment, trembling with rage over a misdelivered package. It was the culmination of nearly
+sixty years of a carefully managed, yet deeply unstable, internal peace. His life’s work was in
+finding patterns in chaos, yet he could not find a way to order the fragments of his own past. As a
+young man, he had volunteered as a relief worker during the fall of Saigon. He described being
+trapped in a makeshift clinic within a refugee compound when it was overrun. He was hidden by a
+local doctor in a supply closet, forced to listen for hours to the sounds of violence, of commands
+being barked, and of people behaving in ways he still calls, with quiet horror, “simply wrong.” That
+feeling of absolute helplessness, of having no options while witnessing a profound moral violation,
+became the anchor for everything that followed.
+
+For decades, the memories remained mostly dormant. But in the years since his wife’s passing, they
+have returned with a vengeance. Now, the slightest trigger can bring the past crashing into the
+present. A heated argument between neighbours in the hallway of his building, with its echoes of
+aggression and misbehaviour, is enough to ignite the cascade. The sound itself tells him, with a
+certainty he cannot challenge, that the world remains a fundamentally unsafe place where human
+cruelty can erupt at any moment. The sounds transport him back to the closet, and the memory begins
+to play not as a recollection, but as a live event. He reports that it feels like “a film that plays
+over and over,” the smells of antiseptic and dust so real he can taste them. In these moments, the
+memory feels as if it is “happening right now rather than something that is over,” a sensory replay
+that erases the sixty years between then and now. The horror of reliving the event confirms his
+deepest fears: that the world is an irredeemably dangerous place, and that the ferocity of the rage
+he feels in response means he will inevitably do something terrible.
+
+These beliefs have reshaped his life into a series of rigid, protective manoeuvres. Because he is
+certain he might lose control of his anger, he rehearses what to say before any interaction, from a
+phone call with his daughter to a simple greeting with the building’s doorman, hoping to preempt any
+possible conflict. This fear that he is “going crazy,” a conclusion he draws from the sheer
+vividness of his flashbacks, compels him to constantly scan his environment for signs of threat, his
+body perpetually tense and ready to react. His apartment, once a shared home, has become a fortress.
+He avoids all news reports about global conflicts, changing the channel frantically if an image of
+soldiers or refugees appears. These strategies, however, offer no relief. By avoiding any reminder
+of conflict, he prevents his mind from ever learning that the present is safe, which keeps the
+memories locked in their raw, unprocessed state. His constant scanning for danger only makes him
+more likely to notice potential triggers, sensitizing him to the very things he fears.
+
+The cycle is relentless and self-sustaining. Waking from a nightmare leaves a residue of dread that
+primes him to perceive threat in the morning’s interactions. An intrusive memory, sparked by a car
+backfiring on the street, will lead him to spend the rest of the afternoon locked inside, avoiding
+the news and checking his surroundings. The belief that the world is dangerous makes him interpret
+any ambiguity, like an unfamiliar car parked outside, as a potential threat, which in turn can
+trigger the memory of the compound. The memory itself, with its core theme of entrapment, sensitizes
+him to any situation where he feels he has no options, whether it’s a traffic jam or a long queue at
+the pharmacy. His body feels constantly on alert, and he suffers from a persistent irritability that
+often erupts into angry outbursts over trivialities, which only reinforces his terror that he is a
+danger to others.
+
+Bao sought help because he sees the logic of his own trap but cannot disable it. The man who built a
+career on elegant code and predictive models is now caught in a recursive loop he cannot exit. He
+fears not the past, but the future—a future where he loses control completely, drives away his
+family, and dies alone with the ghosts of a day from half a century ago. He hopes, he stated with
+the careful precision of a scientist proposing a hypothesis, that therapy might help him finally
+write the past into a different kind of code, one that allows it to be history rather than a
+recurring, terrible present.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not describe how the patient's negative beliefs directly influence or trigger the trauma memory.
+
+  [3] PASS
+Bao, an eighty-year-old data scientist, presented for treatment after his granddaughter found him in
+his apartment, trembling with rage over a misdelivered package. It was the culmination of nearly
+sixty years of a carefully managed, yet deeply unstable, internal peace. His life’s work was in
+finding patterns in chaos, yet he could not find a way to order the fragments of his own past. As a
+young man, he had volunteered as a relief worker during the fall of Saigon. He described being
+trapped in a makeshift clinic within a refugee compound when it was overrun. He was hidden by a
+local doctor in a supply closet, forced to listen for hours to the sounds of violence, of commands
+being barked, and of people behaving in ways he still calls, with quiet horror, “simply wrong.” That
+feeling of absolute helplessness, of having no options while witnessing a profound moral violation,
+became the anchor for everything that followed.
+
+For decades, the memories remained mostly dormant. But in the years since his wife’s passing, they
+have returned with a vengeance. Now, the slightest trigger can bring the past crashing into the
+present. A heated argument between neighbours in the hallway of his building, with its echoes of
+aggression and misbehaviour, is enough to ignite the cascade. The sound itself tells him, with a
+certainty he cannot challenge, that the world remains a fundamentally unsafe place where human
+cruelty can erupt at any moment. The sounds transport him back to the closet, and the memory begins
+to play not as a recollection, but as a live event. He reports that it feels like “a film that plays
+over and over,” the smells of antiseptic and dust so real he can taste them. In these moments, the
+memory feels as if it is “happening right now rather than something that is over,” a sensory replay
+that erases the sixty years between then and now. The horror of reliving the event confirms his
+deepest fears: that the world is an irredeemably dangerous place, and that the ferocity of the rage
+he feels in response means he will inevitably do something terrible. This conviction that he is
+fundamentally dangerous seems to summon the memory directly, pulling him back to the closet as if
+his mind is constantly re-examining the evidence for his own monstrous potential.
+
+These beliefs have reshaped his life into a series of rigid, protective manoeuvres. Because he is
+certain he might lose control of his anger, he rehearses what to say before any interaction, from a
+phone call with his daughter to a simple greeting with the building’s doorman, hoping to preempt any
+possible conflict. This fear that he is “going crazy,” a conclusion he draws from the sheer
+vividness of his flashbacks, compels him to constantly scan his environment for signs of threat, his
+body perpetually tense and ready to react. His apartment, once a shared home, has become a fortress.
+He avoids all news reports about global conflicts, changing the channel frantically if an image of
+soldiers or refugees appears. These strategies, however, offer no relief. By avoiding any reminder
+of conflict, he prevents his mind from ever learning that the present is safe, which keeps the
+memories locked in their raw, unprocessed state. His constant scanning for danger only makes him
+more likely to notice potential triggers, sensitizing him to the very things he fears.
+
+The cycle is relentless and self-sustaining. Waking from a nightmare leaves a residue of dread that
+primes him to perceive threat in the morning’s interactions. An intrusive memory, sparked by a car
+backfiring on the street, will lead him to spend the rest of the afternoon locked inside, avoiding
+the news and checking his surroundings. The belief that the world is dangerous makes him interpret
+any ambiguity, like an unfamiliar car parked outside, as a potential threat, which in turn can
+trigger the memory of the compound. The memory itself, with its core theme of entrapment, sensitizes
+him to any situation where he feels he has no options, whether it’s a traffic jam or a long queue at
+the pharmacy. His body feels constantly on alert, and he suffers from a persistent irritability that
+often erupts into angry outbursts over trivialities, which only reinforces his terror that he is a
+danger to others.
+
+Bao sought help because he sees the logic of his own trap but cannot disable it. The man who built a
+career on elegant code and predictive models is now caught in a recursive loop he cannot exit. He
+fears not the past, but the future—a future where he loses control completely, drives away his
+family, and dies alone with the ghosts of a day from half a century ago. He hopes, he stated with
+the careful precision of a scientist proposing a hypothesis, that therapy might help him finally
+write the past into a different kind of code, one that allows it to be history rather than a
+recurring, terrible present.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Bao, an eighty-year-old data scientist, presented for treatment after his granddaughter found him in
+his apartment, trembling with rage over a misdelivered package. It was the culmination of nearly
+sixty years of a carefully managed, yet deeply unstable, internal peace. His life’s work was in
+finding patterns in chaos, yet he could not find a way to order the fragments of his own past. As a
+young man, he had volunteered as a relief worker during the fall of Saigon. He described being
+trapped in a makeshift clinic within a refugee compound when it was overrun. He was hidden by a
+local doctor in a supply closet, forced to listen for hours to the sounds of violence, of commands
+being barked, and of people behaving in ways he still calls, with quiet horror, “simply wrong.” That
+feeling of absolute helplessness, of having no options while witnessing a profound moral violation,
+became the anchor for everything that followed.
+
+For decades, the memories remained mostly dormant. But in the years since his wife’s passing, they
+have returned with a vengeance. Now, the slightest trigger can bring the past crashing into the
+present. A heated argument between neighbours in the hallway of his building, with its echoes of
+aggression and misbehaviour, is enough to ignite the cascade. The sound itself tells him, with a
+certainty he cannot challenge, that the world remains a fundamentally unsafe place where human
+cruelty can erupt at any moment. The sounds transport him back to the closet, and the memory begins
+to play not as a recollection, but as a live event. He reports that it feels like “a film that plays
+over and over,” the smells of antiseptic and dust so real he can taste them. In these moments, the
+memory feels as if it is “happening right now rather than something that is over,” a sensory replay
+that erases the sixty years between then and now. The horror of reliving the event confirms his
+deepest fears: that the world is an irredeemably dangerous place, and that the ferocity of the rage
+he feels in response means he will inevitably do something terrible. This conviction that he is
+fundamentally dangerous seems to summon the memory directly, pulling him back to the closet as if
+his mind is constantly re-examining the evidence for his own monstrous potential.
+
+These beliefs have reshaped his life into a series of rigid, protective manoeuvres. Because he is
+certain he might lose control of his anger, he rehearses what to say before any interaction, from a
+phone call with his daughter to a simple greeting with the building’s doorman, hoping to preempt any
+possible conflict. This fear that he is “going crazy,” a conclusion he draws from the sheer
+vividness of his flashbacks, compels him to constantly scan his environment for signs of threat, his
+body perpetually tense and ready to react. His apartment, once a shared home, has become a fortress.
+He avoids all news reports about global conflicts, changing the channel frantically if an image of
+soldiers or refugees appears. These strategies, however, offer no relief. By avoiding any reminder
+of conflict, he prevents his mind from ever learning that the present is safe, which keeps the
+memories locked in their raw, unprocessed state. His constant scanning for danger only makes him
+more likely to notice potential triggers, sensitizing him to the very things he fears.
+
+The cycle is relentless and self-sustaining. Waking from a nightmare leaves a residue of dread that
+primes him to perceive threat in the morning’s interactions. An intrusive memory, sparked by a car
+backfiring on the street, will lead him to spend the rest of the afternoon locked inside, avoiding
+the news and checking his surroundings. The belief that the world is dangerous makes him interpret
+any ambiguity, like an unfamiliar car parked outside, as a potential threat, which in turn can
+trigger the memory of the compound. The memory itself, with its core theme of entrapment, sensitizes
+him to any situation where he feels he has no options, whether it’s a traffic jam or a long queue at
+the pharmacy. His body feels constantly on alert, and he suffers from a persistent irritability that
+often erupts into angry outbursts over trivialities, which only reinforces his terror that he is a
+danger to others.
+
+Bao sought help because he sees the logic of his own trap but cannot disable it. The man who built a
+career on elegant code and predictive models is now caught in a recursive loop he cannot exit. He
+fears not the past, but the future—a future where he loses control completely, drives away his
+family, and dies alone with the ghosts of a day from half a century ago. He hopes, he stated with
+the careful precision of a scientist proposing a hypothesis, that therapy might help him finally
+write the past into a different kind of code, one that allows it to be history rather than a
+recurring, terrible present.

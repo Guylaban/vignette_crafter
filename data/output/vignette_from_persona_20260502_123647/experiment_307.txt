@@ -1,0 +1,713 @@
+PERSONA 307  |  2026-05-02 20:15:09
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             25
+  gender          Male
+  ethnicity       North American
+  relationship_status Single
+  occupation      Housekeeper
+  trauma_type     Physical abuse by caregiver (childhood)
+  pcl5            44
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Nighttime/Dark: Night-time or waking up in the dark
+    • Tactile (Texture): A specific texture associated with the event
+    • Auditory (Children Crying): Kids crying
+  Maladaptive Strategies:
+    • Drop Responsibilities: give up important responsibilities to stay safe or avoid triggers
+    • Fantasy Escape: I drift off into a world of my own
+    • Never Alone: make sure never to be alone with another person
+  Memory:
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+  Negative Appraisals:
+    • Exposed to Others: I feel that others can see what happened to me just by looking at me
+    • Dehumanization: I feel like an object, not like a person
+    • Fear of Harm: You can never know who will harm you
+  Threat:
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Hypervigilance: Being superalert or watchful or on guard
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.9721
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.2517
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.4638
+  Memory → Maladaptive Strategies                    0.3791
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.9771
+  Memory → Triggers                                  0.8832
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.9805
+  Maladaptive Strategies → Negative Appraisals       0.9282
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: missing/none selected despite multiple current-danger and exposure-related items
+    explanation: The profile contains several items implying an active sense of present threat or exposure (e.g., 'World is Dangerous', 'Exposed to Others', concealment to avoid being noticed), yet the Threat component is entirely absent. For this trauma type, such items would usually cohere with at least some explicit threat content; the omission makes the cross-node picture clinically uneven.
+    item:        Negative Appraisals / Negative Appraisals: World is Dangerous
+    explanation: 'World is Dangerous' expresses a broad ongoing threat belief, but the formulation specifies no active links into or out of Threat and no Threat items are endorsed. This makes the appraisal sit awkwardly in the formulation because it functions more like a threat belief than an isolated negative self-appraisal.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Concealing Clothing: wear concealing clothing to avoid being noticed
+    explanation: 'Concealing Clothing ... to avoid being noticed' implies active management of current interpersonal threat/visibility. With Threat completely unrepresented and no Trigger→Threat or Maladaptive Strategies→Threat linkage in the formulation, this strategy lacks a clear matching symptom target in the rest of the profile.
+  [2] FAIL
+    item:        Threat / Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations
+    explanation: The Threat node is not clinically coherent here. 'Flashbacks' and 'Physical Reactivity' are re-experiencing/arousal responses rather than threat appraisals, while the only genuine threat appraisal selected is 'Threat from Strangers.' That mixes different constructs within one node.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     26,505
+  output:     3,643
+  total:     30,148
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Jared, a 25-year-old housekeeper, had always felt a pervasive sense of unease that shadowed him,
+rooted in a childhood marred by physical abuse from a caregiver. The traumatic memories were deeply
+embedded in his psyche, haunting him in ways that impacted his everyday life. Even now, years later,
+the darkness of night would trigger a rush of anxiety; waking up in the dark felt like stepping back
+into his past, where he was vulnerable and alone. The shadows in his small apartment stirred
+something primal within him, igniting a fear that had lingered since he was a child. He found
+himself avoiding night shifts, opting instead to work during the day. When he was forced to confront
+those hours of darkness, he would often drift off into a fantasy world, escaping into thoughts of
+places where he felt safe, instead of engaging with the responsibilities of his job.
+
+The memories of his abuse were like a relentless film that played in his mind, vividly replaying the
+sensations he had long tried to bury. Whenever those memories resurfaced, Jared felt completely
+overwhelmed, as if he were reliving every moment in real-time; he could hear the echoes of his own
+cries and the chilling sounds of children crying, which served as a painful reminder of his own
+childhood experiences. The tactile memories were particularly vivid; he could still feel the coarse
+texture of the blanket he used to hide under, and that familiar sensation would often trigger
+flashes of the past. The combination of these triggers — the darkness, the crying, and the tactile
+sensations — left him feeling exposed and vulnerable, causing him to withdraw from social situations
+where he might have to interact with others.
+
+Jared had come to believe that people could see the scars of his past etched into his very being.
+The feeling of being dehumanized, as if he were merely an object rather than a person, permeated his
+thoughts. This belief heightened his hypervigilance, forcing him to remain constantly alert in
+social settings, as he feared that anyone could be a potential source of harm. It was a suffocating
+existence, one that left him lonely and isolated as he avoided being alone with anyone. Even casual
+encounters with coworkers could trigger a sense of panic, causing him to drop responsibilities and
+retreat into his mind, drifting into fantasies where he was nothing but a spectator in a world far
+removed from the pain he had endured.
+
+The memories of his traumatic childhood were the root causes of his maladaptive strategies. The more
+he tried to escape the overwhelming emotions associated with those memories, the worse his anxiety
+became, trapping him in a cycle of avoidance. He would often cancel plans or give up important
+responsibilities at work, convinced that staying away from others would keep him safe and prevent
+the memories from resurfacing. But each time he drifted away into his fantasies, he felt a nagging
+sense of shame. It reinforced his belief that he was not worthy of connection, rendering him even
+more disconnected from the people around him.
+
+As Jared reflected on his experiences, he recognized the unrelenting grip these memories had on his
+life. Each flashback brought with it the haunting feelings of exposure and fear, leaving him at the
+mercy of his emotional turmoil. The memories not only triggered his hypervigilance but also deepened
+his negative self-appraisals, convincing him that he was forever marked by his past. He felt trapped
+in a world where he could never fully engage with others or himself, as if he were perpetually stuck
+in a dark room with no exit.
+
+Ultimately, it was this painful realization that led Jared to seek help. After years of battling
+these demons alone, he found himself yearning for a way to break free from the cycle of fear and
+avoidance that had defined his adult life. He hoped to reclaim his sense of self and find peace in a
+world that felt so threatening. What frightened him most was the thought that this cycle might never
+end, leaving him forever in a shadowy existence where he could not truly live.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how triggers lead to maladaptive strategies, missing the causal connection between these components.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette lacks a clear relationship showing how memory influences negative appraisals.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: There is no explicit connection in the vignette illustrating how maladaptive strategies reinforce negative appraisals.
+
+  [2] FAIL
+Jared, a 25-year-old housekeeper, had always felt a pervasive sense of unease that shadowed him,
+rooted in a childhood marred by physical abuse from a caregiver. The traumatic memories were deeply
+embedded in his psyche, haunting him in ways that impacted his everyday life. Even now, years later,
+the darkness of night would trigger a rush of anxiety; waking up in the dark felt like stepping back
+into his past, where he was vulnerable and alone. The shadows in his small apartment stirred
+something primal within him, igniting a fear that had lingered since he was a child. He found
+himself avoiding night shifts, opting instead to work during the day. When he was forced to confront
+those hours of darkness, he would often drift off into a fantasy world, escaping into thoughts of
+places where he felt safe, instead of engaging with the responsibilities of his job.
+
+The memories of his abuse were like a relentless film that played in his mind, vividly replaying the
+sensations he had long tried to bury. After each vivid recollection, Jared would find himself
+thinking that if he couldn't escape these memories, there must be something inherently wrong with
+him, something broken that he couldn't fix. Whenever those memories resurfaced, Jared felt
+completely overwhelmed, as if he were reliving every moment in real-time; he could hear the echoes
+of his own cries and the chilling sounds of children crying, which served as a painful reminder of
+his own childhood experiences. The tactile memories were particularly vivid; he could still feel the
+coarse texture of the blanket he used to hide under, and that familiar sensation would often trigger
+flashes of the past. The combination of these triggers — the darkness, the crying, and the tactile
+sensations — left him feeling exposed and vulnerable, causing him to withdraw from social situations
+where he might have to interact with others.
+
+Jared had come to believe that people could see the scars of his past etched into his very being.
+The feeling of being dehumanized, as if he were merely an object rather than a person, permeated his
+thoughts. This belief heightened his hypervigilance, forcing him to remain constantly alert in
+social settings, as he feared that anyone could be a potential source of harm. It was a suffocating
+existence, one that left him lonely and isolated as he avoided being alone with anyone. Even casual
+encounters with coworkers could trigger a sense of panic, causing him to drop responsibilities and
+retreat into his mind, drifting into fantasies where he was nothing but a spectator in a world far
+removed from the pain he had endured. These moments of panic led Jared to avoid social interactions
+altogether, convincing himself that staying away was the only way to prevent those overwhelming
+feelings from surfacing again.
+
+The memories of his traumatic childhood were the root causes of his maladaptive strategies. The more
+he tried to escape the overwhelming emotions associated with those memories, the worse his anxiety
+became, trapping him in a cycle of avoidance. He would often cancel plans or give up important
+responsibilities at work, convinced that staying away from others would keep him safe and prevent
+the memories from resurfacing. But each time he drifted away into his fantasies, he felt a nagging
+sense of shame. This shame only reinforced his belief that he was incapable of forming meaningful
+connections, as each act of avoidance seemed to confirm that he was weaker than others, trapped in a
+cycle from which he could not escape. It reinforced his belief that he was not worthy of connection,
+rendering him even more disconnected from the people around him.
+
+As Jared reflected on his experiences, he recognized the unrelenting grip these memories had on his
+life. Each flashback brought with it the haunting feelings of exposure and fear, leaving him at the
+mercy of his emotional turmoil. The memories not only triggered his hypervigilance but also deepened
+his negative self-appraisals, convincing him that he was forever marked by his past. He felt trapped
+in a world where he could never fully engage with others or himself, as if he were perpetually stuck
+in a dark room with no exit.
+
+Ultimately, it was this painful realization that led Jared to seek help. After years of battling
+these demons alone, he found himself yearning for a way to break free from the cycle of fear and
+avoidance that had defined his adult life. He hoped to reclaim his sense of self and find peace in a
+world that felt so threatening. What frightened him most was the thought that this cycle might never
+end, leaving him forever in a shadowy existence where he could not truly live.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how triggers lead to maladaptive strategies, such as avoidance, which is present but lacks a causal connection.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The connection between negative appraisals and triggers is not established; the text mentions negative beliefs but does not tie them to specific triggers.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: While maladaptive strategies are discussed, the causal relationship with memory is not explicitly outlined, missing how the memory drives avoidance behaviors.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette describes negative appraisals but fails to connect them to memory, leaving the causal link between these two components absent.
+
+  [3] FAIL
+Jared, a 25-year-old housekeeper, had always felt a pervasive sense of unease that shadowed him,
+rooted in a childhood marred by physical abuse from a caregiver. The traumatic memories were deeply
+embedded in his psyche, haunting him in ways that impacted his everyday life. Even now, years later,
+the darkness of night would trigger a rush of anxiety; waking up in the dark felt like stepping back
+into his past, where he was vulnerable and alone. Each time the darkness enveloped him, he found
+himself thinking that staying away from night shifts was the only way to prevent those anxious
+feelings from overwhelming him, leading him to avoid any situation where he might have to face the
+night head-on. The shadows in his small apartment stirred something primal within him, igniting a
+fear that had lingered since he was a child. He found himself avoiding night shifts, opting instead
+to work during the day. When he was forced to confront those hours of darkness, he would often drift
+off into a fantasy world, escaping into thoughts of places where he felt safe, instead of engaging
+with the responsibilities of his job.
+
+The memories of his abuse were like a relentless film that played in his mind, vividly replaying the
+sensations he had long tried to bury. After these vivid recollections, the painful thoughts that
+surfaced convinced him that he was fundamentally flawed, which only reinforced his desire to
+withdraw from social interactions, fearing they would expose his perceived weaknesses. After each
+vivid recollection, Jared would find himself thinking that if he couldn't escape these memories,
+there must be something inherently wrong with him, something broken that he couldn't fix. Whenever
+those memories resurfaced, Jared felt completely overwhelmed, as if he were reliving every moment in
+real-time; he could hear the echoes of his own cries and the chilling sounds of children crying,
+which served as a painful reminder of his own childhood experiences. The tactile memories were
+particularly vivid; he could still feel the coarse texture of the blanket he used to hide under, and
+that familiar sensation would often trigger flashes of the past. The combination of these triggers —
+the darkness, the crying, and the tactile sensations — left him feeling exposed and vulnerable,
+causing him to withdraw from social situations where he might have to interact with others. His
+belief that he was marked by his past intensified every trigger, as he imagined that the shadows in
+the room or the sound of children crying could expose his vulnerability, pushing him further into
+isolation.
+
+Jared had come to believe that people could see the scars of his past etched into his very being.
+The feeling of being dehumanized, as if he were merely an object rather than a person, permeated his
+thoughts. This belief heightened his hypervigilance, forcing him to remain constantly alert in
+social settings, as he feared that anyone could be a potential source of harm. It was a suffocating
+existence, one that left him lonely and isolated as he avoided being alone with anyone. Even casual
+encounters with coworkers could trigger a sense of panic, causing him to drop responsibilities and
+retreat into his mind, drifting into fantasies where he was nothing but a spectator in a world far
+removed from the pain he had endured. These moments of panic led Jared to avoid social interactions
+altogether, convincing himself that staying away was the only way to prevent those overwhelming
+feelings from surfacing again.
+
+The memories of his traumatic childhood were the root causes of his maladaptive strategies. The more
+he tried to escape the overwhelming emotions associated with those memories, the worse his anxiety
+became, trapping him in a cycle of avoidance. He would often cancel plans or give up important
+responsibilities at work, convinced that staying away from others would keep him safe and prevent
+the memories from resurfacing. But each time he drifted away into his fantasies, he felt a nagging
+sense of shame. This shame only reinforced his belief that he was incapable of forming meaningful
+connections, as each act of avoidance seemed to confirm that he was weaker than others, trapped in a
+cycle from which he could not escape. It reinforced his belief that he was not worthy of connection,
+rendering him even more disconnected from the people around him.
+
+As Jared reflected on his experiences, he recognized the unrelenting grip these memories had on his
+life. Each flashback brought with it the haunting feelings of exposure and fear, leaving him at the
+mercy of his emotional turmoil. The memories not only triggered his hypervigilance but also deepened
+his negative self-appraisals, convincing him that he was forever marked by his past. Each time a
+memory surged, the thought that followed was always the same — that if he couldn't escape these
+memories, there must be something irrevocably wrong with him, embedding a deeper sense of shame
+within his self-perception. He felt trapped in a world where he could never fully engage with others
+or himself, as if he were perpetually stuck in a dark room with no exit.
+
+Ultimately, it was this painful realization that led Jared to seek help. After years of battling
+these demons alone, he found himself yearning for a way to break free from the cycle of fear and
+avoidance that had defined his adult life. He hoped to reclaim his sense of self and find peace in a
+world that felt so threatening. What frightened him most was the thought that this cycle might never
+end, leaving him forever in a shadowy existence where he could not truly live.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not establish a causal relationship indicating how triggers lead to maladaptive strategies.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not indicate how negative appraisals influence or lead to triggers.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette lacks a causal connection between memory and maladaptive strategies, showing how memories directly lead to avoidance behaviors.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: There is no established link showing that memories cause negative appraisals in the vignette.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not convey how maladaptive strategies result in or influence negative appraisals.
+
+  [4] FAIL
+Jared, a 25-year-old housekeeper, had always felt a pervasive sense of unease that shadowed him,
+rooted in a childhood marred by physical abuse from a caregiver. The traumatic memories were deeply
+embedded in his psyche, haunting him in ways that impacted his everyday life. Even now, years later,
+the darkness of night would trigger a rush of anxiety; waking up in the dark felt like stepping back
+into his past, where he was vulnerable and alone. In those moments, the anxiety would grip him
+tightly, leading him to avoid night shifts altogether, convinced that staying away from any
+situation tied to those feelings was the only way to keep the darkness at bay. Each time the
+darkness enveloped him, he found himself thinking that staying away from night shifts was the only
+way to prevent those anxious feelings from overwhelming him, leading him to avoid any situation
+where he might have to face the night head-on. The shadows in his small apartment stirred something
+primal within him, igniting a fear that had lingered since he was a child. He found himself avoiding
+night shifts, opting instead to work during the day. When he was forced to confront those hours of
+darkness, he would often drift off into a fantasy world, escaping into thoughts of places where he
+felt safe, instead of engaging with the responsibilities of his job.
+
+The memories of his abuse were like a relentless film that played in his mind, vividly replaying the
+sensations he had long tried to bury. Each time the painful memories surfaced, they seemed to
+confirm to Jared that he was flawed and unworthy, causing him to withdraw even further, as if he
+were proving the negative self-judgments right. After these vivid recollections, the painful
+thoughts that surfaced convinced him that he was fundamentally flawed, which only reinforced his
+desire to withdraw from social interactions, fearing they would expose his perceived weaknesses.
+Each act of avoidance seemed to solidify his belief that he was somehow less capable than others,
+embedding a deeper sense of shame into his self-perception. After each vivid recollection, Jared
+would find himself thinking that if he couldn't escape these memories, there must be something
+inherently wrong with him, something broken that he couldn't fix. Whenever those memories
+resurfaced, Jared felt completely overwhelmed, as if he were reliving every moment in real-time; he
+could hear the echoes of his own cries and the chilling sounds of children crying, which served as a
+painful reminder of his own childhood experiences. In the aftermath, he would often retreat into
+avoidance strategies, telling himself that if he could just steer clear of situations that reminded
+him of those memories, he could avoid the emotional turmoil they brought. The tactile memories were
+particularly vivid; he could still feel the coarse texture of the blanket he used to hide under, and
+that familiar sensation would often trigger flashes of the past. The combination of these triggers —
+the darkness, the crying, and the tactile sensations — left him feeling exposed and vulnerable,
+causing him to withdraw from social situations where he might have to interact with others. His
+belief that he was marked by his past intensified every trigger, as he imagined that the shadows in
+the room or the sound of children crying could expose his vulnerability, pushing him further into
+isolation.
+
+Jared had come to believe that people could see the scars of his past etched into his very being.
+The feeling of being dehumanized, as if he were merely an object rather than a person, permeated his
+thoughts. This belief heightened his hypervigilance, forcing him to remain constantly alert in
+social settings, as he feared that anyone could be a potential source of harm. It was a suffocating
+existence, one that left him lonely and isolated as he avoided being alone with anyone. Even casual
+encounters with coworkers could trigger a sense of panic, causing him to drop responsibilities and
+retreat into his mind, drifting into fantasies where he was nothing but a spectator in a world far
+removed from the pain he had endured. These moments of panic led Jared to avoid social interactions
+altogether, convincing himself that staying away was the only way to prevent those overwhelming
+feelings from surfacing again.
+
+The memories of his traumatic childhood were the root causes of his maladaptive strategies. The more
+he tried to escape the overwhelming emotions associated with those memories, the worse his anxiety
+became, trapping him in a cycle of avoidance. He would often cancel plans or give up important
+responsibilities at work, convinced that staying away from others would keep him safe and prevent
+the memories from resurfacing. But each time he drifted away into his fantasies, he felt a nagging
+sense of shame. This shame only reinforced his belief that he was incapable of forming meaningful
+connections, as each act of avoidance seemed to confirm that he was weaker than others, trapped in a
+cycle from which he could not escape. It reinforced his belief that he was not worthy of connection,
+rendering him even more disconnected from the people around him.
+
+As Jared reflected on his experiences, he recognized the unrelenting grip these memories had on his
+life. Each flashback brought with it the haunting feelings of exposure and fear, leaving him at the
+mercy of his emotional turmoil. The memories not only triggered his hypervigilance but also deepened
+his negative self-appraisals, convincing him that he was forever marked by his past. Each time a
+memory surged, the thought that followed was always the same — that if he couldn't escape these
+memories, there must be something irrevocably wrong with him, embedding a deeper sense of shame
+within his self-perception. He felt trapped in a world where he could never fully engage with others
+or himself, as if he were perpetually stuck in a dark room with no exit.
+
+Ultimately, it was this painful realization that led Jared to seek help. After years of battling
+these demons alone, he found himself yearning for a way to break free from the cycle of fear and
+avoidance that had defined his adult life. He hoped to reclaim his sense of self and find peace in a
+world that felt so threatening. What frightened him most was the thought that this cycle might never
+end, leaving him forever in a shadowy existence where he could not truly live.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not convey a causal relationship where triggers lead to maladaptive strategies, such as avoidance.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not show how negative appraisals cause triggers.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not establish a causal connection between memory and maladaptive strategies, indicating how memories lead to avoidance.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not indicate how maladaptive strategies reinforce negative appraisals.
+
+  [5] FAIL
+Jared, a 25-year-old housekeeper, had always felt a pervasive sense of unease that shadowed him,
+rooted in a childhood marred by physical abuse from a caregiver. The traumatic memories were deeply
+embedded in his psyche, haunting him in ways that impacted his everyday life. Even now, years later,
+the darkness of night would trigger a rush of anxiety; waking up in the dark felt like stepping back
+into his past, where he was vulnerable and alone. This overwhelming anxiety led Jared to avoid night
+shifts altogether, as he reasoned that steering clear of the darkness was the only way to protect
+himself from the feelings of dread that accompanied those moments of vulnerability. In those
+moments, the anxiety would grip him tightly, leading him to avoid night shifts altogether, convinced
+that staying away from any situation tied to those feelings was the only way to keep the darkness at
+bay. Each time the darkness enveloped him, he found himself thinking that staying away from night
+shifts was the only way to prevent those anxious feelings from overwhelming him, leading him to
+avoid any situation where he might have to face the night head-on. The shadows in his small
+apartment stirred something primal within him, igniting a fear that had lingered since he was a
+child. He found himself avoiding night shifts, opting instead to work during the day. When he was
+forced to confront those hours of darkness, he would often drift off into a fantasy world, escaping
+into thoughts of places where he felt safe, instead of engaging with the responsibilities of his
+job.
+
+The memories of his abuse were like a relentless film that played in his mind, vividly replaying the
+sensations he had long tried to bury. Each time the painful memories surfaced, they seemed to
+confirm to Jared that he was flawed and unworthy, causing him to withdraw even further, as if he
+were proving the negative self-judgments right. After these vivid recollections, the painful
+thoughts that surfaced convinced him that he was fundamentally flawed, which only reinforced his
+desire to withdraw from social interactions, fearing they would expose his perceived weaknesses. The
+belief that he was flawed intensified his sensitivity to any reminder of his past, making even
+mundane interactions feel threatening and triggering memories he desperately wanted to escape. Each
+act of avoidance seemed to solidify his belief that he was somehow less capable than others,
+embedding a deeper sense of shame into his self-perception. The more he withdrew from social
+interactions to avoid the discomfort of exposure, the more convinced he became that he was indeed
+weaker than those around him, which reinforced his feelings of inadequacy and isolation. After each
+vivid recollection, Jared would find himself thinking that if he couldn't escape these memories,
+there must be something inherently wrong with him, something broken that he couldn't fix. Whenever
+those memories resurfaced, Jared felt completely overwhelmed, as if he were reliving every moment in
+real-time; he could hear the echoes of his own cries and the chilling sounds of children crying,
+which served as a painful reminder of his own childhood experiences. In the aftermath, he would
+often retreat into avoidance strategies, telling himself that if he could just steer clear of
+situations that reminded him of those memories, he could avoid the emotional turmoil they brought.
+The tactile memories were particularly vivid; he could still feel the coarse texture of the blanket
+he used to hide under, and that familiar sensation would often trigger flashes of the past. As these
+memories surfaced, they motivated him to find ways to avoid situations that might remind him of that
+coarse blanket, leading him to consistently avoid any discussions or activities that could evoke
+those painful recollections. The combination of these triggers — the darkness, the crying, and the
+tactile sensations — left him feeling exposed and vulnerable, causing him to withdraw from social
+situations where he might have to interact with others. His belief that he was marked by his past
+intensified every trigger, as he imagined that the shadows in the room or the sound of children
+crying could expose his vulnerability, pushing him further into isolation.
+
+Jared had come to believe that people could see the scars of his past etched into his very being.
+The feeling of being dehumanized, as if he were merely an object rather than a person, permeated his
+thoughts. This belief heightened his hypervigilance, forcing him to remain constantly alert in
+social settings, as he feared that anyone could be a potential source of harm. It was a suffocating
+existence, one that left him lonely and isolated as he avoided being alone with anyone. Even casual
+encounters with coworkers could trigger a sense of panic, causing him to drop responsibilities and
+retreat into his mind, drifting into fantasies where he was nothing but a spectator in a world far
+removed from the pain he had endured. These moments of panic led Jared to avoid social interactions
+altogether, convincing himself that staying away was the only way to prevent those overwhelming
+feelings from surfacing again.
+
+The memories of his traumatic childhood were the root causes of his maladaptive strategies. The more
+he tried to escape the overwhelming emotions associated with those memories, the worse his anxiety
+became, trapping him in a cycle of avoidance. He would often cancel plans or give up important
+responsibilities at work, convinced that staying away from others would keep him safe and prevent
+the memories from resurfacing. But each time he drifted away into his fantasies, he felt a nagging
+sense of shame. This shame only reinforced his belief that he was incapable of forming meaningful
+connections, as each act of avoidance seemed to confirm that he was weaker than others, trapped in a
+cycle from which he could not escape. It reinforced his belief that he was not worthy of connection,
+rendering him even more disconnected from the people around him.
+
+As Jared reflected on his experiences, he recognized the unrelenting grip these memories had on his
+life. Each flashback brought with it the haunting feelings of exposure and fear, leaving him at the
+mercy of his emotional turmoil. The memories not only triggered his hypervigilance but also deepened
+his negative self-appraisals, convincing him that he was forever marked by his past. In turn, each
+instance of avoidance confirmed his fears, leaving him to believe that if he were truly capable or
+deserving of connection, he wouldn't need to hide from these reminders at all. Each time a memory
+surged, the thought that followed was always the same — that if he couldn't escape these memories,
+there must be something irrevocably wrong with him, embedding a deeper sense of shame within his
+self-perception. He felt trapped in a world where he could never fully engage with others or
+himself, as if he were perpetually stuck in a dark room with no exit.
+
+Ultimately, it was this painful realization that led Jared to seek help. After years of battling
+these demons alone, he found himself yearning for a way to break free from the cycle of fear and
+avoidance that had defined his adult life. He hoped to reclaim his sense of self and find peace in a
+world that felt so threatening. What frightened him most was the thought that this cycle might never
+end, leaving him forever in a shadowy existence where he could not truly live.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not demonstrate how triggers lead to the use of maladaptive strategies, such as avoidance.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not establish a causal link between negative appraisals and triggers, failing to show how negative beliefs might prompt specific triggers.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette lacks a clear causal relationship between memory and maladaptive strategies, not showing how memories lead to avoidance behaviors.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: There is no causal connection indicated between memory and negative appraisals, failing to illustrate how memories contribute to negative beliefs about oneself.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette does not illustrate how maladaptive strategies lead to memory activation, missing the connection between avoidance and intrusive memories.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: There is no demonstration of how maladaptive strategies reinforce negative appraisals, failing to depict how avoidance behaviors might deepen negative beliefs.
+
+  [6] FAIL
+Jared, a 25-year-old housekeeper, had always felt a pervasive sense of unease that shadowed him,
+rooted in a childhood marred by physical abuse from a caregiver. The traumatic memories were deeply
+embedded in his psyche, haunting him in ways that impacted his everyday life. Even now, years later,
+the darkness of night would trigger a rush of anxiety; waking up in the dark felt like stepping back
+into his past, where he was vulnerable and alone. This overwhelming anxiety led Jared to avoid night
+shifts altogether, as he reasoned that steering clear of the darkness was the only way to protect
+himself from the feelings of dread that accompanied those moments of vulnerability. Every time he
+sensed the darkness creeping in, it triggered memories of his childhood abuse, intensifying his need
+to avoid those night shifts and reinforcing his belief that the darkness was something he could
+never safely confront. In those moments, the anxiety would grip him tightly, leading him to avoid
+night shifts altogether, convinced that staying away from any situation tied to those feelings was
+the only way to keep the darkness at bay. Each time the darkness enveloped him, he found himself
+thinking that staying away from night shifts was the only way to prevent those anxious feelings from
+overwhelming him, leading him to avoid any situation where he might have to face the night head-on.
+The shadows in his small apartment stirred something primal within him, igniting a fear that had
+lingered since he was a child. He found himself avoiding night shifts, opting instead to work during
+the day. When he was forced to confront those hours of darkness, he would often drift off into a
+fantasy world, escaping into thoughts of places where he felt safe, instead of engaging with the
+responsibilities of his job.
+
+The memories of his abuse were like a relentless film that played in his mind, vividly replaying the
+sensations he had long tried to bury. Each time these memories surfaced, they deepened his negative
+self-appraisals, leaving him feeling more convinced that he was unworthy and damaged, which made him
+desperate to avoid situations where he might encounter similar feelings of exposure. Each time the
+painful memories surfaced, they seemed to confirm to Jared that he was flawed and unworthy, causing
+him to withdraw even further, as if he were proving the negative self-judgments right. After these
+vivid recollections, the painful thoughts that surfaced convinced him that he was fundamentally
+flawed, which only reinforced his desire to withdraw from social interactions, fearing they would
+expose his perceived weaknesses. He often found that reminders of his past, like the sound of
+children crying, would trigger a flood of painful memories, leading him to retreat even further into
+isolation and reinforcing his belief that he was incapable of connecting with others. The belief
+that he was flawed intensified his sensitivity to any reminder of his past, making even mundane
+interactions feel threatening and triggering memories he desperately wanted to escape. Each act of
+avoidance seemed to solidify his belief that he was somehow less capable than others, embedding a
+deeper sense of shame into his self-perception. The more he withdrew from social interactions to
+avoid the discomfort of exposure, the more convinced he became that he was indeed weaker than those
+around him, which reinforced his feelings of inadequacy and isolation. After each vivid
+recollection, Jared would find himself thinking that if he couldn't escape these memories, there
+must be something inherently wrong with him, something broken that he couldn't fix. Whenever those
+memories resurfaced, Jared felt completely overwhelmed, as if he were reliving every moment in real-
+time; he could hear the echoes of his own cries and the chilling sounds of children crying, which
+served as a painful reminder of his own childhood experiences. These vivid recollections not only
+brought back the emotional turmoil but also led him to adopt avoidance strategies, such as steering
+clear of social situations where he might encounter triggers connected to those memories. In the
+aftermath, he would often retreat into avoidance strategies, telling himself that if he could just
+steer clear of situations that reminded him of those memories, he could avoid the emotional turmoil
+they brought. The tactile memories were particularly vivid; he could still feel the coarse texture
+of the blanket he used to hide under, and that familiar sensation would often trigger flashes of the
+past. As these memories surfaced, they motivated him to find ways to avoid situations that might
+remind him of that coarse blanket, leading him to consistently avoid any discussions or activities
+that could evoke those painful recollections. The combination of these triggers — the darkness, the
+crying, and the tactile sensations — left him feeling exposed and vulnerable, causing him to
+withdraw from social situations where he might have to interact with others. Each act of avoidance
+further confirmed to him that he was flawed and incapable of handling the world around him,
+embedding a deeper sense of shame into his self-perception. His belief that he was marked by his
+past intensified every trigger, as he imagined that the shadows in the room or the sound of children
+crying could expose his vulnerability, pushing him further into isolation.
+
+Jared had come to believe that people could see the scars of his past etched into his very being.
+The feeling of being dehumanized, as if he were merely an object rather than a person, permeated his
+thoughts. This belief heightened his hypervigilance, forcing him to remain constantly alert in
+social settings, as he feared that anyone could be a potential source of harm. It was a suffocating
+existence, one that left him lonely and isolated as he avoided being alone with anyone. Even casual
+encounters with coworkers could trigger a sense of panic, causing him to drop responsibilities and
+retreat into his mind, drifting into fantasies where he was nothing but a spectator in a world far
+removed from the pain he had endured. These moments of panic led Jared to avoid social interactions
+altogether, convincing himself that staying away was the only way to prevent those overwhelming
+feelings from surfacing again.
+
+The memories of his traumatic childhood were the root causes of his maladaptive strategies. The more
+he tried to escape the overwhelming emotions associated with those memories, the worse his anxiety
+became, trapping him in a cycle of avoidance. He would often cancel plans or give up important
+responsibilities at work, convinced that staying away from others would keep him safe and prevent
+the memories from resurfacing. But each time he drifted away into his fantasies, he felt a nagging
+sense of shame. This shame only reinforced his belief that he was incapable of forming meaningful
+connections, as each act of avoidance seemed to confirm that he was weaker than others, trapped in a
+cycle from which he could not escape. It reinforced his belief that he was not worthy of connection,
+rendering him even more disconnected from the people around him.
+
+As Jared reflected on his experiences, he recognized the unrelenting grip these memories had on his
+life. Each flashback brought with it the haunting feelings of exposure and fear, leaving him at the
+mercy of his emotional turmoil. The memories not only triggered his hypervigilance but also deepened
+his negative self-appraisals, convincing him that he was forever marked by his past. In turn, each
+instance of avoidance confirmed his fears, leaving him to believe that if he were truly capable or
+deserving of connection, he wouldn't need to hide from these reminders at all. Each time a memory
+surged, the thought that followed was always the same — that if he couldn't escape these memories,
+there must be something irrevocably wrong with him, embedding a deeper sense of shame within his
+self-perception. He felt trapped in a world where he could never fully engage with others or
+himself, as if he were perpetually stuck in a dark room with no exit.
+
+Ultimately, it was this painful realization that led Jared to seek help. After years of battling
+these demons alone, he found himself yearning for a way to break free from the cycle of fear and
+avoidance that had defined his adult life. He hoped to reclaim his sense of self and find peace in a
+world that felt so threatening. What frightened him most was the thought that this cycle might never
+end, leaving him forever in a shadowy existence where he could not truly live.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not explicitly convey how triggers lead to maladaptive strategies, such as avoidance.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette lacks a clear connection between negative appraisals and triggers, failing to show how negative beliefs lead to the experience of triggers.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The relationship between memory and maladaptive strategies is not clearly established, as it does not show how memories directly lead to avoidance behaviors.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: There is no direct link showing how memory leads to negative appraisals, indicating that the memories do not clearly influence negative beliefs about oneself.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not demonstrate how maladaptive strategies reinforce negative appraisals, leaving the connection between avoidance and negative beliefs unaddressed.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Jared, a 25-year-old housekeeper, had always felt a pervasive sense of unease that shadowed him,
+rooted in a childhood marred by physical abuse from a caregiver. The traumatic memories were deeply
+embedded in his psyche, haunting him in ways that impacted his everyday life. Even now, years later,
+the darkness of night would trigger a rush of anxiety; waking up in the dark felt like stepping back
+into his past, where he was vulnerable and alone. This overwhelming anxiety led Jared to avoid night
+shifts altogether, as he reasoned that steering clear of the darkness was the only way to protect
+himself from the feelings of dread that accompanied those moments of vulnerability. Every time he
+sensed the darkness creeping in, it triggered memories of his childhood abuse, intensifying his need
+to avoid those night shifts and reinforcing his belief that the darkness was something he could
+never safely confront. In those moments, the anxiety would grip him tightly, leading him to avoid
+night shifts altogether, convinced that staying away from any situation tied to those feelings was
+the only way to keep the darkness at bay. Each time the darkness enveloped him, he found himself
+thinking that staying away from night shifts was the only way to prevent those anxious feelings from
+overwhelming him, leading him to avoid any situation where he might have to face the night head-on.
+The shadows in his small apartment stirred something primal within him, igniting a fear that had
+lingered since he was a child. He found himself avoiding night shifts, opting instead to work during
+the day. When he was forced to confront those hours of darkness, he would often drift off into a
+fantasy world, escaping into thoughts of places where he felt safe, instead of engaging with the
+responsibilities of his job.
+
+The memories of his abuse were like a relentless film that played in his mind, vividly replaying the
+sensations he had long tried to bury. Each time these memories surfaced, they deepened his negative
+self-appraisals, leaving him feeling more convinced that he was unworthy and damaged, which made him
+desperate to avoid situations where he might encounter similar feelings of exposure. Each time the
+painful memories surfaced, they seemed to confirm to Jared that he was flawed and unworthy, causing
+him to withdraw even further, as if he were proving the negative self-judgments right. After these
+vivid recollections, the painful thoughts that surfaced convinced him that he was fundamentally
+flawed, which only reinforced his desire to withdraw from social interactions, fearing they would
+expose his perceived weaknesses. He often found that reminders of his past, like the sound of
+children crying, would trigger a flood of painful memories, leading him to retreat even further into
+isolation and reinforcing his belief that he was incapable of connecting with others. The belief
+that he was flawed intensified his sensitivity to any reminder of his past, making even mundane
+interactions feel threatening and triggering memories he desperately wanted to escape. Each act of
+avoidance seemed to solidify his belief that he was somehow less capable than others, embedding a
+deeper sense of shame into his self-perception. The more he withdrew from social interactions to
+avoid the discomfort of exposure, the more convinced he became that he was indeed weaker than those
+around him, which reinforced his feelings of inadequacy and isolation. After each vivid
+recollection, Jared would find himself thinking that if he couldn't escape these memories, there
+must be something inherently wrong with him, something broken that he couldn't fix. Whenever those
+memories resurfaced, Jared felt completely overwhelmed, as if he were reliving every moment in real-
+time; he could hear the echoes of his own cries and the chilling sounds of children crying, which
+served as a painful reminder of his own childhood experiences. These vivid recollections not only
+brought back the emotional turmoil but also led him to adopt avoidance strategies, such as steering
+clear of social situations where he might encounter triggers connected to those memories. In the
+aftermath, he would often retreat into avoidance strategies, telling himself that if he could just
+steer clear of situations that reminded him of those memories, he could avoid the emotional turmoil
+they brought. The tactile memories were particularly vivid; he could still feel the coarse texture
+of the blanket he used to hide under, and that familiar sensation would often trigger flashes of the
+past. As these memories surfaced, they motivated him to find ways to avoid situations that might
+remind him of that coarse blanket, leading him to consistently avoid any discussions or activities
+that could evoke those painful recollections. The combination of these triggers — the darkness, the
+crying, and the tactile sensations — left him feeling exposed and vulnerable, causing him to
+withdraw from social situations where he might have to interact with others. Each act of avoidance
+further confirmed to him that he was flawed and incapable of handling the world around him,
+embedding a deeper sense of shame into his self-perception. His belief that he was marked by his
+past intensified every trigger, as he imagined that the shadows in the room or the sound of children
+crying could expose his vulnerability, pushing him further into isolation.
+
+Jared had come to believe that people could see the scars of his past etched into his very being.
+The feeling of being dehumanized, as if he were merely an object rather than a person, permeated his
+thoughts. This belief heightened his hypervigilance, forcing him to remain constantly alert in
+social settings, as he feared that anyone could be a potential source of harm. It was a suffocating
+existence, one that left him lonely and isolated as he avoided being alone with anyone. Even casual
+encounters with coworkers could trigger a sense of panic, causing him to drop responsibilities and
+retreat into his mind, drifting into fantasies where he was nothing but a spectator in a world far
+removed from the pain he had endured. These moments of panic led Jared to avoid social interactions
+altogether, convincing himself that staying away was the only way to prevent those overwhelming
+feelings from surfacing again.
+
+The memories of his traumatic childhood were the root causes of his maladaptive strategies. The more
+he tried to escape the overwhelming emotions associated with those memories, the worse his anxiety
+became, trapping him in a cycle of avoidance. He would often cancel plans or give up important
+responsibilities at work, convinced that staying away from others would keep him safe and prevent
+the memories from resurfacing. But each time he drifted away into his fantasies, he felt a nagging
+sense of shame. This shame only reinforced his belief that he was incapable of forming meaningful
+connections, as each act of avoidance seemed to confirm that he was weaker than others, trapped in a
+cycle from which he could not escape. It reinforced his belief that he was not worthy of connection,
+rendering him even more disconnected from the people around him.
+
+As Jared reflected on his experiences, he recognized the unrelenting grip these memories had on his
+life. Each flashback brought with it the haunting feelings of exposure and fear, leaving him at the
+mercy of his emotional turmoil. The memories not only triggered his hypervigilance but also deepened
+his negative self-appraisals, convincing him that he was forever marked by his past. In turn, each
+instance of avoidance confirmed his fears, leaving him to believe that if he were truly capable or
+deserving of connection, he wouldn't need to hide from these reminders at all. Each time a memory
+surged, the thought that followed was always the same — that if he couldn't escape these memories,
+there must be something irrevocably wrong with him, embedding a deeper sense of shame within his
+self-perception. He felt trapped in a world where he could never fully engage with others or
+himself, as if he were perpetually stuck in a dark room with no exit.
+
+Ultimately, it was this painful realization that led Jared to seek help. After years of battling
+these demons alone, he found himself yearning for a way to break free from the cycle of fear and
+avoidance that had defined his adult life. He hoped to reclaim his sense of self and find peace in a
+world that felt so threatening. What frightened him most was the thought that this cycle might never
+end, leaving him forever in a shadowy existence where he could not truly live.

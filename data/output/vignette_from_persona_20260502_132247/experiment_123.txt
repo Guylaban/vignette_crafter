@@ -1,0 +1,201 @@
+PERSONA 123  |  2026-05-02 14:21:38
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-sonnet-4-6
+    persona_crafter      claude-sonnet-4-6
+    vignette_crafter     claude-sonnet-4-6
+    vignette_validator   claude-sonnet-4-6
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             32
+  gender          Male
+  ethnicity       South Asian
+  relationship_status Married
+  occupation      Housekeeper
+  trauma_type     Mugging or robbery
+  pcl5            61
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Memory:
+    • Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+  Negative Appraisals:
+    • Distrust Others: People are not what they seem
+    • Mistrust: People can't be trusted
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.8557
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.2423
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Fragmented Pieces
+    explanation: Within the Memory node, 'My memories of the event come in disconnected pieces that do not fit together' directly conflicts with 'I can talk about what happened very easily.' For a severe mugging-related PTSD profile, markedly fragmented recall and very easy verbal access to the trauma narrative are hard to reconcile as describing the same current memory presentation.
+  [2] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: The Memory node is internally incoherent for a severe mugging/robbery PTSD presentation: 'I can talk about what happened very easily' suggests low avoidance and relatively integrated, verbally accessible trauma memory, whereas simultaneously endorsing very vivid detailed recall and body-based painful reliving implies a highly sensory, distressing, poorly integrated trauma memory. This combination is possible in milder cases, but here it is hard to reconcile clinically within the same Memory profile. The Negative Appraisals items are coherent for robbery trauma, but the Memory selections do not fit cleanly with that node pattern or with the strong Negative Appraisals ↔ Memory linkage in the formulation.
+  [3] FAIL
+    item:        Negative Appraisals / Constant Vigilance: I have to be especially careful because you never know what can happen next
+    explanation: This item is more characteristic of ongoing threat/safety behavior than of a pure negative appraisal. In this profile, Threat is not endorsed and all Threat-related edges are inactive, while the active formulation is specifically centered on a Memory ↔ Negative Appraisals loop. The mistrust items fit robbery-related appraisals, but 'Constant Vigilance' introduces a prominent current-threat theme that is not supported elsewhere in the profile.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,644
+  output:     1,022
+  total:      4,666
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Arjun is a 32-year-old South Asian man who works as a housekeeper at a mid-sized hotel in the city.
+He has been married for four years and, until approximately eight months ago, described his life as
+quiet and manageable. He presented for assessment with a PCL-5 score of 61, reporting significant
+distress that he said had been building since a mugging he experienced on his way home from a late
+shift.
+
+The incident occurred on a winter evening, shortly after eleven o'clock. Arjun had just exited the
+hotel's service entrance, still wearing his work uniform, when two men approached him from a
+recessed doorway. One pressed close behind him while the other demanded his wallet and phone. When
+Arjun hesitated — not out of defiance, he later explained, but out of sheer incomprehension that
+this was actually happening — the man in front struck him twice across the ribs and once across the
+face. He remembered the cold of the pavement through his knees when he fell, the particular smell of
+the alley, and the sound of footsteps retreating. What stayed with him most viscerally, however, was
+the moment just before the first blow: the realisation that the man smiling at him had never
+intended anything but harm.
+
+In the weeks that followed, the memory returned with a quality that Arjun struggled to articulate.
+He knew what had happened — the sequence was clear in his mind — but when he tried to describe it to
+his wife or later to the intake clinician, he found himself stopping mid-sentence, reaching for
+words that would not come, as though the experience existed in a register that language could not
+access. The memories themselves were not vague. They were, if anything, too vivid: the yellow light
+of the streetlamp, the exact angle of the man's jaw, the pressure against his ribs. And when they
+returned — uninvited, during the ordinary course of his day — Arjun reported feeling physical pain
+in his side and face, the same sites where the blows had landed. He was not metaphorically reliving
+the event; his body appeared to be re-enacting it.
+
+These intrusive returns of the memory fed directly into a darkening interpretation of the world
+around him. The men had looked ordinary. They had approached like strangers asking for directions.
+This became, for Arjun, the central lesson of the event: people are not what they seem. He had come
+to believe, with a certainty that felt less like a conclusion than a discovered fact, that trust was
+a form of naivety he could no longer afford. The world, he was now sure, was dangerous in a way he
+had simply failed to appreciate before. Every time the memory surged back — in the hotel corridor,
+in the car park, on his walk to the bus — it confirmed and deepened this conviction, as though each
+intrusion were fresh evidence for a case already closed.
+
+The relationship ran in both directions. When Arjun moved through environments that reminded him,
+even faintly, of that night — a dimly lit service hallway, the smell of cold air when he took out
+the bins, a stranger lingering near the hotel's side entrance — his hypervigilance spiked and his
+appraisals of threat sharpened. These moments of perceived danger then pulled the memory forward
+with renewed force, the physical pain briefly returning in his side, the image of the man's
+expression arriving unbidden. The loop had become self-sustaining: his belief that the world was
+dangerous made the memory more accessible, and the memory's return made the belief feel more
+irrefutable.
+
+At work, the consequences had become impossible to ignore. Arjun had begun refusing to clean the
+rooms on the ground floor that faced the alley, telling his supervisor the assignment had been
+covered. He avoided the service entrance entirely, adding nearly twenty minutes to his commute by
+using the main lobby. His supervisor had noticed and commented. His wife had noticed the silence at
+dinner, the way he sat with his back to the wall in their own kitchen.
+
+What finally brought him to seek help was not a single event but an accumulation: the exhaustion of
+vigilance, the loneliness of being unable to explain what he carried, and a quiet fear that the man
+he was becoming — watchful, closed, unable to trust even familiar faces — was not a man he
+recognised.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Arjun is a 32-year-old South Asian man who works as a housekeeper at a mid-sized hotel in the city.
+He has been married for four years and, until approximately eight months ago, described his life as
+quiet and manageable. He presented for assessment with a PCL-5 score of 61, reporting significant
+distress that he said had been building since a mugging he experienced on his way home from a late
+shift.
+
+The incident occurred on a winter evening, shortly after eleven o'clock. Arjun had just exited the
+hotel's service entrance, still wearing his work uniform, when two men approached him from a
+recessed doorway. One pressed close behind him while the other demanded his wallet and phone. When
+Arjun hesitated — not out of defiance, he later explained, but out of sheer incomprehension that
+this was actually happening — the man in front struck him twice across the ribs and once across the
+face. He remembered the cold of the pavement through his knees when he fell, the particular smell of
+the alley, and the sound of footsteps retreating. What stayed with him most viscerally, however, was
+the moment just before the first blow: the realisation that the man smiling at him had never
+intended anything but harm.
+
+In the weeks that followed, the memory returned with a quality that Arjun struggled to articulate.
+He knew what had happened — the sequence was clear in his mind — but when he tried to describe it to
+his wife or later to the intake clinician, he found himself stopping mid-sentence, reaching for
+words that would not come, as though the experience existed in a register that language could not
+access. The memories themselves were not vague. They were, if anything, too vivid: the yellow light
+of the streetlamp, the exact angle of the man's jaw, the pressure against his ribs. And when they
+returned — uninvited, during the ordinary course of his day — Arjun reported feeling physical pain
+in his side and face, the same sites where the blows had landed. He was not metaphorically reliving
+the event; his body appeared to be re-enacting it.
+
+These intrusive returns of the memory fed directly into a darkening interpretation of the world
+around him. The men had looked ordinary. They had approached like strangers asking for directions.
+This became, for Arjun, the central lesson of the event: people are not what they seem. He had come
+to believe, with a certainty that felt less like a conclusion than a discovered fact, that trust was
+a form of naivety he could no longer afford. The world, he was now sure, was dangerous in a way he
+had simply failed to appreciate before. Every time the memory surged back — in the hotel corridor,
+in the car park, on his walk to the bus — it confirmed and deepened this conviction, as though each
+intrusion were fresh evidence for a case already closed.
+
+The relationship ran in both directions. When Arjun moved through environments that reminded him,
+even faintly, of that night — a dimly lit service hallway, the smell of cold air when he took out
+the bins, a stranger lingering near the hotel's side entrance — his hypervigilance spiked and his
+appraisals of threat sharpened. These moments of perceived danger then pulled the memory forward
+with renewed force, the physical pain briefly returning in his side, the image of the man's
+expression arriving unbidden. The loop had become self-sustaining: his belief that the world was
+dangerous made the memory more accessible, and the memory's return made the belief feel more
+irrefutable.
+
+At work, the consequences had become impossible to ignore. Arjun had begun refusing to clean the
+rooms on the ground floor that faced the alley, telling his supervisor the assignment had been
+covered. He avoided the service entrance entirely, adding nearly twenty minutes to his commute by
+using the main lobby. His supervisor had noticed and commented. His wife had noticed the silence at
+dinner, the way he sat with his back to the wall in their own kitchen.
+
+What finally brought him to seek help was not a single event but an accumulation: the exhaustion of
+vigilance, the loneliness of being unable to explain what he carried, and a quiet fear that the man
+he was becoming — watchful, closed, unable to trust even familiar faces — was not a man he
+recognised.

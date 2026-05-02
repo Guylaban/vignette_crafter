@@ -1,0 +1,607 @@
+PERSONA 282  |  2026-05-02 19:38:51
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             70
+  gender          Male
+  ethnicity       North American
+  relationship_status Married
+  occupation      Salesperson
+  trauma_type     Assault
+  pcl5            35
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Intrusive Thoughts: Unwanted thoughts
+    • Offender Cues: Seeing the offender
+    • Olfactory (Alcohol): Alcohol smell
+  Maladaptive Strategies:
+    • Avoid Location: Going to or near the place where the event happened
+    • Emotional Numbing: I numb my feelings
+    • Suppress Thoughts: try hard not think about the trauma
+  Negative Appraisals:
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Defective Self: There is something wrong with me as a person
+    • Self-Blame: The event happened because of the way I acted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.6610
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0856
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.7082
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Victim Similarity: People who look similar to the victims
+    explanation: For a single-patient assault trauma, 'people who look similar to the victims' is clinically incoherent because it implies multiple victims or identification with other victims rather than the patient's own assault experience. A more self-referential trigger would be expected.
+    item:        Negative Appraisals / Negative Appraisals: Others-Would-Cope: Somebody else would have stopped the event from happening
+    explanation: 'Somebody else would have stopped the event from happening' sits awkwardly with the rest of the profile's self-directed shame and identity-change appraisals. It implies confidence that another person would have prevented the assault, which conflicts with the patient's own vulnerability/self-blame framing in a way that is hard to integrate clinically.
+  [2] FAIL
+    item:        Triggers / Triggers: Medical Procedures: Undergoing a medical examination or procedure
+    explanation: For an assault trauma in a 70-year-old male, 'medical procedures' plus 'body shame' implies a strong bodily injury/medical aftermath theme, but the rest of the profile does not support that theme. With only offender cues and intrusive thoughts otherwise present, the medical trigger looks insufficiently anchored and may be mismatched to the rest of the assault profile.
+    item:        Negative Appraisals / Negative Appraisals: Body Shame: I feel ashamed of what happened to my body
+    explanation: 'Body shame' is not impossible after assault, but alongside 'defective self' and 'unrecognisable self' it suggests a bodily violation/injury-focused appraisal pattern that is not well reflected in the other selected nodes. The triggers and strategies mainly reflect avoidance, numbing, and offender-related activation rather than body-focused trauma processing.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Catastrophising Others: I worry obsessively about bad things happening to people I care about
+    explanation: 'Catastrophising others' is weakly connected to the rest of the selected profile. The active formulation links Triggers strongly with Maladaptive Strategies and Negative Appraisals strongly with Triggers, but this strategy is not a plausible direct response to the chosen triggers (medical procedures, intrusive thoughts, offender cues) and is not well explained by the selected appraisals. It addresses a generalized harm concern that is otherwise absent from the profile.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     23,774
+  output:     2,698
+  total:     26,472
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Henry, a 70-year-old man with a long career as a salesperson, had always been sociable and outgoing,
+enjoying the interactions that came with his job. However, everything changed one fateful evening
+when he was assaulted in a parking lot. What started as a routine day had turned into a nightmare;
+he had just left a meeting when he was approached by a stranger who, after a brief exchange of
+words, attacked him. For weeks, Henry replayed the incident in his mind, reliving the fear and
+helplessness that washed over him in those moments. Each time he closed his eyes, he saw the man's
+face, the glint of a weapon, and felt the rush of adrenaline that gripped him. These intrusive
+thoughts haunted him, turning ordinary moments into triggers that sent him spiraling back to that
+night.
+
+As the memories persisted, Henry found himself avoiding the very places he used to frequent,
+particularly the parking lot where the assault occurred. He could no longer bear the thought of
+driving past it; doing so would undoubtedly unleash the flood of panic and dread that had become his
+constant companions. He convinced himself that staying away from that location was a necessity for
+his safety, but deep down, he recognized it as a way to escape the feelings that threatened to
+overwhelm him. The smell of alcohol, which had once evoked memories of good times with friends, now
+transported him back to the night of the attack, reminding him of the offender's presence. To him,
+it felt as though the world was full of cues that could trigger another episode of terror, so he
+began to numb his feelings, suppressing thoughts of the trauma in an effort to regain some semblance
+of control.
+
+The ongoing struggle with these intrusive memories led Henry to develop a distorted view of himself.
+He began to feel unrecognizable, as if the man he had been for decades had vanished, replaced by
+someone fearful and withdrawn. He often caught himself thinking, “What’s happened to me? I’m not the
+same person I used to be.” This feeling of being defective, of having something inherently wrong
+with him, weighed heavily on his mind. Each time a trigger emerged, whether it was a location, a
+smell, or even a fleeting glimpse of a stranger, he felt the familiar sting of shame and self-blame.
+He told himself that perhaps if he had acted differently that night—if he had been more aware or
+assertive—he could have prevented the assault. This relentless cycle of negative self-assessment
+only served to amplify his fear of the triggers that surrounded him.
+
+Henry’s world shrank as he increasingly isolated himself from social gatherings, reluctant to engage
+in conversations for fear of revealing the turmoil within. His marriage, once a source of strength
+and support, now felt strained. His wife, noticing the changes in his demeanor, expressed concern,
+but Henry struggled to articulate the depth of his pain and confusion. He felt trapped in a loop of
+avoidance, convinced that speaking about the trauma would only bring it to the surface, a surface he
+desperately tried to keep buried. He dreaded the idea of confronting his feelings, fearing that it
+would lead to more intrusive thoughts and memories that he had fought so hard to suppress.
+
+After months of grappling with the weight of his experiences, Henry finally reached a breaking
+point. He was sitting at home, engulfed in silence, when the smell of alcohol wafted through the
+window from a neighbor’s gathering. The familiar panic surged within him, but this time, something
+shifted. Overwhelmed by the realization that he could no longer live in isolation, Henry finally
+decided to seek help. He was terrified of what the process might entail, afraid that revisiting the
+trauma would unravel him completely. Yet, he also held onto a flicker of hope—that perhaps with
+guidance, he could reclaim the person he once was and find a way to navigate through the shadows of
+his past.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how triggers lead to maladaptive strategies, such as avoidance.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not demonstrate how negative appraisals influence the emergence of triggers.
+
+  [2] FAIL
+Henry, a 70-year-old man with a long career as a salesperson, had always been sociable and outgoing,
+enjoying the interactions that came with his job. However, everything changed one fateful evening
+when he was assaulted in a parking lot. What started as a routine day had turned into a nightmare;
+he had just left a meeting when he was approached by a stranger who, after a brief exchange of
+words, attacked him. For weeks, Henry replayed the incident in his mind, reliving the fear and
+helplessness that washed over him in those moments. Each time he closed his eyes, he saw the man's
+face, the glint of a weapon, and felt the rush of adrenaline that gripped him. These intrusive
+thoughts haunted him, turning ordinary moments into triggers that sent him spiraling back to that
+night.
+
+As the memories persisted, Henry found himself avoiding the very places he used to frequent,
+particularly the parking lot where the assault occurred. He could no longer bear the thought of
+driving past it; doing so would undoubtedly unleash the flood of panic and dread that had become his
+constant companions. This belief that the parking lot was a dangerous place led him to avoid it at
+all costs, even if it meant taking longer routes to get to his appointments, as he was convinced
+that any reminder of the attack would only intensify his anxiety. He convinced himself that staying
+away from that location was a necessity for his safety, but deep down, he recognized it as a way to
+escape the feelings that threatened to overwhelm him. The smell of alcohol, which had once evoked
+memories of good times with friends, now transported him back to the night of the attack, reminding
+him of the offender's presence. To him, it felt as though the world was full of cues that could
+trigger another episode of terror, so he began to numb his feelings, suppressing thoughts of the
+trauma in an effort to regain some semblance of control.
+
+The ongoing struggle with these intrusive memories led Henry to develop a distorted view of himself.
+He began to feel unrecognizable, as if the man he had been for decades had vanished, replaced by
+someone fearful and withdrawn. His negative view of himself reinforced a belief that the world was a
+threatening place, causing him to perceive even innocuous situations as potential triggers for
+further harm, heightening his vigilance and anxiety. He often caught himself thinking, “What’s
+happened to me? I’m not the same person I used to be.” This feeling of being defective, of having
+something inherently wrong with him, weighed heavily on his mind. Each time a trigger emerged,
+whether it was a location, a smell, or even a fleeting glimpse of a stranger, he felt the familiar
+sting of shame and self-blame. His conviction that he was responsible for the assault made him
+hyper-aware of his surroundings, as he began to view any unfamiliar person or scent as a potential
+reminder of his trauma, amplifying his sense of danger and urgency to escape. He told himself that
+perhaps if he had acted differently that night—if he had been more aware or assertive—he could have
+prevented the assault. This relentless cycle of negative self-assessment only served to amplify his
+fear of the triggers that surrounded him.
+
+Henry’s world shrank as he increasingly isolated himself from social gatherings, reluctant to engage
+in conversations for fear of revealing the turmoil within. His marriage, once a source of strength
+and support, now felt strained. His wife, noticing the changes in his demeanor, expressed concern,
+but Henry struggled to articulate the depth of his pain and confusion. He felt trapped in a loop of
+avoidance, convinced that speaking about the trauma would only bring it to the surface, a surface he
+desperately tried to keep buried. He dreaded the idea of confronting his feelings, fearing that it
+would lead to more intrusive thoughts and memories that he had fought so hard to suppress.
+
+After months of grappling with the weight of his experiences, Henry finally reached a breaking
+point. He was sitting at home, engulfed in silence, when the smell of alcohol wafted through the
+window from a neighbor’s gathering. The familiar panic surged within him, but this time, something
+shifted. Overwhelmed by the realization that he could no longer live in isolation, Henry finally
+decided to seek help. He was terrified of what the process might entail, afraid that revisiting the
+trauma would unravel him completely. Yet, he also held onto a flicker of hope—that perhaps with
+guidance, he could reclaim the person he once was and find a way to navigate through the shadows of
+his past.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly establish how triggers lead to maladaptive strategies, as it primarily describes avoidance without linking it explicitly to the triggers.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette fails to show how negative appraisals lead to triggers; while negative beliefs are mentioned, there is no direct link to how they specifically result in perceived triggering situations.
+
+  [3] FAIL
+Henry, a 70-year-old man with a long career as a salesperson, had always been sociable and outgoing,
+enjoying the interactions that came with his job. However, everything changed one fateful evening
+when he was assaulted in a parking lot. What started as a routine day had turned into a nightmare;
+he had just left a meeting when he was approached by a stranger who, after a brief exchange of
+words, attacked him. For weeks, Henry replayed the incident in his mind, reliving the fear and
+helplessness that washed over him in those moments. Each time he closed his eyes, he saw the man's
+face, the glint of a weapon, and felt the rush of adrenaline that gripped him. These intrusive
+thoughts haunted him, turning ordinary moments into triggers that sent him spiraling back to that
+night.
+
+As the memories persisted, Henry found himself avoiding the very places he used to frequent,
+particularly the parking lot where the assault occurred. He could no longer bear the thought of
+driving past it; doing so would undoubtedly unleash the flood of panic and dread that had become his
+constant companions. Each time he approached that area, the memories flooded back, leading him to
+avoid not just the parking lot, but any situation that could remind him of the fear he felt that
+night. This belief that the parking lot was a dangerous place led him to avoid it at all costs, even
+if it meant taking longer routes to get to his appointments, as he was convinced that any reminder
+of the attack would only intensify his anxiety. He convinced himself that staying away from that
+location was a necessity for his safety, but deep down, he recognized it as a way to escape the
+feelings that threatened to overwhelm him. The smell of alcohol, which had once evoked memories of
+good times with friends, now transported him back to the night of the attack, reminding him of the
+offender's presence. To him, it felt as though the world was full of cues that could trigger another
+episode of terror, so he began to numb his feelings, suppressing thoughts of the trauma in an effort
+to regain some semblance of control.
+
+The ongoing struggle with these intrusive memories led Henry to develop a distorted view of himself.
+He began to feel unrecognizable, as if the man he had been for decades had vanished, replaced by
+someone fearful and withdrawn. His negative view of himself reinforced a belief that the world was a
+threatening place, causing him to perceive even innocuous situations as potential triggers for
+further harm, heightening his vigilance and anxiety. He often caught himself thinking, “What’s
+happened to me? I’m not the same person I used to be.” This feeling of being defective, of having
+something inherently wrong with him, weighed heavily on his mind. His conviction that he was somehow
+responsible for the assault made him hyper-aware of his surroundings, amplifying his sense of danger
+whenever he encountered someone who resembled his attacker or even a similar environment. Each time
+a trigger emerged, whether it was a location, a smell, or even a fleeting glimpse of a stranger, he
+felt the familiar sting of shame and self-blame. His conviction that he was responsible for the
+assault made him hyper-aware of his surroundings, as he began to view any unfamiliar person or scent
+as a potential reminder of his trauma, amplifying his sense of danger and urgency to escape. He told
+himself that perhaps if he had acted differently that night—if he had been more aware or
+assertive—he could have prevented the assault. This relentless cycle of negative self-assessment
+only served to amplify his fear of the triggers that surrounded him.
+
+Henry’s world shrank as he increasingly isolated himself from social gatherings, reluctant to engage
+in conversations for fear of revealing the turmoil within. His marriage, once a source of strength
+and support, now felt strained. His wife, noticing the changes in his demeanor, expressed concern,
+but Henry struggled to articulate the depth of his pain and confusion. He felt trapped in a loop of
+avoidance, convinced that speaking about the trauma would only bring it to the surface, a surface he
+desperately tried to keep buried. He dreaded the idea of confronting his feelings, fearing that it
+would lead to more intrusive thoughts and memories that he had fought so hard to suppress.
+
+After months of grappling with the weight of his experiences, Henry finally reached a breaking
+point. He was sitting at home, engulfed in silence, when the smell of alcohol wafted through the
+window from a neighbor’s gathering. The familiar panic surged within him, but this time, something
+shifted. Overwhelmed by the realization that he could no longer live in isolation, Henry finally
+decided to seek help. He was terrified of what the process might entail, afraid that revisiting the
+trauma would unravel him completely. Yet, he also held onto a flicker of hope—that perhaps with
+guidance, he could reclaim the person he once was and find a way to navigate through the shadows of
+his past.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not show how triggers lead Henry to adopt maladaptive strategies like avoidance in a direct causal manner.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not illustrate how triggers contribute to Henry's negative appraisals, missing the causal connection between the two.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette fails to demonstrate how Henry's negative appraisals influence his triggers, lacking a clear causal link.
+
+  [4] FAIL
+Henry, a 70-year-old man with a long career as a salesperson, had always been sociable and outgoing,
+enjoying the interactions that came with his job. However, everything changed one fateful evening
+when he was assaulted in a parking lot. What started as a routine day had turned into a nightmare;
+he had just left a meeting when he was approached by a stranger who, after a brief exchange of
+words, attacked him. For weeks, Henry replayed the incident in his mind, reliving the fear and
+helplessness that washed over him in those moments. Each time he closed his eyes, he saw the man's
+face, the glint of a weapon, and felt the rush of adrenaline that gripped him. These intrusive
+thoughts haunted him, turning ordinary moments into triggers that sent him spiraling back to that
+night.
+
+As the memories persisted, Henry found himself avoiding the very places he used to frequent,
+particularly the parking lot where the assault occurred. He could no longer bear the thought of
+driving past it; doing so would undoubtedly unleash the flood of panic and dread that had become his
+constant companions. Each time he thought about that parking lot, the memories of the attack flooded
+back, reinforcing his belief that he was unsafe anywhere near it. Each time he approached that area,
+the memories flooded back, leading him to avoid not just the parking lot, but any situation that
+could remind him of the fear he felt that night. This belief that the parking lot was a dangerous
+place led him to avoid it at all costs, even if it meant taking longer routes to get to his
+appointments, as he was convinced that any reminder of the attack would only intensify his anxiety.
+He convinced himself that staying away from that location was a necessity for his safety, but deep
+down, he recognized it as a way to escape the feelings that threatened to overwhelm him. The smell
+of alcohol, which had once evoked memories of good times with friends, now transported him back to
+the night of the attack, reminding him of the offender's presence. To him, it felt as though the
+world was full of cues that could trigger another episode of terror, so he began to numb his
+feelings, suppressing thoughts of the trauma in an effort to regain some semblance of control.
+
+The ongoing struggle with these intrusive memories led Henry to develop a distorted view of himself.
+He began to feel unrecognizable, as if the man he had been for decades had vanished, replaced by
+someone fearful and withdrawn. His negative view of himself reinforced a belief that the world was a
+threatening place, causing him to perceive even innocuous situations as potential triggers for
+further harm, heightening his vigilance and anxiety. Every time he encountered a stranger in public,
+his mind would race with thoughts of vulnerability and danger, leading him to brace himself for an
+attack that seemed inevitable. He often caught himself thinking, “What’s happened to me? I’m not the
+same person I used to be.” This feeling of being defective, of having something inherently wrong
+with him, weighed heavily on his mind. His conviction that he was somehow responsible for the
+assault made him hyper-aware of his surroundings, amplifying his sense of danger whenever he
+encountered someone who resembled his attacker or even a similar environment. This belief twisted
+the way he viewed the world around him, making even the most benign interactions feel loaded with
+threat, as if anyone could become a potential aggressor at any moment. Each time a trigger emerged,
+whether it was a location, a smell, or even a fleeting glimpse of a stranger, he felt the familiar
+sting of shame and self-blame. His conviction that he was responsible for the assault made him
+hyper-aware of his surroundings, as he began to view any unfamiliar person or scent as a potential
+reminder of his trauma, amplifying his sense of danger and urgency to escape. He told himself that
+perhaps if he had acted differently that night—if he had been more aware or assertive—he could have
+prevented the assault. This relentless cycle of negative self-assessment only served to amplify his
+fear of the triggers that surrounded him.
+
+Henry’s world shrank as he increasingly isolated himself from social gatherings, reluctant to engage
+in conversations for fear of revealing the turmoil within. His marriage, once a source of strength
+and support, now felt strained. His wife, noticing the changes in his demeanor, expressed concern,
+but Henry struggled to articulate the depth of his pain and confusion. He felt trapped in a loop of
+avoidance, convinced that speaking about the trauma would only bring it to the surface, a surface he
+desperately tried to keep buried. He dreaded the idea of confronting his feelings, fearing that it
+would lead to more intrusive thoughts and memories that he had fought so hard to suppress.
+
+After months of grappling with the weight of his experiences, Henry finally reached a breaking
+point. He was sitting at home, engulfed in silence, when the smell of alcohol wafted through the
+window from a neighbor’s gathering. The familiar panic surged within him, but this time, something
+shifted. Overwhelmed by the realization that he could no longer live in isolation, Henry finally
+decided to seek help. He was terrified of what the process might entail, afraid that revisiting the
+trauma would unravel him completely. Yet, he also held onto a flicker of hope—that perhaps with
+guidance, he could reclaim the person he once was and find a way to navigate through the shadows of
+his past.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how triggers lead to the use of maladaptive strategies.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not clearly convey how triggers lead to negative appraisals.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not clearly convey how negative appraisals lead to triggers.
+
+  [5] FAIL
+Henry, a 70-year-old man with a long career as a salesperson, had always been sociable and outgoing,
+enjoying the interactions that came with his job. However, everything changed one fateful evening
+when he was assaulted in a parking lot. What started as a routine day had turned into a nightmare;
+he had just left a meeting when he was approached by a stranger who, after a brief exchange of
+words, attacked him. For weeks, Henry replayed the incident in his mind, reliving the fear and
+helplessness that washed over him in those moments. Each time he closed his eyes, he saw the man's
+face, the glint of a weapon, and felt the rush of adrenaline that gripped him. These intrusive
+thoughts haunted him, turning ordinary moments into triggers that sent him spiraling back to that
+night.
+
+As the memories persisted, Henry found himself avoiding the very places he used to frequent,
+particularly the parking lot where the assault occurred. He could no longer bear the thought of
+driving past it; doing so would undoubtedly unleash the flood of panic and dread that had become his
+constant companions. Each time he thought about that parking lot, the memories of the attack flooded
+back, leading him to avoid not just the parking lot, but any situation that could remind him of the
+fear he felt that night, reinforcing his belief that the world was full of cues that could trigger
+another episode of terror. Each time he thought about that parking lot, the memories of the attack
+flooded back, reinforcing his belief that he was unsafe anywhere near it. Each time he approached
+that area, the memories flooded back, leading him to avoid not just the parking lot, but any
+situation that could remind him of the fear he felt that night. This belief that the parking lot was
+a dangerous place led him to avoid it at all costs, even if it meant taking longer routes to get to
+his appointments, as he was convinced that any reminder of the attack would only intensify his
+anxiety. He convinced himself that staying away from that location was a necessity for his safety,
+but deep down, he recognized it as a way to escape the feelings that threatened to overwhelm him.
+The smell of alcohol, which had once evoked memories of good times with friends, now transported him
+back to the night of the attack, reminding him of the offender's presence. To him, it felt as though
+the world was full of cues that could trigger another episode of terror, so he began to numb his
+feelings, suppressing thoughts of the trauma in an effort to regain some semblance of control.
+
+The ongoing struggle with these intrusive memories led Henry to develop a distorted view of himself.
+He began to feel unrecognizable, as if the man he had been for decades had vanished, replaced by
+someone fearful and withdrawn. His negative view of himself reinforced a belief that the world was a
+threatening place, causing him to perceive even innocuous situations as potential triggers for
+further harm, heightening his vigilance and anxiety. Every time he encountered a stranger in public,
+the negative appraisal that he was now a target for danger surged within him, as he felt his heart
+race and his body tense at the thought that anyone could become a potential aggressor at any moment.
+Every time he encountered a stranger in public, his mind would race with thoughts of vulnerability
+and danger, leading him to brace himself for an attack that seemed inevitable. He often caught
+himself thinking, “What’s happened to me? I’m not the same person I used to be.” This feeling of
+being defective, of having something inherently wrong with him, weighed heavily on his mind. His
+conviction that he was somehow responsible for the assault made him hyper-aware of his surroundings,
+amplifying his sense of danger whenever he encountered someone who resembled his attacker or even a
+similar environment. This belief twisted the way he viewed the world around him, making him hyper-
+sensitive to any unfamiliar sounds or figures, every unexpected noise in his neighborhood becoming a
+reminder that he could not trust his own judgment about safety. This belief twisted the way he
+viewed the world around him, making even the most benign interactions feel loaded with threat, as if
+anyone could become a potential aggressor at any moment. Each time a trigger emerged, whether it was
+a location, a smell, or even a fleeting glimpse of a stranger, he felt the familiar sting of shame
+and self-blame. His conviction that he was responsible for the assault made him hyper-aware of his
+surroundings, as he began to view any unfamiliar person or scent as a potential reminder of his
+trauma, amplifying his sense of danger and urgency to escape. He told himself that perhaps if he had
+acted differently that night—if he had been more aware or assertive—he could have prevented the
+assault. This relentless cycle of negative self-assessment only served to amplify his fear of the
+triggers that surrounded him.
+
+Henry’s world shrank as he increasingly isolated himself from social gatherings, reluctant to engage
+in conversations for fear of revealing the turmoil within. His marriage, once a source of strength
+and support, now felt strained. His wife, noticing the changes in his demeanor, expressed concern,
+but Henry struggled to articulate the depth of his pain and confusion. He felt trapped in a loop of
+avoidance, convinced that speaking about the trauma would only bring it to the surface, a surface he
+desperately tried to keep buried. He dreaded the idea of confronting his feelings, fearing that it
+would lead to more intrusive thoughts and memories that he had fought so hard to suppress.
+
+After months of grappling with the weight of his experiences, Henry finally reached a breaking
+point. He was sitting at home, engulfed in silence, when the smell of alcohol wafted through the
+window from a neighbor’s gathering. The familiar panic surged within him, but this time, something
+shifted. Overwhelmed by the realization that he could no longer live in isolation, Henry finally
+decided to seek help. He was terrified of what the process might entail, afraid that revisiting the
+trauma would unravel him completely. Yet, he also held onto a flicker of hope—that perhaps with
+guidance, he could reclaim the person he once was and find a way to navigate through the shadows of
+his past.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The connection between triggers and maladaptive strategies is missing as the vignette does not clearly convey that triggers lead to avoidance behaviors in a direct manner.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The connection between triggers and negative appraisals is missing because the vignette does not explicitly show that triggers influence Henry's negative beliefs about himself.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The connection between negative appraisals and triggers is absent since the vignette does not demonstrate how Henry's negative beliefs lead to specific triggers in his environment.
+
+  [6] FAIL
+Henry, a 70-year-old man with a long career as a salesperson, had always been sociable and outgoing,
+enjoying the interactions that came with his job. However, everything changed one fateful evening
+when he was assaulted in a parking lot. What started as a routine day had turned into a nightmare;
+he had just left a meeting when he was approached by a stranger who, after a brief exchange of
+words, attacked him. For weeks, Henry replayed the incident in his mind, reliving the fear and
+helplessness that washed over him in those moments. Each time he closed his eyes, he saw the man's
+face, the glint of a weapon, and felt the rush of adrenaline that gripped him. These intrusive
+thoughts haunted him, turning ordinary moments into triggers that sent him spiraling back to that
+night.
+
+As the memories persisted, Henry found himself avoiding the very places he used to frequent,
+particularly the parking lot where the assault occurred. He could no longer bear the thought of
+driving past it; doing so would undoubtedly unleash the flood of panic and dread that had become his
+constant companions. Each time he thought about that parking lot, the memories of the attack flooded
+back, leading him to avoid not just the parking lot, but any situation that could remind him of the
+fear he felt that night, reinforcing his belief that the world was full of cues that could trigger
+another episode of terror. Each recollection added to his urgency to avoid those places, as he often
+found himself thinking that if he encountered a similar situation, he might not be able to protect
+himself again. Each time he thought about that parking lot, the memories of the attack flooded back,
+reinforcing his belief that he was unsafe anywhere near it. Each time he approached that area, the
+memories flooded back, leading him to avoid not just the parking lot, but any situation that could
+remind him of the fear he felt that night. This belief that the parking lot was a dangerous place
+led him to avoid it at all costs, even if it meant taking longer routes to get to his appointments,
+as he was convinced that any reminder of the attack would only intensify his anxiety. He convinced
+himself that staying away from that location was a necessity for his safety, but deep down, he
+recognized it as a way to escape the feelings that threatened to overwhelm him. The smell of
+alcohol, which had once evoked memories of good times with friends, now transported him back to the
+night of the attack, reminding him of the offender's presence. To him, it felt as though the world
+was full of cues that could trigger another episode of terror, so he began to numb his feelings,
+suppressing thoughts of the trauma in an effort to regain some semblance of control.
+
+The ongoing struggle with these intrusive memories led Henry to develop a distorted view of himself.
+He began to feel unrecognizable, as if the man he had been for decades had vanished, replaced by
+someone fearful and withdrawn. His negative view of himself reinforced a belief that the world was a
+threatening place, causing him to perceive even innocuous situations as potential triggers for
+further harm, heightening his vigilance and anxiety. With every fleeting encounter that reminded him
+of the attack, he felt the weight of that belief pressing down on him, convincing him that he was
+not just vulnerable but marked for danger, deepening his sense of dread. Every time he encountered a
+stranger in public, the negative appraisal that he was now a target for danger surged within him, as
+he felt his heart race and his body tense at the thought that anyone could become a potential
+aggressor at any moment. Every time he encountered a stranger in public, his mind would race with
+thoughts of vulnerability and danger, leading him to brace himself for an attack that seemed
+inevitable. He often caught himself thinking, “What’s happened to me? I’m not the same person I used
+to be.” This feeling of being defective, of having something inherently wrong with him, weighed
+heavily on his mind. His conviction that he was somehow responsible for the assault made him hyper-
+aware of his surroundings, amplifying his sense of danger whenever he encountered someone who
+resembled his attacker or even a similar environment. This belief made him view every unfamiliar
+figure on the street as a potential threat, leading to a heightened alertness that left him feeling
+as if danger lurked around every corner, and he often second-guessed his instincts in those moments.
+This belief twisted the way he viewed the world around him, making him hyper-sensitive to any
+unfamiliar sounds or figures, every unexpected noise in his neighborhood becoming a reminder that he
+could not trust his own judgment about safety. This belief twisted the way he viewed the world
+around him, making even the most benign interactions feel loaded with threat, as if anyone could
+become a potential aggressor at any moment. Each time a trigger emerged, whether it was a location,
+a smell, or even a fleeting glimpse of a stranger, he felt the familiar sting of shame and self-
+blame. His conviction that he was responsible for the assault made him hyper-aware of his
+surroundings, as he began to view any unfamiliar person or scent as a potential reminder of his
+trauma, amplifying his sense of danger and urgency to escape. He told himself that perhaps if he had
+acted differently that night—if he had been more aware or assertive—he could have prevented the
+assault. This relentless cycle of negative self-assessment only served to amplify his fear of the
+triggers that surrounded him.
+
+Henry’s world shrank as he increasingly isolated himself from social gatherings, reluctant to engage
+in conversations for fear of revealing the turmoil within. His marriage, once a source of strength
+and support, now felt strained. His wife, noticing the changes in his demeanor, expressed concern,
+but Henry struggled to articulate the depth of his pain and confusion. He felt trapped in a loop of
+avoidance, convinced that speaking about the trauma would only bring it to the surface, a surface he
+desperately tried to keep buried. He dreaded the idea of confronting his feelings, fearing that it
+would lead to more intrusive thoughts and memories that he had fought so hard to suppress.
+
+After months of grappling with the weight of his experiences, Henry finally reached a breaking
+point. He was sitting at home, engulfed in silence, when the smell of alcohol wafted through the
+window from a neighbor’s gathering. The familiar panic surged within him, but this time, something
+shifted. Overwhelmed by the realization that he could no longer live in isolation, Henry finally
+decided to seek help. He was terrified of what the process might entail, afraid that revisiting the
+trauma would unravel him completely. Yet, he also held onto a flicker of hope—that perhaps with
+guidance, he could reclaim the person he once was and find a way to navigate through the shadows of
+his past.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not convey how triggers lead to the development of maladaptive strategies, such as avoidance.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette fails to establish how triggers influence negative appraisals of Henry's safety or self-worth.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not demonstrate that negative appraisals lead to the perception of triggers, such as reminders of the trauma.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Henry, a 70-year-old man with a long career as a salesperson, had always been sociable and outgoing,
+enjoying the interactions that came with his job. However, everything changed one fateful evening
+when he was assaulted in a parking lot. What started as a routine day had turned into a nightmare;
+he had just left a meeting when he was approached by a stranger who, after a brief exchange of
+words, attacked him. For weeks, Henry replayed the incident in his mind, reliving the fear and
+helplessness that washed over him in those moments. Each time he closed his eyes, he saw the man's
+face, the glint of a weapon, and felt the rush of adrenaline that gripped him. These intrusive
+thoughts haunted him, turning ordinary moments into triggers that sent him spiraling back to that
+night.
+
+As the memories persisted, Henry found himself avoiding the very places he used to frequent,
+particularly the parking lot where the assault occurred. He could no longer bear the thought of
+driving past it; doing so would undoubtedly unleash the flood of panic and dread that had become his
+constant companions. Each time he thought about that parking lot, the memories of the attack flooded
+back, leading him to avoid not just the parking lot, but any situation that could remind him of the
+fear he felt that night, reinforcing his belief that the world was full of cues that could trigger
+another episode of terror. Each recollection added to his urgency to avoid those places, as he often
+found himself thinking that if he encountered a similar situation, he might not be able to protect
+himself again. Each time he thought about that parking lot, the memories of the attack flooded back,
+reinforcing his belief that he was unsafe anywhere near it. Each time he approached that area, the
+memories flooded back, leading him to avoid not just the parking lot, but any situation that could
+remind him of the fear he felt that night. This belief that the parking lot was a dangerous place
+led him to avoid it at all costs, even if it meant taking longer routes to get to his appointments,
+as he was convinced that any reminder of the attack would only intensify his anxiety. He convinced
+himself that staying away from that location was a necessity for his safety, but deep down, he
+recognized it as a way to escape the feelings that threatened to overwhelm him. The smell of
+alcohol, which had once evoked memories of good times with friends, now transported him back to the
+night of the attack, reminding him of the offender's presence. To him, it felt as though the world
+was full of cues that could trigger another episode of terror, so he began to numb his feelings,
+suppressing thoughts of the trauma in an effort to regain some semblance of control.
+
+The ongoing struggle with these intrusive memories led Henry to develop a distorted view of himself.
+He began to feel unrecognizable, as if the man he had been for decades had vanished, replaced by
+someone fearful and withdrawn. His negative view of himself reinforced a belief that the world was a
+threatening place, causing him to perceive even innocuous situations as potential triggers for
+further harm, heightening his vigilance and anxiety. With every fleeting encounter that reminded him
+of the attack, he felt the weight of that belief pressing down on him, convincing him that he was
+not just vulnerable but marked for danger, deepening his sense of dread. Every time he encountered a
+stranger in public, the negative appraisal that he was now a target for danger surged within him, as
+he felt his heart race and his body tense at the thought that anyone could become a potential
+aggressor at any moment. Every time he encountered a stranger in public, his mind would race with
+thoughts of vulnerability and danger, leading him to brace himself for an attack that seemed
+inevitable. He often caught himself thinking, “What’s happened to me? I’m not the same person I used
+to be.” This feeling of being defective, of having something inherently wrong with him, weighed
+heavily on his mind. His conviction that he was somehow responsible for the assault made him hyper-
+aware of his surroundings, amplifying his sense of danger whenever he encountered someone who
+resembled his attacker or even a similar environment. This belief made him view every unfamiliar
+figure on the street as a potential threat, leading to a heightened alertness that left him feeling
+as if danger lurked around every corner, and he often second-guessed his instincts in those moments.
+This belief twisted the way he viewed the world around him, making him hyper-sensitive to any
+unfamiliar sounds or figures, every unexpected noise in his neighborhood becoming a reminder that he
+could not trust his own judgment about safety. This belief twisted the way he viewed the world
+around him, making even the most benign interactions feel loaded with threat, as if anyone could
+become a potential aggressor at any moment. Each time a trigger emerged, whether it was a location,
+a smell, or even a fleeting glimpse of a stranger, he felt the familiar sting of shame and self-
+blame. His conviction that he was responsible for the assault made him hyper-aware of his
+surroundings, as he began to view any unfamiliar person or scent as a potential reminder of his
+trauma, amplifying his sense of danger and urgency to escape. He told himself that perhaps if he had
+acted differently that night—if he had been more aware or assertive—he could have prevented the
+assault. This relentless cycle of negative self-assessment only served to amplify his fear of the
+triggers that surrounded him.
+
+Henry’s world shrank as he increasingly isolated himself from social gatherings, reluctant to engage
+in conversations for fear of revealing the turmoil within. His marriage, once a source of strength
+and support, now felt strained. His wife, noticing the changes in his demeanor, expressed concern,
+but Henry struggled to articulate the depth of his pain and confusion. He felt trapped in a loop of
+avoidance, convinced that speaking about the trauma would only bring it to the surface, a surface he
+desperately tried to keep buried. He dreaded the idea of confronting his feelings, fearing that it
+would lead to more intrusive thoughts and memories that he had fought so hard to suppress.
+
+After months of grappling with the weight of his experiences, Henry finally reached a breaking
+point. He was sitting at home, engulfed in silence, when the smell of alcohol wafted through the
+window from a neighbor’s gathering. The familiar panic surged within him, but this time, something
+shifted. Overwhelmed by the realization that he could no longer live in isolation, Henry finally
+decided to seek help. He was terrified of what the process might entail, afraid that revisiting the
+trauma would unravel him completely. Yet, he also held onto a flicker of hope—that perhaps with
+guidance, he could reclaim the person he once was and find a way to navigate through the shadows of
+his past.

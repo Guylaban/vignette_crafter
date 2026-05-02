@@ -1,0 +1,191 @@
+{
+  "persona_id": 332,
+  "source_persona_id": 332,
+  "experiment_timestamp": "2026-05-02 20:08:42",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-chat",
+      "persona_crafter": "deepseek-chat",
+      "vignette_crafter": "deepseek-chat",
+      "vignette_validator": "deepseek-chat"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 43,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "IT Support",
+    "trauma_type": "Physical abuse by caregiver (childhood)",
+    "pcl5": 55
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Being in Nature",
+        "value": "Being in a natural environment similar to where it happened"
+      },
+      {
+        "key": "Event Recall",
+        "value": "Talking about the event"
+      },
+      {
+        "key": "Locked Spaces",
+        "value": "Being in a locked or confined room"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Concentration",
+        "value": "Having difficulty concentrating"
+      },
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Intrinsic Fault",
+        "value": "There is something about me that made the event happen"
+      },
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      },
+      {
+        "key": "Character Blame",
+        "value": "The event happened to me because of the sort of person I am"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.4489,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.763,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.1261,
+    "Threat -- Triggers": 0.1116,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.3624,
+  "edge_density": 0.2,
+  "vignette_word_count": 633,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened",
+          "explanation": "The Negative Appraisals node is internally inconsistent for childhood physical abuse by a caregiver. 'Intrinsic Fault' fits a child abuse formulation, but 'Violated Values' implies the patient believes she herself committed morally troubling actions, which is hard to reconcile with being a child victim unless there is additional unreported perpetration or compliance behavior. 'Physical Vulnerability' as permanent bodily damage is also a distinct injury-based appraisal that is not supported elsewhere in the profile. Taken together, these three appraisals do not form a coherent single appraisal pattern."
+        },
+        {
+          "component": "Triggers",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "'Being in Nature' is difficult to reconcile with the trauma type of repeated physical abuse by a caregiver unless the abuse specifically occurred in a natural/outdoor setting. The rest of the profile points to interpersonal danger, shame, and hypervigilance rather than context-specific outdoor reminders, so this trigger looks trauma-incongruent."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Physical Vulnerability"
+        ],
+        "Triggers": [
+          "Negative Appraisals"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "For childhood physical abuse by a caregiver, the selected negative appraisals are mostly coherent when they center on shame, defectiveness, and self-blame (e.g., intrinsic fault, defective self). However, 'I acted in ways that go against who I am' implies perpetration or morally troubling behavior by the patient, which is hard to reconcile with the trauma type unless there is additional context not represented elsewhere. Within the node, it pulls in a different direction from the other appraisals, which depict the patient as harmed/defective rather than as having committed value-violating actions."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Violated Values"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2774,
+    "output": 808,
+    "total": 3582
+  },
+  "vignette": "Chidera is a 43-year-old IT support technician who grew up in a rural village in Nigeria before immigrating to the United States in her early twenties. When she was eight years old, her uncle, who was responsible for her care while her parents worked abroad, began a pattern of physical abuse that lasted three years. He would lock her in a small storage room attached to the family compound whenever she disobeyed him—a cramped, windowless space where she could hear the sounds of the forest through the thin walls. The beatings that followed her release were always preceded by his voice telling her that she had brought this on herself, that there was something fundamentally wrong with her that made him do this. She learned to believe him.\n\nNow, decades later, Chidera lives in a tidy apartment in a Chicago suburb with her husband and two children. She works from home, fielding help-desk calls for a mid-sized insurance company, and she has built a life that feels safe and predictable. But the old beliefs have never left her. She carries a deep, quiet certainty that the abuse happened because of who she is—that she is defective, that her character invited punishment, that there is an intrinsic fault in her that made her uncle’s violence inevitable. These negative appraisals sit beneath everything, like a low hum she has learned to ignore.\n\nWhen her husband suggests a weekend hike in the forest preserves, Chidera feels her chest tighten. She has come to believe that natural environments are dangerous—not because of any rational threat, but because being in nature returns her, unbidden, to the sounds and smells of that storage room. The rustling leaves, the damp earth, the distant birdsong: they all pull her back to the place where she waited, knowing what was coming. She has stopped going on family outings that involve parks or trails. The triggers have narrowed her world. Her husband does not understand why she refuses, and she cannot explain it without feeling ashamed.\n\nThe negative appraisals also fuel a constant state of threat. Chidera’s body is perpetually on alert. She startles at the creak of a door, at her son’s sudden knock on her office wall. Her concentration has frayed; she loses her train of thought mid-sentence during calls, and she has begun to worry her supervisor has noticed. She often reacts as if she is in danger when nothing is wrong—her heart hammering at a harmless email, her muscles bracing for a blow that never comes. These false alarms frighten her, and they also confirm something she already suspects: that she is broken, that her hypervigilance is proof of her defectiveness. The threat feeds the appraisals, and the appraisals feed the threat, each tightening the other.\n\nOne afternoon, while troubleshooting a locked server cabinet for a remote colleague, Chidera finds herself unable to breathe. The door clicks shut behind her, and for a moment she is eight years old again. She drops her tools and presses against the door, gasping. The threat response—the racing heart, the tunnel vision—has been triggered by the confined space, and in that moment she is certain that her uncle was right about her. The appraisals and the threat cascade together, and she cannot separate them.\n\nShe has begun avoiding locked rooms at work, delegating tasks that require entering the server closet. She knows this is unsustainable. Her husband has noticed she is more withdrawn. What finally brings her to therapy is the fear that she is passing this on to her children—that they see her flinch, that they learn to be afraid of the world. She wants to stop the cycle, but she is terrified that if she looks too closely at what happened, she will find that her uncle was correct all along."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Chidera is a 43-year-old IT support technician who grew up in a rural village in Nigeria before immigrating to the United States in her early twenties. When she was eight years old, her uncle, who was responsible for her care while her parents worked abroad, began a pattern of physical abuse that lasted three years. He would lock her in a small storage room attached to the family compound whenever she disobeyed him—a cramped, windowless space where she could hear the sounds of the forest through the thin walls. The beatings that followed her release were always preceded by his voice telling her that she had brought this on herself, that there was something fundamentally wrong with her that made him do this. She learned to believe him.\n\nNow, decades later, Chidera lives in a tidy apartment in a Chicago suburb with her husband and two children. She works from home, fielding help-desk calls for a mid-sized insurance company, and she has built a life that feels safe and predictable. But the old beliefs have never left her. She carries a deep, quiet certainty that the abuse happened because of who she is—that she is defective, that her character invited punishment, that there is an intrinsic fault in her that made her uncle’s violence inevitable. These negative appraisals sit beneath everything, like a low hum she has learned to ignore.\n\nWhen her husband suggests a weekend hike in the forest preserves, Chidera feels her chest tighten. She has come to believe that natural environments are dangerous—not because of any rational threat, but because being in nature returns her, unbidden, to the sounds and smells of that storage room. The rustling leaves, the damp earth, the distant birdsong: they all pull her back to the place where she waited, knowing what was coming. She has stopped going on family outings that involve parks or trails. The triggers have narrowed her world. Her husband does not understand why she refuses, and she cannot explain it without feeling ashamed.\n\nThe negative appraisals also fuel a constant state of threat. Chidera’s body is perpetually on alert. She startles at the creak of a door, at her son’s sudden knock on her office wall. Her concentration has frayed; she loses her train of thought mid-sentence during calls, and she has begun to worry her supervisor has noticed. She often reacts as if she is in danger when nothing is wrong—her heart hammering at a harmless email, her muscles bracing for a blow that never comes. These false alarms frighten her, and they also confirm something she already suspects: that she is broken, that her hypervigilance is proof of her defectiveness. The threat feeds the appraisals, and the appraisals feed the threat, each tightening the other.\n\nOne afternoon, while troubleshooting a locked server cabinet for a remote colleague, Chidera finds herself unable to breathe. The door clicks shut behind her, and for a moment she is eight years old again. She drops her tools and presses against the door, gasping. The threat response—the racing heart, the tunnel vision—has been triggered by the confined space, and in that moment she is certain that her uncle was right about her. The appraisals and the threat cascade together, and she cannot separate them.\n\nShe has begun avoiding locked rooms at work, delegating tasks that require entering the server closet. She knows this is unsustainable. Her husband has noticed she is more withdrawn. What finally brings her to therapy is the fear that she is passing this on to her children—that they see her flinch, that they learn to be afraid of the world. She wants to stop the cycle, but she is terrified that if she looks too closely at what happened, she will find that her uncle was correct all along.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,206 @@
+PERSONA 429  |  2026-05-02 20:31:06
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-chat
+    persona_crafter      deepseek-chat
+    vignette_crafter     deepseek-chat
+    vignette_validator   deepseek-chat
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             71
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Single
+  occupation      Painter
+  trauma_type     Terrorism
+  pcl5            48
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Reassurance Seeking: I keep asking others to reassure me that I am okay
+    • Emotion Control: I try hard to control my emotions
+    • Avoid Going Out: Going out
+  Memory:
+    • Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Uncontrolled Access: The memory forces its way into my mind when I do not want it to
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Can't Rely on Others: I can't rely on other people
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.3376
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0678
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.7752
+  Maladaptive Strategies → Negative Appraisals       0.7944
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Partial Clarity: Some moments of the event are extremely clear while others are completely blank
+    explanation: Within the Memory node, 'Partial Clarity' implies marked fragmentation with important gaps, while 'Vivid Memory' implies globally clear and detailed recall. These can sometimes coexist for specific segments, but stated together at face value they pull in opposite directions and are the clearest internal inconsistency in the profile.
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Enclosed Spaces: Enclosed or confined spaces
+    explanation: The profile lacks any Threat items, despite terrorism-related avoidance of crowds and enclosed/public spaces usually being linked to a current sense of danger in public places. With Triggers→Threat inactive and no Threat node content provided, the avoidance pattern is left clinically unanchored.
+    item:        Memory / Avoid Crowds: Crowded places such as shopping centres or public events
+    explanation: Memory items describe vivid, cue-driven, sensory re-experiencing, especially being triggered by surroundings without warning. However, all Triggers edges are inactive and no Trigger items are present, making the specific 'surroundings instantly bring back the full memory' item poorly aligned with the formulation structure.
+    item:        Negative Appraisals / Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+    explanation: Negative appraisals focus on generalized mistrust of self, body, and others, while the maladaptive strategies are highly situational (crowds/enclosed spaces). Without corresponding threat or trigger content, these nodes do not form a clearly coherent terrorism-specific presentation.
+  [3] FAIL
+    item:        Memory / Memory: Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    explanation: The Memory item describes strong cue-driven reactivation by surroundings, but the formulation explicitly has Triggers inactive with Memory. This creates a direct contradiction between the item's content and the formulation structure.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Crowds: Crowded places such as shopping centres or public events
+    explanation: Avoiding crowds is plausible after terrorism, but it implies salient environmental trigger sensitivity and public-place threat anticipation. In this profile, Triggers and Threat are not represented and are inactive in the formulation, so this strategy lacks a coherent linked context.
+  [4] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: Checking surroundings for signs of threat implies an active trigger/threat monitoring pattern, but the formulation explicitly has Triggers and Threat disconnected from the rest of the system, making this item poorly aligned with the cognitive formulation.
+    item:        Memory / Reassurance Seeking: I keep asking others to reassure me that I am okay
+    explanation: Frequent reassurance seeking from others sits awkwardly with the simultaneous appraisal 'I can't rely on other people.' While some ambivalence is possible, taking both as central items without any moderating context creates a notable cross-node tension.
+    item:        Negative Appraisals / Body Unreliable: I can no longer trust my own body
+    explanation: 'I can no longer trust my own body' is more typical of trauma involving physical injury, illness, or prominent somatic threat. With terrorism trauma, it is not impossible, but alongside the other selected items there is little memory content or appraisal content explaining bodily unreliability, so this item feels weakly grounded in the rest of the profile.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,844
+  output:       853
+  total:      3,697
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Tama, a 71-year-old painter who lived alone in a small coastal town in California, had spent most of
+his life working on large-scale murals and fine art commissions, his reputation built on steady
+hands and a calm presence. That changed one afternoon three years ago, when he was waiting for a bus
+near a crowded market. A bomb hidden in a trash can detonated fifty feet away. The blast threw him
+to the ground. He remembered the pressure in his chest, the ringing in his ears, and the sight of a
+woman's shoe lying beside his face, still laced. He had not been physically injured, but something
+in him had shifted that day and never settled back.
+
+In the weeks after, Tama found that the memory of the explosion would force its way into his mind
+without warning. He would be mixing paint on his palette, and suddenly he would feel his body tense
+as though he were again lying on the pavement, his arms pinned beneath him, his cheek pressed
+against the cold concrete. The memory was not just visual; it was bodily. He could feel the exact
+angle of his neck and the grit against his skin, and the clarity of those sensations terrified him.
+He had come to believe that the world was a dangerous place, and that he could not rely on other
+people to keep him safe. He also began to feel that he could not rely on himself, because his own
+mind kept pulling him back into that moment without his permission, and he could not stop it.
+
+To manage this, Tama tried hard to control his emotions. When he felt the familiar tightness in his
+chest or the surge of fear, he would clench his jaw and force himself to focus on something
+neutral—the grain of a wooden floorboard, the pattern of light on the wall. He also began asking his
+neighbor, a younger man named Leo, to check in on him each evening. Tama would call Leo and say,
+"I'm fine, right? Everything is okay?" and Leo would reassure him that he was safe and that nothing
+bad was happening. This helped for a few minutes, but then the memory would return, and Tama would
+feel the need to call again. The more he sought reassurance, the more the memories intruded, and the
+more convinced he became that he could not manage on his own.
+
+He stopped going out. He had always worked from a studio attached to his house, so the practical
+impact was not immediate, but over months it became severe. He stopped buying fresh paint supplies.
+He stopped walking to the corner store for coffee. He told himself that the world outside was
+unpredictable, that he could not control what might happen. What frightened him most was the thought
+that his own reactions would fail him—that if something unexpected occurred, he would freeze or fall
+apart, and that no one would be there to help. This belief reinforced his need to control his
+emotions and to ask for reassurance, which in turn made the memories more frequent and more vivid.
+He noticed that after he called Leo, the memory would surface again within an hour, sometimes with
+even more detail.
+
+The cycle tightened over two years. Tama's painting slowed, then stopped. He had not completed a
+commission in over a year, and his savings were running low. Leo had begun to sound tired on the
+phone, and Tama was certain that he was annoying him, but he could not stop calling. He was afraid
+that if he stopped seeking reassurance, the fear would become unbearable and he would have no way to
+manage it. He was also afraid that if he let himself feel the emotions fully, he would not be able
+to stop them.
+
+What finally brought Tama to seek help was a morning when he could not bring himself to open his
+front door to collect the mail. He stood in the hallway for twenty minutes, his hand on the lock,
+his heart pounding, his body remembering the concrete and the blast. He called his doctor that
+afternoon. He was hoping that someone could tell him how to make the memories stop, and he was
+afraid that nothing would work.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Tama, a 71-year-old painter who lived alone in a small coastal town in California, had spent most of
+his life working on large-scale murals and fine art commissions, his reputation built on steady
+hands and a calm presence. That changed one afternoon three years ago, when he was waiting for a bus
+near a crowded market. A bomb hidden in a trash can detonated fifty feet away. The blast threw him
+to the ground. He remembered the pressure in his chest, the ringing in his ears, and the sight of a
+woman's shoe lying beside his face, still laced. He had not been physically injured, but something
+in him had shifted that day and never settled back.
+
+In the weeks after, Tama found that the memory of the explosion would force its way into his mind
+without warning. He would be mixing paint on his palette, and suddenly he would feel his body tense
+as though he were again lying on the pavement, his arms pinned beneath him, his cheek pressed
+against the cold concrete. The memory was not just visual; it was bodily. He could feel the exact
+angle of his neck and the grit against his skin, and the clarity of those sensations terrified him.
+He had come to believe that the world was a dangerous place, and that he could not rely on other
+people to keep him safe. He also began to feel that he could not rely on himself, because his own
+mind kept pulling him back into that moment without his permission, and he could not stop it.
+
+To manage this, Tama tried hard to control his emotions. When he felt the familiar tightness in his
+chest or the surge of fear, he would clench his jaw and force himself to focus on something
+neutral—the grain of a wooden floorboard, the pattern of light on the wall. He also began asking his
+neighbor, a younger man named Leo, to check in on him each evening. Tama would call Leo and say,
+"I'm fine, right? Everything is okay?" and Leo would reassure him that he was safe and that nothing
+bad was happening. This helped for a few minutes, but then the memory would return, and Tama would
+feel the need to call again. The more he sought reassurance, the more the memories intruded, and the
+more convinced he became that he could not manage on his own.
+
+He stopped going out. He had always worked from a studio attached to his house, so the practical
+impact was not immediate, but over months it became severe. He stopped buying fresh paint supplies.
+He stopped walking to the corner store for coffee. He told himself that the world outside was
+unpredictable, that he could not control what might happen. What frightened him most was the thought
+that his own reactions would fail him—that if something unexpected occurred, he would freeze or fall
+apart, and that no one would be there to help. This belief reinforced his need to control his
+emotions and to ask for reassurance, which in turn made the memories more frequent and more vivid.
+He noticed that after he called Leo, the memory would surface again within an hour, sometimes with
+even more detail.
+
+The cycle tightened over two years. Tama's painting slowed, then stopped. He had not completed a
+commission in over a year, and his savings were running low. Leo had begun to sound tired on the
+phone, and Tama was certain that he was annoying him, but he could not stop calling. He was afraid
+that if he stopped seeking reassurance, the fear would become unbearable and he would have no way to
+manage it. He was also afraid that if he let himself feel the emotions fully, he would not be able
+to stop them.
+
+What finally brought Tama to seek help was a morning when he could not bring himself to open his
+front door to collect the mail. He stood in the hallway for twenty minutes, his hand on the lock,
+his heart pounding, his body remembering the concrete and the blast. He called his doctor that
+afternoon. He was hoping that someone could tell him how to make the memories stop, and he was
+afraid that nothing would work.

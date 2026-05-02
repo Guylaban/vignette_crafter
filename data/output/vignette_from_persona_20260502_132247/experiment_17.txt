@@ -1,0 +1,309 @@
+PERSONA 17  |  2026-05-02 13:31:09
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-sonnet-4-6
+    persona_crafter      claude-sonnet-4-6
+    vignette_crafter     claude-sonnet-4-6
+    vignette_validator   claude-sonnet-4-6
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             80
+  gender          Male
+  ethnicity       South Asian
+  relationship_status Widowed
+  occupation      Coast Guard
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            64
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Being in Nature: Being in a natural environment similar to where it happened
+    • Future Orientation: Talking about the future
+    • Auditory (Sirens): Sirens
+  Maladaptive Strategies:
+    • Magical Thinking: I tell myself the event did not really happen or was not that bad
+    • Positive Reframing: I force myself to think only positive thoughts
+    • Thought Suppression: I try to push them out of my mind
+  Threat:
+    • Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+    • Risky Behavior: Taking too many risks or doing things that could cause you harm
+    • Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+  Memory:
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory
+    • Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+  Negative Appraisals:
+    • Defective Self: There is something wrong with me as a person
+    • Hypervigilance: I have to be on guard all the time
+    • Character Blame: The event happened to me because of the sort of person I am
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.8631
+  Triggers → Memory                                  0.0747
+  Triggers → Negative Appraisals                     0.5813
+  Negative Appraisals → Maladaptive Strategies       0.1602
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.2557
+  Memory → Maladaptive Strategies                    0.4220
+  Memory → Threat                                    0.6222
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.9094
+  Threat → Maladaptive Strategies                    0.5926
+  Threat → Memory                                    0.5729
+  Threat → Negative Appraisals                       0.9605
+  Threat → Triggers                                  0.7651
+  Maladaptive Strategies → Memory                    0.2720
+  Maladaptive Strategies → Negative Appraisals       0.2475
+  Maladaptive Strategies → Triggers                  0.1650
+  Maladaptive Strategies → Threat                    0.6925
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Contamination: I feel dirty or contaminated because of what happened
+    explanation: Contamination appraisals are hard to reconcile with the indexed trauma of accidentally causing serious injury to another person; for this trauma type, guilt, responsibility, danger, or moral failure would be more coherent than feeling physically dirty/contaminated, absent any assault or bodily violation context.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Other-Blame Rumination: I dwell on what other people have done to me
+    explanation: Other-blame rumination conflicts with the trauma type and the rest of the profile: the central event is that he accidentally injured another person, while the appraisals emphasize defectiveness and threat rather than victimization by others. Dwelling on what other people have done to me points to a different trauma narrative.
+    item:        Threat / Maladaptive Strategies: Magical Thinking: I tell myself the event did not really happen or was not that bad
+    explanation: Magical thinking that the event did not really happen or was not that bad sits awkwardly with the very high-severity profile and with simultaneous endorsement of full sensory reliving plus strong persistent threat and self-defectiveness. Partial minimization can occur, but this item as phrased is in notable tension with the rest of the profile.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      9,979
+  output:     2,028
+  total:     12,007
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Rajan is an eighty-year-old widowed South Asian man who served for decades with the United States
+Coast Guard and who, in the final years of his active service, was at the helm of a rescue vessel
+when a navigational error during a fog-bound coastal operation caused the boat to strike a smaller
+craft. The collision was sudden and catastrophic. A junior crewman was pulled from the water with
+severe spinal injuries that left him partially paralysed, and though the official inquiry attributed
+the accident to conditions rather than negligence, Rajan never accepted that verdict. He remembered
+the particular quality of the light that morning — grey-green water, salt mist hanging low over the
+shoreline, the smell of diesel and kelp — and it was into that sensory world that his mind returned
+without warning for years afterward.
+
+Rajan retired shortly after the incident and moved into a small house near the Massachusetts coast,
+where he had expected to spend his later years quietly. Instead, the environment that had defined
+his working life became a source of dread. Walking along the shoreline — something he had once done
+daily — now meant exposure to the same grey-green light, the same salt air, the same quality of open
+sky that surrounded the accident. When those natural cues registered, his body responded before his
+mind could intervene: his chest tightened, his attention narrowed, and the fragmented pieces of that
+morning began to surface unbidden. The memories did not arrive as a coherent narrative. They came in
+disconnected shards — the sound of impact, a flash of orange survival gear, a voice he could not
+place — that refused to assemble into a whole he could examine or put away. When he tried
+deliberately to reconstruct what had happened, the sequence dissolved; yet when a siren passed his
+window, or when a neighbour's scanner crackled with emergency traffic, the sensory world of the
+accident returned with full physical force, as though he were back on the water, the deck tilting
+beneath him. In those moments the reliving was total — not a recollection but a reinstatement,
+complete across every sense at once.
+
+Because the memories arrived so violently and so incompletely, Rajan came to believe that the only
+way to survive them was to prevent their arrival. He told himself, with increasing conviction, that
+the accident had not been as serious as he remembered, or perhaps had not happened quite as he
+thought — a form of magical thinking that offered brief relief but left the underlying material
+untouched. He forced himself toward positive thoughts, rehearsing gratitude and forward-looking
+images, and when fragments surfaced anyway he pushed them down deliberately. These strategies
+quieted the surface without resolving anything beneath it, and over months he noticed that the
+memories seemed, if anything, more intrusive — as though suppression had kept them pressurised. The
+effort of managing his own mind also fed a darker conclusion: that a man who needed such constant
+mental labour to stay functional must have something fundamentally wrong with him. He had come to
+believe, with the quiet certainty of someone who has argued himself into a corner over years, that
+the accident had happened because of the kind of person he was — careless, arrogant,
+constitutionally unfit for the responsibility he had been given.
+
+That appraisal of his own character sat at the centre of everything. Because he was certain he was
+defective, he was equally certain that danger was never far away — that his judgment could not be
+trusted, that unfamiliar environments held risks he would fail to assess correctly. He stopped
+travelling anywhere he had not been before. At the veterans' community centre where he occasionally
+attended lunch, he chose his seat with deliberate care, positioning himself with his back to the
+wall and a clear line to the exit. He had also, paradoxically, begun taking small physical risks —
+driving too fast on empty roads, neglecting prescribed medications — as though some part of him had
+decided that a man like him deserved whatever harm came his way. Talking about the future with his
+daughter, who visited on weekends, triggered the same cascade: any forward projection reminded him
+that the crewman he had injured was living a constrained life because of him, which brought the
+guilt flooding back and, with it, the fragments. His daughter noticed that he deflected every
+conversation about plans or hopes, and it was she who finally persuaded him to seek help. What Rajan
+most fears, sitting in the intake room, is that a clinician will confirm what he already believes
+about himself. What he most hopes, though he would not say so directly, is that someone will tell
+him he is wrong.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: No paragraph conveys that Rajan's negative appraisals (e.g., believing he is defective/careless) directly cause or activate triggering stimuli (e.g., environmental cues such as coastal sights, sounds, or smells).
+
+    ✗ edge:        Threat → Memory
+      explanation: No paragraph conveys that Rajan's sense of threat (e.g., belief that his judgment cannot be trusted, that danger is near) directly drives or reinstates the traumatic memory.
+
+    ✗ edge:        Threat → Triggers
+      explanation: No paragraph conveys that Rajan's sense of threat directly leads to the activation of triggering stimuli (e.g., that feeling threatened causes him to encounter or become sensitised to environmental cues).
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: No paragraph conveys that Rajan's maladaptive strategies (e.g., suppression, avoidance, thought-pushing) directly produce or intensify his sense of threat or perceived danger.
+
+  [2] PASS
+Rajan is an eighty-year-old widowed South Asian man who served for decades with the United States
+Coast Guard and who, in the final years of his active service, was at the helm of a rescue vessel
+when a navigational error during a fog-bound coastal operation caused the boat to strike a smaller
+craft. The collision was sudden and catastrophic. A junior crewman was pulled from the water with
+severe spinal injuries that left him partially paralysed, and though the official inquiry attributed
+the accident to conditions rather than negligence, Rajan never accepted that verdict. He remembered
+the particular quality of the light that morning — grey-green water, salt mist hanging low over the
+shoreline, the smell of diesel and kelp — and it was into that sensory world that his mind returned
+without warning for years afterward.
+
+Rajan retired shortly after the incident and moved into a small house near the Massachusetts coast,
+where he had expected to spend his later years quietly. Instead, the environment that had defined
+his working life became a source of dread. Walking along the shoreline — something he had once done
+daily — now meant exposure to the same grey-green light, the same salt air, the same quality of open
+sky that surrounded the accident. When those natural cues registered, his body responded before his
+mind could intervene: his chest tightened, his attention narrowed, and the fragmented pieces of that
+morning began to surface unbidden. The memories did not arrive as a coherent narrative. They came in
+disconnected shards — the sound of impact, a flash of orange survival gear, a voice he could not
+place — that refused to assemble into a whole he could examine or put away. When he tried
+deliberately to reconstruct what had happened, the sequence dissolved; yet when a siren passed his
+window, or when a neighbour's scanner crackled with emergency traffic, the sensory world of the
+accident returned with full physical force, as though he were back on the water, the deck tilting
+beneath him. In those moments the reliving was total — not a recollection but a reinstatement,
+complete across every sense at once.
+
+Because the memories arrived so violently and so incompletely, Rajan came to believe that the only
+way to survive them was to prevent their arrival. He told himself, with increasing conviction, that
+the accident had not been as serious as he remembered, or perhaps had not happened quite as he
+thought — a form of magical thinking that offered brief relief but left the underlying material
+untouched. He forced himself toward positive thoughts, rehearsing gratitude and forward-looking
+images, and when fragments surfaced anyway he pushed them down deliberately. These strategies
+quieted the surface without resolving anything beneath it, and over months he noticed that the
+memories seemed, if anything, more intrusive — as though suppression had kept them pressurised.
+There was a further cost he had not anticipated: because he had never stayed with a situation long
+enough to find out it was safe, his body had never received the evidence it needed, and the sense of
+threat remained as high and as immediate as it had been in the weeks after the accident — the
+avoidance and suppression had, in their own way, kept the danger feeling real and ongoing. The
+effort of managing his own mind also fed a darker conclusion: that a man who needed such constant
+mental labour to stay functional must have something fundamentally wrong with him. He had come to
+believe, with the quiet certainty of someone who has argued himself into a corner over years, that
+the accident had happened because of the kind of person he was — careless, arrogant,
+constitutionally unfit for the responsibility he had been given.
+
+That appraisal of his own character sat at the centre of everything. Because he was certain he was
+defective, he was equally certain that danger was never far away — that his judgment could not be
+trusted, that unfamiliar environments held risks he would fail to assess correctly. And because he
+moved through the world already convinced of his own defectiveness, the environment seemed to
+conspire to confirm it — the grey-green light off the water, the smell of salt air, the distant
+sound of a foghorn all snagged his attention in a way they never had before the accident, each one
+registering not as neutral sensation but as evidence that the past was still present and still
+indicting him. He stopped travelling anywhere he had not been before. At the veterans' community
+centre where he occasionally attended lunch, he chose his seat with deliberate care, positioning
+himself with his back to the wall and a clear line to the exit. On days when the sense of threat ran
+highest — when his body was already primed and his vigilance already elevated — the memories were
+hardest to hold back; it was as though the adrenaline itself reached into the past and pulled the
+accident forward, so that the deck seemed to tilt beneath him again and the sound of the collision
+rang in his ears with fresh precision. Living at that pitch of alertness, he found that the world
+had become dense with signals he could not stop reading — a passing boat on the horizon, the
+particular angle of morning light over the water, the static crackle of any radio — each one
+catching in him like a hook, confirming what his nervous system already believed about the danger he
+carried with him. He had also, paradoxically, begun taking small physical risks — driving too fast
+on empty roads, neglecting prescribed medications — as though some part of him had decided that a
+man like him deserved whatever harm came his way. Talking about the future with his daughter, who
+visited on weekends, triggered the same cascade: any forward projection reminded him that the
+crewman he had injured was living a constrained life because of him, which brought the guilt
+flooding back and, with it, the fragments. His daughter noticed that he deflected every conversation
+about plans or hopes, and it was she who finally persuaded him to seek help. What Rajan most fears,
+sitting in the intake room, is that a clinician will confirm what he already believes about himself.
+What he most hopes, though he would not say so directly, is that someone will tell him he is wrong.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Rajan is an eighty-year-old widowed South Asian man who served for decades with the United States
+Coast Guard and who, in the final years of his active service, was at the helm of a rescue vessel
+when a navigational error during a fog-bound coastal operation caused the boat to strike a smaller
+craft. The collision was sudden and catastrophic. A junior crewman was pulled from the water with
+severe spinal injuries that left him partially paralysed, and though the official inquiry attributed
+the accident to conditions rather than negligence, Rajan never accepted that verdict. He remembered
+the particular quality of the light that morning — grey-green water, salt mist hanging low over the
+shoreline, the smell of diesel and kelp — and it was into that sensory world that his mind returned
+without warning for years afterward.
+
+Rajan retired shortly after the incident and moved into a small house near the Massachusetts coast,
+where he had expected to spend his later years quietly. Instead, the environment that had defined
+his working life became a source of dread. Walking along the shoreline — something he had once done
+daily — now meant exposure to the same grey-green light, the same salt air, the same quality of open
+sky that surrounded the accident. When those natural cues registered, his body responded before his
+mind could intervene: his chest tightened, his attention narrowed, and the fragmented pieces of that
+morning began to surface unbidden. The memories did not arrive as a coherent narrative. They came in
+disconnected shards — the sound of impact, a flash of orange survival gear, a voice he could not
+place — that refused to assemble into a whole he could examine or put away. When he tried
+deliberately to reconstruct what had happened, the sequence dissolved; yet when a siren passed his
+window, or when a neighbour's scanner crackled with emergency traffic, the sensory world of the
+accident returned with full physical force, as though he were back on the water, the deck tilting
+beneath him. In those moments the reliving was total — not a recollection but a reinstatement,
+complete across every sense at once.
+
+Because the memories arrived so violently and so incompletely, Rajan came to believe that the only
+way to survive them was to prevent their arrival. He told himself, with increasing conviction, that
+the accident had not been as serious as he remembered, or perhaps had not happened quite as he
+thought — a form of magical thinking that offered brief relief but left the underlying material
+untouched. He forced himself toward positive thoughts, rehearsing gratitude and forward-looking
+images, and when fragments surfaced anyway he pushed them down deliberately. These strategies
+quieted the surface without resolving anything beneath it, and over months he noticed that the
+memories seemed, if anything, more intrusive — as though suppression had kept them pressurised.
+There was a further cost he had not anticipated: because he had never stayed with a situation long
+enough to find out it was safe, his body had never received the evidence it needed, and the sense of
+threat remained as high and as immediate as it had been in the weeks after the accident — the
+avoidance and suppression had, in their own way, kept the danger feeling real and ongoing. The
+effort of managing his own mind also fed a darker conclusion: that a man who needed such constant
+mental labour to stay functional must have something fundamentally wrong with him. He had come to
+believe, with the quiet certainty of someone who has argued himself into a corner over years, that
+the accident had happened because of the kind of person he was — careless, arrogant,
+constitutionally unfit for the responsibility he had been given.
+
+That appraisal of his own character sat at the centre of everything. Because he was certain he was
+defective, he was equally certain that danger was never far away — that his judgment could not be
+trusted, that unfamiliar environments held risks he would fail to assess correctly. And because he
+moved through the world already convinced of his own defectiveness, the environment seemed to
+conspire to confirm it — the grey-green light off the water, the smell of salt air, the distant
+sound of a foghorn all snagged his attention in a way they never had before the accident, each one
+registering not as neutral sensation but as evidence that the past was still present and still
+indicting him. He stopped travelling anywhere he had not been before. At the veterans' community
+centre where he occasionally attended lunch, he chose his seat with deliberate care, positioning
+himself with his back to the wall and a clear line to the exit. On days when the sense of threat ran
+highest — when his body was already primed and his vigilance already elevated — the memories were
+hardest to hold back; it was as though the adrenaline itself reached into the past and pulled the
+accident forward, so that the deck seemed to tilt beneath him again and the sound of the collision
+rang in his ears with fresh precision. Living at that pitch of alertness, he found that the world
+had become dense with signals he could not stop reading — a passing boat on the horizon, the
+particular angle of morning light over the water, the static crackle of any radio — each one
+catching in him like a hook, confirming what his nervous system already believed about the danger he
+carried with him. He had also, paradoxically, begun taking small physical risks — driving too fast
+on empty roads, neglecting prescribed medications — as though some part of him had decided that a
+man like him deserved whatever harm came his way. Talking about the future with his daughter, who
+visited on weekends, triggered the same cascade: any forward projection reminded him that the
+crewman he had injured was living a constrained life because of him, which brought the guilt
+flooding back and, with it, the fragments. His daughter noticed that he deflected every conversation
+about plans or hopes, and it was she who finally persuaded him to seek help. What Rajan most fears,
+sitting in the intake room, is that a clinician will confirm what he already believes about himself.
+What he most hopes, though he would not say so directly, is that someone will tell him he is wrong.

@@ -1,0 +1,211 @@
+PERSONA 495  |  2026-05-02 21:20:42
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             43
+  gender          Female
+  ethnicity       South Asian
+  relationship_status Married
+  occupation      Plumber
+  trauma_type     Toxic chemical exposure
+  pcl5            79
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Smoke): Smoke or fire smell
+    • Olfactory (Smell): Related smells
+    • Olfactory Danger Cue: Burnt smell
+  Maladaptive Strategies:
+    • Avoid All Feelings: avoid anything that could cause negative or positive feelings
+    • Checking Surroundings: constantly scan environment for signs of threat
+    • Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+  Threat:
+    • Waking Alert: I wake during the night to check whether I am safe
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3252
+  Triggers → Threat                                  0.8013
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.3746
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.7232
+  Maladaptive Strategies → Threat                    0.5706
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: For toxic chemical exposure, the trigger set is hard to reconcile with the trauma type: explosion sounds and a specific perfume/cologne suggest a blast/fire or interpersonal-associated cue pattern rather than a chemically exposed patient, especially with no matching memory or appraisal content to explain these cues.
+    item:        Threat / Triggers: Olfactory (Cologne/Perfume): A specific perfume or cologne
+    explanation: The three trigger items do not form a coherent trigger profile for a single toxic exposure trauma. Explosion sounds imply an acute blast-related event, perfume/cologne implies a highly idiosyncratic associative cue, and sleeping alone/unfamiliar place is a vulnerability context rather than a specific trauma reminder; together they lack a clear shared link to the reported trauma.
+    item:        Maladaptive Strategies / Triggers: Sleeping Alone: Sleeping alone or in an unfamiliar place
+    explanation: Threat items center on strangers, vague delays, and nighttime safety checking, which reads as a generalized interpersonal/hypervigilance threat profile rather than one tied to toxic chemical exposure. Given the strong Triggers → Threat edge, the threats should be plausibly elicited by the reported triggers, but strangers and delays are poorly connected to explosion sounds, perfume, and sleeping alone.
+  [2] FAIL
+    item:        Triggers / Triggers: Sleeping Alone: Sleeping alone or in an unfamiliar place
+    explanation: For toxic chemical exposure, the olfactory triggers are clinically coherent, but 'sleeping alone or in an unfamiliar place' is a qualitatively different trigger theme more typical of interpersonal assault, combat, or burglary-related threat learning. It is hard to link this item to the same trauma profile described by the other trigger items.
+    item:        Threat / Threat: Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations
+    explanation: The threat profile is dominated by generalized interpersonal danger ('strangers approaching me') and vague catastrophe in delays, whereas the trigger profile is specifically smell-based and exposure-related. With a strong Triggers → Threat edge, the threat items should plausibly arise from those triggers; here the link is weak because the endorsed threats do not center on contamination, poisoning, bodily harm from exposure, or unsafe environments.
+  [3] FAIL
+    item:        Triggers / Triggers: Olfactory (Cologne/Perfume): A specific perfume or cologne
+    explanation: For toxic chemical exposure, hospital/antiseptic and smoke smells are plausible olfactory trauma reminders, but a specific perfume/cologne is hard to reconcile with the same exposure unless there is additional context not reflected elsewhere in the profile. It stands out as a trigger type not supported by the other selected items.
+    item:        Threat / Threat: Threat in Delays: When something takes longer than expected I assume something bad is happening
+    explanation: The threat profile is dominated by immediate safety checking and hypervigilance, closely matching the strong Triggers ↔ Threat and Maladaptive Strategies → Threat pattern. 'Threat in Delays' implies a more generalized expectancy of bad outcomes from lateness or delay, which is not well anchored to the toxic exposure context or to the other selected trigger items. It is less coherent with the otherwise concrete contamination/safety-related threat pattern.
+  [4] FAIL
+    item:        Triggers / Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: For toxic chemical exposure, hospital/antiseptic smells can be plausible aftermath cues if linked to treatment, but the overall profile lacks any memory or appraisal content anchoring medical aftermath; combined with the other smell triggers and home-intruder threat items, this trigger set does not form a coherent trauma-linked pattern.
+    item:        Threat / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The threat items are dominated by fear of a person entering the home or needing to check for personal safety at night, which suggests interpersonal attack/home invasion rather than toxic chemical exposure. This is hard to reconcile with the trigger profile of chemical/smell cues.
+  [5] FAIL
+    item:        Triggers / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: For a toxic chemical exposure trauma, smoke/related smells are plausible olfactory triggers, but alcohol smell is hard to connect unless the exposure specifically involved solvents or alcohol-like chemicals. With no supporting threat or memory content tying the trauma to alcohol-like odours, this item is clinically questionable.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Overanalysing: I go over and over the details of the event trying to make sense of it
+    explanation: The formulation makes Negative Appraisals and Memory effectively isolated/inactive, while the active pattern centres on Triggers ↔ Threat and Maladaptive Strategies. Overanalysing the event to make sense of it is more characteristic of appraisal/meaning-making processes than of the otherwise selected strategy pattern (avoidance and checking). In this profile it sits weakly with the active edge structure and lacks support from any appraisal items.
+  [6] FAIL
+    item:        Maladaptive Strategies / Checking Locks: repeatedly check locks, doors, or windows
+    explanation: For toxic chemical exposure, repeatedly checking locks/doors/windows is not a plausible fit with the rest of the profile. The triggers and threat items center on olfactory danger cues and generalized safety monitoring after exposure, but checking locks is a security/intruder-oriented behavior that is hard to reconcile with the stated trauma and selected threat content. It does not align well with the active Triggers → Threat / Maladaptive Strategies pattern, because the dominant trigger-threat link here is chemical/smoke smell rather than break-in danger.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,789
+  output:     4,263
+  total:      7,052
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Anjali, a 43-year-old plumber from a bustling South Asian community, had always prided herself on
+her resilience, a trait honed over years in a male-dominated profession. But that changed
+irrevocably during a routine job in a deserted industrial complex. She was deep in a cramped utility
+tunnel, wrestling with a corroded pipe, when a sudden, sickening hiss filled the air. A ruptured
+line released a volatile chemical, its acrid, burnt smell instantly burning her nostrils and throat.
+She choked, her eyes streaming, the terrifying sensation of being trapped with the noxious fumes
+overwhelming her. She fought her way out, gasping for air, the metallic, almost smoky odour clinging
+to her clothes and hair long after she reached safety. The memory of that suffocating smell, the
+burning in her lungs, and the sheer helplessness became an invisible scar.
+
+In the weeks and months that followed, Anjali found her world shrinking. Any faint whiff of smoke,
+even from a distant barbecue, or the acrid scent of exhaust fumes, would instantly transport her
+back, her heart beginning to pound violently, her muscles tensing (Triggers → Threat). She’d feel a
+jolt of panic, a desperate need to know where the smell was coming from, compelled to scan her
+surroundings relentlessly for any sign of danger (Hypervigilance, part of Threat). This intense
+physical reactivity and hyper-alertness made her increasingly exhausted. She started waking up
+suddenly in the middle of the night, breath catching, her mind racing as she checked the house,
+convinced something was amiss (Waking Alert, part of Threat). The lack of restorative sleep left her
+perpetually on edge, her senses heightened.
+
+To cope with the constant anxiety, Anjali began to actively avoid anything that might trigger these
+overwhelming sensations. She’d turn down plumbing jobs in older buildings or industrial areas,
+making excuses to her husband and colleagues (Maladaptive Strategies → Triggers). What once felt
+like a necessary caution quickly evolved into a broader strategy: she started to avoid any situation
+that might stir strong emotions, positive or negative, believing that feeling anything intensely
+made her vulnerable and less able to respond to an unexpected threat (Avoid All Feelings, part of
+Maladaptive Strategies). This emotional numbness, while intended to protect her, only deepened her
+sense of isolation.
+
+The more she tried to avoid these triggering smells, the more potent they seemed to become when she
+inevitably encountered them. A neighbour burning leaves or a faint electrical smell would instantly
+register as a threat, sparking the familiar fear (Maladaptive Strategies → Triggers). Her constant
+vigilance, the way she was always checking her surroundings, paradoxically kept her nervous system
+primed for threat, making her hypervigilance a constant, exhausting state (Maladaptive Strategies →
+Threat). This chronic state of alertness meant that even the most innocuous smells, barely
+noticeable to others, would register as a potential danger to her, immediately activating her
+internal alarm system (Threat → Triggers).
+
+Her avoidance wasn't limited to smells. The original incident had left her with a deep distrust of
+medical settings, making her avoid hospitals, ambulances, and even routine physical examinations
+(Avoid Medical Cues, part of Maladaptive Strategies). She worried that any medical assessment might
+uncover lingering damage, or worse, expose her to more overwhelming sensations. As time wore on, her
+inability to fully engage with her work, combined with the emotional distance she cultivated, began
+to strain her marriage. Her husband noticed her withdrawal, her preoccupation, the way she would
+flinch at certain smells, but she found herself unable to explain the terror that consumed her.
+Anjali came to therapy feeling utterly depleted, trapped by a fear she couldn't outrun, desperately
+hoping to reclaim the resilient woman she once was before the world started to smell of danger.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Anjali, a 43-year-old plumber from a bustling South Asian community, had always prided herself on
+her resilience, a trait honed over years in a male-dominated profession. But that changed
+irrevocably during a routine job in a deserted industrial complex. She was deep in a cramped utility
+tunnel, wrestling with a corroded pipe, when a sudden, sickening hiss filled the air. A ruptured
+line released a volatile chemical, its acrid, burnt smell instantly burning her nostrils and throat.
+She choked, her eyes streaming, the terrifying sensation of being trapped with the noxious fumes
+overwhelming her. She fought her way out, gasping for air, the metallic, almost smoky odour clinging
+to her clothes and hair long after she reached safety. The memory of that suffocating smell, the
+burning in her lungs, and the sheer helplessness became an invisible scar.
+
+In the weeks and months that followed, Anjali found her world shrinking. Any faint whiff of smoke,
+even from a distant barbecue, or the acrid scent of exhaust fumes, would instantly transport her
+back, her heart beginning to pound violently, her muscles tensing (Triggers → Threat). She’d feel a
+jolt of panic, a desperate need to know where the smell was coming from, compelled to scan her
+surroundings relentlessly for any sign of danger (Hypervigilance, part of Threat). This intense
+physical reactivity and hyper-alertness made her increasingly exhausted. She started waking up
+suddenly in the middle of the night, breath catching, her mind racing as she checked the house,
+convinced something was amiss (Waking Alert, part of Threat). The lack of restorative sleep left her
+perpetually on edge, her senses heightened.
+
+To cope with the constant anxiety, Anjali began to actively avoid anything that might trigger these
+overwhelming sensations. She’d turn down plumbing jobs in older buildings or industrial areas,
+making excuses to her husband and colleagues (Maladaptive Strategies → Triggers). What once felt
+like a necessary caution quickly evolved into a broader strategy: she started to avoid any situation
+that might stir strong emotions, positive or negative, believing that feeling anything intensely
+made her vulnerable and less able to respond to an unexpected threat (Avoid All Feelings, part of
+Maladaptive Strategies). This emotional numbness, while intended to protect her, only deepened her
+sense of isolation.
+
+The more she tried to avoid these triggering smells, the more potent they seemed to become when she
+inevitably encountered them. A neighbour burning leaves or a faint electrical smell would instantly
+register as a threat, sparking the familiar fear (Maladaptive Strategies → Triggers). Her constant
+vigilance, the way she was always checking her surroundings, paradoxically kept her nervous system
+primed for threat, making her hypervigilance a constant, exhausting state (Maladaptive Strategies →
+Threat). This chronic state of alertness meant that even the most innocuous smells, barely
+noticeable to others, would register as a potential danger to her, immediately activating her
+internal alarm system (Threat → Triggers).
+
+Her avoidance wasn't limited to smells. The original incident had left her with a deep distrust of
+medical settings, making her avoid hospitals, ambulances, and even routine physical examinations
+(Avoid Medical Cues, part of Maladaptive Strategies). She worried that any medical assessment might
+uncover lingering damage, or worse, expose her to more overwhelming sensations. As time wore on, her
+inability to fully engage with her work, combined with the emotional distance she cultivated, began
+to strain her marriage. Her husband noticed her withdrawal, her preoccupation, the way she would
+flinch at certain smells, but she found herself unable to explain the terror that consumed her.
+Anjali came to therapy feeling utterly depleted, trapped by a fear she couldn't outrun, desperately
+hoping to reclaim the resilient woman she once was before the world started to smell of danger.

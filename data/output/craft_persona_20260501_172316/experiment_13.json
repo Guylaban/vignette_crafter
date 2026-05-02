@@ -1,0 +1,295 @@
+{
+  "persona_id": 13,
+  "source_persona_id": null,
+  "experiment_timestamp": "2026-05-01 17:26:04",
+  "config": {
+    "pipeline": "craft_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 56,
+    "gender": "Male",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Widowed",
+    "occupation": "Nun",
+    "trauma_type": "Refugee",
+    "pcl5": 57
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Therapy Content",
+        "value": "avoid thinking about anything discussed in therapy"
+      },
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Avoid Crowds",
+        "value": "Crowded places such as shopping centres or public events"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Cannot Trust Safety",
+        "value": "Even when others tell me I am safe I find it impossible to believe it"
+      },
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Confused Sequence",
+        "value": "I cannot put the memories of the event in the right order"
+      },
+      {
+        "key": "Overwhelm on Recall",
+        "value": "When the memory returns I feel so overwhelmed by emotion that I have to stop"
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Survival Guilt",
+        "value": "I feel guilty for surviving when others did not"
+      },
+      {
+        "key": "Failed to Protect",
+        "value": "I should have protected others and I failed"
+      },
+      {
+        "key": "Self-Doubt",
+        "value": "I can't trust that I will do the right thing"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.9409,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.437,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.6668,
+    "Threat -- Memory": 0.901,
+    "Threat -- Negative Appraisals": 0.6702,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.7002,
+    "Maladaptive Strategies -- Negative Appraisals": 0.1999,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.3854
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Threat",
+    "Memory → Maladaptive Strategies",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Threat",
+    "Memory → Maladaptive Strategies",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.612675,
+  "edge_density": 0.4,
+  "vignette_word_count": 0,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Demographics/occupation",
+          "item": "occupation: Nun",
+          "explanation": "The demographic profile contains a clear internal inconsistency: a 56-year-old male is listed with the occupation 'Nun,' which is not clinically coherent as stated and would immediately warrant data verification."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Flashbacks",
+          "explanation": "Within the allowed symptom nodes, the Threat item 'Flashbacks' is misplaced conceptually: flashbacks are re-experiencing/memory phenomena rather than threat appraisals, creating a within-profile inconsistency because the Threat node otherwise reflects persistent danger appraisal ('cannot trust safety,' 'body on alert')."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Pain Recall",
+          "explanation": "The Memory item 'Pain Recall' can be plausible after severe trauma, but in combination with the current profile it suggests a prominent somatic/injury-linked re-experiencing theme that is not otherwise reflected in the other selected items; this weakly fits compared with the rest of the memory/appraisal pattern and is the least coherent item in the node."
+        }
+      ],
+      "problematic_items": {
+        "Demographics/occupation": [
+          "occupation"
+        ],
+        "Threat": [
+          "Flashbacks"
+        ],
+        "Memory": [
+          "Pain Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Compulsive Exercise: I push myself to exercise excessively",
+          "explanation": "'Compulsive Exercise' is hard to reconcile with this patient's stated demographics because the profile lists a 56-year-old male whose occupation is 'Nun,' which is itself demographically incongruent. Given the instruction to assess item coherence with demographics, this maladaptive-strategy item sits within an already implausible demographic context and is difficult to interpret as belonging to the same coherent patient profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Compulsive Exercise"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Demographics",
+          "item": "occupation: Nun",
+          "explanation": "The demographic profile is internally incoherent: a 56-year-old male with occupation listed as 'Nun' is implausible and would require immediate verification."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Lost Faith: I have lost my faith in people, life, or a higher power",
+          "explanation": "Given the occupation/religious role implied by 'Nun,' the item 'Lost Faith' creates a hard-to-explain contradiction with the demographic profile."
+        }
+      ],
+      "problematic_items": {
+        "Demographics": [
+          "occupation"
+        ],
+        "Negative Appraisals": [
+          "Lost Faith"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Demographics/occupation",
+          "item": "occupation: Nun",
+          "explanation": "The demographic profile is internally inconsistent: a 56-year-old male cannot plausibly have the occupation 'Nun'. This makes the profile clinically incoherent at the item level even before considering symptom content."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Self-Blame: The event happened because of the way I acted",
+          "explanation": "Within Negative Appraisals, 'Failed to Protect' and 'Survival Guilt' are coherent for a refugee trauma, but 'Self-Blame: The event happened because of the way I acted' is harder to reconcile when paired with those items unless there is some specific action linked to the trauma. As written, it risks overextending blame in a way not clearly supported by the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Demographics/occupation": [
+          "occupation"
+        ],
+        "Negative Appraisals": [
+          "Self-Blame"
+        ]
+      }
+    },
+    {
+      "attempt": 5,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Intimacy: Being emotionally close or intimate with others",
+          "explanation": "'Avoid Intimacy' is clinically incoherent with the stated demographics: the patient is listed as a 56-year-old male whose occupation is 'Nun,' which is itself inconsistent with male gender and implies celibate religious role expectations. In that context, avoidance of emotional closeness/intimacy is not interpretable as a trauma-linked maladaptive strategy in a straightforward way, and it is not supported by the other selected items, which center on hypervigilance, threat, and disorganized traumatic memory rather than relational intimacy."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Intimacy"
+        ]
+      }
+    },
+    {
+      "attempt": 6,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid People",
+          "explanation": "The demographic profile is clinically implausible as written: a 56-year-old male with occupation listed as 'Nun'. Because self-report coherence must be checked against demographics, items implying ordinary social avoidance cannot be confidently interpreted against an internally inconsistent demographic/role context. This is a hard plausibility problem rather than mere unusualness."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid People"
+        ]
+      }
+    }
+  ],
+  "validation_summary": {
+    "attempts": 0,
+    "passed": 0,
+    "failed": 0,
+    "ultimately_passed": null
+  },
+  "token_usage": {
+    "input": 21436,
+    "output": 1198,
+    "total": 22634
+  },
+  "vignette": ""
+,
+
+  "vignette_attempts": [
+  ]
+}

@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 
 
-def setup_logging(experiment_dir: Path, level: int = logging.DEBUG) -> None:
+def setup_logging(experiment_dir: Path, level: int = logging.INFO) -> None:
     """Configure file-based logging for the simulation.
 
     Call once at startup (main.py). All modules then use:

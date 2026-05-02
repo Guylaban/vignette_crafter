@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "agent_name": "Persona_380_PersonaValidator",
+    "role": "PersonaValidator",
+    "call_index": 1,
+    "timestamp": "2026-05-01 20:02:30"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a validator checking whether a PTSD patient's self-report profile is clinically coherent.\n\nDemographics and trauma type have already been validated. Your job is to check three things:\n1. Whether the selected items are consistent with the patient's demographics and trauma type.\n2. Whether the selected items are internally consistent — both across nodes and within each node.\n3. Whether the selected items are consistent with the cognitive formulation — items from a node should reflect the edge pattern of that node.\n\nSCOPE: Only flag items belonging to these five components: Triggers, Threat, Negative Appraisals, Memory, Maladaptive Strategies.\nDo NOT flag PCL-5 score, overall severity, or any meta-level concern — only flag individual items within the five components above.\n\nJUDGMENT GUIDELINES:\n\n- Clearly implausible vs merely unusual:\n  A combination is clearly implausible if a clinician would immediately question whether the items could describe the same patient with the same trauma.\n  Unusual or unexpected combinations are not enough to flag — real patients are heterogeneous.\n  Only flag when the mismatch is hard to explain clinically.\n\n- Within-node consistency:\n  Three items from the same node should not directly contradict each other.\n  Thematic redundancy is fine.\n  Flag only when two items within the same node express opposing clinical states.\n\n- Cross-node consistency:\n  The items across all nodes should describe a coherent patient.\n  Flag when items from different nodes pull in opposite directions in a way that cannot plausibly coexist \n  For example, triggers that imply a specific threat context that is entirely absent from the appraisals and memory items, or maladaptive strategies that address a symptom type not represented anywhere else in the profile.\n\n- Cognitive formulation alignment:\n  The cognitive formulation specifies which nodes are active and the strength of edges between them.\n  A strong edge between two nodes (e.g. Triggers → Threat) means those components are tightly linked for this patient — the self-report items from those nodes should reflect a plausible clinical connection.\n  Items from a node with no strong outgoing or incoming edges should not contradict the isolated role of that node.\n  Do not flag items solely because an edge is weak or absent — only flag when the items actively contradict the formulation structure.\n\n- PCL-5 severity:\n  The PCL-5 score reflects overall symptom severity.\n  Flag if the items selected across nodes are clearly mismatched with that severity level — either consistently too mild or consistently too severe relative to the score.\n\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following patient's self-report for clinical coherence with their demographics, trauma type, and cognitive formulation.\n\nPatient demographics:\n  age: 74\n  gender: Female\n  ethnicity: African\n  relationship_status: In a relationship\n  occupation: Agricultural Worker\n  trauma_type: Rape\n  pcl5: 65\n\nCognitive formulation (Ehlers & Clark model):\nActive edges:\n  - Triggers → Maladaptive Strategies (strength: 0.32)\n  - Triggers → Negative Appraisals (strength: 0.02)\n  - Negative Appraisals → Maladaptive Strategies (strength: 0.75)\n  - Negative Appraisals → Triggers (strength: 0.07)\n  - Maladaptive Strategies → Negative Appraisals (strength: 0.63)\n  - Maladaptive Strategies → Triggers (strength: 0.45)\n\nInactive edges:\n  - Triggers → Threat\n  - Triggers → Memory\n  - Negative Appraisals → Threat\n  - Negative Appraisals → Memory\n  - Memory → Maladaptive Strategies\n  - Memory → Threat\n  - Memory → Negative Appraisals\n  - Memory → Triggers\n  - Threat → Maladaptive Strategies\n  - Threat → Memory\n  - Threat → Negative Appraisals\n  - Threat → Triggers\n  - Maladaptive Strategies → Memory\n  - Maladaptive Strategies → Threat\n\nSelf-report items:\n  Triggers: Olfactory (Earth/Outdoor): Soil or outdoor smells, Anniversaries: The anniversary of the event, Auditory (Silence): Sudden or complete silence\n  Maladaptive Strategies: Constant Socialising: I keep myself constantly surrounded by people so I am never alone with my thoughts, Positive Reframing: I force myself to think only positive thoughts, Avoid Circumstances: Being in circumstances that remind me of the event (eg, being in the dark).\n  Negative Appraisals: Fear of Rage: I will not be able to control my anger and will do something terrible, Life Not Worth Living: I am not sure my life is worth living anymore, Body Shame: I feel ashamed of what happened to my body"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "issue_components": [
+      "Negative Appraisals",
+      "Maladaptive Strategies"
+    ],
+    "issue_items": [
+      "Fear of Rage: I will not be able to control my anger and will do something terrible",
+      "Constant Socialising: I keep myself constantly surrounded by people so I am never alone with my thoughts",
+      "Positive Reframing: I force myself to think only positive thoughts"
+    ],
+    "issue_explanations": [
+      "The appraisal of feared uncontrollable rage is not well supported by the rest of the profile. There are no corresponding trigger, threat, memory, or strategy items suggesting anger-driven reactivity, aggression risk, or conflict; the other appraisals instead center on shame and hopelessness after rape. This makes the rage item clinically discordant within the selected five components.",
+      "The strategy of constant socialising is hard to reconcile with the rest of the profile in this rape-related presentation. The selected triggers are solitary/sensory reminders (silence, outdoor smells, anniversary), and the appraisals are shame, suicidality, and feared rage. Constantly surrounding oneself with people does not connect clearly to these reminders and is somewhat at odds with body shame after rape, making it the least coherent avoidance/coping item here.",
+      "Forced positive reframing is also weakly linked to the rest of the formulation. The active formulation strongly links negative appraisals and maladaptive strategies, but the chosen appraisals are severe and trauma-focused (body shame, life not worth living, feared rage), whereas this item reflects a generic thought-control style without a clear tie to the specific rape-related appraisals. It is not impossible, but alongside the other mismatches it contributes to incoherence."
+    ]
+  }
+}

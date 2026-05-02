@@ -1,0 +1,224 @@
+{
+  "persona_id": 45,
+  "source_persona_id": 45,
+  "experiment_timestamp": "2026-05-02 19:50:13",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-reasoner",
+      "persona_crafter": "deepseek-reasoner",
+      "vignette_crafter": "deepseek-reasoner",
+      "vignette_validator": "deepseek-reasoner"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 37,
+    "gender": "Male",
+    "ethnicity": "Latin American",
+    "relationship_status": "Divorced",
+    "occupation": "Social Ministry Worker",
+    "trauma_type": "Physical abuse by romantic partner",
+    "pcl5": 48
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Tactile (Restrained)",
+        "value": "Feeling physically restrained or held down"
+      },
+      {
+        "key": "Auditory (Door)",
+        "value": "Doors opening or slamming"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Location",
+        "value": "Going to or near the place where the event happened"
+      },
+      {
+        "key": "Freeze When Threatened",
+        "value": "freeze completely when feeling threatened"
+      },
+      {
+        "key": "Emotion Control",
+        "value": "I try hard to control my emotions"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      },
+      {
+        "key": "Door and Lock Checking",
+        "value": "I repeatedly check that doors and windows are locked"
+      },
+      {
+        "key": "Night Vigilance",
+        "value": "I find it harder to feel safe at night than during the day"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      },
+      {
+        "key": "Auditory Recall",
+        "value": "When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event."
+      },
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.4759,
+    "Triggers -- Threat": 0.8487,
+    "Triggers -- Memory": 0.8836,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4066,
+    "Threat -- Maladaptive Strategies": 0.2027,
+    "Threat -- Memory": 0.0828,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.7668,
+    "Maladaptive Strategies -- Memory": 0.9892,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.1276,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5315444444444445,
+  "edge_density": 0.45,
+  "vignette_word_count": 799,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips",
+          "explanation": "These triggers are hard to reconcile with the stated trauma of physical abuse by a romantic partner. 'Feeling restrained or held down' fits well, but medical equipment and helicopter sounds suggest a medical, combat, or accident context that is not represented in the Threat, Memory, Appraisals, or Strategy items."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "Because Triggers has strong links to Threat and Memory in the formulation, the trigger content should plausibly connect to the patient's danger cues and trauma memories. The profile's Threat items center on interpersonal hypervigilance in close environments (silence, nearby movement, lock checking), and Memory items do not contain medical or aircraft content, making these two triggers clinically incoherent with the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Needles/Medical)"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "'Helicopter or aircraft sounds' is hard to reconcile with the stated trauma type of physical abuse by a romantic partner unless there is additional undisclosed trauma exposure; it does not fit the rest of the profile, which centers on interpersonal/domestic threat cues such as restraint, doors, movement, and lock checking."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat in Silence: Unusual silence makes me feel something dangerous is about to happen",
+          "explanation": "'Unusual silence makes me feel something dangerous is about to happen' is not impossible, but paired with the otherwise specifically interpersonal/domestic cue pattern it weakens coherence because it suggests a different threat context without support from memory or appraisal items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Helicopter)"
+        ],
+        "Threat": [
+          "Threat in Silence"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3085,
+    "output": 3094,
+    "total": 6179
+  },
+  "vignette": "Mateo is a 37-year-old social ministry worker who came to therapy at the urging of his supervisor. For the past year and a half, he has been living in a small apartment on the other side of town from the house he shared with his ex-wife, Elena. The divorce became final eight months ago, but the abuse that ended the marriage happened nearly two years earlier. Late one night, after a community fundraiser where Elena had been drinking heavily, she accused Mateo of hiding money. She shoved him into the bedroom, pinned him face-down on the mattress with her knee in his back, and held his arms behind him so tightly his shoulders ached for days. The smell of cheap whiskey on her breath was suffocating. He could hear the bedroom door slam shut and the lock click. He remembers every second of that night with brutal clarity—the weight on his spine, the sound of her breathing, the way his own voice cracked when he begged her to stop. What haunts him most is not the physical pain but the grief that floods him whenever the memory surfaces: a raw, formless sorrow for the man he used to be.\n\nThe smell of alcohol has become a tripwire. A few weeks after the assault, Mateo volunteered at the parish food pantry; a client stepped close, reeking of bourbon, and Mateo’s chest seized. He went rigid, his arms locked at his sides, unable to speak or move until the man walked away. The freeze response is the only thing he can do in that moment—he has learned that trying to push through only makes the shaking worse. Since then, he has stopped taking evening shifts at the pantry and avoids the neighborhood liquor store entirely, even though it means a longer bus ride home. These strategies feel necessary, but he knows they are shrinking his world. The sound of a door opening is almost as bad: at the ministry office, whenever someone slams a filing cabinet or a volunteer lets a door swing shut, Mateo’s head snaps up, his heart hammering. He has started working from a back office with the door wedged open and the lock removed—an ironic choice that he tells himself is for ventilation, though he avoids examining why sitting in a closed room makes his skin crawl.\n\nThat vigilance follows him home. Every night, long after his neighbors have gone to sleep, Mateo walks through his apartment checking each window latch and deadbolt. He does it three or four times, even though nothing has ever been disturbed. Darkness amplifies every creak and draft, and he finds it impossible to feel safe after sunset. A sudden movement in his peripheral vision—a stray cat, a curtain shifting in the breeze—makes him flinch as though he is about to be attacked. These startle reactions, in turn, drag the assault back into his mind. The vividness of the memory is undimmed: he can still hear the dry rasp of his own throat against the mattress, the squeak of the bedsprings. Trying to control his emotions only makes the grief worse. At a recent staff meeting, a colleague accidentally knocked a stack of papers off a desk; the sharp slap of paper on tile sent Mateo’s mind straight to that bedroom door slamming shut. He excused himself to the restroom and stood gripping the sink, forcing his breathing to slow, but the auditory recall played itself out behind his eyelids for ten more minutes.\n\nThe causal threads tighten into a loop he cannot escape. When he is already on edge from nightmares—he has begun waking at 3 a.m., convinced he smells whiskey—the slightest trigger, like an unexpected hand on his shoulder during a ministry event, sends him straight into a freeze state. And when he freezes, the memory crystallises: he is back under Elena’s weight, unable to move, the grief stabbing through his chest. To break the cycle, he tries to suppress every flicker of emotion, but that vigilance makes him even more sensitive to the triggers. He has started to avoid any situation where someone might touch him, even a friendly pat on the back, which his supervisor noticed and interpreted as coldness. The only place he still feels moderately safe is his own car, doors locked, windows up, radio on low—but even there, the smell of a passing beer truck can ruin an entire drive. Mateo finally walked into therapy because he is afraid of losing his job. He is terrified that one day he will freeze in the middle of a conversation with a parishioner and never find his way back. What he hopes for, though he cannot quite say it aloud, is to someday sit in a room with a closed door and not hear the lock click."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Mateo is a 37-year-old social ministry worker who came to therapy at the urging of his supervisor. For the past year and a half, he has been living in a small apartment on the other side of town from the house he shared with his ex-wife, Elena. The divorce became final eight months ago, but the abuse that ended the marriage happened nearly two years earlier. Late one night, after a community fundraiser where Elena had been drinking heavily, she accused Mateo of hiding money. She shoved him into the bedroom, pinned him face-down on the mattress with her knee in his back, and held his arms behind him so tightly his shoulders ached for days. The smell of cheap whiskey on her breath was suffocating. He could hear the bedroom door slam shut and the lock click. He remembers every second of that night with brutal clarity—the weight on his spine, the sound of her breathing, the way his own voice cracked when he begged her to stop. What haunts him most is not the physical pain but the grief that floods him whenever the memory surfaces: a raw, formless sorrow for the man he used to be.\n\nThe smell of alcohol has become a tripwire. A few weeks after the assault, Mateo volunteered at the parish food pantry; a client stepped close, reeking of bourbon, and Mateo’s chest seized. He went rigid, his arms locked at his sides, unable to speak or move until the man walked away. The freeze response is the only thing he can do in that moment—he has learned that trying to push through only makes the shaking worse. Since then, he has stopped taking evening shifts at the pantry and avoids the neighborhood liquor store entirely, even though it means a longer bus ride home. These strategies feel necessary, but he knows they are shrinking his world. The sound of a door opening is almost as bad: at the ministry office, whenever someone slams a filing cabinet or a volunteer lets a door swing shut, Mateo’s head snaps up, his heart hammering. He has started working from a back office with the door wedged open and the lock removed—an ironic choice that he tells himself is for ventilation, though he avoids examining why sitting in a closed room makes his skin crawl.\n\nThat vigilance follows him home. Every night, long after his neighbors have gone to sleep, Mateo walks through his apartment checking each window latch and deadbolt. He does it three or four times, even though nothing has ever been disturbed. Darkness amplifies every creak and draft, and he finds it impossible to feel safe after sunset. A sudden movement in his peripheral vision—a stray cat, a curtain shifting in the breeze—makes him flinch as though he is about to be attacked. These startle reactions, in turn, drag the assault back into his mind. The vividness of the memory is undimmed: he can still hear the dry rasp of his own throat against the mattress, the squeak of the bedsprings. Trying to control his emotions only makes the grief worse. At a recent staff meeting, a colleague accidentally knocked a stack of papers off a desk; the sharp slap of paper on tile sent Mateo’s mind straight to that bedroom door slamming shut. He excused himself to the restroom and stood gripping the sink, forcing his breathing to slow, but the auditory recall played itself out behind his eyelids for ten more minutes.\n\nThe causal threads tighten into a loop he cannot escape. When he is already on edge from nightmares—he has begun waking at 3 a.m., convinced he smells whiskey—the slightest trigger, like an unexpected hand on his shoulder during a ministry event, sends him straight into a freeze state. And when he freezes, the memory crystallises: he is back under Elena’s weight, unable to move, the grief stabbing through his chest. To break the cycle, he tries to suppress every flicker of emotion, but that vigilance makes him even more sensitive to the triggers. He has started to avoid any situation where someone might touch him, even a friendly pat on the back, which his supervisor noticed and interpreted as coldness. The only place he still feels moderately safe is his own car, doors locked, windows up, radio on low—but even there, the smell of a passing beer truck can ruin an entire drive. Mateo finally walked into therapy because he is afraid of losing his job. He is terrified that one day he will freeze in the middle of a conversation with a parishioner and never find his way back. What he hopes for, though he cannot quite say it aloud, is to someday sit in a room with a closed door and not hear the lock click.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,199 @@
+{
+  "persona_id": 103,
+  "source_persona_id": 103,
+  "experiment_timestamp": "2026-05-02 16:37:23",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-flash",
+      "persona_crafter": "gemini-2.5-flash",
+      "vignette_crafter": "gemini-2.5-flash",
+      "vignette_validator": "gemini-2.5-flash"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 39,
+    "gender": "Male",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Interior Designer",
+    "trauma_type": "Unexpected or traumatic death of a loved one",
+    "pcl5": 39
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Anniversaries",
+        "value": "The anniversary of the event"
+      },
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      },
+      {
+        "key": "Funerals/Graves",
+        "value": "Funerals, cemeteries, or grief-related events"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Worst Case Rehearsal",
+        "value": "mentally rehearse worst case scenarios to feel prepared"
+      },
+      {
+        "key": "Avoid Anniversaries",
+        "value": "Dates or anniversaries connected to the event"
+      },
+      {
+        "key": "Avoid Grief Reminders",
+        "value": "Anything that reminds me of someone I have lost"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      },
+      {
+        "key": "Body Reacts Before Mind",
+        "value": "My body reacts to danger before I have even had time to think"
+      },
+      {
+        "key": "Irritability",
+        "value": "Irritable behavior, angry outbursts, or acting aggressively"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.6147,
+    "Triggers -- Threat": 0.9309,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.4625,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.4203
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Maladaptive Strategies",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Maladaptive Strategies",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6071,
+  "edge_density": 0.2,
+  "vignette_word_count": 610,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Animal Phobia: Talks or photos about snakes",
+          "explanation": "These trigger items are not clinically coherent with the indexed trauma of unexpected/traumatic death of a loved one. Snake-related and pregnancy/birth reminders imply trauma contexts unrelated to bereavement, and there is no supporting threat or memory content linking them to this loss."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "Avoiding military/police uniforms or weapons similarly implies a trauma context involving violence, combat, or armed threat, which is unsupported by the stated trauma type and by the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Animal Phobia"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "For an index trauma of unexpected/traumatic death of a loved one, pregnancy/birth reminders are hard to justify unless the death specifically involved childbirth or infant loss; nothing else in the profile supports that context. This makes the trigger clinically implausible relative to the stated trauma type."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Avoid Uniform or Weapons: Military, police uniforms or weapons",
+          "explanation": "Avoiding military/police uniforms or weapons implies a trauma context involving combat, assault, or armed responders. That does not fit the rest of this bereavement-focused profile and is not supported by the other trigger, threat, or strategy items, so it appears incoherent with the trauma type and overall formulation."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Pregnancy/Birth Reminders"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Uniform or Weapons"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2757,
+    "output": 4661,
+    "total": 7418
+  },
+  "vignette": "Rohan, a 39-year-old interior designer of South Asian heritage, sought therapy feeling increasingly overwhelmed and disconnected, five years after the unexpected death of his younger brother, Anil. The news of Anil’s fatal car accident had arrived like a physical blow, shattering Rohan’s world. He recalled the surreal haze of the funeral, the hushed condolences, and the profound, aching finality of it all. What stuck with him most was the suddenness, the lack of warning, and the way life had irrevocably changed in an instant.\n\nInitially, Rohan grappled with immense grief, but as months turned into years, his sorrow twisted into something more insidious. He noticed that specific moments would plunge him back into that unbearable state of shock. The anniversary of Anil’s death, for instance, became a day of profound dread. As the date approached, Rohan would feel a growing panic, leading him to meticulously plan elaborate distractions or take the day off from his busy interior design practice, ensuring he was nowhere near any reminders of the event, a deliberate strategy to avoid anniversaries. Similarly, during client consultations, a casual mention of someone losing a loved one, or even a design brief touching on themes of remembrance, would immediately make Rohan change the subject or decline projects that felt too close to themes of loss, clearly avoiding grief reminders.\n\nThese triggers often had an immediate and visceral impact. The first time a client spoke about their recently deceased mother, Rohan felt his heart begin to pound, his breath catching in his chest, his body reacting to danger before his mind could even process the words. This sudden physiological response would often be followed by vivid flashbacks of the accident scene, replaying in his mind with terrifying clarity – not the actual event, but the horrific images he’d conjured, the phone call, the empty space Anil left behind. The intensity of these flashbacks and the unsettling sensation of his body reacting before his mind convinced Rohan that he needed to be constantly prepared for potential catastrophe. This led him to mentally rehearse worst-case scenarios, playing out imagined tragedies involving his wife or parents, believing that if he anticipated the pain, it wouldn't catch him off guard again.\n\nThe pervasive sense of threat began to manifest in his daily life. The constant mental rehearsal of worst-case scenarios, intended to prepare him, ironically kept his nervous system perpetually activated, making him more susceptible to sudden flashbacks and the unsettling feeling of his body reacting before his mind to the slightest perceived threat. Rohan found himself increasingly irritable, snapping at his wife, Priya, over trivial matters or having angry outbursts with his design assistants when deadlines loomed. This frequent irritability and the fear of losing control made Rohan withdraw further, reinforcing his desire to avoid any social situation where a trigger might arise, lest he snap at someone he cared about.\n\nHis persistent efforts to avoid grief reminders and significant dates meant he never truly processed his loss. Instead, this avoidance perpetuated a state of hypervigilance, leaving him constantly on edge, his body poised to react to danger, often manifesting as sudden, inexplicable irritability towards his wife or colleagues. His work, once a source of creative fulfillment, became fraught with anxiety. He started turning down projects that required him to engage deeply with clients’ personal stories, fearing the inevitable conversations about family and loss. Priya, noticing his increasing emotional distance and unpredictable temper, urged him to seek help, concerned about the growing chasm between them. Rohan arrived for his initial consultation, exhausted and guarded, admitting he was terrified that if he ever truly allowed himself to feel the grief, he would simply shatter."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Rohan, a 39-year-old interior designer of South Asian heritage, sought therapy feeling increasingly overwhelmed and disconnected, five years after the unexpected death of his younger brother, Anil. The news of Anil’s fatal car accident had arrived like a physical blow, shattering Rohan’s world. He recalled the surreal haze of the funeral, the hushed condolences, and the profound, aching finality of it all. What stuck with him most was the suddenness, the lack of warning, and the way life had irrevocably changed in an instant.\n\nInitially, Rohan grappled with immense grief, but as months turned into years, his sorrow twisted into something more insidious. He noticed that specific moments would plunge him back into that unbearable state of shock. The anniversary of Anil’s death, for instance, became a day of profound dread. As the date approached, Rohan would feel a growing panic, leading him to meticulously plan elaborate distractions or take the day off from his busy interior design practice, ensuring he was nowhere near any reminders of the event, a deliberate strategy to avoid anniversaries. Similarly, during client consultations, a casual mention of someone losing a loved one, or even a design brief touching on themes of remembrance, would immediately make Rohan change the subject or decline projects that felt too close to themes of loss, clearly avoiding grief reminders.\n\nThese triggers often had an immediate and visceral impact. The first time a client spoke about their recently deceased mother, Rohan felt his heart begin to pound, his breath catching in his chest, his body reacting to danger before his mind could even process the words. This sudden physiological response would often be followed by vivid flashbacks of the accident scene, replaying in his mind with terrifying clarity – not the actual event, but the horrific images he’d conjured, the phone call, the empty space Anil left behind. The intensity of these flashbacks and the unsettling sensation of his body reacting before his mind convinced Rohan that he needed to be constantly prepared for potential catastrophe. This led him to mentally rehearse worst-case scenarios, playing out imagined tragedies involving his wife or parents, believing that if he anticipated the pain, it wouldn't catch him off guard again.\n\nThe pervasive sense of threat began to manifest in his daily life. The constant mental rehearsal of worst-case scenarios, intended to prepare him, ironically kept his nervous system perpetually activated, making him more susceptible to sudden flashbacks and the unsettling feeling of his body reacting before his mind to the slightest perceived threat. Rohan found himself increasingly irritable, snapping at his wife, Priya, over trivial matters or having angry outbursts with his design assistants when deadlines loomed. This frequent irritability and the fear of losing control made Rohan withdraw further, reinforcing his desire to avoid any social situation where a trigger might arise, lest he snap at someone he cared about.\n\nHis persistent efforts to avoid grief reminders and significant dates meant he never truly processed his loss. Instead, this avoidance perpetuated a state of hypervigilance, leaving him constantly on edge, his body poised to react to danger, often manifesting as sudden, inexplicable irritability towards his wife or colleagues. His work, once a source of creative fulfillment, became fraught with anxiety. He started turning down projects that required him to engage deeply with clients’ personal stories, fearing the inevitable conversations about family and loss. Priya, noticing his increasing emotional distance and unpredictable temper, urged him to seek help, concerned about the growing chasm between them. Rohan arrived for his initial consultation, exhausted and guarded, admitting he was terrified that if he ever truly allowed himself to feel the grief, he would simply shatter.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

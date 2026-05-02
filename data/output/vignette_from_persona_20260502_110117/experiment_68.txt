@@ -1,0 +1,182 @@
+PERSONA 68  |  2026-05-02 11:11:32
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             51
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Married
+  occupation      Hotel Manager
+  trauma_type     Toxic chemical exposure
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Stress: Stress
+    • Workplace: Workplace
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Threat:
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6183
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.1426
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: For toxic chemical exposure, the trigger pattern is not clinically well matched: 'Military Topics' suggests combat/war-related trauma cues, and 'Loss Themes' suggests bereavement-related reminders, while no trigger references fumes, smells, contamination, breathing difficulty, workplaces, or chemical hazards. This makes the trigger set hard to reconcile with the stated trauma type.
+    item:        Threat / Threat: Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: The threat items are internally coherent with a persecution/assault-style danger formulation ('someone is following me', needing to stay alert at night) rather than a toxic exposure formulation. They do not plausibly connect to the selected triggers, despite the strong Triggers → Threat edge that should link these nodes tightly.
+  [2] FAIL
+    item:        Triggers / Triggers: Loss Themes: Talk about people loosing loved ones
+    explanation: The trigger item about discussions of people losing loved ones is hard to reconcile with the indexed trauma of toxic chemical exposure. It implies bereavement-related trauma content that is not otherwise represented in the profile, making this trigger clinically implausible for the same patient unless the exposure involved deaths, which is not supported elsewhere.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: Within the Threat node, concentration difficulty is a broad nonspecific symptom, whereas sleep vigilance reflects an ongoing sense of current external danger. That combination can coexist, but in this profile the threat content is otherwise sparse and the selected triggers do not clearly support a coherent toxic-exposure-related danger schema, weakening internal coherence.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,638
+  output:       803
+  total:      3,441
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Leila, a 51-year-old Middle Eastern woman who had worked for years as a hotel manager, first became
+unwell after a toxic chemical exposure at a property she was overseeing. It happened on a morning
+when a cleaning product had been mixed incorrectly in a service area, releasing a sharp, hospital-
+like antiseptic smell that spread through the corridor and into the lobby. She was the one fielding
+complaints, calling maintenance, and trying to keep guests calm while her chest tightened and her
+body jolted with a force she had not expected. In the moment, she felt she had to stay alert and in
+control because no one else seemed to notice how dangerous the air felt to her. After that day,
+ordinary pressure at work began to carry a different weight for her. Busy shifts, last-minute
+problems, and even the word “stress” on her schedule made her feel as if she were back in that
+contaminated space, as if another invisible exposure could happen without warning. The hotel itself,
+which had once been familiar and manageable, started to feel like a place where danger could hide in
+the background of routine tasks.
+
+As the weeks passed, Leila began to organize her life around that sense of threat. She had
+difficulty falling asleep because she needed to stay alert, and she described lying in bed listening
+for anything unusual, unable to let herself drift off until she had checked and rechecked that the
+house was quiet. Loud or unexpected sounds were especially difficult; a slamming door in the night,
+a dropped glass in the kitchen, or a sudden bang from outside would make her body react before she
+could think, with a surge of tension and a startled jolt that left her embarrassed and drained. She
+came to believe that if she relaxed, she would miss something important, and that belief made rest
+feel unsafe. At work, her vigilance sharpened instead of settling. The hotel environment was full of
+reminders that could catch her off guard: disinfectant in the housekeeping closets, the faint smell
+of antiseptic from the first-aid area, a guest mentioning the hospital, or simply a day that felt
+unusually stressful. Each of these moments made the old exposure feel immediate again, and when that
+happened her body responded strongly, as if the danger were present in the room rather than in
+memory.
+
+That rising sense of danger fed back into what she noticed around her. Leila became increasingly
+sensitive to stress itself, scanning her days for signs that things were getting out of hand. The
+more she felt on edge, the more she watched for smells, sounds, and tense moments that might signal
+another chemical incident or some other hidden threat. This made the workplace exhausting, because
+the hotel no longer just contained ordinary demands; it became a setting she had to monitor
+constantly. She started avoiding being near cleaning supplies when she could, delegated more of the
+practical checks to others, and tried to shorten her time in enclosed back-of-house areas where the
+smell of disinfectant lingered. Even at home, she arranged her evenings to reduce interruptions, yet
+any minor stress could send her back into the same state of alertness. In that way, the things that
+set her off kept expanding, and the more she braced for them, the more readily they appeared to her.
+
+By the time she sought help, Leila was frustrated by how much her world had narrowed around the need
+to stay vigilant. She still went to work, but she found herself moving through the hotel as if she
+were waiting for a warning sign. She was most afraid that one unexpected smell or sound would bring
+back the full panic of that exposure and that her body would never fully stand down again. What she
+hoped for, though she said it cautiously, was to be able to sleep without keeping watch and to walk
+through her hotel, and her home, without feeling that danger was always just beneath the surface.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Leila, a 51-year-old Middle Eastern woman who had worked for years as a hotel manager, first became
+unwell after a toxic chemical exposure at a property she was overseeing. It happened on a morning
+when a cleaning product had been mixed incorrectly in a service area, releasing a sharp, hospital-
+like antiseptic smell that spread through the corridor and into the lobby. She was the one fielding
+complaints, calling maintenance, and trying to keep guests calm while her chest tightened and her
+body jolted with a force she had not expected. In the moment, she felt she had to stay alert and in
+control because no one else seemed to notice how dangerous the air felt to her. After that day,
+ordinary pressure at work began to carry a different weight for her. Busy shifts, last-minute
+problems, and even the word “stress” on her schedule made her feel as if she were back in that
+contaminated space, as if another invisible exposure could happen without warning. The hotel itself,
+which had once been familiar and manageable, started to feel like a place where danger could hide in
+the background of routine tasks.
+
+As the weeks passed, Leila began to organize her life around that sense of threat. She had
+difficulty falling asleep because she needed to stay alert, and she described lying in bed listening
+for anything unusual, unable to let herself drift off until she had checked and rechecked that the
+house was quiet. Loud or unexpected sounds were especially difficult; a slamming door in the night,
+a dropped glass in the kitchen, or a sudden bang from outside would make her body react before she
+could think, with a surge of tension and a startled jolt that left her embarrassed and drained. She
+came to believe that if she relaxed, she would miss something important, and that belief made rest
+feel unsafe. At work, her vigilance sharpened instead of settling. The hotel environment was full of
+reminders that could catch her off guard: disinfectant in the housekeeping closets, the faint smell
+of antiseptic from the first-aid area, a guest mentioning the hospital, or simply a day that felt
+unusually stressful. Each of these moments made the old exposure feel immediate again, and when that
+happened her body responded strongly, as if the danger were present in the room rather than in
+memory.
+
+That rising sense of danger fed back into what she noticed around her. Leila became increasingly
+sensitive to stress itself, scanning her days for signs that things were getting out of hand. The
+more she felt on edge, the more she watched for smells, sounds, and tense moments that might signal
+another chemical incident or some other hidden threat. This made the workplace exhausting, because
+the hotel no longer just contained ordinary demands; it became a setting she had to monitor
+constantly. She started avoiding being near cleaning supplies when she could, delegated more of the
+practical checks to others, and tried to shorten her time in enclosed back-of-house areas where the
+smell of disinfectant lingered. Even at home, she arranged her evenings to reduce interruptions, yet
+any minor stress could send her back into the same state of alertness. In that way, the things that
+set her off kept expanding, and the more she braced for them, the more readily they appeared to her.
+
+By the time she sought help, Leila was frustrated by how much her world had narrowed around the need
+to stay vigilant. She still went to work, but she found herself moving through the hotel as if she
+were waiting for a warning sign. She was most afraid that one unexpected smell or sound would bring
+back the full panic of that exposure and that her body would never fully stand down again. What she
+hoped for, though she said it cautiously, was to be able to sleep without keeping watch and to walk
+through her hotel, and her home, without feeling that danger was always just beneath the surface.

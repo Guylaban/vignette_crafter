@@ -1,0 +1,221 @@
+PERSONA 36  |  2026-05-02 18:53:51
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-chat
+    persona_crafter      deepseek-chat
+    vignette_crafter     deepseek-chat
+    vignette_validator   deepseek-chat
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             65
+  gender          Female
+  ethnicity       North American
+  relationship_status Widowed
+  occupation      Military Medic
+  trauma_type     Life-threatening accident
+  pcl5            57
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Discomfort: Feeling uncomfortable
+    • Crash Imagery: Cars hit by accident
+    • Car Similarity: Similar cars
+  Maladaptive Strategies:
+    • Overeat: eat excessively to manage distress
+    • Distraction: I distract myself with something else
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • Reliving Event: When I remember the frightening event I feel like it is happening right now.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.3707
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.7549
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.2468
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.6815
+  Maladaptive Strategies → Threat                    0.4462
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Visual (Water/Flooding): Water, flooding, or large bodies of water
+    explanation: The trauma type is a life-threatening accident, but the water/flooding trigger suggests a very specific drowning/flood disaster context that is unsupported by the rest of the profile. No other trigger, threat, memory, or strategy item reflects a water-related accident, making this trigger feel disconnected from the reported trauma representation.
+    item:        Threat / Threat: Threat in Silence: Unusual silence makes me feel something dangerous is about to happen
+    explanation: 'Threat in Silence' implies danger associated with quiet/ominous stillness, whereas the rest of the profile points more toward active danger monitoring (weapons, commands) and a possibly chaotic accident context. This silence-based threat cue is not impossible, but here it lacks support from the other selected items and sits awkwardly with the accident formulation.
+    item:        Memory / Memory: Guilt on Recall: When I remember the event I feel intense guilt
+    explanation: Intense guilt on recall is not impossible after an accident, but in this profile it is the only item indicating moral/self-blame content. There are no negative appraisal items to support guilt themes, and the remaining memory/threat content emphasizes sensory reliving and danger monitoring rather than responsibility or wrongdoing. This makes the guilt item weakly integrated with the rest of the formulation.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Being Touched: Any form of physical contact with others
+    explanation: Avoiding being touched suggests a contact-based interpersonal threat or bodily boundary issue, but the rest of the profile does not indicate assault/interpersonal trauma or touch-related triggers/threats. For a life-threatening accident profile, this item appears poorly matched to the trauma context and to the other selected nodes.
+  [2] FAIL
+    item:        Threat / Threat: Sleep Problems: Trouble falling or staying asleep
+    explanation: Sleep problems are not a threat appraisal item and do not fit coherently within the Threat node as framed by the other selected threat items; it reflects general arousal/insomnia rather than perceived current danger.
+    item:        Memory / Threat: Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+    explanation: Hypervigilance specifically focused on weapons is hard to reconcile with the trauma type of a life-threatening accident, especially when the trigger and memory items are vehicle-accident related and there are no appraisals or memories suggesting assault/combat-related danger. This creates a cross-node mismatch.
+  [3] FAIL
+    item:        Triggers / Authority Commands: Being given orders or instructions
+    explanation: For a life-threatening accident formulation, 'Authority Commands' is difficult to link to the rest of the profile. The other trigger and strategy items center on vehicle/crash-related reactivity, but this item implies a different trauma context or conditioning pattern that is not supported by the memory or threat content.
+    item:        Threat / Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+    explanation: 'Noticing Weapons' is poorly matched to the accident trauma narrative and to the rest of the selected items. Hypervigilance to loud sounds and bodily danger readiness fit post-accident threat sensitization, but specific scanning for weapons suggests a violence/combat-related threat schema that is not otherwise represented.
+    item:        Maladaptive Strategies / Avoid Driving: Driving or being a passenger in a vehicle
+    explanation: 'Avoid Driving' fits the accident trauma, but it sits awkwardly alongside the non-accident-specific items 'Authority Commands' and 'Noticing Weapons.' Together these items split the profile between vehicle-accident and combat/assault-like themes, reducing overall coherence with the stated trauma type and the Trigger→Threat linkage.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,013
+  output:       996
+  total:      4,009
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+The accident happened on a rain-slicked highway outside Fort Bragg, during a routine transport of
+medical supplies. Margaret, then a 58-year-old military medic, was in the passenger seat of a Humvee
+when a civilian sedan hydroplaned into their lane. The impact was a deafening crush of metal; she
+remembers the sickening lurch, the smell of gasoline and wet asphalt, and the sight of the other
+driver’s car crumpling against the median. She crawled out, her hands shaking, and began triage on
+the injured driver—a young man whose face was bloodied and who kept repeating, “I didn’t see you.”
+For months afterward, Margaret told herself she was fine. She had seen worse in the field. But seven
+years later, now a 65-year-old widow living alone in a quiet suburb, she cannot shake the feeling
+that the world is a place where disaster waits around every corner.
+
+The specific triggers are impossible to avoid. A flash of chrome on the highway, the shape of a
+sedan’s rear bumper, or the screech of tires—each one yanks her back into that moment. When she
+hears an unexpected loud sound, like a car backfiring or a truck’s air brake, her entire body snaps
+to attention. Her heart hammers, her palms sweat, and she feels a cold certainty that another
+collision is imminent. This constant vigilance has left her physically exhausted; her body feels
+perpetually tense, as if bracing for a blow that never lands. The worst episodes are the flashbacks,
+which strike without warning. While standing in her own kitchen, the sound of a dish breaking will
+suddenly transport her back to the Humvee, the smell of gasoline filling her nostrils, and for a
+terrifying few seconds she is no longer in her home but trapped in that crumpled vehicle, reliving
+the impact as if it were happening right now.
+
+To escape this, Margaret has developed a set of habits that she knows, in her quieter moments, are
+not healthy. When the anxiety becomes unbearable, she eats—not out of hunger, but to fill the hollow
+space that opens in her chest. She will consume an entire sleeve of crackers or a pint of ice cream,
+barely tasting it, just trying to drown out the racing thoughts. At other times, she throws herself
+into distraction: turning on the television at high volume, calling her daughter for a meandering
+conversation, or cleaning the same countertop three times in a row. Most of all, she tries to
+suppress the memories entirely, telling herself, “Don’t think about it, just don’t think about it.”
+But this effort is exhausting and, paradoxically, makes the images more insistent. The more she
+tries to push the crash away, the more she finds herself scanning for similar cars on the road, a
+compulsive vigilance that only creates new triggers.
+
+These strategies have a way of backfiring. The overeating leaves her sluggish and ashamed, which
+makes her more irritable and less likely to go out, which means she spends more time alone with her
+thoughts. The distraction works only briefly; as soon as the television is off or the phone call
+ends, the silence rushes in, and she is once again on high alert. Last week, she tried to suppress a
+memory by driving a different route home, but the detour took her past a used car lot, and the sight
+of a row of sedans—identical to the one that hit her—sent her heart racing for the rest of the
+evening. The very things she does to manage the threat end up feeding it.
+
+Margaret has also noticed a strange difficulty: when she tries to tell her daughter what happened,
+the words will not come. She knows the sequence of events perfectly—the rain, the skid, the
+impact—but her mouth goes dry, and she can only say, “It was bad,” before the emotion swells so
+powerfully that she has to stop speaking. The memory overwhelms her, and she feels like she is back
+in the wreckage, unable to form a coherent sentence. This failure to articulate the trauma only
+deepens her sense of isolation.
+
+It was her daughter who finally insisted she seek help. Margaret had stopped driving on the highway
+entirely, limiting herself to local streets, and had begun canceling plans with friends because the
+thought of being in a car—any car—made her feel sick. She agreed to therapy not because she believes
+it will help, but because she is terrified that she is losing her grip on the life she has built.
+What frightens her most is the thought that she will never feel safe again, that the crash has
+permanently rewritten the rules of her world, and that no amount of avoidance or distraction can put
+them back the way they were.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+The accident happened on a rain-slicked highway outside Fort Bragg, during a routine transport of
+medical supplies. Margaret, then a 58-year-old military medic, was in the passenger seat of a Humvee
+when a civilian sedan hydroplaned into their lane. The impact was a deafening crush of metal; she
+remembers the sickening lurch, the smell of gasoline and wet asphalt, and the sight of the other
+driver’s car crumpling against the median. She crawled out, her hands shaking, and began triage on
+the injured driver—a young man whose face was bloodied and who kept repeating, “I didn’t see you.”
+For months afterward, Margaret told herself she was fine. She had seen worse in the field. But seven
+years later, now a 65-year-old widow living alone in a quiet suburb, she cannot shake the feeling
+that the world is a place where disaster waits around every corner.
+
+The specific triggers are impossible to avoid. A flash of chrome on the highway, the shape of a
+sedan’s rear bumper, or the screech of tires—each one yanks her back into that moment. When she
+hears an unexpected loud sound, like a car backfiring or a truck’s air brake, her entire body snaps
+to attention. Her heart hammers, her palms sweat, and she feels a cold certainty that another
+collision is imminent. This constant vigilance has left her physically exhausted; her body feels
+perpetually tense, as if bracing for a blow that never lands. The worst episodes are the flashbacks,
+which strike without warning. While standing in her own kitchen, the sound of a dish breaking will
+suddenly transport her back to the Humvee, the smell of gasoline filling her nostrils, and for a
+terrifying few seconds she is no longer in her home but trapped in that crumpled vehicle, reliving
+the impact as if it were happening right now.
+
+To escape this, Margaret has developed a set of habits that she knows, in her quieter moments, are
+not healthy. When the anxiety becomes unbearable, she eats—not out of hunger, but to fill the hollow
+space that opens in her chest. She will consume an entire sleeve of crackers or a pint of ice cream,
+barely tasting it, just trying to drown out the racing thoughts. At other times, she throws herself
+into distraction: turning on the television at high volume, calling her daughter for a meandering
+conversation, or cleaning the same countertop three times in a row. Most of all, she tries to
+suppress the memories entirely, telling herself, “Don’t think about it, just don’t think about it.”
+But this effort is exhausting and, paradoxically, makes the images more insistent. The more she
+tries to push the crash away, the more she finds herself scanning for similar cars on the road, a
+compulsive vigilance that only creates new triggers.
+
+These strategies have a way of backfiring. The overeating leaves her sluggish and ashamed, which
+makes her more irritable and less likely to go out, which means she spends more time alone with her
+thoughts. The distraction works only briefly; as soon as the television is off or the phone call
+ends, the silence rushes in, and she is once again on high alert. Last week, she tried to suppress a
+memory by driving a different route home, but the detour took her past a used car lot, and the sight
+of a row of sedans—identical to the one that hit her—sent her heart racing for the rest of the
+evening. The very things she does to manage the threat end up feeding it.
+
+Margaret has also noticed a strange difficulty: when she tries to tell her daughter what happened,
+the words will not come. She knows the sequence of events perfectly—the rain, the skid, the
+impact—but her mouth goes dry, and she can only say, “It was bad,” before the emotion swells so
+powerfully that she has to stop speaking. The memory overwhelms her, and she feels like she is back
+in the wreckage, unable to form a coherent sentence. This failure to articulate the trauma only
+deepens her sense of isolation.
+
+It was her daughter who finally insisted she seek help. Margaret had stopped driving on the highway
+entirely, limiting herself to local streets, and had begun canceling plans with friends because the
+thought of being in a car—any car—made her feel sick. She agreed to therapy not because she believes
+it will help, but because she is terrified that she is losing her grip on the life she has built.
+What frightens her most is the thought that she will never feel safe again, that the crash has
+permanently rewritten the rules of her world, and that no amount of avoidance or distraction can put
+them back the way they were.

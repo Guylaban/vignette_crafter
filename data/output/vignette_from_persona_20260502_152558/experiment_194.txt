@@ -1,0 +1,219 @@
+PERSONA 194  |  2026-05-02 18:48:11
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-pro
+    persona_crafter      gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             35
+  gender          Female
+  ethnicity       European
+  relationship_status Married
+  occupation      Counselor
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            46
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid Eye Contact: Making eye contact with other people
+    • Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Sleep Problems: Trouble falling or staying asleep
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • No Coherent Story: I cannot tell a clear story of what happened even to myself
+  Negative Appraisals:
+    • Lost Meaning: Nothing in my life feels meaningful anymore
+    • Self-Blame: The event happened because of the way I acted
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.7776
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.5421
+  Memory → Threat                                    0.7217
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.5454
+  Threat → Memory                                    0.5166
+  Threat → Negative Appraisals                       0.3473
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0332
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.2661
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Uniform or Weapons: Military, police uniforms or weapons
+    explanation: 'Avoid Uniform or Weapons' is hard to reconcile with the indexed trauma of accidentally causing serious injury to another unless there is additional unreported trauma involving military, police, or armed threat. It introduces a highly specific cue set not supported by the other nodes.
+    item:        Negative Appraisals / Hypervigilance: I have to be on guard all the time
+    explanation: The appraisal 'I have to be on guard all the time' and the threat item 'I need to stay alert' imply ongoing external danger surveillance. For a guilt-based accident trauma, this is possible but, alongside the rest of the profile, it pulls toward a current-threat/assault formulation rather than the stated trauma context.
+    item:        Threat / Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    explanation: These vigilance-focused items cluster around danger-monitoring, whereas the memory and appraisal content otherwise fit grief/guilt and disorganization after causing injury. That mismatch is clinically harder to explain than ordinary heterogeneity.
+  [2] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Fear of Rage: I will not be able to control my anger and will do something terrible
+    explanation: The profile is centered on guilt, grief, and fragmented memory after accidentally causing serious injury, which is coherent, but the anger/rage theme is not well integrated with the rest of the formulation. Fear of losing control of anger plus irritability/aggressive behavior suggests a prominent violence/rage presentation that is not otherwise reflected in the memory content, appraisals, or strategies tied to this trauma type.
+    item:        Threat / Threat: Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    explanation: Compulsive exercise appears poorly connected to the rest of the selected items. The other maladaptive strategies are avoidance-based and directly related to interpersonal shame or medical reminders, whereas excessive exercise implies a separate regulation strategy that is not supported by the rest of the profile or the specified edge pattern.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Compulsive Exercise: I push myself to exercise excessively
+    explanation: Given the active formulation, Memory and Threat should be tightly linked. The memory items emphasize fragmentation and grief, while the threat items are limited to nonspecific arousal symptoms (concentration, irritability, sleep) rather than a trauma-linked sense of current threat. This makes the irritability/anger strand especially weakly anchored in the stated cognitive formulation.
+  [3] FAIL
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: The Threat node is dominated by generic arousal/distress items (concentration and sleep problems) rather than a sense of current threat linked to the trauma. Given the formulation, Threat is strongly driven by memory and negative appraisals, so threat items should more clearly reflect ongoing danger, guilt-based threat, or feared consequences connected to having seriously injured someone.
+    item:        Negative Appraisals / Threat: Sleep Problems: Trouble falling or staying asleep
+    explanation: 'Nothing in my life feels meaningful anymore' is a broad depressive/existential appraisal that is not well anchored to this trauma profile. The other appraisal items are specifically guilt/responsibility based (self-blame, failed to protect), which fit the trauma type and the strong Negative Appraisals → Threat edge; this item pulls the node toward a different syndrome and weakens internal coherence.
+    item:        Maladaptive Strategies / Negative Appraisals: Lost Meaning: Nothing in my life feels meaningful anymore
+    explanation: Avoiding eye contact is hard to connect specifically to accidentally causing serious injury to another unless there are accompanying appraisals about others judging or condemning her. No such interpersonal-judgment threat/appraisal is represented elsewhere, so this strategy is weakly integrated with the rest of the profile.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,995
+  output:     4,479
+  total:      7,474
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Sarah, a 35-year-old counselor, presented for treatment six months after a motor vehicle accident.
+The incident occurred on a rainy Tuesday evening as she was driving home from her private practice.
+Distracted for a moment by a message on her car's display, she hadn't seen the pedestrian stepping
+into the crosswalk until it was too late. The sound of the impact, the sight of the young man on the
+pavement, and the look in his eyes just before the ambulance arrived became the defining moments of
+the trauma. She was not physically harmed, but the pedestrian suffered life-altering injuries. In
+the immediate aftermath, Sarah’s memory of the event was a chaotic blur of sensory impressions. She
+could recall the slick blackness of the road and the rhythmic sweep of her windshield wipers, but
+the critical seconds were missing, replaced by disconnected images that refused to form a coherent
+story.
+
+In the weeks that followed, this fragmentation of memory became a source of profound distress.
+Whenever a piece of the event would surface—the glint of the streetlights on the wet asphalt, the
+specific shade of the man’s jacket—it brought with it an overwhelming wave of grief and horror. This
+intense emotional reaction, rooted in the memory itself, drove her to develop strategies for
+containment. She began to try hard not to think about what happened, pushing the images away the
+moment they appeared. This conscious suppression extended into her physical world; she started
+taking a much longer route home from her office to avoid the intersection, and the sound of a
+distant siren would cause her to physically flinch and cover her ears.
+
+The core of Sarah's suffering, however, was anchored in her powerful negative appraisals of herself
+and her role in the event. She had come to believe with absolute certainty that the accident was
+entirely her fault, a direct result of her momentary lapse in attention. This crushing self-
+blame—the conviction that she had failed in her fundamental duty to protect others—fueled a
+pervasive and constant sense of threat. The world no longer felt safe because she herself was the
+danger. This belief system manifested as a state of relentless hypervigilance; she was perpetually
+on guard, scanning her environment for potential threats, her body locked in a state of high alert.
+Sleep offered little respite, with nights spent staring at the ceiling, her mind replaying her
+failure. The guilt and shame were a constant, heavy presence, coloring every interaction and
+draining all meaning from a life she had once found fulfilling.
+
+These powerful feelings of threat, in turn, dictated her behavior. The exhaustion of being
+constantly watchful made her shrink her world. At her counseling practice, she found it increasingly
+difficult to do her job. Making eye contact with her clients, a cornerstone of her therapeutic work,
+became unbearable. She was certain they could see the failure she felt, the terrible thing she had
+done, reflected in her own eyes. This avoidance of eye contact, driven by her fear and shame, began
+to create a distance between her and the very people she was meant to help. Her constant state of
+arousal also kept the traumatic memory from settling; her sleeplessness and anxiety seemed to
+prevent the disconnected pieces from ever forming a narrative she could process, leaving them as
+potent, intrusive fragments.
+
+The strategies Sarah employed to manage her distress only served to maintain it. Her strenuous
+efforts to suppress thoughts of the accident ensured the memory never had a chance to be integrated,
+leaving it raw and powerful. This avoidance, while providing fleeting relief, subtly reinforced the
+danger, as she never learned that the sound of an ambulance was just a sound, not an imminent
+catastrophe. The ongoing feelings of fear and guilt also seemed to confirm her negative beliefs; the
+fact that she felt so awful was, to her, proof of her own unforgivable negligence.
+
+Sarah finally sought therapy after her husband found her sitting in her car in their driveway,
+unable to get out after hearing an ambulance pass their street. She feels trapped in a relentless
+cycle of guilt and fear, believing she is unworthy of peace. While a part of her is desperate to
+escape the torment, she is terrified that truly confronting the memory will only confirm what she
+already believes: that she is a monster who deserves to suffer.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Sarah, a 35-year-old counselor, presented for treatment six months after a motor vehicle accident.
+The incident occurred on a rainy Tuesday evening as she was driving home from her private practice.
+Distracted for a moment by a message on her car's display, she hadn't seen the pedestrian stepping
+into the crosswalk until it was too late. The sound of the impact, the sight of the young man on the
+pavement, and the look in his eyes just before the ambulance arrived became the defining moments of
+the trauma. She was not physically harmed, but the pedestrian suffered life-altering injuries. In
+the immediate aftermath, Sarah’s memory of the event was a chaotic blur of sensory impressions. She
+could recall the slick blackness of the road and the rhythmic sweep of her windshield wipers, but
+the critical seconds were missing, replaced by disconnected images that refused to form a coherent
+story.
+
+In the weeks that followed, this fragmentation of memory became a source of profound distress.
+Whenever a piece of the event would surface—the glint of the streetlights on the wet asphalt, the
+specific shade of the man’s jacket—it brought with it an overwhelming wave of grief and horror. This
+intense emotional reaction, rooted in the memory itself, drove her to develop strategies for
+containment. She began to try hard not to think about what happened, pushing the images away the
+moment they appeared. This conscious suppression extended into her physical world; she started
+taking a much longer route home from her office to avoid the intersection, and the sound of a
+distant siren would cause her to physically flinch and cover her ears.
+
+The core of Sarah's suffering, however, was anchored in her powerful negative appraisals of herself
+and her role in the event. She had come to believe with absolute certainty that the accident was
+entirely her fault, a direct result of her momentary lapse in attention. This crushing self-
+blame—the conviction that she had failed in her fundamental duty to protect others—fueled a
+pervasive and constant sense of threat. The world no longer felt safe because she herself was the
+danger. This belief system manifested as a state of relentless hypervigilance; she was perpetually
+on guard, scanning her environment for potential threats, her body locked in a state of high alert.
+Sleep offered little respite, with nights spent staring at the ceiling, her mind replaying her
+failure. The guilt and shame were a constant, heavy presence, coloring every interaction and
+draining all meaning from a life she had once found fulfilling.
+
+These powerful feelings of threat, in turn, dictated her behavior. The exhaustion of being
+constantly watchful made her shrink her world. At her counseling practice, she found it increasingly
+difficult to do her job. Making eye contact with her clients, a cornerstone of her therapeutic work,
+became unbearable. She was certain they could see the failure she felt, the terrible thing she had
+done, reflected in her own eyes. This avoidance of eye contact, driven by her fear and shame, began
+to create a distance between her and the very people she was meant to help. Her constant state of
+arousal also kept the traumatic memory from settling; her sleeplessness and anxiety seemed to
+prevent the disconnected pieces from ever forming a narrative she could process, leaving them as
+potent, intrusive fragments.
+
+The strategies Sarah employed to manage her distress only served to maintain it. Her strenuous
+efforts to suppress thoughts of the accident ensured the memory never had a chance to be integrated,
+leaving it raw and powerful. This avoidance, while providing fleeting relief, subtly reinforced the
+danger, as she never learned that the sound of an ambulance was just a sound, not an imminent
+catastrophe. The ongoing feelings of fear and guilt also seemed to confirm her negative beliefs; the
+fact that she felt so awful was, to her, proof of her own unforgivable negligence.
+
+Sarah finally sought therapy after her husband found her sitting in her car in their driveway,
+unable to get out after hearing an ambulance pass their street. She feels trapped in a relentless
+cycle of guilt and fear, believing she is unworthy of peace. While a part of her is desperate to
+escape the torment, she is terrified that truly confronting the memory will only confirm what she
+already believes: that she is a monster who deserves to suffer.

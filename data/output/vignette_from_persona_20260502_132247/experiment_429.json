@@ -1,0 +1,255 @@
+{
+  "persona_id": 429,
+  "source_persona_id": 429,
+  "experiment_timestamp": "2026-05-02 16:46:09",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "claude-sonnet-4-6",
+      "persona_crafter": "claude-sonnet-4-6",
+      "vignette_crafter": "claude-sonnet-4-6",
+      "vignette_validator": "claude-sonnet-4-6"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 71,
+    "gender": "Male",
+    "ethnicity": "Oceania",
+    "relationship_status": "Single",
+    "occupation": "Painter",
+    "trauma_type": "Terrorism",
+    "pcl5": 48
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Reassurance Seeking",
+        "value": "I keep asking others to reassure me that I am okay"
+      },
+      {
+        "key": "Emotion Control",
+        "value": "I try hard to control my emotions"
+      },
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Bodily Reenactment",
+        "value": "When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred."
+      },
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Can't Rely on Self",
+        "value": "I can't rely on myself"
+      },
+      {
+        "key": "Can't Rely on Others",
+        "value": "I can't rely on other people"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.3376,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0678,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.7752,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7944,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.49375,
+  "edge_density": 0.2,
+  "vignette_word_count": 724,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Partial Clarity: Some moments of the event are extremely clear while others are completely blank",
+          "explanation": "Within the Memory node, 'Partial Clarity' implies marked fragmentation with important gaps, while 'Vivid Memory' implies globally clear and detailed recall. These can sometimes coexist for specific segments, but stated together at face value they pull in opposite directions and are the clearest internal inconsistency in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Partial Clarity"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Enclosed Spaces: Enclosed or confined spaces",
+          "explanation": "The profile lacks any Threat items, despite terrorism-related avoidance of crowds and enclosed/public spaces usually being linked to a current sense of danger in public places. With Triggers→Threat inactive and no Threat node content provided, the avoidance pattern is left clinically unanchored."
+        },
+        {
+          "component": "Memory",
+          "item": "Avoid Crowds: Crowded places such as shopping centres or public events",
+          "explanation": "Memory items describe vivid, cue-driven, sensory re-experiencing, especially being triggered by surroundings without warning. However, all Triggers edges are inactive and no Trigger items are present, making the specific 'surroundings instantly bring back the full memory' item poorly aligned with the formulation structure."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.",
+          "explanation": "Negative appraisals focus on generalized mistrust of self, body, and others, while the maladaptive strategies are highly situational (crowds/enclosed spaces). Without corresponding threat or trigger content, these nodes do not form a clearly coherent terrorism-specific presentation."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Enclosed Spaces"
+        ],
+        "Memory": [
+          "Avoid Crowds"
+        ],
+        "Negative Appraisals": [
+          "Bodily Reenactment"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning",
+          "explanation": "The Memory item describes strong cue-driven reactivation by surroundings, but the formulation explicitly has Triggers inactive with Memory. This creates a direct contradiction between the item's content and the formulation structure."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Avoid Crowds: Crowded places such as shopping centres or public events",
+          "explanation": "Avoiding crowds is plausible after terrorism, but it implies salient environmental trigger sensitivity and public-place threat anticipation. In this profile, Triggers and Threat are not represented and are inactive in the formulation, so this strategy lacks a coherent linked context."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Triggered Without Warning"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Crowds"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Checking Surroundings: constantly scan environment for signs of threat",
+          "explanation": "Checking surroundings for signs of threat implies an active trigger/threat monitoring pattern, but the formulation explicitly has Triggers and Threat disconnected from the rest of the system, making this item poorly aligned with the cognitive formulation."
+        },
+        {
+          "component": "Memory",
+          "item": "Reassurance Seeking: I keep asking others to reassure me that I am okay",
+          "explanation": "Frequent reassurance seeking from others sits awkwardly with the simultaneous appraisal 'I can't rely on other people.' While some ambivalence is possible, taking both as central items without any moderating context creates a notable cross-node tension."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Body Unreliable: I can no longer trust my own body",
+          "explanation": "'I can no longer trust my own body' is more typical of trauma involving physical injury, illness, or prominent somatic threat. With terrorism trauma, it is not impossible, but alongside the other selected items there is little memory content or appraisal content explaining bodily unreliability, so this item feels weakly grounded in the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Checking Surroundings"
+        ],
+        "Memory": [
+          "Reassurance Seeking"
+        ],
+        "Negative Appraisals": [
+          "Body Unreliable"
+        ]
+      }
+    },
+    {
+      "attempt": 5,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3747,
+    "output": 968,
+    "total": 4715
+  },
+  "vignette": "Rangi is a 71-year-old Māori man, single, who has worked as a painter for most of his adult life — the kind of patient who arrives at the intake appointment with his hands still faintly stained with pigment, as though the studio is the only place he still trusts. He was referred following a terrorism-related incident approximately fourteen months ago, in which he was present at a public venue when an attack occurred. He had been attending an outdoor cultural festival, one of the few public events he still made a point of going to in retirement, when the explosion happened nearby. He remembers the concussive pressure against his chest, the sudden tilt of the ground as he fell, and the position his body locked into — arms raised, torso twisted — a posture that now returns to him unbidden, reproduced in his muscles whenever the memory surfaces. The clarity of what he saw that day has not faded. If anything, it has sharpened: the colours of the stalls, the specific quality of the afternoon light, the faces of strangers in the seconds before and after. These are not impressions but high-resolution records, and they force themselves into his awareness without invitation — while he is mixing paint, while he is eating, while he is lying in the dark.\n\nIn the months that followed, those intrusive memories began to do something more than disturb him. Each time the recollection arrived — vivid, embodied, insistent — it carried with it a conclusion that felt less like interpretation than fact: that the world had always been this dangerous, and that he had simply failed to see it. He had come to believe that his own judgment could not be trusted, that he had walked into that festival with a naïve confidence that nearly cost him everything. The sense that other people were equally unreliable settled in alongside this — no one had warned him, no one had protected him, and the social fabric he had taken for granted had proven itself hollow in a single afternoon. These convictions — that he could not rely on himself, that he could not rely on others, that danger was the world's default condition — took root quickly and have not loosened since.\n\nIt was from within this frame of threat and self-doubt that his coping strategies developed, and they have proven to be the architecture of his current suffering. He began avoiding going out entirely, first limiting his trips to necessities, then eliminating most of them. His painting practice, which had always required occasional visits to suppliers, galleries, and the open-air locations he favoured for landscape work, contracted to the interior of his flat. The occupation that had once carried him outdoors now traps him inside it. He also started seeking reassurance compulsively — calling a neighbour, texting his niece, asking whether they thought he was coping, whether he seemed alright — and working hard to suppress any emotion that felt too large to contain, holding himself rigid through moments of distress. The difficulty is that these strategies, rather than quieting the system, keep feeding it. The avoidance and the emotional suppression prevent him from processing what happened, so the memories return with undiminished force — bodily, vivid, uncontrolled — and each intrusion refreshes his certainty that the world is dangerous and that he is not equipped to navigate it. The reassurance-seeking, in turn, quietly confirms what he fears most: that he cannot trust his own read on things, that he needs external verification just to feel temporarily safe, which sits poorly alongside his belief that others cannot truly be relied upon either.\n\nWhat finally brought Rangi to seek help was a conversation with his niece, who told him gently that she had not seen him leave his building in six weeks. He had not realised it had been that long. He arrived at the first session saying very little about what he hoped for, only that he wanted to be able to go back to painting outside — to stand in front of a landscape without scanning it for exits. What he is most afraid of, though he has not said it in these words, is that the man who walked into that festival no longer exists, and that the one who came out is all that remains."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Rangi is a 71-year-old Māori man, single, who has worked as a painter for most of his adult life — the kind of patient who arrives at the intake appointment with his hands still faintly stained with pigment, as though the studio is the only place he still trusts. He was referred following a terrorism-related incident approximately fourteen months ago, in which he was present at a public venue when an attack occurred. He had been attending an outdoor cultural festival, one of the few public events he still made a point of going to in retirement, when the explosion happened nearby. He remembers the concussive pressure against his chest, the sudden tilt of the ground as he fell, and the position his body locked into — arms raised, torso twisted — a posture that now returns to him unbidden, reproduced in his muscles whenever the memory surfaces. The clarity of what he saw that day has not faded. If anything, it has sharpened: the colours of the stalls, the specific quality of the afternoon light, the faces of strangers in the seconds before and after. These are not impressions but high-resolution records, and they force themselves into his awareness without invitation — while he is mixing paint, while he is eating, while he is lying in the dark.\n\nIn the months that followed, those intrusive memories began to do something more than disturb him. Each time the recollection arrived — vivid, embodied, insistent — it carried with it a conclusion that felt less like interpretation than fact: that the world had always been this dangerous, and that he had simply failed to see it. He had come to believe that his own judgment could not be trusted, that he had walked into that festival with a naïve confidence that nearly cost him everything. The sense that other people were equally unreliable settled in alongside this — no one had warned him, no one had protected him, and the social fabric he had taken for granted had proven itself hollow in a single afternoon. These convictions — that he could not rely on himself, that he could not rely on others, that danger was the world's default condition — took root quickly and have not loosened since.\n\nIt was from within this frame of threat and self-doubt that his coping strategies developed, and they have proven to be the architecture of his current suffering. He began avoiding going out entirely, first limiting his trips to necessities, then eliminating most of them. His painting practice, which had always required occasional visits to suppliers, galleries, and the open-air locations he favoured for landscape work, contracted to the interior of his flat. The occupation that had once carried him outdoors now traps him inside it. He also started seeking reassurance compulsively — calling a neighbour, texting his niece, asking whether they thought he was coping, whether he seemed alright — and working hard to suppress any emotion that felt too large to contain, holding himself rigid through moments of distress. The difficulty is that these strategies, rather than quieting the system, keep feeding it. The avoidance and the emotional suppression prevent him from processing what happened, so the memories return with undiminished force — bodily, vivid, uncontrolled — and each intrusion refreshes his certainty that the world is dangerous and that he is not equipped to navigate it. The reassurance-seeking, in turn, quietly confirms what he fears most: that he cannot trust his own read on things, that he needs external verification just to feel temporarily safe, which sits poorly alongside his belief that others cannot truly be relied upon either.\n\nWhat finally brought Rangi to seek help was a conversation with his niece, who told him gently that she had not seen him leave his building in six weeks. He had not realised it had been that long. He arrived at the first session saying very little about what he hoped for, only that he wanted to be able to go back to painting outside — to stand in front of a landscape without scanning it for exits. What he is most afraid of, though he has not said it in these words, is that the man who walked into that festival no longer exists, and that the one who came out is all that remains.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -28,8 +28,8 @@ Current self-report (items NOT flagged must remain unchanged):
 Flagged items with reasons for rejection:
 {issues}
 
-For each flagged item, select ONE replacement key from the pool above.
-The replacement must fit the patient's trauma type and be coherent with their other self-report items.
+For each flagged component, return the component name and a comma-separated list of replacement keys.
+The replacements must fit the patient's trauma type and be coherent with their other self-report items.
 IMPORTANT: Do not re-select any of the flagged item keys. Each replacement must be a different key."""
 
 
@@ -40,25 +40,27 @@ IMPORTANT: Do not re-select any of the flagged item keys. Each replacement must 
 
 PERSONA_VALIDATOR_DEMOGRAPHICS_SYSTEM_PROMPT = """You are a validator checking whether a PTSD patient's demographic profile is internally consistent and plausible.
 
-You will receive a set of demographic fields. Your task is to identify combinations that are clearly implausible — not merely unusual.
+You will receive a set of demographic fields. 
+Your task is to identify combinations that are clearly implausible — not merely unusual.
 
 VALIDATION RULES:
 
-AGE
-- Must be between 18 and 80. Flag if outside this range.
-
 AGE + RELATIONSHIP_STATUS
-- "Widowed" is implausible if age < 22. Flag both fields.
-- All other trauma types are plausible for any adult (18+). Do not flag these.
+- "Widowed" is implausible if age < 30. 
+- "Divorced" is implausible if age < 25. 
 
-AGE + TRAUMA_TYPE
-- All other trauma types are plausible for any adult (18+). Do not flag these.
+AGE + OCCUPATION
+- "Student" is implausible if age > 40. 
+- "Retired" is implausible if age < 50. 
 
-GENDER + TRAUMA_TYPE
-- Do not flag any trauma type based on gender. All trauma types can affect any gender.
+GENDER + OCCUPATION
+- "Nun" is implausible if gender is Male.
+- "Midwife" is implausible if gender is Male.
 
-ETHNICITY, GENDER
-- These fields are never invalid on their own. Do not flag them unless they are missing or malformed."""
+GENERAL RULE:
+Only flag combinations that are clearly contradictory. Do not flag statistically uncommon but possible combinations.
+
+"""
 
 PERSONA_VALIDATOR_DEMOGRAPHICS_USER_PROMPT = """Validate the following patient demographics for internal consistency:
 
@@ -120,28 +122,23 @@ Self-report items:
 # VIGNETTE CRAFTER
 # =============================================================================
 
-VIGNETTE_CRAFTER_PROMPT_CONTEXT = """You are a clinical psychologist writing psychological case vignettes 
+VIGNETTE_CRAFTER_PROMPT_CONTEXT = """You are a clinical psychologist writing psychological case vignettes
 grounded in Ehlers & Clark's (2000) cognitive model of PTSD.
 
 For each patient you receive, you will be given:
 - Their demographics
 - Their self-reported symptoms per PTSD component
 - Weighted causal connections between components (the active cognitive graph)
-- Forbidden causal connections that must never appear
 
 Your job is to construct a realistic, fully personalised clinical portrait using the information provided.
 
 Core constraints that apply to every vignette:
 - Only include active components.
-- Do NOT include inactive components — these are clinically irrelevant for this patient and must not be mentioned.
 - Do NOT invent or infer causal links not present in the active graph.
 - For EACH required causal connection (A → B), ensure the vignette conveys — within a
   paragraph — that A influences or leads to B. This does not require a single mechanical
   sentence; natural clinical prose that shows the relationship across one or two sentences
   in the same paragraph is sufficient.
-- For forbidden pairs, never use explicit causal language between them in a single sentence:
-  "led to", "caused", "as a result of", "because of", "driven by", "resulting in".
-  Both components may appear in the same paragraph — just not causally linked in one sentence.
 - Ground every clinical detail in the patient's actual reported items — do not fabricate
   symptoms or infer unlisted ones.
 - Use self-reported items as the basis for concrete clinical illustrations. Components should
@@ -362,59 +359,4 @@ VALIDATOR_VIGNETTE_USER_PROMPT = """Validate the following vignette against the 
 """
 
 
-# =============================================================================
-# VIGNETTE ANALYST AGENT
-# =============================================================================
-
-VIGNETTE_ANALYST_PROMPT = """You are an expert clinical analyst trained in Ehlers & Clark's cognitive model of PTSD.
-
-## Reference Model
-- Trauma Memory: fragmented, poorly contextualized intrusive memories triggered by cues
-- Negative Appraisals: catastrophic beliefs about the trauma, self, or sequelae (e.g., "I am to blame", "I am permanently damaged")
-- Triggers: internal or external cues that reactivate memory or threat
-- Threat: a sense of serious, current (not past) danger
-- Maladaptive Strategies: avoidance, suppression, rumination, safety behaviors — actions that prevent cognitive change and maintain the cycle
-
-## Your Task
-Read the vignette and score each directed causal edge on the strength of evidence.
-
-## Scoring Scale (0–10)
-Read all anchors before scoring a single edge.
-
-0  — Absent: the connection is not present or is contradicted.
-2  — Faint trace: one element is present but the other is barely mentioned.
-4  — Narrative proximity: both elements appear in the same paragraph,
-     but no directional or causal language connects them.
-6  — Implied causation: the text suggests one element influences the other
-8  — Strong implication: the causal direction is clear and specific,
-     but not stated outright as a direct cause-effect relationship.
-10 — Explicit: the vignette directly and unambiguously states that
-     one component causes, drives, or produces the other.
-
-     
-## Edges to Score
-- Triggers --> Maladaptive Strategies
-- Triggers --> Threat
-- Triggers --> Memory
-- Triggers --> Negative Appraisals
-- Negative Appraisals --> Maladaptive Strategies
-- Negative Appraisals --> Threat
-- Negative Appraisals --> Memory
-- Negative Appraisals --> Triggers
-- Memory --> Maladaptive Strategies
-- Memory --> Threat
-- Memory --> Negative Appraisals
-- Memory --> Triggers
-- Threat --> Maladaptive Strategies
-- Threat --> Memory
-- Threat --> Negative Appraisals
-- Threat --> Triggers
-- Maladaptive Strategies --> Memory
-- Maladaptive Strategies --> Negative Appraisals
-
-For each edge provide:
-- weight: integer 0–10
-- explanation: one sentence grounded strictly in the vignette text
-- quote: shortest passage that supports your score, or "" if weight is 0
-"""
 

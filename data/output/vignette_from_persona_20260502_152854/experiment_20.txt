@@ -1,0 +1,203 @@
+PERSONA 20  |  2026-05-02 15:43:55
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             44
+  gender          Female
+  ethnicity       South Asian
+  relationship_status Married
+  occupation      Retail Worker
+  trauma_type     Witnessed other trauma
+  pcl5            68
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Affective Expression: Crying
+    • Somatic (Dizziness): Feeling dizzy or lightheaded
+    • Event Recall: Talking about the event
+  Maladaptive Strategies:
+    • Checking Surroundings: constantly scan environment for signs of threat
+    • Meaning Seeking: I think about why the event has happened to me
+    • People Pleasing: go along with whatever others want to feel safe
+  Threat:
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Scanning for Danger: I constantly scan my surroundings for signs of danger
+    • Startle Response: Feeling jumpy or easily startled
+  Memory:
+    • Confused Sequence: I cannot put the memories of the event in the right order
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.8707
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0637
+  Memory → Threat                                    0.6264
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.4476
+  Threat → Maladaptive Strategies                    0.2744
+  Threat → Memory                                    0.2951
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0386
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.8013
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+    explanation: The threat profile is strongly centered on current external danger and hypervigilant escape planning (avoiding unfamiliar places, scanning exits), but the memory items emphasize disorganized recall plus grief and rage without a clear link to present-moment environmental threat. That makes the Threat ↔ Memory pattern only weakly coherent for a witnessed-trauma presentation.
+    item:        Memory / Threat: Scanning Exits: I scan for exits as soon as I enter any room or building
+    explanation: Within Memory, intense rage and overwhelming grief can co-occur, but with only three items and the third being confused sequence, the node reads as two different dominant emotional meanings of the trauma rather than one coherent memory profile. This is not impossible, but combined with the rest of the profile it creates a clinically mixed signal.
+    item:        Maladaptive Strategies / Memory: Rage on Recall: When I remember the event I feel intense rage
+    explanation: Maladaptive Strategies are not well aligned within-node: checking surroundings fits the threat items, but meaning seeking is a ruminative appraisal-focused strategy and people pleasing is an interpersonal safety strategy. Together they imply three different maintaining processes without support from Negative Appraisals or other nodes.
+  [2] FAIL
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: The threat node mixes core trauma-related threat responses (hypervigilance, scanning exits) with a nonspecific consequence item (difficulty concentrating). Concentration problems are common in PTSD, but here they do not clearly represent perceived current threat and are weakly aligned with the rest of the threat content.
+    item:        Memory / Memory: Rage on Recall: When I remember the event I feel intense rage
+    explanation: Within the memory node, intense rage on recall and overwhelming grief on recall can coexist, but paired with confused sequence they do not form a clearly coherent memory profile for a single witnessed-trauma account unless the event involved a very specific interpersonal betrayal/loss narrative. As presented, the emotional tone is mixed enough that a clinician would question whether these memory items are describing the same dominant trauma memory state.
+  [3] FAIL
+    item:        Triggers / Triggers: Auditory (Cars): Car sounds
+    explanation: The profile suggests a highly generalized interpersonal/public-space danger style (scanning exits, constant danger monitoring, checking surroundings) that is not anchored by the rest of the formulation. For a witnessed-other-trauma case, this could occur, but here the only concrete trigger cue is 'car sounds,' which implies a more specific event context. The threat items are broad and pervasive in a way that is hard to reconcile with the otherwise grief-dominated memory content.
+    item:        Threat / Threat: Scanning Exits: I scan for exits as soon as I enter any room or building
+    explanation: Within and across nodes, 'Checking Surroundings' is essentially the same behavior as the threat items 'Scanning for Danger' and 'Hypervigilance,' creating a near-duplicate symptom loop rather than distinct components. Given the formulation, Threat and Maladaptive Strategies should be plausibly linked but not indistinguishable copies of the same content.
+    item:        Maladaptive Strategies / Threat: Hypervigilance: Being superalert or watchful or on guard
+    explanation: The memory node is dominated by disorganization and overwhelming grief on recall, with no content suggesting ongoing intentional harm, entrapment, or assaultive threat. That makes the very strong public-space exit scanning pattern feel clinically mismatched: it implies an active expectation of immediate external danger that is not supported by the memory material or the specific trigger content provided.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,878
+  output:     4,637
+  total:      7,515
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Priya, a 44-year-old retail worker, initially dismissed the incident as a terrible but isolated
+event. It had been a busy Saturday morning when a customer, an elderly woman, had collapsed
+violently in the aisle, hitting her head with a sickening thud. Priya remembered the woman’s husband
+crying hysterically over her, his grief a raw, piercing sound that echoed in the store. The shock of
+it all, combined with the stuffy air and the bright fluorescent lights, had left Priya feeling dizzy
+and lightheaded herself, a sensation that had lingered for hours. In the days that followed, the
+store manager had insisted on multiple debriefings, requiring staff to repeatedly talk about the
+event, recounting every detail, which only served to cement the horror in Priya’s mind.
+
+At first, Priya found herself unable to put the memories of the event in the right order; the
+sequence felt confused, a jumble of sights and sounds. When she did recall fragments, an
+overwhelming grief for the elderly woman and her husband would wash over her, a sorrow so profound
+that she’d have to stop whatever she was doing, completely overwhelmed by emotion. This persistent
+distress and the fragmented nature of her memories made her increasingly jumpy and easily startled
+by unexpected noises or movements in the store. She became hypervigilant, constantly scanning her
+surroundings for signs of danger, an intense watchfulness that left her perpetually exhausted.
+Because she felt so on edge and vulnerable, this heightened sense of threat directly led her to
+adopt certain maladaptive strategies; she would constantly check her surroundings, her eyes darting
+between customers and display shelves, convinced that if she was alert enough, she could prevent
+another catastrophe from unfolding.
+
+The sound of a child crying in the next aisle or the sudden feeling of dizziness from standing too
+long on a busy shift would immediately trigger a vivid, distressing cascade of memories from that
+awful day. These intrusive recollections, particularly the overwhelming grief they brought, made her
+feel profoundly unsafe, as if the world was a dangerous place where disaster could strike at any
+moment. This pervasive feeling of threat, of being super alert and on guard, further intensified her
+memories, making them feel more current and vivid, as if the danger was ever-present. To cope with
+the emotional onslaught when the memory returned, Priya started to obsessively think about why the
+event had happened to her, searching for meaning or a reason to make sense of the senseless. She
+also developed a habit of people-pleasing, going along with whatever her colleagues or demanding
+customers wanted, believing that being agreeable would somehow keep her safe from conflict or
+further upset, hoping to avoid any situation that might lead to another distressing memory.
+
+However, her efforts to understand *why* the event happened often kept the traumatic details at the
+forefront of her mind, preventing the memories from fading or integrating. Her constant scanning for
+danger, while intended to protect her, inadvertently made her more sensitive to subtle cues,
+increasing the likelihood that she would perceive innocuous sounds or sensations as triggers, like a
+customer's sigh or a momentary lightheadedness. These persistent, fragmented, and distressing
+memories themselves made her incredibly vulnerable to being re-triggered; the raw emotional content
+meant she reacted with intense fear and grief whenever she encountered something reminiscent of the
+event. The fear of experiencing such overwhelming grief or dizziness again began to isolate her, as
+she started avoiding any situation that might lead to talking about the event, even with her
+husband. The cumulative effect was that her retail job, once a stable routine, had become a
+minefield of potential threats and triggers, leaving her drained and perpetually on edge. Priya
+finally sought help, her greatest fear being that she would never truly feel safe again, forever
+trapped in a cycle of fear and fragmented memories.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Priya, a 44-year-old retail worker, initially dismissed the incident as a terrible but isolated
+event. It had been a busy Saturday morning when a customer, an elderly woman, had collapsed
+violently in the aisle, hitting her head with a sickening thud. Priya remembered the woman’s husband
+crying hysterically over her, his grief a raw, piercing sound that echoed in the store. The shock of
+it all, combined with the stuffy air and the bright fluorescent lights, had left Priya feeling dizzy
+and lightheaded herself, a sensation that had lingered for hours. In the days that followed, the
+store manager had insisted on multiple debriefings, requiring staff to repeatedly talk about the
+event, recounting every detail, which only served to cement the horror in Priya’s mind.
+
+At first, Priya found herself unable to put the memories of the event in the right order; the
+sequence felt confused, a jumble of sights and sounds. When she did recall fragments, an
+overwhelming grief for the elderly woman and her husband would wash over her, a sorrow so profound
+that she’d have to stop whatever she was doing, completely overwhelmed by emotion. This persistent
+distress and the fragmented nature of her memories made her increasingly jumpy and easily startled
+by unexpected noises or movements in the store. She became hypervigilant, constantly scanning her
+surroundings for signs of danger, an intense watchfulness that left her perpetually exhausted.
+Because she felt so on edge and vulnerable, this heightened sense of threat directly led her to
+adopt certain maladaptive strategies; she would constantly check her surroundings, her eyes darting
+between customers and display shelves, convinced that if she was alert enough, she could prevent
+another catastrophe from unfolding.
+
+The sound of a child crying in the next aisle or the sudden feeling of dizziness from standing too
+long on a busy shift would immediately trigger a vivid, distressing cascade of memories from that
+awful day. These intrusive recollections, particularly the overwhelming grief they brought, made her
+feel profoundly unsafe, as if the world was a dangerous place where disaster could strike at any
+moment. This pervasive feeling of threat, of being super alert and on guard, further intensified her
+memories, making them feel more current and vivid, as if the danger was ever-present. To cope with
+the emotional onslaught when the memory returned, Priya started to obsessively think about why the
+event had happened to her, searching for meaning or a reason to make sense of the senseless. She
+also developed a habit of people-pleasing, going along with whatever her colleagues or demanding
+customers wanted, believing that being agreeable would somehow keep her safe from conflict or
+further upset, hoping to avoid any situation that might lead to another distressing memory.
+
+However, her efforts to understand *why* the event happened often kept the traumatic details at the
+forefront of her mind, preventing the memories from fading or integrating. Her constant scanning for
+danger, while intended to protect her, inadvertently made her more sensitive to subtle cues,
+increasing the likelihood that she would perceive innocuous sounds or sensations as triggers, like a
+customer's sigh or a momentary lightheadedness. These persistent, fragmented, and distressing
+memories themselves made her incredibly vulnerable to being re-triggered; the raw emotional content
+meant she reacted with intense fear and grief whenever she encountered something reminiscent of the
+event. The fear of experiencing such overwhelming grief or dizziness again began to isolate her, as
+she started avoiding any situation that might lead to talking about the event, even with her
+husband. The cumulative effect was that her retail job, once a stable routine, had become a
+minefield of potential threats and triggers, leaving her drained and perpetually on edge. Priya
+finally sought help, her greatest fear being that she would never truly feel safe again, forever
+trapped in a cycle of fear and fragmented memories.

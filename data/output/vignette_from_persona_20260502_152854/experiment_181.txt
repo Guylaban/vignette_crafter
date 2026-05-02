@@ -1,0 +1,221 @@
+PERSONA 181  |  2026-05-02 17:43:14
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             40
+  gender          Male
+  ethnicity       Middle Eastern
+  relationship_status Married
+  occupation      Paramedic
+  trauma_type     Trauma to a loved one
+  pcl5            36
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Visual (Injuries): Visible injuries or wounds on others
+    • Victim Memories: Reminders of victims
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Maladaptive Strategies:
+    • Avoid Work or Study: Going to work or study
+    • Suppress Thoughts: try hard not think about the trauma
+    • Overworking: I throw myself into work or tasks to keep my mind occupied
+  Threat:
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+    • Concentration: Having difficulty concentrating
+    • Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+  Memory:
+    • Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    • Memory Gaps: There are parts of the event that I simply cannot remember no matter how hard I try
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+  Negative Appraisals:
+    • Permanent Damage: I have permanently changed for the worse
+    • Can't Rely on Self: I can't rely on myself
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3125
+  Triggers → Threat                                  0.1197
+  Triggers → Memory                                  0.7164
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.1388
+  Negative Appraisals → Threat                       0.4162
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.8748
+  Memory → Maladaptive Strategies                    0.1817
+  Memory → Threat                                    0.3343
+  Memory → Negative Appraisals                       0.0936
+  Memory → Triggers                                  0.3996
+  Threat → Maladaptive Strategies                    0.8363
+  Threat → Memory                                    0.0305
+  Threat → Negative Appraisals                       0.5629
+  Threat → Triggers                                  0.2364
+  Maladaptive Strategies → Memory                    0.4678
+  Maladaptive Strategies → Negative Appraisals       0.8533
+  Maladaptive Strategies → Triggers                  0.6218
+  Maladaptive Strategies → Threat                    0.1578
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Pain Recall
+    explanation: Pain Recall implies the patient personally sustained bodily injury during the trauma, which is hard to reconcile with the trauma type being trauma to a loved one unless there was also direct physical injury to the patient. That is not otherwise supported by the profile.
+    item:        Negative Appraisals / Negative Appraisals: Physical Vulnerability
+    explanation: Physical Vulnerability and permanent bodily damage imply the patient believes his own body was physically harmed. For a trauma-to-a-loved-one presentation, this is difficult to explain clinically without evidence that he was also directly injured.
+    item:        Triggers / Triggers: Military Topics
+    explanation: Military Topics is a trigger that suggests a military/combat-linked trauma context, but no other trigger, memory, threat, or appraisal item supports a military-related formulation. As a standalone item it feels disconnected from the rest of the profile.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Driving
+    explanation: Avoid Driving is plausible for motor-vehicle trauma, but here it lacks support from the trauma type and from the rest of the profile. With no transport-related trigger or memory content, it appears to target a symptom domain not otherwise represented.
+  [2] FAIL
+    item:        Triggers / Triggers: Darkness: Dark spaces
+    explanation: For trauma to a loved one, visible injuries is a plausible trigger, but darkness and alcohol smell are not well anchored to the rest of the profile. Nothing in memory, threat, or appraisals suggests a dark-space or alcohol-related trauma context, so these triggers feel disconnected rather than part of a coherent loved-one trauma presentation.
+    item:        Maladaptive Strategies / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: Avoiding work/study is hard to reconcile with this patient's occupation as a paramedic unless the trauma is clearly tied to the workplace, but the rest of the profile frames the trauma as harm to a loved one rather than occupational trauma. Drug use is also insufficiently supported elsewhere in the profile: there are no other items indicating broad externalising coping or substance-related trigger context, making this strategy feel tacked on.
+    item:        Negative Appraisals / Maladaptive Strategies: Avoid Work or Study: Going to work or study
+    explanation: Self-blame can occur after trauma to a loved one, but this specific wording implies a direct causal role in the event. The rest of the profile does not provide supporting content suggesting he believes his own actions caused the loved one's trauma. The other appraisals are about damage and unreliability of self, so this item is the least integrated with the stated trauma type and surrounding node content.
+  [3] FAIL
+    item:        Triggers / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: Alcohol smell is not impossible, but in this profile it is the only trigger that suggests a substance-related context. The other trigger and memory items center on victims/injuries, which fits a paramedic exposed to injured loved ones or victims. Without any corresponding memory, threat, or appraisal content linked to alcohol, this item stands out as weakly connected to the rest of the trauma representation.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Drug Use: take drugs
+    explanation: Drug use can occur in PTSD, but here it is the only maladaptive strategy that implies substance misuse. The rest of the profile emphasizes work avoidance, suppression, sensory reliving, and hypervigilant threat responses. With no parallel alcohol/substance-related trigger, appraisal, or memory content, this item looks clinically disconnected from the rest of the formulation.
+    item:        Negative Appraisals / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: For trauma to a loved one, self-blame is plausible only if the patient had a clear perceived role in failing to protect or respond. In this profile, the other items describe reliving of victims/injuries, hypervigilance, and damaged-self beliefs, but nothing else indicates a responsibility-based trauma narrative. This makes the specific self-blame item the least coherent appraisal relative to the rest of the selected content.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,250
+  output:    11,381
+  total:     14,631
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Omar, a 40-year-old paramedic, had always prided himself on his calm under pressure. That changed
+irrevocably six months ago when his younger brother, Sami, was involved in a horrific car accident.
+Off-duty but living nearby, Omar was one of the first on the scene. The sight of Sami’s mangled car,
+the *visible injuries* on his brother, and the desperate struggle to stabilize him before the
+ambulance arrived, became an indelible nightmare. The hospital, with its pervasive *antiseptic
+smell*, where he waited for hours, would now instantly put him on edge, his body tensing, a palpable
+sense of *threat* washing over him.
+
+In the weeks that followed, Omar found himself profoundly changed. When a vivid reminder of Sami or
+the accident would surface, like a fleeting image of a victim on another call, these *reminders of
+victims* would plunge him into a state where the memory felt *completely real across all his senses
+at once*. The *terror on recall* was so overwhelming that the slightest unexpected touch would make
+him *react with alarm*, a jolt of pure panic. He’d often experience *memory gaps* about the
+immediate aftermath of the accident, which fueled a gnawing belief that he *couldn't rely on
+himself*, deepening his internal shame. This conviction that he *failed to protect* Sami made him
+feel profoundly inadequate, and in turn, made him acutely sensitive to any *reminders of victims*,
+constantly scanning for signs of distress in others, convinced he might fail again. The *full
+sensory reliving* of the accident, particularly the sight of Sami's injuries, made him acutely
+sensitive to any *visual cues of injuries or wounds* on others, turning even minor cuts into potent
+new triggers.
+
+To escape the relentless *full sensory reliving* and the accompanying terror, Omar began to *try
+hard not to think about the trauma*. Yet, this suppression often led to more fragmented memories,
+ironically contributing to the very *memory gaps* he dreaded. His pervasive sense of threat,
+manifesting as *difficulty concentrating* during routine tasks, often led him to *throw himself into
+other tasks to keep his mind occupied* in an attempt to regain focus, though often fruitlessly. This
+difficulty made him feel even less capable, reinforcing his belief that he *can't rely on himself*,
+and he started to feel that he was *permanently changed for the worse*. This appraisal that he was
+fundamentally broken then made him feel constantly vulnerable, intensifying his overall sense of
+*threat*. The constant state of alarm also made him *perceive more things as triggers*, like the
+sound of an ambulance siren even when off-duty, which would previously have been unremarkable. The
+constant state of alarm and hypervigilance also made his mind race, paradoxically contributing to
+the fragmented nature of his recollections and making his *memories feel even more jumbled and
+incomplete*.
+
+Omar’s job as a paramedic became a minefield. The *visible injuries or wounds on others* at accident
+scenes would often trigger intense flashbacks, making *going to work* an unbearable ordeal, leading
+him to *avoid shifts* whenever possible. His internal conviction that he *failed to protect others*
+pushed him to compensate by *throwing himself into work or tasks to keep his mind occupied* during
+the shifts he did take, but this *overworking* left him utterly exhausted and even more prone to
+*startle to touch*. This cycle of avoidance and overcompensation was exhausting. He found himself
+*always choosing where to sit based on how safe or protected he feels*, a direct response to his
+heightened state of vigilance, making social outings with his wife, Layla, increasingly difficult.
+
+Omar now feels trapped. The constant effort to suppress thoughts, combined with his increasingly
+fragmented memories, has left him feeling mentally and emotionally drained, leading him to believe
+he is *permanently changed for the worse*. He recognized that his attempts to avoid work were only
+making him more sensitive to the *reminders of victims* when he inevitably encountered them. The
+cumulative effect of the trauma and his coping strategies has left him with a deep fear that he is
+losing himself, unable to be the reliable husband Layla deserves or the competent paramedic he once
+was. He fears that this spiral will only continue, leaving him completely unable to function.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Omar, a 40-year-old paramedic, had always prided himself on his calm under pressure. That changed
+irrevocably six months ago when his younger brother, Sami, was involved in a horrific car accident.
+Off-duty but living nearby, Omar was one of the first on the scene. The sight of Sami’s mangled car,
+the *visible injuries* on his brother, and the desperate struggle to stabilize him before the
+ambulance arrived, became an indelible nightmare. The hospital, with its pervasive *antiseptic
+smell*, where he waited for hours, would now instantly put him on edge, his body tensing, a palpable
+sense of *threat* washing over him.
+
+In the weeks that followed, Omar found himself profoundly changed. When a vivid reminder of Sami or
+the accident would surface, like a fleeting image of a victim on another call, these *reminders of
+victims* would plunge him into a state where the memory felt *completely real across all his senses
+at once*. The *terror on recall* was so overwhelming that the slightest unexpected touch would make
+him *react with alarm*, a jolt of pure panic. He’d often experience *memory gaps* about the
+immediate aftermath of the accident, which fueled a gnawing belief that he *couldn't rely on
+himself*, deepening his internal shame. This conviction that he *failed to protect* Sami made him
+feel profoundly inadequate, and in turn, made him acutely sensitive to any *reminders of victims*,
+constantly scanning for signs of distress in others, convinced he might fail again. The *full
+sensory reliving* of the accident, particularly the sight of Sami's injuries, made him acutely
+sensitive to any *visual cues of injuries or wounds* on others, turning even minor cuts into potent
+new triggers.
+
+To escape the relentless *full sensory reliving* and the accompanying terror, Omar began to *try
+hard not to think about the trauma*. Yet, this suppression often led to more fragmented memories,
+ironically contributing to the very *memory gaps* he dreaded. His pervasive sense of threat,
+manifesting as *difficulty concentrating* during routine tasks, often led him to *throw himself into
+other tasks to keep his mind occupied* in an attempt to regain focus, though often fruitlessly. This
+difficulty made him feel even less capable, reinforcing his belief that he *can't rely on himself*,
+and he started to feel that he was *permanently changed for the worse*. This appraisal that he was
+fundamentally broken then made him feel constantly vulnerable, intensifying his overall sense of
+*threat*. The constant state of alarm also made him *perceive more things as triggers*, like the
+sound of an ambulance siren even when off-duty, which would previously have been unremarkable. The
+constant state of alarm and hypervigilance also made his mind race, paradoxically contributing to
+the fragmented nature of his recollections and making his *memories feel even more jumbled and
+incomplete*.
+
+Omar’s job as a paramedic became a minefield. The *visible injuries or wounds on others* at accident
+scenes would often trigger intense flashbacks, making *going to work* an unbearable ordeal, leading
+him to *avoid shifts* whenever possible. His internal conviction that he *failed to protect others*
+pushed him to compensate by *throwing himself into work or tasks to keep his mind occupied* during
+the shifts he did take, but this *overworking* left him utterly exhausted and even more prone to
+*startle to touch*. This cycle of avoidance and overcompensation was exhausting. He found himself
+*always choosing where to sit based on how safe or protected he feels*, a direct response to his
+heightened state of vigilance, making social outings with his wife, Layla, increasingly difficult.
+
+Omar now feels trapped. The constant effort to suppress thoughts, combined with his increasingly
+fragmented memories, has left him feeling mentally and emotionally drained, leading him to believe
+he is *permanently changed for the worse*. He recognized that his attempts to avoid work were only
+making him more sensitive to the *reminders of victims* when he inevitably encountered them. The
+cumulative effect of the trauma and his coping strategies has left him with a deep fear that he is
+losing himself, unable to be the reliable husband Layla deserves or the competent paramedic he once
+was. He fears that this spiral will only continue, leaving him completely unable to function.

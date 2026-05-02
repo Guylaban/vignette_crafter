@@ -1,0 +1,206 @@
+PERSONA 327  |  2026-05-02 19:25:57
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             28
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Financial Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Media / News: Related news
+    • Weather Similarity: Similar weather conditions to when the event happened
+    • Children Present: Being around children
+  Threat:
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+  Memory:
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Identity Loss: I feel like I don't know myself anymore
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6291
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.3279
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.8899
+  Negative Appraisals → Triggers                     0.8733
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3833
+  Memory → Triggers                                  0.5300
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0248
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9883
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The threat items are keyed to interpersonal assault/home-intrusion danger and pervasive escape planning, which is hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, threat would more plausibly involve medical catastrophe, sudden deterioration, or loss, rather than someone entering the home.
+    item:        Negative Appraisals / Threat: Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    explanation: These threat items also fit poorly with the rest of the profile: the triggers are news, emotional closeness, and weather similarity, none of which plausibly connect to monitoring for an intruder or scanning escape routes. Given the very strong Triggers ↔ Threat edges, the selected threat content should be tightly linked to the triggers, but here the content appears to come from a different trauma schema.
+  [2] FAIL
+    item:        Triggers / Triggers: Emotional Closeness: Someone getting emotionally close to me
+    explanation: For trauma involving a child's life-threatening illness, media/news and weather cues are plausible reminders, but 'someone getting emotionally close to me' is difficult to reconcile as a primary trauma trigger unless there is additional interpersonal trauma history. It does not fit well with the illness-focused threat and memory pattern described by the rest of the profile.
+    item:        Negative Appraisals / Negative Appraisals: Dehumanization: I feel like an object, not like a person
+    explanation: The negative appraisal set is dominated by severe depersonalisation/identity disturbance ('object, not a person'; 'don't know myself anymore'; 'unrecognisable to me'), which is hard to link coherently to the stated trauma type and to the rest of the profile. For a parent traumatised by a child's illness, appraisals would more plausibly center on guilt, responsibility, permanent danger, or inability to protect. This item especially feels clinically mismatched rather than merely unusual.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,965
+  output:     5,608
+  total:      8,573
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Noah, a 28-year-old financial analyst, first sought help after nearly two years of struggling in
+silence, driven by the profound changes he saw in himself. The turning point had been the brutal
+winter of his son Leo’s second birthday. A sudden, unseasonal storm had swept through their region,
+trapping them at home just as Leo developed a frighteningly high fever and struggled for breath. For
+a day, Noah and his wife were isolated, the roads impassable, watching news reports about
+overwhelmed hospitals and feeling utterly helpless as their child fought for air. The images of
+Leo's tiny chest heaving, the frantic calls to emergency services, and the agonizing wait for the
+storm to clear were seared into Noah’s mind as vivid, visual memories. Even after Leo made a full
+recovery, the terrifying ordeal left an indelible mark.
+
+In the months that followed, Noah found himself increasingly burdened by the conviction that he
+should have protected Leo, that he had failed his son in that critical moment. This deep-seated
+belief that he had failed to protect others led to a profound sense of identity loss; he felt like
+he didn't know himself anymore, and the person he had become was unrecognisable to him. This
+internal struggle heavily influenced his relationship with his memories; he found himself pushing
+the memory away before he could fully recall it, as if trying to avoid the painful specifics that
+only reinforced his perceived failure. What was worse, this persistent negative appraisal of himself
+made him acutely sensitive to anything that might signal a repeat of the horror. His own sense of
+failure increasingly acted as an internal amplifier, making him acutely vulnerable to external
+triggers.
+
+Now, whenever similar weather conditions to when the event happened arose – a heavy downpour or a
+sudden drop in temperature – or when he encountered related news stories about childhood illnesses
+or medical crises, Noah would experience an immediate surge of anxiety. These triggers would
+instantly plunge him into a state of heightened threat, where he often reacted as if he was in
+danger even when nothing is actually wrong. He’d find himself scanning his surroundings, impulsively
+identifying escape routes before he felt comfortable anywhere, whether in a restaurant or in his own
+office during a client meeting. Furthermore, these triggering moments served to painfully confirm
+his conviction that he had failed to protect others, deepening his sense of identity loss.
+
+This constant state of vigilance, this pervasive feeling of threat, made it nearly impossible to
+relax, especially at night. Noah struggled with sleep vigilance, needing to stay alert, which often
+meant lying awake for hours, monitoring every sound. This exhausting alertness, in turn, subtly
+distorted his recollections; the fear and hyperarousal made it difficult to fully process the event,
+contributing to his tendency to block the memory before he could complete it. Moreover, the very act
+of feeling threatened made him even more attuned to potential dangers, further sensitizing him to
+new triggers, creating a tightening loop of anxiety.
+
+The vivid memory of Leo's illness itself continued to exert a powerful pull. When those clear,
+detailed pictures of Leo’s struggle resurfaced, they reignited his conviction that he had failed to
+protect him, deepening his negative appraisals. These intrusive memories also acted as powerful
+internal triggers, making him even more reactive to external cues like the presence of children,
+which now filled him with an almost unbearable dread rather than joy.
+
+Over time, this relentless cycle began to take a significant toll on Noah's life. His performance at
+the financial firm, which demanded sharp focus and composure, suffered as his mind was constantly
+preoccupied with identifying escape routes or battling intrusive thoughts. His marriage, too, felt
+the strain of his pervasive sleep vigilance and emotional distance. He knew he needed help when he
+found himself avoiding his own son's playdates, the joyful chaos of children present now a source of
+intense distress. He came to therapy hoping to escape the prison of his mind, desperate to feel like
+himself again, and most of all, to be truly present for his family without the constant shadow of
+fear and self-reproach.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Noah, a 28-year-old financial analyst, first sought help after nearly two years of struggling in
+silence, driven by the profound changes he saw in himself. The turning point had been the brutal
+winter of his son Leo’s second birthday. A sudden, unseasonal storm had swept through their region,
+trapping them at home just as Leo developed a frighteningly high fever and struggled for breath. For
+a day, Noah and his wife were isolated, the roads impassable, watching news reports about
+overwhelmed hospitals and feeling utterly helpless as their child fought for air. The images of
+Leo's tiny chest heaving, the frantic calls to emergency services, and the agonizing wait for the
+storm to clear were seared into Noah’s mind as vivid, visual memories. Even after Leo made a full
+recovery, the terrifying ordeal left an indelible mark.
+
+In the months that followed, Noah found himself increasingly burdened by the conviction that he
+should have protected Leo, that he had failed his son in that critical moment. This deep-seated
+belief that he had failed to protect others led to a profound sense of identity loss; he felt like
+he didn't know himself anymore, and the person he had become was unrecognisable to him. This
+internal struggle heavily influenced his relationship with his memories; he found himself pushing
+the memory away before he could fully recall it, as if trying to avoid the painful specifics that
+only reinforced his perceived failure. What was worse, this persistent negative appraisal of himself
+made him acutely sensitive to anything that might signal a repeat of the horror. His own sense of
+failure increasingly acted as an internal amplifier, making him acutely vulnerable to external
+triggers.
+
+Now, whenever similar weather conditions to when the event happened arose – a heavy downpour or a
+sudden drop in temperature – or when he encountered related news stories about childhood illnesses
+or medical crises, Noah would experience an immediate surge of anxiety. These triggers would
+instantly plunge him into a state of heightened threat, where he often reacted as if he was in
+danger even when nothing is actually wrong. He’d find himself scanning his surroundings, impulsively
+identifying escape routes before he felt comfortable anywhere, whether in a restaurant or in his own
+office during a client meeting. Furthermore, these triggering moments served to painfully confirm
+his conviction that he had failed to protect others, deepening his sense of identity loss.
+
+This constant state of vigilance, this pervasive feeling of threat, made it nearly impossible to
+relax, especially at night. Noah struggled with sleep vigilance, needing to stay alert, which often
+meant lying awake for hours, monitoring every sound. This exhausting alertness, in turn, subtly
+distorted his recollections; the fear and hyperarousal made it difficult to fully process the event,
+contributing to his tendency to block the memory before he could complete it. Moreover, the very act
+of feeling threatened made him even more attuned to potential dangers, further sensitizing him to
+new triggers, creating a tightening loop of anxiety.
+
+The vivid memory of Leo's illness itself continued to exert a powerful pull. When those clear,
+detailed pictures of Leo’s struggle resurfaced, they reignited his conviction that he had failed to
+protect him, deepening his negative appraisals. These intrusive memories also acted as powerful
+internal triggers, making him even more reactive to external cues like the presence of children,
+which now filled him with an almost unbearable dread rather than joy.
+
+Over time, this relentless cycle began to take a significant toll on Noah's life. His performance at
+the financial firm, which demanded sharp focus and composure, suffered as his mind was constantly
+preoccupied with identifying escape routes or battling intrusive thoughts. His marriage, too, felt
+the strain of his pervasive sleep vigilance and emotional distance. He knew he needed help when he
+found himself avoiding his own son's playdates, the joyful chaos of children present now a source of
+intense distress. He came to therapy hoping to escape the prison of his mind, desperate to feel like
+himself again, and most of all, to be truly present for his family without the constant shadow of
+fear and self-reproach.

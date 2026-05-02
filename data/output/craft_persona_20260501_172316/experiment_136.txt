@@ -1,0 +1,115 @@
+PERSONA 136  |  2026-05-01 17:48:17
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    craft_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             48
+  gender          Female
+  ethnicity       European
+  relationship_status Single
+  occupation      Chef
+  trauma_type     Toxic chemical exposure
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Certain Songs: Certain songs
+    • Olfactory (Hospital): Hospital or antiseptic smell
+    • Feeling Ill: Feeling physically unwell
+  Maladaptive Strategies:
+    • Avoid Going Out: Going out
+    • Avoid Event Site: avoid site of the event
+    • Reassurance Seeking: I keep asking others to reassure me that I am okay
+  Threat:
+    • Alert at Home: I feel on guard even inside my own home
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+    • Nonverbal Memory: I can't seem to put the frightening event into words.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+  Negative Appraisals:
+    • Body as Enemy: My body keeps reacting as if I am still in danger even when I am safe
+    • Helplessness: I can't stop bad things from happening to me
+    • Body Shame: I feel ashamed of what happened to my body
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.4703
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.6638
+  Triggers → Negative Appraisals                     0.9137
+  Negative Appraisals → Maladaptive Strategies       0.1168
+  Negative Appraisals → Threat                       0.8846
+  Negative Appraisals → Memory                       0.9800
+  Negative Appraisals → Triggers                     0.7126
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.6011
+  Memory → Negative Appraisals                       0.2069
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.7153
+  Threat → Memory                                    0.9230
+  Threat → Negative Appraisals                       0.4950
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.6875
+  Maladaptive Strategies → Negative Appraisals       0.3093
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Vivid Memory
+    explanation: Within the Memory node, 'Vivid Memory' can coexist with poor narrative coherence, but 'Verbal Access: I can talk about what happened very easily' directly conflicts with 'Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish.' Those two items describe opposing states of access/disorganization and are not clinically coherent as simultaneous endorsements.
+    item:        Triggers / Memory: Verbal Access
+    explanation: For toxic chemical exposure, 'Visual/Bodily Cues: Blood' is poorly matched to the trauma type unless there was major associated injury. Nothing else in the profile suggests a bloody injury context, so this trigger is hard to explain.
+    item:        Threat / Memory: Cannot Explain Clearly
+    explanation: The Threat items 'Safe Seat Seeking' and 'Scanning Exits' imply a danger model centered on escape/assault/entrapment in enclosed spaces. That can occur in PTSD generally, but here the trauma is toxic chemical exposure and the appraisals center on bodily danger and helplessness rather than interpersonal attack or imminent trapping. This creates a cross-node mismatch: the threat style does not fit the trauma-specific trigger/appraisal pattern well.
+  [2] FAIL
+    item:        Memory / Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, 'I can talk about what happened very easily' directly contradicts both 'When I try to explain what happened I lose the thread and cannot finish' and 'I can't seem to put the frightening event into words.' These items represent opposing clinical states and are not coherent as a single self-report profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Visual/Bodily Cues: Blood
+    explanation: For toxic chemical exposure, 'blood' as a salient visual/bodily trigger is hard to reconcile unless the exposure involved a traumatic injury scene, which is not reflected anywhere else in the profile. The rest of the profile centers on bodily danger, helplessness, and verbal inaccessibility rather than injury-related cues, so this trigger looks trauma-incongruent.
+    item:        Threat / Threat: Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+    explanation: The threat items emphasize interpersonal/physical attack style danger management (safe seat seeking, scanning exits, pervasive guardedness) rather than contamination/toxic exposure threat. That pattern is difficult to align with the trauma type and with the inactive Triggers → Threat edge, especially because the listed triggers and appraisals do not support a coherent exits/seat-selection danger schema.
+  [4] FAIL
+    item:        Triggers / Triggers: Entrapment: Having no options
+    explanation: The trigger item 'Entrapment/Having no options' suggests a situational cue more typical of interpersonal violence, confinement, or escape-related trauma, and it is not well anchored to toxic chemical exposure as the index trauma. Given the rest of the profile focuses on bodily reactions, hospital smell, and difficulty verbalising the event, this trigger is hard to reconcile with the stated trauma type.
+    item:        Threat / Threat: Scanning Exits: I scan for exits as soon as I enter any room or building
+    explanation: 'Scanning exits' implies a fear of immediate external attack or needing escape routes from human danger. In a toxic chemical exposure profile, hypervigilance can occur, but this specific item is weakly connected to the rest of the selected threat/appraisal content, which centres on bodily danger and internal reactivity rather than assailant- or entrapment-based threat. It is therefore clinically discordant with the trauma-specific pattern here.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     18,701
+  output:     1,170
+  total:     19,871
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  0 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+

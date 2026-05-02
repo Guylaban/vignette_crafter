@@ -1,0 +1,230 @@
+{
+  "persona_id": 238,
+  "source_persona_id": 238,
+  "experiment_timestamp": "2026-05-02 00:21:05",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 49,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "City Council Member",
+    "trauma_type": "Combat",
+    "pcl5": 42
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Sensory Distraction",
+        "value": "I put on loud music or TV"
+      },
+      {
+        "key": "Thought Monitoring",
+        "value": "constantly monitor own thoughts for signs of going crazy"
+      },
+      {
+        "key": "Avoid Being Touched",
+        "value": "Any form of physical contact with others"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Touch",
+        "value": "I react with alarm when someone touches me unexpectedly"
+      },
+      {
+        "key": "Cannot Trust Safety",
+        "value": "Even when others tell me I am safe I find it impossible to believe it"
+      },
+      {
+        "key": "Sleep Problems",
+        "value": "Trouble falling or staying asleep"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Incomplete Picture",
+        "value": "I feel like I am only remembering parts of what happened and the rest is missing"
+      },
+      {
+        "key": "Cannot Explain Clearly",
+        "value": "When I try to explain what happened I lose the thread and cannot finish"
+      },
+      {
+        "key": "Terror on Recall",
+        "value": "Remembering the event brings back the same terror I felt at the time"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Body as Enemy",
+        "value": "My body keeps reacting as if I am still in danger even when I am safe"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "I have to be on guard all the time"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.2768,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.445,
+    "Memory -- Threat": 0.7496,
+    "Memory -- Negative Appraisals": 0.8847,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.2921,
+    "Threat -- Negative Appraisals": 0.4268,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0413,
+    "Maladaptive Strategies -- Negative Appraisals": 0.9489,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Threat",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Threat",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.50815,
+  "edge_density": 0.4,
+  "vignette_word_count": 828,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Lost Community: I have lost my connection to my community and culture",
+          "explanation": "'Lost Community and culture' is not impossible for a combat trauma survivor, but for a 49-year-old married male European city council member it is the least coherent appraisal in this profile and is weakly anchored to the rest of the selected nodes. The rest of the profile centers on bodily danger, touch/startle, fragmented trauma recall, and safety distrust; this item instead implies a culturally/community dislocation theme that is not supported elsewhere in Triggers/Threat/Memory/Maladaptive Strategies."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Grief on Recall: When I remember the event I feel overwhelming grief",
+          "explanation": "'Overwhelming grief on recall' is not inherently inconsistent, but here it is the least coherent memory item relative to the formulation and other selected items. The profile is dominated by fear-based threat, bodily vulnerability, touch alarm, and cognitive disorganization of recall. A grief-dominant recall item without corresponding loss/bereavement appraisals or related strategies makes the memory cluster less internally aligned."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Lost Community"
+        ],
+        "Memory": [
+          "Grief on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Physical Vulnerability: My body has been permanently damaged by what happened",
+          "explanation": "The profile is largely coherent for a middle-aged male combat survivor, but this appraisal is the main mismatch. 'My body has been permanently damaged' implies a salient lasting physical injury. That idea is not supported elsewhere in the selected profile: memory items focus on fragmented, terror-laden recall; threat items emphasize current danger, mistrust of safety, startle to touch, and sleep disturbance; maladaptive strategies emphasize sensory distraction, thought monitoring, and avoidance of touch. There are no triggers selected, and no other items indicate ongoing medical consequences or trauma themes centered on bodily injury. In this profile, the appraisal reads as if it belongs to a different subtype centered on physical injury rather than the represented combat-related fear/terror formulation."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Physical Vulnerability"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Self-Blame: The event happened because of the way I acted",
+          "explanation": "For a combat trauma profile in a 49-year-old male, this specific self-blame item is the main coherence problem. The rest of the profile centers on persistent danger, touch-triggered alarm, fragmented/terror-laden memory, and defensive avoidance, which fits combat-related PTSD. In contrast, 'the event happened because of the way I acted' implies a strong internal-causal guilt formulation that is not otherwise supported by the selected memory, threat, or strategy items. This makes the appraisal set less coherent with the overall profile and with the formulation, where Memory and Threat strongly feed Negative Appraisals focused on ongoing danger rather than responsibility for causing the trauma. Self-blame can occur in combat PTSD, but here it is insufficiently connected to the other selected items and stands out as the least clinically coherent item."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Self-Blame"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3067,
+    "output": 964,
+    "total": 4031
+  },
+  "vignette": "Markus Weber is a 49-year-old city council member who came to treatment after months of telling his wife that he was “fine” and then startling so violently in bed when she reached for his shoulder that she began sleeping more cautiously beside him. He had served in combat years earlier, and when he speaks about the event he still does so in fragments. He remembers being in a convoy and then being on the ground after an explosion, with sound dropping in and out and pieces of the scene coming back without order: dust, shouting, a body too close to him, the sense that he was about to die. What remains most vivid is the terror. When he tries to explain the sequence clearly, he loses the thread, stops mid-sentence, and looks as if he is back there rather than describing it from a distance. The gaps in his memory have taken on meaning for him. Because he can only recall parts of what happened and cannot form a complete account, he has come to believe that the world is fundamentally dangerous and that his own body cannot be trusted, as if it knows he is under threat before his mind does.\n\nThat belief has shaped the way he lives now. Markus is certain that safety is always provisional, something people say to comfort themselves but not something that can be relied on. Even in familiar settings, including council chambers and public meetings he has attended for years, he feels he has to stay on guard. He scans the room automatically, tracks movement in the doorway, and notices who is behind him. When colleagues or constituents reach out to greet him with a hand on the arm or shoulder, he reacts with immediate alarm, his whole body jerking before he can think. The reaction itself frightens him. He has come to see these bodily surges as further proof that his body is working against him, still acting as though the danger is present, and each episode leaves him more convinced that the world really is as unsafe as he feels it to be.\n\nThe memories and the threat responses feed each other. At night, when he lies awake unable to settle into sleep, bits of the combat scene intrude more forcefully: the missing pieces remain missing, but the terror arrives intact. On those nights he can feel his body bracing in the dark, listening for sounds in the house, unable to accept his wife’s reassurance that they are safe at home. And after days when he has been especially keyed up—after a crowded council session, or an unexpected touch in a hallway—the memory becomes even less coherent when he tries to think about it, more like shards than a story, with the same original fear rushing back and cutting off his ability to speak.\n\nOver time Markus has developed ways of managing that he experiences as necessary. When images or bodily fear begin to rise, he turns on loud television or music to drown out his own thoughts. He also monitors his mind closely, watching for any sign that he might be “going crazy,” as he puts it, especially when he feels himself losing the thread while remembering. He avoids physical contact whenever he can, sidestepping embraces at public events and keeping a careful distance even from people he likes. In the moment these habits give him something to do, but they also keep him from staying with the memory long enough for it to become clearer. The event remains patchy and unspeakable, and because it remains that way, it continues to return charged with terror rather than as something finished and past.\n\nThose same strategies have deepened his sense that something is wrong with him. The more he orchestrates his day around preventing contact, controlling noise, and checking his own mind for signs of collapse, the more he experiences himself as a man whose body is unpredictable and whose surroundings require constant vigilance. In his work this has become increasingly visible. He now prefers the edge seat in meetings, keeps people out of his personal space during constituent events, and leaves some receptions early because the press of bodies feels intolerable. At home, his wife has experienced him as distant and tense, especially because even ordinary touch can set off an alarmed reaction he cannot hide.\n\nWhat finally brought him in was not a single flashback or a single bad night, but the recognition that his life had narrowed around staying prepared. He was exhausted from poor sleep, ashamed of recoiling from touch, and increasingly unable to give a straightforward account of the combat event without feeling overwhelmed by the same terror. What frightens him most is the idea that this constant watchfulness means he will never really feel safe again; what he hopes, more quietly, is that he might learn how to be at home in his body and with his wife without bracing for danger."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Markus Weber is a 49-year-old city council member who came to treatment after months of telling his wife that he was “fine” and then startling so violently in bed when she reached for his shoulder that she began sleeping more cautiously beside him. He had served in combat years earlier, and when he speaks about the event he still does so in fragments. He remembers being in a convoy and then being on the ground after an explosion, with sound dropping in and out and pieces of the scene coming back without order: dust, shouting, a body too close to him, the sense that he was about to die. What remains most vivid is the terror. When he tries to explain the sequence clearly, he loses the thread, stops mid-sentence, and looks as if he is back there rather than describing it from a distance. The gaps in his memory have taken on meaning for him. Because he can only recall parts of what happened and cannot form a complete account, he has come to believe that the world is fundamentally dangerous and that his own body cannot be trusted, as if it knows he is under threat before his mind does.\n\nThat belief has shaped the way he lives now. Markus is certain that safety is always provisional, something people say to comfort themselves but not something that can be relied on. Even in familiar settings, including council chambers and public meetings he has attended for years, he feels he has to stay on guard. He scans the room automatically, tracks movement in the doorway, and notices who is behind him. When colleagues or constituents reach out to greet him with a hand on the arm or shoulder, he reacts with immediate alarm, his whole body jerking before he can think. The reaction itself frightens him. He has come to see these bodily surges as further proof that his body is working against him, still acting as though the danger is present, and each episode leaves him more convinced that the world really is as unsafe as he feels it to be.\n\nThe memories and the threat responses feed each other. At night, when he lies awake unable to settle into sleep, bits of the combat scene intrude more forcefully: the missing pieces remain missing, but the terror arrives intact. On those nights he can feel his body bracing in the dark, listening for sounds in the house, unable to accept his wife’s reassurance that they are safe at home. And after days when he has been especially keyed up—after a crowded council session, or an unexpected touch in a hallway—the memory becomes even less coherent when he tries to think about it, more like shards than a story, with the same original fear rushing back and cutting off his ability to speak.\n\nOver time Markus has developed ways of managing that he experiences as necessary. When images or bodily fear begin to rise, he turns on loud television or music to drown out his own thoughts. He also monitors his mind closely, watching for any sign that he might be “going crazy,” as he puts it, especially when he feels himself losing the thread while remembering. He avoids physical contact whenever he can, sidestepping embraces at public events and keeping a careful distance even from people he likes. In the moment these habits give him something to do, but they also keep him from staying with the memory long enough for it to become clearer. The event remains patchy and unspeakable, and because it remains that way, it continues to return charged with terror rather than as something finished and past.\n\nThose same strategies have deepened his sense that something is wrong with him. The more he orchestrates his day around preventing contact, controlling noise, and checking his own mind for signs of collapse, the more he experiences himself as a man whose body is unpredictable and whose surroundings require constant vigilance. In his work this has become increasingly visible. He now prefers the edge seat in meetings, keeps people out of his personal space during constituent events, and leaves some receptions early because the press of bodies feels intolerable. At home, his wife has experienced him as distant and tense, especially because even ordinary touch can set off an alarmed reaction he cannot hide.\n\nWhat finally brought him in was not a single flashback or a single bad night, but the recognition that his life had narrowed around staying prepared. He was exhausted from poor sleep, ashamed of recoiling from touch, and increasingly unable to give a straightforward account of the combat event without feeling overwhelmed by the same terror. What frightens him most is the idea that this constant watchfulness means he will never really feel safe again; what he hopes, more quietly, is that he might learn how to be at home in his body and with his wife without bracing for danger.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

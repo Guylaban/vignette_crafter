@@ -1,0 +1,696 @@
+PERSONA 382  |  2026-05-02 21:47:49
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             79
+  gender          Male
+  ethnicity       African
+  relationship_status Divorced
+  occupation      Warehouse Worker
+  trauma_type     Witnessed domestic violence (childhood)
+  pcl5            42
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Being in Nature: Being in a natural environment similar to where it happened
+    • Auditory (Door): Doors opening or slamming
+    • Olfactory (Alcohol): Alcohol smell
+  Maladaptive Strategies:
+    • Substance Use: I drink alcohol, take medication or use drugs
+    • Seeking Conflict: I pick arguments or create drama to distract myself from the trauma
+    • Constant Socialising: I keep myself constantly surrounded by people so I am never alone with my thoughts
+  Memory:
+    • Emotion Without Image: Sometimes I feel the full emotional intensity of the event without any clear image or memory
+    • Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0471
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.9160
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.6759
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.6727
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Auditory (Explosion): Explosion or bang sounds
+    explanation: The trigger set is not clinically coherent with the indexed trauma of witnessed childhood domestic violence. Explosion/bang sounds, medical equipment/needles, and nature-based reminders point toward very different trauma contexts (combat/blast, medical trauma, outdoor assault/disaster) rather than a single domestic-violence witnessing history. This is a hard-to-explain mismatch within the Triggers node and also weakly linked to the selected Memory and Maladaptive Strategies items, which do not anchor these disparate cues to one coherent trauma context.
+  [2] FAIL
+    item:        Triggers / Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips
+    explanation: The trigger set is not coherent with the stated trauma type of witnessed domestic violence in childhood. Doors slamming is plausible, but medical equipment/needles and being in a natural environment suggest very different trauma contexts and are hard to reconcile with the same index trauma without additional explanation.
+    item:        Memory / Triggers: Being in Nature: Being in a natural environment similar to where it happened
+    explanation: Within the Memory node, 'photographic recall' and 'hard to recall deliberately' pull in opposing directions. A patient may have fragmented trauma memory, but endorsing vividly photographic recall while also saying the memory is difficult to deliberately access is a direct tension that is clinically questionable as a paired summary of the same trauma memory profile.
+  [3] FAIL
+    item:        Memory / Memory: Photographic Recall
+    explanation: Within the Memory node, 'Photographic Recall' and 'Hard to Recall Deliberately' pull in opposite directions if both are intended as general descriptions of the same trauma memory. Vivid, photograph-like recall can coexist with patchy retrieval, but paired without any qualifier it is clinically tense enough to question coherence.
+    item:        Triggers / Memory: Hard to Recall Deliberately
+    explanation: The trigger set does not cohere well with the stated trauma of witnessed childhood domestic violence. 'Doors opening or slamming' and 'Alcohol smell' are plausible domestic-violence cues, but 'Being in Nature' is hard to link to this trauma type unless unusual contextual details are present.
+    item:        Maladaptive Strategies / Triggers: Being in Nature
+    explanation: Cross-node coherence is weakened because the trigger profile mixes highly domestic/interpersonal cues (door slamming, alcohol smell) with 'Being in Nature,' while the memory items do not provide a contextual bridge explaining why a natural environment would cue this trauma.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     26,412
+  output:     3,389
+  total:     29,801
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Alfred Johnson, a 79-year-old African American man, often found himself in a tug-of-war with his
+past, a struggle rooted in the shadows of his childhood. Growing up in a tumultuous neighborhood, he
+had witnessed his mother being subjected to violent outbursts from his father. The chaos of those
+memories lingered in every corner of his mind, resurfacing at the most unexpected moments. One
+evening, while walking through a park, he felt a wave of anxiety wash over him as he inhaled the
+scent of alcohol carried on the breeze. It transported him back to the nights of his youth, where
+the smell signaled a precursor to violence. Such moments in nature, where the trees swayed gently
+and serenity thrived, felt like a cruel reminder of the turmoil he had endured, urging him to escape
+not just the environment but also the memories that haunted him.
+
+In an effort to manage this turmoil, Alfred had developed a series of maladaptive strategies. He
+often found solace at the bottom of a whiskey glass, a temporary reprieve that dulled the painful
+emotions bubbling beneath the surface. He had come to believe that by numbing himself with alcohol,
+he could sidestep the memories of his childhood trauma. Yet, this strategy came at a cost; the more
+he drank, the more fragmented his recollections became. He would sometimes sit with friends or
+acquaintances, surrounded by laughter and chatter, yet feel utterly disconnected. To avoid the
+confrontation with his own thoughts, he would pick arguments or create drama among his peers,
+believing that the noise of conflict would drown out the memories he could not bear to face. But it
+never worked; the emotional resonance of his past would seep through, rearing its head when he least
+expected it.
+
+The connection between his memories and triggers was a cycle he could not easily break. Every time a
+door slammed or opened, he was jolted back to the violence he had witnessed, an echo of shouts and
+screams in his mind. These auditory triggers would often send him spiraling back into confusion,
+where he would feel the weight of the emotions without any clear image to ground him. He struggled
+to retrieve the memories deliberately; they eluded him, appearing in disjointed fragments that felt
+almost surreal. Alfred could feel the intensity of the fear, the anger, and the helplessness that
+had accompanied those scenes from his childhood, yet he could not piece together a coherent
+narrative. The memories were like shards of glass, sharp and painful, which he would rather avoid
+than confront.
+
+This cycle of avoidance and distraction fed into a self-reinforcing loop. The more he sought to
+escape the feelings that arose from triggers, the more he relied on alcohol and conflict to manage
+the emotional aftermath. In moments of clarity, he recognized how his constant socializing kept him
+from solitude, yet he feared that solitude would bring the memories crashing down on him like a
+tidal wave. The thought of being alone with his thoughts was excruciating, and so he filled his days
+with people and noise, convincing himself that the chaos was preferable to the silence of
+introspection. Yet, he often returned to the solitude of his small apartment at night, where the
+memories would swirl back into focus, leaving him feeling isolated and trapped.
+
+Today, as he sat in his apartment, Alfred reflected on his life, the choices he had made, and the
+demons he had yet to confront. It was the smell of alcohol lingering on his clothes that had
+prompted him to seek help, a moment of clarity amidst the fog. He realized that he couldn’t continue
+living in this cycle, constantly battling the shadows of his past and the maladaptive strategies he
+had employed. What frightened him most was the thought that he might never find peace, that the
+memories would continue to haunt him indefinitely. But beneath that fear lay a flicker of hope — the
+possibility of understanding and healing. With a deep breath, he made the call, ready to take the
+first step toward confronting the past that had woven itself so tightly into the fabric of his life.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not explicitly connect triggers to maladaptive strategies, missing the causal relationship of how triggers lead Alfred to use maladaptive strategies.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not clearly convey how memories influence the triggers Alfred experiences, lacking the connection between memory and triggers.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The causal relationship between maladaptive strategies and memories is not effectively demonstrated, as the vignette does not show how his maladaptive strategies specifically influence his memory recall.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not establish how maladaptive strategies lead to the experience of triggers, failing to connect these two components.
+
+  [2] FAIL
+Alfred Johnson, a 79-year-old African American man, often found himself in a tug-of-war with his
+past, a struggle rooted in the shadows of his childhood. Growing up in a tumultuous neighborhood, he
+had witnessed his mother being subjected to violent outbursts from his father. The chaos of those
+memories lingered in every corner of his mind, resurfacing at the most unexpected moments. One
+evening, while walking through a park, he felt a wave of anxiety wash over him as he inhaled the
+scent of alcohol carried on the breeze. It transported him back to the nights of his youth, where
+the smell signaled a precursor to violence. Such moments in nature, where the trees swayed gently
+and serenity thrived, felt like a cruel reminder of the turmoil he had endured, urging him to escape
+not just the environment but also the memories that haunted him.
+
+In an effort to manage this turmoil, Alfred had developed a series of maladaptive strategies. He
+often found solace at the bottom of a whiskey glass, a temporary reprieve that dulled the painful
+emotions bubbling beneath the surface. He had come to believe that by numbing himself with alcohol,
+he could sidestep the memories of his childhood trauma. Yet, this strategy came at a cost; the more
+he drank, the more fragmented his recollections became. His reliance on alcohol to escape the
+emotional weight of his past meant that when memories surfaced, they did so in a disjointed manner,
+leaving him struggling to piece together a narrative and often feeling overwhelmed by the raw
+emotions that accompanied them. He would sometimes sit with friends or acquaintances, surrounded by
+laughter and chatter, yet feel utterly disconnected. To avoid the confrontation with his own
+thoughts, he would pick arguments or create drama among his peers, believing that the noise of
+conflict would drown out the memories he could not bear to face. Each confrontation seemed to serve
+as a distraction from the unsettling memories, but it also heightened his anxiety and made him more
+sensitive to triggers, as he began to associate conflict with the chaos of his childhood. But it
+never worked; the emotional resonance of his past would seep through, rearing its head when he least
+expected it.
+
+The connection between his memories and triggers was a cycle he could not easily break. The memories
+of those violent nights lingered in his mind, creating a heightened sensitivity to any sounds that
+resembled those chaotic moments, making him acutely aware of doors slamming or voices rising, which
+would trigger his anxiety anew. Every time a door slammed or opened, he was jolted back to the
+violence he had witnessed, an echo of shouts and screams in his mind. These auditory triggers would
+often send him spiraling back into confusion, where he would feel the weight of the emotions without
+any clear image to ground him. He struggled to retrieve the memories deliberately; they eluded him,
+appearing in disjointed fragments that felt almost surreal. Alfred could feel the intensity of the
+fear, the anger, and the helplessness that had accompanied those scenes from his childhood, yet he
+could not piece together a coherent narrative. The memories were like shards of glass, sharp and
+painful, which he would rather avoid than confront.
+
+This cycle of avoidance and distraction fed into a self-reinforcing loop. The more he sought to
+escape the feelings that arose from triggers, the more he relied on alcohol and conflict to manage
+the emotional aftermath. In moments of clarity, he recognized how his constant socializing kept him
+from solitude, yet he feared that solitude would bring the memories crashing down on him like a
+tidal wave. His avoidance of quiet moments only reinforced his triggers; the further he distanced
+himself from reflection, the more potent the reminders of his past became, lurking just beneath the
+surface of his daily interactions. The thought of being alone with his thoughts was excruciating,
+and so he filled his days with people and noise, convincing himself that the chaos was preferable to
+the silence of introspection. Yet, he often returned to the solitude of his small apartment at
+night, where the memories would swirl back into focus, leaving him feeling isolated and trapped.
+
+Today, as he sat in his apartment, Alfred reflected on his life, the choices he had made, and the
+demons he had yet to confront. It was the smell of alcohol lingering on his clothes that had
+prompted him to seek help, a moment of clarity amidst the fog. He realized that he couldn’t continue
+living in this cycle, constantly battling the shadows of his past and the maladaptive strategies he
+had employed. What frightened him most was the thought that he might never find peace, that the
+memories would continue to haunt him indefinitely. But beneath that fear lay a flicker of hope — the
+possibility of understanding and healing. With a deep breath, he made the call, ready to take the
+first step toward confronting the past that had woven itself so tightly into the fabric of his life.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly show how triggers lead Alfred to employ maladaptive strategies; the connection is ambiguous. 
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette describes memories triggering anxiety, but it does not explicitly convey that memories directly lead to triggers. 
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: While the vignette indicates Alfred's reliance on maladaptive strategies, it does not illustrate how these strategies specifically influence or alter his memory recall. 
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette mentions that avoidance heightened his sensitivity to triggers, but it does not establish a clear causal link that maladaptive strategies lead to the experience of triggers.
+
+  [3] FAIL
+Alfred Johnson, a 79-year-old African American man, often found himself in a tug-of-war with his
+past, a struggle rooted in the shadows of his childhood. Growing up in a tumultuous neighborhood, he
+had witnessed his mother being subjected to violent outbursts from his father. The chaos of those
+memories lingered in every corner of his mind, resurfacing at the most unexpected moments. One
+evening, while walking through a park, he felt a wave of anxiety wash over him as he inhaled the
+scent of alcohol carried on the breeze. It transported him back to the nights of his youth, where
+the smell signaled a precursor to violence. Such moments in nature, where the trees swayed gently
+and serenity thrived, felt like a cruel reminder of the turmoil he had endured, urging him to escape
+not just the environment but also the memories that haunted him.
+
+In an effort to manage this turmoil, Alfred had developed a series of maladaptive strategies. Each
+time he faced a trigger, he would reach for alcohol, believing that numbing the pain would help him
+escape the memories that surfaced, but instead, the act of avoidance only reinforced his need to
+drink more as the memories continued to haunt him. He often found solace at the bottom of a whiskey
+glass, a temporary reprieve that dulled the painful emotions bubbling beneath the surface. He had
+come to believe that by numbing himself with alcohol, he could sidestep the memories of his
+childhood trauma. Yet, this strategy came at a cost; the more he drank, the more fragmented his
+recollections became. The alcohol dulled his ability to recall those traumatic events clearly,
+leading to a distorted memory that left him more vulnerable to the triggers that would inevitably
+arise. His reliance on alcohol to escape the emotional weight of his past meant that when memories
+surfaced, they did so in a disjointed manner, leaving him struggling to piece together a narrative
+and often feeling overwhelmed by the raw emotions that accompanied them. He would sometimes sit with
+friends or acquaintances, surrounded by laughter and chatter, yet feel utterly disconnected. To
+avoid the confrontation with his own thoughts, he would pick arguments or create drama among his
+peers, believing that the noise of conflict would drown out the memories he could not bear to face.
+Each confrontation seemed to serve as a distraction from the unsettling memories, but it also
+heightened his anxiety and made him more sensitive to triggers, as he began to associate conflict
+with the chaos of his childhood. But it never worked; the emotional resonance of his past would seep
+through, rearing its head when he least expected it. As he numbed himself with alcohol, he found his
+surroundings increasingly overwhelming, making even mundane situations feel laden with the potential
+for triggering memories he was desperate to avoid.
+
+The connection between his memories and triggers was a cycle he could not easily break. The memories
+of those violent nights lingered in his mind, creating a heightened sensitivity to any sounds that
+resembled those chaotic moments, making him acutely aware of doors slamming or voices rising, which
+would trigger his anxiety anew. Every time a door slammed or opened, he was jolted back to the
+violence he had witnessed, an echo of shouts and screams in his mind. These auditory triggers would
+often send him spiraling back into confusion, where he would feel the weight of the emotions without
+any clear image to ground him. With each trigger, the memories associated with those violent nights
+surged to the forefront of his mind, leaving him on high alert for any sound that might mimic the
+chaos he had previously endured. He struggled to retrieve the memories deliberately; they eluded
+him, appearing in disjointed fragments that felt almost surreal. Alfred could feel the intensity of
+the fear, the anger, and the helplessness that had accompanied those scenes from his childhood, yet
+he could not piece together a coherent narrative. The memories were like shards of glass, sharp and
+painful, which he would rather avoid than confront.
+
+This cycle of avoidance and distraction fed into a self-reinforcing loop. The more he sought to
+escape the feelings that arose from triggers, the more he relied on alcohol and conflict to manage
+the emotional aftermath. In moments of clarity, he recognized how his constant socializing kept him
+from solitude, yet he feared that solitude would bring the memories crashing down on him like a
+tidal wave. His avoidance of quiet moments only reinforced his triggers; the further he distanced
+himself from reflection, the more potent the reminders of his past became, lurking just beneath the
+surface of his daily interactions. The thought of being alone with his thoughts was excruciating,
+and so he filled his days with people and noise, convincing himself that the chaos was preferable to
+the silence of introspection. Yet, he often returned to the solitude of his small apartment at
+night, where the memories would swirl back into focus, leaving him feeling isolated and trapped.
+
+Today, as he sat in his apartment, Alfred reflected on his life, the choices he had made, and the
+demons he had yet to confront. It was the smell of alcohol lingering on his clothes that had
+prompted him to seek help, a moment of clarity amidst the fog. He realized that he couldn’t continue
+living in this cycle, constantly battling the shadows of his past and the maladaptive strategies he
+had employed. What frightened him most was the thought that he might never find peace, that the
+memories would continue to haunt him indefinitely. But beneath that fear lay a flicker of hope — the
+possibility of understanding and healing. With a deep breath, he made the call, ready to take the
+first step toward confronting the past that had woven itself so tightly into the fabric of his life.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly indicate that triggers lead to the use of maladaptive strategies.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The connection between memory and triggers is not explicitly stated; the relationship is implied but not clearly causal.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette suggests avoidance strategies but does not clarify how these strategies influence or shape Alfred's memories.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: While maladaptive strategies are mentioned, the narrative does not clearly articulate how they directly influence the triggers he experiences.
+
+  [4] FAIL
+Alfred Johnson, a 79-year-old African American man, often found himself in a tug-of-war with his
+past, a struggle rooted in the shadows of his childhood. Growing up in a tumultuous neighborhood, he
+had witnessed his mother being subjected to violent outbursts from his father. The chaos of those
+memories lingered in every corner of his mind, resurfacing at the most unexpected moments. One
+evening, while walking through a park, he felt a wave of anxiety wash over him as he inhaled the
+scent of alcohol carried on the breeze. It transported him back to the nights of his youth, where
+the smell signaled a precursor to violence. Such moments in nature, where the trees swayed gently
+and serenity thrived, felt like a cruel reminder of the turmoil he had endured, urging him to escape
+not just the environment but also the memories that haunted him.
+
+In an effort to manage this turmoil, Alfred had developed a series of maladaptive strategies. Each
+time he faced a trigger, he would reach for alcohol, believing that numbing the pain would help him
+escape the memories that surfaced, but instead, the act of avoidance only reinforced his need to
+drink more as the memories continued to haunt him. He often found solace at the bottom of a whiskey
+glass, a temporary reprieve that dulled the painful emotions bubbling beneath the surface. He had
+come to believe that by numbing himself with alcohol, he could sidestep the memories of his
+childhood trauma. However, his reliance on alcohol only served to keep those memories fresh and raw,
+as the act of avoidance paradoxically prevented him from processing what had happened, leading to a
+cycle where the memories would re-emerge with even greater intensity. Yet, this strategy came at a
+cost; the more he drank, the more fragmented his recollections became. The alcohol dulled his
+ability to recall those traumatic events clearly, leading to a distorted memory that left him more
+vulnerable to the triggers that would inevitably arise. His reliance on alcohol to escape the
+emotional weight of his past meant that when memories surfaced, they did so in a disjointed manner,
+leaving him struggling to piece together a narrative and often feeling overwhelmed by the raw
+emotions that accompanied them. He would sometimes sit with friends or acquaintances, surrounded by
+laughter and chatter, yet feel utterly disconnected. In those moments, he found himself reaching for
+alcohol, believing it would shield him from the memories he was desperate to avoid; the more he
+drank, the more he felt the need to escape the reality that surrounded him, reinforcing his urge to
+drink even more when he sensed a trigger approaching. To avoid the confrontation with his own
+thoughts, he would pick arguments or create drama among his peers, believing that the noise of
+conflict would drown out the memories he could not bear to face. Each confrontation seemed to serve
+as a distraction from the unsettling memories, but it also heightened his anxiety and made him more
+sensitive to triggers, as he began to associate conflict with the chaos of his childhood. But it
+never worked; the emotional resonance of his past would seep through, rearing its head when he least
+expected it. As he numbed himself with alcohol, he found his surroundings increasingly overwhelming,
+making even mundane situations feel laden with the potential for triggering memories he was
+desperate to avoid.
+
+The connection between his memories and triggers was a cycle he could not easily break. The memories
+of those violent nights lingered in his mind, creating a heightened sensitivity to any sounds that
+resembled those chaotic moments, making him acutely aware of doors slamming or voices rising, which
+would trigger his anxiety anew. Because those memories resurfaced so vividly, even mundane sounds
+became reminders of the chaos he had witnessed, igniting his anxiety and compelling him to retreat
+into his maladaptive strategies. Every time a door slammed or opened, he was jolted back to the
+violence he had witnessed, an echo of shouts and screams in his mind. These auditory triggers would
+often send him spiraling back into confusion, where he would feel the weight of the emotions without
+any clear image to ground him. With each trigger, the memories associated with those violent nights
+surged to the forefront of his mind, leaving him on high alert for any sound that might mimic the
+chaos he had previously endured. He struggled to retrieve the memories deliberately; they eluded
+him, appearing in disjointed fragments that felt almost surreal. Alfred could feel the intensity of
+the fear, the anger, and the helplessness that had accompanied those scenes from his childhood, yet
+he could not piece together a coherent narrative. The memories were like shards of glass, sharp and
+painful, which he would rather avoid than confront.
+
+This cycle of avoidance and distraction fed into a self-reinforcing loop. The more he sought to
+escape the feelings that arose from triggers, the more he relied on alcohol and conflict to manage
+the emotional aftermath. In moments of clarity, he recognized how his constant socializing kept him
+from solitude, yet he feared that solitude would bring the memories crashing down on him like a
+tidal wave. Each time he chose to avoid quiet moments, he inadvertently heightened his sensitivity
+to triggers, as the absence of reflection meant that the memories remained just beneath the surface,
+ready to resurface at the slightest reminder. His avoidance of quiet moments only reinforced his
+triggers; the further he distanced himself from reflection, the more potent the reminders of his
+past became, lurking just beneath the surface of his daily interactions. The thought of being alone
+with his thoughts was excruciating, and so he filled his days with people and noise, convincing
+himself that the chaos was preferable to the silence of introspection. Yet, he often returned to the
+solitude of his small apartment at night, where the memories would swirl back into focus, leaving
+him feeling isolated and trapped.
+
+Today, as he sat in his apartment, Alfred reflected on his life, the choices he had made, and the
+demons he had yet to confront. It was the smell of alcohol lingering on his clothes that had
+prompted him to seek help, a moment of clarity amidst the fog. He realized that he couldn’t continue
+living in this cycle, constantly battling the shadows of his past and the maladaptive strategies he
+had employed. What frightened him most was the thought that he might never find peace, that the
+memories would continue to haunt him indefinitely. But beneath that fear lay a flicker of hope — the
+possibility of understanding and healing. With a deep breath, he made the call, ready to take the
+first step toward confronting the past that had woven itself so tightly into the fabric of his life.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not establish that triggers influence or lead to the use of maladaptive strategies.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not establish that memories influence or lead to triggers.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette does not establish that maladaptive strategies influence or lead to memory.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not establish that maladaptive strategies influence or lead to triggers.
+
+  [5] FAIL
+Alfred Johnson, a 79-year-old African American man, often found himself in a tug-of-war with his
+past, a struggle rooted in the shadows of his childhood. Growing up in a tumultuous neighborhood, he
+had witnessed his mother being subjected to violent outbursts from his father. The chaos of those
+memories lingered in every corner of his mind, resurfacing at the most unexpected moments. One
+evening, while walking through a park, he felt a wave of anxiety wash over him as he inhaled the
+scent of alcohol carried on the breeze. It transported him back to the nights of his youth, where
+the smell signaled a precursor to violence. Such moments in nature, where the trees swayed gently
+and serenity thrived, felt like a cruel reminder of the turmoil he had endured, urging him to escape
+not just the environment but also the memories that haunted him.
+
+In an effort to manage this turmoil, Alfred had developed a series of maladaptive strategies. Each
+time he faced a trigger, he would reach for alcohol, believing that numbing the pain would help him
+escape the memories that surfaced, but instead, the act of avoidance only reinforced his need to
+drink more as the memories continued to haunt him. He often found solace at the bottom of a whiskey
+glass, a temporary reprieve that dulled the painful emotions bubbling beneath the surface. Each time
+the memories surged, he would reach for alcohol even more desperately, believing that numbing his
+feelings would shield him from the reminders of his past. He had come to believe that by numbing
+himself with alcohol, he could sidestep the memories of his childhood trauma. However, his reliance
+on alcohol only served to keep those memories fresh and raw, as the act of avoidance paradoxically
+prevented him from processing what had happened, leading to a cycle where the memories would re-
+emerge with even greater intensity. The more he turned to alcohol for relief, the more he found
+himself haunted by the memories he tried to escape, which lingered just beneath the surface, ready
+to resurface with even greater force. Yet, this strategy came at a cost; the more he drank, the more
+fragmented his recollections became. The alcohol dulled his ability to recall those traumatic events
+clearly, leading to a distorted memory that left him more vulnerable to the triggers that would
+inevitably arise. His reliance on alcohol to escape the emotional weight of his past meant that when
+memories surfaced, they did so in a disjointed manner, leaving him struggling to piece together a
+narrative and often feeling overwhelmed by the raw emotions that accompanied them. He would
+sometimes sit with friends or acquaintances, surrounded by laughter and chatter, yet feel utterly
+disconnected. In those moments, he found himself reaching for alcohol, believing it would shield him
+from the memories he was desperate to avoid; the more he drank, the more he felt the need to escape
+the reality that surrounded him, reinforcing his urge to drink even more when he sensed a trigger
+approaching. To avoid the confrontation with his own thoughts, he would pick arguments or create
+drama among his peers, believing that the noise of conflict would drown out the memories he could
+not bear to face. Each confrontation seemed to serve as a distraction from the unsettling memories,
+but it also heightened his anxiety and made him more sensitive to triggers, as he began to associate
+conflict with the chaos of his childhood. But it never worked; the emotional resonance of his past
+would seep through, rearing its head when he least expected it. As he numbed himself with alcohol,
+he found his surroundings increasingly overwhelming, making even mundane situations feel laden with
+the potential for triggering memories he was desperate to avoid. His patterns of avoidance had drawn
+a map of reminders around him, shaping his environment into a landscape of triggers he could no
+longer navigate without feeling the weight of his past pressing down on him.
+
+The connection between his memories and triggers was a cycle he could not easily break. The memories
+of those violent nights lingered in his mind, creating a heightened sensitivity to any sounds that
+resembled those chaotic moments, making him acutely aware of doors slamming or voices rising, which
+would trigger his anxiety anew. The intensity of the memories would flood back, igniting his anxiety
+and compelling him to retreat into his maladaptive strategies, making him hyper-aware of any noise
+that might remind him of the chaos he had lived through. Because those memories resurfaced so
+vividly, even mundane sounds became reminders of the chaos he had witnessed, igniting his anxiety
+and compelling him to retreat into his maladaptive strategies. Every time a door slammed or opened,
+he was jolted back to the violence he had witnessed, an echo of shouts and screams in his mind.
+These auditory triggers would often send him spiraling back into confusion, where he would feel the
+weight of the emotions without any clear image to ground him. With each trigger, the memories
+associated with those violent nights surged to the forefront of his mind, leaving him on high alert
+for any sound that might mimic the chaos he had previously endured. He struggled to retrieve the
+memories deliberately; they eluded him, appearing in disjointed fragments that felt almost surreal.
+Alfred could feel the intensity of the fear, the anger, and the helplessness that had accompanied
+those scenes from his childhood, yet he could not piece together a coherent narrative. The memories
+were like shards of glass, sharp and painful, which he would rather avoid than confront.
+
+This cycle of avoidance and distraction fed into a self-reinforcing loop. The more he sought to
+escape the feelings that arose from triggers, the more he relied on alcohol and conflict to manage
+the emotional aftermath. In moments of clarity, he recognized how his constant socializing kept him
+from solitude, yet he feared that solitude would bring the memories crashing down on him like a
+tidal wave. Each time he chose to avoid quiet moments, he inadvertently heightened his sensitivity
+to triggers, as the absence of reflection meant that the memories remained just beneath the surface,
+ready to resurface at the slightest reminder. His avoidance of quiet moments only reinforced his
+triggers; the further he distanced himself from reflection, the more potent the reminders of his
+past became, lurking just beneath the surface of his daily interactions. The thought of being alone
+with his thoughts was excruciating, and so he filled his days with people and noise, convincing
+himself that the chaos was preferable to the silence of introspection. Yet, he often returned to the
+solitude of his small apartment at night, where the memories would swirl back into focus, leaving
+him feeling isolated and trapped.
+
+Today, as he sat in his apartment, Alfred reflected on his life, the choices he had made, and the
+demons he had yet to confront. It was the smell of alcohol lingering on his clothes that had
+prompted him to seek help, a moment of clarity amidst the fog. He realized that he couldn’t continue
+living in this cycle, constantly battling the shadows of his past and the maladaptive strategies he
+had employed. What frightened him most was the thought that he might never find peace, that the
+memories would continue to haunt him indefinitely. But beneath that fear lay a flicker of hope — the
+possibility of understanding and healing. With a deep breath, he made the call, ready to take the
+first step toward confronting the past that had woven itself so tightly into the fabric of his life.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not convey how triggers influence or lead to maladaptive strategies.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not depict how memories influence or lead to triggers.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette fails to show how maladaptive strategies influence or lead to memories.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not illustrate how maladaptive strategies influence or lead to triggers.
+
+  [6] FAIL
+Alfred Johnson, a 79-year-old African American man, often found himself in a tug-of-war with his
+past, a struggle rooted in the shadows of his childhood. Growing up in a tumultuous neighborhood, he
+had witnessed his mother being subjected to violent outbursts from his father. The chaos of those
+memories lingered in every corner of his mind, resurfacing at the most unexpected moments. One
+evening, while walking through a park, he felt a wave of anxiety wash over him as he inhaled the
+scent of alcohol carried on the breeze. It transported him back to the nights of his youth, where
+the smell signaled a precursor to violence. Such moments in nature, where the trees swayed gently
+and serenity thrived, felt like a cruel reminder of the turmoil he had endured, urging him to escape
+not just the environment but also the memories that haunted him.
+
+In an effort to manage this turmoil, Alfred had developed a series of maladaptive strategies. Each
+time he faced a trigger, he would reach for alcohol, believing that numbing the pain would help him
+escape the memories that surfaced, but instead, the act of avoidance only reinforced his need to
+drink more as the memories continued to haunt him. He often found solace at the bottom of a whiskey
+glass, a temporary reprieve that dulled the painful emotions bubbling beneath the surface. Each time
+he reached for alcohol, he inadvertently reinforced the cycle of avoidance, making it harder for him
+to confront the memories that lurked just below the surface. Each time the memories surged, he would
+reach for alcohol even more desperately, believing that numbing his feelings would shield him from
+the reminders of his past. He had come to believe that by numbing himself with alcohol, he could
+sidestep the memories of his childhood trauma. However, his reliance on alcohol only served to keep
+those memories fresh and raw, as the act of avoidance paradoxically prevented him from processing
+what had happened, leading to a cycle where the memories would re-emerge with even greater
+intensity. The more he numbed himself with alcohol, the more fragmented his recollections became,
+and this suppression only kept the memories intact, making them resurface with a force that felt
+overwhelming. The more he turned to alcohol for relief, the more he found himself haunted by the
+memories he tried to escape, which lingered just beneath the surface, ready to resurface with even
+greater force. Yet, this strategy came at a cost; the more he drank, the more fragmented his
+recollections became. The alcohol dulled his ability to recall those traumatic events clearly,
+leading to a distorted memory that left him more vulnerable to the triggers that would inevitably
+arise. His reliance on alcohol to escape the emotional weight of his past meant that when memories
+surfaced, they did so in a disjointed manner, leaving him struggling to piece together a narrative
+and often feeling overwhelmed by the raw emotions that accompanied them. He would sometimes sit with
+friends or acquaintances, surrounded by laughter and chatter, yet feel utterly disconnected. In
+those moments, he found himself reaching for alcohol, believing it would shield him from the
+memories he was desperate to avoid; the more he drank, the more he felt the need to escape the
+reality that surrounded him, reinforcing his urge to drink even more when he sensed a trigger
+approaching. To avoid the confrontation with his own thoughts, he would pick arguments or create
+drama among his peers, believing that the noise of conflict would drown out the memories he could
+not bear to face. Each confrontation seemed to serve as a distraction from the unsettling memories,
+but it also heightened his anxiety and made him more sensitive to triggers, as he began to associate
+conflict with the chaos of his childhood. But it never worked; the emotional resonance of his past
+would seep through, rearing its head when he least expected it. As he numbed himself with alcohol,
+he found his surroundings increasingly overwhelming, making even mundane situations feel laden with
+the potential for triggering memories he was desperate to avoid. His patterns of avoidance had drawn
+a map of reminders around him, shaping his environment into a landscape of triggers he could no
+longer navigate without feeling the weight of his past pressing down on him. Every time he chose to
+avoid a place or situation where he might confront his memories, he created a new reminder of what
+he could not face, further entrenching his sense of entrapment.
+
+The connection between his memories and triggers was a cycle he could not easily break. The memories
+of those violent nights lingered in his mind, creating a heightened sensitivity to any sounds that
+resembled those chaotic moments, making him acutely aware of doors slamming or voices rising, which
+would trigger his anxiety anew. Because those memories resurfaced so vividly, even the most ordinary
+sounds became potential triggers, heightening his anxiety and compelling him to seek out alcohol or
+conflict as a means of escape. The intensity of the memories would flood back, igniting his anxiety
+and compelling him to retreat into his maladaptive strategies, making him hyper-aware of any noise
+that might remind him of the chaos he had lived through. Because those memories resurfaced so
+vividly, even mundane sounds became reminders of the chaos he had witnessed, igniting his anxiety
+and compelling him to retreat into his maladaptive strategies. Every time a door slammed or opened,
+he was jolted back to the violence he had witnessed, an echo of shouts and screams in his mind.
+These auditory triggers would often send him spiraling back into confusion, where he would feel the
+weight of the emotions without any clear image to ground him. With each trigger, the memories
+associated with those violent nights surged to the forefront of his mind, leaving him on high alert
+for any sound that might mimic the chaos he had previously endured. He struggled to retrieve the
+memories deliberately; they eluded him, appearing in disjointed fragments that felt almost surreal.
+Alfred could feel the intensity of the fear, the anger, and the helplessness that had accompanied
+those scenes from his childhood, yet he could not piece together a coherent narrative. The memories
+were like shards of glass, sharp and painful, which he would rather avoid than confront.
+
+This cycle of avoidance and distraction fed into a self-reinforcing loop. The more he sought to
+escape the feelings that arose from triggers, the more he relied on alcohol and conflict to manage
+the emotional aftermath. In moments of clarity, he recognized how his constant socializing kept him
+from solitude, yet he feared that solitude would bring the memories crashing down on him like a
+tidal wave. Each time he chose to avoid quiet moments, he inadvertently heightened his sensitivity
+to triggers, as the absence of reflection meant that the memories remained just beneath the surface,
+ready to resurface at the slightest reminder. His avoidance of quiet moments only reinforced his
+triggers; the further he distanced himself from reflection, the more potent the reminders of his
+past became, lurking just beneath the surface of his daily interactions. The thought of being alone
+with his thoughts was excruciating, and so he filled his days with people and noise, convincing
+himself that the chaos was preferable to the silence of introspection. Yet, he often returned to the
+solitude of his small apartment at night, where the memories would swirl back into focus, leaving
+him feeling isolated and trapped.
+
+Today, as he sat in his apartment, Alfred reflected on his life, the choices he had made, and the
+demons he had yet to confront. It was the smell of alcohol lingering on his clothes that had
+prompted him to seek help, a moment of clarity amidst the fog. He realized that he couldn’t continue
+living in this cycle, constantly battling the shadows of his past and the maladaptive strategies he
+had employed. What frightened him most was the thought that he might never find peace, that the
+memories would continue to haunt him indefinitely. But beneath that fear lay a flicker of hope — the
+possibility of understanding and healing. With a deep breath, he made the call, ready to take the
+first step toward confronting the past that had woven itself so tightly into the fabric of his life.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly demonstrate that triggers influence the use of maladaptive strategies, as there is no direct language indicating that triggers lead to the avoidance behaviors.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not adequately show that the memories directly lead to triggers, lacking a clear causal connection between the two components.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette fails to illustrate that maladaptive strategies lead to the formation or reinforcement of memory, as it does not convey how these strategies influence the memories themselves.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not explicitly connect maladaptive strategies with triggers, missing a clear indication that the use of avoidance strategies is influenced by triggers.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Alfred Johnson, a 79-year-old African American man, often found himself in a tug-of-war with his
+past, a struggle rooted in the shadows of his childhood. Growing up in a tumultuous neighborhood, he
+had witnessed his mother being subjected to violent outbursts from his father. The chaos of those
+memories lingered in every corner of his mind, resurfacing at the most unexpected moments. One
+evening, while walking through a park, he felt a wave of anxiety wash over him as he inhaled the
+scent of alcohol carried on the breeze. It transported him back to the nights of his youth, where
+the smell signaled a precursor to violence. Such moments in nature, where the trees swayed gently
+and serenity thrived, felt like a cruel reminder of the turmoil he had endured, urging him to escape
+not just the environment but also the memories that haunted him.
+
+In an effort to manage this turmoil, Alfred had developed a series of maladaptive strategies. Each
+time he faced a trigger, he would reach for alcohol, believing that numbing the pain would help him
+escape the memories that surfaced, but instead, the act of avoidance only reinforced his need to
+drink more as the memories continued to haunt him. He often found solace at the bottom of a whiskey
+glass, a temporary reprieve that dulled the painful emotions bubbling beneath the surface. Each time
+he reached for alcohol, he inadvertently reinforced the cycle of avoidance, making it harder for him
+to confront the memories that lurked just below the surface. Each time the memories surged, he would
+reach for alcohol even more desperately, believing that numbing his feelings would shield him from
+the reminders of his past. He had come to believe that by numbing himself with alcohol, he could
+sidestep the memories of his childhood trauma. However, his reliance on alcohol only served to keep
+those memories fresh and raw, as the act of avoidance paradoxically prevented him from processing
+what had happened, leading to a cycle where the memories would re-emerge with even greater
+intensity. The more he numbed himself with alcohol, the more fragmented his recollections became,
+and this suppression only kept the memories intact, making them resurface with a force that felt
+overwhelming. The more he turned to alcohol for relief, the more he found himself haunted by the
+memories he tried to escape, which lingered just beneath the surface, ready to resurface with even
+greater force. Yet, this strategy came at a cost; the more he drank, the more fragmented his
+recollections became. The alcohol dulled his ability to recall those traumatic events clearly,
+leading to a distorted memory that left him more vulnerable to the triggers that would inevitably
+arise. His reliance on alcohol to escape the emotional weight of his past meant that when memories
+surfaced, they did so in a disjointed manner, leaving him struggling to piece together a narrative
+and often feeling overwhelmed by the raw emotions that accompanied them. He would sometimes sit with
+friends or acquaintances, surrounded by laughter and chatter, yet feel utterly disconnected. In
+those moments, he found himself reaching for alcohol, believing it would shield him from the
+memories he was desperate to avoid; the more he drank, the more he felt the need to escape the
+reality that surrounded him, reinforcing his urge to drink even more when he sensed a trigger
+approaching. To avoid the confrontation with his own thoughts, he would pick arguments or create
+drama among his peers, believing that the noise of conflict would drown out the memories he could
+not bear to face. Each confrontation seemed to serve as a distraction from the unsettling memories,
+but it also heightened his anxiety and made him more sensitive to triggers, as he began to associate
+conflict with the chaos of his childhood. But it never worked; the emotional resonance of his past
+would seep through, rearing its head when he least expected it. As he numbed himself with alcohol,
+he found his surroundings increasingly overwhelming, making even mundane situations feel laden with
+the potential for triggering memories he was desperate to avoid. His patterns of avoidance had drawn
+a map of reminders around him, shaping his environment into a landscape of triggers he could no
+longer navigate without feeling the weight of his past pressing down on him. Every time he chose to
+avoid a place or situation where he might confront his memories, he created a new reminder of what
+he could not face, further entrenching his sense of entrapment.
+
+The connection between his memories and triggers was a cycle he could not easily break. The memories
+of those violent nights lingered in his mind, creating a heightened sensitivity to any sounds that
+resembled those chaotic moments, making him acutely aware of doors slamming or voices rising, which
+would trigger his anxiety anew. Because those memories resurfaced so vividly, even the most ordinary
+sounds became potential triggers, heightening his anxiety and compelling him to seek out alcohol or
+conflict as a means of escape. The intensity of the memories would flood back, igniting his anxiety
+and compelling him to retreat into his maladaptive strategies, making him hyper-aware of any noise
+that might remind him of the chaos he had lived through. Because those memories resurfaced so
+vividly, even mundane sounds became reminders of the chaos he had witnessed, igniting his anxiety
+and compelling him to retreat into his maladaptive strategies. Every time a door slammed or opened,
+he was jolted back to the violence he had witnessed, an echo of shouts and screams in his mind.
+These auditory triggers would often send him spiraling back into confusion, where he would feel the
+weight of the emotions without any clear image to ground him. With each trigger, the memories
+associated with those violent nights surged to the forefront of his mind, leaving him on high alert
+for any sound that might mimic the chaos he had previously endured. He struggled to retrieve the
+memories deliberately; they eluded him, appearing in disjointed fragments that felt almost surreal.
+Alfred could feel the intensity of the fear, the anger, and the helplessness that had accompanied
+those scenes from his childhood, yet he could not piece together a coherent narrative. The memories
+were like shards of glass, sharp and painful, which he would rather avoid than confront.
+
+This cycle of avoidance and distraction fed into a self-reinforcing loop. The more he sought to
+escape the feelings that arose from triggers, the more he relied on alcohol and conflict to manage
+the emotional aftermath. In moments of clarity, he recognized how his constant socializing kept him
+from solitude, yet he feared that solitude would bring the memories crashing down on him like a
+tidal wave. Each time he chose to avoid quiet moments, he inadvertently heightened his sensitivity
+to triggers, as the absence of reflection meant that the memories remained just beneath the surface,
+ready to resurface at the slightest reminder. His avoidance of quiet moments only reinforced his
+triggers; the further he distanced himself from reflection, the more potent the reminders of his
+past became, lurking just beneath the surface of his daily interactions. The thought of being alone
+with his thoughts was excruciating, and so he filled his days with people and noise, convincing
+himself that the chaos was preferable to the silence of introspection. Yet, he often returned to the
+solitude of his small apartment at night, where the memories would swirl back into focus, leaving
+him feeling isolated and trapped.
+
+Today, as he sat in his apartment, Alfred reflected on his life, the choices he had made, and the
+demons he had yet to confront. It was the smell of alcohol lingering on his clothes that had
+prompted him to seek help, a moment of clarity amidst the fog. He realized that he couldn’t continue
+living in this cycle, constantly battling the shadows of his past and the maladaptive strategies he
+had employed. What frightened him most was the thought that he might never find peace, that the
+memories would continue to haunt him indefinitely. But beneath that fear lay a flicker of hope — the
+possibility of understanding and healing. With a deep breath, he made the call, ready to take the
+first step toward confronting the past that had woven itself so tightly into the fabric of his life.

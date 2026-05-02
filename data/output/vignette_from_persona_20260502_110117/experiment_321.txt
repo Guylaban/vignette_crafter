@@ -1,0 +1,189 @@
+PERSONA 321  |  2026-05-02 11:53:13
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4-mini
+    persona_crafter      gpt-5.4-mini
+    vignette_crafter     gpt-5.4-mini
+    vignette_validator   gpt-5.4-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             80
+  gender          Female
+  ethnicity       South Asian
+  relationship_status Divorced
+  occupation      Dentist
+  trauma_type     Terrorism
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Auditory (Sirens): Sirens
+    • Power Imbalance: Being in a situation where someone has power over me
+    • Olfactory (Smoke): Smoke or fire smell
+  Maladaptive Strategies:
+    • Avoid Location: Going to or near the place where the event happened
+    • Checking Surroundings: constantly scan environment for signs of threat
+    • Stay Near Exit: make sure to stay close to exit
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.9897
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.5701
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Perpetrator Cues: Anything that reminds me of the person who harmed me
+    explanation: For a terrorism trauma, 'the person who harmed me' implies an identifiable individual perpetrator relationship, which is hard to reconcile with the otherwise impersonal trigger profile (sirens, smoke) and is clinically less coherent than cues linked to attack scenes or public danger. The other strategy items are severe but not contradictory, and the strong Triggers↔Maladaptive Strategies link is otherwise plausible.
+  [2] FAIL
+    item:        Maladaptive Strategies / Positive Reframing: I force myself to think only positive thoughts
+    explanation: Within the Maladaptive Strategies node, 'Positive Reframing' implies a cognitive coping effort to dampen distress, whereas 'Avoid Location: Going to or near the place where the event happened' describes approaching the trauma site rather than avoiding it; this is internally inconsistent because the item label and content pull in opposite behavioral directions.
+  [3] FAIL
+    item:        Maladaptive Strategies / Self-Harm Distraction: I hurt myself physically to stop thinking about the event
+    explanation: This item is clinically discordant with the rest of the profile. The formulation only strongly links Triggers and Maladaptive Strategies, and the listed triggers are external terrorism-related cues (sirens, smoke, power imbalance) that plausibly connect to avoidance and checking. Self-harm to stop thinking about the event introduces a severe emotion-regulation/dissociation strategy that is not supported by any other selected items in Triggers, Threat, Memory, or Negative Appraisals, and is hard to reconcile as part of the same narrow trigger-driven loop described by the formulation. The rest of the maladaptive strategies are coherent; this item is the one that appears out of pattern.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,710
+  output:       851
+  total:      3,561
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Asha had spent much of her life practicing dentistry in a small, busy office where she was used to
+other people arriving anxious and looking to her for calm. At 80, divorced for many years and living
+alone, she still spoke with the careful authority of someone who had spent decades making decisions
+for herself. What had unraveled that steadiness was the bombing years earlier, when a routine day
+was shattered by sirens suddenly rising outside the clinic and the sharp smell of smoke seeping into
+the building. In the confusion, she found herself in a situation where armed men and emergency
+personnel seemed to control every movement, and what frightened her most was not only the violence
+but the feeling that she had no power to protect herself or choose where to go. Even now, she
+described that day as beginning with ordinary sounds and ending in panic, with smoke in the air and
+the sense that escape depended on other people’s commands.
+
+In the months that followed, Asha found that anything echoing that day could pull her back into the
+same dread. A siren passing on the street would make her shoulders tighten before she could think,
+and the faint smell of smoke from a neighbor’s cooking, a fireplace, or something burning in the
+distance could turn her stomach and make her feel suddenly as if danger were close. Being placed in
+any situation where someone else held the power over her—waiting for instructions, being told where
+to stand, not being able to see an exit—felt especially intolerable, because it reminded her of how
+helpless she had felt during the attack. When those moments came, she became convinced that the
+safest response was to avoid anything that might set them off. She stopped going to the area where
+the bombing had happened, even though it was part of the route to places she once visited without
+hesitation, and she began building her days around staying near an exit wherever she went. In public
+spaces she would sit with her back to a wall, scan the room over and over for signs of threat, and
+choose seats or appointments that let her leave quickly if needed.
+
+Those habits gave Asha a temporary sense of control, but they also kept the danger feeling close.
+The more she watched for sirens, smoke, and signs that someone else might have power over her, the
+more quickly those cues seemed to catch her attention. A passing siren that she might once have
+ignored now felt impossible to miss, and a whiff of smoke in a parking lot or hallway could seize
+her before she had time to tell herself she was safe. Because she was constantly scanning her
+surroundings, every unfamiliar sound or smell became evidence that something might be wrong, and her
+attention seemed trained to find the very cues she feared most. At the clinic, where she still
+worked part-time seeing longtime patients, she found herself choosing the chair closest to the door
+when she waited in the reception area and checking, almost automatically, whether she could reach
+the exit without obstruction. She explained that this was not paranoia to her but prudence; after
+what she had lived through, she no longer trusted the world to announce danger in a polite or
+predictable way.
+
+Over time, the cost of these routines accumulated. She declined invitations to visit parts of the
+city she associated with the attack, and she became less willing to linger in social settings or
+attend gatherings where she could not position herself near a way out. Colleagues noticed that she
+seemed distracted when an ambulance passed or when something electrical in the building gave off a
+burnt smell. Asha herself saw the narrowing of her life as the price of staying prepared, yet she
+also admitted that the vigilance had become exhausting, especially when it kept making ordinary
+places feel unsafe. Recently, after a siren outside her office sent her into the same surge of dread
+she had felt years before, she realized how much effort she was spending every day trying to outrun
+reminders of the bombing. She came for help because she was tired of organizing her life around
+exits and threats, and because she feared that if this continued she would retreat further from her
+work, her routines, and the few places that still felt like her own.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Asha had spent much of her life practicing dentistry in a small, busy office where she was used to
+other people arriving anxious and looking to her for calm. At 80, divorced for many years and living
+alone, she still spoke with the careful authority of someone who had spent decades making decisions
+for herself. What had unraveled that steadiness was the bombing years earlier, when a routine day
+was shattered by sirens suddenly rising outside the clinic and the sharp smell of smoke seeping into
+the building. In the confusion, she found herself in a situation where armed men and emergency
+personnel seemed to control every movement, and what frightened her most was not only the violence
+but the feeling that she had no power to protect herself or choose where to go. Even now, she
+described that day as beginning with ordinary sounds and ending in panic, with smoke in the air and
+the sense that escape depended on other people’s commands.
+
+In the months that followed, Asha found that anything echoing that day could pull her back into the
+same dread. A siren passing on the street would make her shoulders tighten before she could think,
+and the faint smell of smoke from a neighbor’s cooking, a fireplace, or something burning in the
+distance could turn her stomach and make her feel suddenly as if danger were close. Being placed in
+any situation where someone else held the power over her—waiting for instructions, being told where
+to stand, not being able to see an exit—felt especially intolerable, because it reminded her of how
+helpless she had felt during the attack. When those moments came, she became convinced that the
+safest response was to avoid anything that might set them off. She stopped going to the area where
+the bombing had happened, even though it was part of the route to places she once visited without
+hesitation, and she began building her days around staying near an exit wherever she went. In public
+spaces she would sit with her back to a wall, scan the room over and over for signs of threat, and
+choose seats or appointments that let her leave quickly if needed.
+
+Those habits gave Asha a temporary sense of control, but they also kept the danger feeling close.
+The more she watched for sirens, smoke, and signs that someone else might have power over her, the
+more quickly those cues seemed to catch her attention. A passing siren that she might once have
+ignored now felt impossible to miss, and a whiff of smoke in a parking lot or hallway could seize
+her before she had time to tell herself she was safe. Because she was constantly scanning her
+surroundings, every unfamiliar sound or smell became evidence that something might be wrong, and her
+attention seemed trained to find the very cues she feared most. At the clinic, where she still
+worked part-time seeing longtime patients, she found herself choosing the chair closest to the door
+when she waited in the reception area and checking, almost automatically, whether she could reach
+the exit without obstruction. She explained that this was not paranoia to her but prudence; after
+what she had lived through, she no longer trusted the world to announce danger in a polite or
+predictable way.
+
+Over time, the cost of these routines accumulated. She declined invitations to visit parts of the
+city she associated with the attack, and she became less willing to linger in social settings or
+attend gatherings where she could not position herself near a way out. Colleagues noticed that she
+seemed distracted when an ambulance passed or when something electrical in the building gave off a
+burnt smell. Asha herself saw the narrowing of her life as the price of staying prepared, yet she
+also admitted that the vigilance had become exhausting, especially when it kept making ordinary
+places feel unsafe. Recently, after a siren outside her office sent her into the same surge of dread
+she had felt years before, she realized how much effort she was spending every day trying to outrun
+reminders of the bombing. She came for help because she was tired of organizing her life around
+exits and threats, and because she feared that if this continued she would retreat further from her
+work, her routines, and the few places that still felt like her own.

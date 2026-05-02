@@ -1,0 +1,175 @@
+PERSONA 193  |  2026-05-02 22:52:50
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             68
+  gender          Female
+  ethnicity       North American
+  relationship_status Married
+  occupation      Retired
+  trauma_type     Unexpected or traumatic death of a loved one
+  pcl5            66
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Busyness: I work hard at keeping busy with other things
+    • Avoid People: avoid other people
+    • Avoid Social Contacts: Seeing people that I socialised with before the event
+  Threat:
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+  Negative Appraisals:
+    • Isolation: I feel isolated and set apart from others
+    • Belong Nowhere: I no longer belong anywhere
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.7616
+  Negative Appraisals → Threat                       0.6451
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.6353
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.5246
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Overworking: I throw myself into work or tasks to keep my mind occupied
+    explanation: For a 68-year-old retired patient, 'Overworking' is questionable as phrased because it implies a current work role; while keeping busy with tasks is plausible, the specific work-focused item is a poor fit to the demographic context.
+    item:        Negative Appraisals / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' is hard to link coherently to the indexed trauma of unexpected death of a loved one and to the rest of the profile. It suggests social/performance concerns that are not reflected in the threat or appraisal items and does not fit the formulation's main Negative Appraisals ↔ Threat loop.
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Being Touched: Any form of physical contact with others
+    explanation: For trauma type of unexpected death of a loved one, 'Avoid Being Touched' is hard to explain clinically unless there is interpersonal assault or bodily violation content, which is not present elsewhere in the profile. It appears mismatched to the trauma context and to the other selected items.
+    item:        Threat / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' suggests shame about appearance/performance or social evaluative threat, but the rest of the profile centers bereavement-related guilt, isolation, and generalized danger. This strategy does not connect well to the stated trauma type or to the active appraisal-threat loop.
+    item:        Negative Appraisals / Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    explanation: The threat items depict pervasive physical danger and inability to feel safe anywhere. In bereavement PTSD this can occur, but here the appraisals provided are mainly isolation and self-blame rather than danger-based meanings. The strong Negative Appraisals ↔ Threat loop is not well reflected because the appraisals do not explain this specific form of persistent external danger.
+  [3] FAIL
+    item:        Maladaptive Strategies / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' is hard to reconcile with the rest of the profile and the trauma type of traumatic bereavement. The other selected items center on grief-related self-blame, isolation, and generalized danger, but fear of being evaluated for appearance/performance suggests a social-evaluative concern not otherwise represented in threat, memory, triggers, or appraisals.
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: 'Self-Blame' can occur after the unexpected death of a loved one, but in this profile it sits awkwardly beside the chosen maladaptive strategies and threat items. If the patient blames herself for the death, one would expect linked strategies or threat content tied to guilt, responsibility, rumination, or death-related cues; instead the profile emphasizes social withdrawal and generic unsafety, making this item insufficiently integrated with the rest.
+    item:        Threat / Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    explanation: 'Cannot Trust Safety' is not impossible in PTSD, but with traumatic bereavement and no trigger or memory items selected, the threat profile becomes very generalized. In combination with the social-evaluative avoidance item, it creates a mixed formulation in which the source of danger is unclear: bereavement-related guilt/loss versus broad physical danger versus fear of scrutiny. This weakens coherence across nodes given the active Negative Appraisals ↔ Threat linkage.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,571
+  output:     3,107
+  total:      5,678
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Margaret was sixty-eight and retired when her son Daniel died. He had been driving home from a late
+shift at the warehouse when a driver ran a red light. The call came at two in the morning. For
+months afterward she replayed that night, circling the same impossible thought: she should have made
+him stay longer for dinner, should have sensed something and kept him off the road. The failure was
+hers—she had not protected him, and that conviction settled into her chest like a stone.
+
+In the weeks that followed, being around people who knew Daniel became unbearable. She stopped going
+to the bridge club she had attended for fifteen years and declined every invitation from the
+neighbors who had watched him grow up. When an old friend called, Margaret let the voicemail fill
+and never called back. At home she cleaned every surface twice, then started reorganizing the
+pantry, then took on projects she had put off for years—repainting the fence, deep-cleaning the
+garage. Her husband would find her scrubbing the kitchen floor at nine at night and ask why she did
+not sit still. She said she needed to keep moving.
+
+But the busyness did not quiet her body. Her shoulders stayed hunched; she started awake at the
+smallest creak of the house. Even when she was safely inside, Margaret could not relax—her nerves
+felt stripped, as though danger were pressing against every wall. That constant alertness made her
+feel even more separate from the world, as if she were living behind glass while everyone else went
+on with their lives. She had come to believe that she no longer belonged anywhere, that the person
+she had been before Daniel died had vanished along with him. Isolation settled into a raw
+loneliness, but reaching out felt impossible. The shame of having failed her son made her certain
+others must see it too, must judge her for the loss that was her fault.
+
+Her husband tried to coax her out for dinner once or twice, but Margaret refused. She worried that
+in a restaurant she might run into someone who knew—someone who would ask how she was, and then she
+would have to lie or break down. So she stayed home and kept busy, scrubbing and folding and wiping,
+and the more she did, the more wired she felt. Her body stayed on alert, and that vigilance only
+confirmed how dangerous the world was, how easily a loved one could be taken while she stood by
+uselessly.
+
+By the time she called a therapist, Margaret had not seen a single friend in over eight months. She
+was exhausted but could not stop cleaning. What she was most afraid of, she said, was that the fear
+and guilt would never lift—that she would spend the rest of her years trapped in a house full of
+silence, scrubbing away a loss no amount of busyness could touch.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Margaret was sixty-eight and retired when her son Daniel died. He had been driving home from a late
+shift at the warehouse when a driver ran a red light. The call came at two in the morning. For
+months afterward she replayed that night, circling the same impossible thought: she should have made
+him stay longer for dinner, should have sensed something and kept him off the road. The failure was
+hers—she had not protected him, and that conviction settled into her chest like a stone.
+
+In the weeks that followed, being around people who knew Daniel became unbearable. She stopped going
+to the bridge club she had attended for fifteen years and declined every invitation from the
+neighbors who had watched him grow up. When an old friend called, Margaret let the voicemail fill
+and never called back. At home she cleaned every surface twice, then started reorganizing the
+pantry, then took on projects she had put off for years—repainting the fence, deep-cleaning the
+garage. Her husband would find her scrubbing the kitchen floor at nine at night and ask why she did
+not sit still. She said she needed to keep moving.
+
+But the busyness did not quiet her body. Her shoulders stayed hunched; she started awake at the
+smallest creak of the house. Even when she was safely inside, Margaret could not relax—her nerves
+felt stripped, as though danger were pressing against every wall. That constant alertness made her
+feel even more separate from the world, as if she were living behind glass while everyone else went
+on with their lives. She had come to believe that she no longer belonged anywhere, that the person
+she had been before Daniel died had vanished along with him. Isolation settled into a raw
+loneliness, but reaching out felt impossible. The shame of having failed her son made her certain
+others must see it too, must judge her for the loss that was her fault.
+
+Her husband tried to coax her out for dinner once or twice, but Margaret refused. She worried that
+in a restaurant she might run into someone who knew—someone who would ask how she was, and then she
+would have to lie or break down. So she stayed home and kept busy, scrubbing and folding and wiping,
+and the more she did, the more wired she felt. Her body stayed on alert, and that vigilance only
+confirmed how dangerous the world was, how easily a loved one could be taken while she stood by
+uselessly.
+
+By the time she called a therapist, Margaret had not seen a single friend in over eight months. She
+was exhausted but could not stop cleaning. What she was most afraid of, she said, was that the fear
+and guilt would never lift—that she would spend the rest of her years trapped in a house full of
+silence, scrubbing away a loss no amount of busyness could touch.

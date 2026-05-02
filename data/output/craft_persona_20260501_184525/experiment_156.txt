@@ -1,0 +1,108 @@
+PERSONA 156  |  2026-05-01 19:18:08
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    craft_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             62
+  gender          Male
+  ethnicity       Latin American
+  relationship_status Married
+  occupation      Dancer
+  trauma_type     Life-threatening motor vehicle collision
+  pcl5            38
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Dissociate Deliberately: deliberately try to leave my body or blank out
+    • Delay Sleep: stay up until very late
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+  Memory:
+    • Nonverbal Memory: I can't seem to put the frightening event into words.
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+    • Shame on Recall: When I remember the event I feel intense shame
+  Negative Appraisals:
+    • Lost Emotions: I will never be able to feel normal emotions again
+    • Helplessness: I can't stop bad things from happening to me
+    • Character Blame: The event happened to me because of the sort of person I am
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.3949
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.5047
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.3459
+  Threat → Negative Appraisals                       0.7238
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.2196
+  Maladaptive Strategies → Negative Appraisals       0.5279
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Institutional Failure: The people or institutions that should have protected me let me down
+    explanation: For a life-threatening motor vehicle collision, 'institutional failure' and especially 'betrayal by someone trusted' are hard to reconcile unless the crash involved unusual interpersonal circumstances not reflected anywhere else in the profile. The rest of the profile centers on fear/startle/intrusive sensory recall, which fits an accident trauma; these appraisal items instead imply an interpersonal or systemic-trauma narrative.
+    item:        Memory / Negative Appraisals: Betrayal: I was betrayed by someone I trusted
+    explanation: 'Guilt on recall' can occur after accidents, but in this profile it sits awkwardly with the chosen appraisal set: the appraisals focus on betrayal/institutional failure rather than self-blame or responsibility. That makes the guilt theme insufficiently supported across nodes for a coherent cognitive formulation.
+  [2] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Betrayal: I was betrayed by someone I trusted
+    explanation: For a life-threatening motor vehicle collision, the appraisal 'I was betrayed by someone I trusted' is hard to reconcile unless the crash specifically involved a trusted driver or intentional wrongdoing, which is not otherwise reflected anywhere else in the profile. As presented, it introduces a different interpersonal-trauma theme that is not supported by the rest of the selected items.
+    item:        Memory / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: Within Negative Appraisals, 'Betrayal' and 'Self-Blame' can sometimes coexist, but in this profile they point to different causal narratives for the trauma (trusted other's betrayal vs one's own actions causing the event) without any supporting context. That makes the appraisal set clinically hard to unify around a single MVC trauma narrative.
+  [3] FAIL
+    item:        Maladaptive Strategies / Maladaptive Strategies: Other-Blame Rumination: I dwell on what other people have done to me
+    explanation: The profile contains a hard-to-reconcile blame pattern: strong self-blame and guilt are paired with other-blame rumination as a core maladaptive strategy. Mixed blame can occur, but this combination is the main internal inconsistency in the selected items because the appraisals and memory items point toward inward blame, while the strategy item points toward sustained outward blame.
+    item:        Negative Appraisals / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: Within the cognitive formulation, Maladaptive Strategies links most strongly to Negative Appraisals, so the strategy content should fit the appraisal style. Here the appraisal style is dominated by self-blame, helplessness, and permanent emotional damage, making other-blame rumination the least coherent strategy item.
+    item:        Memory / Memory: Guilt on Recall: When I remember the event I feel intense guilt
+    explanation: For a life-threatening motor vehicle collision, guilt on recall is plausible, especially with self-blame, so it is not problematic by itself. The concern is specifically its combination with persistent other-blame rumination, which pulls the profile toward a different blame direction than the rest of the formulation.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     15,046
+  output:       994
+  total:     16,040
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  0 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+

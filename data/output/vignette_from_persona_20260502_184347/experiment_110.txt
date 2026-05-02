@@ -1,0 +1,231 @@
+PERSONA 110  |  2026-05-02 19:12:57
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-chat
+    persona_crafter      deepseek-chat
+    vignette_crafter     deepseek-chat
+    vignette_validator   deepseek-chat
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             60
+  gender          Female
+  ethnicity       North American
+  relationship_status Divorced
+  occupation      Politician
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            68
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Shouting: Shouting
+    • Somatic Pain (Neck): Neck pain
+    • Crash Imagery: Cars hit by accident
+  Maladaptive Strategies:
+    • Avoid Stressors: avoid anything that could be stressful
+    • Avoid All Feelings: avoid anything that could cause negative or positive feelings
+    • Avoid Driving: Driving or being a passenger in a vehicle
+  Threat:
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Concentration: Having difficulty concentrating
+  Memory:
+    • Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory
+    • Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+  Negative Appraisals:
+    • Humiliation: I feel permanently humiliated by what happened
+    • Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+    • Self-Blame: The event happened because of the way I acted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6746
+  Triggers → Memory                                  0.2923
+  Triggers → Negative Appraisals                     0.2016
+  Negative Appraisals → Maladaptive Strategies       0.3351
+  Negative Appraisals → Threat                       0.6965
+  Negative Appraisals → Memory                       0.5712
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.3201
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.2839
+  Threat → Memory                                    0.6828
+  Threat → Negative Appraisals                       0.4852
+  Threat → Triggers                                  0.7770
+  Maladaptive Strategies → Memory                    0.1177
+  Maladaptive Strategies → Negative Appraisals       0.0912
+  Maladaptive Strategies → Triggers                  0.8282
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Contamination: I feel dirty or contaminated because of what happened
+    explanation: Feeling 'dirty or contaminated' is hard to reconcile with the indexed trauma of accidentally causing serious injury to another. This appraisal is much more characteristic of interpersonal violence or sexual trauma, and it does not fit well with the rest of this profile, which centers on danger, guilt/humiliation, physical reactivity, and accident-related pain memories.
+    item:        Triggers / Triggers: Loss of Autonomy: Being forced to do something
+    explanation: 'Being forced to do something' is a coercion/interpersonal-control trigger that lacks a clear clinical link to the reported trauma of accidentally injuring someone. The other triggers and memory items suggest accident reminders and bodily pain cues; this item pulls toward a different trauma theme and is not supported by the appraisals or memory content.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Uniform or Weapons: Military, police uniforms or weapons
+    explanation: Avoidance of military/police uniforms or weapons is not well grounded in the rest of the profile for an accidental-injury trauma. There are no corresponding threat, memory, or appraisal items involving authority figures, weapons, or armed contexts, so this avoidance strategy appears to target a symptom domain absent elsewhere in the report.
+  [2] FAIL
+    item:        Threat / Threat in Delays: When something takes longer than expected I assume something bad is happening
+    explanation: The threat profile is not well anchored to the indexed trauma. For accidentally causing serious injury to another, the rest of the profile centers on driving/crash reminders, guilt, pain, and sensory trauma memories. By contrast, 'Threat in Delays' and especially 'Door and Lock Checking' suggest a broader vigilance/checking presentation that is difficult to connect to the accident-specific trigger and memory content.
+    item:        Negative Appraisals / Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: Within the Threat node, the items mix trauma-linked reactivity ('strong physical reactions when reminded') with generalized danger expectancy in ordinary delays and home-security checking. That combination can occur clinically, but here the latter two items are not supported by corresponding triggers, memories, or appraisals, making the node internally and cross-node less coherent.
+  [3] FAIL
+    item:        Threat / Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: Door/window checking implies an ongoing interpersonal/home-intrusion danger theme that is not well supported by the trauma type (accidentally causing serious injury to another) or by the rest of the profile, which is otherwise centered on accident reminders, guilt, and vehicle-related distress.
+    item:        Negative Appraisals / Negative Appraisals: World is Dangerous: The world is a dangerous place
+    explanation: 'The world is a dangerous place' is possible after trauma, but here it pulls the formulation toward diffuse external danger rather than the profile's dominant accident-related guilt/shame theme. In combination with door/window checking, it creates a second threat system not well integrated with the other selected items.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,298
+  output:     1,037
+  total:      4,335
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Margaret was sixty years old, a divorced politician who had spent decades in public life, when she
+accidentally caused a serious injury to another person. It happened during a routine campaign stop
+in a crowded parking lot. She had been distracted, checking her phone for a last-minute schedule
+change, and as she reversed her sedan, she struck a volunteer who had stepped behind her vehicle to
+retrieve a fallen sign. The impact was quick and sickening—a thud, a scream, and then the sight of
+the woman crumpled on the asphalt, her leg bent at an unnatural angle. Margaret’s neck seized with a
+sharp, electric pain as she whipped around to see what she had done, and the sound of the woman’s
+cry seemed to lodge itself in her ears, replaying over and over in the silence that followed.
+
+In the weeks after, Margaret found she could not deliberately recall the full sequence of events;
+when she tried to piece together exactly what had happened, the memory felt fragmented and distant,
+as though seen through a fogged window. But the memory did not stay buried. Whenever she heard
+shouting—a raised voice in a committee room, a constituent calling out across a town hall—the sound
+would trigger a visceral response: her neck would ache, and the auditory fragment of that scream
+would surface unbidden, sharp and clear. These triggers brought the event rushing back, and with it
+came a wave of negative appraisals. She had come to believe that the accident happened because of
+the way she acted—her carelessness, her arrogance in thinking she could multitask. She told herself
+she would never forgive herself for not doing more to stop it, for not checking her mirrors twice,
+for not being more careful. What frightened her most was the permanent humiliation she felt, the
+sense that her identity as a competent, trustworthy leader had been shattered in that single moment.
+
+The shame and self-blame drove Margaret to adopt a series of strategies that she believed would
+protect her from further harm. She began avoiding anything that could be stressful—she cancelled
+public appearances, declined media interviews, and stopped engaging with policy debates. She also
+avoided all feelings, positive or negative, because she had learned that even a moment of pleasure
+could be followed by a crashing wave of guilt. Most concretely, she stopped driving entirely, and
+she refused to be a passenger in any vehicle, insisting her staff arrange for her to walk or take
+public transit to the few meetings she still attended. These strategies, however, only deepened her
+sense of isolation and failure, and they kept the memory of the accident fresh in her mind. Each
+time she chose avoidance, she reminded herself of what she had done, and the negative appraisals
+grew stronger.
+
+Margaret’s physical reactivity became a constant companion. Her neck would throb without warning,
+and she often felt strong physical reactions—a racing heart, sweaty palms, a knot in her
+stomach—when something reminded her of the accident. These reactions fed into a cycle of heightened
+threat monitoring; she began to scan her environment for any sign of shouting, any sudden movement,
+any car that might come too close. The threat she felt was not just about the possibility of causing
+another accident, but about the shame that would follow. She had difficulty concentrating on her
+work, because her mind was always half-listening for a raised voice or the screech of tires. The
+physical pain in her neck became a trigger in itself: when it flared, she would be pulled back into
+the memory of the impact, and the negative appraisals would surge again.
+
+The maladaptive strategies Margaret adopted did not bring her relief. Avoiding driving meant she had
+to rely on others, which made her feel dependent and incompetent—reinforcing her belief that the
+accident proved she was unfit for leadership. Avoiding stress and feelings meant she withdrew from
+her children, who had always been her closest confidants, and from her colleagues, who began to
+notice her absence and question her commitment. The memory of the accident, though hard to access
+deliberately, intruded more frequently as she tried to suppress it. She would hear that scream in
+her head while lying in bed at night, or feel the phantom ache in her neck during a quiet moment in
+her office. Each intrusion reminded her of her failure, and the cycle tightened.
+
+What finally brought Margaret to seek help was a moment of clarity during a city council meeting. A
+fellow councilmember raised his voice in frustration during a debate, and Margaret felt her neck
+seize, her heart pound, and her mind go blank. She excused herself, walked to the restroom, and
+stood trembling in front of the mirror, unable to recognize the person looking back at her. She was
+afraid of what she might do next—whether she would resign, disappear, or simply stop showing up
+altogether. She hoped, more than anything, that she could find a way to live without the constant
+weight of guilt and fear, but she was terrified that forgiveness, from herself or anyone else, was
+impossible.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Margaret was sixty years old, a divorced politician who had spent decades in public life, when she
+accidentally caused a serious injury to another person. It happened during a routine campaign stop
+in a crowded parking lot. She had been distracted, checking her phone for a last-minute schedule
+change, and as she reversed her sedan, she struck a volunteer who had stepped behind her vehicle to
+retrieve a fallen sign. The impact was quick and sickening—a thud, a scream, and then the sight of
+the woman crumpled on the asphalt, her leg bent at an unnatural angle. Margaret’s neck seized with a
+sharp, electric pain as she whipped around to see what she had done, and the sound of the woman’s
+cry seemed to lodge itself in her ears, replaying over and over in the silence that followed.
+
+In the weeks after, Margaret found she could not deliberately recall the full sequence of events;
+when she tried to piece together exactly what had happened, the memory felt fragmented and distant,
+as though seen through a fogged window. But the memory did not stay buried. Whenever she heard
+shouting—a raised voice in a committee room, a constituent calling out across a town hall—the sound
+would trigger a visceral response: her neck would ache, and the auditory fragment of that scream
+would surface unbidden, sharp and clear. These triggers brought the event rushing back, and with it
+came a wave of negative appraisals. She had come to believe that the accident happened because of
+the way she acted—her carelessness, her arrogance in thinking she could multitask. She told herself
+she would never forgive herself for not doing more to stop it, for not checking her mirrors twice,
+for not being more careful. What frightened her most was the permanent humiliation she felt, the
+sense that her identity as a competent, trustworthy leader had been shattered in that single moment.
+
+The shame and self-blame drove Margaret to adopt a series of strategies that she believed would
+protect her from further harm. She began avoiding anything that could be stressful—she cancelled
+public appearances, declined media interviews, and stopped engaging with policy debates. She also
+avoided all feelings, positive or negative, because she had learned that even a moment of pleasure
+could be followed by a crashing wave of guilt. Most concretely, she stopped driving entirely, and
+she refused to be a passenger in any vehicle, insisting her staff arrange for her to walk or take
+public transit to the few meetings she still attended. These strategies, however, only deepened her
+sense of isolation and failure, and they kept the memory of the accident fresh in her mind. Each
+time she chose avoidance, she reminded herself of what she had done, and the negative appraisals
+grew stronger.
+
+Margaret’s physical reactivity became a constant companion. Her neck would throb without warning,
+and she often felt strong physical reactions—a racing heart, sweaty palms, a knot in her
+stomach—when something reminded her of the accident. These reactions fed into a cycle of heightened
+threat monitoring; she began to scan her environment for any sign of shouting, any sudden movement,
+any car that might come too close. The threat she felt was not just about the possibility of causing
+another accident, but about the shame that would follow. She had difficulty concentrating on her
+work, because her mind was always half-listening for a raised voice or the screech of tires. The
+physical pain in her neck became a trigger in itself: when it flared, she would be pulled back into
+the memory of the impact, and the negative appraisals would surge again.
+
+The maladaptive strategies Margaret adopted did not bring her relief. Avoiding driving meant she had
+to rely on others, which made her feel dependent and incompetent—reinforcing her belief that the
+accident proved she was unfit for leadership. Avoiding stress and feelings meant she withdrew from
+her children, who had always been her closest confidants, and from her colleagues, who began to
+notice her absence and question her commitment. The memory of the accident, though hard to access
+deliberately, intruded more frequently as she tried to suppress it. She would hear that scream in
+her head while lying in bed at night, or feel the phantom ache in her neck during a quiet moment in
+her office. Each intrusion reminded her of her failure, and the cycle tightened.
+
+What finally brought Margaret to seek help was a moment of clarity during a city council meeting. A
+fellow councilmember raised his voice in frustration during a debate, and Margaret felt her neck
+seize, her heart pound, and her mind go blank. She excused herself, walked to the restroom, and
+stood trembling in front of the mirror, unable to recognize the person looking back at her. She was
+afraid of what she might do next—whether she would resign, disappear, or simply stop showing up
+altogether. She hoped, more than anything, that she could find a way to live without the constant
+weight of guilt and fear, but she was terrified that forgiveness, from herself or anyone else, was
+impossible.

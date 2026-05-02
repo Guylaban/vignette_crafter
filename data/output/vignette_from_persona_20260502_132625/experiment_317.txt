@@ -1,0 +1,250 @@
+PERSONA 317  |  2026-05-02 15:01:21
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-haiku-4-5
+    persona_crafter      claude-haiku-4-5
+    vignette_crafter     claude-haiku-4-5
+    vignette_validator   claude-haiku-4-5
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             46
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Graphic Designer
+  trauma_type     Police
+  pcl5            65
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Intrusive Thoughts: Unwanted thoughts
+    • Visual (Injuries): Visible injuries or wounds on others
+    • Authority Presence: Police
+  Maladaptive Strategies:
+    • Screen Escape: I spend long hours on my phone, games, or internet to avoid thinking
+    • Avoid People: avoid other people
+    • Mental Distraction: keep mind occupied all the time
+  Threat:
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+  Memory:
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+  Negative Appraisals:
+    • Lost Meaning: Nothing in my life feels meaningful anymore
+    • Life Destroyed: My life has been destroyed by the trauma
+    • Injustice: What happened to me was deeply unfair and nothing has been done about it
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6415
+  Triggers → Memory                                  0.1908
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.5068
+  Negative Appraisals → Memory                       0.5351
+  Negative Appraisals → Triggers                     0.3071
+  Memory → Maladaptive Strategies                    0.5753
+  Memory → Threat                                    0.1648
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.1656
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.7909
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.9335
+  Maladaptive Strategies → Threat                    0.8577
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Social Contacts: Seeing people that I socialised with before the event
+    explanation: 'Avoid Social Contacts' is inconsistent as written: it is phrased like a trigger ('seeing people...') rather than a strategy the patient uses. Within the Maladaptive Strategies node, the other items are clear coping behaviours, so this item is internally mismatched.
+  [2] FAIL
+    item:        Maladaptive Strategies / Self-Harm Distraction: I hurt myself physically to stop thinking about the event
+    explanation: Self-harm used specifically as a distraction is not impossible, but in this profile it stands out as clinically poorly integrated with the rest of the selected items. The other strategies are avoidance/disengagement (screen use, avoiding people), and the threat/memory profile is hypervigilance plus overwhelm. This item introduces a much more extreme coping style without supporting indicators elsewhere in the five target components, making the strategy set feel internally uneven for the same patient.
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: For a police-related trauma in a 46-year-old civilian graphic designer, self-blame for 'the way I acted' is possible, but here it sits awkwardly beside appraisals that frame the trauma as globally ruining life and draining meaning, without any other items suggesting perceived responsibility, moral failure, or a specific behavior during the event. The appraisal set is therefore less coherent than the other nodes.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      4,399
+  output:     1,361
+  total:      5,760
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+# Marcus
+
+Marcus was forty-six when the world narrowed. On a Tuesday evening in March, he had been driving
+home from his design firm in Portland, taking the back roads through Gresham as he always did, when
+he saw the police cruiser in his mirror. His hands had been steady on the wheel—he had done nothing
+wrong—but something in the way the lights came on made his stomach drop. The officer who approached
+had been agitated, speaking in clipped sentences, and within moments had opened Marcus's door,
+yanked him from the driver's seat, and slammed him against the hood. There had been no warning, no
+clear explanation. Marcus's face had been pressed into the metal, his arm twisted behind him, and
+for the first time in his life he felt utterly powerless, utterly at the mercy of someone whose
+authority was absolute. The officer had discovered nothing—no warrant, no outstanding issue,
+nothing—but by then Marcus's nervous system had already learned a terrible lesson. When the officer
+finally let him go with a curt apology, Marcus had driven home in silence, his entire body
+trembling.
+
+In the weeks that followed, Marcus returned to work, but something had fractured. He had built a
+careful life: twenty-two years married to his wife Elena, a respected position designing websites
+and branding materials for tech startups, a quiet routine of morning coffee and evening walks. Now,
+each time he heard a siren or saw a police car, his chest would tighten and his mind would flood
+with the image of that hood, the pressure on his face, the absolute certainty that something
+terrible was happening. The sight of a bruise on a colleague's arm, a bandaged hand, even a scraped
+knee on a child at the grocery store—any visible injury would trigger the same cascade, his brain
+insisting that violence was imminent, that he was in danger. These moments would come without
+warning. Marcus could be sitting at his desk, focused on a color palette, when an intrusive thought
+would arrive fully formed: the memory of the officer's grip, the smell of the patrol car's interior,
+the sensation of his cheekbone against cold metal. His body would respond instantly, heart racing,
+muscles coiling as though he needed to run.
+
+What frightened Marcus most was that he had come to believe his life was fundamentally destroyed.
+The man who had been tackled on that roadside was not the man he had been before; that version had
+been erased. He was certain now that nothing mattered—his work felt hollow, his marriage felt
+fragile, his sense of safety had been revealed as an illusion. Nothing he did seemed to change the
+fact that the world had shown itself to be unjust and cruel. An officer had assaulted him without
+cause, and nothing had come of it—no accountability, no apology that meant anything. The injustice
+of it sat in his chest like a stone, and with it came a conviction that his life would never
+recover. These dark certainties fed a constant vigilance: Marcus found himself unable to relax even
+at home, unable to sit in a restaurant without mentally mapping the exits, unable to feel his body
+as anything other than a taut instrument braced against the next blow.
+
+When the memories returned—unbidden, overwhelming—Marcus would feel such a surge of emotion that he
+would have to stop whatever he was doing. The sensation was not merely recollection; it was re-
+living. He would be back on that roadside, the fear as fresh as it had been that night, and the only
+way he knew to survive it was to escape into his phone. He had begun spending hours scrolling
+through games, news, anything to keep his mind occupied and away from the memory itself. The
+distraction worked, briefly. But it was a cycle: the mental occupation would prevent him from
+processing what had happened, so the memory remained sharp and intrusive, waiting to ambush him at
+unexpected moments. His phone had become both shield and prison. Elena had started to notice his
+absence, the way he would disappear into the screen rather than speak to her, the way he had begun
+avoiding friends and colleagues, declining invitations, staying home. The more he isolated himself,
+the more his mind would circle back to the trauma, and the more desperately he would reach for the
+phone to push it away again.
+
+The constant mental distraction and avoidance had consequences beyond the digital realm. At work,
+his creative output had suffered; he had missed deadlines, and his supervisor had begun to question
+his reliability. His marriage, once warm and easy, had become strained. Elena would ask him what was
+wrong, and he could not explain it clearly—when he tried to tell her about the incident, the words
+would scatter, the narrative would break apart, and he would be left stammering, unable to finish,
+unable to make her understand why he could not simply move past it. His body remained perpetually on
+alert, muscles tight, sleep fragmented. Even when he forced himself to stay away from his phone, the
+vigilance would spike; he would scan rooms for threats, identify exits, feel his shoulders creep up
+toward his ears. The avoidance was supposed to protect him, but it had only deepened the trap. Every
+time he escaped into distraction, every time he avoided a social situation or a police car on the
+street, he was reinforcing the message that the world was dangerous and that he could not cope. The
+threat felt more real, the memories more vivid, the conviction that his life was over more absolute.
+
+Now, three months later, Marcus sat in the waiting room of a therapist's office, his phone face-down
+on his lap—a small victory, though it cost him. He was here because Elena had finally said that she
+could not watch him disappear anymore, that something had to change. What Marcus feared most was
+that no change was possible, that he would spend the rest of his life trapped in this loop of
+vigilance and escape, watching his marriage crumble, his career falter, his sense of self dissolve
+into nothing. But beneath that fear, barely audible, was a whisper of hope: that perhaps someone
+could help him understand why the world had become so dangerous, and whether it might ever feel safe
+again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+# Marcus
+
+Marcus was forty-six when the world narrowed. On a Tuesday evening in March, he had been driving
+home from his design firm in Portland, taking the back roads through Gresham as he always did, when
+he saw the police cruiser in his mirror. His hands had been steady on the wheel—he had done nothing
+wrong—but something in the way the lights came on made his stomach drop. The officer who approached
+had been agitated, speaking in clipped sentences, and within moments had opened Marcus's door,
+yanked him from the driver's seat, and slammed him against the hood. There had been no warning, no
+clear explanation. Marcus's face had been pressed into the metal, his arm twisted behind him, and
+for the first time in his life he felt utterly powerless, utterly at the mercy of someone whose
+authority was absolute. The officer had discovered nothing—no warrant, no outstanding issue,
+nothing—but by then Marcus's nervous system had already learned a terrible lesson. When the officer
+finally let him go with a curt apology, Marcus had driven home in silence, his entire body
+trembling.
+
+In the weeks that followed, Marcus returned to work, but something had fractured. He had built a
+careful life: twenty-two years married to his wife Elena, a respected position designing websites
+and branding materials for tech startups, a quiet routine of morning coffee and evening walks. Now,
+each time he heard a siren or saw a police car, his chest would tighten and his mind would flood
+with the image of that hood, the pressure on his face, the absolute certainty that something
+terrible was happening. The sight of a bruise on a colleague's arm, a bandaged hand, even a scraped
+knee on a child at the grocery store—any visible injury would trigger the same cascade, his brain
+insisting that violence was imminent, that he was in danger. These moments would come without
+warning. Marcus could be sitting at his desk, focused on a color palette, when an intrusive thought
+would arrive fully formed: the memory of the officer's grip, the smell of the patrol car's interior,
+the sensation of his cheekbone against cold metal. His body would respond instantly, heart racing,
+muscles coiling as though he needed to run.
+
+What frightened Marcus most was that he had come to believe his life was fundamentally destroyed.
+The man who had been tackled on that roadside was not the man he had been before; that version had
+been erased. He was certain now that nothing mattered—his work felt hollow, his marriage felt
+fragile, his sense of safety had been revealed as an illusion. Nothing he did seemed to change the
+fact that the world had shown itself to be unjust and cruel. An officer had assaulted him without
+cause, and nothing had come of it—no accountability, no apology that meant anything. The injustice
+of it sat in his chest like a stone, and with it came a conviction that his life would never
+recover. These dark certainties fed a constant vigilance: Marcus found himself unable to relax even
+at home, unable to sit in a restaurant without mentally mapping the exits, unable to feel his body
+as anything other than a taut instrument braced against the next blow.
+
+When the memories returned—unbidden, overwhelming—Marcus would feel such a surge of emotion that he
+would have to stop whatever he was doing. The sensation was not merely recollection; it was re-
+living. He would be back on that roadside, the fear as fresh as it had been that night, and the only
+way he knew to survive it was to escape into his phone. He had begun spending hours scrolling
+through games, news, anything to keep his mind occupied and away from the memory itself. The
+distraction worked, briefly. But it was a cycle: the mental occupation would prevent him from
+processing what had happened, so the memory remained sharp and intrusive, waiting to ambush him at
+unexpected moments. His phone had become both shield and prison. Elena had started to notice his
+absence, the way he would disappear into the screen rather than speak to her, the way he had begun
+avoiding friends and colleagues, declining invitations, staying home. The more he isolated himself,
+the more his mind would circle back to the trauma, and the more desperately he would reach for the
+phone to push it away again.
+
+The constant mental distraction and avoidance had consequences beyond the digital realm. At work,
+his creative output had suffered; he had missed deadlines, and his supervisor had begun to question
+his reliability. His marriage, once warm and easy, had become strained. Elena would ask him what was
+wrong, and he could not explain it clearly—when he tried to tell her about the incident, the words
+would scatter, the narrative would break apart, and he would be left stammering, unable to finish,
+unable to make her understand why he could not simply move past it. His body remained perpetually on
+alert, muscles tight, sleep fragmented. Even when he forced himself to stay away from his phone, the
+vigilance would spike; he would scan rooms for threats, identify exits, feel his shoulders creep up
+toward his ears. The avoidance was supposed to protect him, but it had only deepened the trap. Every
+time he escaped into distraction, every time he avoided a social situation or a police car on the
+street, he was reinforcing the message that the world was dangerous and that he could not cope. The
+threat felt more real, the memories more vivid, the conviction that his life was over more absolute.
+
+Now, three months later, Marcus sat in the waiting room of a therapist's office, his phone face-down
+on his lap—a small victory, though it cost him. He was here because Elena had finally said that she
+could not watch him disappear anymore, that something had to change. What Marcus feared most was
+that no change was possible, that he would spend the rest of his life trapped in this loop of
+vigilance and escape, watching his marriage crumble, his career falter, his sense of self dissolve
+into nothing. But beneath that fear, barely audible, was a whisper of hope: that perhaps someone
+could help him understand why the world had become so dangerous, and whether it might ever feel safe
+again.

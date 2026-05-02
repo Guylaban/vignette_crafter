@@ -1,0 +1,223 @@
+PERSONA 289  |  2026-05-02 19:58:44
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-chat
+    persona_crafter      deepseek-chat
+    vignette_crafter     deepseek-chat
+    vignette_validator   deepseek-chat
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             26
+  gender          Female
+  ethnicity       Latin American
+  relationship_status Single
+  occupation      Student
+  trauma_type     Toxic chemical exposure
+  pcl5            70
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Darkness: Dark spaces
+    • Nighttime/Dark: Night-time or waking up in the dark
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Maladaptive Strategies:
+    • Avoid Event Site: avoid site of the event
+    • Memory Erasure: I try to erase the memory of the event
+    • Checking Surroundings: constantly scan environment for signs of threat
+  Threat:
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+  Memory:
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event
+    • Confused Sequence: I cannot put the memories of the event in the right order
+  Negative Appraisals:
+    • Defective Self: There is something wrong with me as a person
+    • Body as Enemy: My body keeps reacting as if I am still in danger even when I am safe
+    • Body Unreliable: I can no longer trust my own body
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.9453
+  Triggers → Threat                                  0.3044
+  Triggers → Memory                                  0.5685
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.8456
+  Negative Appraisals → Threat                       0.3296
+  Negative Appraisals → Memory                       0.1866
+  Negative Appraisals → Triggers                     0.8158
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.5239
+  Memory → Triggers                                  0.6193
+  Threat → Maladaptive Strategies                    0.2919
+  Threat → Memory                                    0.2811
+  Threat → Negative Appraisals                       0.8865
+  Threat → Triggers                                  0.9185
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.1496
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Stranger Interaction: Talking to strangers
+    explanation: For toxic chemical exposure, stranger interaction and dark spaces are hard to link to the trauma context given the rest of the profile. The other nodes center on bodily harm/contamination-type consequences, pain recall, and event-site avoidance; these triggers instead suggest interpersonal or assault-related trauma themes.
+    item:        Threat / Triggers: Darkness: Dark spaces
+    explanation: Startle to unexpected touch is not impossible, but paired with stranger interaction and the absence of interpersonal threat appraisals, it pulls the profile toward an assault/interpersonal trauma pattern rather than toxic exposure. This makes the threat profile less coherent with the stated trauma type and with the other threat items.
+    item:        Negative Appraisals / Threat: Startle to Touch: I react with alarm when someone touches me unexpectedly
+    explanation: The appraisal that others can see what happened just by looking at me implies visible stigma or externally legible damage. With toxic chemical exposure, this could fit only if there were clear visible injuries, but the rest of the profile emphasizes internal bodily reactions, pain recall, and disorganized memory rather than visible disfigurement. Together this item sits awkwardly with the rest of the formulation.
+  [2] FAIL
+    item:        Threat / Threat: Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+    explanation: For toxic chemical exposure, the threat profile is centered on contamination/physical harm cues. 'Flashbacks' is not impossible, but paired with the rest of this profile it implies a strongly re-experiencing, event-reliving presentation. That would usually be linked to trauma-congruent cues about the exposure itself; here the trigger and appraisal content is instead dominated by darkness/night and generalized bodily defectiveness, making this specific threat item clinically hard to integrate with the rest of the profile.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Hypervigilance towards people: vigilant for dangerous people
+    explanation: 'Hypervigilance towards people' is a poor fit for a toxic chemical exposure trauma when there are no corresponding interpersonal threat appraisals or memories. The rest of the profile focuses on bodily reactions, event site avoidance, and attempts to suppress the memory, which are coherent for chemical exposure. Vigilance for dangerous people introduces an interpersonal-assault type coping pattern that is not supported by the trigger, threat, memory, or appraisal items and is therefore clinically incoherent in this profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Feeling Happy: Feeling happy or relaxed
+    explanation: 'Feeling happy or relaxed' is hard to reconcile as a primary trigger for toxic chemical exposure when the other trigger items are darkness/night-time and the rest of the profile centers on bodily danger, environmental threat, and sensory reminders. Positive affect as a trigger is not impossible, but here it is clinically disconnected from the trauma type and from the other selected nodes.
+    item:        Negative Appraisals / Negative Appraisals: Exposed to Others: I feel that others can see what happened to me just by looking at me
+    explanation: 'Others can see what happened to me just by looking at me' fits traumas involving visible stigma, assault, or shame-based social exposure better than toxic chemical exposure as represented by the rest of this profile. It does not cohere well with the other appraisals, which are about bodily malfunction and defectiveness rather than visible external marking.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,232
+  output:       982
+  total:      4,214
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+The event itself was something Camila still could not fully describe. She had been working late in
+the chemistry lab, a routine titration running behind schedule, when a corroded valve on a waste
+solvent container gave way. There was no explosion, no fire—just a thin, sweet-smelling vapor that
+rose silently and filled her side of the room before the ventilation system kicked in. She coughed,
+her eyes burned, and within minutes she felt a deep ache in her chest and a metallic taste that
+would not fade. She walked herself to the campus health center, but the memory of that walk was
+already jumbled—she could not say whether she had passed the fountain first or the library steps, or
+whether the security guard had spoken to her. The sequence was gone, and what remained was only the
+pain: a tight, searing sensation across her ribs that returned every time she tried to think back to
+that afternoon.
+
+In the weeks that followed, Camila began to notice that her own body felt foreign and unreliable.
+Her heart would race at odd moments, her muscles stayed braced as if she were still standing in that
+chemical haze, and she found herself scanning every room she entered for the source of any smell—a
+cleaning product, a hand sanitizer, the antiseptic sting of the campus clinic. She had come to
+believe that there was something fundamentally wrong with her, that her body had betrayed her by
+reacting so violently to what others called a minor exposure. She no longer trusted her own lungs to
+tell her the truth about the air she was breathing. This conviction colored everything: the moment
+she caught a whiff of bleach in the hallway, she was certain she could taste that same metallic
+edge, and her chest would tighten as though the vapor were still there.
+
+Darkness became another kind of threat. Camila had always slept with the lights off, but now the
+moment the room went black, she could not find the boundaries of her own body. The absence of visual
+cues left her disoriented, and the physical pain in her ribs would flare without warning, as though
+the chemical burn were happening again in the dark. She began leaving a lamp on all night, but even
+that was not enough. When she woke in the small hours to find the bulb had burned out, she would lie
+rigid, her breath shallow, listening for sounds that were not there, her body already bracing for
+contact. Once, her roommate came home late and touched her shoulder to say goodnight; Camila jolted
+upright with a cry, her heart hammering so hard she thought she might be sick. After that, she
+started sleeping with her back to the wall and a chair wedged under the doorknob.
+
+She tried to erase the memory altogether. She deleted the photos on her phone from that week, she
+stopped walking past the science building, and she took a different bus route that added forty
+minutes to her commute. When the image of the corroded valve surfaced anyway—usually at night, when
+she could not distract herself—she would force her mind to go blank, repeating a phrase or a number
+until the picture dissolved. But the more she pushed the memory away, the more her body stayed on
+alert. The scanning became automatic: every room she entered, she noted the exits, the air vents,
+the smell of the air. She could not concentrate in lectures because she was too busy monitoring the
+temperature and the scent of the room. Her grades slipped, and she started skipping classes
+altogether, telling herself she would catch up later.
+
+The worst moments came when she could not find the words. She knew what had happened—she could feel
+it in her ribs, she could taste it—but when her advisor asked her to describe the incident for a
+safety report, her mind went empty. She sat in the office with her hands clenched, unable to produce
+a single coherent sentence about the order of events. That failure confirmed what she already
+suspected: that she was broken, that her body and her mind were no longer under her control. The
+silence in the room felt like an accusation, and afterward she avoided her advisor entirely, ducking
+into bathrooms when she saw him in the hallway.
+
+By the time she sought help, Camila was living in a small, windowless studio apartment she had
+chosen because there was no chemical smell. She had stopped cooking, eating only cold food from
+sealed packages. She had not spoken to her roommate in three weeks. What finally brought her to the
+clinic was a night when the power went out and she found herself crouched in the corner, her hands
+over her mouth, waiting for a pain that did not come. She was afraid of what she might do if the
+lights stayed off any longer.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+The event itself was something Camila still could not fully describe. She had been working late in
+the chemistry lab, a routine titration running behind schedule, when a corroded valve on a waste
+solvent container gave way. There was no explosion, no fire—just a thin, sweet-smelling vapor that
+rose silently and filled her side of the room before the ventilation system kicked in. She coughed,
+her eyes burned, and within minutes she felt a deep ache in her chest and a metallic taste that
+would not fade. She walked herself to the campus health center, but the memory of that walk was
+already jumbled—she could not say whether she had passed the fountain first or the library steps, or
+whether the security guard had spoken to her. The sequence was gone, and what remained was only the
+pain: a tight, searing sensation across her ribs that returned every time she tried to think back to
+that afternoon.
+
+In the weeks that followed, Camila began to notice that her own body felt foreign and unreliable.
+Her heart would race at odd moments, her muscles stayed braced as if she were still standing in that
+chemical haze, and she found herself scanning every room she entered for the source of any smell—a
+cleaning product, a hand sanitizer, the antiseptic sting of the campus clinic. She had come to
+believe that there was something fundamentally wrong with her, that her body had betrayed her by
+reacting so violently to what others called a minor exposure. She no longer trusted her own lungs to
+tell her the truth about the air she was breathing. This conviction colored everything: the moment
+she caught a whiff of bleach in the hallway, she was certain she could taste that same metallic
+edge, and her chest would tighten as though the vapor were still there.
+
+Darkness became another kind of threat. Camila had always slept with the lights off, but now the
+moment the room went black, she could not find the boundaries of her own body. The absence of visual
+cues left her disoriented, and the physical pain in her ribs would flare without warning, as though
+the chemical burn were happening again in the dark. She began leaving a lamp on all night, but even
+that was not enough. When she woke in the small hours to find the bulb had burned out, she would lie
+rigid, her breath shallow, listening for sounds that were not there, her body already bracing for
+contact. Once, her roommate came home late and touched her shoulder to say goodnight; Camila jolted
+upright with a cry, her heart hammering so hard she thought she might be sick. After that, she
+started sleeping with her back to the wall and a chair wedged under the doorknob.
+
+She tried to erase the memory altogether. She deleted the photos on her phone from that week, she
+stopped walking past the science building, and she took a different bus route that added forty
+minutes to her commute. When the image of the corroded valve surfaced anyway—usually at night, when
+she could not distract herself—she would force her mind to go blank, repeating a phrase or a number
+until the picture dissolved. But the more she pushed the memory away, the more her body stayed on
+alert. The scanning became automatic: every room she entered, she noted the exits, the air vents,
+the smell of the air. She could not concentrate in lectures because she was too busy monitoring the
+temperature and the scent of the room. Her grades slipped, and she started skipping classes
+altogether, telling herself she would catch up later.
+
+The worst moments came when she could not find the words. She knew what had happened—she could feel
+it in her ribs, she could taste it—but when her advisor asked her to describe the incident for a
+safety report, her mind went empty. She sat in the office with her hands clenched, unable to produce
+a single coherent sentence about the order of events. That failure confirmed what she already
+suspected: that she was broken, that her body and her mind were no longer under her control. The
+silence in the room felt like an accusation, and afterward she avoided her advisor entirely, ducking
+into bathrooms when she saw him in the hallway.
+
+By the time she sought help, Camila was living in a small, windowless studio apartment she had
+chosen because there was no chemical smell. She had stopped cooking, eating only cold food from
+sealed packages. She had not spoken to her roommate in three weeks. What finally brought her to the
+clinic was a night when the power went out and she found herself crouched in the corner, her hands
+over her mouth, waiting for a pain that did not come. She was afraid of what she might do if the
+lights stayed off any longer.

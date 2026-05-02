@@ -1,0 +1,232 @@
+{
+  "persona_id": 168,
+  "source_persona_id": 168,
+  "experiment_timestamp": "2026-05-02 11:28:00",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4-mini",
+      "persona_crafter": "gpt-5.4-mini",
+      "vignette_crafter": "gpt-5.4-mini",
+      "vignette_validator": "gpt-5.4-mini"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 54,
+    "gender": "Female",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Chef",
+    "trauma_type": "Assault",
+    "pcl5": 68
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Certain Conversation Topics",
+        "value": "Certain conversation topics"
+      },
+      {
+        "key": "Emotional Closeness",
+        "value": "Someone getting emotionally close to me"
+      },
+      {
+        "key": "Male Presence",
+        "value": "Being alone with men"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      },
+      {
+        "key": "Threat from Strangers",
+        "value": "I feel threatened by strangers approaching me even in ordinary situations"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Nonverbal Memory",
+        "value": "I can't seem to put the frightening event into words."
+      },
+      {
+        "key": "Fragmented Pieces",
+        "value": "My memories of the event come in disconnected pieces that do not fit together"
+      },
+      {
+        "key": "Bodily Reenactment",
+        "value": "When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Fear of Harm",
+        "value": "You can never know who will harm you"
+      },
+      {
+        "key": "Betrayal",
+        "value": "I was betrayed by someone I trusted"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.7933,
+    "Triggers -- Negative Appraisals": 0.3072,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.6402,
+    "Negative Appraisals -- Memory": 0.6693,
+    "Negative Appraisals -- Triggers": 0.1876,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0382,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.9709,
+    "Threat -- Negative Appraisals": 0.3681,
+    "Threat -- Triggers": 0.4417,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4907222222222222,
+  "edge_density": 0.45,
+  "vignette_word_count": 814,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Military Topics: Talks about military",
+          "explanation": "For a civilian assault trauma, 'talks about military' is a hard-to-explain trigger unless the assault specifically involved military context, which is not otherwise reflected anywhere in the profile. It is not supported by the other trigger, memory, threat, or appraisal items."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Survival Guilt: I feel guilty for surviving when others did not",
+          "explanation": "'I feel guilty for surviving when others did not' implies a trauma involving deaths of others or a mass-casualty context. That does not cohere with the rest of this profile, which otherwise describes an individual assault without any indication that others were killed."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Military Topics"
+        ],
+        "Negative Appraisals": [
+          "Survival Guilt"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Fear of Rage: I will not be able to control my anger and will do something terrible",
+          "explanation": "This appraisal is the main incoherent item in the profile. The rest of the report is organized around fear, betrayal, hypervigilance, male-related/interpersonal triggers, and fragmented sensory trauma memory after assault. In contrast, fearing that she will lose control of her own rage and do something terrible introduces a perpetration/anger-control theme that is not supported by the triggers, threat items, or memory content. It does not fit the dominant cognitive formulation in which negative appraisals feed threat and memory; the other appraisal items plausibly amplify fear and mistrust, but this one points to a different clinical concern not otherwise represented in the profile. Given the otherwise tightly fear-based assault presentation, this item is hard to integrate clinically with the selected set."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Fear of Rage"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Sleep Vigilance: I have difficulty falling asleep because I need to stay alert",
+          "explanation": "This threat item is the least coherent element in the profile. The rest of the selected triggers, appraisals, and memory items consistently describe an interpersonal assault formulation centered on men, betrayal, mistrust, conversational/emotional triggers, and trauma memories. By contrast, needing to stay alert at night implies a more generalized ongoing danger-monitoring pattern that is not specifically supported by the selected triggers or appraisals. It is not impossible in PTSD, but here it fits less well than the other threat items and is weakly linked to the formulation, especially because Threat has no active edge to Maladaptive Strategies and the profile lacks other nighttime/sleep-related material."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Sleep Vigilance"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3043,
+    "output": 946,
+    "total": 3989
+  },
+  "vignette": "Marta was a 54-year-old European woman, married and working for years as a chef, who described her life before the assault as busy, practical, and largely centered on the rhythm of the kitchen. The assault had occurred after a late shift, when she found herself alone with a man she had thought she knew well enough to trust. What unsettled her most was not only the violence of the attack but how quickly it had been tied to ordinary closeness: a conversation that turned personal, a sense of familiarity, the false safety of being in a familiar space with someone who had seemed harmless. In the months afterward, she found that certain conversation topics now made her body tense before she could explain why, and emotional closeness felt dangerous in a way that was hard to justify to herself. She had come to believe that people could not be trusted and that you could never know who would harm you. That belief gathered force from the way the event lived in her mind: she could not put it into words, only into disconnected pieces that would not settle into order, and when it came back to her she felt her body in the same position as during the assault, as if the memory had not ended but was still happening somewhere in her muscles.\n\nAs those fragments kept intruding, Marta’s understanding of other people darkened. She found herself thinking again and again that she had been betrayed by someone she trusted, and that if it had happened once it could happen again with anyone. The memory itself fed that conclusion, because what she could not narrate cleanly felt to her like proof that the event was still unresolved and still capable of returning at any moment. At the same time, her sense that the danger had not passed made her scan her surroundings with increasing intensity; she became superalert and watchful, reacting to unexpected movement nearby as if it were a threat. In ordinary situations she felt threatened by strangers approaching, even in a supermarket or on the street near her apartment. That constant sense of being on guard made the world seem more hostile, and it also pulled her back toward the original themes of the assault: a man standing too close in the kitchen, a conversation that turned private, the awareness of being trapped with someone she had thought she knew. Those moments now felt saturated with danger, and she noticed that when men were around, especially when she was alone with them, her mind went immediately to the possibility of harm.\n\nMarta’s fear of harm then began to shape what she could bear to remember and what she could bring herself to hear. When she felt watched or startled, the assault came back in disjointed flashes, and the bodily sensation of being pinned or positioned as she had been during the attack made the fragments sharper and less speakable. She would lose the thread of the event and be left only with a bodily certainty that it had been real and still mattered. The more often this happened, the more she felt confirmed in her belief that people cannot be trusted, and that anyone could turn on her without warning. That conviction made her even more guarded in conversation, especially if someone asked personal questions or tried to get emotionally close; she would pull back, change the subject, or keep things strictly practical. At work in the kitchen, where she had once relied on smooth teamwork and easy banter, she now preferred distance. She stayed busy at the pass or with prep rather than risk prolonged exchange, and she noticed that a sudden movement behind her or a man stepping into her workspace could make her flinch before she had time to think. Over weeks, the pattern hardened: the more she watched for danger, the more often she found evidence of it, and the more those encounters brought the assault to mind in fragments that strengthened her sense of betrayal and threat.\n\nBy the time she sought help, Marta was exhausted by the way her world had narrowed around vigilance and mistrust. She still went to work and managed her marriage, but she described feeling as though she was always braced for the next approach, the next unexpected motion, the next conversation that might turn too personal. What finally brought her in was the fear that she was becoming unable to live around other people without feeling under attack. She hoped therapy might help her make sense of the pieces of the assault that still lived in her body and mind, and she was most afraid that if she could not do that, she would spend the rest of her life assuming that every stranger, every close conversation, and every man alone with her could be the one who hurt her."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Marta was a 54-year-old European woman, married and working for years as a chef, who described her life before the assault as busy, practical, and largely centered on the rhythm of the kitchen. The assault had occurred after a late shift, when she found herself alone with a man she had thought she knew well enough to trust. What unsettled her most was not only the violence of the attack but how quickly it had been tied to ordinary closeness: a conversation that turned personal, a sense of familiarity, the false safety of being in a familiar space with someone who had seemed harmless. In the months afterward, she found that certain conversation topics now made her body tense before she could explain why, and emotional closeness felt dangerous in a way that was hard to justify to herself. She had come to believe that people could not be trusted and that you could never know who would harm you. That belief gathered force from the way the event lived in her mind: she could not put it into words, only into disconnected pieces that would not settle into order, and when it came back to her she felt her body in the same position as during the assault, as if the memory had not ended but was still happening somewhere in her muscles.\n\nAs those fragments kept intruding, Marta’s understanding of other people darkened. She found herself thinking again and again that she had been betrayed by someone she trusted, and that if it had happened once it could happen again with anyone. The memory itself fed that conclusion, because what she could not narrate cleanly felt to her like proof that the event was still unresolved and still capable of returning at any moment. At the same time, her sense that the danger had not passed made her scan her surroundings with increasing intensity; she became superalert and watchful, reacting to unexpected movement nearby as if it were a threat. In ordinary situations she felt threatened by strangers approaching, even in a supermarket or on the street near her apartment. That constant sense of being on guard made the world seem more hostile, and it also pulled her back toward the original themes of the assault: a man standing too close in the kitchen, a conversation that turned private, the awareness of being trapped with someone she had thought she knew. Those moments now felt saturated with danger, and she noticed that when men were around, especially when she was alone with them, her mind went immediately to the possibility of harm.\n\nMarta’s fear of harm then began to shape what she could bear to remember and what she could bring herself to hear. When she felt watched or startled, the assault came back in disjointed flashes, and the bodily sensation of being pinned or positioned as she had been during the attack made the fragments sharper and less speakable. She would lose the thread of the event and be left only with a bodily certainty that it had been real and still mattered. The more often this happened, the more she felt confirmed in her belief that people cannot be trusted, and that anyone could turn on her without warning. That conviction made her even more guarded in conversation, especially if someone asked personal questions or tried to get emotionally close; she would pull back, change the subject, or keep things strictly practical. At work in the kitchen, where she had once relied on smooth teamwork and easy banter, she now preferred distance. She stayed busy at the pass or with prep rather than risk prolonged exchange, and she noticed that a sudden movement behind her or a man stepping into her workspace could make her flinch before she had time to think. Over weeks, the pattern hardened: the more she watched for danger, the more often she found evidence of it, and the more those encounters brought the assault to mind in fragments that strengthened her sense of betrayal and threat.\n\nBy the time she sought help, Marta was exhausted by the way her world had narrowed around vigilance and mistrust. She still went to work and managed her marriage, but she described feeling as though she was always braced for the next approach, the next unexpected motion, the next conversation that might turn too personal. What finally brought her in was the fear that she was becoming unable to live around other people without feeling under attack. She hoped therapy might help her make sense of the pieces of the assault that still lived in her body and mind, and she was most afraid that if she could not do that, she would spend the rest of her life assuming that every stranger, every close conversation, and every man alone with her could be the one who hurt her.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

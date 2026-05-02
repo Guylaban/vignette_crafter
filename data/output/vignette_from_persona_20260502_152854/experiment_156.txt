@@ -1,0 +1,273 @@
+PERSONA 156  |  2026-05-02 17:18:22
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             62
+  gender          Male
+  ethnicity       Latin American
+  relationship_status Married
+  occupation      Dancer
+  trauma_type     Life-threatening motor vehicle collision
+  pcl5            38
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Dissociate Deliberately: deliberately try to leave my body or blank out
+    • Delay Sleep: stay up until very late
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+  Memory:
+    • Nonverbal Memory: I can't seem to put the frightening event into words.
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+    • Shame on Recall: When I remember the event I feel intense shame
+  Negative Appraisals:
+    • Lost Emotions: I will never be able to feel normal emotions again
+    • Helplessness: I can't stop bad things from happening to me
+    • Character Blame: The event happened to me because of the sort of person I am
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.3949
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.5047
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.3459
+  Threat → Negative Appraisals                       0.7238
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.2196
+  Maladaptive Strategies → Negative Appraisals       0.5279
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Institutional Failure: The people or institutions that should have protected me let me down
+    explanation: For a life-threatening motor vehicle collision, 'institutional failure' and especially 'betrayal by someone trusted' are hard to reconcile unless the crash involved unusual interpersonal circumstances not reflected anywhere else in the profile. The rest of the profile centers on fear/startle/intrusive sensory recall, which fits an accident trauma; these appraisal items instead imply an interpersonal or systemic-trauma narrative.
+    item:        Memory / Negative Appraisals: Betrayal: I was betrayed by someone I trusted
+    explanation: 'Guilt on recall' can occur after accidents, but in this profile it sits awkwardly with the chosen appraisal set: the appraisals focus on betrayal/institutional failure rather than self-blame or responsibility. That makes the guilt theme insufficiently supported across nodes for a coherent cognitive formulation.
+  [2] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Betrayal: I was betrayed by someone I trusted
+    explanation: For a life-threatening motor vehicle collision, the appraisal 'I was betrayed by someone I trusted' is hard to reconcile unless the crash specifically involved a trusted driver or intentional wrongdoing, which is not otherwise reflected anywhere else in the profile. As presented, it introduces a different interpersonal-trauma theme that is not supported by the rest of the selected items.
+    item:        Memory / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: Within Negative Appraisals, 'Betrayal' and 'Self-Blame' can sometimes coexist, but in this profile they point to different causal narratives for the trauma (trusted other's betrayal vs one's own actions causing the event) without any supporting context. That makes the appraisal set clinically hard to unify around a single MVC trauma narrative.
+  [3] FAIL
+    item:        Maladaptive Strategies / Maladaptive Strategies: Other-Blame Rumination: I dwell on what other people have done to me
+    explanation: The profile contains a hard-to-reconcile blame pattern: strong self-blame and guilt are paired with other-blame rumination as a core maladaptive strategy. Mixed blame can occur, but this combination is the main internal inconsistency in the selected items because the appraisals and memory items point toward inward blame, while the strategy item points toward sustained outward blame.
+    item:        Negative Appraisals / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: Within the cognitive formulation, Maladaptive Strategies links most strongly to Negative Appraisals, so the strategy content should fit the appraisal style. Here the appraisal style is dominated by self-blame, helplessness, and permanent emotional damage, making other-blame rumination the least coherent strategy item.
+    item:        Memory / Memory: Guilt on Recall: When I remember the event I feel intense guilt
+    explanation: For a life-threatening motor vehicle collision, guilt on recall is plausible, especially with self-blame, so it is not problematic by itself. The concern is specifically its combination with persistent other-blame rumination, which pulls the profile toward a different blame direction than the rest of the formulation.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,749
+  output:    10,673
+  total:     17,422
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Ricardo, a 62-year-old dancer, had always moved through the world with a fluid grace that belied his
+age, until the night seven months ago when his life irrevocably fractured. Driving home after a late
+rehearsal, a drunk driver swerved into his lane, the screech of tires and the sickening crunch of
+metal echoing in his mind long after the collision. He was trapped, the smell of burning rubber and
+shattered glass thick in the air, the frantic shouts of first responders blending with the blare of
+sirens. He remembered the searing pain, the feeling of being utterly helpless as his body, his
+instrument, was mangled within the wreckage.
+
+In the months that followed, the memory of that night refused to settle into a coherent narrative.
+Ricardo found himself unable to put the frightening event into words, the experience remaining a
+raw, unarticulated terror. Instead, when he had memories of what happened, he would often hear
+fragments of the collision in his head — the metallic shriek, the breaking glass, the urgent,
+unintelligible voices — a relentless auditory recall that would pierce his quiet moments. Each time
+these sounds erupted, an intense shame would flood him, a burning humiliation for his vulnerability,
+for the violence inflicted upon him. To escape this visceral shame and the intrusive auditory
+recall, Ricardo would immediately try hard to suppress thoughts about the trauma, pushing them away
+with all his might. He also began to deliberately try to leave his body or blank out, a dissociative
+strategy that offered a momentary, albeit unsettling, reprieve from the overwhelming feelings. This
+constant mental effort to disconnect also extended to his nights; he would stay up until very late,
+dreading the vivid nightmares that plagued the few hours of sleep he did manage to get.
+
+These maladaptive strategies, while offering fleeting relief, ultimately tightened the grip of his
+distress. By constantly trying to suppress his thoughts and deliberately dissociate, Ricardo had
+come to believe that he would never be able to feel normal emotions again, convinced that his
+capacity for joy and connection had been permanently severed. This profound sense of lost emotions,
+combined with a growing conviction that the event happened to him because of the sort of person he
+was—a subtle, insidious form of character blame—fed a pervasive sense of threat. He experienced
+strong negative emotions, primarily fear and horror, almost constantly, his body keyed up for
+danger. When he entered any room, even his familiar dance studio, his eyes would immediately scan
+for exits, a desperate, unconscious search for an escape route. This hypervigilance made him jumpy;
+if his wife, Elena, touched him unexpectedly, he would react with alarm, his muscles tensing, his
+breath catching.
+
+This persistent state of heightened threat, the constant fear and the automatic scanning for exits,
+served to reinforce his negative appraisals. Every time he startled or felt the surge of panic, it
+solidified his belief that he couldn't stop bad things from happening to him, confirming his
+profound sense of helplessness. The feeling of being perpetually unsafe also deepened his conviction
+that he was fundamentally flawed, a belief that fed back into his character blame. The constant
+internal alarm also made his memories of the collision more vivid and distressing. The auditory
+recall of the screeching tires and the shouts of paramedics became louder, more insistent, triggered
+by the slightest perceived danger, pulling him back into the shame and horror of the event.
+
+Ricardo's life, once defined by movement and expression, was now shrinking. His attempts to suppress
+thoughts and delay sleep left him perpetually exhausted, affecting his ability to focus during
+rehearsals. His need to scan for exits made it difficult to lose himself in the flow of a
+performance, always half-present. The physical demands of partner work became fraught with anxiety,
+as his tendency to startle to touch made intimate contact with other dancers, and with Elena, a
+source of tension rather than connection. Elena, deeply concerned by his increasing withdrawal and
+the visible toll of his sleeplessness, finally convinced him to seek help. Ricardo came to therapy
+feeling a profound despair, afraid that this fearful, disconnected version of himself was now
+permanent, and that the vibrant dancer he once was had been lost forever.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette does not convey that Ricardo's maladaptive strategies influence or lead to his trauma memory.
+
+  [2] PASS
+Ricardo, a 62-year-old dancer, had always moved through the world with a fluid grace that belied his
+age, until the night seven months ago when his life irrevocably fractured. Driving home after a late
+rehearsal, a drunk driver swerved into his lane, the screech of tires and the sickening crunch of
+metal echoing in his mind long after the collision. He was trapped, the smell of burning rubber and
+shattered glass thick in the air, the frantic shouts of first responders blending with the blare of
+sirens. He remembered the searing pain, the feeling of being utterly helpless as his body, his
+instrument, was mangled within the wreckage.
+
+In the months that followed, the memory of that night refused to settle into a coherent narrative.
+Ricardo found himself unable to put the frightening event into words, the experience remaining a
+raw, unarticulated terror. Instead, when he had memories of what happened, he would often hear
+fragments of the collision in his head — the metallic shriek, the breaking glass, the urgent,
+unintelligible voices — a relentless auditory recall that would pierce his quiet moments. Each time
+these sounds erupted, an intense shame would flood him, a burning humiliation for his vulnerability,
+for the violence inflicted upon him. To escape this visceral shame and the intrusive auditory
+recall, Ricardo would immediately try hard to suppress thoughts about the trauma, pushing them away
+with all his might. He also began to deliberately try to leave his body or blank out, a dissociative
+strategy that offered a momentary, albeit unsettling, reprieve from the overwhelming feelings. This
+constant mental effort to disconnect also extended to his nights; he would stay up until very late,
+dreading the vivid nightmares that plagued the few hours of sleep he did manage to get. The very act
+of pushing these thoughts and feelings away, while offering temporary relief, seemed to keep the
+traumatic fragments perpetually fresh and unintegrated, preventing the memory from ever truly fading
+or becoming a coherent narrative.
+
+These maladaptive strategies, while offering fleeting relief, ultimately tightened the grip of his
+distress. By constantly trying to suppress his thoughts and deliberately dissociate, Ricardo had
+come to believe that he would never be able to feel normal emotions again, convinced that his
+capacity for joy and connection had been permanently severed. This profound sense of lost emotions,
+combined with a growing conviction that the event happened to him because of the sort of person he
+was—a subtle, insidious form of character blame—fed a pervasive sense of threat. He experienced
+strong negative emotions, primarily fear and horror, almost constantly, his body keyed up for
+danger. When he entered any room, even his familiar dance studio, his eyes would immediately scan
+for exits, a desperate, unconscious search for an escape route. This hypervigilance made him jumpy;
+if his wife, Elena, touched him unexpectedly, he would react with alarm, his muscles tensing, his
+breath catching.
+
+This persistent state of heightened threat, the constant fear and the automatic scanning for exits,
+served to reinforce his negative appraisals. Every time he startled or felt the surge of panic, it
+solidified his belief that he couldn't stop bad things from happening to him, confirming his
+profound sense of helplessness. The feeling of being perpetually unsafe also deepened his conviction
+that he was fundamentally flawed, a belief that fed back into his character blame. The constant
+internal alarm also made his memories of the collision more vivid and distressing. The auditory
+recall of the screeching tires and the shouts of paramedics became louder, more insistent, triggered
+by the slightest perceived danger, pulling him back into the shame and horror of the event.
+
+Ricardo's life, once defined by movement and expression, was now shrinking. His attempts to suppress
+thoughts and delay sleep left him perpetually exhausted, affecting his ability to focus during
+rehearsals. His need to scan for exits made it difficult to lose himself in the flow of a
+performance, always half-present. The physical demands of partner work became fraught with anxiety,
+as his tendency to startle to touch made intimate contact with other dancers, and with Elena, a
+source of tension rather than connection. Elena, deeply concerned by his increasing withdrawal and
+the visible toll of his sleeplessness, finally convinced him to seek help. Ricardo came to therapy
+feeling a profound despair, afraid that this fearful, disconnected version of himself was now
+permanent, and that the vibrant dancer he once was had been lost forever.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Ricardo, a 62-year-old dancer, had always moved through the world with a fluid grace that belied his
+age, until the night seven months ago when his life irrevocably fractured. Driving home after a late
+rehearsal, a drunk driver swerved into his lane, the screech of tires and the sickening crunch of
+metal echoing in his mind long after the collision. He was trapped, the smell of burning rubber and
+shattered glass thick in the air, the frantic shouts of first responders blending with the blare of
+sirens. He remembered the searing pain, the feeling of being utterly helpless as his body, his
+instrument, was mangled within the wreckage.
+
+In the months that followed, the memory of that night refused to settle into a coherent narrative.
+Ricardo found himself unable to put the frightening event into words, the experience remaining a
+raw, unarticulated terror. Instead, when he had memories of what happened, he would often hear
+fragments of the collision in his head — the metallic shriek, the breaking glass, the urgent,
+unintelligible voices — a relentless auditory recall that would pierce his quiet moments. Each time
+these sounds erupted, an intense shame would flood him, a burning humiliation for his vulnerability,
+for the violence inflicted upon him. To escape this visceral shame and the intrusive auditory
+recall, Ricardo would immediately try hard to suppress thoughts about the trauma, pushing them away
+with all his might. He also began to deliberately try to leave his body or blank out, a dissociative
+strategy that offered a momentary, albeit unsettling, reprieve from the overwhelming feelings. This
+constant mental effort to disconnect also extended to his nights; he would stay up until very late,
+dreading the vivid nightmares that plagued the few hours of sleep he did manage to get. The very act
+of pushing these thoughts and feelings away, while offering temporary relief, seemed to keep the
+traumatic fragments perpetually fresh and unintegrated, preventing the memory from ever truly fading
+or becoming a coherent narrative.
+
+These maladaptive strategies, while offering fleeting relief, ultimately tightened the grip of his
+distress. By constantly trying to suppress his thoughts and deliberately dissociate, Ricardo had
+come to believe that he would never be able to feel normal emotions again, convinced that his
+capacity for joy and connection had been permanently severed. This profound sense of lost emotions,
+combined with a growing conviction that the event happened to him because of the sort of person he
+was—a subtle, insidious form of character blame—fed a pervasive sense of threat. He experienced
+strong negative emotions, primarily fear and horror, almost constantly, his body keyed up for
+danger. When he entered any room, even his familiar dance studio, his eyes would immediately scan
+for exits, a desperate, unconscious search for an escape route. This hypervigilance made him jumpy;
+if his wife, Elena, touched him unexpectedly, he would react with alarm, his muscles tensing, his
+breath catching.
+
+This persistent state of heightened threat, the constant fear and the automatic scanning for exits,
+served to reinforce his negative appraisals. Every time he startled or felt the surge of panic, it
+solidified his belief that he couldn't stop bad things from happening to him, confirming his
+profound sense of helplessness. The feeling of being perpetually unsafe also deepened his conviction
+that he was fundamentally flawed, a belief that fed back into his character blame. The constant
+internal alarm also made his memories of the collision more vivid and distressing. The auditory
+recall of the screeching tires and the shouts of paramedics became louder, more insistent, triggered
+by the slightest perceived danger, pulling him back into the shame and horror of the event.
+
+Ricardo's life, once defined by movement and expression, was now shrinking. His attempts to suppress
+thoughts and delay sleep left him perpetually exhausted, affecting his ability to focus during
+rehearsals. His need to scan for exits made it difficult to lose himself in the flow of a
+performance, always half-present. The physical demands of partner work became fraught with anxiety,
+as his tendency to startle to touch made intimate contact with other dancers, and with Elena, a
+source of tension rather than connection. Elena, deeply concerned by his increasing withdrawal and
+the visible toll of his sleeplessness, finally convinced him to seek help. Ricardo came to therapy
+feeling a profound despair, afraid that this fearful, disconnected version of himself was now
+permanent, and that the vibrant dancer he once was had been lost forever.

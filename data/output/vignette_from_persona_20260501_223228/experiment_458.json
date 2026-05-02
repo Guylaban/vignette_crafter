@@ -1,0 +1,258 @@
+{
+  "persona_id": 458,
+  "source_persona_id": 458,
+  "experiment_timestamp": "2026-05-02 02:00:29",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 30,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "School Counselor",
+    "trauma_type": "Police",
+    "pcl5": 63
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Feeling Tired",
+        "value": "Feeling very tired or exhausted"
+      },
+      {
+        "key": "Auditory (Loud Noises)",
+        "value": "Loud noises"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Emotional Stress",
+        "value": "Situations that make me feel strong emotions"
+      },
+      {
+        "key": "Avoid Positive Events",
+        "value": "Situations that might make me feel happy or hopeful"
+      },
+      {
+        "key": "Avoid People",
+        "value": "avoid other people"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Movements",
+        "value": "Sudden movements by others put me immediately on guard"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      },
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      },
+      {
+        "key": "Isolation",
+        "value": "I feel isolated and set apart from others"
+      },
+      {
+        "key": "Self-Blame",
+        "value": "The event happened because of the way I acted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.7176,
+    "Negative Appraisals -- Threat": 0.3927,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.5499,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.8949,
+    "Maladaptive Strategies -- Triggers": 0.2372,
+    "Maladaptive Strategies -- Threat": 0.0454
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.47295,
+  "edge_density": 0.3,
+  "vignette_word_count": 928,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Driving with Others",
+          "explanation": "The transport-related content is not clinically well anchored to the rest of the profile. 'Driving with Others' and 'Avoid Public Transport' imply a prominent transport/travel trigger-avoidance pattern, but the Threat and Negative Appraisal items are centered on hypervigilance to others' movements, interpersonal danger, shame, and isolation rather than transport-specific trauma meanings. That mismatch is hard to explain as the same dominant self-report profile for a police-related trauma."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Avoid Public Transport",
+          "explanation": "The trigger node is also weakly integrated in the formulation: Triggers has no active links to Threat, Negative Appraisals, or Memory. Given that, the selected trigger content should not imply a strong specific threat pathway that is absent elsewhere. The transport-specific trigger/avoidance pair suggests a major cue-threat connection that is not reflected in the formulation or other nodes."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Driving with Others"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Public Transport"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Perceived Threat: People acting suspiciously",
+          "explanation": "The trigger item 'people acting suspiciously' implies a socially interpreted cue linked to hostile intent, but the threat items are dominated by non-social movement sensitivity ('unexpected movement', 'sudden movements'). That pattern is not impossible, but here the trigger-threat pairing is weakly coherent because the formulation does not support a strong Triggers → Threat linkage, and the selected trigger does not clearly connect to the specific threat content endorsed."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger",
+          "explanation": "The two threat items form a tight cluster around hypervigilance to sudden movement, which is coherent for police-related trauma. However, pairing them with 'risky behavior' pulls the threat node in the opposite direction: immediate danger sensitivity and exaggerated guard are difficult to reconcile with concurrent high-risk behavior unless there is other profile content explaining impulsive disinhibition, which is absent here."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Threat: Threat in Movements: Sudden movements by others put me immediately on guard",
+          "explanation": "'Avoid positive events' is not well supported by the rest of the profile. The negative appraisals emphasize defectiveness, isolation, and loss of community, and the threat items emphasize movement-based danger. Avoiding emotionally stressful situations and other people fits that pattern, but avoiding potentially happy or hopeful situations introduces a different process without corresponding appraisal or memory content to explain it."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Perceived Threat"
+        ],
+        "Threat": [
+          "Startle to Movement"
+        ],
+        "Maladaptive Strategies": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm",
+          "explanation": "'Risky Behavior' is difficult to reconcile with the rest of the profile, which is otherwise dominated by fear, hypervigilance, avoidance, and social withdrawal. In this configuration it points in the opposite direction from the threat system described by the other items and lacks support from the maladaptive-strategy items."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Lost Community: I have lost my connection to my community and culture",
+          "explanation": "'Lost Community' is not impossible, but it is weakly integrated with the rest of the profile. The other appraisal items center on personal defectiveness and interpersonal isolation, while no other trigger, memory, threat, or coping item reflects community/cultural disruption specifically after police trauma."
+        },
+        {
+          "component": "Triggers",
+          "item": "Triggers: Tactile (Touch): Physical touch",
+          "explanation": "'Physical touch' as a trigger is not impossible, but here it is less well connected to the rest of the selected items than loud noises and sudden movements. The remainder of the profile suggests a police-related threat theme centered on vigilance to environmental danger rather than touch-specific trauma cues."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Risky Behavior"
+        ],
+        "Negative Appraisals": [
+          "Lost Community"
+        ],
+        "Triggers": [
+          "Tactile (Touch)"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3129,
+    "output": 1078,
+    "total": 4207
+  },
+  "vignette": "Amina is a 30-year-old school counselor who had been proud of being the calm adult in the room, the person students sought out when they were frightened or overwhelmed. That sense of herself changed after an encounter with police nine months ago. She and her husband had been driving home from a friend’s birthday party when they were pulled over late at night. The officer approached the car already tense. Amina remembers the sharp smell of alcohol on his breath when he leaned toward her window, though she had not been drinking, and the crackle of his radio mixed with his raised voice. When her husband turned suddenly to reach for the registration in the glove compartment, the officer shouted and grabbed for his weapon. Amina froze. She can still recall how quickly ordinary movement became dangerous, how the officer’s abrupt gestures and yelling made the whole scene feel one second away from catastrophe. She believes she spoke at the wrong moment and moved too quickly when asked for her ID. Even now, what stays with her is the conviction that if she had acted differently, the stop would not have escalated the way it did.\n\nIn the weeks afterward, Amina tried to carry on at work, sitting with students in her office and walking noisy hallways between classes, but she no longer felt like the same person. She had come to believe there was something wrong with her, that other people could absorb a frightening experience and move on whereas she had somehow been ruined by it. She felt set apart even from her husband, who wanted to reassure her that they had survived and were safe. Because she blamed herself for how she had responded during the stop, she began shrinking away from anything that stirred strong feeling. If she sensed herself getting upset, she would abruptly change the subject, leave the room, or tell people she was tired. Invitations from friends were declined, not only because she did not want to talk about what happened, but because even the possibility of feeling happy or hopeful seemed risky, as if letting her guard down would expose how damaged she really was. She increasingly kept to herself, both at home and at school.\n\nThat withdrawal gradually altered the shape of her days. At work, she started eating lunch alone in her office with the door closed rather than in the staff room. She limited casual conversations with teachers and kept student meetings tightly structured so nothing emotional would spill beyond what she felt able to manage. After school, she often went straight home and avoided social visits entirely. Living that way made her world smaller and lonelier, and the loneliness fed what she already believed about herself: that she was no longer like other people, that she had become isolated in some fundamental way. The more she avoided situations that might bring warmth, closeness, or strong feeling, the more convincing it seemed that there really was something broken in her.\n\nHer beliefs also kept her body in a state of readiness. Because she saw herself as someone who had failed in a dangerous moment, she was certain she could not trust herself to judge safety properly again. That conviction made her intensely watchful. In the school hallways, sudden movements by students—an arm thrown up in excitement, a teenager rushing past her doorway—put her immediately on guard. She scans entrances, notices who is moving quickly, and sits in meetings where she can see the door. Even at home on the couch beside her husband, she finds she cannot relax, though part of her knows she is in a safe place. When she catches herself monitoring everyone around her like this, it seems to confirm her harshest view of herself: normal people do not live braced for impact, she thinks, so there must be something deeply wrong with her.\n\nThat constant alarm has, in turn, made the world feel full of reminders. On days when she is exhausted, her control slips and she becomes especially vulnerable to being pulled back into the stop. Loud noises in the school building—the slam of a locker, a shouted voice in the corridor, the sudden burst of the PA system—make her heart jump before she can think. If she passes a parent at pickup who smells of alcohol, she feels a jolt of dread and has to fight the urge to leave. Because she has narrowed her life so much, she arrives at work already depleted, and in that worn-down state the triggers feel even closer to the surface. To protect herself she avoids assemblies, noisy common areas, celebratory staff events, and difficult conversations with colleagues or family; yet this constant retreat leaves her even more tense and watchful, as if danger is always just about to break through.\n\nBy the time Amina sought help, her husband had begun telling her that he missed her even when she was sitting next to him. At school, she was worried students were noticing how easily she startled and how often she cut meetings short. What finally brought her in was not one dramatic setback but the realization that she was living every day as though that traffic stop were still unfolding. She is frightened that if she keeps going this way, she will end up entirely cut off from other people and unable to do the work that once mattered most to her. At the same time, she is quietly hoping that treatment might help her feel less on guard, less ashamed, and less alone."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Amina is a 30-year-old school counselor who had been proud of being the calm adult in the room, the person students sought out when they were frightened or overwhelmed. That sense of herself changed after an encounter with police nine months ago. She and her husband had been driving home from a friend’s birthday party when they were pulled over late at night. The officer approached the car already tense. Amina remembers the sharp smell of alcohol on his breath when he leaned toward her window, though she had not been drinking, and the crackle of his radio mixed with his raised voice. When her husband turned suddenly to reach for the registration in the glove compartment, the officer shouted and grabbed for his weapon. Amina froze. She can still recall how quickly ordinary movement became dangerous, how the officer’s abrupt gestures and yelling made the whole scene feel one second away from catastrophe. She believes she spoke at the wrong moment and moved too quickly when asked for her ID. Even now, what stays with her is the conviction that if she had acted differently, the stop would not have escalated the way it did.\n\nIn the weeks afterward, Amina tried to carry on at work, sitting with students in her office and walking noisy hallways between classes, but she no longer felt like the same person. She had come to believe there was something wrong with her, that other people could absorb a frightening experience and move on whereas she had somehow been ruined by it. She felt set apart even from her husband, who wanted to reassure her that they had survived and were safe. Because she blamed herself for how she had responded during the stop, she began shrinking away from anything that stirred strong feeling. If she sensed herself getting upset, she would abruptly change the subject, leave the room, or tell people she was tired. Invitations from friends were declined, not only because she did not want to talk about what happened, but because even the possibility of feeling happy or hopeful seemed risky, as if letting her guard down would expose how damaged she really was. She increasingly kept to herself, both at home and at school.\n\nThat withdrawal gradually altered the shape of her days. At work, she started eating lunch alone in her office with the door closed rather than in the staff room. She limited casual conversations with teachers and kept student meetings tightly structured so nothing emotional would spill beyond what she felt able to manage. After school, she often went straight home and avoided social visits entirely. Living that way made her world smaller and lonelier, and the loneliness fed what she already believed about herself: that she was no longer like other people, that she had become isolated in some fundamental way. The more she avoided situations that might bring warmth, closeness, or strong feeling, the more convincing it seemed that there really was something broken in her.\n\nHer beliefs also kept her body in a state of readiness. Because she saw herself as someone who had failed in a dangerous moment, she was certain she could not trust herself to judge safety properly again. That conviction made her intensely watchful. In the school hallways, sudden movements by students—an arm thrown up in excitement, a teenager rushing past her doorway—put her immediately on guard. She scans entrances, notices who is moving quickly, and sits in meetings where she can see the door. Even at home on the couch beside her husband, she finds she cannot relax, though part of her knows she is in a safe place. When she catches herself monitoring everyone around her like this, it seems to confirm her harshest view of herself: normal people do not live braced for impact, she thinks, so there must be something deeply wrong with her.\n\nThat constant alarm has, in turn, made the world feel full of reminders. On days when she is exhausted, her control slips and she becomes especially vulnerable to being pulled back into the stop. Loud noises in the school building—the slam of a locker, a shouted voice in the corridor, the sudden burst of the PA system—make her heart jump before she can think. If she passes a parent at pickup who smells of alcohol, she feels a jolt of dread and has to fight the urge to leave. Because she has narrowed her life so much, she arrives at work already depleted, and in that worn-down state the triggers feel even closer to the surface. To protect herself she avoids assemblies, noisy common areas, celebratory staff events, and difficult conversations with colleagues or family; yet this constant retreat leaves her even more tense and watchful, as if danger is always just about to break through.\n\nBy the time Amina sought help, her husband had begun telling her that he missed her even when she was sitting next to him. At school, she was worried students were noticing how easily she startled and how often she cut meetings short. What finally brought her in was not one dramatic setback but the realization that she was living every day as though that traffic stop were still unfolding. She is frightened that if she keeps going this way, she will end up entirely cut off from other people and unable to do the work that once mattered most to her. At the same time, she is quietly hoping that treatment might help her feel less on guard, less ashamed, and less alone.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

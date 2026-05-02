@@ -1,0 +1,426 @@
+PERSONA 181  |  2026-05-02 14:19:38
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-haiku-4-5
+    persona_crafter      claude-haiku-4-5
+    vignette_crafter     claude-haiku-4-5
+    vignette_validator   claude-haiku-4-5
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             40
+  gender          Male
+  ethnicity       Middle Eastern
+  relationship_status Married
+  occupation      Paramedic
+  trauma_type     Trauma to a loved one
+  pcl5            36
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Visual (Injuries): Visible injuries or wounds on others
+    • Victim Memories: Reminders of victims
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Maladaptive Strategies:
+    • Avoid Work or Study: Going to work or study
+    • Suppress Thoughts: try hard not think about the trauma
+    • Overworking: I throw myself into work or tasks to keep my mind occupied
+  Threat:
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+    • Concentration: Having difficulty concentrating
+    • Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+  Memory:
+    • Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    • Memory Gaps: There are parts of the event that I simply cannot remember no matter how hard I try
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+  Negative Appraisals:
+    • Permanent Damage: I have permanently changed for the worse
+    • Can't Rely on Self: I can't rely on myself
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3125
+  Triggers → Threat                                  0.1197
+  Triggers → Memory                                  0.7164
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.1388
+  Negative Appraisals → Threat                       0.4162
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.8748
+  Memory → Maladaptive Strategies                    0.1817
+  Memory → Threat                                    0.3343
+  Memory → Negative Appraisals                       0.0936
+  Memory → Triggers                                  0.3996
+  Threat → Maladaptive Strategies                    0.8363
+  Threat → Memory                                    0.0305
+  Threat → Negative Appraisals                       0.5629
+  Threat → Triggers                                  0.2364
+  Maladaptive Strategies → Memory                    0.4678
+  Maladaptive Strategies → Negative Appraisals       0.8533
+  Maladaptive Strategies → Triggers                  0.6218
+  Maladaptive Strategies → Threat                    0.1578
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Pain Recall
+    explanation: Pain Recall implies the patient personally sustained bodily injury during the trauma, which is hard to reconcile with the trauma type being trauma to a loved one unless there was also direct physical injury to the patient. That is not otherwise supported by the profile.
+    item:        Negative Appraisals / Negative Appraisals: Physical Vulnerability
+    explanation: Physical Vulnerability and permanent bodily damage imply the patient believes his own body was physically harmed. For a trauma-to-a-loved-one presentation, this is difficult to explain clinically without evidence that he was also directly injured.
+    item:        Triggers / Triggers: Military Topics
+    explanation: Military Topics is a trigger that suggests a military/combat-linked trauma context, but no other trigger, memory, threat, or appraisal item supports a military-related formulation. As a standalone item it feels disconnected from the rest of the profile.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Driving
+    explanation: Avoid Driving is plausible for motor-vehicle trauma, but here it lacks support from the trauma type and from the rest of the profile. With no transport-related trigger or memory content, it appears to target a symptom domain not otherwise represented.
+  [2] FAIL
+    item:        Triggers / Triggers: Darkness: Dark spaces
+    explanation: For trauma to a loved one, visible injuries is a plausible trigger, but darkness and alcohol smell are not well anchored to the rest of the profile. Nothing in memory, threat, or appraisals suggests a dark-space or alcohol-related trauma context, so these triggers feel disconnected rather than part of a coherent loved-one trauma presentation.
+    item:        Maladaptive Strategies / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: Avoiding work/study is hard to reconcile with this patient's occupation as a paramedic unless the trauma is clearly tied to the workplace, but the rest of the profile frames the trauma as harm to a loved one rather than occupational trauma. Drug use is also insufficiently supported elsewhere in the profile: there are no other items indicating broad externalising coping or substance-related trigger context, making this strategy feel tacked on.
+    item:        Negative Appraisals / Maladaptive Strategies: Avoid Work or Study: Going to work or study
+    explanation: Self-blame can occur after trauma to a loved one, but this specific wording implies a direct causal role in the event. The rest of the profile does not provide supporting content suggesting he believes his own actions caused the loved one's trauma. The other appraisals are about damage and unreliability of self, so this item is the least integrated with the stated trauma type and surrounding node content.
+  [3] FAIL
+    item:        Triggers / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: Alcohol smell is not impossible, but in this profile it is the only trigger that suggests a substance-related context. The other trigger and memory items center on victims/injuries, which fits a paramedic exposed to injured loved ones or victims. Without any corresponding memory, threat, or appraisal content linked to alcohol, this item stands out as weakly connected to the rest of the trauma representation.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Drug Use: take drugs
+    explanation: Drug use can occur in PTSD, but here it is the only maladaptive strategy that implies substance misuse. The rest of the profile emphasizes work avoidance, suppression, sensory reliving, and hypervigilant threat responses. With no parallel alcohol/substance-related trigger, appraisal, or memory content, this item looks clinically disconnected from the rest of the formulation.
+    item:        Negative Appraisals / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: For trauma to a loved one, self-blame is plausible only if the patient had a clear perceived role in failing to protect or respond. In this profile, the other items describe reliving of victims/injuries, hypervigilance, and damaged-self beliefs, but nothing else indicates a responsibility-based trauma narrative. This makes the specific self-blame item the least coherent appraisal relative to the rest of the selected content.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     16,033
+  output:     2,179
+  total:     18,212
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  3 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+# Khalid's Story
+
+Khalid was thirty-eight when his younger brother Rashid was struck by a car while crossing the
+street two blocks from his apartment in Queens. Khalid arrived at the scene as a paramedic on the
+third call of his shift—he didn't know it was Rashid until he saw the face half-obscured by blood
+and fractured bone. His brother's left leg was nearly severed at the knee, the femoral artery
+already compromised. Khalid's hands moved through the protocol with the muscle memory of fifteen
+years, but his mind fractured. He could not unsee the white of exposed bone, could not unhear the
+wet rasp of Rashid's breathing, could not stop the cascade of thought that he—a trained paramedic, a
+man whose entire profession was built on the premise that he could save lives—had not been there to
+step him out of the street, had not seen the car coming, had failed at the one job that mattered
+most. Rashid survived the initial trauma but lost the leg and spent three months in the hospital. He
+recovered, physically. Khalid did not.
+
+The first weeks after were a blur of numbness and hyperactivity. Khalid returned to work within
+days, throwing himself into back-to-back shifts, staying late to help with equipment checks and
+training, anything to keep moving. His wife Layla noticed he stopped sleeping in their bed, choosing
+instead to sit in the kitchen, and when she touched his shoulder one night to guide him to rest, he
+flinched violently, his body rigid with alarm before recognition settled in. He apologized but could
+not quite meet her eyes. The startle response had become automatic—any unexpected touch sent a jolt
+of adrenaline through his chest, a sensation of danger that his rational mind could not override.
+
+Two months after the accident, Khalid was called to a motor vehicle collision on the expressway. A
+young woman had been hit; her leg was badly lacerated, muscle and tissue exposed beneath torn skin.
+The moment he saw the wound, the memory of Rashid's injury crashed through him with complete sensory
+force—he could smell the hospital antiseptic that had clung to his brother's clothes, could feel the
+texture of blood on his gloved hands, could hear the terrible sound of bone fracturing. The memory
+felt entirely real, not like recollection but like reliving. His vision tunneled. He completed the
+call on autopilot, but afterward he sat in the ambulance for twenty minutes, unable to move. That
+night, he asked to be reassigned to administrative work. His supervisor, sympathetic but
+puzzled—Khalid had never asked for anything before—approved it temporarily. But within a week, the
+administrative office felt suffocating. Khalid was convinced that staying away from the work he was
+trained for meant he was weak, unreliable, that the failure he felt in his body was now confirmed by
+his own retreat. He went back to field work.
+
+The cycle tightened over the following months. Every time Khalid encountered a patient with visible
+injuries—and in paramedicine, injuries are unavoidable—the sensory memory would flood back, complete
+and terrifying, bringing with it the same terror he had felt in those first moments at Rashid's
+side. The memory would trigger an urgent need to suppress it, to push the thoughts away, and so he
+would work longer shifts, volunteer for overtime, exhaust himself into a state where sleep came from
+sheer depletion rather than rest. Yet the suppression never held. The harder he tried not to think
+about what happened, the more the thoughts returned, often without warning, and each time they did,
+they brought fresh evidence of what he had come to believe about himself: that he was fundamentally
+changed, that he could not be trusted, that he had failed when it mattered most. His concentration
+at work had become unreliable; he would find himself staring at a patient's chart without absorbing
+a single word. In the station, he had begun to position himself in corners, always aware of exits,
+always choosing his seat based on which vantage point felt safest. His colleagues had started to
+notice his withdrawal, the way he no longer joined them for meals, the tension in his jaw.
+
+At home, Layla had learned not to touch him without warning, had learned to announce her presence
+before entering a room. She had also learned that his reassurances meant nothing—when she told him
+he had done everything he could for Rashid, that he was not responsible for a car hitting him,
+Khalid would nod but his body would reject the words entirely. What frightened him most was the
+certainty that he could not trust himself to be present for her, to protect her, to be the man she
+had married. The hospital smell—something in the cleaning products at work, or sometimes just the
+faint medicinal tang of his own anxiety—would catch him unaware and send him spiraling. He had begun
+to avoid his brother entirely, unable to bear the sight of Rashid's prosthetic, the reminder of his
+failure embedded in his brother's walk.
+
+After six months, Khalid finally called a therapist. He was not sure what he expected—he only knew
+that the loop he was caught in was tightening, that his marriage was fraying, and that he could no
+longer tell where the memory ended and the present began. He was afraid that talking about it would
+make it worse, that acknowledging the terror would give it more power. But he was more afraid of
+losing everything while trying to protect it.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: Negative appraisals (beliefs about being weak, unreliable, fundamentally changed, unable to trust himself) are described as consequences of encountering triggers and memories, but no paragraph conveys that negative appraisals themselves generate or activate new triggers.
+
+  [2] FAIL
+# Khalid's Story
+
+Khalid was thirty-eight when his younger brother Rashid was struck by a car while crossing the
+street two blocks from his apartment in Queens. Khalid arrived at the scene as a paramedic on the
+third call of his shift—he didn't know it was Rashid until he saw the face half-obscured by blood
+and fractured bone. His brother's left leg was nearly severed at the knee, the femoral artery
+already compromised. Khalid's hands moved through the protocol with the muscle memory of fifteen
+years, but his mind fractured. He could not unsee the white of exposed bone, could not unhear the
+wet rasp of Rashid's breathing, could not stop the cascade of thought that he—a trained paramedic, a
+man whose entire profession was built on the premise that he could save lives—had not been there to
+step him out of the street, had not seen the car coming, had failed at the one job that mattered
+most. Rashid survived the initial trauma but lost the leg and spent three months in the hospital. He
+recovered, physically. Khalid did not.
+
+The first weeks after were a blur of numbness and hyperactivity. Khalid returned to work within
+days, throwing himself into back-to-back shifts, staying late to help with equipment checks and
+training, anything to keep moving. His wife Layla noticed he stopped sleeping in their bed, choosing
+instead to sit in the kitchen, and when she touched his shoulder one night to guide him to rest, he
+flinched violently, his body rigid with alarm before recognition settled in. He apologized but could
+not quite meet her eyes. The startle response had become automatic—any unexpected touch sent a jolt
+of adrenaline through his chest, a sensation of danger that his rational mind could not override.
+
+Two months after the accident, Khalid was called to a motor vehicle collision on the expressway. A
+young woman had been hit; her leg was badly lacerated, muscle and tissue exposed beneath torn skin.
+The moment he saw the wound, the memory of Rashid's injury crashed through him with complete sensory
+force—he could smell the hospital antiseptic that had clung to his brother's clothes, could feel the
+texture of blood on his gloved hands, could hear the terrible sound of bone fracturing. The memory
+felt entirely real, not like recollection but like reliving. His vision tunneled. He completed the
+call on autopilot, but afterward he sat in the ambulance for twenty minutes, unable to move. That
+night, he asked to be reassigned to administrative work. His supervisor, sympathetic but
+puzzled—Khalid had never asked for anything before—approved it temporarily. But within a week, the
+administrative office felt suffocating. Khalid was convinced that staying away from the work he was
+trained for meant he was weak, unreliable, that the failure he felt in his body was now confirmed by
+his own retreat. He went back to field work.
+
+The cycle tightened over the following months. Every time Khalid encountered a patient with visible
+injuries—and in paramedicine, injuries are unavoidable—the sensory memory would flood back, complete
+and terrifying, bringing with it the same terror he had felt in those first moments at Rashid's
+side. The memory would trigger an urgent need to suppress it, to push the thoughts away, and so he
+would work longer shifts, volunteer for overtime, exhaust himself into a state where sleep came from
+sheer depletion rather than rest. Yet the suppression never held. The harder he tried not to think
+about what happened, the more the thoughts returned, often without warning, and each time they did,
+they brought fresh evidence of what he had come to believe about himself: that he was fundamentally
+changed, that he could not be trusted, that he had failed when it mattered most. The conviction that
+he had failed at the most essential task—protecting those he loved—meant that ordinary moments on
+shift became mined terrain; a call involving any kind of vehicular injury, a patient's cry of pain,
+even the radio dispatcher's voice crackling through the station could suddenly feel like
+confirmation that another disaster was imminent, that he would fail again. His concentration at work
+had become unreliable; he would find himself staring at a patient's chart without absorbing a single
+word. In the station, he had begun to position himself in corners, always aware of exits, always
+choosing his seat based on which vantage point felt safest. His colleagues had started to notice his
+withdrawal, the way he no longer joined them for meals, the tension in his jaw.
+
+At home, Layla had learned not to touch him without warning, had learned to announce her presence
+before entering a room. She had also learned that his reassurances meant nothing—when she told him
+he had done everything he could for Rashid, that he was not responsible for a car hitting him,
+Khalid would nod but his body would reject the words entirely. What frightened him most was the
+certainty that he could not trust himself to be present for her, to protect her, to be the man she
+had married. Once he had settled into the belief that he was fundamentally unreliable, that his
+judgment had been compromised by trauma, nearly anything at work began to feel like a potential
+threat—a patient's sudden movement, the sound of sirens that seemed too close, even the way a
+colleague glanced at him could register as evidence that his incompetence was visible to everyone
+around him. The hospital smell—something in the cleaning products at work, or sometimes just the
+faint medicinal tang of his own anxiety—would catch him unaware and send him spiraling. He had begun
+to avoid his brother entirely, unable to bear the sight of Rashid's prosthetic, the reminder of his
+failure embedded in his brother's walk.
+
+After six months, Khalid finally called a therapist. He was not sure what he expected—he only knew
+that the loop he was caught in was tightening, that his marriage was fraying, and that he could no
+longer tell where the memory ended and the present began. He was afraid that talking about it would
+make it worse, that acknowledging the terror would give it more power. But he was more afraid of
+losing everything while trying to protect it.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: Negative Appraisals (beliefs about being fundamentally unreliable, failed, untrustworthy) do not appear in any paragraph to directly drive or generate new Triggers; the vignette shows appraisals amplifying existing triggers but not creating them.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: Maladaptive Strategies (overworking, avoidance, suppression) do not appear to produce or reinforce Negative Appraisals in any single paragraph; the vignette shows appraisals driving strategies but not the reverse causal loop.
+
+  [3] PASS
+# Khalid's Story
+
+Khalid was thirty-eight when his younger brother Rashid was struck by a car while crossing the
+street two blocks from his apartment in Queens. Khalid arrived at the scene as a paramedic on the
+third call of his shift—he didn't know it was Rashid until he saw the face half-obscured by blood
+and fractured bone. His brother's left leg was nearly severed at the knee, the femoral artery
+already compromised. Khalid's hands moved through the protocol with the muscle memory of fifteen
+years, but his mind fractured. He could not unsee the white of exposed bone, could not unhear the
+wet rasp of Rashid's breathing, could not stop the cascade of thought that he—a trained paramedic, a
+man whose entire profession was built on the premise that he could save lives—had not been there to
+step him out of the street, had not seen the car coming, had failed at the one job that mattered
+most. Rashid survived the initial trauma but lost the leg and spent three months in the hospital. He
+recovered, physically. Khalid did not.
+
+The first weeks after were a blur of numbness and hyperactivity. Khalid returned to work within
+days, throwing himself into back-to-back shifts, staying late to help with equipment checks and
+training, anything to keep moving. His wife Layla noticed he stopped sleeping in their bed, choosing
+instead to sit in the kitchen, and when she touched his shoulder one night to guide him to rest, he
+flinched violently, his body rigid with alarm before recognition settled in. He apologized but could
+not quite meet her eyes. The startle response had become automatic—any unexpected touch sent a jolt
+of adrenaline through his chest, a sensation of danger that his rational mind could not override.
+
+Two months after the accident, Khalid was called to a motor vehicle collision on the expressway. A
+young woman had been hit; her leg was badly lacerated, muscle and tissue exposed beneath torn skin.
+The moment he saw the wound, the memory of Rashid's injury crashed through him with complete sensory
+force—he could smell the hospital antiseptic that had clung to his brother's clothes, could feel the
+texture of blood on his gloved hands, could hear the terrible sound of bone fracturing. The memory
+felt entirely real, not like recollection but like reliving. His vision tunneled. He completed the
+call on autopilot, but afterward he sat in the ambulance for twenty minutes, unable to move. That
+night, he asked to be reassigned to administrative work. His supervisor, sympathetic but
+puzzled—Khalid had never asked for anything before—approved it temporarily. But within a week, the
+administrative office felt suffocating. Khalid was convinced that staying away from the work he was
+trained for meant he was weak, unreliable, that the failure he felt in his body was now confirmed by
+his own retreat. He went back to field work.
+
+The cycle tightened over the following months. Every time Khalid encountered a patient with visible
+injuries—and in paramedicine, injuries are unavoidable—the sensory memory would flood back, complete
+and terrifying, bringing with it the same terror he had felt in those first moments at Rashid's
+side. The memory would trigger an urgent need to suppress it, to push the thoughts away, and so he
+would work longer shifts, volunteer for overtime, exhaust himself into a state where sleep came from
+sheer depletion rather than rest. Yet the suppression never held. The harder he tried not to think
+about what happened, the more the thoughts returned, often without warning, and each time they did,
+they brought fresh evidence of what he had come to believe about himself: that he was fundamentally
+changed, that he could not be trusted, that he had failed when it mattered most. The fact that he
+still needed to suppress these thoughts, that exhaustion and distraction were the only tools that
+offered any temporary reprieve, quietly confirmed what he had begun to suspect: that he wasn't
+healing, that something essential in him had broken and wasn't mending. The conviction that he had
+failed at the most essential task—protecting those he loved—meant that ordinary moments on shift
+became mined terrain; a call involving any kind of vehicular injury, a patient's cry of pain, even
+the radio dispatcher's voice crackling through the station could suddenly feel like confirmation
+that another disaster was imminent, that he would fail again. His concentration at work had become
+unreliable; he would find himself staring at a patient's chart without absorbing a single word. In
+the station, he had begun to position himself in corners, always aware of exits, always choosing his
+seat based on which vantage point felt safest. His colleagues had started to notice his withdrawal,
+the way he no longer joined them for meals, the tension in his jaw.
+
+At home, Layla had learned not to touch him without warning, had learned to announce her presence
+before entering a room. She had also learned that his reassurances meant nothing—when she told him
+he had done everything he could for Rashid, that he was not responsible for a car hitting him,
+Khalid would nod but his body would reject the words entirely. What frightened him most was the
+certainty that he could not trust himself to be present for her, to protect her, to be the man she
+had married. Once he had settled into the belief that he was fundamentally unreliable, that his
+judgment had been compromised by trauma, nearly anything at work began to feel like a potential
+threat—a patient's sudden movement, the sound of sirens that seemed too close, even the way a
+colleague glanced at him could register as evidence that his incompetence was visible to everyone
+around him. Once he had settled into the belief that he was fundamentally unreliable, that his
+judgment had been compromised by trauma, nearly anything at work began to feel like a potential
+threat—a patient's sudden movement, the sound of sirens that seemed too close, even the way a
+colleague glanced at him could register as evidence that his incompetence was visible to everyone
+around him. The hospital smell—something in the cleaning products at work, or sometimes just the
+faint medicinal tang of his own anxiety—would catch him unaware and send him spiraling. He had begun
+to avoid his brother entirely, unable to bear the sight of Rashid's prosthetic, the reminder of his
+failure embedded in his brother's walk.
+
+After six months, Khalid finally called a therapist. He was not sure what he expected—he only knew
+that the loop he was caught in was tightening, that his marriage was fraying, and that he could no
+longer tell where the memory ended and the present began. He was afraid that talking about it would
+make it worse, that acknowledging the terror would give it more power. But he was more afraid of
+losing everything while trying to protect it.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+# Khalid's Story
+
+Khalid was thirty-eight when his younger brother Rashid was struck by a car while crossing the
+street two blocks from his apartment in Queens. Khalid arrived at the scene as a paramedic on the
+third call of his shift—he didn't know it was Rashid until he saw the face half-obscured by blood
+and fractured bone. His brother's left leg was nearly severed at the knee, the femoral artery
+already compromised. Khalid's hands moved through the protocol with the muscle memory of fifteen
+years, but his mind fractured. He could not unsee the white of exposed bone, could not unhear the
+wet rasp of Rashid's breathing, could not stop the cascade of thought that he—a trained paramedic, a
+man whose entire profession was built on the premise that he could save lives—had not been there to
+step him out of the street, had not seen the car coming, had failed at the one job that mattered
+most. Rashid survived the initial trauma but lost the leg and spent three months in the hospital. He
+recovered, physically. Khalid did not.
+
+The first weeks after were a blur of numbness and hyperactivity. Khalid returned to work within
+days, throwing himself into back-to-back shifts, staying late to help with equipment checks and
+training, anything to keep moving. His wife Layla noticed he stopped sleeping in their bed, choosing
+instead to sit in the kitchen, and when she touched his shoulder one night to guide him to rest, he
+flinched violently, his body rigid with alarm before recognition settled in. He apologized but could
+not quite meet her eyes. The startle response had become automatic—any unexpected touch sent a jolt
+of adrenaline through his chest, a sensation of danger that his rational mind could not override.
+
+Two months after the accident, Khalid was called to a motor vehicle collision on the expressway. A
+young woman had been hit; her leg was badly lacerated, muscle and tissue exposed beneath torn skin.
+The moment he saw the wound, the memory of Rashid's injury crashed through him with complete sensory
+force—he could smell the hospital antiseptic that had clung to his brother's clothes, could feel the
+texture of blood on his gloved hands, could hear the terrible sound of bone fracturing. The memory
+felt entirely real, not like recollection but like reliving. His vision tunneled. He completed the
+call on autopilot, but afterward he sat in the ambulance for twenty minutes, unable to move. That
+night, he asked to be reassigned to administrative work. His supervisor, sympathetic but
+puzzled—Khalid had never asked for anything before—approved it temporarily. But within a week, the
+administrative office felt suffocating. Khalid was convinced that staying away from the work he was
+trained for meant he was weak, unreliable, that the failure he felt in his body was now confirmed by
+his own retreat. He went back to field work.
+
+The cycle tightened over the following months. Every time Khalid encountered a patient with visible
+injuries—and in paramedicine, injuries are unavoidable—the sensory memory would flood back, complete
+and terrifying, bringing with it the same terror he had felt in those first moments at Rashid's
+side. The memory would trigger an urgent need to suppress it, to push the thoughts away, and so he
+would work longer shifts, volunteer for overtime, exhaust himself into a state where sleep came from
+sheer depletion rather than rest. Yet the suppression never held. The harder he tried not to think
+about what happened, the more the thoughts returned, often without warning, and each time they did,
+they brought fresh evidence of what he had come to believe about himself: that he was fundamentally
+changed, that he could not be trusted, that he had failed when it mattered most. The fact that he
+still needed to suppress these thoughts, that exhaustion and distraction were the only tools that
+offered any temporary reprieve, quietly confirmed what he had begun to suspect: that he wasn't
+healing, that something essential in him had broken and wasn't mending. The conviction that he had
+failed at the most essential task—protecting those he loved—meant that ordinary moments on shift
+became mined terrain; a call involving any kind of vehicular injury, a patient's cry of pain, even
+the radio dispatcher's voice crackling through the station could suddenly feel like confirmation
+that another disaster was imminent, that he would fail again. His concentration at work had become
+unreliable; he would find himself staring at a patient's chart without absorbing a single word. In
+the station, he had begun to position himself in corners, always aware of exits, always choosing his
+seat based on which vantage point felt safest. His colleagues had started to notice his withdrawal,
+the way he no longer joined them for meals, the tension in his jaw.
+
+At home, Layla had learned not to touch him without warning, had learned to announce her presence
+before entering a room. She had also learned that his reassurances meant nothing—when she told him
+he had done everything he could for Rashid, that he was not responsible for a car hitting him,
+Khalid would nod but his body would reject the words entirely. What frightened him most was the
+certainty that he could not trust himself to be present for her, to protect her, to be the man she
+had married. Once he had settled into the belief that he was fundamentally unreliable, that his
+judgment had been compromised by trauma, nearly anything at work began to feel like a potential
+threat—a patient's sudden movement, the sound of sirens that seemed too close, even the way a
+colleague glanced at him could register as evidence that his incompetence was visible to everyone
+around him. Once he had settled into the belief that he was fundamentally unreliable, that his
+judgment had been compromised by trauma, nearly anything at work began to feel like a potential
+threat—a patient's sudden movement, the sound of sirens that seemed too close, even the way a
+colleague glanced at him could register as evidence that his incompetence was visible to everyone
+around him. The hospital smell—something in the cleaning products at work, or sometimes just the
+faint medicinal tang of his own anxiety—would catch him unaware and send him spiraling. He had begun
+to avoid his brother entirely, unable to bear the sight of Rashid's prosthetic, the reminder of his
+failure embedded in his brother's walk.
+
+After six months, Khalid finally called a therapist. He was not sure what he expected—he only knew
+that the loop he was caught in was tightening, that his marriage was fraying, and that he could no
+longer tell where the memory ended and the present began. He was afraid that talking about it would
+make it worse, that acknowledging the terror would give it more power. But he was more afraid of
+losing everything while trying to protect it.

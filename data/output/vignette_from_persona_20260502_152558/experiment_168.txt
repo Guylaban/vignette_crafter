@@ -1,0 +1,195 @@
+PERSONA 168  |  2026-05-02 18:23:01
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-pro
+    persona_crafter      gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             54
+  gender          Female
+  ethnicity       European
+  relationship_status Married
+  occupation      Chef
+  trauma_type     Assault
+  pcl5            68
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Certain Conversation Topics: Certain conversation topics
+    • Emotional Closeness: Someone getting emotionally close to me
+    • Male Presence: Being alone with men
+  Threat:
+    • Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+    • Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Nonverbal Memory: I can't seem to put the frightening event into words.
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+  Negative Appraisals:
+    • Fear of Harm: You can never know who will harm you
+    • Betrayal: I was betrayed by someone I trusted
+    • Mistrust: People can't be trusted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.7933
+  Triggers → Negative Appraisals                     0.3072
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.6402
+  Negative Appraisals → Memory                       0.6693
+  Negative Appraisals → Triggers                     0.1876
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0382
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.9709
+  Threat → Negative Appraisals                       0.3681
+  Threat → Triggers                                  0.4417
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: For a civilian assault trauma, 'talks about military' is a hard-to-explain trigger unless the assault specifically involved military context, which is not otherwise reflected anywhere in the profile. It is not supported by the other trigger, memory, threat, or appraisal items.
+    item:        Negative Appraisals / Negative Appraisals: Survival Guilt: I feel guilty for surviving when others did not
+    explanation: 'I feel guilty for surviving when others did not' implies a trauma involving deaths of others or a mass-casualty context. That does not cohere with the rest of this profile, which otherwise describes an individual assault without any indication that others were killed.
+  [2] FAIL
+    item:        Negative Appraisals / Fear of Rage: I will not be able to control my anger and will do something terrible
+    explanation: This appraisal is the main incoherent item in the profile. The rest of the report is organized around fear, betrayal, hypervigilance, male-related/interpersonal triggers, and fragmented sensory trauma memory after assault. In contrast, fearing that she will lose control of her own rage and do something terrible introduces a perpetration/anger-control theme that is not supported by the triggers, threat items, or memory content. It does not fit the dominant cognitive formulation in which negative appraisals feed threat and memory; the other appraisal items plausibly amplify fear and mistrust, but this one points to a different clinical concern not otherwise represented in the profile. Given the otherwise tightly fear-based assault presentation, this item is hard to integrate clinically with the selected set.
+  [3] FAIL
+    item:        Threat / Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    explanation: This threat item is the least coherent element in the profile. The rest of the selected triggers, appraisals, and memory items consistently describe an interpersonal assault formulation centered on men, betrayal, mistrust, conversational/emotional triggers, and trauma memories. By contrast, needing to stay alert at night implies a more generalized ongoing danger-monitoring pattern that is not specifically supported by the selected triggers or appraisals. It is not impossible in PTSD, but here it fits less well than the other threat items and is weakly linked to the formulation, especially because Threat has no active edge to Maladaptive Strategies and the profile lacks other nighttime/sleep-related material.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,970
+  output:     4,290
+  total:      7,260
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Clara, a 54-year-old chef renowned for her robust, comforting cuisine, now moves through her own
+kitchen with the caution of a trespasser. The assault occurred nine months ago, not in a dark alley
+but in the familiar, flour-dusted confines of her restaurant's dry storeroom. The perpetrator was
+not a stranger but a trusted supplier, a man she had known and worked with for nearly two decades.
+He had trapped her between shelves of olive oil and canned tomatoes, and the memory of it doesn't
+exist as a story she can tell. Instead, she reports that she is unable to put the frightening event
+into words; it lives in her as a series of disconnected, sensory fragments: the rough texture of a
+burlap sack of rice against her cheek, the scent of dried oregano, the crushing weight on her chest.
+
+In the months that followed, the world outside her home began to feel menacing and unpredictable.
+She came to believe that you can never truly know who will harm you, a conviction that hardened into
+a general mistrust of others. This core belief now governs her perception of threat. In her bustling
+kitchen, a line cook’s sudden movement to grab a pan can cause her to flinch violently, her body
+reacting as if to an imminent attack. She finds herself constantly scanning the faces of delivery
+men and new staff, a state of hypervigilance that leaves her exhausted by the end of a shift. This
+feeling of being perpetually on guard only deepens her certainty that danger is everywhere, while
+also making her memories more accessible; a sudden clatter from the dish pit is enough to trigger a
+visceral flash of the storeroom floor. Her heightened sense of threat also makes her more sensitive
+to potential triggers, causing her to shrink from any man who stands too close.
+
+The triggers themselves have become potent entry points into her cycle of distress. Being alone with
+men, even her trusted sous-chef of ten years, now feels unbearable. A conversation that veers into
+personal territory or a well-meaning touch on the arm from her husband, Mark, can instantly activate
+the raw memory fragments. When these moments occur, she doesn’t just remember; she feels her body
+involuntarily trying to assume the same position it was in during the assault, a terrifying
+reenactment she cannot control. These intrusive experiences serve to powerfully reinforce her
+negative appraisals, each fragment acting as fresh evidence for her belief that she was betrayed by
+someone she trusted and that, by extension, people are fundamentally untrustworthy.
+
+This constellation of beliefs, in turn, fuels the very triggers she tries to avoid. Because she is
+convinced that people cannot be trusted, any attempt at emotional closeness from her husband is no
+longer perceived as affection but as a potential threat, which she then recoils from. Her conviction
+that she is unsafe seems to keep the memories on a hair trigger, ready to surface with the slightest
+provocation. The cycle is relentless and self-sustaining. A trigger, like a male vendor asking a
+question, will evoke not only a fragment of memory but also the immediate, searing thought that she
+was betrayed. This appraisal then amplifies her sense of ambient threat, making her scan the room
+and startle at the slightest noise.
+
+The consequences have rippled through every part of her life. Her marriage is strained by the
+physical and emotional distance she now requires. At work, her command of the kitchen, once her
+greatest pride, has been eroded by fear. She delegates ordering to her manager to avoid speaking
+with male suppliers and has rearranged the prep stations so she never has her back to the door. She
+came to therapy after a particularly difficult service where she yelled at her sous-chef for
+startling her, an outburst that left them both shaken. What frightens Clara most is the loss of
+herself—the warm, confident woman who found joy in feeding others has been replaced by someone she
+no longer recognizes, and she is terrified she will never find her way back.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Clara, a 54-year-old chef renowned for her robust, comforting cuisine, now moves through her own
+kitchen with the caution of a trespasser. The assault occurred nine months ago, not in a dark alley
+but in the familiar, flour-dusted confines of her restaurant's dry storeroom. The perpetrator was
+not a stranger but a trusted supplier, a man she had known and worked with for nearly two decades.
+He had trapped her between shelves of olive oil and canned tomatoes, and the memory of it doesn't
+exist as a story she can tell. Instead, she reports that she is unable to put the frightening event
+into words; it lives in her as a series of disconnected, sensory fragments: the rough texture of a
+burlap sack of rice against her cheek, the scent of dried oregano, the crushing weight on her chest.
+
+In the months that followed, the world outside her home began to feel menacing and unpredictable.
+She came to believe that you can never truly know who will harm you, a conviction that hardened into
+a general mistrust of others. This core belief now governs her perception of threat. In her bustling
+kitchen, a line cook’s sudden movement to grab a pan can cause her to flinch violently, her body
+reacting as if to an imminent attack. She finds herself constantly scanning the faces of delivery
+men and new staff, a state of hypervigilance that leaves her exhausted by the end of a shift. This
+feeling of being perpetually on guard only deepens her certainty that danger is everywhere, while
+also making her memories more accessible; a sudden clatter from the dish pit is enough to trigger a
+visceral flash of the storeroom floor. Her heightened sense of threat also makes her more sensitive
+to potential triggers, causing her to shrink from any man who stands too close.
+
+The triggers themselves have become potent entry points into her cycle of distress. Being alone with
+men, even her trusted sous-chef of ten years, now feels unbearable. A conversation that veers into
+personal territory or a well-meaning touch on the arm from her husband, Mark, can instantly activate
+the raw memory fragments. When these moments occur, she doesn’t just remember; she feels her body
+involuntarily trying to assume the same position it was in during the assault, a terrifying
+reenactment she cannot control. These intrusive experiences serve to powerfully reinforce her
+negative appraisals, each fragment acting as fresh evidence for her belief that she was betrayed by
+someone she trusted and that, by extension, people are fundamentally untrustworthy.
+
+This constellation of beliefs, in turn, fuels the very triggers she tries to avoid. Because she is
+convinced that people cannot be trusted, any attempt at emotional closeness from her husband is no
+longer perceived as affection but as a potential threat, which she then recoils from. Her conviction
+that she is unsafe seems to keep the memories on a hair trigger, ready to surface with the slightest
+provocation. The cycle is relentless and self-sustaining. A trigger, like a male vendor asking a
+question, will evoke not only a fragment of memory but also the immediate, searing thought that she
+was betrayed. This appraisal then amplifies her sense of ambient threat, making her scan the room
+and startle at the slightest noise.
+
+The consequences have rippled through every part of her life. Her marriage is strained by the
+physical and emotional distance she now requires. At work, her command of the kitchen, once her
+greatest pride, has been eroded by fear. She delegates ordering to her manager to avoid speaking
+with male suppliers and has rearranged the prep stations so she never has her back to the door. She
+came to therapy after a particularly difficult service where she yelled at her sous-chef for
+startling her, an outburst that left them both shaken. What frightens Clara most is the loss of
+herself—the warm, confident woman who found joy in feeding others has been replaced by someone she
+no longer recognizes, and she is terrified she will never find her way back.

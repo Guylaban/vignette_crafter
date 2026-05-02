@@ -1,0 +1,271 @@
+PERSONA 317  |  2026-05-02 19:22:09
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             46
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Graphic Designer
+  trauma_type     Police
+  pcl5            65
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Intrusive Thoughts: Unwanted thoughts
+    • Visual (Injuries): Visible injuries or wounds on others
+    • Authority Presence: Police
+  Maladaptive Strategies:
+    • Screen Escape: I spend long hours on my phone, games, or internet to avoid thinking
+    • Avoid People: avoid other people
+    • Mental Distraction: keep mind occupied all the time
+  Threat:
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+  Memory:
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+  Negative Appraisals:
+    • Lost Meaning: Nothing in my life feels meaningful anymore
+    • Life Destroyed: My life has been destroyed by the trauma
+    • Injustice: What happened to me was deeply unfair and nothing has been done about it
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6415
+  Triggers → Memory                                  0.1908
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.5068
+  Negative Appraisals → Memory                       0.5351
+  Negative Appraisals → Triggers                     0.3071
+  Memory → Maladaptive Strategies                    0.5753
+  Memory → Threat                                    0.1648
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.1656
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.7909
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.9335
+  Maladaptive Strategies → Threat                    0.8577
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Social Contacts: Seeing people that I socialised with before the event
+    explanation: 'Avoid Social Contacts' is inconsistent as written: it is phrased like a trigger ('seeing people...') rather than a strategy the patient uses. Within the Maladaptive Strategies node, the other items are clear coping behaviours, so this item is internally mismatched.
+  [2] FAIL
+    item:        Maladaptive Strategies / Self-Harm Distraction: I hurt myself physically to stop thinking about the event
+    explanation: Self-harm used specifically as a distraction is not impossible, but in this profile it stands out as clinically poorly integrated with the rest of the selected items. The other strategies are avoidance/disengagement (screen use, avoiding people), and the threat/memory profile is hypervigilance plus overwhelm. This item introduces a much more extreme coping style without supporting indicators elsewhere in the five target components, making the strategy set feel internally uneven for the same patient.
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: For a police-related trauma in a 46-year-old civilian graphic designer, self-blame for 'the way I acted' is possible, but here it sits awkwardly beside appraisals that frame the trauma as globally ruining life and draining meaning, without any other items suggesting perceived responsibility, moral failure, or a specific behavior during the event. The appraisal set is therefore less coherent than the other nodes.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,923
+  output:    10,980
+  total:     17,903
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Arthur, a 46-year-old graphic designer, first began experiencing significant distress after an
+incident two years ago. He had been walking home from a client meeting when he inadvertently found
+himself caught in the middle of a sudden, aggressive police intervention during a public
+demonstration. He wasn't involved in the protest, but the scene quickly devolved into chaos, with
+officers pushing and shoving indiscriminately. He witnessed a young woman fall, striking her head
+and bleeding, and he himself was roughly thrown against a wall, leaving him bruised and disoriented.
+The sheer force and perceived lack of justification for the police actions left an indelible mark.
+
+In the aftermath, Arthur found himself increasingly consumed by a deep conviction that what happened
+to him was profoundly unfair and that nothing had been done to address the **injustice**. This
+pervasive **negative appraisal** quickly led him to believe that his **life had been destroyed by
+the trauma**, draining the vitality from his existence until **nothing in his life felt meaningful
+anymore**. This profound despair and sense of wronging kept his **body feeling constantly tense and
+ready to react to danger**, a pervasive **threat** response that meant he was **unable to relax even
+when he knew he was in a safe place**. He was always on edge, and this constant vigilance was
+significantly reinforced by his deeply ingrained negative appraisals about his life and the world.
+His acute sensitivity, fueled by these persistent **negative appraisals**, meant that even a distant
+siren or the sight of a police cruiser — an **authority presence** — would instantly act as a potent
+**trigger**.
+
+These **triggers** had a powerful, visceral effect, immediately bringing back the **full memory
+without warning** of the chaotic street scene, the shouts, the fear, and the sight of the bleeding
+woman. When these **memories** returned, Arthur would feel so **overwhelmed by emotion that he had
+to stop** whatever he was doing, completely consumed by the intensity of the flashback. He found it
+almost impossible to articulate what had happened; if he tried to explain, he would **lose the
+thread and couldn't finish**, the words getting stuck in his throat as the emotions surged. The
+memory itself was intensely **threatening**, contributing significantly to his pervasive state of
+alert and his constant physical tension.
+
+To cope with these distressing and overwhelming **memories**, Arthur began to withdraw. He started
+spending **long hours on his phone, playing games, or browsing the internet to avoid thinking**, a
+**maladaptive strategy** he used to **keep his mind occupied all the time**. He also found himself
+**avoiding other people**, cancelling plans with friends and even finding excuses to work remotely,
+further isolating himself. However, these **maladaptive strategies** didn't provide lasting relief;
+by constantly distracting himself, he was preventing the **memory** from being properly processed,
+ensuring it remained vivid, fragmented, and intrusive. This meant the **memories** would return with
+greater force and frequency, keeping him trapped in a cycle of avoidance and distress.
+
+Moreover, his constant need for **mental distraction** meant he was less present and aware of his
+surroundings, making him more prone to being caught off guard by new **triggers** he might otherwise
+have managed. His chosen **maladaptive strategies** also perpetuated his state of **threat**. The
+endless screen time and social avoidance made him feel less safe and more isolated, contributing to
+his **body on alert** and his constant need to **identify escape routes before he felt comfortable
+anywhere**. This constant **threat** state, in turn, made his **memories** feel even more terrifying
+and difficult to confront, deepening the cycle.
+
+The impact on his work as a graphic designer was significant. Deadlines were missed, his creativity
+suffered, and he struggled with client meetings, often feeling compelled to identify potential
+**escape routes** in meeting rooms, unable to focus. He would often use "research" as an excuse for
+his **screen escape** during working hours, pretending to be productive while scrolling aimlessly.
+He was particularly sensitive to **visual (injuries)**, sometimes encountering disturbing images
+online that would trigger unwanted thoughts and further overwhelm him. Arthur finally sought help
+after his wife expressed deep concern about his profound withdrawal and the noticeable decline in
+his work performance, fearing he was losing himself completely to the constant vigilance and
+despair.
+
+    ✗ edge:        Triggers -> Threat
+      explanation: The vignette describes triggers leading to memory, and memory then being threatening, but does not directly state that triggers cause a sense of threat.
+
+    ✗ edge:        Negative Appraisals -> Memory
+      explanation: The vignette shows negative appraisals influencing beliefs and threat, but does not explicitly state they directly influence the traumatic memory itself.
+
+  [2] PASS
+Arthur, a 46-year-old graphic designer, first began experiencing significant distress after an
+incident two years ago. He had been walking home from a client meeting when he inadvertently found
+himself caught in the middle of a sudden, aggressive police intervention during a public
+demonstration. He wasn't involved in the protest, but the scene quickly devolved into chaos, with
+officers pushing and shoving indiscriminately. He witnessed a young woman fall, striking her head
+and bleeding, and he himself was roughly thrown against a wall, leaving him bruised and disoriented.
+The sheer force and perceived lack of justification for the police actions left an indelible mark.
+In the aftermath, Arthur found himself increasingly consumed by a deep conviction that what happened
+to him was profoundly unfair and that nothing had been done to address the **injustice**. This
+pervasive **negative appraisal** quickly led him to believe that his **life had been destroyed by
+the trauma**, draining the vitality from his existence until **nothing in his life felt meaningful
+anymore**. This profound despair and sense of wronging kept his **body feeling constantly tense and
+ready to react to danger**, a pervasive **threat** response that meant he was **unable to relax even
+when he knew he was in a safe place**. He was always on edge, and this constant vigilance was
+significantly reinforced by his deeply ingrained negative appraisals about his life and the world.
+His acute sensitivity, fueled by these persistent **negative appraisals**, meant that even a distant
+siren or the sight of a police cruiser — an **authority presence** — would instantly act as a potent
+**trigger**. These **triggers** had a powerful, visceral effect, immediately bringing back the
+**full memory without warning** of the chaotic street scene, the shouts, the fear, and the sight of
+the bleeding woman. When these **memories** returned, Arthur would feel so **overwhelmed by emotion
+that he had to stop** whatever he was doing, completely consumed by the intensity of the flashback.
+He found it almost impossible to articulate what had happened; if he tried to explain, he would
+**lose the thread and couldn't finish**, the words getting stuck in his throat as the emotions
+surged. The memory itself was intensely **threatening**, contributing significantly to his pervasive
+state of alert and his constant physical tension. This pervasive negative appraisal, especially the
+conviction of profound injustice, seemed to fix the memory of the event in his mind as an unresolved
+and acutely distressing experience, making it feel perpetually vivid and intrusive. To cope with
+these distressing and overwhelming **memories**, Arthur began to withdraw. He started spending
+**long hours on his phone, playing games, or browsing the internet to avoid thinking**, a
+**maladaptive strategy** he used to **keep his mind occupied all the time**. He also found himself
+**avoiding other people**, cancelling plans with friends and even finding excuses to work remotely,
+further isolating himself. However, these **maladaptive strategies** didn't provide lasting relief;
+by constantly distracting himself, he was preventing the **memory** from being properly processed,
+ensuring it remained vivid, fragmented, and intrusive. This meant the **memories** would return with
+greater force and frequency, keeping him trapped in a cycle of avoidance and distress. Moreover, his
+constant need for **mental distraction** meant he was less present and aware of his surroundings,
+making him more prone to being caught off guard by new **triggers** he might otherwise have managed.
+Crucially, these triggers also instantly plunged him into a state of intense physical threat, his
+body bracing for impact and his heart pounding as if the danger were imminent. His chosen
+**maladaptive strategies** also perpetuated his state of **threat**. The endless screen time and
+social avoidance made him feel less safe and more isolated, contributing to his **body on alert**
+and his constant need to **identify escape routes before he felt comfortable anywhere**. This
+constant **threat** state, in turn, made his **memories** feel even more terrifying and difficult to
+confront, deepening the cycle. The impact on his work as a graphic designer was significant.
+Deadlines were missed, his creativity suffered, and he struggled with client meetings, often feeling
+compelled to identify potential **escape routes** in meeting rooms, unable to focus. He would often
+use "research" as an excuse for his **screen escape** during working hours, pretending to be
+productive while scrolling aimlessly. He was particularly sensitive to **visual (injuries)**,
+sometimes encountering disturbing images online that would trigger unwanted thoughts and further
+overwhelm him. Arthur finally sought help after his wife expressed deep concern about his profound
+withdrawal and the noticeable decline in his work performance, fearing he was losing himself
+completely to the constant vigilance and despair.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Arthur, a 46-year-old graphic designer, first began experiencing significant distress after an
+incident two years ago. He had been walking home from a client meeting when he inadvertently found
+himself caught in the middle of a sudden, aggressive police intervention during a public
+demonstration. He wasn't involved in the protest, but the scene quickly devolved into chaos, with
+officers pushing and shoving indiscriminately. He witnessed a young woman fall, striking her head
+and bleeding, and he himself was roughly thrown against a wall, leaving him bruised and disoriented.
+The sheer force and perceived lack of justification for the police actions left an indelible mark.
+In the aftermath, Arthur found himself increasingly consumed by a deep conviction that what happened
+to him was profoundly unfair and that nothing had been done to address the **injustice**. This
+pervasive **negative appraisal** quickly led him to believe that his **life had been destroyed by
+the trauma**, draining the vitality from his existence until **nothing in his life felt meaningful
+anymore**. This profound despair and sense of wronging kept his **body feeling constantly tense and
+ready to react to danger**, a pervasive **threat** response that meant he was **unable to relax even
+when he knew he was in a safe place**. He was always on edge, and this constant vigilance was
+significantly reinforced by his deeply ingrained negative appraisals about his life and the world.
+His acute sensitivity, fueled by these persistent **negative appraisals**, meant that even a distant
+siren or the sight of a police cruiser — an **authority presence** — would instantly act as a potent
+**trigger**. These **triggers** had a powerful, visceral effect, immediately bringing back the
+**full memory without warning** of the chaotic street scene, the shouts, the fear, and the sight of
+the bleeding woman. When these **memories** returned, Arthur would feel so **overwhelmed by emotion
+that he had to stop** whatever he was doing, completely consumed by the intensity of the flashback.
+He found it almost impossible to articulate what had happened; if he tried to explain, he would
+**lose the thread and couldn't finish**, the words getting stuck in his throat as the emotions
+surged. The memory itself was intensely **threatening**, contributing significantly to his pervasive
+state of alert and his constant physical tension. This pervasive negative appraisal, especially the
+conviction of profound injustice, seemed to fix the memory of the event in his mind as an unresolved
+and acutely distressing experience, making it feel perpetually vivid and intrusive. To cope with
+these distressing and overwhelming **memories**, Arthur began to withdraw. He started spending
+**long hours on his phone, playing games, or browsing the internet to avoid thinking**, a
+**maladaptive strategy** he used to **keep his mind occupied all the time**. He also found himself
+**avoiding other people**, cancelling plans with friends and even finding excuses to work remotely,
+further isolating himself. However, these **maladaptive strategies** didn't provide lasting relief;
+by constantly distracting himself, he was preventing the **memory** from being properly processed,
+ensuring it remained vivid, fragmented, and intrusive. This meant the **memories** would return with
+greater force and frequency, keeping him trapped in a cycle of avoidance and distress. Moreover, his
+constant need for **mental distraction** meant he was less present and aware of his surroundings,
+making him more prone to being caught off guard by new **triggers** he might otherwise have managed.
+Crucially, these triggers also instantly plunged him into a state of intense physical threat, his
+body bracing for impact and his heart pounding as if the danger were imminent. His chosen
+**maladaptive strategies** also perpetuated his state of **threat**. The endless screen time and
+social avoidance made him feel less safe and more isolated, contributing to his **body on alert**
+and his constant need to **identify escape routes before he felt comfortable anywhere**. This
+constant **threat** state, in turn, made his **memories** feel even more terrifying and difficult to
+confront, deepening the cycle. The impact on his work as a graphic designer was significant.
+Deadlines were missed, his creativity suffered, and he struggled with client meetings, often feeling
+compelled to identify potential **escape routes** in meeting rooms, unable to focus. He would often
+use "research" as an excuse for his **screen escape** during working hours, pretending to be
+productive while scrolling aimlessly. He was particularly sensitive to **visual (injuries)**,
+sometimes encountering disturbing images online that would trigger unwanted thoughts and further
+overwhelm him. Arthur finally sought help after his wife expressed deep concern about his profound
+withdrawal and the noticeable decline in his work performance, fearing he was losing himself
+completely to the constant vigilance and despair.

@@ -1,0 +1,189 @@
+{
+  "persona_id": 377,
+  "source_persona_id": 377,
+  "experiment_timestamp": "2026-05-02 20:19:30",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-chat",
+      "persona_crafter": "deepseek-chat",
+      "vignette_crafter": "deepseek-chat",
+      "vignette_validator": "deepseek-chat"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 45,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Journalist",
+    "trauma_type": "Captivity",
+    "pcl5": 66
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Somatic Pain (Neck)",
+        "value": "Neck pain"
+      },
+      {
+        "key": "Tactile (Touch)",
+        "value": "Physical touch"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      },
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Terror on Recall",
+        "value": "Remembering the event brings back the same terror I felt at the time"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4755,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.1762,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9617,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5378,
+  "edge_density": 0.15,
+  "vignette_word_count": 569,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Checking Behind: I frequently look behind me to check if someone is following me",
+          "explanation": "For a captivity trauma profile, the threat pattern is dominated by loud sounds/startle and false alarms, but 'checking if someone is following me' implies a stalking/pursuit-based danger context that is not supported by the listed triggers or memory items. With strong Threat → Triggers and Memory → Triggers links, the threat content should connect plausibly to the trigger set; here the pursuit-focused checking stands out as clinically mismatched."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Within the memory node, recurrent replay and uncontrolled intrusions fit the formulation and trauma type, but intense shame on recall introduces a self-evaluative appraisal theme that is otherwise absent. Given that Negative Appraisals is not represented and Threat → Negative Appraisals / Memory → Negative Appraisals are inactive, this item does not cohere well with the otherwise sensory-intrusive memory profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Checking Behind"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Car Similarity: Similar cars",
+          "explanation": "For captivity trauma, 'similar cars' is hard to reconcile with the rest of the profile unless transport vehicles were a clearly central part of the trauma. The other selected trigger items and all Threat/Memory items point to a general captivity-style pattern of somatic/tactile cueing, intrusive replay, terror on recall, and hypervigilance to sudden sounds. A car-specific visual trigger stands out as insufficiently connected to the rest of this formulation and is the one item a clinician would most likely question."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Car Similarity"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2645,
+    "output": 710,
+    "total": 3355
+  },
+  "vignette": "It was a year and a half ago that the story ended, but for David, the film never stops. A 45-year-old journalist, he had been embedded with a local militia in a conflict zone, reporting on a ceasefire that never held. He was taken by a rival faction and held for eleven days in a concrete room, beaten, and repeatedly threatened with execution. The smell of cheap alcohol on his captors’ breath was the constant, nauseating backdrop; the pain in his neck from the zip-ties and the rough handling was a dull, permanent anchor to each moment of terror. When he was finally released in a prisoner exchange, he told himself he was fine. He went home to his wife, returned to his desk, and tried to file the story. But the story was filing him.\n\nThe memory does not wait for permission. It arrives as a complete, sensory film—the scrape of the chair, the pressure of the blindfold, the smell of alcohol, the terror that was so absolute it felt like dying. And because remembering brings back that same raw terror, his body reacts as if the event is happening again, right now. This is why a sudden sound—a car backfiring, a dropped pan in the kitchen—will send him diving for cover, his heart hammering, his neck seizing with the old familiar pain. He has come to believe that he is permanently broken, that any unexpected noise is a potential threat, that he must be superalert or he will be caught off guard. This hypervigilance has become his default state, a constant scanning for danger that leaves him exhausted and irritable.\n\nThe most insidious loop, however, involves his wife. A simple, loving touch on the shoulder from behind can trigger the same physical startle response as a guard’s hand grabbing his collar. The neck pain, which he now associates directly with the captivity, flares up whenever he is tense, and he finds himself bracing for a blow during a hug. He has begun to pull away from her, not because he does not love her, but because the sensation of being touched has become so tightly wired to the memory of being handled roughly that he cannot separate the two. His hypervigilance means he is constantly monitoring for the next sound, the next touch, the next smell—and that constant state of alert primes his memory to replay the worst moments, creating a cycle that tightens with every passing week.\n\nHe now avoids the corner of the grocery store where the cleaning alcohol is kept. He has stopped meeting colleagues for drinks, because the smell of whiskey on someone’s breath at a bar is enough to make him nauseous and dissociate for a full minute. At work, he has shifted from field reporting to desk editing, a move that has quietly stalled his career. His editor has noticed the drop in initiative; David cannot explain that he is too busy watching the door. What finally brought him to seek help was not the flashbacks or the startle responses—he had learned to live with those. It was the moment last week when his wife, reaching out to comfort him after a nightmare, saw him flinch and pull away, and her face crumpled with a hurt he could not bear to see again. He is terrified that the man who survived the room is destroying the life he came home to."
+,
+
+  "vignette_attempts": [
+    {"vignette": "It was a year and a half ago that the story ended, but for David, the film never stops. A 45-year-old journalist, he had been embedded with a local militia in a conflict zone, reporting on a ceasefire that never held. He was taken by a rival faction and held for eleven days in a concrete room, beaten, and repeatedly threatened with execution. The smell of cheap alcohol on his captors’ breath was the constant, nauseating backdrop; the pain in his neck from the zip-ties and the rough handling was a dull, permanent anchor to each moment of terror. When he was finally released in a prisoner exchange, he told himself he was fine. He went home to his wife, returned to his desk, and tried to file the story. But the story was filing him.\n\nThe memory does not wait for permission. It arrives as a complete, sensory film—the scrape of the chair, the pressure of the blindfold, the smell of alcohol, the terror that was so absolute it felt like dying. And because remembering brings back that same raw terror, his body reacts as if the event is happening again, right now. This is why a sudden sound—a car backfiring, a dropped pan in the kitchen—will send him diving for cover, his heart hammering, his neck seizing with the old familiar pain. He has come to believe that he is permanently broken, that any unexpected noise is a potential threat, that he must be superalert or he will be caught off guard. This hypervigilance has become his default state, a constant scanning for danger that leaves him exhausted and irritable.\n\nThe most insidious loop, however, involves his wife. A simple, loving touch on the shoulder from behind can trigger the same physical startle response as a guard’s hand grabbing his collar. The neck pain, which he now associates directly with the captivity, flares up whenever he is tense, and he finds himself bracing for a blow during a hug. He has begun to pull away from her, not because he does not love her, but because the sensation of being touched has become so tightly wired to the memory of being handled roughly that he cannot separate the two. His hypervigilance means he is constantly monitoring for the next sound, the next touch, the next smell—and that constant state of alert primes his memory to replay the worst moments, creating a cycle that tightens with every passing week.\n\nHe now avoids the corner of the grocery store where the cleaning alcohol is kept. He has stopped meeting colleagues for drinks, because the smell of whiskey on someone’s breath at a bar is enough to make him nauseous and dissociate for a full minute. At work, he has shifted from field reporting to desk editing, a move that has quietly stalled his career. His editor has noticed the drop in initiative; David cannot explain that he is too busy watching the door. What finally brought him to seek help was not the flashbacks or the startle responses—he had learned to live with those. It was the moment last week when his wife, reaching out to comfort him after a nightmare, saw him flinch and pull away, and her face crumpled with a hurt he could not bear to see again. He is terrified that the man who survived the room is destroying the life he came home to.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

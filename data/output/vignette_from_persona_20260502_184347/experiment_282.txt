@@ -1,0 +1,188 @@
+PERSONA 282  |  2026-05-02 19:57:10
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-chat
+    persona_crafter      deepseek-chat
+    vignette_crafter     deepseek-chat
+    vignette_validator   deepseek-chat
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             70
+  gender          Male
+  ethnicity       North American
+  relationship_status Married
+  occupation      Salesperson
+  trauma_type     Assault
+  pcl5            35
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Intrusive Thoughts: Unwanted thoughts
+    • Offender Cues: Seeing the offender
+    • Olfactory (Alcohol): Alcohol smell
+  Maladaptive Strategies:
+    • Avoid Location: Going to or near the place where the event happened
+    • Emotional Numbing: I numb my feelings
+    • Suppress Thoughts: try hard not think about the trauma
+  Negative Appraisals:
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Defective Self: There is something wrong with me as a person
+    • Self-Blame: The event happened because of the way I acted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.6610
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0856
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.7082
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Victim Similarity: People who look similar to the victims
+    explanation: For a single-patient assault trauma, 'people who look similar to the victims' is clinically incoherent because it implies multiple victims or identification with other victims rather than the patient's own assault experience. A more self-referential trigger would be expected.
+    item:        Negative Appraisals / Negative Appraisals: Others-Would-Cope: Somebody else would have stopped the event from happening
+    explanation: 'Somebody else would have stopped the event from happening' sits awkwardly with the rest of the profile's self-directed shame and identity-change appraisals. It implies confidence that another person would have prevented the assault, which conflicts with the patient's own vulnerability/self-blame framing in a way that is hard to integrate clinically.
+  [2] FAIL
+    item:        Triggers / Triggers: Medical Procedures: Undergoing a medical examination or procedure
+    explanation: For an assault trauma in a 70-year-old male, 'medical procedures' plus 'body shame' implies a strong bodily injury/medical aftermath theme, but the rest of the profile does not support that theme. With only offender cues and intrusive thoughts otherwise present, the medical trigger looks insufficiently anchored and may be mismatched to the rest of the assault profile.
+    item:        Negative Appraisals / Negative Appraisals: Body Shame: I feel ashamed of what happened to my body
+    explanation: 'Body shame' is not impossible after assault, but alongside 'defective self' and 'unrecognisable self' it suggests a bodily violation/injury-focused appraisal pattern that is not well reflected in the other selected nodes. The triggers and strategies mainly reflect avoidance, numbing, and offender-related activation rather than body-focused trauma processing.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Catastrophising Others: I worry obsessively about bad things happening to people I care about
+    explanation: 'Catastrophising others' is weakly connected to the rest of the selected profile. The active formulation links Triggers strongly with Maladaptive Strategies and Negative Appraisals strongly with Triggers, but this strategy is not a plausible direct response to the chosen triggers (medical procedures, intrusive thoughts, offender cues) and is not well explained by the selected appraisals. It addresses a generalized harm concern that is otherwise absent from the profile.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,733
+  output:       795
+  total:      3,528
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+The assault happened on a Tuesday evening in late October, after a long day of calls. Marcus had
+stopped at a convenience store near his office for a coffee, the kind of routine stop he had made
+hundreds of times before. A man approached him in the parking lot, smelling sharply of alcohol, and
+demanded his wallet. Marcus hesitated—he had worked for every dollar in that wallet, and something
+in him refused to hand it over without a fight. The man struck him twice, once across the jaw and
+once in the ribs, before grabbing the wallet and disappearing. Marcus lay on the asphalt for what
+felt like minutes, staring at the neon sign above the store, the smell of stale beer and cheap
+whiskey thick in the air around him.
+
+In the weeks that followed, Marcus found himself replaying that moment over and over. The unwanted
+thoughts would arrive without warning—during a quiet moment at his desk, while he was driving
+between appointments, even in the middle of a conversation with a customer. He would see the man’s
+face, the way his eyes had widened just before the first punch. And then there was the smell. Every
+time Marcus caught a whiff of alcohol—a coworker’s breath after lunch, the scent drifting from a bar
+as he walked past—his chest would tighten and his mind would jump straight back to that parking lot.
+He began to avoid certain streets on his sales route, taking longer detours just to steer clear of
+the convenience store. He told himself it was practical, just good sense. But he also started trying
+hard not to think about the trauma at all, pushing the memories down whenever they surfaced, numbing
+his feelings with long hours of television and an extra drink before bed. It was the only way he
+knew to get through the day.
+
+But the avoidance came with a cost. Marcus had always been a man who trusted his instincts, who
+believed he could read people and situations. Now he found himself doubting that. The event happened
+because of the way I acted, he would think. If I had just handed over the wallet right away, none of
+this would have happened. The thought circled back again and again, and with it came a deeper, more
+disturbing conclusion: There is something wrong with me as a person. He had never felt broken
+before, not like this. The person I have become is unrecognisable to me, he told his wife one night,
+and he meant it. He no longer knew the man who had hesitated in that parking lot, the man who now
+flinched at a stranger’s glance and avoided eye contact with customers who reminded him, even
+vaguely, of his attacker.
+
+The negative appraisals fed the triggers in a loop he could not escape. The more he believed there
+was something fundamentally wrong with him, the more vigilant he became. Every unexpected smell of
+alcohol, every unfamiliar face near his car, every intrusive thought that slipped past his
+defenses—each one felt like confirmation that he was right to be afraid, that he was right to see
+himself as damaged. The world had become a place full of cues he could not control, and his own mind
+had become a source of threat he could not outrun.
+
+What finally brought Marcus to seek help was a moment of quiet exhaustion. He had cancelled three
+sales meetings in one week because the route would have taken him past the store. His wife had found
+him sitting in the dark living room at midnight, staring at nothing, and she had asked him softly if
+this was how he wanted to spend the rest of his life. He did not have an answer. What he feared most
+was that the person he had become was permanent—that the unrecognisable man was all that was left.
+But he was also, for the first time, willing to find out if that was true.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+The assault happened on a Tuesday evening in late October, after a long day of calls. Marcus had
+stopped at a convenience store near his office for a coffee, the kind of routine stop he had made
+hundreds of times before. A man approached him in the parking lot, smelling sharply of alcohol, and
+demanded his wallet. Marcus hesitated—he had worked for every dollar in that wallet, and something
+in him refused to hand it over without a fight. The man struck him twice, once across the jaw and
+once in the ribs, before grabbing the wallet and disappearing. Marcus lay on the asphalt for what
+felt like minutes, staring at the neon sign above the store, the smell of stale beer and cheap
+whiskey thick in the air around him.
+
+In the weeks that followed, Marcus found himself replaying that moment over and over. The unwanted
+thoughts would arrive without warning—during a quiet moment at his desk, while he was driving
+between appointments, even in the middle of a conversation with a customer. He would see the man’s
+face, the way his eyes had widened just before the first punch. And then there was the smell. Every
+time Marcus caught a whiff of alcohol—a coworker’s breath after lunch, the scent drifting from a bar
+as he walked past—his chest would tighten and his mind would jump straight back to that parking lot.
+He began to avoid certain streets on his sales route, taking longer detours just to steer clear of
+the convenience store. He told himself it was practical, just good sense. But he also started trying
+hard not to think about the trauma at all, pushing the memories down whenever they surfaced, numbing
+his feelings with long hours of television and an extra drink before bed. It was the only way he
+knew to get through the day.
+
+But the avoidance came with a cost. Marcus had always been a man who trusted his instincts, who
+believed he could read people and situations. Now he found himself doubting that. The event happened
+because of the way I acted, he would think. If I had just handed over the wallet right away, none of
+this would have happened. The thought circled back again and again, and with it came a deeper, more
+disturbing conclusion: There is something wrong with me as a person. He had never felt broken
+before, not like this. The person I have become is unrecognisable to me, he told his wife one night,
+and he meant it. He no longer knew the man who had hesitated in that parking lot, the man who now
+flinched at a stranger’s glance and avoided eye contact with customers who reminded him, even
+vaguely, of his attacker.
+
+The negative appraisals fed the triggers in a loop he could not escape. The more he believed there
+was something fundamentally wrong with him, the more vigilant he became. Every unexpected smell of
+alcohol, every unfamiliar face near his car, every intrusive thought that slipped past his
+defenses—each one felt like confirmation that he was right to be afraid, that he was right to see
+himself as damaged. The world had become a place full of cues he could not control, and his own mind
+had become a source of threat he could not outrun.
+
+What finally brought Marcus to seek help was a moment of quiet exhaustion. He had cancelled three
+sales meetings in one week because the route would have taken him past the store. His wife had found
+him sitting in the dark living room at midnight, staring at nothing, and she had asked him softly if
+this was how he wanted to spend the rest of his life. He did not have an answer. What he feared most
+was that the person he had become was permanent—that the unrecognisable man was all that was left.
+But he was also, for the first time, willing to find out if that was true.

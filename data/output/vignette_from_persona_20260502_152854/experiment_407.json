@@ -1,0 +1,236 @@
+{
+  "persona_id": 407,
+  "source_persona_id": 407,
+  "experiment_timestamp": "2026-05-02 20:20:30",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-flash",
+      "persona_crafter": "gemini-2.5-flash",
+      "vignette_crafter": "gemini-2.5-flash",
+      "vignette_validator": "gemini-2.5-flash"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 47,
+    "gender": "Male",
+    "ethnicity": "North American",
+    "relationship_status": "Single",
+    "occupation": "Bus Driver",
+    "trauma_type": "Police",
+    "pcl5": 48
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Intrusive Memory",
+        "value": "A memory of the event coming to mind suddenly"
+      },
+      {
+        "key": "Event Recall",
+        "value": "Talking about the event"
+      },
+      {
+        "key": "Authority Presence",
+        "value": "Police"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Face Hiding",
+        "value": "cover face with hands"
+      },
+      {
+        "key": "Avoid People",
+        "value": "avoid other people"
+      },
+      {
+        "key": "Sensory Distraction",
+        "value": "I put on loud music or TV"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Irritability",
+        "value": "Irritable behavior, angry outbursts, or acting aggressively"
+      },
+      {
+        "key": "Concentration",
+        "value": "Having difficulty concentrating"
+      },
+      {
+        "key": "Door and Lock Checking",
+        "value": "I repeatedly check that doors and windows are locked"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      },
+      {
+        "key": "Lost Community",
+        "value": "I have lost my connection to my community and culture"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.3839,
+    "Triggers -- Threat": 0.4188,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.9908,
+    "Negative Appraisals -- Threat": 0.0585,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.1785,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.7323,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.049,
+    "Threat -- Triggers": 0.4127,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.6061,
+    "Maladaptive Strategies -- Triggers": 0.4654,
+    "Maladaptive Strategies -- Threat": 0.9988
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4813454545454546,
+  "edge_density": 0.55,
+  "vignette_word_count": 694,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Sexual Objectification: Being looked at sexually",
+          "explanation": "The profile is for a male patient with police trauma, but two trigger items and the body-shame appraisal are specifically sexual-trauma themed. That is hard to reconcile with the indexed trauma type unless there is an additional sexual trauma history, which is not supported elsewhere in the profile."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Triggers: Sexual Trauma Cues: Comments on sexual violence",
+          "explanation": "Within the trigger/appraisal cluster, the content centers on sexual victimization, while the rest of the profile does not describe corresponding sexual-trauma memory content or threat meaning. This makes the selected items clinically incoherent as a single trauma-linked PTSD profile."
+        },
+        {
+          "component": "Threat",
+          "item": "Negative Appraisals: Body Shame: I feel ashamed of what happened to my body",
+          "explanation": "Door/window checking suggests a home-intrusion or generalized safety threat, but the trigger and appraisal content centers on sexualized trauma cues. That threat item is not well linked to the rest of the selected profile and pulls the formulation in a different direction."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Sexual Objectification"
+        ],
+        "Negative Appraisals": [
+          "Triggers"
+        ],
+        "Threat": [
+          "Negative Appraisals"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Sexual Trauma Cues: Comments on sexual violence",
+          "explanation": "For a police trauma in a 47-year-old male bus driver, sexual-trauma-specific trigger content is hard to reconcile unless the index event involved sexual assault or exposure to sexual violence in a highly personal way; nothing else in the profile supports that specificity."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Body Shame: I feel ashamed of what happened to my body",
+          "explanation": "Body-focused shame is more characteristic of sexual assault or severe bodily violation. In this profile it does not cohere with the police trauma framing, and it is reinforced only by the sexual-trauma-specific trigger, creating an implausible subtheme not supported by the rest of the nodes."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Sexual Trauma Cues"
+        ],
+        "Negative Appraisals": [
+          "Body Shame"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3039,
+    "output": 9852,
+    "total": 12891
+  },
+  "vignette": "Robert, a 47-year-old bus driver, arrived at the clinic carrying the heavy weight of nearly two years of escalating distress. His troubles began abruptly during a routine break on his route, when he was aggressively pulled from his bus by police officers investigating a minor incident he had no part in. The experience was humiliating and terrifying; he was pushed against the bus, his wallet searched, and his pleas for explanation met with shouts and threats of arrest. Though eventually released without charge, the encounter left an indelible mark.\n\nNow, the mere **presence of authority figures**, particularly police, could instantly plunge him back into that moment, serving as a potent **trigger**. He described how a sudden **intrusive memory** of the event, the feeling of the cold metal of the bus against his face, would flash through his mind, immediately escalating his internal sense of **threat**. Robert found himself increasingly irritable with passengers, snapping at minor infractions, and struggling to maintain his focus on the road, often missing turns or stops due to difficulty **concentrating**. This pervasive sense of **threat** also manifested as a constant need to check and recheck the doors and windows of his apartment, sometimes multiple times before he could finally try to rest.\n\nTo cope with the overwhelming sensations, Robert had developed a series of **maladaptive strategies**. When an intrusive memory would strike, he would instinctively **cover his face with his hands**, as if to literally block out the image. The fear that **the world is a dangerous place**, a belief that had solidified since the incident, made him increasingly **avoid people** and isolate himself, perceiving strangers as potential threats. This powerful **negative appraisal** of the world also made him hyper-attuned to potential dangers, making him more susceptible to **triggers** like the sight of a police car. Furthermore, his conviction that **people can't be trusted** fueled a pervasive hypervigilance, increasing his internal sense of **threat** when interacting with others. This mistrust also meant he was reluctant to talk about what happened; indeed, the very act of **event recall**, of trying to articulate his experience, had become a significant **trigger** itself, causing such distress that he would quickly shut down.\n\nThe constant state of heightened **threat** had also reinforced his **negative appraisal** that he had **lost his connection to his community and culture**, as his social life dwindled to almost nothing. He noticed that the more he felt this pervasive **threat**, the more his mind became attuned to potential dangers, making him perceive more and more situations as **triggers**, from the sight of a police cruiser to a sudden loud noise. His **maladaptive strategies** of **avoiding people** and relying on **sensory distraction**—blasting loud music or the TV in his apartment—initially offered a reprieve from the intrusive thoughts, but in the long run, they prevented him from processing the trauma. This lack of processing meant the memories remained raw and fragmented, making them more likely to become **triggers** when his mind was idle. Moreover, his **maladaptive strategies** of sensory distraction and door checking, while offering momentary diversions, ultimately kept his nervous system on high alert, perpetuating his underlying **threat** response.\n\nRobert’s job as a bus driver, once a source of stability, had become a constant ordeal. He would often choose longer routes to avoid areas he knew police patrolled, impacting his schedule and reliability. His persistent **irritability** and difficulty **concentrating** had led to several passenger complaints and a formal warning from his supervisor, threatening his livelihood. The **maladaptive strategies** he employed, particularly his **avoidance of people**, meant he rarely interacted with his colleagues, further cementing his **negative appraisal** that he was alone and disconnected. He had come to believe that his experiences meant he was fundamentally changed, that he was no longer the reliable, community-minded man he once was. He sought help after a particularly frightening intrusive memory almost caused him to miss a pedestrian, realizing he could no longer manage the tightening grip of his fears alone. He deeply longed for the return of his peace of mind, but was terrified that the world truly was as dangerous as it felt, and that he was forever trapped in this cycle of fear."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Robert, a 47-year-old bus driver, arrived at the clinic carrying the heavy weight of nearly two years of escalating distress. His troubles began abruptly during a routine break on his route, when he was aggressively pulled from his bus by police officers investigating a minor incident he had no part in. The experience was humiliating and terrifying; he was pushed against the bus, his wallet searched, and his pleas for explanation met with shouts and threats of arrest. Though eventually released without charge, the encounter left an indelible mark.\n\nNow, the mere **presence of authority figures**, particularly police, could instantly plunge him back into that moment, serving as a potent **trigger**. He described how a sudden **intrusive memory** of the event, the feeling of the cold metal of the bus against his face, would flash through his mind, immediately escalating his internal sense of **threat**. Robert found himself increasingly irritable with passengers, snapping at minor infractions, and struggling to maintain his focus on the road, often missing turns or stops due to difficulty **concentrating**. This pervasive sense of **threat** also manifested as a constant need to check and recheck the doors and windows of his apartment, sometimes multiple times before he could finally try to rest.\n\nTo cope with the overwhelming sensations, Robert had developed a series of **maladaptive strategies**. When an intrusive memory would strike, he would instinctively **cover his face with his hands**, as if to literally block out the image. The fear that **the world is a dangerous place**, a belief that had solidified since the incident, made him increasingly **avoid people** and isolate himself, perceiving strangers as potential threats. This powerful **negative appraisal** of the world also made him hyper-attuned to potential dangers, making him more susceptible to **triggers** like the sight of a police car. Furthermore, his conviction that **people can't be trusted** fueled a pervasive hypervigilance, increasing his internal sense of **threat** when interacting with others. This mistrust also meant he was reluctant to talk about what happened; indeed, the very act of **event recall**, of trying to articulate his experience, had become a significant **trigger** itself, causing such distress that he would quickly shut down.\n\nThe constant state of heightened **threat** had also reinforced his **negative appraisal** that he had **lost his connection to his community and culture**, as his social life dwindled to almost nothing. He noticed that the more he felt this pervasive **threat**, the more his mind became attuned to potential dangers, making him perceive more and more situations as **triggers**, from the sight of a police cruiser to a sudden loud noise. His **maladaptive strategies** of **avoiding people** and relying on **sensory distraction**—blasting loud music or the TV in his apartment—initially offered a reprieve from the intrusive thoughts, but in the long run, they prevented him from processing the trauma. This lack of processing meant the memories remained raw and fragmented, making them more likely to become **triggers** when his mind was idle. Moreover, his **maladaptive strategies** of sensory distraction and door checking, while offering momentary diversions, ultimately kept his nervous system on high alert, perpetuating his underlying **threat** response.\n\nRobert’s job as a bus driver, once a source of stability, had become a constant ordeal. He would often choose longer routes to avoid areas he knew police patrolled, impacting his schedule and reliability. His persistent **irritability** and difficulty **concentrating** had led to several passenger complaints and a formal warning from his supervisor, threatening his livelihood. The **maladaptive strategies** he employed, particularly his **avoidance of people**, meant he rarely interacted with his colleagues, further cementing his **negative appraisal** that he was alone and disconnected. He had come to believe that his experiences meant he was fundamentally changed, that he was no longer the reliable, community-minded man he once was. He sought help after a particularly frightening intrusive memory almost caused him to miss a pedestrian, realizing he could no longer manage the tightening grip of his fears alone. He deeply longed for the return of his peace of mind, but was terrified that the world truly was as dangerous as it felt, and that he was forever trapped in this cycle of fear.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

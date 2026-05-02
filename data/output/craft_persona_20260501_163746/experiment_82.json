@@ -1,0 +1,218 @@
+{
+  "persona_id": 82,
+  "source_persona_id": null,
+  "experiment_timestamp": "2026-05-01 16:52:28",
+  "config": {
+    "pipeline": "craft_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 2,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 21,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Agricultural Worker",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 53
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Enclosed Spaces",
+        "value": "Enclosed or confined spaces"
+      },
+      {
+        "key": "Screen Escape",
+        "value": "I spend long hours on my phone, games, or internet to avoid thinking"
+      },
+      {
+        "key": "Avoid Religious Spaces",
+        "value": "Places of worship or religious gatherings"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Fragmented Pieces",
+        "value": "My memories of the event come in disconnected pieces that do not fit together"
+      },
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Verbal Access",
+        "value": "I can talk about what happened very easily."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Constant Vigilance",
+        "value": "I have to be especially careful because you never know what can happen next"
+      },
+      {
+        "key": "Life Not Worth Living",
+        "value": "I am not sure my life is worth living anymore"
+      },
+      {
+        "key": "No Accountability",
+        "value": "The people responsible have faced no consequences"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.9441,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.7724,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.1146,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.3209,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.3647,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Memory"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.50334,
+  "edge_density": 0.25,
+  "vignette_word_count": 0,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Verbal Access: I can talk about what happened very easily.",
+          "explanation": "Within the Memory node, 'I can talk about what happened very easily' directly conflicts with marked memory disturbance items indicating fragmented, poorly integrated, repeatedly replaying trauma memory. While some patients can describe intrusive memories, 'very easily' is hard to reconcile with a profile centered on disjointed and involuntarily replayed recollection, so this is a clear within-node inconsistency."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Memory: Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together",
+          "explanation": "For a mugging/robbery trauma, avoidance of enclosed spaces and religious spaces lacks an evident link to the trauma content, and the rest of the profile does not supply a formulation-based explanation for these specific avoidances. This makes the maladaptive strategy items look disconnected from the endorsed memory and appraisal pattern rather than coherent trauma-related avoidance."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Memory"
+        ],
+        "Maladaptive Strategies": [
+          "Memory"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Verbal Access: I can talk about what happened very easily.",
+          "explanation": "Within the Memory node, 'Verbal Access' directly conflicts with the combination of markedly fragmented/disconnected recall and repetitive involuntary replay. A patient may have intrusive replay or fragmented recall, but saying they can talk about the event very easily sits in tension with this memory profile and is hard to reconcile as part of the same self-report cluster."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Memory: Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together.",
+          "explanation": "The avoidance items are not well anchored to the stated trauma type (mugging/robbery) or to the rest of the profile. Avoiding enclosed spaces and religious spaces lacks an evident connection to the reported memory and appraisal content, and these strategies do not cohere with the formulation, where Triggers are inactive and the strongest pattern is Negative Appraisals → Maladaptive Strategies. Screen-based distraction fits that pattern, but these specific place avoidances look clinically disconnected from the rest of the self-report."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Memory"
+        ],
+        "Maladaptive Strategies": [
+          "Memory"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Verbal Access: I can talk about what happened very easily.",
+          "explanation": "Within the Memory node, 'Verbal Access' directly conflicts with 'Fragmented Pieces' and also sits awkwardly with 'Memory Replay.' A patient whose trauma memory is fragmented and repeatedly replays typically does not also report being able to talk about the event very easily; that is a direct within-node inconsistency."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Memory: Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together.",
+          "explanation": "The Maladaptive Strategies items are not clinically well linked to the rest of the profile or the trauma type. For a mugging/robbery, avoiding enclosed spaces and religious spaces is hard to explain from the listed memory and appraisal content, which contain no corresponding situational meaning. These strategies appear disconnected from the cognitive formulation as well, because the active formulation centers Negative Appraisals ↔ Memory with strong influence on Maladaptive Strategies, yet the selected appraisals and memories do not plausibly lead to specifically avoiding enclosed or religious spaces."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Memory"
+        ],
+        "Maladaptive Strategies": [
+          "Memory"
+        ]
+      }
+    }
+  ],
+  "validation_summary": {
+    "attempts": 0,
+    "passed": 0,
+    "failed": 0,
+    "ultimately_passed": null
+  },
+  "token_usage": {
+    "input": 14506,
+    "output": 1001,
+    "total": 15507
+  },
+  "vignette": ""
+,
+
+  "vignette_attempts": [
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "persona_id": 128,
+  "source_persona_id": 128,
+  "experiment_timestamp": "2026-05-01 23:31:12",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 80,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Widowed",
+    "occupation": "Social Worker",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 45
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      },
+      {
+        "key": "Visual (Needles/Medical)",
+        "value": "Medical equipment such as needles or drips"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      },
+      {
+        "key": "Thought Suppression",
+        "value": "I try to push them out of my mind"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Violated Values",
+        "value": "I acted in ways that go against who I am"
+      },
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Helplessness",
+        "value": "I can't stop bad things from happening to me"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.5473,
+    "Triggers -- Negative Appraisals": 0.571,
+    "Negative Appraisals -- Maladaptive Strategies": 0.3304,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.869,
+    "Negative Appraisals -- Triggers": 0.862,
+    "Memory -- Maladaptive Strategies": 0.5358,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.8212,
+    "Memory -- Triggers": 0.4595,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7363,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6369444444444444,
+  "edge_density": 0.45,
+  "vignette_word_count": 853,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Weapons): Weapons or objects used as weapons",
+          "explanation": "For trauma type of a child's life-threatening illness, weapon-related visual triggers are hard to reconcile unless there is additional unreported violent trauma. Hospital smells and loss-related conversations fit, but weapons/object-as-weapon cues are clinically implausible for the same index trauma."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Fear of Harm: You can never know who will harm you",
+          "explanation": "The appraisal 'You can never know who will harm you' implies interpersonal danger/assailant threat, which is poorly matched to the validated trauma of a child's serious illness. This also aligns awkwardly with the rest of the profile, which is otherwise illness/loss/moral injury themed rather than assault-based."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Weapons)"
+        ],
+        "Negative Appraisals": [
+          "Fear of Harm"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "'Intense rage on recall' is hard to reconcile with the rest of this profile for an 80-year-old mother traumatized by a child's life-threatening illness. The other items center on helplessness, permanent change, loss-related and hospital triggers, and intrusive affect without image. Distress, fear, guilt, grief, or sadness would fit more coherently; rage is not impossible, but here it is insufficiently supported by any corresponding appraisal or trigger content and stands out as clinically incongruent."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Face Hiding: cover face with hands",
+          "explanation": "'Cover face with hands' is not well supported as a maladaptive strategy in this profile. The active formulation links maladaptive strategies mainly to negative appraisals and memory, and the other strategies chosen (avoid going out, thought suppression) fit intrusive distress and negative beliefs. Face hiding is more typical of acute shame/panic/social exposure and is not clearly connected to the hospital/loss triggers, intrusive memory pattern, or appraisals provided, making it the least coherent item in this set."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Rage on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Face Hiding"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3115,
+    "output": 991,
+    "total": 4106
+  },
+  "vignette": "Samira Haddad is an 80-year-old widowed social worker who still thinks of herself as someone who should be able to stay steady in the presence of suffering. The event that fractured that sense of herself began years ago when her adult son became critically ill and was hospitalized. She remembers the fluorescent light on his skin, the steady drip from the IV, the sharp visibility of needles and tubing against the hospital sheets, and the antiseptic smell that seemed to cling to her clothes even after she went home. Day after day she sat by his bed while machines marked time she could not control. What stayed with her most was not a single picture so much as the bodily force of it: the wave of dread and grief that would overtake her while she watched people move around him and do things she could not stop. She had come to believe, in those long hospital days, that she was helpless in the face of catastrophe and that she had failed in ways that violated the kind of mother and person she believed herself to be.\n\nAfterward, the memories did not remain in the past. They forced their way into Samira’s mind without warning, often not as a clear scene but as the full emotional intensity of those days descending on her all at once. A discussion of someone losing a loved one at work could bring it on immediately; so could the antiseptic smell in a clinic hallway or the sight of medical equipment, even something as ordinary as a needle laid out for a blood draw. In those moments she was not simply reminded of what happened. She was flooded by overwhelming grief, and with it the old certainty that bad things can happen without warning and that she cannot stop them. The triggers seemed to prove to her how permanently changed she was, as if the world had narrowed into places and conversations where loss might break through again.\n\nBecause she interpreted these reactions as signs that something in her had been damaged, Samira began organizing her life around not setting them off. She pushed thoughts of the hospitalization out of her mind whenever they appeared, cut down on going out, and avoided hospitals, ambulances, and even routine physical examinations. In her work as a social worker, this became increasingly difficult. Cases involving bereavement or family illness left her bracing herself before meetings, scanning for words about death or loss, already tense at the possibility of being pulled back into that emotional state. The more she anticipated being overwhelmed, the more potent those cues became; even the idea of entering a medical building or catching a disinfectant smell in an elevator could make her feel as though she were approaching the original disaster again.\n\nHer efforts to keep the memories away gave her brief moments of relief, but over weeks and months they tightened the problem around her. When a memory surged up with no clear image, only raw grief, she would stay home the next day, cancel an appointment, or refuse a checkup, telling herself she needed to avoid anything that might stir it further. Yet the shrinking of her world seemed to confirm her bleakest conclusions. If she could not tolerate a doctor’s office or a client’s story of losing someone, then perhaps she really had changed for the worse. Avoiding medical cues also left the original experience feeling unfinished and unprocessed, so the next encounter with a needle, an IV pole, or antiseptic smell struck with the same force. Each episode of uncontrolled remembering deepened her sense of helplessness, and that helplessness made the next intrusion feel even more convincing.\n\nWhat frightened Samira most was not only the grief itself but what it said about her. She was ashamed of moments during her son’s illness when she had felt numb, wanted to step out of the room, or silently wished for the ordeal to stop; in her mind these responses meant she had acted against her values at the very time she should have been strongest. When memories intruded now, that shame came with them, and when she caught herself avoiding clients’ loss narratives or postponing her own medical care, it reinforced her fear that she was no longer the capable, compassionate woman she had been.\n\nShe finally sought help after recognizing how much of her life was being governed by this pattern. She had recently left a work conversation when a family member described fearing a loved one’s death, then sat in her car shaken by grief she could not place into pictures, only feeling. She realized she was no longer simply mourning; she was living as if the hospital could reopen around any corner. At 80, she says she wants some part of her life back. What she fears is that if she stops pushing the memories away, she will be swallowed by them; what she hopes is that the sight of a needle, the smell of antiseptic, or the mention of loss will no longer make her feel condemned to relive the same helplessness."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Samira Haddad is an 80-year-old widowed social worker who still thinks of herself as someone who should be able to stay steady in the presence of suffering. The event that fractured that sense of herself began years ago when her adult son became critically ill and was hospitalized. She remembers the fluorescent light on his skin, the steady drip from the IV, the sharp visibility of needles and tubing against the hospital sheets, and the antiseptic smell that seemed to cling to her clothes even after she went home. Day after day she sat by his bed while machines marked time she could not control. What stayed with her most was not a single picture so much as the bodily force of it: the wave of dread and grief that would overtake her while she watched people move around him and do things she could not stop. She had come to believe, in those long hospital days, that she was helpless in the face of catastrophe and that she had failed in ways that violated the kind of mother and person she believed herself to be.\n\nAfterward, the memories did not remain in the past. They forced their way into Samira’s mind without warning, often not as a clear scene but as the full emotional intensity of those days descending on her all at once. A discussion of someone losing a loved one at work could bring it on immediately; so could the antiseptic smell in a clinic hallway or the sight of medical equipment, even something as ordinary as a needle laid out for a blood draw. In those moments she was not simply reminded of what happened. She was flooded by overwhelming grief, and with it the old certainty that bad things can happen without warning and that she cannot stop them. The triggers seemed to prove to her how permanently changed she was, as if the world had narrowed into places and conversations where loss might break through again.\n\nBecause she interpreted these reactions as signs that something in her had been damaged, Samira began organizing her life around not setting them off. She pushed thoughts of the hospitalization out of her mind whenever they appeared, cut down on going out, and avoided hospitals, ambulances, and even routine physical examinations. In her work as a social worker, this became increasingly difficult. Cases involving bereavement or family illness left her bracing herself before meetings, scanning for words about death or loss, already tense at the possibility of being pulled back into that emotional state. The more she anticipated being overwhelmed, the more potent those cues became; even the idea of entering a medical building or catching a disinfectant smell in an elevator could make her feel as though she were approaching the original disaster again.\n\nHer efforts to keep the memories away gave her brief moments of relief, but over weeks and months they tightened the problem around her. When a memory surged up with no clear image, only raw grief, she would stay home the next day, cancel an appointment, or refuse a checkup, telling herself she needed to avoid anything that might stir it further. Yet the shrinking of her world seemed to confirm her bleakest conclusions. If she could not tolerate a doctor’s office or a client’s story of losing someone, then perhaps she really had changed for the worse. Avoiding medical cues also left the original experience feeling unfinished and unprocessed, so the next encounter with a needle, an IV pole, or antiseptic smell struck with the same force. Each episode of uncontrolled remembering deepened her sense of helplessness, and that helplessness made the next intrusion feel even more convincing.\n\nWhat frightened Samira most was not only the grief itself but what it said about her. She was ashamed of moments during her son’s illness when she had felt numb, wanted to step out of the room, or silently wished for the ordeal to stop; in her mind these responses meant she had acted against her values at the very time she should have been strongest. When memories intruded now, that shame came with them, and when she caught herself avoiding clients’ loss narratives or postponing her own medical care, it reinforced her fear that she was no longer the capable, compassionate woman she had been.\n\nShe finally sought help after recognizing how much of her life was being governed by this pattern. She had recently left a work conversation when a family member described fearing a loved one’s death, then sat in her car shaken by grief she could not place into pictures, only feeling. She realized she was no longer simply mourning; she was living as if the hospital could reopen around any corner. At 80, she says she wants some part of her life back. What she fears is that if she stops pushing the memories away, she will be swallowed by them; what she hopes is that the sight of a needle, the smell of antiseptic, or the mention of loss will no longer make her feel condemned to relive the same helplessness.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

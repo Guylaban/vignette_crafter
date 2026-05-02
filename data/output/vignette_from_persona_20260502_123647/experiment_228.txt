@@ -1,0 +1,597 @@
+PERSONA 228  |  2026-05-02 18:25:56
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             75
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Widowed
+  occupation      Cybersecurity Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            74
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Medical Procedures: Undergoing a medical examination or procedure
+    • Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Feels Present Not Past: The memory feels like it is happening right now rather than something that is over
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.9509
+  Triggers → Memory                                  0.8432
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.9744
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0619
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Helicopter): Helicopter or aircraft sounds
+    explanation: The trigger set is strongly combat/assault-themed (helicopters, being followed, people in uniform) and is hard to reconcile with the indexed trauma of a child's life-threatening illness. A clinician would question whether these triggers belong to a different trauma history.
+    item:        Threat / Triggers: Being Followed: Feeling followed or tracked
+    explanation: The threat items similarly suggest interpersonal attack or pursuit/hypervigilance in dangerous public settings (checking locks, needing back to wall) rather than a coherent threat representation linked to a child's medical crisis. Given the very strong Triggers → Threat edge, these threat items should plausibly arise from the listed triggers, but both sets point to a different trauma context than the indexed illness trauma.
+  [2] FAIL
+    item:        Triggers / Triggers: Being Followed: Feeling followed or tracked
+    explanation: The profile centers on a child's life-threatening illness, but 'being followed or tracked' suggests a stalking/pursuit trauma context that is hard to reconcile with the trauma type and the other selected medical-trauma items.
+    item:        Threat / Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: The threat items emphasize interpersonal attack/intrusion vigilance (door-lock checking, needing back to wall) rather than danger linked to medical crisis, loss, or recurrence of illness. In combination with the stalking-like trigger, this pulls the profile toward a persecution/assault formulation that is not clinically coherent with the stated trauma.
+  [3] FAIL
+    item:        Triggers / Triggers: Authority Figures: People in uniform
+    explanation: For trauma centred on a child's life-threatening illness, 'people in uniform' is a poor fit as a trigger unless the trauma involved military or police contexts; it does not cohere well with the otherwise medical/illness-based profile.
+    item:        Threat / Threat: Back to Wall: I feel unsafe unless my back is against a wall where I can see the room
+    explanation: 'Back to wall' implies a hypervigilant interpersonal/assault-style danger schema about monitoring the room, which is hard to reconcile with the illness/medical trauma profile and the other listed triggers and memory items that centre on medical procedures and intrusive reliving.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     23,856
+  output:     2,690
+  total:     26,546
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Ethan, a 75-year-old cybersecurity analyst, found himself wrestling with the haunting memories of a
+traumatic experience that had etched itself into the fabric of his life. As a widower, living alone
+in his modest home, he had spent countless nights tossing and turning, plagued by a relentless cycle
+of distress. His trauma stemmed from the life-threatening illness of his youngest son, who had
+suffered a severe medical condition during his early childhood. The memories of rushed hospital
+visits, sterile corridors, and the sharp scent of antiseptics flooded Ethan's mind whenever he
+encountered anything reminiscent of that time. A simple medical examination or procedure, even for
+himself, could trigger a wave of panic that left him breathless and trembling, his heart racing as
+if he were reliving those harrowing days.
+
+In the wake of his son’s illness, Ethan had developed a profound sensitivity to anything related to
+medical settings. The very thought of pregnancy or childbirth sent him spiraling into a pit of
+dread, as these reminders evoked the fragility of life and the fear of loss he had grappled with so
+many years ago. Whenever he encountered the faint smell of antiseptics, whether in a doctor’s office
+or even in the cleaning products at home, he was seized by a sense of impending doom, overwhelming
+negative emotions that left him feeling trapped in a cycle of fear and guilt. Ethan had come to
+believe that he could not escape these feelings, that they were a constant reminder of the pain he
+had experienced, as if his body was reliving that trauma each time a trigger arose.
+
+His memories played like a film on a continuous loop, vivid and relentless. Ethan often found
+himself momentarily lost in these recollections, unable to articulate the depth of his emotions or
+the sequence of events that had unfolded. The flashbacks felt so real that they transported him back
+in time, making him feel as if the stressful experience was happening all over again. This
+disorientation left him feeling vulnerable, as though he were trapped in a narrative that he could
+not escape. He would attempt to explain the events to friends or family when discussing his fears,
+but the words would often elude him, leaving him frustrated and ashamed, as he struggled to piece
+together the fragmented memories that haunted him.
+
+As the years passed, Ethan’s avoidance behaviors solidified. He meticulously planned his life to
+sidestep any situation that could potentially evoke those memories. Social gatherings where children
+were present became increasingly infrequent, and he often declined invitations to events, fearing
+that the laughter and joy of others would only amplify his sorrow. He retreated further into the
+safety of his home, where the familiar surroundings provided a false sense of control. However, this
+self-imposed isolation only deepened his feelings of guilt and shame, as he grappled with the belief
+that he was failing to honor his son’s memory by shutting himself away from the world. The more he
+avoided confronting the painful reminders, the stronger the memories and negative emotions grew,
+creating a self-reinforcing cycle that he felt powerless to escape.
+
+Recently, Ethan's physical reactions had intensified. He would experience racing thoughts and rapid
+heartbeats even in mundane situations, such as grocery shopping or visiting the doctor for a routine
+check-up. It was during one such visit, as he sat in the waiting room surrounded by the antiseptic
+smell that had become a trigger, that the weight of his suffering pressed down upon him. He realized
+that he could no longer bear the burden of these memories and emotions alone. The pain and fear had
+become too much to manage, compelling him to seek help for the first time. As he sat in the
+therapist's office, he felt a mixture of hope and trepidation. What frightened him most was the fear
+that confronting these memories would only deepen his anguish, yet a part of him yearned for the
+possibility of healing and reclaiming the joy he had lost.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not establish a causal link between triggers and the sense of threat, as it describes triggers but does not explicitly convey how they lead to feelings of threat.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not illustrate how memory influences triggers, failing to show that the memories themselves lead to specific triggers in the narrative.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not connect the sense of threat to the traumatic memory, as it discusses feelings of threat but does not clarify how these feelings are directly tied to the memories.
+
+  [2] FAIL
+Ethan, a 75-year-old cybersecurity analyst, found himself wrestling with the haunting memories of a
+traumatic experience that had etched itself into the fabric of his life. As a widower, living alone
+in his modest home, he had spent countless nights tossing and turning, plagued by a relentless cycle
+of distress. His trauma stemmed from the life-threatening illness of his youngest son, who had
+suffered a severe medical condition during his early childhood. The memories of rushed hospital
+visits, sterile corridors, and the sharp scent of antiseptics flooded Ethan's mind whenever he
+encountered anything reminiscent of that time. These memories triggered a sense of threat that was
+palpable, making him feel as if danger lingered just out of sight, echoing the chaos he had faced
+during his son’s illness. A simple medical examination or procedure, even for himself, could trigger
+a wave of panic that left him breathless and trembling, his heart racing as if he were reliving
+those harrowing days.
+
+In the wake of his son’s illness, Ethan had developed a profound sensitivity to anything related to
+medical settings. The very thought of pregnancy or childbirth sent him spiraling into a pit of
+dread, as these reminders evoked the fragility of life and the fear of loss he had grappled with so
+many years ago. Whenever he encountered the faint smell of antiseptics, whether in a doctor’s office
+or even in the cleaning products at home, he was seized by a sense of impending doom, overwhelming
+negative emotions that left him feeling trapped in a cycle of fear and guilt. Ethan had come to
+believe that he could not escape these feelings, that they were a constant reminder of the pain he
+had experienced, as if his body was reliving that trauma each time a trigger arose.
+
+His memories played like a film on a continuous loop, vivid and relentless. Ethan often found
+himself momentarily lost in these recollections, unable to articulate the depth of his emotions or
+the sequence of events that had unfolded. As the memories surfaced, ordinary objects and situations
+began to feel dangerous, turning even the simplest tasks into reminders of the trauma he had
+endured. The flashbacks felt so real that they transported him back in time, making him feel as if
+the stressful experience was happening all over again. This disorientation left him feeling
+vulnerable, as though he were trapped in a narrative that he could not escape. He would attempt to
+explain the events to friends or family when discussing his fears, but the words would often elude
+him, leaving him frustrated and ashamed, as he struggled to piece together the fragmented memories
+that haunted him. This persistent sense of threat kept the traumatic memory at the forefront of his
+mind, compelling him to relive the pain as if he needed to stay vigilant against it happening again.
+
+As the years passed, Ethan’s avoidance behaviors solidified. He meticulously planned his life to
+sidestep any situation that could potentially evoke those memories. Social gatherings where children
+were present became increasingly infrequent, and he often declined invitations to events, fearing
+that the laughter and joy of others would only amplify his sorrow. He retreated further into the
+safety of his home, where the familiar surroundings provided a false sense of control. However, this
+self-imposed isolation only deepened his feelings of guilt and shame, as he grappled with the belief
+that he was failing to honor his son’s memory by shutting himself away from the world. The more he
+avoided confronting the painful reminders, the stronger the memories and negative emotions grew,
+creating a self-reinforcing cycle that he felt powerless to escape.
+
+Recently, Ethan's physical reactions had intensified. He would experience racing thoughts and rapid
+heartbeats even in mundane situations, such as grocery shopping or visiting the doctor for a routine
+check-up. It was during one such visit, as he sat in the waiting room surrounded by the antiseptic
+smell that had become a trigger, that the weight of his suffering pressed down upon him. He realized
+that he could no longer bear the burden of these memories and emotions alone. The pain and fear had
+become too much to manage, compelling him to seek help for the first time. As he sat in the
+therapist's office, he felt a mixture of hope and trepidation. What frightened him most was the fear
+that confronting these memories would only deepen his anguish, yet a part of him yearned for the
+possibility of healing and reclaiming the joy he had lost.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not clearly convey that triggers lead to a sense of threat, as the relationship is not explicitly stated in the same paragraph.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not articulate that memories can serve as triggers for Ethan, missing the causal link between memory and triggers.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette fails to establish that a sense of threat influences or leads to the traumatic memories, lacking a clear connection between threat and memory.
+
+  [3] FAIL
+Ethan, a 75-year-old cybersecurity analyst, found himself wrestling with the haunting memories of a
+traumatic experience that had etched itself into the fabric of his life. As a widower, living alone
+in his modest home, he had spent countless nights tossing and turning, plagued by a relentless cycle
+of distress. His trauma stemmed from the life-threatening illness of his youngest son, who had
+suffered a severe medical condition during his early childhood. The memories of rushed hospital
+visits, sterile corridors, and the sharp scent of antiseptics flooded Ethan's mind whenever he
+encountered anything reminiscent of that time. These cues led to a feeling of danger that felt as
+real as the original event, leaving him breathless and trembling as if he were reliving those
+harrowing days. These memories triggered a sense of threat that was palpable, making him feel as if
+danger lingered just out of sight, echoing the chaos he had faced during his son’s illness. A simple
+medical examination or procedure, even for himself, could trigger a wave of panic that left him
+breathless and trembling, his heart racing as if he were reliving those harrowing days.
+
+In the wake of his son’s illness, Ethan had developed a profound sensitivity to anything related to
+medical settings. The very thought of pregnancy or childbirth sent him spiraling into a pit of
+dread, as these reminders evoked the fragility of life and the fear of loss he had grappled with so
+many years ago. Whenever he encountered the faint smell of antiseptics, whether in a doctor’s office
+or even in the cleaning products at home, he was seized by a sense of impending doom, overwhelming
+negative emotions that left him feeling trapped in a cycle of fear and guilt. Ethan had come to
+believe that he could not escape these feelings, that they were a constant reminder of the pain he
+had experienced, as if his body was reliving that trauma each time a trigger arose.
+
+His memories played like a film on a continuous loop, vivid and relentless. Ethan often found
+himself momentarily lost in these recollections, unable to articulate the depth of his emotions or
+the sequence of events that had unfolded. Because the memory came back so vividly, he began to see
+threads of it everywhere: in the faces of children, in the sounds of laughter, in the sterile
+ambiance of medical offices, all of which felt like warnings he couldn't afford to ignore. As the
+memories surfaced, ordinary objects and situations began to feel dangerous, turning even the
+simplest tasks into reminders of the trauma he had endured. The flashbacks felt so real that they
+transported him back in time, making him feel as if the stressful experience was happening all over
+again. This disorientation left him feeling vulnerable, as though he were trapped in a narrative
+that he could not escape. The persistent sense of threat kept the traumatic memory at the forefront
+of his mind, compelling him to relive the pain as if he needed to stay vigilant against it happening
+again. He would attempt to explain the events to friends or family when discussing his fears, but
+the words would often elude him, leaving him frustrated and ashamed, as he struggled to piece
+together the fragmented memories that haunted him. This persistent sense of threat kept the
+traumatic memory at the forefront of his mind, compelling him to relive the pain as if he needed to
+stay vigilant against it happening again.
+
+As the years passed, Ethan’s avoidance behaviors solidified. He meticulously planned his life to
+sidestep any situation that could potentially evoke those memories. Social gatherings where children
+were present became increasingly infrequent, and he often declined invitations to events, fearing
+that the laughter and joy of others would only amplify his sorrow. He retreated further into the
+safety of his home, where the familiar surroundings provided a false sense of control. However, this
+self-imposed isolation only deepened his feelings of guilt and shame, as he grappled with the belief
+that he was failing to honor his son’s memory by shutting himself away from the world. The more he
+avoided confronting the painful reminders, the stronger the memories and negative emotions grew,
+creating a self-reinforcing cycle that he felt powerless to escape. This cycle tightened further as
+each time he felt that sense of threat, it intensified the memories, forcing him to relive the
+traumatic experience over and over again.
+
+Recently, Ethan's physical reactions had intensified. He would experience racing thoughts and rapid
+heartbeats even in mundane situations, such as grocery shopping or visiting the doctor for a routine
+check-up. It was during one such visit, as he sat in the waiting room surrounded by the antiseptic
+smell that had become a trigger, that the weight of his suffering pressed down upon him. He realized
+that he could no longer bear the burden of these memories and emotions alone. The pain and fear had
+become too much to manage, compelling him to seek help for the first time. As he sat in the
+therapist's office, he felt a mixture of hope and trepidation. What frightened him most was the fear
+that confronting these memories would only deepen his anguish, yet a part of him yearned for the
+possibility of healing and reclaiming the joy he had lost.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not clearly convey the influence of triggers on the sense of threat experienced by Ethan.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not clearly illustrate how memories lead to triggers for Ethan.
+
+  [4] FAIL
+Ethan, a 75-year-old cybersecurity analyst, found himself wrestling with the haunting memories of a
+traumatic experience that had etched itself into the fabric of his life. As a widower, living alone
+in his modest home, he had spent countless nights tossing and turning, plagued by a relentless cycle
+of distress. His trauma stemmed from the life-threatening illness of his youngest son, who had
+suffered a severe medical condition during his early childhood. The memories of rushed hospital
+visits, sterile corridors, and the sharp scent of antiseptics flooded Ethan's mind whenever he
+encountered anything reminiscent of that time. These vivid recollections would suddenly transform
+the most benign situations into sources of fear, as if the past was echoing through time, making him
+feel as though he was on the precipice of danger once again. These cues led to a feeling of danger
+that felt as real as the original event, leaving him breathless and trembling as if he were reliving
+those harrowing days. These memories triggered a sense of threat that was palpable, making him feel
+as if danger lingered just out of sight, echoing the chaos he had faced during his son’s illness. A
+simple medical examination or procedure, even for himself, could trigger a wave of panic that left
+him breathless and trembling, his heart racing as if he were reliving those harrowing days.
+
+In the wake of his son’s illness, Ethan had developed a profound sensitivity to anything related to
+medical settings. The very thought of pregnancy or childbirth sent him spiraling into a pit of
+dread, as these reminders evoked the fragility of life and the fear of loss he had grappled with so
+many years ago. Whenever he encountered the faint smell of antiseptics, whether in a doctor’s office
+or even in the cleaning products at home, he was seized by a sense of impending doom, overwhelming
+negative emotions that left him feeling trapped in a cycle of fear and guilt. Ethan had come to
+believe that he could not escape these feelings, that they were a constant reminder of the pain he
+had experienced, as if his body was reliving that trauma each time a trigger arose.
+
+His memories played like a film on a continuous loop, vivid and relentless. Ethan often found
+himself momentarily lost in these recollections, unable to articulate the depth of his emotions or
+the sequence of events that had unfolded. Because the memory came back so vividly, he began to see
+threads of it everywhere: in the faces of children, in the sounds of laughter, in the sterile
+ambiance of medical offices, all of which felt like warnings he couldn't afford to ignore. As the
+memories surfaced, ordinary objects and situations began to feel dangerous, turning even the
+simplest tasks into reminders of the trauma he had endured. The flashbacks felt so real that they
+transported him back in time, making him feel as if the stressful experience was happening all over
+again. This disorientation left him feeling vulnerable, as though he were trapped in a narrative
+that he could not escape. The persistent sense of threat kept the traumatic memory at the forefront
+of his mind, compelling him to relive the pain as if he needed to stay vigilant against it happening
+again. Each time a memory resurfaced, it would trigger a cascade of anxious thoughts, leaving him
+hyper-aware of his surroundings and interpreting even minor events as potential threats, heightening
+his distress. He would attempt to explain the events to friends or family when discussing his fears,
+but the words would often elude him, leaving him frustrated and ashamed, as he struggled to piece
+together the fragmented memories that haunted him. This persistent sense of threat kept the
+traumatic memory at the forefront of his mind, compelling him to relive the pain as if he needed to
+stay vigilant against it happening again.
+
+As the years passed, Ethan’s avoidance behaviors solidified. He meticulously planned his life to
+sidestep any situation that could potentially evoke those memories. Social gatherings where children
+were present became increasingly infrequent, and he often declined invitations to events, fearing
+that the laughter and joy of others would only amplify his sorrow. He retreated further into the
+safety of his home, where the familiar surroundings provided a false sense of control. However, this
+self-imposed isolation only deepened his feelings of guilt and shame, as he grappled with the belief
+that he was failing to honor his son’s memory by shutting himself away from the world. The more he
+avoided confronting the painful reminders, the stronger the memories and negative emotions grew,
+creating a self-reinforcing cycle that he felt powerless to escape. This cycle tightened further as
+each time he felt that sense of threat, it intensified the memories, forcing him to relive the
+traumatic experience over and over again.
+
+Recently, Ethan's physical reactions had intensified. He would experience racing thoughts and rapid
+heartbeats even in mundane situations, such as grocery shopping or visiting the doctor for a routine
+check-up. It was during one such visit, as he sat in the waiting room surrounded by the antiseptic
+smell that had become a trigger, that the weight of his suffering pressed down upon him. He realized
+that he could no longer bear the burden of these memories and emotions alone. The pain and fear had
+become too much to manage, compelling him to seek help for the first time. As he sat in the
+therapist's office, he felt a mixture of hope and trepidation. What frightened him most was the fear
+that confronting these memories would only deepen his anguish, yet a part of him yearned for the
+possibility of healing and reclaiming the joy he had lost.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not establish a causal relationship where triggers lead to a sense of threat.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not establish a causal relationship where memory leads to triggers.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not establish a causal relationship where a sense of threat leads to the memory.
+
+  [5] FAIL
+Ethan, a 75-year-old cybersecurity analyst, found himself wrestling with the haunting memories of a
+traumatic experience that had etched itself into the fabric of his life. As a widower, living alone
+in his modest home, he had spent countless nights tossing and turning, plagued by a relentless cycle
+of distress. His trauma stemmed from the life-threatening illness of his youngest son, who had
+suffered a severe medical condition during his early childhood. The memories of rushed hospital
+visits, sterile corridors, and the sharp scent of antiseptics flooded Ethan's mind whenever he
+encountered anything reminiscent of that time. These vivid recollections would suddenly transform
+the most benign situations into sources of fear, as if the past was echoing through time, making him
+feel as though he was on the precipice of danger once again. Each time a memory emerged, it would
+trigger an immediate sense of danger, leaving him breathless and trembling, as if the chaos he had
+experienced during his son’s illness was about to resurface. These cues led to a feeling of danger
+that felt as real as the original event, leaving him breathless and trembling as if he were reliving
+those harrowing days. These memories triggered a sense of threat that was palpable, making him feel
+as if danger lingered just out of sight, echoing the chaos he had faced during his son’s illness. A
+simple medical examination or procedure, even for himself, could trigger a wave of panic that left
+him breathless and trembling, his heart racing as if he were reliving those harrowing days.
+
+In the wake of his son’s illness, Ethan had developed a profound sensitivity to anything related to
+medical settings. The very thought of pregnancy or childbirth sent him spiraling into a pit of
+dread, as these reminders evoked the fragility of life and the fear of loss he had grappled with so
+many years ago. Whenever he encountered the faint smell of antiseptics, whether in a doctor’s office
+or even in the cleaning products at home, he was seized by a sense of impending doom, overwhelming
+negative emotions that left him feeling trapped in a cycle of fear and guilt. Ethan had come to
+believe that he could not escape these feelings, that they were a constant reminder of the pain he
+had experienced, as if his body was reliving that trauma each time a trigger arose.
+
+His memories played like a film on a continuous loop, vivid and relentless. Ethan often found
+himself momentarily lost in these recollections, unable to articulate the depth of his emotions or
+the sequence of events that had unfolded. Because the memory came back so vividly, he began to see
+threads of it everywhere: in the faces of children, in the sounds of laughter, in the sterile
+ambiance of medical offices, all of which felt like warnings he couldn't afford to ignore. These
+intrusive memories heightened his sensitivity to everyday situations, turning ordinary reminders
+into potent triggers that sent him spiraling into a pit of dread. As the memories surfaced, ordinary
+objects and situations began to feel dangerous, turning even the simplest tasks into reminders of
+the trauma he had endured. The flashbacks felt so real that they transported him back in time,
+making him feel as if the stressful experience was happening all over again. This disorientation
+left him feeling vulnerable, as though he were trapped in a narrative that he could not escape. The
+persistent sense of threat kept the traumatic memory at the forefront of his mind, compelling him to
+relive the pain as if he needed to stay vigilant against it happening again. On nights when the
+threat felt highest, those memories surged with clarity, as if summoned by the very anxiety that
+gripped him, forcing him to confront the vivid pain of his past once more. Each time a memory
+resurfaced, it would trigger a cascade of anxious thoughts, leaving him hyper-aware of his
+surroundings and interpreting even minor events as potential threats, heightening his distress. He
+would attempt to explain the events to friends or family when discussing his fears, but the words
+would often elude him, leaving him frustrated and ashamed, as he struggled to piece together the
+fragmented memories that haunted him. This persistent sense of threat kept the traumatic memory at
+the forefront of his mind, compelling him to relive the pain as if he needed to stay vigilant
+against it happening again.
+
+As the years passed, Ethan’s avoidance behaviors solidified. He meticulously planned his life to
+sidestep any situation that could potentially evoke those memories. Social gatherings where children
+were present became increasingly infrequent, and he often declined invitations to events, fearing
+that the laughter and joy of others would only amplify his sorrow. He retreated further into the
+safety of his home, where the familiar surroundings provided a false sense of control. However, this
+self-imposed isolation only deepened his feelings of guilt and shame, as he grappled with the belief
+that he was failing to honor his son’s memory by shutting himself away from the world. The more he
+avoided confronting the painful reminders, the stronger the memories and negative emotions grew,
+creating a self-reinforcing cycle that he felt powerless to escape. This cycle tightened further as
+each time he felt that sense of threat, it intensified the memories, forcing him to relive the
+traumatic experience over and over again.
+
+Recently, Ethan's physical reactions had intensified. He would experience racing thoughts and rapid
+heartbeats even in mundane situations, such as grocery shopping or visiting the doctor for a routine
+check-up. It was during one such visit, as he sat in the waiting room surrounded by the antiseptic
+smell that had become a trigger, that the weight of his suffering pressed down upon him. He realized
+that he could no longer bear the burden of these memories and emotions alone. The pain and fear had
+become too much to manage, compelling him to seek help for the first time. As he sat in the
+therapist's office, he felt a mixture of hope and trepidation. What frightened him most was the fear
+that confronting these memories would only deepen his anguish, yet a part of him yearned for the
+possibility of healing and reclaiming the joy he had lost.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not explicitly convey how triggers lead to a sense of threat, missing the causal connection between these components.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The relationship where memory leads to triggers is not stated, lacking a clear causal connection in the text.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette lacks a direct explanation of how a sense of threat influences or leads to memory recall, missing this causal link.
+
+  [6] FAIL
+Ethan, a 75-year-old cybersecurity analyst, found himself wrestling with the haunting memories of a
+traumatic experience that had etched itself into the fabric of his life. As a widower, living alone
+in his modest home, he had spent countless nights tossing and turning, plagued by a relentless cycle
+of distress. His trauma stemmed from the life-threatening illness of his youngest son, who had
+suffered a severe medical condition during his early childhood. The memories of rushed hospital
+visits, sterile corridors, and the sharp scent of antiseptics flooded Ethan's mind whenever he
+encountered anything reminiscent of that time. These vivid recollections would suddenly transform
+the most benign situations into sources of fear, as if the past was echoing through time, making him
+feel as though he was on the precipice of danger once again. Each time a memory emerged, it would
+trigger an immediate sense of danger, leaving him breathless and trembling, as if the chaos he had
+experienced during his son’s illness was about to resurface. These cues led to a feeling of danger
+that felt as real as the original event, leaving him breathless and trembling as if he were reliving
+those harrowing days. These memories triggered a sense of threat that was palpable, making him feel
+as if danger lingered just out of sight, echoing the chaos he had faced during his son’s illness. A
+simple medical examination or procedure, even for himself, could trigger a wave of panic that left
+him breathless and trembling, his heart racing as if he were reliving those harrowing days. In the
+wake of his son’s illness, Ethan had developed a profound sensitivity to anything related to medical
+settings. The very thought of pregnancy or childbirth sent him spiraling into a pit of dread, as
+these reminders evoked the fragility of life and the fear of loss he had grappled with so many years
+ago. Whenever he encountered the faint smell of antiseptics, whether in a doctor’s office or even in
+the cleaning products at home, he was seized by a sense of impending doom, overwhelming negative
+emotions that left him feeling trapped in a cycle of fear and guilt. Ethan had come to believe that
+he could not escape these feelings, that they were a constant reminder of the pain he had
+experienced, as if his body was reliving that trauma each time a trigger arose. His memories played
+like a film on a continuous loop, vivid and relentless. Ethan often found himself momentarily lost
+in these recollections, unable to articulate the depth of his emotions or the sequence of events
+that had unfolded. Because the memory came back so vividly, he began to see threads of it
+everywhere: in the faces of children, in the sounds of laughter, in the sterile ambiance of medical
+offices, all of which felt like warnings he couldn't afford to ignore. These intrusive memories
+heightened his sensitivity to everyday situations, turning ordinary reminders into potent triggers
+that sent him spiraling into a pit of dread. As the memories surfaced, ordinary objects and
+situations began to feel dangerous, turning even the simplest tasks into reminders of the trauma he
+had endured. The flashbacks felt so real that they transported him back in time, making him feel as
+if the stressful experience was happening all over again. This disorientation left him feeling
+vulnerable, as though he were trapped in a narrative that he could not escape. The persistent sense
+of threat kept the traumatic memory at the forefront of his mind, compelling him to relive the pain
+as if he needed to stay vigilant against it happening again. On nights when the threat felt highest,
+those memories surged with clarity, as if summoned by the very anxiety that gripped him, forcing him
+to confront the vivid pain of his past once more. Each time a memory resurfaced, it would trigger a
+cascade of anxious thoughts, leaving him hyper-aware of his surroundings and interpreting even minor
+events as potential threats, heightening his distress. He would attempt to explain the events to
+friends or family when discussing his fears, but the words would often elude him, leaving him
+frustrated and ashamed, as he struggled to piece together the fragmented memories that haunted him.
+This persistent sense of threat kept the traumatic memory at the forefront of his mind, compelling
+him to relive the pain as if he needed to stay vigilant against it happening again. "After the
+memory had surfaced, even the most ordinary things — the laughter of children or the sight of a
+medical building — felt like warnings he couldn't afford to ignore." As the years passed, Ethan’s
+avoidance behaviors solidified. "The persistent sense of danger kept the traumatic memory at the
+forefront of his mind, compelling him to relive the pain as if he needed to stay vigilant against it
+happening again." He meticulously planned his life to sidestep any situation that could potentially
+evoke those memories. Social gatherings where children were present became increasingly infrequent,
+and he often declined invitations to events, fearing that the laughter and joy of others would only
+amplify his sorrow. He retreated further into the safety of his home, where the familiar
+surroundings provided a false sense of control. However, this self-imposed isolation only deepened
+his feelings of guilt and shame, as he grappled with the belief that he was failing to honor his
+son’s memory by shutting himself away from the world. The more he avoided confronting the painful
+reminders, the stronger the memories and negative emotions grew, creating a self-reinforcing cycle
+that he felt powerless to escape. This cycle tightened further as each time he felt that sense of
+threat, it intensified the memories, forcing him to relive the traumatic experience over and over
+again. Recently, Ethan's physical reactions had intensified. He would experience racing thoughts and
+rapid heartbeats even in mundane situations, such as grocery shopping or visiting the doctor for a
+routine check-up. It was during one such visit, as he sat in the waiting room surrounded by the
+antiseptic smell that had become a trigger, that the weight of his suffering pressed down upon him.
+He realized that he could no longer bear the burden of these memories and emotions alone. The pain
+and fear had become too much to manage, compelling him to seek help for the first time. As he sat in
+the therapist's office, he felt a mixture of hope and trepidation. What frightened him most was the
+fear that confronting these memories would only deepen his anguish, yet a part of him yearned for
+the possibility of healing and reclaiming the joy he had lost. "The intrusive memories heightened
+his sensitivity, leading him to perceive even benign situations as fraught with danger, as if they
+were harbingers of the trauma he had endured."
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not clearly establish that triggers lead to a sense of threat, as it does not connect the presence of triggers with the resulting feeling of danger.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not explicitly convey that memories lead to triggers, as it does not illustrate how the memories themselves cause triggering stimuli.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette fails to demonstrate that a sense of threat influences memory, as it does not show how the feeling of danger affects the traumatic memories.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Ethan, a 75-year-old cybersecurity analyst, found himself wrestling with the haunting memories of a
+traumatic experience that had etched itself into the fabric of his life. As a widower, living alone
+in his modest home, he had spent countless nights tossing and turning, plagued by a relentless cycle
+of distress. His trauma stemmed from the life-threatening illness of his youngest son, who had
+suffered a severe medical condition during his early childhood. The memories of rushed hospital
+visits, sterile corridors, and the sharp scent of antiseptics flooded Ethan's mind whenever he
+encountered anything reminiscent of that time. These vivid recollections would suddenly transform
+the most benign situations into sources of fear, as if the past was echoing through time, making him
+feel as though he was on the precipice of danger once again. Each time a memory emerged, it would
+trigger an immediate sense of danger, leaving him breathless and trembling, as if the chaos he had
+experienced during his son’s illness was about to resurface. These cues led to a feeling of danger
+that felt as real as the original event, leaving him breathless and trembling as if he were reliving
+those harrowing days. These memories triggered a sense of threat that was palpable, making him feel
+as if danger lingered just out of sight, echoing the chaos he had faced during his son’s illness. A
+simple medical examination or procedure, even for himself, could trigger a wave of panic that left
+him breathless and trembling, his heart racing as if he were reliving those harrowing days. In the
+wake of his son’s illness, Ethan had developed a profound sensitivity to anything related to medical
+settings. The very thought of pregnancy or childbirth sent him spiraling into a pit of dread, as
+these reminders evoked the fragility of life and the fear of loss he had grappled with so many years
+ago. Whenever he encountered the faint smell of antiseptics, whether in a doctor’s office or even in
+the cleaning products at home, he was seized by a sense of impending doom, overwhelming negative
+emotions that left him feeling trapped in a cycle of fear and guilt. Ethan had come to believe that
+he could not escape these feelings, that they were a constant reminder of the pain he had
+experienced, as if his body was reliving that trauma each time a trigger arose. His memories played
+like a film on a continuous loop, vivid and relentless. Ethan often found himself momentarily lost
+in these recollections, unable to articulate the depth of his emotions or the sequence of events
+that had unfolded. Because the memory came back so vividly, he began to see threads of it
+everywhere: in the faces of children, in the sounds of laughter, in the sterile ambiance of medical
+offices, all of which felt like warnings he couldn't afford to ignore. These intrusive memories
+heightened his sensitivity to everyday situations, turning ordinary reminders into potent triggers
+that sent him spiraling into a pit of dread. As the memories surfaced, ordinary objects and
+situations began to feel dangerous, turning even the simplest tasks into reminders of the trauma he
+had endured. The flashbacks felt so real that they transported him back in time, making him feel as
+if the stressful experience was happening all over again. This disorientation left him feeling
+vulnerable, as though he were trapped in a narrative that he could not escape. The persistent sense
+of threat kept the traumatic memory at the forefront of his mind, compelling him to relive the pain
+as if he needed to stay vigilant against it happening again. On nights when the threat felt highest,
+those memories surged with clarity, as if summoned by the very anxiety that gripped him, forcing him
+to confront the vivid pain of his past once more. Each time a memory resurfaced, it would trigger a
+cascade of anxious thoughts, leaving him hyper-aware of his surroundings and interpreting even minor
+events as potential threats, heightening his distress. He would attempt to explain the events to
+friends or family when discussing his fears, but the words would often elude him, leaving him
+frustrated and ashamed, as he struggled to piece together the fragmented memories that haunted him.
+This persistent sense of threat kept the traumatic memory at the forefront of his mind, compelling
+him to relive the pain as if he needed to stay vigilant against it happening again. "After the
+memory had surfaced, even the most ordinary things — the laughter of children or the sight of a
+medical building — felt like warnings he couldn't afford to ignore." As the years passed, Ethan’s
+avoidance behaviors solidified. "The persistent sense of danger kept the traumatic memory at the
+forefront of his mind, compelling him to relive the pain as if he needed to stay vigilant against it
+happening again." He meticulously planned his life to sidestep any situation that could potentially
+evoke those memories. Social gatherings where children were present became increasingly infrequent,
+and he often declined invitations to events, fearing that the laughter and joy of others would only
+amplify his sorrow. He retreated further into the safety of his home, where the familiar
+surroundings provided a false sense of control. However, this self-imposed isolation only deepened
+his feelings of guilt and shame, as he grappled with the belief that he was failing to honor his
+son’s memory by shutting himself away from the world. The more he avoided confronting the painful
+reminders, the stronger the memories and negative emotions grew, creating a self-reinforcing cycle
+that he felt powerless to escape. This cycle tightened further as each time he felt that sense of
+threat, it intensified the memories, forcing him to relive the traumatic experience over and over
+again. Recently, Ethan's physical reactions had intensified. He would experience racing thoughts and
+rapid heartbeats even in mundane situations, such as grocery shopping or visiting the doctor for a
+routine check-up. It was during one such visit, as he sat in the waiting room surrounded by the
+antiseptic smell that had become a trigger, that the weight of his suffering pressed down upon him.
+He realized that he could no longer bear the burden of these memories and emotions alone. The pain
+and fear had become too much to manage, compelling him to seek help for the first time. As he sat in
+the therapist's office, he felt a mixture of hope and trepidation. What frightened him most was the
+fear that confronting these memories would only deepen his anguish, yet a part of him yearned for
+the possibility of healing and reclaiming the joy he had lost. "The intrusive memories heightened
+his sensitivity, leading him to perceive even benign situations as fraught with danger, as if they
+were harbingers of the trauma he had endured."

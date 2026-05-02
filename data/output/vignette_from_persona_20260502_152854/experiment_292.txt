@@ -1,0 +1,424 @@
+PERSONA 292  |  2026-05-02 19:00:56
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             25
+  gender          Female
+  ethnicity       South Asian
+  relationship_status Single
+  occupation      Counselor
+  trauma_type     Police violence
+  pcl5            48
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Public Transport: Bus riding
+    • Olfactory (Earth/Outdoor): Soil or outdoor smells
+    • Authority Presence: Police
+  Maladaptive Strategies:
+    • Avoid Social Contacts: Seeing people that I socialised with before the event
+    • Face Hiding: cover face with hands
+    • Mirror Checking: keep checking mirrors
+  Threat:
+    • Body Reacts Before Mind: My body reacts to danger before I have even had time to think
+    • Threat in Faces: I study people's faces and body language to detect if they are a threat
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+  Memory:
+    • Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+    • Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    • Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+  Negative Appraisals:
+    • Lost Community: I have lost my connection to my community and culture
+    • Contamination: I feel dirty or contaminated because of what happened
+    • Distrust Others: People are not what they seem
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.7078
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.8067
+  Triggers → Negative Appraisals                     0.4179
+  Negative Appraisals → Maladaptive Strategies       0.2980
+  Negative Appraisals → Threat                       0.8909
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.7741
+  Memory → Maladaptive Strategies                    0.3244
+  Memory → Threat                                    0.4475
+  Memory → Negative Appraisals                       0.9132
+  Memory → Triggers                                  0.7309
+  Threat → Maladaptive Strategies                    0.8203
+  Threat → Memory                                    0.4157
+  Threat → Negative Appraisals                       0.1749
+  Threat → Triggers                                  0.6290
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.3364
+  Maladaptive Strategies → Triggers                  0.0297
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Visual (Water/Flooding): Water, flooding, or large bodies of water
+    explanation: For police violence, water/flooding and soil/outdoor smells are hard to reconcile as primary trauma-linked triggers when the rest of the profile contains no content suggesting a water, outdoor, or environmental trauma context. Bus riding could fit policing/public surveillance, but these other triggers point toward a different trauma setting.
+    item:        Negative Appraisals / Triggers: Olfactory (Earth/Outdoor): Soil or outdoor smells
+    explanation: The appraisal of lost connection to community/culture is possible after police violence, but in this profile it is not supported by the selected triggers or memories, which center on acute sensory reliving and bodily threat rather than social exclusion, community rupture, or cultural shame. It feels disconnected from the rest of the formulation.
+    item:        Memory / Negative Appraisals: Lost Community: I have lost my connection to my community and culture
+    explanation: Within the Memory node, emotionless recall can coexist with reliving, but combining complete numb detachment with full multisensory reliving and bodily reenactment as parallel core memory experiences is somewhat tensioned. More importantly, the reliving items imply a very specific embodied trauma scene, yet the trigger set does not reflect cues plausibly tied to that scene.
+    item:        Maladaptive Strategies / Memory: Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    explanation: Mirror checking is difficult to explain from the rest of the profile. The threat items concern rapid bodily danger detection, reading faces, and sleep vigilance; the memories concern reliving; and the appraisals concern distrust/contamination/community loss. Mirror checking suggests appearance/body checking or checking for signs on oneself, but no associated appraisal or memory content supports it. It does not cohere well with the police violence formulation here.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     15,567
+  output:    30,195
+  total:     45,762
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  4 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Anjali, a 25-year-old South Asian woman, sought therapy after months of struggling with pervasive
+distress, her PCL-5 score of 48 underscoring the significant impact of a traumatic incident of
+police violence. Nearly a year ago, she had been caught in the chaos near a protest, pulled off a
+public bus, and forcibly restrained on the asphalt. The acrid smell of soil and urban decay had
+filled her nostrils as she was held down, the faces of uniformed officers looming above her. This
+terrifying experience etched specific sensory details into her mind, making public transport, the
+scent of outdoor soil, and the very presence of police potent triggers for her.
+
+Now, whenever Anjali encounters a bus on her daily commute or catches a whiff of outdoor soil from
+her apartment window, these triggers immediately activate vivid memories of the event. She often
+experiences full sensory reliving, where the memory comes back so completely across all her senses
+that she feels her body is in the same position as when the frightening event occurred, pressing
+against the pavement, the sounds and smells overwhelming her. This visceral re-experiencing doesn't
+just bring back the past; it immediately sets her body reacting before her mind has even had time to
+think, a surge of adrenaline signaling danger. The constant vigilance that follows, particularly her
+difficulty falling asleep because she feels she needs to stay alert, means her body is always primed
+for threat. This persistent state of threat, in turn, makes her more attuned to potential triggers
+in her environment, noticing every distant siren or sudden movement.
+
+The memories themselves, whether the full sensory reliving or the unsettling emotionless recall
+where she feels completely numb as if it happened to a stranger, have profoundly shaped her
+perception of the world. She has come to believe that people are not what they seem, fostering a
+deep distrust of others. This negative appraisal, that people are untrustworthy, fuels her constant
+scanning of faces and body language to detect if someone is a threat, a behavior that intensifies
+her overall sense of being endangered. Moreover, the memory of the incident itself, especially the
+feeling of being violated and helpless, leaves her feeling dirty or contaminated, an appraisal that
+makes her recoil from certain outdoor smells which now feel menacing. When a trigger like the sight
+of a police car appears, it often reinforces her belief that people are not what they seem,
+solidifying her distrust.
+
+Her maladaptive strategies, initially an attempt to cope, have only tightened the grip of her
+distress. Her body’s automatic reaction to danger, coupled with her belief that people are not what
+they seem, compels her to constantly check mirrors, whether in her car or in public spaces,
+searching for threats. When a trigger like the distant sound of a bus approaches, she might
+instinctively cover her face with her hands, a desperate attempt to shield herself from the
+perceived danger. The powerful memories and the immediate threat response they elicit have led her
+to avoid public transport entirely, limiting her world and contributing to her feeling that she has
+lost her connection to her community and culture, as she can no longer easily visit old friends or
+cultural centers. This withdrawal, in turn, amplifies her negative appraisal of having lost her
+community, creating a self-reinforcing cycle. Her constant mirror checking, while meant to keep her
+safe, paradoxically keeps her hyper-aware of her surroundings, inadvertently making her more
+sensitive to potential triggers.
+
+The pervasive sense of threat she carries, evidenced by her sleep vigilance, also ensures that when
+memories do surface, they are often accompanied by a heightened sense of danger, making them even
+more disturbing. Her work as a counselor, which once brought her deep satisfaction, has become
+increasingly challenging. The need to maintain a calm and reassuring presence for her clients is
+exhausting when her internal world is so fraught with vigilance and distrust. She finds herself
+struggling to connect with colleagues, her social avoidance extending to her professional life, and
+the constant threat monitoring makes it difficult to focus. Anjali finally sought help, exhausted by
+the relentless cycle, hoping to reclaim a sense of safety and connection, and most afraid that she
+might never escape the feeling of being perpetually contaminated and alone.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not convey that negative appraisals influence or lead to the formation or increased salience of triggers.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not convey that the trauma memory itself influences or leads to the formation or increased salience of triggers.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette does not convey that the sense of threat influences or leads to the formation or reinforcement of negative appraisals.
+
+  [2] FAIL
+Anjali, a 25-year-old South Asian woman, sought therapy after months of struggling with pervasive
+distress, her PCL-5 score of 48 underscoring the significant impact of a traumatic incident of
+police violence. Nearly a year ago, she had been caught in the chaos near a protest, pulled off a
+public bus, and forcibly restrained on the asphalt. The acrid smell of soil and urban decay had
+filled her nostrils as she was held down, the faces of uniformed officers looming above her. This
+terrifying experience etched specific sensory details into her mind, making public transport, the
+scent of outdoor soil, and the very presence of police potent triggers for her.
+
+Now, whenever Anjali encounters a bus on her daily commute or catches a whiff of outdoor soil from
+her apartment window, these triggers immediately activate vivid memories of the event. She often
+experiences full sensory reliving, where the memory comes back so completely across all her senses
+that she feels her body is in the same position as when the frightening event occurred, pressing
+against the pavement, the sounds and smells overwhelming her. Because these memories came back so
+vividly and unexpectedly, she began to see threads of them everywhere, in strangers' faces and in
+the quality of the light at certain times of day, unable to switch off her scanning. This visceral
+re-experiencing doesn't just bring back the past; it immediately sets her body reacting before her
+mind has even had time to think, a surge of adrenaline signaling danger. The constant vigilance that
+follows, particularly her difficulty falling asleep because she feels she needs to stay alert, means
+her body is always primed for threat. This constant, pervasive sense of danger was the most
+convincing proof Anjali had that her life had changed beyond repair, quietly confirming her deepest
+fears that she was no longer safe in the world. This persistent state of threat, in turn, makes her
+more attuned to potential triggers in her environment, noticing every distant siren or sudden
+movement.
+
+The memories themselves, whether the full sensory reliving or the unsettling emotionless recall
+where she feels completely numb as if it happened to a stranger, have profoundly shaped her
+perception of the world. She has come to believe that people are not what they seem, fostering a
+deep distrust of others. Her conviction that the world was fundamentally unsafe meant she moved
+through ordinary days as if they were mined, making every ambiguity — a figure in her periphery, an
+unexpected sound — a potential signal of threat. This negative appraisal, that people are
+untrustworthy, fuels her constant scanning of faces and body language to detect if someone is a
+threat, a behavior that intensifies her overall sense of being endangered. Moreover, the memory of
+the incident itself, especially the feeling of being violated and helpless, leaves her feeling dirty
+or contaminated, an appraisal that makes her recoil from certain outdoor smells which now feel
+menacing. When a trigger like the sight of a police car appears, it often reinforces her belief that
+people are not what they seem, solidifying her distrust.
+
+Her maladaptive strategies, initially an attempt to cope, have only tightened the grip of her
+distress. Her body’s automatic reaction to danger, coupled with her belief that people are not what
+they seem, compels her to constantly check mirrors, whether in her car or in public spaces,
+searching for threats. When a trigger like the distant sound of a bus approaches, she might
+instinctively cover her face with her hands, a desperate attempt to shield herself from the
+perceived danger. The powerful memories and the immediate threat response they elicit have led her
+to avoid public transport entirely, limiting her world and contributing to her feeling that she has
+lost her connection to her community and culture, as she can no longer easily visit old friends or
+cultural centers. This withdrawal, in turn, amplifies her negative appraisal of having lost her
+community, creating a self-reinforcing cycle. Her constant mirror checking, while meant to keep her
+safe, paradoxically keeps her hyper-aware of her surroundings, inadvertently making her more
+sensitive to potential triggers.
+
+The pervasive sense of threat she carries, evidenced by her sleep vigilance, also ensures that when
+memories do surface, they are often accompanied by a heightened sense of danger, making them even
+more disturbing. Her work as a counselor, which once brought her deep satisfaction, has become
+increasingly challenging. The need to maintain a calm and reassuring presence for her clients is
+exhausting when her internal world is so fraught with vigilance and distrust. She finds herself
+struggling to connect with colleagues, her social avoidance extending to her professional life, and
+the constant threat monitoring makes it difficult to focus. Anjali finally sought help, exhausted by
+the relentless cycle, hoping to reclaim a sense of safety and connection, and most afraid that she
+might never escape the feeling of being perpetually contaminated and alone.
+
+    ✗ edge:        Negative Appraisals -> Triggers
+      explanation: The vignette does not convey that Anjali's negative appraisals influence, drive, or lead to the formation or heightened perception of her triggers.
+
+  [3] FAIL
+Anjali, a 25-year-old South Asian woman, sought therapy after months of struggling with pervasive
+distress, her PCL-5 score of 48 underscoring the significant impact of a traumatic incident of
+police violence. Nearly a year ago, she had been caught in the chaos near a protest, pulled off a
+public bus, and forcibly restrained on the asphalt. The acrid smell of soil and urban decay had
+filled her nostrils as she was held down, the faces of uniformed officers looming above her. This
+terrifying experience etched specific sensory details into her mind, making public transport, the
+scent of outdoor soil, and the very presence of police potent triggers for her.
+
+Now, whenever Anjali encounters a bus on her daily commute or catches a whiff of outdoor soil from
+her apartment window, these triggers immediately activate vivid memories of the event. She often
+experiences full sensory reliving, where the memory comes back so completely across all her senses
+that she feels her body is in the same position as when the frightening event occurred, pressing
+against the pavement, the sounds and smells overwhelming her. Because these memories came back so
+vividly and unexpectedly, she began to see threads of them everywhere, in strangers' faces and in
+the quality of the light at certain times of day, unable to switch off her scanning. This visceral
+re-experiencing doesn't just bring back the past; it immediately sets her body reacting before her
+mind has even had time to think, a surge of adrenaline signaling danger. The constant vigilance that
+follows, particularly her difficulty falling asleep because she feels she needs to stay alert, means
+her body is always primed for threat. This constant, pervasive sense of danger was the most
+convincing proof Anjali had that her life had changed beyond repair, quietly confirming her deepest
+fears that she was no longer safe in the world. This persistent state of threat, in turn, makes her
+more attuned to potential triggers in her environment, noticing every distant siren or sudden
+movement.
+
+The memories themselves, whether the full sensory reliving or the unsettling emotionless recall
+where she feels completely numb as if it happened to a stranger, have profoundly shaped her
+perception of the world. She has come to believe that people are not what they seem, fostering a
+deep distrust of others. Her conviction that the world was fundamentally unsafe meant she moved
+through ordinary days as if they were mined, making every ambiguity — a figure in her periphery, an
+unexpected sound — a potential signal of threat. This deep-seated belief that danger was ever-
+present, in turn, primed her to interpret ordinary sensory input – like the smell of soil or the
+sight of a uniform – as immediate threats, solidifying them as potent triggers. This negative
+appraisal, that people are untrustworthy, fuels her constant scanning of faces and body language to
+detect if someone is a threat, a behavior that intensifies her overall sense of being endangered.
+Moreover, the memory of the incident itself, especially the feeling of being violated and helpless,
+leaves her feeling dirty or contaminated, an appraisal that makes her recoil from certain outdoor
+smells which now feel menacing. When a trigger like the sight of a police car appears, it often
+reinforces her belief that people are not what they seem, solidifying her distrust.
+
+Her maladaptive strategies, initially an attempt to cope, have only tightened the grip of her
+distress. Her body’s automatic reaction to danger, coupled with her belief that people are not what
+they seem, compels her to constantly check mirrors, whether in her car or in public spaces,
+searching for threats. When a trigger like the distant sound of a bus approaches, she might
+instinctively cover her face with her hands, a desperate attempt to shield herself from the
+perceived danger. The powerful memories and the immediate threat response they elicit have led her
+to avoid public transport entirely, limiting her world and contributing to her feeling that she has
+lost her connection to her community and culture, as she can no longer easily visit old friends or
+cultural centers. This withdrawal, in turn, amplifies her negative appraisal of having lost her
+community, creating a self-reinforcing cycle. Her constant mirror checking, while meant to keep her
+safe, paradoxically keeps her hyper-aware of her surroundings, inadvertently making her more
+sensitive to potential triggers.
+
+The pervasive sense of threat she carries, evidenced by her sleep vigilance, also ensures that when
+memories do surface, they are often accompanied by a heightened sense of danger, making them even
+more disturbing. Her work as a counselor, which once brought her deep satisfaction, has become
+increasingly challenging. The need to maintain a calm and reassuring presence for her clients is
+exhausting when her internal world is so fraught with vigilance and distrust. She finds herself
+struggling to connect with colleagues, her social avoidance extending to her professional life, and
+the constant threat monitoring makes it difficult to focus. Anjali finally sought help, exhausted by
+the relentless cycle, hoping to reclaim a sense of safety and connection, and most afraid that she
+might never escape the feeling of being perpetually contaminated and alone.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not explicitly state that the patient's traumatic memories directly lead to or solidify specific triggers.
+
+  [4] PASS
+Anjali, a 25-year-old South Asian woman, sought therapy after months of struggling with pervasive
+distress, her PCL-5 score of 48 underscoring the significant impact of a traumatic incident of
+police violence. Nearly a year ago, she had been caught in the chaos near a protest, pulled off a
+public bus, and forcibly restrained on the asphalt. The acrid smell of soil and urban decay had
+filled her nostrils as she was held down, the faces of uniformed officers looming above her. This
+terrifying experience etched specific sensory details into her mind, making public transport, the
+scent of outdoor soil, and the very presence of police potent triggers for her.
+
+Now, whenever Anjali encounters a bus on her daily commute or catches a whiff of outdoor soil from
+her apartment window, these triggers immediately activate vivid memories of the event. She often
+experiences full sensory reliving, where the memory comes back so completely across all her senses
+that she feels her body is in the same position as when the frightening event occurred, pressing
+against the pavement, the sounds and smells overwhelming her. Each time these overwhelming memories
+returned, they seemed to imprint new associations, causing even subtle shifts in light or the sound
+of a distant siren to become potent reminders of the incident, effectively expanding her list of
+triggers. Because these memories came back so vividly and unexpectedly, she began to see threads of
+them everywhere, in strangers' faces and in the quality of the light at certain times of day, unable
+to switch off her scanning. This visceral re-experiencing doesn't just bring back the past; it
+immediately sets her body reacting before her mind has even had time to think, a surge of adrenaline
+signaling danger. The constant vigilance that follows, particularly her difficulty falling asleep
+because she feels she needs to stay alert, means her body is always primed for threat. This
+constant, pervasive sense of danger was the most convincing proof Anjali had that her life had
+changed beyond repair, quietly confirming her deepest fears that she was no longer safe in the
+world. This persistent state of threat, in turn, makes her more attuned to potential triggers in her
+environment, noticing every distant siren or sudden movement.
+
+The memories themselves, whether the full sensory reliving or the unsettling emotionless recall
+where she feels completely numb as if it happened to a stranger, have profoundly shaped her
+perception of the world. She has come to believe that people are not what they seem, fostering a
+deep distrust of others. Her conviction that the world was fundamentally unsafe meant she moved
+through ordinary days as if they were mined, making every ambiguity — a figure in her periphery, an
+unexpected sound — a potential signal of threat. This deep-seated belief that danger was ever-
+present, in turn, primed her to interpret ordinary sensory input – like the smell of soil or the
+sight of a uniform – as immediate threats, solidifying them as potent triggers. This negative
+appraisal, that people are untrustworthy, fuels her constant scanning of faces and body language to
+detect if someone is a threat, a behavior that intensifies her overall sense of being endangered.
+Moreover, the memory of the incident itself, especially the feeling of being violated and helpless,
+leaves her feeling dirty or contaminated, an appraisal that makes her recoil from certain outdoor
+smells which now feel menacing. When a trigger like the sight of a police car appears, it often
+reinforces her belief that people are not what they seem, solidifying her distrust.
+
+Her maladaptive strategies, initially an attempt to cope, have only tightened the grip of her
+distress. Her body’s automatic reaction to danger, coupled with her belief that people are not what
+they seem, compels her to constantly check mirrors, whether in her car or in public spaces,
+searching for threats. When a trigger like the distant sound of a bus approaches, she might
+instinctively cover her face with her hands, a desperate attempt to shield herself from the
+perceived danger. The powerful memories and the immediate threat response they elicit have led her
+to avoid public transport entirely, limiting her world and contributing to her feeling that she has
+lost her connection to her community and culture, as she can no longer easily visit old friends or
+cultural centers. This withdrawal, in turn, amplifies her negative appraisal of having lost her
+community, creating a self-reinforcing cycle. Her constant mirror checking, while meant to keep her
+safe, paradoxically keeps her hyper-aware of her surroundings, inadvertently making her more
+sensitive to potential triggers.
+
+The pervasive sense of threat she carries, evidenced by her sleep vigilance, also ensures that when
+memories do surface, they are often accompanied by a heightened sense of danger, making them even
+more disturbing. Her work as a counselor, which once brought her deep satisfaction, has become
+increasingly challenging. The need to maintain a calm and reassuring presence for her clients is
+exhausting when her internal world is so fraught with vigilance and distrust. She finds herself
+struggling to connect with colleagues, her social avoidance extending to her professional life, and
+the constant threat monitoring makes it difficult to focus. Anjali finally sought help, exhausted by
+the relentless cycle, hoping to reclaim a sense of safety and connection, and most afraid that she
+might never escape the feeling of being perpetually contaminated and alone.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Anjali, a 25-year-old South Asian woman, sought therapy after months of struggling with pervasive
+distress, her PCL-5 score of 48 underscoring the significant impact of a traumatic incident of
+police violence. Nearly a year ago, she had been caught in the chaos near a protest, pulled off a
+public bus, and forcibly restrained on the asphalt. The acrid smell of soil and urban decay had
+filled her nostrils as she was held down, the faces of uniformed officers looming above her. This
+terrifying experience etched specific sensory details into her mind, making public transport, the
+scent of outdoor soil, and the very presence of police potent triggers for her.
+
+Now, whenever Anjali encounters a bus on her daily commute or catches a whiff of outdoor soil from
+her apartment window, these triggers immediately activate vivid memories of the event. She often
+experiences full sensory reliving, where the memory comes back so completely across all her senses
+that she feels her body is in the same position as when the frightening event occurred, pressing
+against the pavement, the sounds and smells overwhelming her. Each time these overwhelming memories
+returned, they seemed to imprint new associations, causing even subtle shifts in light or the sound
+of a distant siren to become potent reminders of the incident, effectively expanding her list of
+triggers. Because these memories came back so vividly and unexpectedly, she began to see threads of
+them everywhere, in strangers' faces and in the quality of the light at certain times of day, unable
+to switch off her scanning. This visceral re-experiencing doesn't just bring back the past; it
+immediately sets her body reacting before her mind has even had time to think, a surge of adrenaline
+signaling danger. The constant vigilance that follows, particularly her difficulty falling asleep
+because she feels she needs to stay alert, means her body is always primed for threat. This
+constant, pervasive sense of danger was the most convincing proof Anjali had that her life had
+changed beyond repair, quietly confirming her deepest fears that she was no longer safe in the
+world. This persistent state of threat, in turn, makes her more attuned to potential triggers in her
+environment, noticing every distant siren or sudden movement.
+
+The memories themselves, whether the full sensory reliving or the unsettling emotionless recall
+where she feels completely numb as if it happened to a stranger, have profoundly shaped her
+perception of the world. She has come to believe that people are not what they seem, fostering a
+deep distrust of others. Her conviction that the world was fundamentally unsafe meant she moved
+through ordinary days as if they were mined, making every ambiguity — a figure in her periphery, an
+unexpected sound — a potential signal of threat. This deep-seated belief that danger was ever-
+present, in turn, primed her to interpret ordinary sensory input – like the smell of soil or the
+sight of a uniform – as immediate threats, solidifying them as potent triggers. This negative
+appraisal, that people are untrustworthy, fuels her constant scanning of faces and body language to
+detect if someone is a threat, a behavior that intensifies her overall sense of being endangered.
+Moreover, the memory of the incident itself, especially the feeling of being violated and helpless,
+leaves her feeling dirty or contaminated, an appraisal that makes her recoil from certain outdoor
+smells which now feel menacing. When a trigger like the sight of a police car appears, it often
+reinforces her belief that people are not what they seem, solidifying her distrust.
+
+Her maladaptive strategies, initially an attempt to cope, have only tightened the grip of her
+distress. Her body’s automatic reaction to danger, coupled with her belief that people are not what
+they seem, compels her to constantly check mirrors, whether in her car or in public spaces,
+searching for threats. When a trigger like the distant sound of a bus approaches, she might
+instinctively cover her face with her hands, a desperate attempt to shield herself from the
+perceived danger. The powerful memories and the immediate threat response they elicit have led her
+to avoid public transport entirely, limiting her world and contributing to her feeling that she has
+lost her connection to her community and culture, as she can no longer easily visit old friends or
+cultural centers. This withdrawal, in turn, amplifies her negative appraisal of having lost her
+community, creating a self-reinforcing cycle. Her constant mirror checking, while meant to keep her
+safe, paradoxically keeps her hyper-aware of her surroundings, inadvertently making her more
+sensitive to potential triggers.
+
+The pervasive sense of threat she carries, evidenced by her sleep vigilance, also ensures that when
+memories do surface, they are often accompanied by a heightened sense of danger, making them even
+more disturbing. Her work as a counselor, which once brought her deep satisfaction, has become
+increasingly challenging. The need to maintain a calm and reassuring presence for her clients is
+exhausting when her internal world is so fraught with vigilance and distrust. She finds herself
+struggling to connect with colleagues, her social avoidance extending to her professional life, and
+the constant threat monitoring makes it difficult to focus. Anjali finally sought help, exhausted by
+the relentless cycle, hoping to reclaim a sense of safety and connection, and most afraid that she
+might never escape the feeling of being perpetually contaminated and alone.

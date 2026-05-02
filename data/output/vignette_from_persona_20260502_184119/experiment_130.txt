@@ -1,0 +1,181 @@
+PERSONA 130  |  2026-05-02 21:33:54
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             52
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Married
+  occupation      HVAC Technician
+  trauma_type     Toxic chemical exposure
+  pcl5            73
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid Relaxation: avoid relaxing because it feels dangerous
+    • Avoid Being Alone: Being alone in a room or building
+    • Avoid Stressors: avoid anything that could be stressful
+  Threat:
+    • Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    • Door and Lock Checking: I repeatedly check that doors and windows are locked
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.6777
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: The profile is not coherent with a toxic chemical exposure trauma. The selected Threat items are dominated by interpersonal/being-followed danger themes ('someone is following me', lock checking) rather than contamination, health deterioration, environmental exposure, or bodily harm themes that would fit chemical exposure.
+    item:        Maladaptive Strategies / Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: The Maladaptive Strategy item 'Never Alone' is also strongly interpersonal/assault-focused and is hard to reconcile with toxic chemical exposure. 'Avoid Conflict' similarly targets confrontation rather than exposure-related danger, and is not plausibly linked to the selected Threat items or trauma type.
+  [2] FAIL
+    item:        Maladaptive Strategies / Never Alone: make sure never to be alone with another person
+    explanation: For toxic chemical exposure, 'Never Alone with another person' is hard to reconcile clinically: it implies fear of interpersonal danger rather than contamination, bodily harm, or environmental exposure. No Trigger, Memory, or Appraisal items support an interpersonal-assault formulation.
+    item:        Threat / Avoid Conflict: Any situation that might involve disagreement or confrontation
+    explanation: 'Avoid Conflict' also points to interpersonal threat management rather than consequences of chemical exposure. With no corroborating interpersonal threat, appraisal, or memory content, this strategy appears misaligned with the trauma type and the rest of the profile.
+  [3] FAIL
+    item:        Maladaptive Strategies / Avoid Conflict: Any situation that might involve disagreement or confrontation
+    explanation: For toxic chemical exposure, avoiding conflict is not a plausible trauma-linked maladaptive strategy unless supported by appraisals about blame, authority, or interpersonal danger, which are absent here. It appears clinically disconnected from the rest of the profile.
+    item:        Threat / Avoid Being Alone: Being alone in a room or building
+    explanation: Avoiding being alone is hard to reconcile with the stated threat pattern. The threat items emphasize generalized unsafety and checking the physical environment, but not collapse, contamination, or medical emergency fears that would make solitude specifically dangerous after chemical exposure.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,601
+  output:     1,343
+  total:      3,944
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Duc Tran, a 52-year-old HVAC technician, had been working in the field for nearly three decades when
+a routine service call changed everything. He was repairing an aging commercial unit in the basement
+of a small manufacturing plant when a corroded valve gave way, releasing a cloud of methylene
+chloride. Duc breathed it in before he could reach the door; the acrid sweetness hit his throat,
+then his chest tightened, and he spent the next two hours coughing in the ER. Medically he was
+cleared within days, but something inside him never cleared.
+
+Months later, Duc could still feel that chemical burn at the back of his throat whenever he caught a
+whiff of solvent or entered a poorly ventilated space. He began turning down jobs in basements or
+tight mechanical rooms; he told his dispatcher he was getting too old for cramped work, but the real
+reason was a deep, unshakeable certainty that the air was unsafe. Even when the safety data sheet
+showed no risk, even when his supervisor assured him the equipment was sealed, Duc found it
+impossible to trust that he was safe. His body stayed braced—shoulders hunched, jaw tight, ready to
+flinch at the slightest change in air pressure or a new smell.
+
+This constant sense of imminent danger drove Duc to strategies that made life more manageable but
+also more restricted. Because he could not trust that a quiet room was harmless, he avoided relaxing
+entirely: after work he would find chores—reorganizing his toolbox, checking the seals on his own
+home’s ducts—rather than sit still or lie down. The moment he tried to unwind, his mind would flash
+to the basement, to that chemical taste, and he would spring up again. Being alone in the house felt
+just as threatening; he believed that if something went wrong, no one would be there to help or to
+confirm the danger was real. So he stayed near his wife, María, or called his son just to hear
+another voice, even when he had nothing to say. He also began avoiding any potential stressor—social
+plans, doctor’s appointments, even the evening news—because any unexpected event might force him to
+confront a situation he could not control. His world narrowed to the most predictable routines:
+work, home, sleep, repeat.
+
+The strategies created their own weight. Duc’s avoidance of relaxation and solitude meant he was
+always in motion or in someone’s company, but he never felt rested. His body stayed on alert; he
+checked the front door and back windows three times before bed each night, then again when he woke
+to use the bathroom, even though he lived in a quiet suburb with good locks. He told himself he was
+being cautious, but he knew it was more than that—it was a compulsion born of the conviction that
+danger could breach his walls at any moment.
+
+What finally brought Duc to seek help was a breakdown at work. He was assigned a standard duct-
+cleaning job in a school gymnasium; when he walked in and smelled chlorine from the pool, he froze,
+broke into a cold sweat, and walked out without a word. His supervisor called him the next day,
+concerned. Duc sat in the kitchen with María and admitted he could not keep living this way. He was
+terrified that the next job would be impossible, that his body would betray him, that the world he
+used to move through easily had become a minefield. He hoped—though he barely let himself believe
+it—that talking to someone could teach him how to breathe again without first checking the air.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Duc Tran, a 52-year-old HVAC technician, had been working in the field for nearly three decades when
+a routine service call changed everything. He was repairing an aging commercial unit in the basement
+of a small manufacturing plant when a corroded valve gave way, releasing a cloud of methylene
+chloride. Duc breathed it in before he could reach the door; the acrid sweetness hit his throat,
+then his chest tightened, and he spent the next two hours coughing in the ER. Medically he was
+cleared within days, but something inside him never cleared.
+
+Months later, Duc could still feel that chemical burn at the back of his throat whenever he caught a
+whiff of solvent or entered a poorly ventilated space. He began turning down jobs in basements or
+tight mechanical rooms; he told his dispatcher he was getting too old for cramped work, but the real
+reason was a deep, unshakeable certainty that the air was unsafe. Even when the safety data sheet
+showed no risk, even when his supervisor assured him the equipment was sealed, Duc found it
+impossible to trust that he was safe. His body stayed braced—shoulders hunched, jaw tight, ready to
+flinch at the slightest change in air pressure or a new smell.
+
+This constant sense of imminent danger drove Duc to strategies that made life more manageable but
+also more restricted. Because he could not trust that a quiet room was harmless, he avoided relaxing
+entirely: after work he would find chores—reorganizing his toolbox, checking the seals on his own
+home’s ducts—rather than sit still or lie down. The moment he tried to unwind, his mind would flash
+to the basement, to that chemical taste, and he would spring up again. Being alone in the house felt
+just as threatening; he believed that if something went wrong, no one would be there to help or to
+confirm the danger was real. So he stayed near his wife, María, or called his son just to hear
+another voice, even when he had nothing to say. He also began avoiding any potential stressor—social
+plans, doctor’s appointments, even the evening news—because any unexpected event might force him to
+confront a situation he could not control. His world narrowed to the most predictable routines:
+work, home, sleep, repeat.
+
+The strategies created their own weight. Duc’s avoidance of relaxation and solitude meant he was
+always in motion or in someone’s company, but he never felt rested. His body stayed on alert; he
+checked the front door and back windows three times before bed each night, then again when he woke
+to use the bathroom, even though he lived in a quiet suburb with good locks. He told himself he was
+being cautious, but he knew it was more than that—it was a compulsion born of the conviction that
+danger could breach his walls at any moment.
+
+What finally brought Duc to seek help was a breakdown at work. He was assigned a standard duct-
+cleaning job in a school gymnasium; when he walked in and smelled chlorine from the pool, he froze,
+broke into a cold sweat, and walked out without a word. His supervisor called him the next day,
+concerned. Duc sat in the kitchen with María and admitted he could not keep living this way. He was
+terrified that the next job would be impossible, that his body would betray him, that the world he
+used to move through easily had become a minefield. He hoped—though he barely let himself believe
+it—that talking to someone could teach him how to breathe again without first checking the air.

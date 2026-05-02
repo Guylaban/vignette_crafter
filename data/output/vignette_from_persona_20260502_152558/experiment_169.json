@@ -1,0 +1,216 @@
+{
+  "persona_id": 169,
+  "source_persona_id": 169,
+  "experiment_timestamp": "2026-05-02 18:24:19",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-pro",
+      "persona_crafter": "gemini-2.5-pro",
+      "vignette_crafter": "gemini-2.5-pro",
+      "vignette_validator": "gemini-2.5-pro"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 38,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Teacher",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 56
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Crowding",
+        "value": "Crowded places"
+      },
+      {
+        "key": "Driving with Others",
+        "value": "Driving with people"
+      },
+      {
+        "key": "Auditory (Loud Noises)",
+        "value": "Loud noises"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Faces",
+        "value": "I study people's faces and body language to detect if they are a threat"
+      },
+      {
+        "key": "Scanning Exits",
+        "value": "I scan for exits as soon as I enter any room or building"
+      },
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Taste Vividness",
+        "value": "I can taste what I tasted during the event when the memory returns"
+      },
+      {
+        "key": "Full Sensory Reliving",
+        "value": "When the memory comes back it feels completely real across all my senses at once"
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Institutional Failure",
+        "value": "The people or institutions that should have protected me let me down"
+      },
+      {
+        "key": "Injustice",
+        "value": "What happened to me was deeply unfair and nothing has been done about it"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.7688,
+    "Triggers -- Negative Appraisals": 0.1036,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.8737,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.3081,
+    "Memory -- Negative Appraisals": 0.6915,
+    "Memory -- Triggers": 0.5842,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.523,
+    "Threat -- Triggers": 0.4901,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.542875,
+  "edge_density": 0.4,
+  "vignette_word_count": 770,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Explosion): Explosion or bang sounds",
+          "explanation": "For a mugging/robbery trauma, 'explosion or bang sounds' is a poor fit unless there was a firearm discharge or similar blast-like cue; nothing else in the profile suggests that context, so this trigger is clinically hard to reconcile with the trauma type and the rest of the selected items."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Lost Community: I have lost my connection to my community and culture",
+          "explanation": "'I have lost my connection to my community and culture' is difficult to justify from the rest of this profile for an adult European married teacher after a mugging/robbery. The other appraisals focus on self-blame/institutional failure, but this item implies a broader cultural/community rupture that is not supported by the trauma type, demographics, or other nodes."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Explosion)"
+        ],
+        "Negative Appraisals": [
+          "Lost Community"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "For a mugging/robbery trauma, the profile otherwise centers on external danger, sensory reliving, and mistrust/injustice. 'Violated Values' implies the patient did something morally incongruent during the event, but there are no accompanying memory, threat, trigger, or strategy items suggesting perpetration, betrayal of others, failure to act, or shame-based self-condemnation. In this profile it stands apart from the rest of the formulation and is the least clinically coherent item."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Violated Values"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 2,
+    "passed": 1,
+    "failed": 1,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 6799,
+    "output": 8005,
+    "total": 14804
+  },
+  "vignette": "Mark, a 38-year-old history teacher, presented for therapy eight months after being mugged while walking home from a faculty dinner. He described himself as being caught in a loop he couldn't escape, a state of constant, exhausting vigilance that was beginning to erode his marriage and his career. The event itself had been brutally simple. He was on a busy, loud street just a few blocks from his apartment when two men grabbed him from behind. One pinned his arms while the other went through his pockets, the noise of the city traffic and late-night crowds swallowing his shouts for help. He remembered the rough scrape of the pavement against his cheek as they shoved him to the ground, and the coppery taste of blood mixing with grit in his mouth. What haunted him most was the stream of indifferent faces that passed by, a river of people who saw and did nothing.\n\nIn the months that followed, the world outside his classroom began to feel like a series of ambushes waiting to happen. The memory of the attack was not a fading image but a recurring, full-body experience. A locker slamming shut in the school hallway, a sudden loud noise, would be enough to trigger it. Instantly, he would be back on the pavement, the phantom taste of blood and dirt flooding his mouth, the memory forcing its way into his mind with an uncontrollable, sensory vividness. Because the memory felt so viscerally real, the world began to feel saturated with potential reminders of it; the press of a crowd on the sidewalk, the sound of men's voices behind him, or even the rough texture of a brick wall against his hand could now feel like a direct threat. These intrusions were terrifyingly real, and each time one occurred, his body would react as if the assault were happening all over again. His heart would pound, and he would immediately begin scanning the faces of his own students, studying their expressions and body language for any sign of a threat. His eyes would dart to the classroom door, the fire escape, calculating his route out before he was even consciously aware of what he was doing.\n\nThis constant state of high alert only served to reinforce his deepest convictions. The ceaseless scanning and the startling jolt he felt whenever a student made an unexpected movement nearby solidified his belief that the world is an irredeemably dangerous place. This feeling of imminent threat made him even more sensitive to his triggers; because he was always on guard, the ordinary chaos of a crowded school became a minefield of potential reminders. The daily crush of students in the corridors felt menacing, and carpooling with a colleague, something he used to enjoy, now felt like being trapped in a small, fast-moving box with no control. The experience of being in a crowd or a car with others would immediately bring to mind his appraisal that he was utterly unsafe.\n\nHis thoughts increasingly circled around the profound injustice of what had happened. He would lie awake at night, ruminating on how the social contract had failed him, how the police report felt like a perfunctory piece of paperwork, and how the people who should have helped had simply walked on by. This sense of institutional failure and deep unfairness became a trigger in itself, a mental pathway that led directly back to the memory of the attack, making it feel more present and potent. In turn, each time the memory returned with its full sensory horror, it cemented his belief that he had been abandoned and that the world was not a place where one could expect protection or justice. The memory didn't just replay the event; it re-affirmed his darkest conclusions about the world.\n\nThe cycle has become relentless. A trigger, like the noise of a crowd, brings back the memory. The memory feels so real it activates his threat system, causing him to scan for exits and danger. This constant hypervigilance reinforces his belief that the world is a dangerous place, and this belief makes him dwell on the injustice of it all, which in turn makes the memory more accessible and intrusive. It was after a school assembly, when a popped balloon sent him into a full-blown panic attack in front of his colleagues, that his wife insisted he seek help. Mark now sits in the therapy room, exhausted and ashamed. He is terrified that he will never feel safe again, that the man he was—the confident teacher, the relaxed husband—is gone for good, replaced by this frightened, watchful stranger."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Mark, a 38-year-old history teacher, presented for therapy eight months after being mugged while walking home from a faculty dinner. He described himself as being caught in a loop he couldn't escape, a state of constant, exhausting vigilance that was beginning to erode his marriage and his career. The event itself had been brutally simple. He was on a busy, loud street just a few blocks from his apartment when two men grabbed him from behind. One pinned his arms while the other went through his pockets, the noise of the city traffic and late-night crowds swallowing his shouts for help. He remembered the rough scrape of the pavement against his cheek as they shoved him to the ground, and the coppery taste of blood mixing with grit in his mouth. What haunted him most was the stream of indifferent faces that passed by, a river of people who saw and did nothing.\n\nIn the months that followed, the world outside his classroom began to feel like a series of ambushes waiting to happen. The memory of the attack was not a fading image but a recurring, full-body experience. A locker slamming shut in the school hallway, a sudden loud noise, would be enough to trigger it. Instantly, he would be back on the pavement, the phantom taste of blood and dirt flooding his mouth, the memory forcing its way into his mind with an uncontrollable, sensory vividness. These intrusions were terrifyingly real, and each time one occurred, his body would react as if the assault were happening all over again. His heart would pound, and he would immediately begin scanning the faces of his own students, studying their expressions and body language for any sign of a threat. His eyes would dart to the classroom door, the fire escape, calculating his route out before he was even consciously aware of what he was doing.\n\nThis constant state of high alert only served to reinforce his deepest convictions. The ceaseless scanning and the startling jolt he felt whenever a student made an unexpected movement nearby solidified his belief that the world is an irredeemably dangerous place. This feeling of imminent threat made him even more sensitive to his triggers; because he was always on guard, the ordinary chaos of a crowded school became a minefield of potential reminders. The daily crush of students in the corridors felt menacing, and carpooling with a colleague, something he used to enjoy, now felt like being trapped in a small, fast-moving box with no control. The experience of being in a crowd or a car with others would immediately bring to mind his appraisal that he was utterly unsafe.\n\nHis thoughts increasingly circled around the profound injustice of what had happened. He would lie awake at night, ruminating on how the social contract had failed him, how the police report felt like a perfunctory piece of paperwork, and how the people who should have helped had simply walked on by. This sense of institutional failure and deep unfairness became a trigger in itself, a mental pathway that led directly back to the memory of the attack, making it feel more present and potent. In turn, each time the memory returned with its full sensory horror, it cemented his belief that he had been abandoned and that the world was not a place where one could expect protection or justice. The memory didn't just replay the event; it re-affirmed his darkest conclusions about the world.\n\nThe cycle has become relentless. A trigger, like the noise of a crowd, brings back the memory. The memory feels so real it activates his threat system, causing him to scan for exits and danger. This constant hypervigilance reinforces his belief that the world is a dangerous place, and this belief makes him dwell on the injustice of it all, which in turn makes the memory more accessible and intrusive. It was after a school assembly, when a popped balloon sent him into a full-blown panic attack in front of his colleagues, that his wife insisted he seek help. Mark now sits in the therapy room, exhausted and ashamed. He is terrified that he will never feel safe again, that the man he was—the confident teacher, the relaxed husband—is gone for good, replaced by this frightened, watchful stranger.", "passed": false, "violations": [{"edge": "Memory → Triggers", "explanation": "The vignette does not describe a causal link where the trauma memory leads to the creation of or sensitivity to new triggers."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Memory → Triggers: The vignette does not describe a causal link where the trauma memory leads to the creation of or sensitivity to new triggers.\n  e.g. \"After the memory had surfaced, even the most ordinary things — a kettle whistling, a door slamming — felt like warnings she couldn't afford to ignore.\"\n  e.g. \"The intrusive image left her scanning every room she entered, cataloguing exits, tracking faces, unable to switch off.\"\n  e.g. \"Because the memory came back so vividly, she began to see threads of it everywhere: in strangers' faces, in certain times of day, in the quality of winter light.\""},
+
+    {"vignette": "Mark, a 38-year-old history teacher, presented for therapy eight months after being mugged while walking home from a faculty dinner. He described himself as being caught in a loop he couldn't escape, a state of constant, exhausting vigilance that was beginning to erode his marriage and his career. The event itself had been brutally simple. He was on a busy, loud street just a few blocks from his apartment when two men grabbed him from behind. One pinned his arms while the other went through his pockets, the noise of the city traffic and late-night crowds swallowing his shouts for help. He remembered the rough scrape of the pavement against his cheek as they shoved him to the ground, and the coppery taste of blood mixing with grit in his mouth. What haunted him most was the stream of indifferent faces that passed by, a river of people who saw and did nothing.\n\nIn the months that followed, the world outside his classroom began to feel like a series of ambushes waiting to happen. The memory of the attack was not a fading image but a recurring, full-body experience. A locker slamming shut in the school hallway, a sudden loud noise, would be enough to trigger it. Instantly, he would be back on the pavement, the phantom taste of blood and dirt flooding his mouth, the memory forcing its way into his mind with an uncontrollable, sensory vividness. Because the memory felt so viscerally real, the world began to feel saturated with potential reminders of it; the press of a crowd on the sidewalk, the sound of men's voices behind him, or even the rough texture of a brick wall against his hand could now feel like a direct threat. These intrusions were terrifyingly real, and each time one occurred, his body would react as if the assault were happening all over again. His heart would pound, and he would immediately begin scanning the faces of his own students, studying their expressions and body language for any sign of a threat. His eyes would dart to the classroom door, the fire escape, calculating his route out before he was even consciously aware of what he was doing.\n\nThis constant state of high alert only served to reinforce his deepest convictions. The ceaseless scanning and the startling jolt he felt whenever a student made an unexpected movement nearby solidified his belief that the world is an irredeemably dangerous place. This feeling of imminent threat made him even more sensitive to his triggers; because he was always on guard, the ordinary chaos of a crowded school became a minefield of potential reminders. The daily crush of students in the corridors felt menacing, and carpooling with a colleague, something he used to enjoy, now felt like being trapped in a small, fast-moving box with no control. The experience of being in a crowd or a car with others would immediately bring to mind his appraisal that he was utterly unsafe.\n\nHis thoughts increasingly circled around the profound injustice of what had happened. He would lie awake at night, ruminating on how the social contract had failed him, how the police report felt like a perfunctory piece of paperwork, and how the people who should have helped had simply walked on by. This sense of institutional failure and deep unfairness became a trigger in itself, a mental pathway that led directly back to the memory of the attack, making it feel more present and potent. In turn, each time the memory returned with its full sensory horror, it cemented his belief that he had been abandoned and that the world was not a place where one could expect protection or justice. The memory didn't just replay the event; it re-affirmed his darkest conclusions about the world.\n\nThe cycle has become relentless. A trigger, like the noise of a crowd, brings back the memory. The memory feels so real it activates his threat system, causing him to scan for exits and danger. This constant hypervigilance reinforces his belief that the world is a dangerous place, and this belief makes him dwell on the injustice of it all, which in turn makes the memory more accessible and intrusive. It was after a school assembly, when a popped balloon sent him into a full-blown panic attack in front of his colleagues, that his wife insisted he seek help. Mark now sits in the therapy room, exhausted and ashamed. He is terrified that he will never feel safe again, that the man he was—the confident teacher, the relaxed husband—is gone for good, replaced by this frightened, watchful stranger.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

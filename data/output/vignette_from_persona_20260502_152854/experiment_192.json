@@ -1,0 +1,242 @@
+{
+  "persona_id": 192,
+  "source_persona_id": 192,
+  "experiment_timestamp": "2026-05-02 17:49:30",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-flash",
+      "persona_crafter": "gemini-2.5-flash",
+      "vignette_crafter": "gemini-2.5-flash",
+      "vignette_validator": "gemini-2.5-flash"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 57,
+    "gender": "Female",
+    "ethnicity": "Latin American",
+    "relationship_status": "Divorced",
+    "occupation": "Physical Therapist",
+    "trauma_type": "Natural disaster",
+    "pcl5": 39
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Somatic (Nausea)",
+        "value": "Feeling nauseous"
+      },
+      {
+        "key": "Name Reminders",
+        "value": "Hearing related names"
+      },
+      {
+        "key": "Visual (Water/Flooding)",
+        "value": "Water, flooding, or large bodies of water"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Dissociate Deliberately",
+        "value": "deliberately try to leave my body or blank out"
+      },
+      {
+        "key": "Past Dwelling",
+        "value": "I dwell on how I used to be before the event"
+      },
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Sleep Problems",
+        "value": "Trouble falling or staying asleep"
+      },
+      {
+        "key": "Safe Zone Only",
+        "value": "I only feel safe in a very limited number of places"
+      },
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Memory Feels Alien",
+        "value": "The memory feels like it belongs to someone else rather than to me"
+      },
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.8718,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.3701,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.2099,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.8365,
+    "Maladaptive Strategies -- Memory": 0.2939,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.2734,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4759333333333333,
+  "edge_density": 0.3,
+  "vignette_word_count": 597,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Uniforms): Military or police uniforms",
+          "explanation": "For a natural-disaster trauma, military/police uniforms are not a plausible primary trigger unless there is additional trauma context; this item points to an interpersonal/authority-related trauma theme not represented elsewhere."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Name Reminders: Hearing related names",
+          "explanation": "'Hearing related names' is hard to reconcile with natural disaster as the index trauma unless a specific deceased/injured person is central, which is not supported by the rest of the profile."
+        },
+        {
+          "component": "Memory",
+          "item": "Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "Listening for someone entering the home implies an interpersonal intruder/assailant threat rather than disaster-related danger, creating a cross-node mismatch with the trauma type and trigger/memory content."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Threat: Safe Zone Only: I only feel safe in a very limited number of places",
+          "explanation": "Feeling safe only in a very limited number of places can occur in PTSD, but here it clusters with home-intruder monitoring and touch avoidance into an interpersonal-danger profile that is poorly matched to natural disaster trauma."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Uniforms)"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Memory": [
+          "Threat"
+        ],
+        "Maladaptive Strategies": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "The threat item implies fear of an intruder or interpersonal attack in the home, which is hard to reconcile with a natural-disaster trauma profile. With flooding/water triggers present, the expected threat would be environmental danger rather than someone entering the home."
+        },
+        {
+          "component": "Memory",
+          "item": "Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Intense shame on recall is not impossible after a natural disaster, but here it lacks support from the rest of the profile: there are no negative-appraisal items about personal blame, humiliation, or moral failure that would make shame a coherent central memory response."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Being Touched: Any form of physical contact with others",
+          "explanation": "Avoiding all physical contact is more characteristic of interpersonal trauma and is not clinically well linked to the reported disaster-related triggers and memory items. It addresses a symptom domain not otherwise represented in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Intrusion Monitoring"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Being Touched"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2829,
+    "output": 4893,
+    "total": 7722
+  },
+  "vignette": "Elena, a 57-year-old Latin American woman, a physical therapist by profession, found her life irrevocably altered by a catastrophic hurricane five years ago. She vividly remembers the rising floodwaters engulfing her home in Puerto Rico, the terrifying hours trapped inside as the water climbed higher, and the eventual desperate evacuation through waist-deep, murky torrents. The experience left her divorced and relocated to the mainland, but the trauma remained a constant, insidious presence.\n\nIn the years that followed, Elena noticed a tightening grip of fear and avoidance. A sudden downpour outside her clinic window, creating puddles on the sidewalk – a visual trigger – immediately brought on a wave of nausea, pulling Elena into a familiar, dreadful state. Though no clear images formed, she was overwhelmed by the *emotion without image*, a crushing grief that felt like a replay of the hurricane’s aftermath. The sheer intensity of this *emotion without image*, coupled with the fact that the *memory itself felt alien*, as if it belonged to someone else, made her desperate to escape. She found herself increasingly resorting to *dissociating deliberately*, mentally pulling away from her body and trying to blank out the distressing feelings, a strategy that offered temporary relief but left her feeling more disconnected.\n\nThis fragmented and emotionally potent *memory*, always lurking just beneath the surface, seemed to prime her nervous system. It made her exquisitely sensitive to anything that might hint at the past, effectively broadening the range of *triggers* she encountered. Even a news report about a storm in another country, mentioning a name like \"Maria,\" could send a jolt through her, reigniting the old terror. Her pervasive *sleep problems* and the constant hyper-vigilance, where she felt *safe only in a very limited number of places* and was on *high alert for any unexpected or loud sounds*, meant her nervous system was always on edge. This heightened state of *threat* made her far more susceptible to perceiving innocuous sensory details as potent *triggers*, such as the subtle gurgle of a drain in her physical therapy office or a distant siren.\n\nWhile *dissociating deliberately* offered a momentary respite from the overwhelming feelings, it paradoxically prevented Elena from processing the traumatic *memory*. This kept the memory fragmented and ensured it continued to feel *alien* and emotionally raw, never fully integrating into her life story. She also found herself constantly *dwelling on how she used to be* before the hurricane, lost in nostalgia for a life she no longer recognized, which only intensified her *grief on recall*. Her strategy of *avoiding going out*, which started as a way to evade triggers like the sight of *water or flooding* in public spaces, had an unintended consequence. By limiting her exposure to the world, she never had the chance to learn that many potential *triggers* were, in fact, safe. This avoidance perpetuated her fear, making her even more sensitive to things whenever she did venture outside her carefully constructed \"safe zone.\" Her once vibrant social life dwindled, and even her work as a physical therapist became a challenge, as she carefully navigated her schedule to avoid driving in the rain or treating patients whose names might inadvertently remind her of the disaster. She was tired of feeling perpetually on guard, of the constant nausea that accompanied any unexpected sound or visual cue, and the profound sadness that washed over her with every recollection, however vague. It was the realization that her life had shrunk to a fraction of what it once was, and the fear that it would continue to disappear, that finally compelled her to seek help."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Elena, a 57-year-old Latin American woman, a physical therapist by profession, found her life irrevocably altered by a catastrophic hurricane five years ago. She vividly remembers the rising floodwaters engulfing her home in Puerto Rico, the terrifying hours trapped inside as the water climbed higher, and the eventual desperate evacuation through waist-deep, murky torrents. The experience left her divorced and relocated to the mainland, but the trauma remained a constant, insidious presence.\n\nIn the years that followed, Elena noticed a tightening grip of fear and avoidance. A sudden downpour outside her clinic window, creating puddles on the sidewalk – a visual trigger – immediately brought on a wave of nausea, pulling Elena into a familiar, dreadful state. Though no clear images formed, she was overwhelmed by the *emotion without image*, a crushing grief that felt like a replay of the hurricane’s aftermath. The sheer intensity of this *emotion without image*, coupled with the fact that the *memory itself felt alien*, as if it belonged to someone else, made her desperate to escape. She found herself increasingly resorting to *dissociating deliberately*, mentally pulling away from her body and trying to blank out the distressing feelings, a strategy that offered temporary relief but left her feeling more disconnected.\n\nThis fragmented and emotionally potent *memory*, always lurking just beneath the surface, seemed to prime her nervous system. It made her exquisitely sensitive to anything that might hint at the past, effectively broadening the range of *triggers* she encountered. Even a news report about a storm in another country, mentioning a name like \"Maria,\" could send a jolt through her, reigniting the old terror. Her pervasive *sleep problems* and the constant hyper-vigilance, where she felt *safe only in a very limited number of places* and was on *high alert for any unexpected or loud sounds*, meant her nervous system was always on edge. This heightened state of *threat* made her far more susceptible to perceiving innocuous sensory details as potent *triggers*, such as the subtle gurgle of a drain in her physical therapy office or a distant siren.\n\nWhile *dissociating deliberately* offered a momentary respite from the overwhelming feelings, it paradoxically prevented Elena from processing the traumatic *memory*. This kept the memory fragmented and ensured it continued to feel *alien* and emotionally raw, never fully integrating into her life story. She also found herself constantly *dwelling on how she used to be* before the hurricane, lost in nostalgia for a life she no longer recognized, which only intensified her *grief on recall*. Her strategy of *avoiding going out*, which started as a way to evade triggers like the sight of *water or flooding* in public spaces, had an unintended consequence. By limiting her exposure to the world, she never had the chance to learn that many potential *triggers* were, in fact, safe. This avoidance perpetuated her fear, making her even more sensitive to things whenever she did venture outside her carefully constructed \"safe zone.\" Her once vibrant social life dwindled, and even her work as a physical therapist became a challenge, as she carefully navigated her schedule to avoid driving in the rain or treating patients whose names might inadvertently remind her of the disaster. She was tired of feeling perpetually on guard, of the constant nausea that accompanied any unexpected sound or visual cue, and the profound sadness that washed over her with every recollection, however vague. It was the realization that her life had shrunk to a fraction of what it once was, and the fear that it would continue to disappear, that finally compelled her to seek help.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,348 @@
+{
+  "persona_id": 1,
+  "source_persona_id": 1,
+  "experiment_timestamp": "2026-05-02 13:23:18",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "claude-sonnet-4-6",
+      "persona_crafter": "claude-sonnet-4-6",
+      "vignette_crafter": "claude-sonnet-4-6",
+      "vignette_validator": "claude-sonnet-4-6"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 58,
+    "gender": "Male",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Bomb Disposal Technician",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 39
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      },
+      {
+        "key": "Visual (Needles/Medical)",
+        "value": "Medical equipment such as needles or drips"
+      },
+      {
+        "key": "Children Present",
+        "value": "Being around children"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Sleep Vigilance",
+        "value": "I have difficulty falling asleep because I need to stay alert"
+      },
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      },
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Triggered Without Warning",
+        "value": "Something in my surroundings can instantly bring back the full memory without warning"
+      },
+      {
+        "key": "Full Sensory Reliving",
+        "value": "When the memory comes back it feels completely real across all my senses at once"
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Weakness Belief",
+        "value": "I am a weak person"
+      },
+      {
+        "key": "Fear Going Crazy",
+        "value": "My reactions since the event mean that I am going crazy"
+      },
+      {
+        "key": "Helplessness",
+        "value": "I can't stop bad things from happening to me"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.5103,
+    "Triggers -- Memory": 0.2068,
+    "Triggers -- Negative Appraisals": 0.5495,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.5934,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.8078,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.3468,
+    "Memory -- Negative Appraisals": 0.9576,
+    "Memory -- Triggers": 0.1018,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.849,
+    "Threat -- Negative Appraisals": 0.8091,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.57321,
+  "edge_density": 0.5,
+  "vignette_word_count": 754,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Animal Phobia: Talks or photos about snakes",
+          "explanation": "The trigger set is hard to reconcile with the indexed trauma of a child's life-threatening illness. Snakes, dogs, and fire/flames imply unrelated fear contexts and do not form a coherent trigger pattern for the same trauma."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Visual (Fire/Flames): Fire or flames",
+          "explanation": "Threat items suggesting generalized hypervigilance to sudden movements and staying alert at night fit assault/combat-type danger better than a child's medical illness, and are not plausibly linked to the selected illness-unrelated triggers."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Triggers: Animals: Dogs",
+          "explanation": "The appraisal 'nothing has been done about it' implies unresolved wrongdoing or preventable harm, which is difficult to align with the rest of the profile centered on a child's illness rather than interpersonal threat or institutional neglect."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Animal Phobia"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Negative Appraisals": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Fire/Flames): Fire or flames",
+          "explanation": "The trigger set is hard to reconcile with the indexed trauma of a child's life-threatening illness. Fire/flames and dogs do not have an obvious clinical link to this trauma, and with no illness-related cues present the trigger profile looks more like a different trauma context. This is more than merely unusual because the trigger node lacks any plausible anchor to the stated event."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Animals: Dogs",
+          "explanation": "Threat items implying immediate danger from other people's sudden movements and needing to stay alert at night suggest a physical assault/combat-style threat context. For a trauma centered on a child's life-threatening illness, these threat beliefs are difficult to connect to the trauma and are not supported by the memory or trigger content."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Threat: Threat in Movements: Sudden movements by others put me immediately on guard",
+          "explanation": "The appraisal 'nothing has been done about it' fits traumas involving perpetration, negligence, or unresolved accountability. In the context of a child's life-threatening illness, this wording is hard to justify unless there were explicit medical errors or blame-related details, which are absent elsewhere in the profile, making this item clinically incoherent with the rest of the formulation."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Fire/Flames)"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Negative Appraisals": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Animals: Dogs",
+          "explanation": "The trigger set is poorly matched to the trauma type of a child's life-threatening illness. Pregnancy/birth reminders could plausibly connect to a child-focused medical trauma, but 'dogs' and 'alcohol smell' lack an evident clinical link unless the illness involved a dog attack or alcohol-related context, which is not reflected anywhere else in the profile."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat in Movements: Sudden movements by others put me immediately on guard",
+          "explanation": "The threat items suggest an interpersonal/physical attack context ('sudden movements by others put me immediately on guard', needing to stay alert at night for danger) rather than a child illness trauma. For a parent's trauma involving a child's illness, threat is more typically about recurrence, medical crises, or inability to protect the child, not immediate guarding against others' movements."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Threat: Sleep Vigilance: I have difficulty falling asleep because I need to stay alert",
+          "explanation": "'What happened to me was deeply unfair and nothing has been done about it' implies a perpetrator, negligence, or unresolved external wrongdoing. That appraisal can occur after medical trauma, but in this profile there are no memory, trigger, or threat items indicating medical error, institutional betrayal, or blame context, so it sits awkwardly with the rest of the formulation."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Animals"
+        ],
+        "Threat": [
+          "Threat in Movements"
+        ],
+        "Negative Appraisals": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "Pregnancy/birth/babies reminders are hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, child-health, hospital, medical, or illness-related cues would be expected; pregnancy/childbirth cues imply a different trauma context unless there is additional undisclosed perinatal trauma."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Injustice: What happened to me was deeply unfair and nothing has been done about it",
+          "explanation": "The appraisal that 'nothing has been done about it' fits neglect, betrayal, or preventable harm more than a child's serious illness. In the context of a life-threatening illness, the unfairness element is plausible, but the added idea that nothing has been done is clinically discordant unless there was clear medical negligence, which is not otherwise reflected in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Pregnancy/Birth Reminders"
+        ],
+        "Negative Appraisals": [
+          "Injustice"
+        ]
+      }
+    },
+    {
+      "attempt": 5,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Olfactory (Alcohol): Alcohol smell",
+          "explanation": "Alcohol smell is not well aligned with the stated trauma type of a child's life-threatening illness, while the other trigger items are strongly medical/hospital-based. Without any corroborating trauma content suggesting alcohol was central to the child's illness experience, this item looks clinically out of place within the trigger set."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it",
+          "explanation": "'Cannot trust safety' suggests a pervasive current danger appraisal more typical of interpersonal violence, combat, or repeated external threat. For a trauma centered on a child's life-threatening illness, this can occur, but here it is not well supported by the rest of the profile, which is focused on medical reminders and reliving rather than generalized danger."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Threat: Sleep Vigilance: I have difficulty falling asleep because I need to stay alert",
+          "explanation": "Sleep vigilance because one 'need[s] to stay alert' implies ongoing monitoring for imminent threat. In the context of a child's past life-threatening illness, this is difficult to reconcile unless there is corresponding material about night-time monitoring, medical deterioration, or responsibility for detecting danger, which is absent from the selected items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory (Alcohol)"
+        ],
+        "Threat": [
+          "Cannot Trust Safety"
+        ],
+        "Negative Appraisals": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 6,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Olfactory Danger Cue: Burnt smell",
+          "explanation": "The hospital/medical trigger pattern fits a child's life-threatening illness, but a burnt-smell danger cue is hard to reconcile with that trauma context unless there is specific unreported trauma-related meaning. As selected, it stands out as clinically implausible relative to the rest of the profile."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Olfactory Recall: When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened.",
+          "explanation": "The olfactory memory item implies the original trauma involved a distinctive smell that is re-experienced. In this profile, the only corroborating smell tied to the trauma context should be hospital/antiseptic cues; pairing it with a burnt-smell trigger creates an incoherent sensory trauma context for a child's medical illness."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory Danger Cue"
+        ],
+        "Memory": [
+          "Olfactory Recall"
+        ]
+      }
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 3979,
+    "output": 1061,
+    "total": 5040
+  },
+  "vignette": "Rajan is a 58-year-old South Asian man who has spent the better part of three decades as a bomb disposal technician — a career built on the premise that composure under extreme pressure is not merely a professional asset but a moral identity. He is married, the father of two adult children, and by most external measures a man of formidable competence. He presented for psychological assessment with a PCL-5 score of 39, describing symptoms that had persisted for nearly two years following his younger son Arjun's sudden diagnosis of acute bacterial meningitis at age nineteen.\n\nThe event itself unfolded with a speed that Rajan still cannot reconcile. Arjun had complained of a headache on a Tuesday evening; by Wednesday morning he was unconscious in the ICU. Rajan remembers the corridor of the hospital with terrible precision — the antiseptic smell that hit him as the automatic doors opened, the sight of a nurse drawing up medication through a drip line at the nurses' station, the particular quality of fluorescent light on linoleum. For seventy-two hours, the outcome was genuinely uncertain. Arjun survived, but the weeks that followed — the IV lines, the monitoring equipment, the repeated blood draws — etched themselves into Rajan with a depth he did not anticipate and could not explain.\n\nIn the months after Arjun's discharge, Rajan began to notice that certain sensory details would pull him back without transition or warning. The smell of antiseptic cleaning solution — present in his workplace during routine equipment sterilisation — could instantly reconstitute the full scene: the ICU bay, the sound of monitors, Arjun's stillness beneath tubes and lines. These intrusions arrived with complete sensory immediacy, as though no time had passed, and the visual images — Arjun's face, the needles, the drip stand — were what surfaced most forcefully. What made this particularly destabilising was not merely the content of the memories but their involuntary, ambush-like quality; something in his surroundings could trigger the full reliving before he had any chance to orient himself. When the memories broke through in this way, his body responded with a force that alarmed him — heart hammering, hands cold, breath constricted — as though the threat were present and immediate rather than two years past. The physical reactivity, arriving without consent, fed directly into a vigilance that now extended into the night; he lay awake telling himself he needed to stay alert, that something could shift without warning, that sleep was a form of dangerous inattention.\n\nThe negative appraisals that developed around these experiences became, in time, as disabling as the symptoms themselves. Rajan had come to believe, with quiet but absolute conviction, that what he was experiencing meant he was weak — that a man who had neutralised explosive devices in confined spaces for thirty years had no legitimate claim to be undone by a hospital visit. This belief did not stay contained. When a memory surfaced and his body reacted, the shame of the reaction compounded the distress, amplifying the threat and making the emotional state harder to regulate. He was also increasingly certain that the sheer uncontrollability of the intrusions — the way they arrived without invitation and felt entirely real — meant he was losing his mind. This fear of going crazy was not abstract; it was a daily interpretive lens through which each intrusive image confirmed further deterioration. The helplessness he felt — the recognition that he had been unable to protect his son, that he could not stop bad things from happening — circled back into the triggers themselves, so that being around children, including his own grandchildren, now carried a weight of anticipated catastrophe that made ordinary family gatherings feel dangerous. He had begun declining visits, offering work commitments as explanation.\n\nAt work, the sterilisation procedures for his team's equipment meant that the antiseptic smell was inescapable on certain shifts. He had not told his supervisor. The threat state these exposures generated — the physical reactivity, the negative emotions cycling through fear and guilt — reinforced his conviction that he was fundamentally changed and diminished. It was his wife who finally named what she was watching and told him, plainly, that she was frightened for him. What brought Rajan to the clinic was not that he agreed with her assessment, but that he could no longer argue against it. What he fears most is that he is right about himself. What he hopes, though he would not phrase it this way, is that he is wrong."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Rajan is a 58-year-old South Asian man who has spent the better part of three decades as a bomb disposal technician — a career built on the premise that composure under extreme pressure is not merely a professional asset but a moral identity. He is married, the father of two adult children, and by most external measures a man of formidable competence. He presented for psychological assessment with a PCL-5 score of 39, describing symptoms that had persisted for nearly two years following his younger son Arjun's sudden diagnosis of acute bacterial meningitis at age nineteen.\n\nThe event itself unfolded with a speed that Rajan still cannot reconcile. Arjun had complained of a headache on a Tuesday evening; by Wednesday morning he was unconscious in the ICU. Rajan remembers the corridor of the hospital with terrible precision — the antiseptic smell that hit him as the automatic doors opened, the sight of a nurse drawing up medication through a drip line at the nurses' station, the particular quality of fluorescent light on linoleum. For seventy-two hours, the outcome was genuinely uncertain. Arjun survived, but the weeks that followed — the IV lines, the monitoring equipment, the repeated blood draws — etched themselves into Rajan with a depth he did not anticipate and could not explain.\n\nIn the months after Arjun's discharge, Rajan began to notice that certain sensory details would pull him back without transition or warning. The smell of antiseptic cleaning solution — present in his workplace during routine equipment sterilisation — could instantly reconstitute the full scene: the ICU bay, the sound of monitors, Arjun's stillness beneath tubes and lines. These intrusions arrived with complete sensory immediacy, as though no time had passed, and the visual images — Arjun's face, the needles, the drip stand — were what surfaced most forcefully. What made this particularly destabilising was not merely the content of the memories but their involuntary, ambush-like quality; something in his surroundings could trigger the full reliving before he had any chance to orient himself. When the memories broke through in this way, his body responded with a force that alarmed him — heart hammering, hands cold, breath constricted — as though the threat were present and immediate rather than two years past. The physical reactivity, arriving without consent, fed directly into a vigilance that now extended into the night; he lay awake telling himself he needed to stay alert, that something could shift without warning, that sleep was a form of dangerous inattention.\n\nThe negative appraisals that developed around these experiences became, in time, as disabling as the symptoms themselves. Rajan had come to believe, with quiet but absolute conviction, that what he was experiencing meant he was weak — that a man who had neutralised explosive devices in confined spaces for thirty years had no legitimate claim to be undone by a hospital visit. This belief did not stay contained. When a memory surfaced and his body reacted, the shame of the reaction compounded the distress, amplifying the threat and making the emotional state harder to regulate. He was also increasingly certain that the sheer uncontrollability of the intrusions — the way they arrived without invitation and felt entirely real — meant he was losing his mind. This fear of going crazy was not abstract; it was a daily interpretive lens through which each intrusive image confirmed further deterioration. The helplessness he felt — the recognition that he had been unable to protect his son, that he could not stop bad things from happening — circled back into the triggers themselves, so that being around children, including his own grandchildren, now carried a weight of anticipated catastrophe that made ordinary family gatherings feel dangerous. He had begun declining visits, offering work commitments as explanation.\n\nAt work, the sterilisation procedures for his team's equipment meant that the antiseptic smell was inescapable on certain shifts. He had not told his supervisor. The threat state these exposures generated — the physical reactivity, the negative emotions cycling through fear and guilt — reinforced his conviction that he was fundamentally changed and diminished. It was his wife who finally named what she was watching and told him, plainly, that she was frightened for him. What brought Rajan to the clinic was not that he agreed with her assessment, but that he could no longer argue against it. What he fears most is that he is right about himself. What he hopes, though he would not phrase it this way, is that he is wrong.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

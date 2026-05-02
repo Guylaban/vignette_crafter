@@ -1,0 +1,207 @@
+{
+  "persona_id": 50,
+  "source_persona_id": 50,
+  "experiment_timestamp": "2026-05-02 18:57:22",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-chat",
+      "persona_crafter": "deepseek-chat",
+      "vignette_crafter": "deepseek-chat",
+      "vignette_validator": "deepseek-chat"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 80,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Widowed",
+    "occupation": "Policy Analyst",
+    "trauma_type": "Life-threatening motor vehicle collision",
+    "pcl5": 74
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Tactile (Temperature)",
+        "value": "A specific temperature on the skin"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      },
+      {
+        "key": "Olfactory Danger Cue",
+        "value": "Burnt smell"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Movements",
+        "value": "Sudden movements by others put me immediately on guard"
+      },
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Partial Clarity",
+        "value": "Some moments of the event are extremely clear while others are completely blank"
+      },
+      {
+        "key": "Triggered Without Warning",
+        "value": "Something in my surroundings can instantly bring back the full memory without warning"
+      },
+      {
+        "key": "Blocked Before Complete",
+        "value": "I find myself pushing the memory away before I can fully recall it"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.5784,
+    "Triggers -- Memory": 0.7259,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.8834,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9204,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.777025,
+  "edge_density": 0.2,
+  "vignette_word_count": 588,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Female Presence: Being alone with women",
+          "explanation": "The trigger profile is not clinically coherent with a life-threatening motor vehicle collision. Being alone with women and being looked at sexually strongly imply an interpersonal/sexual trauma context rather than an MVC, and there are no corresponding threat or memory items linking these cues to crash-related danger."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Sexual Objectification: Being looked at sexually",
+          "explanation": "The selected threat and memory items describe classic re-experiencing consistent with severe PTSD, but they do not connect plausibly to the chosen trigger content. Strong Triggers→Threat and Triggers→Memory edges would predict crash-related sensory or situational triggers; instead the triggers point to a different trauma theme."
+        },
+        {
+          "component": "Memory",
+          "item": "Triggers: Tactile (Temperature): A specific temperature on the skin",
+          "explanation": "A specific temperature on the skin could occur as an idiosyncratic sensory reminder, but in combination with the clearly non-MVC triggers above, the trigger node becomes internally implausible for this trauma type. The issue is with the trigger set as a whole rather than the memory/threat items themselves."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Female Presence"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Memory": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Sexual Objectification: Being looked at sexually",
+          "explanation": "The trigger set is not clinically coherent with a life-threatening motor vehicle collision. 'Being looked at sexually' is strongly suggestive of sexual trauma rather than MVC-related threat cues, and no memory/threat items provide any bridge that would make this plausible for the same index trauma."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Tactile (Temperature): A specific temperature on the skin",
+          "explanation": "The trigger profile lacks any clear thematic connection to the selected threat and memory items. Temperature on the skin and alcohol smell could occasionally occur around an MVC, but with no corresponding collision-specific memory content or appraisal context, the set as a whole appears disconnected from the trauma formulation."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Sexual Objectification"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2702,
+    "output": 748,
+    "total": 3450
+  },
+  "vignette": "Adwoa is an 80-year-old Ghanaian American woman, a widow who spent decades as a policy analyst in Washington, D.C., a profession that demanded she hold complex, often contradictory, information in mind and synthesize it into clear arguments. That capacity for intellectual control was shattered on a Tuesday afternoon six months ago. She was driving home from a community meeting when a drunk driver ran a red light and T-boned her sedan. The impact was violent. She remembers the screech of metal, the smell of burnt rubber and, most vividly, the smell of the other driver’s breath—sharp with alcohol—as he leaned into her window before the ambulance arrived. That scent, and the specific, oily smell of burnt rubber and metal from the wreck, now feel like landmines in her daily life.\n\nSince the accident, Adwoa’s mind has developed a terrible new logic. The smell of alcohol on a stranger’s breath in a grocery store line, or the faint burnt smell from a toaster, instantly and without warning hurls her back into the passenger seat. The memory does not unfold like a story; it arrives as a fragmented, sensory assault. She sees the grill of the other car, feels the temperature of the air change as the window shattered, but the moment of impact itself is a complete blank. These triggered returns are so overwhelming that she has begun to push the memory away before she can even fully recall it, a frantic mental slamming of a door. What frightens her most is that these episodes are not under her control; a simple, sudden movement by a passerby on the sidewalk can have the same effect, putting her instantly on guard, her heart hammering before she even knows why.\n\nAdwoa has come to believe that the world is now a place of hidden threats, and that her own mind is unreliable. A specific temperature on her skin—the coolness of an air-conditioned room that matches the day of the crash—can trigger a flashback, and that flashback, in turn, floods her with a raw, undiluted fear that feels identical to the moment of impact. She now watches the hands of other drivers when she is a passenger, scanning for any sudden movement that might precede another collision. This hypervigilance has a circular, exhausting quality: the more she scans for threat, the more she notices potential triggers, like the faint smell of exhaust, and the more her memory of the event feels fragmented and intrusive.\n\nThe consequences have been concrete and isolating. As a policy analyst, Adwoa was known for her ability to lead contentious meetings. Now, she cannot tolerate the close, warm air of a conference room, a temperature that reminds her of the car’s interior. She has declined all invitations to professional events, telling colleagues she is “slowing down.” Her daughter, who lives nearby, has noticed Adwoa flinch when she walks into a room too quickly. The smell of a neighbor’s barbecue, with its faint burnt undertone, recently sent her into a panic in her own backyard. She has stopped gardening. The world has shrunk to the few rooms in her house where she feels she can control the temperature and the smells, and where she can see people approach from a distance. It was the moment she realized she was afraid to open her own front door that finally brought her to seek help. What she fears most is that her mind, once a tool of precision and order, has become a source of chaos she can no longer manage."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Adwoa is an 80-year-old Ghanaian American woman, a widow who spent decades as a policy analyst in Washington, D.C., a profession that demanded she hold complex, often contradictory, information in mind and synthesize it into clear arguments. That capacity for intellectual control was shattered on a Tuesday afternoon six months ago. She was driving home from a community meeting when a drunk driver ran a red light and T-boned her sedan. The impact was violent. She remembers the screech of metal, the smell of burnt rubber and, most vividly, the smell of the other driver’s breath—sharp with alcohol—as he leaned into her window before the ambulance arrived. That scent, and the specific, oily smell of burnt rubber and metal from the wreck, now feel like landmines in her daily life.\n\nSince the accident, Adwoa’s mind has developed a terrible new logic. The smell of alcohol on a stranger’s breath in a grocery store line, or the faint burnt smell from a toaster, instantly and without warning hurls her back into the passenger seat. The memory does not unfold like a story; it arrives as a fragmented, sensory assault. She sees the grill of the other car, feels the temperature of the air change as the window shattered, but the moment of impact itself is a complete blank. These triggered returns are so overwhelming that she has begun to push the memory away before she can even fully recall it, a frantic mental slamming of a door. What frightens her most is that these episodes are not under her control; a simple, sudden movement by a passerby on the sidewalk can have the same effect, putting her instantly on guard, her heart hammering before she even knows why.\n\nAdwoa has come to believe that the world is now a place of hidden threats, and that her own mind is unreliable. A specific temperature on her skin—the coolness of an air-conditioned room that matches the day of the crash—can trigger a flashback, and that flashback, in turn, floods her with a raw, undiluted fear that feels identical to the moment of impact. She now watches the hands of other drivers when she is a passenger, scanning for any sudden movement that might precede another collision. This hypervigilance has a circular, exhausting quality: the more she scans for threat, the more she notices potential triggers, like the faint smell of exhaust, and the more her memory of the event feels fragmented and intrusive.\n\nThe consequences have been concrete and isolating. As a policy analyst, Adwoa was known for her ability to lead contentious meetings. Now, she cannot tolerate the close, warm air of a conference room, a temperature that reminds her of the car’s interior. She has declined all invitations to professional events, telling colleagues she is “slowing down.” Her daughter, who lives nearby, has noticed Adwoa flinch when she walks into a room too quickly. The smell of a neighbor’s barbecue, with its faint burnt undertone, recently sent her into a panic in her own backyard. She has stopped gardening. The world has shrunk to the few rooms in her house where she feels she can control the temperature and the smells, and where she can see people approach from a distance. It was the moment she realized she was afraid to open her own front door that finally brought her to seek help. What she fears most is that her mind, once a tool of precision and order, has become a source of chaos she can no longer manage.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

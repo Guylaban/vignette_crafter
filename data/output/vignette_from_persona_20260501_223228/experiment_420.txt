@@ -1,0 +1,427 @@
+PERSONA 420  |  2026-05-02 01:42:53
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             57
+  gender          Male
+  ethnicity       North American
+  relationship_status Single
+  occupation      Tutor
+  trauma_type     Sexual assault
+  pcl5            66
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Tactile (Touch): Physical touch
+    • Loss of Autonomy: Being forced to do something
+    • Male Presence: Being alone with men
+  Maladaptive Strategies:
+    • Avoid Emotional Stress: Situations that make me feel strong emotions
+    • Smoking: I smoke
+    • Avoid Being Touched: Any form of physical contact with others
+  Threat:
+    • Watching Others: I watch other people closely for signs that they might harm me
+    • Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+    • Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+  Memory:
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Incomplete Picture: I feel like I am only remembering parts of what happened and the rest is missing
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+  Negative Appraisals:
+    • Isolation: I feel isolated and set apart from others
+    • Body Unreliable: I can no longer trust my own body
+    • Constant Vigilance: I have to be especially careful because you never know what can happen next
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.4137
+  Triggers → Memory                                  0.6332
+  Triggers → Negative Appraisals                     0.5866
+  Negative Appraisals → Maladaptive Strategies       0.4170
+  Negative Appraisals → Threat                       0.7327
+  Negative Appraisals → Memory                       0.2870
+  Negative Appraisals → Triggers                     0.5003
+  Memory → Maladaptive Strategies                    0.2887
+  Memory → Threat                                    0.7172
+  Memory → Negative Appraisals                       0.1483
+  Memory → Triggers                                  0.8644
+  Threat → Maladaptive Strategies                    0.6003
+  Threat → Memory                                    0.5599
+  Threat → Negative Appraisals                       0.8737
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Children Crying): Kids crying
+    explanation: 'Kids crying' is not impossible as a trigger after sexual assault, but with the rest of this profile it lacks a clear thematic link to the assault, threat beliefs, or memory content; compared with the other highly assault-congruent triggers (touch, loss of autonomy), this item is clinically weakly connected and may be incoherent for this same formulation.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Heavy Makeup: heavy make-up
+    explanation: 'Heavy make-up' is difficult to reconcile with this patient's demographics (57-year-old male) and trauma presentation unless there is specific context not provided. It stands out as the clearest demographic/item mismatch in the five target components.
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: 'I can talk about what happened very easily' conflicts with the rest of the memory profile and overall severe PTSD presentation: it sits awkwardly alongside vivid but fragmented trauma memory and strong threat/appraisal activation after sexual assault. This is a within-node tension, because easy verbal access to the trauma is hard to square with marked fragmentation and severe re-experiencing-linked formulation here.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     13,101
+  output:     2,430
+  total:     15,531
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  3 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+David is a 57-year-old tutor who came to treatment after years of arranging his life around not
+being caught off guard. The assault happened when he was in his forties. He described being cornered
+by another man in a private setting and overpowered, the worst part not only the sexual violation
+but the moment he realized he could not stop what was happening. What has stayed with him most
+sharply is the combination of forced physical contact and the absolute loss of control over his own
+body. Even now he can say certain sensory details with painful precision—the feel of a hand pinning
+him, the closeness of a male body, the trapped certainty that saying no made no difference—while
+other parts seem to fall away. He knows there are missing pieces, and when he tries to explain the
+event aloud, he often stops, frustrated, saying he knows what happened but cannot find words for it.
+
+In the months afterward, David did not simply feel upset; he came to believe the world had changed
+into a place where safety depended on constant caution. He was certain he had to be especially
+careful because you never know what can happen next. That belief settled alongside another, more
+painful one: that his own body had become unreliable, something that had failed to protect him and
+could not be trusted to warn him in time. The memories fed that conclusion. Their clarity made the
+assault feel undeniable and close, but the blank spaces left him feeling even less secure, as if
+danger could come from what he did not fully remember as much as from what he did. Over time he also
+felt increasingly set apart from other people, especially from other men, as though he had been
+pushed into a private world no one else could quite enter.
+
+Those meanings now shape what catches him in daily life. Because he has come to expect danger and to
+doubt his own capacity to stay safe, physical touch startles him immediately, being directed or
+pressured by someone can feel intolerably charged, and being alone with a man is often enough to
+make his body tense before anything has actually happened. At the tutoring center where he works, he
+pays close attention to who is in the room and where they are standing. If a male student arrives
+early and he finds himself alone with him, David begins scanning for signs of threat in the
+student’s posture, tone, and movements. When parents or staff reach out casually to pat his shoulder
+in thanks, the contact can pull up the assault with startling force: a vivid flash of the physical
+restraint, followed by the sickening sense that parts of the memory are still out of reach. In those
+moments he feels again how little he trusts his body, and the old conviction returns that he is
+fundamentally alone in managing this.
+
+The memories and the sense of current threat now reinforce each other. The more closely David
+watches other people for signs they might harm him, the more readily details of the assault spring
+up. He chooses seats in waiting rooms, classrooms, and coffee shops with almost ritual precision,
+always locating the chair that feels most protected and gives him the clearest view of the room. He
+avoids unfamiliar places because he cannot quickly assess the danger there. That constant
+surveillance leaves him primed; a man standing too near in a hallway, an unexpected brush of arms,
+or a situation in which someone else seems to be deciding for him can bring back the assault in
+sharp fragments. Each resurgence of memory confirms his belief that the threat is still immediate
+and that vigilance is necessary, while each episode of vigilance seems to sharpen the memory again.
+
+From those beliefs, a pattern of coping has narrowed his life. Because he feels isolated, unable to
+trust his body, and convinced that strong emotion will overwhelm him, David avoids situations likely
+to stir much feeling. He keeps conversation with students focused tightly on coursework and declines
+social invitations from colleagues. He has become notably rigid about physical boundaries, stepping
+back from handshakes or finding ways to keep a desk between himself and others. Smoking has become
+another way he manages the internal surge; he describes slipping outside between sessions not for
+pleasure but to settle himself, to do something familiar when his chest tightens and his thoughts
+start racing. His monitoring of exits and strangers makes him choose routines over spontaneity, and
+his avoidance of touch has affected even benign contact, contributing to a life that feels
+controlled but increasingly small.
+
+What finally brought him in was a recent incident at work when a male student, trying to show him
+something on a screen, leaned in and touched his forearm. David froze, lost the thread of the
+lesson, and afterward sat in his car chain-smoking, shaken by how immediately the memory had
+returned and how complete his fear felt. He was frightened by how powerfully these moments still
+govern him and by the possibility that he will keep retreating from work and from people until there
+is very little left. At the same time, he said quietly that he hopes for something simple: to sit in
+a room without calculating danger, to teach without bracing for touch, and to feel that his body
+belongs to him again.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette shows triggers bringing up memory and threat, but it does not state that triggers themselves lead David into negative appraisals or beliefs.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette explains that negative appraisals shape what catches him in daily life, but it does not explicitly convey that those appraisals generate or heighten triggers/reminders themselves.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: Although memories are said to feed earlier conclusions and confirm threat, no paragraph clearly states that trauma memories directly produce David’s negative appraisals in the present.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette shows threat reinforcing memory and driving vigilance and avoidance, but it does not explicitly state that the sense of threat leads to negative appraisals or distorted beliefs.
+
+  [2] FAIL
+David is a 57-year-old tutor who came to treatment after years of arranging his life around not
+being caught off guard. The assault happened when he was in his forties. He described being cornered
+by another man in a private setting and overpowered, the worst part not only the sexual violation
+but the moment he realized he could not stop what was happening. What has stayed with him most
+sharply is the combination of forced physical contact and the absolute loss of control over his own
+body. Even now he can say certain sensory details with painful precision—the feel of a hand pinning
+him, the closeness of a male body, the trapped certainty that saying no made no difference—while
+other parts seem to fall away. He knows there are missing pieces, and when he tries to explain the
+event aloud, he often stops, frustrated, saying he knows what happened but cannot find words for it.
+When those sharp fragments break through, they leave him thinking not just that the assault was
+terrible, but that something in him remains damaged and unreliable if the memory can still seize him
+so completely.
+
+In the months afterward, David did not simply feel upset; he came to believe the world had changed
+into a place where safety depended on constant caution. He was certain he had to be especially
+careful because you never know what can happen next. Once he saw ordinary life through that lens,
+more and more things began to snag his attention as possible warnings; a man lingering in a doorway,
+an unexpected touch, even being alone in a room no longer felt neutral enough to ignore. That belief
+settled alongside another, more painful one: that his own body had become unreliable, something that
+had failed to protect him and could not be trusted to warn him in time. The memories fed that
+conclusion. Their clarity made the assault feel undeniable and close, but the blank spaces left him
+feeling even less secure, as if danger could come from what he did not fully remember as much as
+from what he did. Over time he also felt increasingly set apart from other people, especially from
+other men, as though he had been pushed into a private world no one else could quite enter.
+
+Those meanings now shape what catches him in daily life. Because he has come to expect danger and to
+doubt his own capacity to stay safe, physical touch startles him immediately, being directed or
+pressured by someone can feel intolerably charged, and being alone with a man is often enough to
+make his body tense before anything has actually happened. Each time one of these moments catches
+him, the same conclusion lands with it: that he is still vulnerable, still unable to trust his own
+body to protect him, and still largely on his own with this. At the tutoring center where he works,
+he pays close attention to who is in the room and where they are standing. If a male student arrives
+early and he finds himself alone with him, David begins scanning for signs of threat in the
+student’s posture, tone, and movements. When parents or staff reach out casually to pat his shoulder
+in thanks, the contact can pull up the assault with startling force: a vivid flash of the physical
+restraint, followed by the sickening sense that parts of the memory are still out of reach. In those
+moments he feels again how little he trusts his body, and the old conviction returns that he is
+fundamentally alone in managing this.
+
+The memories and the sense of current threat now reinforce each other. The more closely David
+watches other people for signs they might harm him, the more readily details of the assault spring
+up. Living in that level of alarm has itself become proof to him that his life is no longer
+fundamentally safe and that he is not someone who can afford to let his guard down. He chooses seats
+in waiting rooms, classrooms, and coffee shops with almost ritual precision, always locating the
+chair that feels most protected and gives him the clearest view of the room. He avoids unfamiliar
+places because he cannot quickly assess the danger there. That constant surveillance leaves him
+primed; a man standing too near in a hallway, an unexpected brush of arms, or a situation in which
+someone else seems to be deciding for him can bring back the assault in sharp fragments. Each
+resurgence of memory confirms his belief that the threat is still immediate and that vigilance is
+necessary, while each episode of vigilance seems to sharpen the memory again.
+
+From those beliefs, a pattern of coping has narrowed his life. Because he feels isolated, unable to
+trust his body, and convinced that strong emotion will overwhelm him, David avoids situations likely
+to stir much feeling. He keeps conversation with students focused tightly on coursework and declines
+social invitations from colleagues. He has become notably rigid about physical boundaries, stepping
+back from handshakes or finding ways to keep a desk between himself and others. Smoking has become
+another way he manages the internal surge; he describes slipping outside between sessions not for
+pleasure but to settle himself, to do something familiar when his chest tightens and his thoughts
+start racing. His monitoring of exits and strangers makes him choose routines over spontaneity, and
+his avoidance of touch has affected even benign contact, contributing to a life that feels
+controlled but increasingly small.
+
+What finally brought him in was a recent incident at work when a male student, trying to show him
+something on a screen, leaned in and touched his forearm. David froze, lost the thread of the
+lesson, and afterward sat in his car chain-smoking, shaken by how immediately the memory had
+returned and how complete his fear felt. He was frightened by how powerfully these moments still
+govern him and by the possibility that he will keep retreating from work and from people until there
+is very little left. At the same time, he said quietly that he hopes for something simple: to sit in
+a room without calculating danger, to teach without bracing for touch, and to feel that his body
+belongs to him again.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not explicitly show triggers causing or intensifying negative appraisals within the same paragraph.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not clearly state that David’s negative appraisals lead to intrusive memories within the same paragraph.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not clearly convey that David’s negative appraisals make more stimuli become triggers or reminders within the same paragraph.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette does not explicitly show intrusive memories leading to negative appraisals within the same paragraph.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette does not clearly state that David’s sense of threat leads to negative appraisals within the same paragraph.
+
+  [3] PASS
+David is a 57-year-old tutor who came to treatment after years of arranging his life around not
+being caught off guard. The assault happened when he was in his forties. He described being cornered
+by another man in a private setting and overpowered, the worst part not only the sexual violation
+but the moment he realized he could not stop what was happening. What has stayed with him most
+sharply is the combination of forced physical contact and the absolute loss of control over his own
+body. Even now he can say certain sensory details with painful precision—the feel of a hand pinning
+him, the closeness of a male body, the trapped certainty that saying no made no difference—while
+other parts seem to fall away. He knows there are missing pieces, and when he tries to explain the
+event aloud, he often stops, frustrated, saying he knows what happened but cannot find words for it.
+When those sharp fragments break through, they leave him thinking not just that the assault was
+terrible, but that something in him remains damaged and unreliable if the memory can still seize him
+so completely. After these intrusions, he is often left with the same bleak conclusion: if the
+memory can overtake him this fast, then he must still be fundamentally unsafe in his own body.
+
+In the months afterward, David did not simply feel upset; he came to believe the world had changed
+into a place where safety depended on constant caution. He was certain he had to be especially
+careful because you never know what can happen next. Once he was looking at life that way, ordinary
+ambiguities stopped feeling ordinary: a man pausing in a doorway, a shift in someone’s tone, or the
+prospect of being alone in a room all began to register as possible signs that something was about
+to go wrong. Holding that conviction seemed to pull him back toward the assault itself; the more
+certain he became that he was living in a world of hidden danger, the more easily the trapped
+physical details of what had happened rose up in his mind as if to prove he was right. Once he saw
+ordinary life through that lens, more and more things began to snag his attention as possible
+warnings; a man lingering in a doorway, an unexpected touch, even being alone in a room no longer
+felt neutral enough to ignore. That belief settled alongside another, more painful one: that his own
+body had become unreliable, something that had failed to protect him and could not be trusted to
+warn him in time. The memories fed that conclusion. Their clarity made the assault feel undeniable
+and close, but the blank spaces left him feeling even less secure, as if danger could come from what
+he did not fully remember as much as from what he did. Over time he also felt increasingly set apart
+from other people, especially from other men, as though he had been pushed into a private world no
+one else could quite enter.
+
+Those meanings now shape what catches him in daily life. Because he has come to expect danger and to
+doubt his own capacity to stay safe, physical touch startles him immediately, being directed or
+pressured by someone can feel intolerably charged, and being alone with a man is often enough to
+make his body tense before anything has actually happened. In those moments, the trigger does not
+stay a neutral alarm; it lands as a verdict, and David finds himself thinking that this is evidence
+of how vulnerable he still is and how little he can rely on himself to be safe. Each time one of
+these moments catches him, the same conclusion lands with it: that he is still vulnerable, still
+unable to trust his own body to protect him, and still largely on his own with this. At the tutoring
+center where he works, he pays close attention to who is in the room and where they are standing. If
+a male student arrives early and he finds himself alone with him, David begins scanning for signs of
+threat in the student’s posture, tone, and movements. When parents or staff reach out casually to
+pat his shoulder in thanks, the contact can pull up the assault with startling force: a vivid flash
+of the physical restraint, followed by the sickening sense that parts of the memory are still out of
+reach. In those moments he feels again how little he trusts his body, and the old conviction returns
+that he is fundamentally alone in managing this.
+
+The memories and the sense of current threat now reinforce each other. The more closely David
+watches other people for signs they might harm him, the more readily details of the assault spring
+up. Living in that level of alarm has itself become proof to him that his life is no longer
+fundamentally safe and that he is not someone who can afford to let his guard down. Feeling this
+threatened so often has become, in his own mind, confirmation that something lasting was taken from
+him and that he is now the kind of person who has to live braced for danger. He chooses seats in
+waiting rooms, classrooms, and coffee shops with almost ritual precision, always locating the chair
+that feels most protected and gives him the clearest view of the room. He avoids unfamiliar places
+because he cannot quickly assess the danger there. That constant surveillance leaves him primed; a
+man standing too near in a hallway, an unexpected brush of arms, or a situation in which someone
+else seems to be deciding for him can bring back the assault in sharp fragments. Each resurgence of
+memory confirms his belief that the threat is still immediate and that vigilance is necessary, while
+each episode of vigilance seems to sharpen the memory again.
+
+From those beliefs, a pattern of coping has narrowed his life. Because he feels isolated, unable to
+trust his body, and convinced that strong emotion will overwhelm him, David avoids situations likely
+to stir much feeling. He keeps conversation with students focused tightly on coursework and declines
+social invitations from colleagues. He has become notably rigid about physical boundaries, stepping
+back from handshakes or finding ways to keep a desk between himself and others. Smoking has become
+another way he manages the internal surge; he describes slipping outside between sessions not for
+pleasure but to settle himself, to do something familiar when his chest tightens and his thoughts
+start racing. His monitoring of exits and strangers makes him choose routines over spontaneity, and
+his avoidance of touch has affected even benign contact, contributing to a life that feels
+controlled but increasingly small.
+
+What finally brought him in was a recent incident at work when a male student, trying to show him
+something on a screen, leaned in and touched his forearm. David froze, lost the thread of the
+lesson, and afterward sat in his car chain-smoking, shaken by how immediately the memory had
+returned and how complete his fear felt. He was frightened by how powerfully these moments still
+govern him and by the possibility that he will keep retreating from work and from people until there
+is very little left. At the same time, he said quietly that he hopes for something simple: to sit in
+a room without calculating danger, to teach without bracing for touch, and to feel that his body
+belongs to him again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+David is a 57-year-old tutor who came to treatment after years of arranging his life around not
+being caught off guard. The assault happened when he was in his forties. He described being cornered
+by another man in a private setting and overpowered, the worst part not only the sexual violation
+but the moment he realized he could not stop what was happening. What has stayed with him most
+sharply is the combination of forced physical contact and the absolute loss of control over his own
+body. Even now he can say certain sensory details with painful precision—the feel of a hand pinning
+him, the closeness of a male body, the trapped certainty that saying no made no difference—while
+other parts seem to fall away. He knows there are missing pieces, and when he tries to explain the
+event aloud, he often stops, frustrated, saying he knows what happened but cannot find words for it.
+When those sharp fragments break through, they leave him thinking not just that the assault was
+terrible, but that something in him remains damaged and unreliable if the memory can still seize him
+so completely. After these intrusions, he is often left with the same bleak conclusion: if the
+memory can overtake him this fast, then he must still be fundamentally unsafe in his own body.
+
+In the months afterward, David did not simply feel upset; he came to believe the world had changed
+into a place where safety depended on constant caution. He was certain he had to be especially
+careful because you never know what can happen next. Once he was looking at life that way, ordinary
+ambiguities stopped feeling ordinary: a man pausing in a doorway, a shift in someone’s tone, or the
+prospect of being alone in a room all began to register as possible signs that something was about
+to go wrong. Holding that conviction seemed to pull him back toward the assault itself; the more
+certain he became that he was living in a world of hidden danger, the more easily the trapped
+physical details of what had happened rose up in his mind as if to prove he was right. Once he saw
+ordinary life through that lens, more and more things began to snag his attention as possible
+warnings; a man lingering in a doorway, an unexpected touch, even being alone in a room no longer
+felt neutral enough to ignore. That belief settled alongside another, more painful one: that his own
+body had become unreliable, something that had failed to protect him and could not be trusted to
+warn him in time. The memories fed that conclusion. Their clarity made the assault feel undeniable
+and close, but the blank spaces left him feeling even less secure, as if danger could come from what
+he did not fully remember as much as from what he did. Over time he also felt increasingly set apart
+from other people, especially from other men, as though he had been pushed into a private world no
+one else could quite enter.
+
+Those meanings now shape what catches him in daily life. Because he has come to expect danger and to
+doubt his own capacity to stay safe, physical touch startles him immediately, being directed or
+pressured by someone can feel intolerably charged, and being alone with a man is often enough to
+make his body tense before anything has actually happened. In those moments, the trigger does not
+stay a neutral alarm; it lands as a verdict, and David finds himself thinking that this is evidence
+of how vulnerable he still is and how little he can rely on himself to be safe. Each time one of
+these moments catches him, the same conclusion lands with it: that he is still vulnerable, still
+unable to trust his own body to protect him, and still largely on his own with this. At the tutoring
+center where he works, he pays close attention to who is in the room and where they are standing. If
+a male student arrives early and he finds himself alone with him, David begins scanning for signs of
+threat in the student’s posture, tone, and movements. When parents or staff reach out casually to
+pat his shoulder in thanks, the contact can pull up the assault with startling force: a vivid flash
+of the physical restraint, followed by the sickening sense that parts of the memory are still out of
+reach. In those moments he feels again how little he trusts his body, and the old conviction returns
+that he is fundamentally alone in managing this.
+
+The memories and the sense of current threat now reinforce each other. The more closely David
+watches other people for signs they might harm him, the more readily details of the assault spring
+up. Living in that level of alarm has itself become proof to him that his life is no longer
+fundamentally safe and that he is not someone who can afford to let his guard down. Feeling this
+threatened so often has become, in his own mind, confirmation that something lasting was taken from
+him and that he is now the kind of person who has to live braced for danger. He chooses seats in
+waiting rooms, classrooms, and coffee shops with almost ritual precision, always locating the chair
+that feels most protected and gives him the clearest view of the room. He avoids unfamiliar places
+because he cannot quickly assess the danger there. That constant surveillance leaves him primed; a
+man standing too near in a hallway, an unexpected brush of arms, or a situation in which someone
+else seems to be deciding for him can bring back the assault in sharp fragments. Each resurgence of
+memory confirms his belief that the threat is still immediate and that vigilance is necessary, while
+each episode of vigilance seems to sharpen the memory again.
+
+From those beliefs, a pattern of coping has narrowed his life. Because he feels isolated, unable to
+trust his body, and convinced that strong emotion will overwhelm him, David avoids situations likely
+to stir much feeling. He keeps conversation with students focused tightly on coursework and declines
+social invitations from colleagues. He has become notably rigid about physical boundaries, stepping
+back from handshakes or finding ways to keep a desk between himself and others. Smoking has become
+another way he manages the internal surge; he describes slipping outside between sessions not for
+pleasure but to settle himself, to do something familiar when his chest tightens and his thoughts
+start racing. His monitoring of exits and strangers makes him choose routines over spontaneity, and
+his avoidance of touch has affected even benign contact, contributing to a life that feels
+controlled but increasingly small.
+
+What finally brought him in was a recent incident at work when a male student, trying to show him
+something on a screen, leaned in and touched his forearm. David froze, lost the thread of the
+lesson, and afterward sat in his car chain-smoking, shaken by how immediately the memory had
+returned and how complete his fear felt. He was frightened by how powerfully these moments still
+govern him and by the possibility that he will keep retreating from work and from people until there
+is very little left. At the same time, he said quietly that he hopes for something simple: to sit in
+a room without calculating danger, to teach without bracing for touch, and to feel that his body
+belongs to him again.

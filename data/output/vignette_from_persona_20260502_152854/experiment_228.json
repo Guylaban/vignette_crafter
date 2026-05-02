@@ -1,0 +1,223 @@
+{
+  "persona_id": 228,
+  "source_persona_id": 228,
+  "experiment_timestamp": "2026-05-02 18:16:40",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-flash",
+      "persona_crafter": "gemini-2.5-flash",
+      "vignette_crafter": "gemini-2.5-flash",
+      "vignette_validator": "gemini-2.5-flash"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 75,
+    "gender": "Male",
+    "ethnicity": "South Eastern Asian",
+    "relationship_status": "Widowed",
+    "occupation": "Cybersecurity Analyst",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 74
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Medical Procedures",
+        "value": "Undergoing a medical examination or procedure"
+      },
+      {
+        "key": "Pregnancy/Birth Reminders",
+        "value": "Pregnancy, childbirth, or babies in general"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      },
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Feels Present Not Past",
+        "value": "The memory feels like it is happening right now rather than something that is over"
+      },
+      {
+        "key": "Cannot Explain Clearly",
+        "value": "When I try to explain what happened I lose the thread and cannot finish"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.9509,
+    "Triggers -- Memory": 0.8432,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.9744,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0619,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Memory"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.7076,
+  "edge_density": 0.2,
+  "vignette_word_count": 622,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "The trigger set is strongly combat/assault-themed (helicopters, being followed, people in uniform) and is hard to reconcile with the indexed trauma of a child's life-threatening illness. A clinician would question whether these triggers belong to a different trauma history."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Being Followed: Feeling followed or tracked",
+          "explanation": "The threat items similarly suggest interpersonal attack or pursuit/hypervigilance in dangerous public settings (checking locks, needing back to wall) rather than a coherent threat representation linked to a child's medical crisis. Given the very strong Triggers → Threat edge, these threat items should plausibly arise from the listed triggers, but both sets point to a different trauma context than the indexed illness trauma."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Helicopter)"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Being Followed: Feeling followed or tracked",
+          "explanation": "The profile centers on a child's life-threatening illness, but 'being followed or tracked' suggests a stalking/pursuit trauma context that is hard to reconcile with the trauma type and the other selected medical-trauma items."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked",
+          "explanation": "The threat items emphasize interpersonal attack/intrusion vigilance (door-lock checking, needing back to wall) rather than danger linked to medical crisis, loss, or recurrence of illness. In combination with the stalking-like trigger, this pulls the profile toward a persecution/assault formulation that is not clinically coherent with the stated trauma."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Being Followed"
+        ],
+        "Threat": [
+          "Door and Lock Checking"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Authority Figures: People in uniform",
+          "explanation": "For trauma centred on a child's life-threatening illness, 'people in uniform' is a poor fit as a trigger unless the trauma involved military or police contexts; it does not cohere well with the otherwise medical/illness-based profile."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Back to Wall: I feel unsafe unless my back is against a wall where I can see the room",
+          "explanation": "'Back to wall' implies a hypervigilant interpersonal/assault-style danger schema about monitoring the room, which is hard to reconcile with the illness/medical trauma profile and the other listed triggers and memory items that centre on medical procedures and intrusive reliving."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Authority Figures"
+        ],
+        "Threat": [
+          "Back to Wall"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2782,
+    "output": 4858,
+    "total": 7640
+  },
+  "vignette": "Bao, a 75-year-old cybersecurity analyst, carried the weight of a lifetime of vigilance, a quiet sorrow etched into the lines around his eyes. The genesis of his struggle lay decades in the past, when his infant son, Minh, was diagnosed with a life-threatening congenital heart condition. The hospital became their second home, a place of sterile terror where the scent of antiseptic hung heavy in the air, mixing with the metallic tang of fear. Bao and his late wife spent countless nights by Minh’s incubator, watching him undergo one medical procedure after another, each one a fresh assault on their fragile hope. The initial joy of Minh’s birth was brutally usurped by an overwhelming sense of horror, as they navigated a world of doctors, nurses, and the constant, high-stakes drama of pediatric intensive care. Though Minh ultimately survived, thriving into adulthood, the experience never truly left Bao.\n\nIn the years that followed, certain aspects of daily life became landmines. Even now, encountering specific **triggers**, like the unmistakable hospital or antiseptic smell, or the sight of medical instruments during a routine check-up, would instantly flood Bao with strong negative feelings such as fear and horror. He’d feel a sudden rush of adrenaline, his heart pounding in his chest, a wave of physical reactivity that made him want to bolt from the room. These triggers didn’t just provoke strong emotions; they had a profound effect on his internal world, immediately causing his **memories** of the frightening event to replay like a film that played over and over. He would find himself back in the sterile corridors, reliving the agonizing wait outside the operating room, the terror of seeing his tiny son hooked up to machines.\n\nThe constant replay of those terrifying scenes, feeling as if they were happening right now rather than something that was over, meant that his mind was always on high alert. This vivid, present-tense quality of his **memory** made him acutely sensitive to anything that even remotely resembled a hospital setting, effectively broadening the range of what could act as a **trigger**. A news report about a new medical technology, or even an advertisement on his computer screen for a baby product, could plunge him back into that unbearable past, reminding him of Minh’s early fragility. When these powerful memories took hold, they often manifested as full-blown flashbacks, where he would suddenly feel or act as if the stressful experience were actually happening again. During these intense episodes, his strong negative emotions and physical reactivity would surge, further intensifying the vividness of the **memory**, making it feel even more immediate and terrifying.\n\nWorking as a cybersecurity analyst from his home office offered Bao some refuge, allowing him to largely control his environment. Yet, even there, the pervasive nature of his past trauma would intrude. A brief online video about a new hospital wing, or the unexpected sight of a pregnant woman on his screen, could halt his focus entirely. The persistent internal replay of his son's illness, the feeling that it was happening right now, meant that despite his best efforts, he often lost the thread when trying to explain what had happened, unable to finish his thoughts as the past asserted its dominance. After his wife passed away a few years ago, the isolation deepened, leaving him with no one to share the burden of these relentless internal battles. He felt increasingly trapped, the once-faint echoes of his son’s illness now a constant, deafening roar. It was this tightening grip of the past, the pervasive sense that the trauma was still unfolding, that finally led Bao to seek help, hoping to find some way to live in the present without constantly reliving the most terrifying chapter of his life."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Bao, a 75-year-old cybersecurity analyst, carried the weight of a lifetime of vigilance, a quiet sorrow etched into the lines around his eyes. The genesis of his struggle lay decades in the past, when his infant son, Minh, was diagnosed with a life-threatening congenital heart condition. The hospital became their second home, a place of sterile terror where the scent of antiseptic hung heavy in the air, mixing with the metallic tang of fear. Bao and his late wife spent countless nights by Minh’s incubator, watching him undergo one medical procedure after another, each one a fresh assault on their fragile hope. The initial joy of Minh’s birth was brutally usurped by an overwhelming sense of horror, as they navigated a world of doctors, nurses, and the constant, high-stakes drama of pediatric intensive care. Though Minh ultimately survived, thriving into adulthood, the experience never truly left Bao.\n\nIn the years that followed, certain aspects of daily life became landmines. Even now, encountering specific **triggers**, like the unmistakable hospital or antiseptic smell, or the sight of medical instruments during a routine check-up, would instantly flood Bao with strong negative feelings such as fear and horror. He’d feel a sudden rush of adrenaline, his heart pounding in his chest, a wave of physical reactivity that made him want to bolt from the room. These triggers didn’t just provoke strong emotions; they had a profound effect on his internal world, immediately causing his **memories** of the frightening event to replay like a film that played over and over. He would find himself back in the sterile corridors, reliving the agonizing wait outside the operating room, the terror of seeing his tiny son hooked up to machines.\n\nThe constant replay of those terrifying scenes, feeling as if they were happening right now rather than something that was over, meant that his mind was always on high alert. This vivid, present-tense quality of his **memory** made him acutely sensitive to anything that even remotely resembled a hospital setting, effectively broadening the range of what could act as a **trigger**. A news report about a new medical technology, or even an advertisement on his computer screen for a baby product, could plunge him back into that unbearable past, reminding him of Minh’s early fragility. When these powerful memories took hold, they often manifested as full-blown flashbacks, where he would suddenly feel or act as if the stressful experience were actually happening again. During these intense episodes, his strong negative emotions and physical reactivity would surge, further intensifying the vividness of the **memory**, making it feel even more immediate and terrifying.\n\nWorking as a cybersecurity analyst from his home office offered Bao some refuge, allowing him to largely control his environment. Yet, even there, the pervasive nature of his past trauma would intrude. A brief online video about a new hospital wing, or the unexpected sight of a pregnant woman on his screen, could halt his focus entirely. The persistent internal replay of his son's illness, the feeling that it was happening right now, meant that despite his best efforts, he often lost the thread when trying to explain what had happened, unable to finish his thoughts as the past asserted its dominance. After his wife passed away a few years ago, the isolation deepened, leaving him with no one to share the burden of these relentless internal battles. He felt increasingly trapped, the once-faint echoes of his son’s illness now a constant, deafening roar. It was this tightening grip of the past, the pervasive sense that the trauma was still unfolding, that finally led Bao to seek help, hoping to find some way to live in the present without constantly reliving the most terrifying chapter of his life.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

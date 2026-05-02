@@ -1,0 +1,191 @@
+PERSONA 228  |  2026-05-02 18:16:40
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-flash
+    persona_crafter      gemini-2.5-flash
+    vignette_crafter     gemini-2.5-flash
+    vignette_validator   gemini-2.5-flash
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             75
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Widowed
+  occupation      Cybersecurity Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            74
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Medical Procedures: Undergoing a medical examination or procedure
+    • Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Feels Present Not Past: The memory feels like it is happening right now rather than something that is over
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.9509
+  Triggers → Memory                                  0.8432
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.9744
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0619
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Helicopter): Helicopter or aircraft sounds
+    explanation: The trigger set is strongly combat/assault-themed (helicopters, being followed, people in uniform) and is hard to reconcile with the indexed trauma of a child's life-threatening illness. A clinician would question whether these triggers belong to a different trauma history.
+    item:        Threat / Triggers: Being Followed: Feeling followed or tracked
+    explanation: The threat items similarly suggest interpersonal attack or pursuit/hypervigilance in dangerous public settings (checking locks, needing back to wall) rather than a coherent threat representation linked to a child's medical crisis. Given the very strong Triggers → Threat edge, these threat items should plausibly arise from the listed triggers, but both sets point to a different trauma context than the indexed illness trauma.
+  [2] FAIL
+    item:        Triggers / Triggers: Being Followed: Feeling followed or tracked
+    explanation: The profile centers on a child's life-threatening illness, but 'being followed or tracked' suggests a stalking/pursuit trauma context that is hard to reconcile with the trauma type and the other selected medical-trauma items.
+    item:        Threat / Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: The threat items emphasize interpersonal attack/intrusion vigilance (door-lock checking, needing back to wall) rather than danger linked to medical crisis, loss, or recurrence of illness. In combination with the stalking-like trigger, this pulls the profile toward a persecution/assault formulation that is not clinically coherent with the stated trauma.
+  [3] FAIL
+    item:        Triggers / Triggers: Authority Figures: People in uniform
+    explanation: For trauma centred on a child's life-threatening illness, 'people in uniform' is a poor fit as a trigger unless the trauma involved military or police contexts; it does not cohere well with the otherwise medical/illness-based profile.
+    item:        Threat / Threat: Back to Wall: I feel unsafe unless my back is against a wall where I can see the room
+    explanation: 'Back to wall' implies a hypervigilant interpersonal/assault-style danger schema about monitoring the room, which is hard to reconcile with the illness/medical trauma profile and the other listed triggers and memory items that centre on medical procedures and intrusive reliving.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,782
+  output:     4,858
+  total:      7,640
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Bao, a 75-year-old cybersecurity analyst, carried the weight of a lifetime of vigilance, a quiet
+sorrow etched into the lines around his eyes. The genesis of his struggle lay decades in the past,
+when his infant son, Minh, was diagnosed with a life-threatening congenital heart condition. The
+hospital became their second home, a place of sterile terror where the scent of antiseptic hung
+heavy in the air, mixing with the metallic tang of fear. Bao and his late wife spent countless
+nights by Minh’s incubator, watching him undergo one medical procedure after another, each one a
+fresh assault on their fragile hope. The initial joy of Minh’s birth was brutally usurped by an
+overwhelming sense of horror, as they navigated a world of doctors, nurses, and the constant, high-
+stakes drama of pediatric intensive care. Though Minh ultimately survived, thriving into adulthood,
+the experience never truly left Bao.
+
+In the years that followed, certain aspects of daily life became landmines. Even now, encountering
+specific **triggers**, like the unmistakable hospital or antiseptic smell, or the sight of medical
+instruments during a routine check-up, would instantly flood Bao with strong negative feelings such
+as fear and horror. He’d feel a sudden rush of adrenaline, his heart pounding in his chest, a wave
+of physical reactivity that made him want to bolt from the room. These triggers didn’t just provoke
+strong emotions; they had a profound effect on his internal world, immediately causing his
+**memories** of the frightening event to replay like a film that played over and over. He would find
+himself back in the sterile corridors, reliving the agonizing wait outside the operating room, the
+terror of seeing his tiny son hooked up to machines.
+
+The constant replay of those terrifying scenes, feeling as if they were happening right now rather
+than something that was over, meant that his mind was always on high alert. This vivid, present-
+tense quality of his **memory** made him acutely sensitive to anything that even remotely resembled
+a hospital setting, effectively broadening the range of what could act as a **trigger**. A news
+report about a new medical technology, or even an advertisement on his computer screen for a baby
+product, could plunge him back into that unbearable past, reminding him of Minh’s early fragility.
+When these powerful memories took hold, they often manifested as full-blown flashbacks, where he
+would suddenly feel or act as if the stressful experience were actually happening again. During
+these intense episodes, his strong negative emotions and physical reactivity would surge, further
+intensifying the vividness of the **memory**, making it feel even more immediate and terrifying.
+
+Working as a cybersecurity analyst from his home office offered Bao some refuge, allowing him to
+largely control his environment. Yet, even there, the pervasive nature of his past trauma would
+intrude. A brief online video about a new hospital wing, or the unexpected sight of a pregnant woman
+on his screen, could halt his focus entirely. The persistent internal replay of his son's illness,
+the feeling that it was happening right now, meant that despite his best efforts, he often lost the
+thread when trying to explain what had happened, unable to finish his thoughts as the past asserted
+its dominance. After his wife passed away a few years ago, the isolation deepened, leaving him with
+no one to share the burden of these relentless internal battles. He felt increasingly trapped, the
+once-faint echoes of his son’s illness now a constant, deafening roar. It was this tightening grip
+of the past, the pervasive sense that the trauma was still unfolding, that finally led Bao to seek
+help, hoping to find some way to live in the present without constantly reliving the most terrifying
+chapter of his life.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Bao, a 75-year-old cybersecurity analyst, carried the weight of a lifetime of vigilance, a quiet
+sorrow etched into the lines around his eyes. The genesis of his struggle lay decades in the past,
+when his infant son, Minh, was diagnosed with a life-threatening congenital heart condition. The
+hospital became their second home, a place of sterile terror where the scent of antiseptic hung
+heavy in the air, mixing with the metallic tang of fear. Bao and his late wife spent countless
+nights by Minh’s incubator, watching him undergo one medical procedure after another, each one a
+fresh assault on their fragile hope. The initial joy of Minh’s birth was brutally usurped by an
+overwhelming sense of horror, as they navigated a world of doctors, nurses, and the constant, high-
+stakes drama of pediatric intensive care. Though Minh ultimately survived, thriving into adulthood,
+the experience never truly left Bao.
+
+In the years that followed, certain aspects of daily life became landmines. Even now, encountering
+specific **triggers**, like the unmistakable hospital or antiseptic smell, or the sight of medical
+instruments during a routine check-up, would instantly flood Bao with strong negative feelings such
+as fear and horror. He’d feel a sudden rush of adrenaline, his heart pounding in his chest, a wave
+of physical reactivity that made him want to bolt from the room. These triggers didn’t just provoke
+strong emotions; they had a profound effect on his internal world, immediately causing his
+**memories** of the frightening event to replay like a film that played over and over. He would find
+himself back in the sterile corridors, reliving the agonizing wait outside the operating room, the
+terror of seeing his tiny son hooked up to machines.
+
+The constant replay of those terrifying scenes, feeling as if they were happening right now rather
+than something that was over, meant that his mind was always on high alert. This vivid, present-
+tense quality of his **memory** made him acutely sensitive to anything that even remotely resembled
+a hospital setting, effectively broadening the range of what could act as a **trigger**. A news
+report about a new medical technology, or even an advertisement on his computer screen for a baby
+product, could plunge him back into that unbearable past, reminding him of Minh’s early fragility.
+When these powerful memories took hold, they often manifested as full-blown flashbacks, where he
+would suddenly feel or act as if the stressful experience were actually happening again. During
+these intense episodes, his strong negative emotions and physical reactivity would surge, further
+intensifying the vividness of the **memory**, making it feel even more immediate and terrifying.
+
+Working as a cybersecurity analyst from his home office offered Bao some refuge, allowing him to
+largely control his environment. Yet, even there, the pervasive nature of his past trauma would
+intrude. A brief online video about a new hospital wing, or the unexpected sight of a pregnant woman
+on his screen, could halt his focus entirely. The persistent internal replay of his son's illness,
+the feeling that it was happening right now, meant that despite his best efforts, he often lost the
+thread when trying to explain what had happened, unable to finish his thoughts as the past asserted
+its dominance. After his wife passed away a few years ago, the isolation deepened, leaving him with
+no one to share the burden of these relentless internal battles. He felt increasingly trapped, the
+once-faint echoes of his son’s illness now a constant, deafening roar. It was this tightening grip
+of the past, the pervasive sense that the trauma was still unfolding, that finally led Bao to seek
+help, hoping to find some way to live in the present without constantly reliving the most terrifying
+chapter of his life.

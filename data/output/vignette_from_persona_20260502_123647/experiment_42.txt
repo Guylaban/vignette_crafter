@@ -1,0 +1,933 @@
+PERSONA 42  |  2026-05-02 13:44:58
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             20
+  gender          Female
+  ethnicity       Oceania
+  relationship_status Married
+  occupation      Interior Designer
+  trauma_type     Physical abuse by romantic partner
+  pcl5            37
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Auditory (Loud Noises): Loud noises
+    • Male Presence: Being alone with men
+    • Offender Cues: Seeing the offender
+  Maladaptive Strategies:
+    • Avoid Circumstances: Being in circumstances that remind me of the event (eg, being in the dark).
+    • Rumination: Self-Blame: repeatedly blame myself for what happened
+    • Avoid Being Alone: Being alone in a room or building
+  Threat:
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+    • Checking Behind: I frequently look behind me to check if someone is following me
+  Memory:
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Emotion Without Image: Sometimes I feel the full emotional intensity of the event without any clear image or memory
+  Negative Appraisals:
+    • Life Destroyed: My life has been destroyed by the trauma
+    • Belong Nowhere: I no longer belong anywhere
+    • Mistrust: People can't be trusted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.7383
+  Triggers → Threat                                  0.3931
+  Triggers → Memory                                  0.2692
+  Triggers → Negative Appraisals                     0.4518
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.9173
+  Negative Appraisals → Memory                       0.1314
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.8997
+  Memory → Threat                                    0.0969
+  Memory → Negative Appraisals                       0.8471
+  Memory → Triggers                                  0.3540
+  Threat → Maladaptive Strategies                    0.5467
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.7958
+  Maladaptive Strategies → Triggers                  0.1301
+  Maladaptive Strategies → Threat                    0.1475
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Female Presence: Being alone with women
+    explanation: The trigger pattern is hard to reconcile with the stated trauma of physical abuse by a romantic partner. Being alone with women is not a plausible primary trigger for partner violence in a female patient unless there is additional trauma history not represented elsewhere, and military/police uniforms also suggest a different threat context that is not supported by the memory, threat, or appraisal items.
+    item:        Memory / Triggers: Visual (Uniforms): Military or police uniforms
+    explanation: The memory/appraisal pattern centers on guilt and global identity damage, but the selected triggers point toward external threat cues unrelated to intimate-partner violence. This creates a cross-node mismatch: the triggers imply one trauma context, while memory and appraisals imply another.
+    item:        Negative Appraisals / Memory: Guilt on Recall: When I remember the event I feel intense guilt
+    explanation: 'I no longer belong anywhere' is not impossible, but in this profile it intensifies the mismatch because the appraisals are extremely global and identity-based while the trigger content is narrow and externally themed in ways not linked to the romantic-partner abuse formulation.
+  [2] FAIL
+    item:        Triggers / Triggers: Visual (Uniforms): Military or police uniforms
+    explanation: Military or police uniforms are not impossible as triggers after intimate partner physical abuse, but in this profile they are hard to justify because no other trigger, memory, threat, appraisal, or strategy item links the trauma to police/military involvement, authority figures, or uniformed responders. This makes the trigger feel disconnected from the rest of the formulation.
+    item:        Negative Appraisals / Negative Appraisals: Shattered Beliefs: My beliefs about how the world works have been completely destroyed
+    explanation: This item is not impossible, but alongside the more specific interpersonal/self-related profile (self-blame, guilt on recall, being alone with men, body-focused avoidance, belonging nowhere), a global 'completely destroyed' worldview reads broader than the rest of the node and may overstate the appraisal pattern relative to the otherwise relationship- and self-focused presentation.
+  [3] FAIL
+    item:        Threat / Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm
+    explanation: Risky behavior is hard to reconcile with the rest of the profile, which otherwise reflects fear, hypervigilance, avoidance, mistrust, and tension after intimate partner physical abuse. It pulls toward a more disinhibited presentation that is not supported by the trigger, memory, appraisal, or other strategy items.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Own Body: Paying attention to or looking at my own body
+    explanation: 'Avoid Own Body' is weakly supported by the rest of the profile. The selected triggers, memories, threats, and appraisals center on interpersonal danger, guilt, and mistrust rather than body-focused trauma responses. This item is not impossible, but in this profile it appears disconnected from the main formulation compared with the other avoidance item.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     34,272
+  output:     6,053
+  total:     40,325
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+At twenty years old, Leila had already experienced more than her share of pain. The vibrant hues she
+used to design interiors now felt muted, overshadowed by the memories of her traumatic relationship
+with her husband, Sam, who had physically abused her. The hurtful echoes of that time haunted her
+daily life, making it difficult to navigate her world. In the months since the abuse, Leila found
+herself struggling to keep her head above water; she often felt like she was drowning in guilt and
+despair, believing that her life had been irrevocably destroyed. The trauma had not only left
+visible scars but had also infiltrated every aspect of her existence, twisting her perceptions and
+emotions.
+
+Certain sounds would send her heart racing — a loud bang from construction outside her apartment
+could transport her back to that night when Sam had shouted at her in a fit of rage. The mere
+presence of a man in the room would leave her breathless, her body tense and alert, ready to react
+to perceived threats. Each time she was alone with a male colleague at work, she could feel the
+adrenaline coursing through her veins, compelling her to look over her shoulder, scanning for danger
+that wasn’t there. The avoidance of male presence became a routine, as she would often decline
+meetings if they involved just one man, believing that it was safer to keep her distance. Yet, this
+avoidance only deepened her sense of isolation, reinforcing the belief that she belonged nowhere.
+
+Leila tried to piece together the memories of her trauma, but each time she recalled the events, the
+guilt would wash over her like a tidal wave. She couldn’t shake the feeling that she had somehow
+caused it, that her actions had provoked Sam’s violence. She would sit in silence, ruminating on her
+self-blame, sometimes becoming so lost in thought that she struggled to finish her sentences when
+speaking about it. Friends would ask her how she was doing, but when she opened her mouth to
+explain, she often lost the thread of her narrative. The images were sometimes clear, but more often
+than not, she felt a wave of emotion without a concrete memory to ground it — just a visceral
+reminder of pain that left her feeling raw and exposed.
+
+The distress from these memories spiraled into a constant state of hypervigilance. Leila had become
+super alert to her surroundings, almost as if her body was in a perpetual state of readiness for an
+impending threat. This hyper-awareness meant that she could no longer enjoy the peaceful moments
+that had once filled her life with joy. Instead, she would find herself checking behind her
+frequently, convinced that someone was following her or lurking just out of sight, ready to strike.
+This heightened sense of threat fed into her maladaptive strategies, pushing her further into
+avoidance. She would avoid being alone in dark spaces, fearing that the shadows might hide something
+sinister, a reminder of her past that she was not ready to confront.
+
+As her world shrank, Leila’s negative appraisals solidified. She felt a strong belief that she could
+not trust anyone, not even her loved ones, who were only trying to help her heal. This mistrust was
+deeply rooted in the trauma, as she had once believed in the safety of her marriage, only to have it
+shattered. The more she avoided situations that reminded her of the abuse, the more she felt like a
+prisoner of her own mind. It seemed that every time she tried to escape the memories, they would
+rear their heads again, leaving her with a sense of hopelessness that her life could ever be normal
+again.
+
+Realizing that her coping mechanisms were only leading her deeper into despair, Leila finally sought
+help. It was a small step, but one filled with trepidation. She feared that exposing her
+vulnerabilities would lead to further pain, but she hoped that perhaps, with the right support, she
+could begin to reclaim her life. As she sat in the therapist’s office, she felt a flicker of hope
+mixed with the dread of what lay ahead. Would she find a way to trust again? Could she learn to
+navigate her world without the ever-present shadows of her trauma? The journey felt daunting, yet
+Leila knew that stepping into the light was the only way to begin to heal.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not show how triggers lead to the use of maladaptive strategies.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not indicate how triggers contribute to feelings of threat.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not convey how negative appraisals lead to a sense of threat.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not demonstrate that memory influences the use of maladaptive strategies.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette does not illustrate how memory contributes to negative appraisals.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The vignette does not show that a sense of threat leads to the use of maladaptive strategies.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not indicate that maladaptive strategies reinforce negative appraisals.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not demonstrate how maladaptive strategies contribute to a sense of threat.
+
+  [2] FAIL
+At twenty years old, Leila had already experienced more than her share of pain. The vibrant hues she
+used to design interiors now felt muted, overshadowed by the memories of her traumatic relationship
+with her husband, Sam, who had physically abused her. The hurtful echoes of that time haunted her
+daily life, making it difficult to navigate her world. In the months since the abuse, Leila found
+herself struggling to keep her head above water; she often felt like she was drowning in guilt and
+despair, believing that her life had been irrevocably destroyed. The trauma had not only left
+visible scars but had also infiltrated every aspect of her existence, twisting her perceptions and
+emotions.
+
+Certain sounds would send her heart racing — a loud bang from construction outside her apartment
+could transport her back to that night when Sam had shouted at her in a fit of rage. Each time that
+jarring noise echoed through her home, it triggered a wave of panic that made her feel as though
+danger was imminent, compelling her to retreat into the safety of her room, where she could shut out
+the world. The mere presence of a man in the room would leave her breathless, her body tense and
+alert, ready to react to perceived threats. Each time she was alone with a male colleague at work,
+she could feel the adrenaline coursing through her veins, compelling her to look over her shoulder,
+scanning for danger that wasn’t there. The avoidance of male presence became a routine, as she would
+often decline meetings if they involved just one man, believing that it was safer to keep her
+distance. Yet, this avoidance only deepened her sense of isolation, reinforcing the belief that she
+belonged nowhere.
+
+Leila tried to piece together the memories of her trauma, but each time she recalled the events, the
+guilt would wash over her like a tidal wave. These memories often left her feeling that she was
+irreparably flawed, leading her to conclude that there must be something inherently wrong with her
+for allowing such abuse to happen in the first place. She couldn’t shake the feeling that she had
+somehow caused it, that her actions had provoked Sam’s violence. She would sit in silence,
+ruminating on her self-blame, sometimes becoming so lost in thought that she struggled to finish her
+sentences when speaking about it. Friends would ask her how she was doing, but when she opened her
+mouth to explain, she often lost the thread of her narrative. The images were sometimes clear, but
+more often than not, she felt a wave of emotion without a concrete memory to ground it — just a
+visceral reminder of pain that left her feeling raw and exposed.
+
+The distress from these memories spiraled into a constant state of hypervigilance. As she constantly
+scanned her environment for threats, she found herself needing to check the locks on her doors
+multiple times each night, believing that this was the only way to ensure her safety. Leila had
+become super alert to her surroundings, almost as if her body was in a perpetual state of readiness
+for an impending threat. This hyper-awareness meant that she could no longer enjoy the peaceful
+moments that had once filled her life with joy. Instead, she would find herself checking behind her
+frequently, convinced that someone was following her or lurking just out of sight, ready to strike.
+This heightened sense of threat fed into her maladaptive strategies, pushing her further into
+avoidance. Whenever she felt that surge of fear, she would instinctively plan her exits in social
+situations, convinced that avoiding potential encounters was the only way to protect herself from
+harm. She would avoid being alone in dark spaces, fearing that the shadows might hide something
+sinister, a reminder of her past that she was not ready to confront.
+
+As her world shrank, Leila’s negative appraisals solidified. Her belief that she could not trust
+anyone extended to new interactions, making her feel that every person she encountered was a
+potential threat, a perception that heightened her anxiety. She felt a strong belief that she could
+not trust anyone, not even her loved ones, who were only trying to help her heal. This mistrust was
+deeply rooted in the trauma, as she had once believed in the safety of her marriage, only to have it
+shattered. The more she avoided situations that reminded her of the abuse, the more she felt like a
+prisoner of her own mind. The inability to confront these reminders meant that the shadows of her
+past remained as vivid and threatening as they had been at the moment of her trauma, reinforcing her
+belief that the danger was still very real. It seemed that every time she tried to escape the
+memories, they would rear their heads again, leaving her with a sense of hopelessness that her life
+could ever be normal again.
+
+Realizing that her coping mechanisms were only leading her deeper into despair, Leila finally sought
+help. It was a small step, but one filled with trepidation. She feared that exposing her
+vulnerabilities would lead to further pain, but she hoped that perhaps, with the right support, she
+could begin to reclaim her life. As she sat in the therapist’s office, she felt a flicker of hope
+mixed with the dread of what lay ahead. Would she find a way to trust again? Could she learn to
+navigate her world without the ever-present shadows of her trauma? The journey felt daunting, yet
+Leila knew that stepping into the light was the only way to begin to heal. Each time she opted out
+of social gatherings or left early, she felt a quiet confirmation that she was more fragile than
+those around her, intensifying her feelings of inadequacy and helplessness.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not establish how triggers influence maladaptive strategies, missing the causal link between these components.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not indicate how triggers lead to negative appraisals, failing to show the connection between these elements.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not clarify how negative appraisals affect memory, lacking a causal relationship between these components.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not convey how memory influences maladaptive strategies, missing the connection between these components.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not illustrate how memory leads to triggers, failing to show that memory influences the presence of triggers.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The vignette does not show how the sense of threat leads to maladaptive strategies, missing a causal link between these components.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not establish how maladaptive strategies influence negative appraisals, failing to show this relationship.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not indicate how maladaptive strategies relate to triggers, lacking a direct causal link between these components.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not clarify how maladaptive strategies lead to a sense of threat, missing a connection between these elements.
+
+  [3] FAIL
+At twenty years old, Leila had already experienced more than her share of pain. The vibrant hues she
+used to design interiors now felt muted, overshadowed by the memories of her traumatic relationship
+with her husband, Sam, who had physically abused her. The hurtful echoes of that time haunted her
+daily life, making it difficult to navigate her world. In the months since the abuse, Leila found
+herself struggling to keep her head above water; she often felt like she was drowning in guilt and
+despair, believing that her life had been irrevocably destroyed. The trauma had not only left
+visible scars but had also infiltrated every aspect of her existence, twisting her perceptions and
+emotions. Certain sounds would send her heart racing — a loud bang from construction outside her
+apartment could transport her back to that night when Sam had shouted at her in a fit of rage. Each
+time that jarring noise echoed through her home, it triggered a wave of panic that made her feel as
+though danger was imminent, compelling her to retreat into the safety of her room, where she could
+shut out the world. The mere presence of a man in the room would leave her breathless, her body
+tense and alert, ready to react to perceived threats. Each time she was alone with a male colleague
+at work, she could feel the adrenaline coursing through her veins, compelling her to look over her
+shoulder, scanning for danger that wasn’t there. The avoidance of male presence became a routine, as
+she would often decline meetings if they involved just one man, believing that it was safer to keep
+her distance. Yet, this avoidance only deepened her sense of isolation, reinforcing the belief that
+she belonged nowhere. Leila tried to piece together the memories of her trauma, but each time she
+recalled the events, the guilt would wash over her like a tidal wave. These memories often left her
+feeling that she was irreparably flawed, leading her to conclude that there must be something
+inherently wrong with her for allowing such abuse to happen in the first place. She couldn’t shake
+the feeling that she had somehow caused it, that her actions had provoked Sam’s violence. She would
+sit in silence, ruminating on her self-blame, sometimes becoming so lost in thought that she
+struggled to finish her sentences when speaking about it. Friends would ask her how she was doing,
+but when she opened her mouth to explain, she often lost the thread of her narrative. The images
+were sometimes clear, but more often than not, she felt a wave of emotion without a concrete memory
+to ground it — just a visceral reminder of pain that left her feeling raw and exposed. The distress
+from these memories spiraled into a constant state of hypervigilance. As she constantly scanned her
+environment for threats, she found herself needing to check the locks on her doors multiple times
+each night, believing that this was the only way to ensure her safety. Leila had become super alert
+to her surroundings, almost as if her body was in a perpetual state of readiness for an impending
+threat. This hyper-awareness meant that she could no longer enjoy the peaceful moments that had once
+filled her life with joy. Instead, she would find herself checking behind her frequently, convinced
+that someone was following her or lurking just out of sight, ready to strike. This heightened sense
+of threat fed into her maladaptive strategies, pushing her further into avoidance. "This pattern of
+avoidance only confirmed her belief that she was fundamentally flawed, as she felt increasingly
+unable to cope with the world around her." Whenever she felt that surge of fear, she would
+instinctively plan her exits in social situations, convinced that avoiding potential encounters was
+the only way to protect herself from harm. "She understood that her strategies of avoidance were not
+only perpetuating her fear but also solidifying her negative view of herself, making it clear that
+change was desperately needed." She would avoid being alone in dark spaces, fearing that the shadows
+might hide something sinister, a reminder of her past that she was not ready to confront. As her
+world shrank, Leila’s negative appraisals solidified. Her belief that she could not trust anyone
+extended to new interactions, making her feel that every person she encountered was a potential
+threat, a perception that heightened her anxiety. She felt a strong belief that she could not trust
+anyone, not even her loved ones, who were only trying to help her heal. This mistrust was deeply
+rooted in the trauma, as she had once believed in the safety of her marriage, only to have it
+shattered. The more she avoided situations that reminded her of the abuse, the more she felt like a
+prisoner of her own mind. The inability to confront these reminders meant that the shadows of her
+past remained as vivid and threatening as they had been at the moment of her trauma, reinforcing her
+belief that the danger was still very real. "Her need to check the locks multiple times each night
+stemmed from the belief that danger was always imminent, which only heightened her sense of threat
+and reinforced her anxiety." "Each time she was jolted back to that moment, she would retreat into
+her room, planning her escape from the noise rather than confronting the triggers head-on." It
+seemed that every time she tried to escape the memories, they would rear their heads again, leaving
+her with a sense of hopelessness that her life could ever be normal again. Realizing that her coping
+mechanisms were only leading her deeper into despair, Leila finally sought help. It was a small
+step, but one filled with trepidation. She feared that exposing her vulnerabilities would lead to
+further pain, but she hoped that perhaps, with the right support, she could begin to reclaim her
+life. As she sat in the therapist’s office, she felt a flicker of hope mixed with the dread of what
+lay ahead. Would she find a way to trust again? Could she learn to navigate her world without the
+ever-present shadows of her trauma? The journey felt daunting, yet Leila knew that stepping into the
+light was the only way to begin to heal. Each time she opted out of social gatherings or left early,
+she felt a quiet confirmation that she was more fragile than those around her, intensifying her
+feelings of inadequacy and helplessness. "This heightened state of alertness led her to avoid
+speaking up in meetings if a male colleague was present, convinced that staying silent was a safer
+option to prevent any potential confrontation." "This conviction that she was to blame made the
+memories of the trauma more vivid; she could almost see the moments of confrontation replaying in
+her mind, reinforcing her sense of guilt." "This constant vigilance left her feeling incapable of
+relaxing, as if every moment spent outside her home was a gamble with her safety." "Each
+recollection brought with it a reminder of her perceived weakness, and she often found herself
+dreading the moment when those memories would resurface again."
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not establish a causal link from Triggers to Maladaptive Strategies, as it does not clearly indicate how the triggers directly lead to avoidance behaviors.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not show how Triggers lead to a sense of Threat, failing to connect the triggering stimuli to feelings of danger.
+
+    ✗ edge:        Triggers → Memory
+      explanation: There is no connection made between Triggers and Memory, as the triggers do not seem to directly influence the trauma memories.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette lacks a clear link from Triggers to Negative Appraisals, as it does not show how reminders directly result in negative beliefs about oneself.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The connection between Negative Appraisals and Threat is absent, leaving out how negative beliefs lead to a heightened sense of danger.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: There is no causal relationship shown from Negative Appraisals to Memory, as the negative beliefs do not seem to affect the recalling of memories.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not establish a link from Memory to Maladaptive Strategies, failing to indicate how the memories drive avoidance behaviors.
+
+    ✗ edge:        Memory → Threat
+      explanation: There is no connection made between Memory and Threat, as recalling memories does not appear to heighten the sense of danger.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette lacks a causal link from Memory to Triggers, as memories do not seem to lead to reminders of trauma.
+
+    ✗ edge:        Memory → Triggers
+      explanation: There is no established relationship between Threat and Maladaptive Strategies, as the sense of danger does not directly drive avoidance behaviors.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The vignette does not show how Maladaptive Strategies lead to Negative Appraisals, failing to indicate that avoidance behaviors reinforce negative beliefs.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: There is no connection from Maladaptive Strategies to Triggers, as avoidance does not appear to influence the occurrence of triggering stimuli.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette lacks a link from Maladaptive Strategies to Threat, as avoidance behaviors do not seem to amplify the sense of danger.
+
+  [4] FAIL
+At twenty years old, Leila had already experienced more than her share of pain. The vibrant hues she
+used to design interiors now felt muted, overshadowed by the memories of her traumatic relationship
+with her husband, Sam, who had physically abused her. The hurtful echoes of that time haunted her
+daily life, making it difficult to navigate her world. In the months since the abuse, Leila found
+herself struggling to keep her head above water; she often felt like she was drowning in guilt and
+despair, believing that her life had been irrevocably destroyed. The trauma had not only left
+visible scars but had also infiltrated every aspect of her existence, twisting her perceptions and
+emotions. Certain sounds would send her heart racing — a loud bang from construction outside her
+apartment could transport her back to that night when Sam had shouted at her in a fit of rage. Each
+time that jarring noise echoed through her home, it triggered a wave of panic that made her feel as
+though danger was imminent, compelling her to retreat into the safety of her room, where she could
+shut out the world. This fear of imminent danger led her to avoid situations that could produce
+similar sounds, making her skip outings or stay indoors more often, convinced that isolation was her
+safest option. The mere presence of a man in the room would leave her breathless, her body tense and
+alert, ready to react to perceived threats. In those moments, her body sent signals of danger that
+felt entirely real, convincing her that she needed to escape or hide to protect herself from
+potential harm. Each time she was alone with a male colleague at work, she could feel the adrenaline
+coursing through her veins, compelling her to look over her shoulder, scanning for danger that
+wasn’t there. This constant scanning heightened her sense of threat, as each glance around the room
+reinforced her belief that she was in a precarious situation, one that could turn dangerous at any
+moment. The avoidance of male presence became a routine, as she would often decline meetings if they
+involved just one man, believing that it was safer to keep her distance. Yet, this avoidance only
+deepened her sense of isolation, reinforcing the belief that she belonged nowhere. Leila tried to
+piece together the memories of her trauma, but each time she recalled the events, the guilt would
+wash over her like a tidal wave. These memories often left her feeling that she was irreparably
+flawed, leading her to conclude that there must be something inherently wrong with her for allowing
+such abuse to happen in the first place. The more she dwelled on these painful recollections, the
+more she internalized the belief that she was weak and deserving of the abuse, which only deepened
+her sense of self-blame and inadequacy. She couldn’t shake the feeling that she had somehow caused
+it, that her actions had provoked Sam’s violence. She would sit in silence, ruminating on her self-
+blame, sometimes becoming so lost in thought that she struggled to finish her sentences when
+speaking about it. Friends would ask her how she was doing, but when she opened her mouth to
+explain, she often lost the thread of her narrative. The images were sometimes clear, but more often
+than not, she felt a wave of emotion without a concrete memory to ground it — just a visceral
+reminder of pain that left her feeling raw and exposed. These vague yet intense feelings would often
+rise during unexpected triggers, pulling her back into the painful memories and amplifying her sense
+of vulnerability. The distress from these memories spiraled into a constant state of hypervigilance.
+This hypervigilance, in turn, led her to employ maladaptive strategies such as checking her locks
+multiple times each night, convinced that this was the only way to stave off the danger she felt was
+always lurking. As she constantly scanned her environment for threats, she found herself needing to
+check the locks on her doors multiple times each night, believing that this was the only way to
+ensure her safety. Leila had become super alert to her surroundings, almost as if her body was in a
+perpetual state of readiness for an impending threat. This hyper-awareness meant that she could no
+longer enjoy the peaceful moments that had once filled her life with joy. She felt that her
+inability to relax confirmed her belief that she was constantly under threat, as if her surroundings
+could betray her at any moment. Instead, she would find herself checking behind her frequently,
+convinced that someone was following her or lurking just out of sight, ready to strike. This
+heightened sense of threat fed into her maladaptive strategies, pushing her further into avoidance.
+"This pattern of avoidance only confirmed her belief that she was fundamentally flawed, as she felt
+increasingly unable to cope with the world around her." Whenever she felt that surge of fear, she
+would instinctively plan her exits in social situations, convinced that avoiding potential
+encounters was the only way to protect herself from harm. "She understood that her strategies of
+avoidance were not only perpetuating her fear but also solidifying her negative view of herself,
+making it clear that change was desperately needed." She would avoid being alone in dark spaces,
+fearing that the shadows might hide something sinister, a reminder of her past that she was not
+ready to confront. As her world shrank, Leila’s negative appraisals solidified. Her belief that she
+could not trust anyone extended to new interactions, making her feel that every person she
+encountered was a potential threat, a perception that heightened her anxiety. She felt a strong
+belief that she could not trust anyone, not even her loved ones, who were only trying to help her
+heal. This mistrust was deeply rooted in the trauma, as she had once believed in the safety of her
+marriage, only to have it shattered. The more she avoided situations that reminded her of the abuse,
+the more she felt like a prisoner of her own mind. Her avoidance behaviors seemed to confirm her
+belief that she was incapable of coping with the world, reinforcing her negative self-image and
+leaving her feeling more isolated. The inability to confront these reminders meant that the shadows
+of her past remained as vivid and threatening as they had been at the moment of her trauma,
+reinforcing her belief that the danger was still very real. "Her need to check the locks multiple
+times each night stemmed from the belief that danger was always imminent, which only heightened her
+sense of threat and reinforced her anxiety." "Each time she was jolted back to that moment, she
+would retreat into her room, planning her escape from the noise rather than confronting the triggers
+head-on." It seemed that every time she tried to escape the memories, they would rear their heads
+again, leaving her with a sense of hopelessness that her life could ever be normal again. Realizing
+that her coping mechanisms were only leading her deeper into despair, Leila finally sought help. It
+was a small step, but one filled with trepidation. She feared that exposing her vulnerabilities
+would lead to further pain, but she hoped that perhaps, with the right support, she could begin to
+reclaim her life. As she sat in the therapist’s office, she felt a flicker of hope mixed with the
+dread of what lay ahead. Would she find a way to trust again? Could she learn to navigate her world
+without the ever-present shadows of her trauma? The journey felt daunting, yet Leila knew that
+stepping into the light was the only way to begin to heal. Each time she opted out of social
+gatherings or left early, she felt a quiet confirmation that she was more fragile than those around
+her, intensifying her feelings of inadequacy and helplessness. "This heightened state of alertness
+led her to avoid speaking up in meetings if a male colleague was present, convinced that staying
+silent was a safer option to prevent any potential confrontation." "This conviction that she was to
+blame made the memories of the trauma more vivid; she could almost see the moments of confrontation
+replaying in her mind, reinforcing her sense of guilt." "This constant vigilance left her feeling
+incapable of relaxing, as if every moment spent outside her home was a gamble with her safety."
+"Each recollection brought with it a reminder of her perceived weakness, and she often found herself
+dreading the moment when those memories would resurface again."
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not establish a causal relationship between Triggers and Maladaptive Strategies, as it does not convey how triggers directly influence the use of maladaptive strategies.
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette does not establish a causal relationship between Triggers and Memory, as it does not convey how triggers directly influence the memories of trauma.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not establish a causal relationship between Triggers and Negative Appraisals, as it does not convey how triggers directly influence negative beliefs or appraisals.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not establish a causal relationship between Negative Appraisals and Threat, as it does not convey how negative beliefs lead to a heightened sense of threat.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not establish a causal relationship between Negative Appraisals and Memory, as it does not convey how negative beliefs influence the memories of trauma.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not establish a causal relationship between Memory and Maladaptive Strategies, as it does not convey how memories of trauma lead to maladaptive coping behaviors.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette does not establish a causal relationship between Memory and Negative Appraisals, as it does not convey how memories impact negative beliefs or appraisals.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not establish a causal relationship between Memory and Triggers, as it does not convey how memories influence the perception of triggers in the environment.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The vignette does not establish a causal relationship between Threat and Maladaptive Strategies, as it does not convey how a heightened sense of threat leads to the implementation of maladaptive strategies.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not establish a causal relationship between Maladaptive Strategies and Negative Appraisals, as it does not convey how the use of maladaptive strategies reinforces negative beliefs.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not establish a causal relationship between Maladaptive Strategies and Triggers, as it does not convey how the use of maladaptive strategies influences the perception of triggers in the environment.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not establish a causal relationship between Maladaptive Strategies and Threat, as it does not convey how maladaptive strategies affect the perceived sense of threat.
+
+  [5] FAIL
+At twenty years old, Leila had already experienced more than her share of pain. The vibrant hues she
+used to design interiors now felt muted, overshadowed by the memories of her traumatic relationship
+with her husband, Sam, who had physically abused her. The hurtful echoes of that time haunted her
+daily life, making it difficult to navigate her world. In the months since the abuse, Leila found
+herself struggling to keep her head above water; she often felt like she was drowning in guilt and
+despair, believing that her life had been irrevocably destroyed. The trauma had not only left
+visible scars but had also infiltrated every aspect of her existence, twisting her perceptions and
+emotions. Each time she recalled the events of her trauma, those memories would sharpen into focus,
+amplifying her belief that she was irreparably flawed and had somehow invited the abuse. Certain
+sounds would send her heart racing — a loud bang from construction outside her apartment could
+transport her back to that night when Sam had shouted at her in a fit of rage. Each time that
+jarring noise echoed through her home, it triggered a wave of panic that made her feel as though
+danger was imminent, compelling her to retreat into the safety of her room, where she could shut out
+the world. This fear of imminent danger led her to avoid situations that could produce similar
+sounds, making her skip outings or stay indoors more often, convinced that isolation was her safest
+option. Each time she chose to stay home, it reinforced her belief that she was fragile and unable
+to handle the world outside, making it harder to believe she could ever return to a normal life. The
+mere presence of a man in the room would leave her breathless, her body tense and alert, ready to
+react to perceived threats. In those moments, the overwhelming anxiety would compel her to plan her
+exits, avoiding any prolonged interactions that could lead to confrontation or discomfort. In those
+moments, her body sent signals of danger that felt entirely real, convincing her that she needed to
+escape or hide to protect herself from potential harm. Each time she was alone with a male colleague
+at work, she could feel the adrenaline coursing through her veins, compelling her to look over her
+shoulder, scanning for danger that wasn’t there. This constant scanning heightened her sense of
+threat, as each glance around the room reinforced her belief that she was in a precarious situation,
+one that could turn dangerous at any moment. The avoidance of male presence became a routine, as she
+would often decline meetings if they involved just one man, believing that it was safer to keep her
+distance. Yet, this avoidance only deepened her sense of isolation, reinforcing the belief that she
+belonged nowhere. Leila tried to piece together the memories of her trauma, but each time she
+recalled the events, the guilt would wash over her like a tidal wave. These memories often left her
+feeling that she was irreparably flawed, leading her to conclude that there must be something
+inherently wrong with her for allowing such abuse to happen in the first place. The more she dwelled
+on these painful recollections, the more she internalized the belief that she was weak and deserving
+of the abuse, which only deepened her sense of self-blame and inadequacy. Each time these memories
+surfaced, the notion that she was helpless and to blame became clearer, reinforcing the belief that
+she was permanently changed by her trauma. She couldn’t shake the feeling that she had somehow
+caused it, that her actions had provoked Sam’s violence. She would sit in silence, ruminating on her
+self-blame, sometimes becoming so lost in thought that she struggled to finish her sentences when
+speaking about it. These moments of self-blame were accompanied by vivid memories of the
+confrontation, reminding her that she had let this happen, feeding her negative self-appraisal
+further. Friends would ask her how she was doing, but when she opened her mouth to explain, she
+often lost the thread of her narrative. The images were sometimes clear, but more often than not,
+she felt a wave of emotion without a concrete memory to ground it — just a visceral reminder of pain
+that left her feeling raw and exposed. These vague yet intense feelings would often rise during
+unexpected triggers, pulling her back into the painful memories and amplifying her sense of
+vulnerability. The distress from these memories spiraled into a constant state of hypervigilance.
+This hypervigilance, in turn, led her to employ maladaptive strategies such as checking her locks
+multiple times each night, convinced that this was the only way to stave off the danger she felt was
+always lurking. Her need to check and recheck everything she could control stemmed from the belief
+that the world was fundamentally unsafe, which only heightened her ongoing anxiety. As she
+constantly scanned her environment for threats, she found herself needing to check the locks on her
+doors multiple times each night, believing that this was the only way to ensure her safety. That
+constant vigilance only solidified her belief that danger was omnipresent, making her feel as though
+she was living on the edge of disaster at all times. Leila had become super alert to her
+surroundings, almost as if her body was in a perpetual state of readiness for an impending threat.
+This hyper-awareness meant that she could no longer enjoy the peaceful moments that had once filled
+her life with joy. She felt that her inability to relax confirmed her belief that she was constantly
+under threat, as if her surroundings could betray her at any moment. Instead, she would find herself
+checking behind her frequently, convinced that someone was following her or lurking just out of
+sight, ready to strike. This heightened sense of threat fed into her maladaptive strategies, pushing
+her further into avoidance. "This pattern of avoidance only confirmed her belief that she was
+fundamentally flawed, as she felt increasingly unable to cope with the world around her." Whenever
+she felt that surge of fear, she would instinctively plan her exits in social situations, convinced
+that avoiding potential encounters was the only way to protect herself from harm. "She understood
+that her strategies of avoidance were not only perpetuating her fear but also solidifying her
+negative view of herself, making it clear that change was desperately needed." She would avoid being
+alone in dark spaces, fearing that the shadows might hide something sinister, a reminder of her past
+that she was not ready to confront. As her world shrank, Leila’s negative appraisals solidified.
+Each time she found herself reliving the trauma through her memories, the weight of her negative
+thoughts would become more pronounced, making her feel that she was undeserving of any trust or
+safety. Her belief that she could not trust anyone extended to new interactions, making her feel
+that every person she encountered was a potential threat, a perception that heightened her anxiety.
+She felt a strong belief that she could not trust anyone, not even her loved ones, who were only
+trying to help her heal. This mistrust was rooted in her belief that she was fundamentally flawed,
+making her see every new interaction as a potential threat rather than an opportunity for
+connection. This mistrust was deeply rooted in the trauma, as she had once believed in the safety of
+her marriage, only to have it shattered. The more she avoided situations that reminded her of the
+abuse, the more she felt like a prisoner of her own mind. Her avoidance behaviors seemed to confirm
+her belief that she was incapable of coping with the world, reinforcing her negative self-image and
+leaving her feeling more isolated. The inability to confront these reminders meant that the shadows
+of her past remained as vivid and threatening as they had been at the moment of her trauma,
+reinforcing her belief that the danger was still very real. "Her need to check the locks multiple
+times each night stemmed from the belief that danger was always imminent, which only heightened her
+sense of threat and reinforced her anxiety." "Each time she was jolted back to that moment, she
+would retreat into her room, planning her escape from the noise rather than confronting the triggers
+head-on." It seemed that every time she tried to escape the memories, they would rear their heads
+again, leaving her with a sense of hopelessness that her life could ever be normal again. However,
+the act of checking only served to heighten her sense of threat, as it suggested to her that danger
+was still very much a possibility, keeping her in a state of hyperawareness. Realizing that her
+coping mechanisms were only leading her deeper into despair, Leila finally sought help. It was a
+small step, but one filled with trepidation. She feared that exposing her vulnerabilities would lead
+to further pain, but she hoped that perhaps, with the right support, she could begin to reclaim her
+life. As she sat in the therapist’s office, she felt a flicker of hope mixed with the dread of what
+lay ahead. Would she find a way to trust again? Could she learn to navigate her world without the
+ever-present shadows of her trauma? The journey felt daunting, yet Leila knew that stepping into the
+light was the only way to begin to heal. Each time she opted out of social gatherings or left early,
+she felt a quiet confirmation that she was more fragile than those around her, intensifying her
+feelings of inadequacy and helplessness. "This heightened state of alertness led her to avoid
+speaking up in meetings if a male colleague was present, convinced that staying silent was a safer
+option to prevent any potential confrontation." "This conviction that she was to blame made the
+memories of the trauma more vivid; she could almost see the moments of confrontation replaying in
+her mind, reinforcing her sense of guilt." "This constant vigilance left her feeling incapable of
+relaxing, as if every moment spent outside her home was a gamble with her safety." "Each
+recollection brought with it a reminder of her perceived weakness, and she often found herself
+dreading the moment when those memories would resurface again."
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not establish a causal link from Triggers to Maladaptive Strategies, failing to show how triggers lead to avoidance behaviors.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not demonstrate how Negative Appraisals influence the sense of Threat, missing the connection between negative beliefs and perceived danger.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not clarify how Memory contributes to the use of Maladaptive Strategies, lacking a connection between traumatic memories and avoidance behaviors.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The vignette does not show how a sense of Threat leads to Maladaptive Strategies, missing the link between feeling threatened and avoidance or safety behaviors.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not illustrate how Maladaptive Strategies reinforce Negative Appraisals, failing to connect avoidance with negative self-beliefs.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not depict how Maladaptive Strategies influence Triggers, missing the relationship between avoidance behaviors and the experience of triggers.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not establish a connection between Maladaptive Strategies and Threat, lacking a causal relationship between avoidance and the perception of danger.
+
+  [6] FAIL
+At twenty years old, Leila had already experienced more than her share of pain. The vibrant hues she
+used to design interiors now felt muted, overshadowed by the memories of her traumatic relationship
+with her husband, Sam, who had physically abused her. The hurtful echoes of that time haunted her
+daily life, making it difficult to navigate her world. In the months since the abuse, Leila found
+herself struggling to keep her head above water; she often felt like she was drowning in guilt and
+despair, believing that her life had been irrevocably destroyed. The trauma had not only left
+visible scars but had also infiltrated every aspect of her existence, twisting her perceptions and
+emotions. Each time she recalled the events of her trauma, those memories would sharpen into focus,
+amplifying her belief that she was irreparably flawed and had somehow invited the abuse. Certain
+sounds would send her heart racing — a loud bang from construction outside her apartment could
+transport her back to that night when Sam had shouted at her in a fit of rage. Each time that
+jarring noise echoed through her home, it triggered a wave of panic that made her feel as though
+danger was imminent, compelling her to retreat into the safety of her room, where she could shut out
+the world. This fear of imminent danger led her to avoid situations that could produce similar
+sounds, making her skip outings or stay indoors more often, convinced that isolation was her safest
+option. Each time she chose to stay home, it reinforced her belief that she was fragile and unable
+to handle the world outside, making it harder to believe she could ever return to a normal life. The
+mere presence of a man in the room would leave her breathless, her body tense and alert, ready to
+react to perceived threats. In those moments, the overwhelming anxiety would compel her to plan her
+exits, avoiding any prolonged interactions that could lead to confrontation or discomfort. In those
+moments, her body sent signals of danger that felt entirely real, convincing her that she needed to
+escape or hide to protect herself from potential harm. Each time she was alone with a male colleague
+at work, she could feel the adrenaline coursing through her veins, compelling her to look over her
+shoulder, scanning for danger that wasn’t there. This constant scanning heightened her sense of
+threat, as each glance around the room reinforced her belief that she was in a precarious situation,
+one that could turn dangerous at any moment. The avoidance of male presence became a routine, as she
+would often decline meetings if they involved just one man, believing that it was safer to keep her
+distance. Yet, this avoidance only deepened her sense of isolation, reinforcing the belief that she
+belonged nowhere. Leila tried to piece together the memories of her trauma, but each time she
+recalled the events, the guilt would wash over her like a tidal wave. These memories often left her
+feeling that she was irreparably flawed, leading her to conclude that there must be something
+inherently wrong with her for allowing such abuse to happen in the first place. The more she dwelled
+on these painful recollections, the more she internalized the belief that she was weak and deserving
+of the abuse, which only deepened her sense of self-blame and inadequacy. Each time these memories
+surfaced, the notion that she was helpless and to blame became clearer, reinforcing the belief that
+she was permanently changed by her trauma. She couldn’t shake the feeling that she had somehow
+caused it, that her actions had provoked Sam’s violence. She would sit in silence, ruminating on her
+self-blame, sometimes becoming so lost in thought that she struggled to finish her sentences when
+speaking about it. These moments of self-blame were accompanied by vivid memories of the
+confrontation, reminding her that she had let this happen, feeding her negative self-appraisal
+further. Friends would ask her how she was doing, but when she opened her mouth to explain, she
+often lost the thread of her narrative. The images were sometimes clear, but more often than not,
+she felt a wave of emotion without a concrete memory to ground it — just a visceral reminder of pain
+that left her feeling raw and exposed. These vague yet intense feelings would often rise during
+unexpected triggers, pulling her back into the painful memories and amplifying her sense of
+vulnerability. The distress from these memories spiraled into a constant state of hypervigilance.
+This hypervigilance, in turn, led her to employ maladaptive strategies such as checking her locks
+multiple times each night, convinced that this was the only way to stave off the danger she felt was
+always lurking. Her need to check and recheck everything she could control stemmed from the belief
+that the world was fundamentally unsafe, which only heightened her ongoing anxiety. As she
+constantly scanned her environment for threats, she found herself needing to check the locks on her
+doors multiple times each night, believing that this was the only way to ensure her safety. That
+constant vigilance only solidified her belief that danger was omnipresent, making her feel as though
+she was living on the edge of disaster at all times. Leila had become super alert to her
+surroundings, almost as if her body was in a perpetual state of readiness for an impending threat.
+This hyper-awareness meant that she could no longer enjoy the peaceful moments that had once filled
+her life with joy. She felt that her inability to relax confirmed her belief that she was constantly
+under threat, as if her surroundings could betray her at any moment. Instead, she would find herself
+checking behind her frequently, convinced that someone was following her or lurking just out of
+sight, ready to strike. This heightened sense of threat fed into her maladaptive strategies, pushing
+her further into avoidance. "This pattern of avoidance only confirmed her belief that she was
+fundamentally flawed, as she felt increasingly unable to cope with the world around her." Whenever
+she felt that surge of fear, she would instinctively plan her exits in social situations, convinced
+that avoiding potential encounters was the only way to protect herself from harm. "She understood
+that her strategies of avoidance were not only perpetuating her fear but also solidifying her
+negative view of herself, making it clear that change was desperately needed." She would avoid being
+alone in dark spaces, fearing that the shadows might hide something sinister, a reminder of her past
+that she was not ready to confront. As her world shrank, Leila’s negative appraisals solidified.
+Each time she found herself reliving the trauma through her memories, the weight of her negative
+thoughts would become more pronounced, making her feel that she was undeserving of any trust or
+safety. Her belief that she could not trust anyone extended to new interactions, making her feel
+that every person she encountered was a potential threat, a perception that heightened her anxiety.
+She felt a strong belief that she could not trust anyone, not even her loved ones, who were only
+trying to help her heal. This mistrust was rooted in her belief that she was fundamentally flawed,
+making her see every new interaction as a potential threat rather than an opportunity for
+connection. This mistrust was deeply rooted in the trauma, as she had once believed in the safety of
+her marriage, only to have it shattered. The more she avoided situations that reminded her of the
+abuse, the more she felt like a prisoner of her own mind. Her avoidance behaviors seemed to confirm
+her belief that she was incapable of coping with the world, reinforcing her negative self-image and
+leaving her feeling more isolated. "Her repeated avoidance of situations where she might confront
+those memories only solidified her perception that she was permanently damaged and incapable of
+achieving any sense of normalcy." The inability to confront these reminders meant that the shadows
+of her past remained as vivid and threatening as they had been at the moment of her trauma,
+reinforcing her belief that the danger was still very real. "The more she engaged in avoidance
+behaviors, the more her perception of danger intensified, making her feel as though the world
+outside was filled with potential threats waiting to harm her." "Her need to check the locks
+multiple times each night stemmed from the belief that danger was always imminent, which only
+heightened her sense of threat and reinforced her anxiety." "Each time she was jolted back to that
+moment, she would retreat into her room, planning her escape from the noise rather than confronting
+the triggers head-on." It seemed that every time she tried to escape the memories, they would rear
+their heads again, leaving her with a sense of hopelessness that her life could ever be normal
+again. However, the act of checking only served to heighten her sense of threat, as it suggested to
+her that danger was still very much a possibility, keeping her in a state of hyperawareness. "When
+the feeling of threat became overwhelming, she would check her surroundings obsessively, believing
+that planning her escape was the only way to ensure her safety." Realizing that her coping
+mechanisms were only leading her deeper into despair, Leila finally sought help. It was a small
+step, but one filled with trepidation. She feared that exposing her vulnerabilities would lead to
+further pain, but she hoped that perhaps, with the right support, she could begin to reclaim her
+life. As she sat in the therapist’s office, she felt a flicker of hope mixed with the dread of what
+lay ahead. Would she find a way to trust again? Could she learn to navigate her world without the
+ever-present shadows of her trauma? The journey felt daunting, yet Leila knew that stepping into the
+light was the only way to begin to heal. Each time she opted out of social gatherings or left early,
+she felt a quiet confirmation that she was more fragile than those around her, intensifying her
+feelings of inadequacy and helplessness. "This heightened state of alertness led her to avoid
+speaking up in meetings if a male colleague was present, convinced that staying silent was a safer
+option to prevent any potential confrontation." "This conviction that she was to blame made the
+memories of the trauma more vivid; she could almost see the moments of confrontation replaying in
+her mind, reinforcing her sense of guilt." "This constant vigilance left her feeling incapable of
+relaxing, as if every moment spent outside her home was a gamble with her safety." "Each
+recollection brought with it a reminder of her perceived weakness, and she often found herself
+dreading the moment when those memories would resurface again." "Whenever she felt that surge of
+panic, she would instinctively avoid going out, telling herself that staying home was the only way
+to keep herself safe from the noises that reminded her of Sam's rage." "Having decided she was
+always on the verge of danger, her belief that she couldn't protect herself made her hyper-alert to
+every man's presence, leading her to avoid conversations that could be misinterpreted as
+confrontational." "The vivid memories of her trauma often resurfaced unexpectedly, leading her to
+avoid places where she felt vulnerable, as she believed that confronting those memories would only
+lead to further pain." "Each time she chose to isolate herself, it confirmed her belief that she was
+too fragile to cope, further entrenching her negative self-image that she was incapable of handling
+the world outside."
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how triggers lead to the use of maladaptive strategies, such as avoidance.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not clearly convey how triggers lead to a sense of threat.
+
+    ✗ edge:        Triggers → Memory
+      explanation: The vignette does not clearly convey how triggers lead to memory recall.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not clearly convey how triggers lead to negative appraisals.
+
+    ✗ edge:        Negative Appraisals → Threat
+      explanation: The vignette does not clearly convey how negative appraisals lead to a sense of threat.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not clearly convey how negative appraisals lead to memory recall.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how memory leads to the use of maladaptive strategies.
+
+    ✗ edge:        Memory → Threat
+      explanation: The vignette does not clearly convey how memory leads to a sense of threat.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette does not clearly convey how memory leads to negative appraisals.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not clearly convey how memory leads to triggers.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how a sense of threat leads to maladaptive strategies.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not clearly convey how maladaptive strategies lead to negative appraisals.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not clearly convey how maladaptive strategies lead to triggers.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not clearly convey how maladaptive strategies lead to a sense of threat.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+At twenty years old, Leila had already experienced more than her share of pain. The vibrant hues she
+used to design interiors now felt muted, overshadowed by the memories of her traumatic relationship
+with her husband, Sam, who had physically abused her. The hurtful echoes of that time haunted her
+daily life, making it difficult to navigate her world. In the months since the abuse, Leila found
+herself struggling to keep her head above water; she often felt like she was drowning in guilt and
+despair, believing that her life had been irrevocably destroyed. The trauma had not only left
+visible scars but had also infiltrated every aspect of her existence, twisting her perceptions and
+emotions. Each time she recalled the events of her trauma, those memories would sharpen into focus,
+amplifying her belief that she was irreparably flawed and had somehow invited the abuse. Certain
+sounds would send her heart racing — a loud bang from construction outside her apartment could
+transport her back to that night when Sam had shouted at her in a fit of rage. Each time that
+jarring noise echoed through her home, it triggered a wave of panic that made her feel as though
+danger was imminent, compelling her to retreat into the safety of her room, where she could shut out
+the world. This fear of imminent danger led her to avoid situations that could produce similar
+sounds, making her skip outings or stay indoors more often, convinced that isolation was her safest
+option. Each time she chose to stay home, it reinforced her belief that she was fragile and unable
+to handle the world outside, making it harder to believe she could ever return to a normal life. The
+mere presence of a man in the room would leave her breathless, her body tense and alert, ready to
+react to perceived threats. In those moments, the overwhelming anxiety would compel her to plan her
+exits, avoiding any prolonged interactions that could lead to confrontation or discomfort. In those
+moments, her body sent signals of danger that felt entirely real, convincing her that she needed to
+escape or hide to protect herself from potential harm. Each time she was alone with a male colleague
+at work, she could feel the adrenaline coursing through her veins, compelling her to look over her
+shoulder, scanning for danger that wasn’t there. This constant scanning heightened her sense of
+threat, as each glance around the room reinforced her belief that she was in a precarious situation,
+one that could turn dangerous at any moment. The avoidance of male presence became a routine, as she
+would often decline meetings if they involved just one man, believing that it was safer to keep her
+distance. Yet, this avoidance only deepened her sense of isolation, reinforcing the belief that she
+belonged nowhere. Leila tried to piece together the memories of her trauma, but each time she
+recalled the events, the guilt would wash over her like a tidal wave. These memories often left her
+feeling that she was irreparably flawed, leading her to conclude that there must be something
+inherently wrong with her for allowing such abuse to happen in the first place. The more she dwelled
+on these painful recollections, the more she internalized the belief that she was weak and deserving
+of the abuse, which only deepened her sense of self-blame and inadequacy. Each time these memories
+surfaced, the notion that she was helpless and to blame became clearer, reinforcing the belief that
+she was permanently changed by her trauma. She couldn’t shake the feeling that she had somehow
+caused it, that her actions had provoked Sam’s violence. She would sit in silence, ruminating on her
+self-blame, sometimes becoming so lost in thought that she struggled to finish her sentences when
+speaking about it. These moments of self-blame were accompanied by vivid memories of the
+confrontation, reminding her that she had let this happen, feeding her negative self-appraisal
+further. Friends would ask her how she was doing, but when she opened her mouth to explain, she
+often lost the thread of her narrative. The images were sometimes clear, but more often than not,
+she felt a wave of emotion without a concrete memory to ground it — just a visceral reminder of pain
+that left her feeling raw and exposed. These vague yet intense feelings would often rise during
+unexpected triggers, pulling her back into the painful memories and amplifying her sense of
+vulnerability. The distress from these memories spiraled into a constant state of hypervigilance.
+This hypervigilance, in turn, led her to employ maladaptive strategies such as checking her locks
+multiple times each night, convinced that this was the only way to stave off the danger she felt was
+always lurking. Her need to check and recheck everything she could control stemmed from the belief
+that the world was fundamentally unsafe, which only heightened her ongoing anxiety. As she
+constantly scanned her environment for threats, she found herself needing to check the locks on her
+doors multiple times each night, believing that this was the only way to ensure her safety. That
+constant vigilance only solidified her belief that danger was omnipresent, making her feel as though
+she was living on the edge of disaster at all times. Leila had become super alert to her
+surroundings, almost as if her body was in a perpetual state of readiness for an impending threat.
+This hyper-awareness meant that she could no longer enjoy the peaceful moments that had once filled
+her life with joy. She felt that her inability to relax confirmed her belief that she was constantly
+under threat, as if her surroundings could betray her at any moment. Instead, she would find herself
+checking behind her frequently, convinced that someone was following her or lurking just out of
+sight, ready to strike. This heightened sense of threat fed into her maladaptive strategies, pushing
+her further into avoidance. "This pattern of avoidance only confirmed her belief that she was
+fundamentally flawed, as she felt increasingly unable to cope with the world around her." Whenever
+she felt that surge of fear, she would instinctively plan her exits in social situations, convinced
+that avoiding potential encounters was the only way to protect herself from harm. "She understood
+that her strategies of avoidance were not only perpetuating her fear but also solidifying her
+negative view of herself, making it clear that change was desperately needed." She would avoid being
+alone in dark spaces, fearing that the shadows might hide something sinister, a reminder of her past
+that she was not ready to confront. As her world shrank, Leila’s negative appraisals solidified.
+Each time she found herself reliving the trauma through her memories, the weight of her negative
+thoughts would become more pronounced, making her feel that she was undeserving of any trust or
+safety. Her belief that she could not trust anyone extended to new interactions, making her feel
+that every person she encountered was a potential threat, a perception that heightened her anxiety.
+She felt a strong belief that she could not trust anyone, not even her loved ones, who were only
+trying to help her heal. This mistrust was rooted in her belief that she was fundamentally flawed,
+making her see every new interaction as a potential threat rather than an opportunity for
+connection. This mistrust was deeply rooted in the trauma, as she had once believed in the safety of
+her marriage, only to have it shattered. The more she avoided situations that reminded her of the
+abuse, the more she felt like a prisoner of her own mind. Her avoidance behaviors seemed to confirm
+her belief that she was incapable of coping with the world, reinforcing her negative self-image and
+leaving her feeling more isolated. "Her repeated avoidance of situations where she might confront
+those memories only solidified her perception that she was permanently damaged and incapable of
+achieving any sense of normalcy." The inability to confront these reminders meant that the shadows
+of her past remained as vivid and threatening as they had been at the moment of her trauma,
+reinforcing her belief that the danger was still very real. "The more she engaged in avoidance
+behaviors, the more her perception of danger intensified, making her feel as though the world
+outside was filled with potential threats waiting to harm her." "Her need to check the locks
+multiple times each night stemmed from the belief that danger was always imminent, which only
+heightened her sense of threat and reinforced her anxiety." "Each time she was jolted back to that
+moment, she would retreat into her room, planning her escape from the noise rather than confronting
+the triggers head-on." It seemed that every time she tried to escape the memories, they would rear
+their heads again, leaving her with a sense of hopelessness that her life could ever be normal
+again. However, the act of checking only served to heighten her sense of threat, as it suggested to
+her that danger was still very much a possibility, keeping her in a state of hyperawareness. "When
+the feeling of threat became overwhelming, she would check her surroundings obsessively, believing
+that planning her escape was the only way to ensure her safety." Realizing that her coping
+mechanisms were only leading her deeper into despair, Leila finally sought help. It was a small
+step, but one filled with trepidation. She feared that exposing her vulnerabilities would lead to
+further pain, but she hoped that perhaps, with the right support, she could begin to reclaim her
+life. As she sat in the therapist’s office, she felt a flicker of hope mixed with the dread of what
+lay ahead. Would she find a way to trust again? Could she learn to navigate her world without the
+ever-present shadows of her trauma? The journey felt daunting, yet Leila knew that stepping into the
+light was the only way to begin to heal. Each time she opted out of social gatherings or left early,
+she felt a quiet confirmation that she was more fragile than those around her, intensifying her
+feelings of inadequacy and helplessness. "This heightened state of alertness led her to avoid
+speaking up in meetings if a male colleague was present, convinced that staying silent was a safer
+option to prevent any potential confrontation." "This conviction that she was to blame made the
+memories of the trauma more vivid; she could almost see the moments of confrontation replaying in
+her mind, reinforcing her sense of guilt." "This constant vigilance left her feeling incapable of
+relaxing, as if every moment spent outside her home was a gamble with her safety." "Each
+recollection brought with it a reminder of her perceived weakness, and she often found herself
+dreading the moment when those memories would resurface again." "Whenever she felt that surge of
+panic, she would instinctively avoid going out, telling herself that staying home was the only way
+to keep herself safe from the noises that reminded her of Sam's rage." "Having decided she was
+always on the verge of danger, her belief that she couldn't protect herself made her hyper-alert to
+every man's presence, leading her to avoid conversations that could be misinterpreted as
+confrontational." "The vivid memories of her trauma often resurfaced unexpectedly, leading her to
+avoid places where she felt vulnerable, as she believed that confronting those memories would only
+lead to further pain." "Each time she chose to isolate herself, it confirmed her belief that she was
+too fragile to cope, further entrenching her negative self-image that she was incapable of handling
+the world outside."

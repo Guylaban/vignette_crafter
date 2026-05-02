@@ -1,0 +1,224 @@
+{
+  "persona_id": 128,
+  "source_persona_id": 128,
+  "experiment_timestamp": "2026-05-02 11:20:58",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4-mini",
+      "persona_crafter": "gpt-5.4-mini",
+      "vignette_crafter": "gpt-5.4-mini",
+      "vignette_validator": "gpt-5.4-mini"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 80,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Widowed",
+    "occupation": "Social Worker",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 45
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      },
+      {
+        "key": "Visual (Needles/Medical)",
+        "value": "Medical equipment such as needles or drips"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      },
+      {
+        "key": "Thought Suppression",
+        "value": "I try to push them out of my mind"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Violated Values",
+        "value": "I acted in ways that go against who I am"
+      },
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Helplessness",
+        "value": "I can't stop bad things from happening to me"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.5473,
+    "Triggers -- Negative Appraisals": 0.571,
+    "Negative Appraisals -- Maladaptive Strategies": 0.3304,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.869,
+    "Negative Appraisals -- Triggers": 0.862,
+    "Memory -- Maladaptive Strategies": 0.5358,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.8212,
+    "Memory -- Triggers": 0.4595,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7363,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6369444444444444,
+  "edge_density": 0.45,
+  "vignette_word_count": 734,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Weapons): Weapons or objects used as weapons",
+          "explanation": "For trauma type of a child's life-threatening illness, weapon-related visual triggers are hard to reconcile unless there is additional unreported violent trauma. Hospital smells and loss-related conversations fit, but weapons/object-as-weapon cues are clinically implausible for the same index trauma."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Fear of Harm: You can never know who will harm you",
+          "explanation": "The appraisal 'You can never know who will harm you' implies interpersonal danger/assailant threat, which is poorly matched to the validated trauma of a child's serious illness. This also aligns awkwardly with the rest of the profile, which is otherwise illness/loss/moral injury themed rather than assault-based."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Weapons)"
+        ],
+        "Negative Appraisals": [
+          "Fear of Harm"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "'Intense rage on recall' is hard to reconcile with the rest of this profile for an 80-year-old mother traumatized by a child's life-threatening illness. The other items center on helplessness, permanent change, loss-related and hospital triggers, and intrusive affect without image. Distress, fear, guilt, grief, or sadness would fit more coherently; rage is not impossible, but here it is insufficiently supported by any corresponding appraisal or trigger content and stands out as clinically incongruent."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Face Hiding: cover face with hands",
+          "explanation": "'Cover face with hands' is not well supported as a maladaptive strategy in this profile. The active formulation links maladaptive strategies mainly to negative appraisals and memory, and the other strategies chosen (avoid going out, thought suppression) fit intrusive distress and negative beliefs. Face hiding is more typical of acute shame/panic/social exposure and is not clearly connected to the hospital/loss triggers, intrusive memory pattern, or appraisals provided, making it the least coherent item in this set."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Rage on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Face Hiding"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2973,
+    "output": 861,
+    "total": 3834
+  },
+  "vignette": "Mona was an 80-year-old widowed Middle Eastern woman who had spent most of her adult life working as a social worker, a role that had trained her to be composed in other people’s crises and practical when fear entered a room. But after her son’s life-threatening illness, the steadiness she had relied on felt to her like something that had been taken apart and never properly put back together. She described the original ordeal vividly: the long hours in the hospital, the sharp antiseptic smell that clung to the corridors, the sight of needles, drips, and machines surrounding her child’s bed while she waited for updates she could barely absorb. What stayed with her most was not a single picture but the feeling of terror that seemed to flood her body whenever she remembered those days, as if the whole event could rush back without warning. Even now, talk of people losing loved ones could pull her straight back into that emotional state, and hospital smells or the sight of medical equipment could make her feel as though she were once again standing helplessly beside that bed. In those moments she was struck by the thought that she had permanently changed for the worse, that she had acted in ways that went against who she was, and that she simply could not stop bad things from happening to her or to the people she loved.\n\nThose beliefs shaped the way she lived afterward. Mona began to avoid going out unless it was absolutely necessary, because the world felt full of reminders she could not control. She tried to push the memories out of her mind whenever they surfaced, and she avoided hospitals, ambulances, and physical examinations so completely that even ordinary medical appointments became fraught. After the event, whenever something triggered the memory, she would be overwhelmed by grief rather than any clear image; it was as if the emotional force arrived before the story itself, and that unbearable wave of feeling made her pull back further from people and places that might stir it up again. She noticed that once the memory broke through, it did not stay contained: hearing a friend mention a relative in the ICU, or passing a clinic with that familiar smell, could make the whole scene force its way into her mind when she least wanted it there. And when it did, the old conclusions returned with fresh intensity—she had not only been powerless then, she was still damaged now, and because she could not make danger stop, it made sense to keep herself away from situations that might remind her of it.\n\nOver time, that way of coping began to feed the very fears it was meant to quiet. Because Mona was so determined to avoid reminders, her world shrank around what felt safe, and the shrinking itself seemed to confirm that she had become a different person, someone less capable and less like the woman she had once been. She found herself increasingly convinced that she had violated her own values during her son’s illness, especially in the moments when she had had to stay composed or make decisions while feeling inwardly shattered; those judgments deepened her belief that something in her had been permanently altered. The more she tried to keep the memories out, the more brittle her mind felt, and the more frightening it became when they returned with that same tide of grief. She was also more easily set off by other people’s losses, because any conversation about bereavement seemed to open the door to the helplessness she associated with that hospital time. Even a passing reference to a loved one dying could leave her unsettled for hours, and that sensitivity made her increasingly wary of social gatherings, where such topics might arise without warning.\n\nBy the time she sought help, Mona had begun to see the pattern herself, though she still feared what it might mean. She had come because the avoidance was no longer only protecting her; it was isolating her, and she was frightened that if she kept living this way she would lose the parts of herself she most valued. What she hoped for was not to erase the memory of her son’s illness, but to be able to think about it without being flooded by grief or pulled back into the conviction that she was broken and powerless."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Mona was an 80-year-old widowed Middle Eastern woman who had spent most of her adult life working as a social worker, a role that had trained her to be composed in other people’s crises and practical when fear entered a room. But after her son’s life-threatening illness, the steadiness she had relied on felt to her like something that had been taken apart and never properly put back together. She described the original ordeal vividly: the long hours in the hospital, the sharp antiseptic smell that clung to the corridors, the sight of needles, drips, and machines surrounding her child’s bed while she waited for updates she could barely absorb. What stayed with her most was not a single picture but the feeling of terror that seemed to flood her body whenever she remembered those days, as if the whole event could rush back without warning. Even now, talk of people losing loved ones could pull her straight back into that emotional state, and hospital smells or the sight of medical equipment could make her feel as though she were once again standing helplessly beside that bed. In those moments she was struck by the thought that she had permanently changed for the worse, that she had acted in ways that went against who she was, and that she simply could not stop bad things from happening to her or to the people she loved.\n\nThose beliefs shaped the way she lived afterward. Mona began to avoid going out unless it was absolutely necessary, because the world felt full of reminders she could not control. She tried to push the memories out of her mind whenever they surfaced, and she avoided hospitals, ambulances, and physical examinations so completely that even ordinary medical appointments became fraught. After the event, whenever something triggered the memory, she would be overwhelmed by grief rather than any clear image; it was as if the emotional force arrived before the story itself, and that unbearable wave of feeling made her pull back further from people and places that might stir it up again. She noticed that once the memory broke through, it did not stay contained: hearing a friend mention a relative in the ICU, or passing a clinic with that familiar smell, could make the whole scene force its way into her mind when she least wanted it there. And when it did, the old conclusions returned with fresh intensity—she had not only been powerless then, she was still damaged now, and because she could not make danger stop, it made sense to keep herself away from situations that might remind her of it.\n\nOver time, that way of coping began to feed the very fears it was meant to quiet. Because Mona was so determined to avoid reminders, her world shrank around what felt safe, and the shrinking itself seemed to confirm that she had become a different person, someone less capable and less like the woman she had once been. She found herself increasingly convinced that she had violated her own values during her son’s illness, especially in the moments when she had had to stay composed or make decisions while feeling inwardly shattered; those judgments deepened her belief that something in her had been permanently altered. The more she tried to keep the memories out, the more brittle her mind felt, and the more frightening it became when they returned with that same tide of grief. She was also more easily set off by other people’s losses, because any conversation about bereavement seemed to open the door to the helplessness she associated with that hospital time. Even a passing reference to a loved one dying could leave her unsettled for hours, and that sensitivity made her increasingly wary of social gatherings, where such topics might arise without warning.\n\nBy the time she sought help, Mona had begun to see the pattern herself, though she still feared what it might mean. She had come because the avoidance was no longer only protecting her; it was isolating her, and she was frightened that if she kept living this way she would lose the parts of herself she most valued. What she hoped for was not to erase the memory of her son’s illness, but to be able to think about it without being flooded by grief or pulled back into the conviction that she was broken and powerless.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

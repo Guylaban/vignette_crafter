@@ -1,0 +1,222 @@
+PERSONA 29  |  2026-05-01 22:45:44
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-5.4
+    persona_crafter      gpt-5.4
+    vignette_crafter     gpt-5.4
+    vignette_validator   gpt-5.4
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             19
+  gender          Male
+  ethnicity       North American
+  relationship_status Single
+  occupation      Fast Food Worker
+  trauma_type     Natural disaster
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Rehearse Conversations: rehearse what to say before any interaction
+    • Avoid Stressors: avoid anything that could be stressful
+    • Suppress Thoughts: try hard not think about the trauma
+  Memory:
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+    • Olfactory Recall: When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened.
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Lost Happiness: I used to be a happy person but now I am always miserable.
+    • Permanent Damage: I have permanently changed for the worse
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.9460
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.7854
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.4635
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.4842
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: The maladaptive strategies are strongly social-evaluative and interpersonal (avoiding evaluation, avoiding conflict, rehearsing conversations), which is hard to reconcile with the indexed trauma type of natural disaster and with the rest of the profile, which contains no social threat, shame, or interpersonal trauma content to explain these strategies.
+    item:        Memory / Avoid Conflict: Any situation that might involve disagreement or confrontation
+    explanation: Within the cognitive formulation, the strongest pathway is Negative Appraisals → Maladaptive Strategies. However, the selected negative appraisals focus on global identity change, chronic misery, and self-blame for being in the situation, while the selected strategies are specifically about managing social scrutiny and interpersonal interactions. That is a weak clinical fit: the strategies do not plausibly follow from the appraisals provided.
+    item:        Negative Appraisals / Rehearse Conversations: rehearse what to say before any interaction
+    explanation: Memory and appraisals are only partly coherent: terror on recall and olfactory recall fit disaster trauma, but rage on recall is less well supported by the rest of the profile because there is no accompanying appraisal about betrayal, preventability by others, or injustice that would explain intense anger as a central recall response.
+  [2] FAIL
+    item:        Memory / Memory: Rage on Recall
+    explanation: For a natural-disaster trauma, intense rage specifically on recall is hard to reconcile with the rest of the profile, which otherwise centers on terror, misery, self-change, and generalized avoidance rather than anger at a person or agent. Rage can occur, but here it lacks support from the other selected items and is the least coherent memory item.
+    item:        Negative Appraisals / Negative Appraisals: Self-Comparison
+    explanation: 'Somebody else would not have gotten into this situation' implies preventable personal failure in getting into the trauma. With a natural disaster, this appraisal is difficult to justify unless there was a very specific risky decision context, which is not reflected elsewhere in the profile. The other appraisals focus on post-trauma change and unhappiness, making this item the clearest mismatch.
+  [3] FAIL
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: For a natural disaster trauma, strong self-blame framed as 'the event happened because of the way I acted' is hard to justify clinically unless the disaster involved a very specific preventable action by the patient. In the absence of any such context, this appraisal is implausible for the indexed trauma.
+    item:        Maladaptive Strategies / Avoid Conflict: Any situation that might involve disagreement or confrontation
+    explanation: The maladaptive strategies are predominantly interpersonal/social-safety behaviors (avoiding conflict, rehearsing conversations) that fit social threat or shame-based trauma formulations more than a natural disaster PTSD presentation. They do not connect well to the memory/appraisal content provided.
+  [4] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: The profile includes active hypervigilant threat-monitoring ('constantly scan environment for signs of threat') and a global danger appraisal, but the formulation specifies Threat as effectively inactive, with no active links involving Threat and no active Trigger pathways. For a natural-disaster case, these items imply an ongoing threat-focused maintenance pattern that is not supported by the stated formulation.
+    item:        Negative Appraisals / World is Dangerous: The world is a dangerous place
+    explanation: This is not just a weak-edge issue: both items explicitly center current external danger/threat, whereas the active formulation is concentrated on Negative Appraisals ↔ Memory and Negative Appraisals ↔ Maladaptive Strategies without Threat involvement. The remaining items fit a self-focused/post-traumatic change formulation, making these threat-focused items the main incoherent elements.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,970
+  output:       975
+  total:      3,945
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Ethan is a 19-year-old fast food worker who came to treatment months after a hurricane tore through
+his town. During the storm he had been in his family’s small house with his mother and younger
+sister, listening to the wind rise from something strange and distant into a force that seemed to
+press on the walls from every side. He remembers the lights going out, the rooms turning flat and
+dark except for brief blue flashes through the windows, and the smell that filled the house as rain
+forced its way inside—wet wood, mud, damp insulation, and something sour from the flooded kitchen.
+At the height of it, part of the roof gave way and water came pouring in. He can still picture his
+mother yelling for them to get low and move to the hallway while debris struck the outside of the
+house. What stayed with him was not just that he thought they might die, but the feeling that in
+those minutes the world had become uncontrollable and unsafe.
+
+In the weeks afterward, Ethan found that remembering the storm did not feel like recalling something
+finished. When it came back, it came back with the same terror, as if his body had not understood
+that it was over. His memories were mostly images: the sagging ceiling, the dark hallway, water
+spreading across the floor, his sister crying with her hands over her ears. Sometimes, when his mind
+touched the event, he could smell the same mix of wet wood and floodwater he had smelled that night,
+and that sensory jolt made the memory feel present rather than past. Those moments frightened him
+partly because they seemed to confirm what he had already started to believe about himself: that the
+storm had changed him in some permanent way, that he was no longer the easygoing, happy person he
+used to be.
+
+Over time Ethan came to describe himself in harsh, global terms. He had been the one friends joked
+with, the one who could take things in stride, and now he felt miserable most of the time and alien
+to himself. He told himself that the person he had become was almost unrecognizable, and he was
+certain the change was for the worse rather than a phase he might grow out of. Those beliefs shaped
+how he moved through each day. Because he assumed he could not handle strain the way he once did, he
+began avoiding anything he thought might be stressful. Before even ordinary interactions, he would
+rehearse what to say in his head, trying to prevent himself from freezing, sounding strange, or
+letting other people see how different he felt. He also worked hard to push away thoughts of the
+hurricane, as if allowing them in would prove that he was damaged beyond repair.
+
+That effort to manage himself narrowed his life. At the restaurant where he worked, the lunch rush
+became something he dreaded not only because of the pace, but because stress itself had started to
+feel dangerous. If a customer seemed impatient or a manager called his name sharply from across the
+kitchen, Ethan would already be running through lines in his head before he answered. He volunteered
+less for the front counter and tried to keep to repetitive tasks when he could. He avoided
+conversations in the break room unless he had prepared for them first. The more he organized his day
+around sidestepping pressure and suppressing reminders of the storm, the more convinced he became
+that he really had changed for the worse; in his mind, needing all this effort just to get through a
+shift was evidence that the old Ethan was gone.
+
+His attempts not to think about the hurricane did not loosen its hold. If anything, the memories
+seemed to hit harder for being fought off. A whiff of bleach mixed with standing water near the mop
+sink at work, or a flash of rainwater running past the drive-through window during a storm, could
+pull up vivid pictures and that same wave of terror before he had words for what was happening. Each
+return of the memory fed his belief that he was permanently damaged and would never be happy in the
+way he had been before. And because he saw those reactions as proof of what he had become, he
+doubled down on avoiding stress, rehearsing conversations, and forcing the thoughts away, which only
+made his world feel smaller and his sense of himself more bleak.
+
+By the time he sought help, Ethan was still showing up to work, but with increasing effort and
+dread. He had started to worry that if he kept living this way he would lose his job or stop
+recognizing himself altogether. What finally brought him in was the realization, after a recent
+rainstorm left him shaken in the stock room by the smell of wet cardboard and cleaning chemicals,
+that he could not keep outrunning this. He says he wants “to be normal again,” but what frightens
+him most is that normal may be gone for good.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Ethan is a 19-year-old fast food worker who came to treatment months after a hurricane tore through
+his town. During the storm he had been in his family’s small house with his mother and younger
+sister, listening to the wind rise from something strange and distant into a force that seemed to
+press on the walls from every side. He remembers the lights going out, the rooms turning flat and
+dark except for brief blue flashes through the windows, and the smell that filled the house as rain
+forced its way inside—wet wood, mud, damp insulation, and something sour from the flooded kitchen.
+At the height of it, part of the roof gave way and water came pouring in. He can still picture his
+mother yelling for them to get low and move to the hallway while debris struck the outside of the
+house. What stayed with him was not just that he thought they might die, but the feeling that in
+those minutes the world had become uncontrollable and unsafe.
+
+In the weeks afterward, Ethan found that remembering the storm did not feel like recalling something
+finished. When it came back, it came back with the same terror, as if his body had not understood
+that it was over. His memories were mostly images: the sagging ceiling, the dark hallway, water
+spreading across the floor, his sister crying with her hands over her ears. Sometimes, when his mind
+touched the event, he could smell the same mix of wet wood and floodwater he had smelled that night,
+and that sensory jolt made the memory feel present rather than past. Those moments frightened him
+partly because they seemed to confirm what he had already started to believe about himself: that the
+storm had changed him in some permanent way, that he was no longer the easygoing, happy person he
+used to be.
+
+Over time Ethan came to describe himself in harsh, global terms. He had been the one friends joked
+with, the one who could take things in stride, and now he felt miserable most of the time and alien
+to himself. He told himself that the person he had become was almost unrecognizable, and he was
+certain the change was for the worse rather than a phase he might grow out of. Those beliefs shaped
+how he moved through each day. Because he assumed he could not handle strain the way he once did, he
+began avoiding anything he thought might be stressful. Before even ordinary interactions, he would
+rehearse what to say in his head, trying to prevent himself from freezing, sounding strange, or
+letting other people see how different he felt. He also worked hard to push away thoughts of the
+hurricane, as if allowing them in would prove that he was damaged beyond repair.
+
+That effort to manage himself narrowed his life. At the restaurant where he worked, the lunch rush
+became something he dreaded not only because of the pace, but because stress itself had started to
+feel dangerous. If a customer seemed impatient or a manager called his name sharply from across the
+kitchen, Ethan would already be running through lines in his head before he answered. He volunteered
+less for the front counter and tried to keep to repetitive tasks when he could. He avoided
+conversations in the break room unless he had prepared for them first. The more he organized his day
+around sidestepping pressure and suppressing reminders of the storm, the more convinced he became
+that he really had changed for the worse; in his mind, needing all this effort just to get through a
+shift was evidence that the old Ethan was gone.
+
+His attempts not to think about the hurricane did not loosen its hold. If anything, the memories
+seemed to hit harder for being fought off. A whiff of bleach mixed with standing water near the mop
+sink at work, or a flash of rainwater running past the drive-through window during a storm, could
+pull up vivid pictures and that same wave of terror before he had words for what was happening. Each
+return of the memory fed his belief that he was permanently damaged and would never be happy in the
+way he had been before. And because he saw those reactions as proof of what he had become, he
+doubled down on avoiding stress, rehearsing conversations, and forcing the thoughts away, which only
+made his world feel smaller and his sense of himself more bleak.
+
+By the time he sought help, Ethan was still showing up to work, but with increasing effort and
+dread. He had started to worry that if he kept living this way he would lose his job or stop
+recognizing himself altogether. What finally brought him in was the realization, after a recent
+rainstorm left him shaken in the stock room by the smell of wet cardboard and cleaning chemicals,
+that he could not keep outrunning this. He says he wants “to be normal again,” but what frightens
+him most is that normal may be gone for good.

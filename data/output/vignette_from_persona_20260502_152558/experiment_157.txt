@@ -1,0 +1,205 @@
+PERSONA 157  |  2026-05-02 18:13:00
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gemini-2.5-pro
+    persona_crafter      gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             26
+  gender          Male
+  ethnicity       North American
+  relationship_status Married
+  occupation      Detective
+  trauma_type     Physical abuse by romantic partner
+  pcl5            72
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Somatic (Nausea): Feeling nauseous
+    • Visual (Injuries): Visible injuries or wounds on others
+    • Olfactory (Alcohol): Alcohol smell
+  Maladaptive Strategies:
+    • Avoid Relaxation: avoid relaxing because it feels dangerous
+    • Emotional Numbing: I numb my feelings
+    • Avoid Being Touched: Any form of physical contact with others
+  Memory:
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Uncontrolled Access: The memory forces its way into my mind when I do not want it to
+  Negative Appraisals:
+    • Lost Faith: I have lost my faith in people, life, or a higher power
+    • Outsider: I am permanently an outsider now
+    • Distrust Others: People are not what they seem
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.8064
+  Triggers → Negative Appraisals                     0.8134
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.3310
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.1460
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.3421
+  Maladaptive Strategies → Triggers                  0.1498
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Darkness: Dark spaces
+    explanation: The trigger pattern is only partly coherent with the trauma type and the rest of the profile. Nausea and visible injuries fit partner physical abuse, but darkness is a more context-specific trigger that is not supported by the memory or appraisal items; no item suggests assaults occurring in dark spaces or fear linked to darkness specifically.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Public Transport: Using public transport
+    explanation: Avoiding public transport is hard to explain from the rest of the profile. None of the trigger, memory, or appraisal items point to buses/trains/crowds/public transit as trauma-linked cues, so this strategy appears to target a symptom context not otherwise represented in the profile.
+  [2] FAIL
+    item:        Triggers / Triggers: Male Presence: Being alone with men
+    explanation: For trauma type 'physical abuse by romantic partner,' the trigger 'being alone with men' is hard to reconcile unless the abusive partner was male and the fear generalized specifically to men; demographics/trauma description do not support that specificity, so this item is clinically questionable.
+    item:        Negative Appraisals / Negative Appraisals: Mistrust: People can't be trusted
+    explanation: The appraisal 'People can't be trusted' is very broad and non-specific, while the trigger pattern is specifically male-coded. That combination is not impossible, but here it weakens coherence because the profile gives no corresponding trauma-linked reason for a male-specific trigger alongside a fully generalized interpersonal belief.
+  [3] FAIL
+    item:        Memory / Memory: Hard to Recall Deliberately
+    explanation: Within the Memory node, 'hard to deliberately recall' and 'memories are very clear and detailed' can coexist in PTSD, but in this profile they are phrased in a way that risks direct contradiction unless the distinction between involuntary vivid intrusions and impaired voluntary recall is explicit. A clinician would likely question whether these two items were selected to describe the same memory pattern without additional clarification.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,972
+  output:     4,210
+  total:      7,182
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Mark presents as a 26-year-old detective, a man whose professional life is defined by order and
+control, yet whose internal world has been in a state of chaotic collapse for the past eight months.
+The precipitating event was a violent physical assault by his then-boyfriend, an incident that
+shattered his foundational sense of safety. The attack occurred in their shared apartment after a
+night of heavy drinking. Mark remembers the cloying smell of whiskey on his partner’s breath, an
+argument that escalated with terrifying speed, and the feeling of being trapped. The memory is not a
+vague impression but a series of hyper-specific sensory fragments: the sharp crack of a bottle
+breaking on the counter, the sight of his own blood on the floor, and a wave of nausea that felt as
+much a product of terror as of the physical blows.
+
+In the months since, these sensory details have become potent triggers, derailing his life with
+startling efficiency. At work, investigating a domestic violence case, the sight of a victim’s
+bruised face is enough to plunge him back into his own experience. This visual cue doesn't just
+prompt a passing thought; it ignites a full-blown intrusive memory, so vivid and detailed that he
+can almost hear his ex-partner’s slurred accusations in his head. In these moments, seeing another
+person’s injuries also serves as a bitter confirmation of the cynical beliefs that have taken root:
+that people are not what they seem, and that intimacy is a dangerous illusion. He looks at his
+colleagues, processing the scene with professional detachment, and feels a profound, unbridgeable
+chasm opening up. He has come to believe he is permanently an outsider, marked by an experience they
+could never understand.
+
+The sheer horror of these memories, which force their way into his mind without warning, has driven
+Mark to develop a rigid set of protective strategies. To cope with the overwhelming fear and shame
+the memories bring, he has taught himself to numb his feelings, creating a state of flat, grey
+detachment from which he observes his own life. The memory of being held down and hurt has poisoned
+the very idea of physical contact. He now avoids being touched by anyone, recoiling instinctively
+from a hand on his shoulder at work and, most painfully, from the touch of his wife, Sarah. He finds
+himself sleeping on the far edge of their bed, a physical boundary that mirrors the emotional one he
+has erected. He knows this is hurting her, but the alternative—the vulnerability of contact—feels
+impossible to bear.
+
+These attempts to manage his symptoms have, over time, become the engine of his distress. His
+avoidance of physical intimacy has created a palpable distance in his marriage, which he interprets
+as proof of his deepest fear: that he has lost his faith in people because he is no longer worthy or
+capable of real connection. This only reinforces his identity as an outsider. Furthermore, Mark
+actively avoids any state of relaxation, equating it with a dangerous lack of vigilance. This
+constant, exhausting hyperarousal leaves him with a persistent knot of nausea in his stomach. The
+somatic feeling of being sick, once a component of the trauma itself, has now become a trigger in
+its own right, a constant bodily reminder of his vulnerability that can, in turn, spark the very
+memories he is trying to suppress.
+
+The cycle is now almost entirely self-sustaining. His negative appraisals of the world and himself
+act as a constant summons for the traumatic memory. When he finds himself thinking about how you
+can’t trust anyone, his mind dutifully supplies its primary piece of evidence: the vivid, auditory-
+laced memory of the assault, which crashes into his consciousness as if to say, “See? You’re right
+to be afraid.” The memory is no longer just an intruder; it has become a trusted, albeit terrifying,
+advisor, validating the worldview that keeps him trapped. He sought therapy after Sarah told him,
+with tears in her eyes, that she felt like she was living with a ghost. The fear of losing her was
+the one thing that could penetrate his emotional numbness, and he is now terrified that he is
+permanently broken, unable to ever feel safe in the world, or in his own home, again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Mark presents as a 26-year-old detective, a man whose professional life is defined by order and
+control, yet whose internal world has been in a state of chaotic collapse for the past eight months.
+The precipitating event was a violent physical assault by his then-boyfriend, an incident that
+shattered his foundational sense of safety. The attack occurred in their shared apartment after a
+night of heavy drinking. Mark remembers the cloying smell of whiskey on his partner’s breath, an
+argument that escalated with terrifying speed, and the feeling of being trapped. The memory is not a
+vague impression but a series of hyper-specific sensory fragments: the sharp crack of a bottle
+breaking on the counter, the sight of his own blood on the floor, and a wave of nausea that felt as
+much a product of terror as of the physical blows.
+
+In the months since, these sensory details have become potent triggers, derailing his life with
+startling efficiency. At work, investigating a domestic violence case, the sight of a victim’s
+bruised face is enough to plunge him back into his own experience. This visual cue doesn't just
+prompt a passing thought; it ignites a full-blown intrusive memory, so vivid and detailed that he
+can almost hear his ex-partner’s slurred accusations in his head. In these moments, seeing another
+person’s injuries also serves as a bitter confirmation of the cynical beliefs that have taken root:
+that people are not what they seem, and that intimacy is a dangerous illusion. He looks at his
+colleagues, processing the scene with professional detachment, and feels a profound, unbridgeable
+chasm opening up. He has come to believe he is permanently an outsider, marked by an experience they
+could never understand.
+
+The sheer horror of these memories, which force their way into his mind without warning, has driven
+Mark to develop a rigid set of protective strategies. To cope with the overwhelming fear and shame
+the memories bring, he has taught himself to numb his feelings, creating a state of flat, grey
+detachment from which he observes his own life. The memory of being held down and hurt has poisoned
+the very idea of physical contact. He now avoids being touched by anyone, recoiling instinctively
+from a hand on his shoulder at work and, most painfully, from the touch of his wife, Sarah. He finds
+himself sleeping on the far edge of their bed, a physical boundary that mirrors the emotional one he
+has erected. He knows this is hurting her, but the alternative—the vulnerability of contact—feels
+impossible to bear.
+
+These attempts to manage his symptoms have, over time, become the engine of his distress. His
+avoidance of physical intimacy has created a palpable distance in his marriage, which he interprets
+as proof of his deepest fear: that he has lost his faith in people because he is no longer worthy or
+capable of real connection. This only reinforces his identity as an outsider. Furthermore, Mark
+actively avoids any state of relaxation, equating it with a dangerous lack of vigilance. This
+constant, exhausting hyperarousal leaves him with a persistent knot of nausea in his stomach. The
+somatic feeling of being sick, once a component of the trauma itself, has now become a trigger in
+its own right, a constant bodily reminder of his vulnerability that can, in turn, spark the very
+memories he is trying to suppress.
+
+The cycle is now almost entirely self-sustaining. His negative appraisals of the world and himself
+act as a constant summons for the traumatic memory. When he finds himself thinking about how you
+can’t trust anyone, his mind dutifully supplies its primary piece of evidence: the vivid, auditory-
+laced memory of the assault, which crashes into his consciousness as if to say, “See? You’re right
+to be afraid.” The memory is no longer just an intruder; it has become a trusted, albeit terrifying,
+advisor, validating the worldview that keeps him trapped. He sought therapy after Sarah told him,
+with tears in her eyes, that she felt like she was living with a ghost. The fear of losing her was
+the one thing that could penetrate his emotional numbness, and he is now terrified that he is
+permanently broken, unable to ever feel safe in the world, or in his own home, again.

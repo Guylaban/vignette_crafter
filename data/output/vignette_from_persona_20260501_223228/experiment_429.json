@@ -1,0 +1,255 @@
+{
+  "persona_id": 429,
+  "source_persona_id": 429,
+  "experiment_timestamp": "2026-05-02 01:47:06",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gpt-5.4",
+      "persona_crafter": "gpt-5.4",
+      "vignette_crafter": "gpt-5.4",
+      "vignette_validator": "gpt-5.4"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 71,
+    "gender": "Male",
+    "ethnicity": "Oceania",
+    "relationship_status": "Single",
+    "occupation": "Painter",
+    "trauma_type": "Terrorism",
+    "pcl5": 48
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Reassurance Seeking",
+        "value": "I keep asking others to reassure me that I am okay"
+      },
+      {
+        "key": "Emotion Control",
+        "value": "I try hard to control my emotions"
+      },
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Bodily Reenactment",
+        "value": "When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred."
+      },
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Can't Rely on Self",
+        "value": "I can't rely on myself"
+      },
+      {
+        "key": "Can't Rely on Others",
+        "value": "I can't rely on other people"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.3376,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0678,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.7752,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7944,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.49375,
+  "edge_density": 0.2,
+  "vignette_word_count": 824,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Partial Clarity: Some moments of the event are extremely clear while others are completely blank",
+          "explanation": "Within the Memory node, 'Partial Clarity' implies marked fragmentation with important gaps, while 'Vivid Memory' implies globally clear and detailed recall. These can sometimes coexist for specific segments, but stated together at face value they pull in opposite directions and are the clearest internal inconsistency in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Partial Clarity"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Enclosed Spaces: Enclosed or confined spaces",
+          "explanation": "The profile lacks any Threat items, despite terrorism-related avoidance of crowds and enclosed/public spaces usually being linked to a current sense of danger in public places. With Triggers→Threat inactive and no Threat node content provided, the avoidance pattern is left clinically unanchored."
+        },
+        {
+          "component": "Memory",
+          "item": "Avoid Crowds: Crowded places such as shopping centres or public events",
+          "explanation": "Memory items describe vivid, cue-driven, sensory re-experiencing, especially being triggered by surroundings without warning. However, all Triggers edges are inactive and no Trigger items are present, making the specific 'surroundings instantly bring back the full memory' item poorly aligned with the formulation structure."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.",
+          "explanation": "Negative appraisals focus on generalized mistrust of self, body, and others, while the maladaptive strategies are highly situational (crowds/enclosed spaces). Without corresponding threat or trigger content, these nodes do not form a clearly coherent terrorism-specific presentation."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Enclosed Spaces"
+        ],
+        "Memory": [
+          "Avoid Crowds"
+        ],
+        "Negative Appraisals": [
+          "Bodily Reenactment"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning",
+          "explanation": "The Memory item describes strong cue-driven reactivation by surroundings, but the formulation explicitly has Triggers inactive with Memory. This creates a direct contradiction between the item's content and the formulation structure."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Avoid Crowds: Crowded places such as shopping centres or public events",
+          "explanation": "Avoiding crowds is plausible after terrorism, but it implies salient environmental trigger sensitivity and public-place threat anticipation. In this profile, Triggers and Threat are not represented and are inactive in the formulation, so this strategy lacks a coherent linked context."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Triggered Without Warning"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Crowds"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Checking Surroundings: constantly scan environment for signs of threat",
+          "explanation": "Checking surroundings for signs of threat implies an active trigger/threat monitoring pattern, but the formulation explicitly has Triggers and Threat disconnected from the rest of the system, making this item poorly aligned with the cognitive formulation."
+        },
+        {
+          "component": "Memory",
+          "item": "Reassurance Seeking: I keep asking others to reassure me that I am okay",
+          "explanation": "Frequent reassurance seeking from others sits awkwardly with the simultaneous appraisal 'I can't rely on other people.' While some ambivalence is possible, taking both as central items without any moderating context creates a notable cross-node tension."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Body Unreliable: I can no longer trust my own body",
+          "explanation": "'I can no longer trust my own body' is more typical of trauma involving physical injury, illness, or prominent somatic threat. With terrorism trauma, it is not impossible, but alongside the other selected items there is little memory content or appraisal content explaining bodily unreliability, so this item feels weakly grounded in the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Checking Surroundings"
+        ],
+        "Memory": [
+          "Reassurance Seeking"
+        ],
+        "Negative Appraisals": [
+          "Body Unreliable"
+        ]
+      }
+    },
+    {
+      "attempt": 5,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2953,
+    "output": 965,
+    "total": 3918
+  },
+  "vignette": "Sione Kaleo is a 71-year-old man of Pacific Islander background who has supported himself for decades as a house painter, taking pride in steady hands, careful lines, and the habit of working alone. He had been on a downtown commercial job last year when a bomb detonated outside a nearby office building. He remembers the blast with painful clarity: the crack of sound, the glass breaking outward, the force that threw him down against a wall and folded his body awkwardly onto one shoulder with his knees tucked under him as he tried to shield his head. Dust filled his mouth. There were sirens, people shouting, and the smell of smoke and hot metal. Even now, when the memory comes, it does not feel distant or story-like. It arrives sharply and against his will, with the scene intact in vivid detail, and his body seems to return to that exact position on the ground before he is fully aware of where he is.\n\nIn the weeks after the bombing, Sione found that the memory intruded at odd moments, especially when he heard a sudden bang from construction, a truck backfiring, or even a paint can dropped on concrete at work. What frightened him was not only remembering but how completely it took him over. He had come to believe that if his own mind and body could turn on him so suddenly, he could not rely on himself anymore. He no longer trusted his reactions, his judgment, or his ability to stay steady under pressure. The attack also altered how he saw everyone around him. The randomness of the bombing made him certain the world was dangerous in a basic, permanent way, and because no one had seen it coming, he felt other people could not really keep him safe either. The forceful, vivid quality of the memory seemed to prove this to him over and over: danger was close, and neither he nor anyone else could be counted on when it mattered.\n\nFrom there, he began trying to manage himself tightly. Sione started putting great effort into controlling his emotions, especially in front of other people. If he felt panic rising, he would clamp down, hold his face still, and tell himself not to show anything. He also began asking for reassurance in a way that embarrassed him. He would call his sister after a loud noise and ask whether he sounded all right, whether she thought he was “losing it,” whether what he was feeling meant something was seriously wrong. He cut back more and more on going out unless he absolutely had to. Jobs that once would have been routine became difficult if they were in busy commercial areas, and he increasingly chose indoor residential work or postponed errands so he could stay close to home. These habits made sense to him because he was sure the world was unsafe and that he could not trust either his own coping or other people’s protection.\n\nOver the following months, those ways of coping narrowed his life and seemed to make the problem larger. When he forced his feelings down, he became more preoccupied with whether he was managing them properly, and ordinary bodily shifts—a jump in his chest, tension in his shoulders—caught his attention quickly. When he stayed home, leaving the apartment felt even more exposed the next time. At work, being on a ladder with traffic below or hearing scaffolding clatter nearby could bring the bombing back into his mind with brutal immediacy, his body bracing into that same collapsed posture before he could stop it. After these moments he would seek reassurance again, asking family or a coworker if he was okay, if he had seemed strange, if they thought he could still handle working. The more he depended on others to calm him, the less confidence he had in his own ability to get through the next episode, and each retreat confirmed his sense that danger was everywhere and that he was no longer dependable to himself.\n\nBeing single, he has spent long stretches alone with these experiences. He still paints, but more irregularly, turning down certain jobs and avoiding crowded streets where sudden noise feels unbearable. He describes himself as an old man who should be tougher than this, yet he is increasingly convinced that one more surprise could undo him. What finally brought him to seek help was a recent incident on a job when a compressor kicked on unexpectedly and he dropped to the floor, curled protectively on his side, while a younger worker stared. Sione was shaken less by the noise itself than by the certainty that he had no control over what happened in his own mind and body. He wants relief from the memories that force their way in, but most of all he wants to know whether he can trust himself enough to go out, work, and live in the world again."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Sione Kaleo is a 71-year-old man of Pacific Islander background who has supported himself for decades as a house painter, taking pride in steady hands, careful lines, and the habit of working alone. He had been on a downtown commercial job last year when a bomb detonated outside a nearby office building. He remembers the blast with painful clarity: the crack of sound, the glass breaking outward, the force that threw him down against a wall and folded his body awkwardly onto one shoulder with his knees tucked under him as he tried to shield his head. Dust filled his mouth. There were sirens, people shouting, and the smell of smoke and hot metal. Even now, when the memory comes, it does not feel distant or story-like. It arrives sharply and against his will, with the scene intact in vivid detail, and his body seems to return to that exact position on the ground before he is fully aware of where he is.\n\nIn the weeks after the bombing, Sione found that the memory intruded at odd moments, especially when he heard a sudden bang from construction, a truck backfiring, or even a paint can dropped on concrete at work. What frightened him was not only remembering but how completely it took him over. He had come to believe that if his own mind and body could turn on him so suddenly, he could not rely on himself anymore. He no longer trusted his reactions, his judgment, or his ability to stay steady under pressure. The attack also altered how he saw everyone around him. The randomness of the bombing made him certain the world was dangerous in a basic, permanent way, and because no one had seen it coming, he felt other people could not really keep him safe either. The forceful, vivid quality of the memory seemed to prove this to him over and over: danger was close, and neither he nor anyone else could be counted on when it mattered.\n\nFrom there, he began trying to manage himself tightly. Sione started putting great effort into controlling his emotions, especially in front of other people. If he felt panic rising, he would clamp down, hold his face still, and tell himself not to show anything. He also began asking for reassurance in a way that embarrassed him. He would call his sister after a loud noise and ask whether he sounded all right, whether she thought he was “losing it,” whether what he was feeling meant something was seriously wrong. He cut back more and more on going out unless he absolutely had to. Jobs that once would have been routine became difficult if they were in busy commercial areas, and he increasingly chose indoor residential work or postponed errands so he could stay close to home. These habits made sense to him because he was sure the world was unsafe and that he could not trust either his own coping or other people’s protection.\n\nOver the following months, those ways of coping narrowed his life and seemed to make the problem larger. When he forced his feelings down, he became more preoccupied with whether he was managing them properly, and ordinary bodily shifts—a jump in his chest, tension in his shoulders—caught his attention quickly. When he stayed home, leaving the apartment felt even more exposed the next time. At work, being on a ladder with traffic below or hearing scaffolding clatter nearby could bring the bombing back into his mind with brutal immediacy, his body bracing into that same collapsed posture before he could stop it. After these moments he would seek reassurance again, asking family or a coworker if he was okay, if he had seemed strange, if they thought he could still handle working. The more he depended on others to calm him, the less confidence he had in his own ability to get through the next episode, and each retreat confirmed his sense that danger was everywhere and that he was no longer dependable to himself.\n\nBeing single, he has spent long stretches alone with these experiences. He still paints, but more irregularly, turning down certain jobs and avoiding crowded streets where sudden noise feels unbearable. He describes himself as an old man who should be tougher than this, yet he is increasingly convinced that one more surprise could undo him. What finally brought him to seek help was a recent incident on a job when a compressor kicked on unexpectedly and he dropped to the floor, curled protectively on his side, while a younger worker stared. Sione was shaken less by the noise itself than by the certainty that he had no control over what happened in his own mind and body. He wants relief from the memories that force their way in, but most of all he wants to know whether he can trust himself enough to go out, work, and live in the world again.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

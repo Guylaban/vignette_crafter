@@ -1,0 +1,513 @@
+PERSONA 68  |  2026-05-02 14:21:57
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             51
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Married
+  occupation      Hotel Manager
+  trauma_type     Toxic chemical exposure
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Stress: Stress
+    • Workplace: Workplace
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Threat:
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6183
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.1426
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: For toxic chemical exposure, the trigger pattern is not clinically well matched: 'Military Topics' suggests combat/war-related trauma cues, and 'Loss Themes' suggests bereavement-related reminders, while no trigger references fumes, smells, contamination, breathing difficulty, workplaces, or chemical hazards. This makes the trigger set hard to reconcile with the stated trauma type.
+    item:        Threat / Threat: Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: The threat items are internally coherent with a persecution/assault-style danger formulation ('someone is following me', needing to stay alert at night) rather than a toxic exposure formulation. They do not plausibly connect to the selected triggers, despite the strong Triggers → Threat edge that should link these nodes tightly.
+  [2] FAIL
+    item:        Triggers / Triggers: Loss Themes: Talk about people loosing loved ones
+    explanation: The trigger item about discussions of people losing loved ones is hard to reconcile with the indexed trauma of toxic chemical exposure. It implies bereavement-related trauma content that is not otherwise represented in the profile, making this trigger clinically implausible for the same patient unless the exposure involved deaths, which is not supported elsewhere.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: Within the Threat node, concentration difficulty is a broad nonspecific symptom, whereas sleep vigilance reflects an ongoing sense of current external danger. That combination can coexist, but in this profile the threat content is otherwise sparse and the selected triggers do not clearly support a coherent toxic-exposure-related danger schema, weakening internal coherence.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     21,135
+  output:     1,983
+  total:     23,118
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Nadia was a 51-year-old hotel manager, proud of her accomplishments in a bustling city where she had
+built a name for herself. She had always been known for her calm demeanor and ability to handle the
+pressures of the hospitality industry with grace. However, everything changed after the incident at
+work that left her grappling with unseen scars. During a routine maintenance check, a toxic chemical
+leak occurred in the hotel's basement. Despite the swift response from emergency personnel, Nadia
+had been exposed to the fumes. In the days that followed, she noticed a troubling shift in her
+psyche.
+
+In the months after the incident, Nadia became hyperaware of her surroundings. The once-familiar
+hotel environment now held a sense of foreboding. Even the innocent smell of cleaning products would
+trigger her memories of the exposure. She recalled how, during the emergency, the air had become
+thick with a harsh antiseptic odor that clung to her for days. Now, even the faintest hint of that
+smell would send her spiraling into anxiety, her heart racing as if she were reliving those moments
+again. The mere act of walking through the hotel lobby would provoke feelings of dread, and she
+found herself avoiding certain areas of the hotel where the scent lingered. This need to evade her
+triggers only heightened her sense of vulnerability.
+
+As weeks turned to months, Nadia noticed that her sleep began to suffer. Each night, she lay awake,
+her mind racing with thoughts of what could go wrong. She had come to believe that staying alert was
+the only way to protect herself from the unseen threats that lurked around her. The sound of her
+husband moving in the next room or the distant clatter of dishes in the kitchen made her heart
+pound. Each noise felt like an alarm, a reminder that danger could be just around the corner. Her
+body would tense, and she would feel a rush of adrenaline course through her as she prepared for an
+emergency that never came. This constant state of vigilance made sleep elusive, and she felt
+exhausted by the time morning arrived.
+
+Nadia's work life transformed dramatically; she had gone from being a confident leader to someone
+who flinched at the sound of a closing door or the idle chatter of guests. Her colleagues noticed
+her newfound hesitance, and she often found herself retreating into her office, avoiding
+interactions that once brought her joy. What frightened her most was the thought of being unable to
+protect her staff or guests from the kind of chaos she experienced that day. She had become
+convinced that if she let her guard down, she could face a similar crisis again. This belief
+reinforced her isolation, as she kept her struggles hidden from those around her, fearing that
+showing any sign of weakness would compromise her position.
+
+Despite her efforts to manage her symptoms, Nadia felt trapped in a cycle of fear and avoidance. The
+very workplace that had once been her sanctuary now felt like a minefield, filled with triggers
+waiting to set off her anxiety. She would often tell herself that she needed to be strong, to push
+through, but the weight of her experience was becoming unbearable. Realizing she could not continue
+this way, she finally sought help with the hope of regaining control over her life. At the forefront
+of her mind was the fear that she might never return to being the capable manager she once was, but
+she also held onto a glimmer of hope that with support, she could reclaim her sense of safety and
+peace.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not establish that triggers (e.g., the smell of cleaning products) lead to a sense of threat or perceived danger for Nadia.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not indicate that the sense of threat is causing or leading to any specific triggers for Nadia.
+
+  [2] FAIL
+Nadia was a 51-year-old hotel manager, proud of her accomplishments in a bustling city where she had
+built a name for herself. She had always been known for her calm demeanor and ability to handle the
+pressures of the hospitality industry with grace. However, everything changed after the incident at
+work that left her grappling with unseen scars. During a routine maintenance check, a toxic chemical
+leak occurred in the hotel's basement. Despite the swift response from emergency personnel, Nadia
+had been exposed to the fumes. In the days that followed, she noticed a troubling shift in her
+psyche.
+
+In the months after the incident, Nadia became hyperaware of her surroundings. The once-familiar
+hotel environment now held a sense of foreboding. Even the innocent smell of cleaning products would
+trigger her memories of the exposure. The cues led to a feeling of danger that felt as real as the
+original event; each whiff sent her heart racing, convinced she was once again facing an unseen
+threat. She recalled how, during the emergency, the air had become thick with a harsh antiseptic
+odor that clung to her for days. Now, even the faintest hint of that smell would send her spiraling
+into anxiety, her heart racing as if she were reliving those moments again. The mere act of walking
+through the hotel lobby would provoke feelings of dread, and she found herself avoiding certain
+areas of the hotel where the scent lingered. This need to evade her triggers only heightened her
+sense of vulnerability.
+
+As weeks turned to months, Nadia noticed that her sleep began to suffer. Each night, she lay awake,
+her mind racing with thoughts of what could go wrong. She had come to believe that staying alert was
+the only way to protect herself from the unseen threats that lurked around her. The sound of her
+husband moving in the next room or the distant clatter of dishes in the kitchen made her heart
+pound. Each noise felt like an alarm, a reminder that danger could be just around the corner. Living
+at that pitch of alertness, she found the world had become dense with reminders she couldn't stop
+reading; a creak in the building or the rustle of a guest's jacket would send her spiraling into
+dread. Her body would tense, and she would feel a rush of adrenaline course through her as she
+prepared for an emergency that never came. This constant state of vigilance made sleep elusive, and
+she felt exhausted by the time morning arrived.
+
+Nadia's work life transformed dramatically; she had gone from being a confident leader to someone
+who flinched at the sound of a closing door or the idle chatter of guests. Her colleagues noticed
+her newfound hesitance, and she often found herself retreating into her office, avoiding
+interactions that once brought her joy. What frightened her most was the thought of being unable to
+protect her staff or guests from the kind of chaos she experienced that day. She had become
+convinced that if she let her guard down, she could face a similar crisis again. This belief
+reinforced her isolation, as she kept her struggles hidden from those around her, fearing that
+showing any sign of weakness would compromise her position.
+
+Despite her efforts to manage her symptoms, Nadia felt trapped in a cycle of fear and avoidance. The
+very workplace that had once been her sanctuary now felt like a minefield, filled with triggers
+waiting to set off her anxiety. She would often tell herself that she needed to be strong, to push
+through, but the weight of her experience was becoming unbearable. Realizing she could not continue
+this way, she finally sought help with the hope of regaining control over her life. At the forefront
+of her mind was the fear that she might never return to being the capable manager she once was, but
+she also held onto a glimmer of hope that with support, she could reclaim her sense of safety and
+peace.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not explicitly convey how triggers lead to a sense of threat for Nadia.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not indicate that the sense of threat leads to the presence of triggers for Nadia.
+
+  [3] FAIL
+Nadia was a 51-year-old hotel manager, proud of her accomplishments in a bustling city where she had
+built a name for herself. She had always been known for her calm demeanor and ability to handle the
+pressures of the hospitality industry with grace. However, everything changed after the incident at
+work that left her grappling with unseen scars. During a routine maintenance check, a toxic chemical
+leak occurred in the hotel's basement. Despite the swift response from emergency personnel, Nadia
+had been exposed to the fumes. In the days that followed, she noticed a troubling shift in her
+psyche.
+
+In the months after the incident, Nadia became hyperaware of her surroundings. The once-familiar
+hotel environment now held a sense of foreboding. Even the innocent smell of cleaning products would
+trigger her memories of the exposure. The cues led to a feeling of danger that felt as real as the
+original event; each whiff sent her heart racing, convinced she was once again facing an unseen
+threat. This heightened sense of threat transformed her perception of her surroundings, making even
+benign smells feel like warnings that danger was imminent. She recalled how, during the emergency,
+the air had become thick with a harsh antiseptic odor that clung to her for days. Now, even the
+faintest hint of that smell would send her spiraling into anxiety, her heart racing as if she were
+reliving those moments again. The mere act of walking through the hotel lobby would provoke feelings
+of dread, and she found herself avoiding certain areas of the hotel where the scent lingered. This
+need to evade her triggers only heightened her sense of vulnerability.
+
+As weeks turned to months, Nadia noticed that her sleep began to suffer. Each night, she lay awake,
+her mind racing with thoughts of what could go wrong. She had come to believe that staying alert was
+the only way to protect herself from the unseen threats that lurked around her. The sound of her
+husband moving in the next room or the distant clatter of dishes in the kitchen made her heart
+pound. Each noise felt like an alarm, a reminder that danger could be just around the corner. Living
+at that pitch of alertness, she found that almost anything could tip into a warning — the flicker of
+a light or the sound of footsteps made her body tense, confirming her belief that threats were
+lurking everywhere. Living at that pitch of alertness, she found the world had become dense with
+reminders she couldn't stop reading; a creak in the building or the rustle of a guest's jacket would
+send her spiraling into dread. Her body would tense, and she would feel a rush of adrenaline course
+through her as she prepared for an emergency that never came. This constant state of vigilance made
+sleep elusive, and she felt exhausted by the time morning arrived.
+
+Nadia's work life transformed dramatically; she had gone from being a confident leader to someone
+who flinched at the sound of a closing door or the idle chatter of guests. Her colleagues noticed
+her newfound hesitance, and she often found herself retreating into her office, avoiding
+interactions that once brought her joy. What frightened her most was the thought of being unable to
+protect her staff or guests from the kind of chaos she experienced that day. She had become
+convinced that if she let her guard down, she could face a similar crisis again. This belief
+reinforced her isolation, as she kept her struggles hidden from those around her, fearing that
+showing any sign of weakness would compromise her position.
+
+Despite her efforts to manage her symptoms, Nadia felt trapped in a cycle of fear and avoidance. The
+very workplace that had once been her sanctuary now felt like a minefield, filled with triggers
+waiting to set off her anxiety. She would often tell herself that she needed to be strong, to push
+through, but the weight of her experience was becoming unbearable. Realizing she could not continue
+this way, she finally sought help with the hope of regaining control over her life. At the forefront
+of her mind was the fear that she might never return to being the capable manager she once was, but
+she also held onto a glimmer of hope that with support, she could reclaim her sense of safety and
+peace.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not convey that triggers lead to a sense of threat in a clear causal manner.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not illustrate that a sense of threat leads to the identification of triggers.
+
+  [4] FAIL
+Nadia was a 51-year-old hotel manager, proud of her accomplishments in a bustling city where she had
+built a name for herself. She had always been known for her calm demeanor and ability to handle the
+pressures of the hospitality industry with grace. However, everything changed after the incident at
+work that left her grappling with unseen scars. During a routine maintenance check, a toxic chemical
+leak occurred in the hotel's basement. Despite the swift response from emergency personnel, Nadia
+had been exposed to the fumes. In the days that followed, she noticed a troubling shift in her
+psyche.
+
+In the months after the incident, Nadia became hyperaware of her surroundings. The once-familiar
+hotel environment now held a sense of foreboding. Even the innocent smell of cleaning products would
+trigger her memories of the exposure. These cues would lead to a pervasive feeling of danger that
+felt as real as the original event; each whiff sent her heart racing, convinced she was once again
+facing an unseen threat. The cues led to a feeling of danger that felt as real as the original
+event; each whiff sent her heart racing, convinced she was once again facing an unseen threat. This
+heightened sense of threat transformed her perception of her surroundings, making even benign smells
+feel like warnings that danger was imminent. Already running on threat, she found that almost
+anything could tip into a warning; even the flicker of a light or the sound of footsteps made her
+body tense, confirming her belief that threats were lurking everywhere. She recalled how, during the
+emergency, the air had become thick with a harsh antiseptic odor that clung to her for days. Now,
+even the faintest hint of that smell would send her spiraling into anxiety, her heart racing as if
+she were reliving those moments again. The mere act of walking through the hotel lobby would provoke
+feelings of dread, and she found herself avoiding certain areas of the hotel where the scent
+lingered. This need to evade her triggers only heightened her sense of vulnerability.
+
+As weeks turned to months, Nadia noticed that her sleep began to suffer. Each night, she lay awake,
+her mind racing with thoughts of what could go wrong. She had come to believe that staying alert was
+the only way to protect herself from the unseen threats that lurked around her. The sound of her
+husband moving in the next room or the distant clatter of dishes in the kitchen made her heart
+pound. Each noise felt like an alarm, a reminder that danger could be just around the corner. Living
+at that pitch of alertness, she found that almost anything could tip into a warning — the flicker of
+a light or the sound of footsteps made her body tense, confirming her belief that threats were
+lurking everywhere. Living at that pitch of alertness, she found the world had become dense with
+reminders she couldn't stop reading; a creak in the building or the rustle of a guest's jacket would
+send her spiraling into dread. Her body would tense, and she would feel a rush of adrenaline course
+through her as she prepared for an emergency that never came. This constant state of vigilance made
+sleep elusive, and she felt exhausted by the time morning arrived.
+
+Nadia's work life transformed dramatically; she had gone from being a confident leader to someone
+who flinched at the sound of a closing door or the idle chatter of guests. Her colleagues noticed
+her newfound hesitance, and she often found herself retreating into her office, avoiding
+interactions that once brought her joy. What frightened her most was the thought of being unable to
+protect her staff or guests from the kind of chaos she experienced that day. She had become
+convinced that if she let her guard down, she could face a similar crisis again. This belief
+reinforced her isolation, as she kept her struggles hidden from those around her, fearing that
+showing any sign of weakness would compromise her position.
+
+Despite her efforts to manage her symptoms, Nadia felt trapped in a cycle of fear and avoidance. The
+very workplace that had once been her sanctuary now felt like a minefield, filled with triggers
+waiting to set off her anxiety. She would often tell herself that she needed to be strong, to push
+through, but the weight of her experience was becoming unbearable. Realizing she could not continue
+this way, she finally sought help with the hope of regaining control over her life. At the forefront
+of her mind was the fear that she might never return to being the capable manager she once was, but
+she also held onto a glimmer of hope that with support, she could reclaim her sense of safety and
+peace.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not convey that triggers lead to a sense of threat; it describes triggers but does not explicitly connect them to causing feelings of danger.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not convey that a sense of threat leads to triggers; it describes a sense of threat but does not explicitly state how it results in the identification of triggers.
+
+  [5] FAIL
+Nadia was a 51-year-old hotel manager, proud of her accomplishments in a bustling city where she had
+built a name for herself. She had always been known for her calm demeanor and ability to handle the
+pressures of the hospitality industry with grace. However, everything changed after the incident at
+work that left her grappling with unseen scars. During a routine maintenance check, a toxic chemical
+leak occurred in the hotel's basement. Despite the swift response from emergency personnel, Nadia
+had been exposed to the fumes. In the days that followed, she noticed a troubling shift in her
+psyche.
+
+In the months after the incident, Nadia became hyperaware of her surroundings. The once-familiar
+hotel environment now held a sense of foreboding. Even the innocent smell of cleaning products would
+trigger her memories of the exposure. These cues would lead to a pervasive feeling of danger that
+felt as real as the original event; each whiff sent her heart racing, convinced she was once again
+facing an unseen threat. Every familiar scent became a trigger, each one amplifying her sense of
+danger and confirming her belief that a similar crisis could happen again. The cues led to a feeling
+of danger that felt as real as the original event; each whiff sent her heart racing, convinced she
+was once again facing an unseen threat. This heightened sense of threat transformed her perception
+of her surroundings, making even benign smells feel like warnings that danger was imminent. Already
+running on threat, she found that almost anything could tip into a warning; even the flicker of a
+light or the sound of footsteps made her body tense, confirming her belief that threats were lurking
+everywhere. This pervasive sense of threat shifted her perception, making her hyperaware of her
+surroundings, as she began to interpret benign cues as potential warnings of danger. She recalled
+how, during the emergency, the air had become thick with a harsh antiseptic odor that clung to her
+for days. Now, even the faintest hint of that smell would send her spiraling into anxiety, her heart
+racing as if she were reliving those moments again. The mere act of walking through the hotel lobby
+would provoke feelings of dread, and she found herself avoiding certain areas of the hotel where the
+scent lingered. This need to evade her triggers only heightened her sense of vulnerability.
+
+As weeks turned to months, Nadia noticed that her sleep began to suffer. Each night, she lay awake,
+her mind racing with thoughts of what could go wrong. She had come to believe that staying alert was
+the only way to protect herself from the unseen threats that lurked around her. The sound of her
+husband moving in the next room or the distant clatter of dishes in the kitchen made her heart
+pound. Each noise felt like an alarm, a reminder that danger could be just around the corner. Living
+at that pitch of alertness, she found that almost anything could tip into a warning — the flicker of
+a light or the sound of footsteps made her body tense, confirming her belief that threats were
+lurking everywhere. Living at that pitch of alertness, she found the world had become dense with
+reminders she couldn't stop reading; a creak in the building or the rustle of a guest's jacket would
+send her spiraling into dread. Her body would tense, and she would feel a rush of adrenaline course
+through her as she prepared for an emergency that never came. This constant state of vigilance made
+sleep elusive, and she felt exhausted by the time morning arrived.
+
+Nadia's work life transformed dramatically; she had gone from being a confident leader to someone
+who flinched at the sound of a closing door or the idle chatter of guests. Her colleagues noticed
+her newfound hesitance, and she often found herself retreating into her office, avoiding
+interactions that once brought her joy. What frightened her most was the thought of being unable to
+protect her staff or guests from the kind of chaos she experienced that day. She had become
+convinced that if she let her guard down, she could face a similar crisis again. This belief
+reinforced her isolation, as she kept her struggles hidden from those around her, fearing that
+showing any sign of weakness would compromise her position.
+
+Despite her efforts to manage her symptoms, Nadia felt trapped in a cycle of fear and avoidance. The
+very workplace that had once been her sanctuary now felt like a minefield, filled with triggers
+waiting to set off her anxiety. She would often tell herself that she needed to be strong, to push
+through, but the weight of her experience was becoming unbearable. Realizing she could not continue
+this way, she finally sought help with the hope of regaining control over her life. At the forefront
+of her mind was the fear that she might never return to being the capable manager she once was, but
+she also held onto a glimmer of hope that with support, she could reclaim her sense of safety and
+peace.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not convey that Nadia's triggers influence her sense of threat; it describes her awareness of triggers and their emotional impact but does not explicitly connect them to increasing her perception of threat.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not show that her sense of threat influences her triggers; while it describes her hyperawareness of her surroundings, it fails to establish a causal link back to her triggers.
+
+  [6] FAIL
+Nadia was a 51-year-old hotel manager, proud of her accomplishments in a bustling city where she had
+built a name for herself. She had always been known for her calm demeanor and ability to handle the
+pressures of the hospitality industry with grace. However, everything changed after the incident at
+work that left her grappling with unseen scars. During a routine maintenance check, a toxic chemical
+leak occurred in the hotel's basement. Despite the swift response from emergency personnel, Nadia
+had been exposed to the fumes. In the days that followed, she noticed a troubling shift in her
+psyche.
+
+In the months after the incident, Nadia became hyperaware of her surroundings. The once-familiar
+hotel environment now held a sense of foreboding. Even the innocent smell of cleaning products would
+trigger her memories of the exposure. These cues would lead to a pervasive feeling of danger that
+felt as real as the original event; each whiff sent her heart racing, convinced she was once again
+facing an unseen threat. This feeling of danger amplified her sensitivity to ordinary scents, making
+her perceive even the faintest whiff of cleaning products as a harbinger of disaster, further
+entrenching her anxiety. Every familiar scent became a trigger, each one amplifying her sense of
+danger and confirming her belief that a similar crisis could happen again. The cues led to a feeling
+of danger that felt as real as the original event; each whiff sent her heart racing, convinced she
+was once again facing an unseen threat. This heightened sense of threat transformed her perception
+of her surroundings, making even benign smells feel like warnings that danger was imminent. Already
+running on threat, she found that almost anything could tip into a warning; even the flicker of a
+light or the sound of footsteps made her body tense, confirming her belief that threats were lurking
+everywhere. This pervasive sense of threat shifted her perception, making her hyperaware of her
+surroundings, as she began to interpret benign cues as potential warnings of danger. Her constant
+fear reshaped her environment, causing her to react strongly to even minor disturbances, like the
+hum of a nearby vacuum, each sound reinforcing her belief that danger was imminent. She recalled
+how, during the emergency, the air had become thick with a harsh antiseptic odor that clung to her
+for days. Now, even the faintest hint of that smell would send her spiraling into anxiety, her heart
+racing as if she were reliving those moments again. The mere act of walking through the hotel lobby
+would provoke feelings of dread, and she found herself avoiding certain areas of the hotel where the
+scent lingered. This need to evade her triggers only heightened her sense of vulnerability.
+
+As weeks turned to months, Nadia noticed that her sleep began to suffer. Each night, she lay awake,
+her mind racing with thoughts of what could go wrong. She had come to believe that staying alert was
+the only way to protect herself from the unseen threats that lurked around her. The sound of her
+husband moving in the next room or the distant clatter of dishes in the kitchen made her heart
+pound. Each noise felt like an alarm, a reminder that danger could be just around the corner. Living
+at that pitch of alertness, she found that almost anything could tip into a warning — the flicker of
+a light or the sound of footsteps made her body tense, confirming her belief that threats were
+lurking everywhere. Living at that pitch of alertness, she found the world had become dense with
+reminders she couldn't stop reading; a creak in the building or the rustle of a guest's jacket would
+send her spiraling into dread. Her body would tense, and she would feel a rush of adrenaline course
+through her as she prepared for an emergency that never came. This constant state of vigilance made
+sleep elusive, and she felt exhausted by the time morning arrived.
+
+Nadia's work life transformed dramatically; she had gone from being a confident leader to someone
+who flinched at the sound of a closing door or the idle chatter of guests. Her colleagues noticed
+her newfound hesitance, and she often found herself retreating into her office, avoiding
+interactions that once brought her joy. What frightened her most was the thought of being unable to
+protect her staff or guests from the kind of chaos she experienced that day. She had become
+convinced that if she let her guard down, she could face a similar crisis again. This belief
+reinforced her isolation, as she kept her struggles hidden from those around her, fearing that
+showing any sign of weakness would compromise her position.
+
+Despite her efforts to manage her symptoms, Nadia felt trapped in a cycle of fear and avoidance. The
+very workplace that had once been her sanctuary now felt like a minefield, filled with triggers
+waiting to set off her anxiety. She would often tell herself that she needed to be strong, to push
+through, but the weight of her experience was becoming unbearable. Realizing she could not continue
+this way, she finally sought help with the hope of regaining control over her life. At the forefront
+of her mind was the fear that she might never return to being the capable manager she once was, but
+she also held onto a glimmer of hope that with support, she could reclaim her sense of safety and
+peace.
+
+    ✗ edge:        Triggers → Threat
+      explanation: There is no causal relationship established where triggers lead to a sense of threat; while triggers are mentioned, their influence on her perceived threat is not clearly articulated.
+
+    ✗ edge:        Threat → Triggers
+      explanation: There is no causal relationship established where a sense of threat leads to triggers; the narrative does not connect how her feeling of threat influences her perception of triggers.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Nadia was a 51-year-old hotel manager, proud of her accomplishments in a bustling city where she had
+built a name for herself. She had always been known for her calm demeanor and ability to handle the
+pressures of the hospitality industry with grace. However, everything changed after the incident at
+work that left her grappling with unseen scars. During a routine maintenance check, a toxic chemical
+leak occurred in the hotel's basement. Despite the swift response from emergency personnel, Nadia
+had been exposed to the fumes. In the days that followed, she noticed a troubling shift in her
+psyche.
+
+In the months after the incident, Nadia became hyperaware of her surroundings. The once-familiar
+hotel environment now held a sense of foreboding. Even the innocent smell of cleaning products would
+trigger her memories of the exposure. These cues would lead to a pervasive feeling of danger that
+felt as real as the original event; each whiff sent her heart racing, convinced she was once again
+facing an unseen threat. This feeling of danger amplified her sensitivity to ordinary scents, making
+her perceive even the faintest whiff of cleaning products as a harbinger of disaster, further
+entrenching her anxiety. Every familiar scent became a trigger, each one amplifying her sense of
+danger and confirming her belief that a similar crisis could happen again. The cues led to a feeling
+of danger that felt as real as the original event; each whiff sent her heart racing, convinced she
+was once again facing an unseen threat. This heightened sense of threat transformed her perception
+of her surroundings, making even benign smells feel like warnings that danger was imminent. Already
+running on threat, she found that almost anything could tip into a warning; even the flicker of a
+light or the sound of footsteps made her body tense, confirming her belief that threats were lurking
+everywhere. This pervasive sense of threat shifted her perception, making her hyperaware of her
+surroundings, as she began to interpret benign cues as potential warnings of danger. Her constant
+fear reshaped her environment, causing her to react strongly to even minor disturbances, like the
+hum of a nearby vacuum, each sound reinforcing her belief that danger was imminent. She recalled
+how, during the emergency, the air had become thick with a harsh antiseptic odor that clung to her
+for days. Now, even the faintest hint of that smell would send her spiraling into anxiety, her heart
+racing as if she were reliving those moments again. The mere act of walking through the hotel lobby
+would provoke feelings of dread, and she found herself avoiding certain areas of the hotel where the
+scent lingered. This need to evade her triggers only heightened her sense of vulnerability.
+
+As weeks turned to months, Nadia noticed that her sleep began to suffer. Each night, she lay awake,
+her mind racing with thoughts of what could go wrong. She had come to believe that staying alert was
+the only way to protect herself from the unseen threats that lurked around her. The sound of her
+husband moving in the next room or the distant clatter of dishes in the kitchen made her heart
+pound. Each noise felt like an alarm, a reminder that danger could be just around the corner. Living
+at that pitch of alertness, she found that almost anything could tip into a warning — the flicker of
+a light or the sound of footsteps made her body tense, confirming her belief that threats were
+lurking everywhere. Living at that pitch of alertness, she found the world had become dense with
+reminders she couldn't stop reading; a creak in the building or the rustle of a guest's jacket would
+send her spiraling into dread. Her body would tense, and she would feel a rush of adrenaline course
+through her as she prepared for an emergency that never came. This constant state of vigilance made
+sleep elusive, and she felt exhausted by the time morning arrived.
+
+Nadia's work life transformed dramatically; she had gone from being a confident leader to someone
+who flinched at the sound of a closing door or the idle chatter of guests. Her colleagues noticed
+her newfound hesitance, and she often found herself retreating into her office, avoiding
+interactions that once brought her joy. What frightened her most was the thought of being unable to
+protect her staff or guests from the kind of chaos she experienced that day. She had become
+convinced that if she let her guard down, she could face a similar crisis again. This belief
+reinforced her isolation, as she kept her struggles hidden from those around her, fearing that
+showing any sign of weakness would compromise her position.
+
+Despite her efforts to manage her symptoms, Nadia felt trapped in a cycle of fear and avoidance. The
+very workplace that had once been her sanctuary now felt like a minefield, filled with triggers
+waiting to set off her anxiety. She would often tell herself that she needed to be strong, to push
+through, but the weight of her experience was becoming unbearable. Realizing she could not continue
+this way, she finally sought help with the hope of regaining control over her life. At the forefront
+of her mind was the fear that she might never return to being the capable manager she once was, but
+she also held onto a glimmer of hope that with support, she could reclaim her sense of safety and
+peace.

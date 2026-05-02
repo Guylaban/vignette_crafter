@@ -1,0 +1,691 @@
+PERSONA 39  |  2026-05-02 13:39:52
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             68
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Widowed
+  occupation      Public Defender
+  trauma_type     Trauma to a loved one
+  pcl5            70
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Hypervigilance towards people: vigilant for dangerous people
+    • Overeating: I eat more than usual to distract myself or feel better
+    • Avoid Media: Watching TV programmes/ films or reading about similar events
+  Threat:
+    • Door and Lock Checking: I repeatedly check that doors and windows are locked
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+  Memory:
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.7814
+  Memory → Threat                                    0.6984
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.8134
+  Threat → Memory                                    0.7784
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.3005
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.2075
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Maladaptive Strategies: Undereating: I avoid eating or restrict food as a way of coping
+    explanation: Within-node contradiction: endorsing both undereating/restricting food and overeating as coping strategies is hard to reconcile as simultaneous characteristic strategies without further qualification; these items express opposing behavioral patterns within the same node.
+    item:        Threat / Maladaptive Strategies: Overeating: I eat more than usual to distract myself or feel better
+    explanation: Cross-node/formulation mismatch: door and lock checking implies a home-intrusion or direct personal safety threat focus, but the trauma type is trauma to a loved one and the rest of the profile centers on intrusive memory, guilt, startle, and false alarms rather than a coherent intrusion-specific threat theme. This item feels weakly integrated with the other selected items.
+    item:        Memory / Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: Cross-node mismatch: intense guilt on recall is typically more naturally linked to negative appraisals, yet no negative appraisal content is endorsed and that node is formulation-inactive. On its own this is not impossible, but here it sits somewhat incoherently beside a profile otherwise dominated by perceptual re-experiencing and generalized danger responses.
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Thinking: Thinking about the event
+    explanation: This item is internally contradictory as written: 'Avoid Thinking' implies cognitive avoidance, but the selected statement 'Thinking about the event' expresses the opposite state. Within-node inconsistency is clear enough to question whether this item was selected correctly. The rest of the profile is clinically coherent for trauma to a loved one with strong Memory–Threat–Maladaptive Strategy links.
+  [3] FAIL
+    item:        Threat / Hypervigilance towards people: vigilant for dangerous people
+    explanation: For trauma to a loved one, these threat/strategy items imply a current fear of direct interpersonal or home-intrusion danger to self. That can occur, but here it is hard to reconcile clinically with the rest of the profile, which is centered on guilt-laden, fragmented, sensory memories of the loved one’s trauma rather than a personally attacked or pursued threat context.
+    item:        Maladaptive Strategies / Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: The strong formulation links are Memory ↔ Threat and Threat → Maladaptive Strategies. The selected memory items plausibly drive guilt and sensory re-experiencing, but they do not support a specific pattern of being watchful for dangerous people and compulsively checking locks. Those items look tailored to ongoing personal danger and are not well explained by the reported trauma type or by the rest of the node content.
+  [4] FAIL
+    item:        Memory / Memory: Guilt on Recall
+    explanation: The profile is broadly severe and internally linked, but one memory item is hard to reconcile with the trauma type and the rest of the formulation: for trauma to a loved one, intense guilt on recall is possible, yet here there are no corresponding negative appraisal items about responsibility, failure, or preventability, making this guilt-specific memory stand out as clinically under-supported.
+    item:        Threat / Threat: Startle to Movement
+    explanation: Threat items emphasize immediate personal danger and home-intrusion style fear (startling to nearby movement, repeated door/window checking), which fits direct interpersonal threat more than trauma to a loved one unless the loved one’s trauma also left the patient fearing attack. That extension is not supported elsewhere in the selected items.
+    item:        Maladaptive Strategies / Threat: Door and Lock Checking
+    explanation: Hypervigilance towards dangerous people coheres with the same personal-danger theme, but that theme is not grounded by the trauma type or by memory content, which centers guilt, fragmentation, and auditory recall rather than being targeted at dangerous people. This creates a cross-node mismatch.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     26,826
+  output:     3,408
+  total:     30,234
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Rajesh, a 68-year-old widower, had dedicated his life to defending those who could not afford legal
+representation. After the tragic death of his only son, however, he found himself grappling not only
+with grief but with persistent psychological torment that made his work increasingly unbearable. The
+trauma of that day replayed in his mind like a broken record; he could still hear his son's voice
+filled with excitement as he prepared to leave for what would be his last outing. When Rajesh
+received the call that changed everything, it was as if time had stopped. The vivid imagery of that
+moment, the frantic rush to the hospital, and the desperate hope that was ultimately crushed became
+splintered in his mind — fragmented pieces that haunted him. Each reminder of that day, from the
+smell of antiseptic in the hospital to the sound of his son’s laughter, triggered profound waves of
+grief, leaving Rajesh feeling overwhelmed and helpless.
+
+The memories would often surge uninvited, especially when he was alone in his home, and the silence
+felt deafening. These recollections not only encapsulated his sorrow but also opened the floodgates
+to intense negative emotions like guilt and anger. Rajesh often berated himself for not being able
+to protect his son, spiraling into a cycle of self-blame that deepened his sense of loss. Each time
+he recalled the event, he would find himself reaching for food as a distraction, a maladaptive
+strategy he had developed to cope with the unbearable weight of his grief. Overeating became a way
+to temporarily soothe the pain, but it also filled him with shame, compounding his feelings of
+worthlessness. He was aware that this behavior was unhealthy, yet the urge to drown his sorrow in
+food was a familiar refuge.
+
+Rajesh’s heightened state of alertness towards his surroundings became another coping mechanism, as
+he transformed his home into a fortress. He would check and recheck the locks on doors and windows,
+his heart racing at every creak of the old house. This hypervigilance stemmed from the belief that
+danger lurked around every corner, a belief that was reinforced by the traumatic memory of losing
+his son. The thought that he could somehow prevent further loss tightened its grip on him, leading
+to a frantic need to ensure safety. However, this constant state of readiness often left him feeling
+exhausted and tense, as if danger was always imminent, even when he was alone. He frequently reacted
+with fear to benign stimuli, interpreting everyday noises as potential threats, which only served to
+heighten his anxiety and sense of impending doom.
+
+The act of checking locks became almost ritualistic, a way to exert control over his environment
+that felt increasingly chaotic in his mind. Yet, this compulsion did little to alleviate his fears;
+instead, it fed into the cycle of threat perception and maladaptive coping strategies. Whenever he
+would engage in these checks, he found himself drifting back into the fragmented memories of that
+fateful day, his emotions spiraling once again into despair. The echoes of his son's laughter would
+morph into haunting memories of the loss, leaving him feeling trapped in an unending cycle of grief
+and anxiety. This cycle was suffocating, and Rajesh felt powerless to escape it.
+
+As he sat in his office, surrounded by cases that required his attention, Rajesh found it
+increasingly difficult to focus. The weight of his experiences loomed over him, casting a shadow
+over his professional life. He had started to avoid media that might remind him of similar
+tragedies; the news became a source of distress rather than information. Each story about loss felt
+like a personal affront, triggering an avalanche of painful memories. In conversations, he would
+often notice himself drifting off, lost in thoughts of what had been, rather than engaging with the
+present. It was a life filled with avoidance, where the very things he once loved — his work, his
+friends, and even cooking — felt too heavy to bear.
+
+Finally, the realization that he could no longer navigate this tumultuous sea alone led Rajesh to
+seek help. He hoped to reclaim not only his life but also his ability to remember his son without
+being overwhelmed by grief. Fearful yet hopeful, he entered therapy yearning for a way to make peace
+with his memories and to find a path that would lead him back to the world he once thrived in. What
+he most desired was to transform the pain of his memories into a source of strength, rather than a
+prison, allowing him to honor his son's memory in a healthier way.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not convey how the memory of the traumatic event influences Rajesh's maladaptive strategies, such as overeating and hypervigilance.
+
+    ✗ edge:        Threat → Memory
+      explanation: The relationship between the perceived threat and the trauma memory is not established, as it does not show how the threat perception is influenced by the memory.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: There is no clear link showing how Rajesh's maladaptive strategies, like checking locks, feed into the perception of threat, despite the presence of both elements.
+
+  [2] FAIL
+Rajesh, a 68-year-old widower, had dedicated his life to defending those who could not afford legal
+representation. After the tragic death of his only son, however, he found himself grappling not only
+with grief but with persistent psychological torment that made his work increasingly unbearable. The
+trauma of that day replayed in his mind like a broken record; he could still hear his son's voice
+filled with excitement as he prepared to leave for what would be his last outing. When Rajesh
+received the call that changed everything, it was as if time had stopped. The vivid imagery of that
+moment, the frantic rush to the hospital, and the desperate hope that was ultimately crushed became
+splintered in his mind — fragmented pieces that haunted him. Each reminder of that day, from the
+smell of antiseptic in the hospital to the sound of his son’s laughter, triggered profound waves of
+grief, leaving Rajesh feeling overwhelmed and helpless.
+
+The memories would often surge uninvited, especially when he was alone in his home, and the silence
+felt deafening. These recollections not only encapsulated his sorrow but also opened the floodgates
+to intense negative emotions like guilt and anger. Rajesh often berated himself for not being able
+to protect his son, spiraling into a cycle of self-blame that deepened his sense of loss. Each time
+he recalled the event, he would find himself reaching for food as a distraction, a maladaptive
+strategy he had developed to cope with the unbearable weight of his grief. Overeating became a way
+to temporarily soothe the pain, but it also filled him with shame, compounding his feelings of
+worthlessness. He was aware that this behavior was unhealthy, yet the urge to drown his sorrow in
+food was a familiar refuge.
+
+Rajesh’s heightened state of alertness towards his surroundings became another coping mechanism, as
+he transformed his home into a fortress. He would check and recheck the locks on doors and windows,
+his heart racing at every creak of the old house. This hypervigilance stemmed from the belief that
+danger lurked around every corner, a belief that was reinforced by the traumatic memory of losing
+his son. Each time his mind drifted back to that fateful day, the sense of threat intensified,
+pulling him deeper into a world where he felt he must remain constantly alert to prevent further
+loss. The thought that he could somehow prevent further loss tightened its grip on him, leading to a
+frantic need to ensure safety. However, this constant state of readiness often left him feeling
+exhausted and tense, as if danger was always imminent, even when he was alone. He frequently reacted
+with fear to benign stimuli, interpreting everyday noises as potential threats, which only served to
+heighten his anxiety and sense of impending doom.
+
+The act of checking locks became almost ritualistic, a way to exert control over his environment
+that felt increasingly chaotic in his mind. Yet, with each check, the underlying anxiety only grew
+stronger, as if every reassurance he sought through these actions confirmed that the dangers he
+feared were indeed real and ever-present. Yet, this compulsion did little to alleviate his fears;
+instead, it fed into the cycle of threat perception and maladaptive coping strategies. Whenever he
+would engage in these checks, he found himself drifting back into the fragmented memories of that
+fateful day, his emotions spiraling once again into despair. The echoes of his son's laughter would
+morph into haunting memories of the loss, leaving him feeling trapped in an unending cycle of grief
+and anxiety. This cycle was suffocating, and Rajesh felt powerless to escape it.
+
+As he sat in his office, surrounded by cases that required his attention, Rajesh found it
+increasingly difficult to focus. The weight of his experiences loomed over him, casting a shadow
+over his professional life. He had started to avoid media that might remind him of similar
+tragedies; the news became a source of distress rather than information. Each story about loss felt
+like a personal affront, triggering an avalanche of painful memories. In conversations, he would
+often notice himself drifting off, lost in thoughts of what had been, rather than engaging with the
+present. It was a life filled with avoidance, where the very things he once loved — his work, his
+friends, and even cooking — felt too heavy to bear.
+
+Finally, the realization that he could no longer navigate this tumultuous sea alone led Rajesh to
+seek help. He hoped to reclaim not only his life but also his ability to remember his son without
+being overwhelmed by grief. Fearful yet hopeful, he entered therapy yearning for a way to make peace
+with his memories and to find a path that would lead him back to the world he once thrived in. What
+he most desired was to transform the pain of his memories into a source of strength, rather than a
+prison, allowing him to honor his son's memory in a healthier way. The vividness of that day often
+invaded his thoughts, and in an effort to quiet the relentless echoes of guilt and sorrow, Rajesh
+found himself reaching for food, believing it could momentarily distract him from the unbearable
+weight of his memories.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not establish a causal relationship where 'Memory' leads to 'Maladaptive Strategies', which is needed to show how Rajesh's memories drive his coping behaviors.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The vignette lacks a causal connection indicating that 'Threat' leads to 'Maladaptive Strategies', meaning it does not show how his sense of threat necessitates his maladaptive coping.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette does not demonstrate how 'Maladaptive Strategies' influence or lead to 'Memory', which is required to illustrate how his coping mechanisms affect his recollections.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: There is no causal relationship showing that 'Maladaptive Strategies' lead to 'Threat', which would indicate how his coping behaviors affect his perception of danger.
+
+  [3] FAIL
+Rajesh, a 68-year-old widower, had dedicated his life to defending those who could not afford legal
+representation. After the tragic death of his only son, however, he found himself grappling not only
+with grief but with persistent psychological torment that made his work increasingly unbearable. The
+trauma of that day replayed in his mind like a broken record; he could still hear his son's voice
+filled with excitement as he prepared to leave for what would be his last outing. When Rajesh
+received the call that changed everything, it was as if time had stopped. The vivid imagery of that
+moment, the frantic rush to the hospital, and the desperate hope that was ultimately crushed became
+splintered in his mind — fragmented pieces that haunted him. Each reminder of that day, from the
+smell of antiseptic in the hospital to the sound of his son’s laughter, triggered profound waves of
+grief, leaving Rajesh feeling overwhelmed and helpless.
+
+The memories would often surge uninvited, especially when he was alone in his home, and the silence
+felt deafening. In those moments, Rajesh had learned that reaching for food could momentarily
+distract him from the onslaught of painful memories, a strategy that provided temporary relief from
+the emotional turmoil he felt. These recollections not only encapsulated his sorrow but also opened
+the floodgates to intense negative emotions like guilt and anger. Rajesh often berated himself for
+not being able to protect his son, spiraling into a cycle of self-blame that deepened his sense of
+loss. Each time he recalled the event, he would find himself reaching for food as a distraction, a
+maladaptive strategy he had developed to cope with the unbearable weight of his grief. Overeating
+became a way to temporarily soothe the pain, but it also filled him with shame, compounding his
+feelings of worthlessness. He was aware that this behavior was unhealthy, yet the urge to drown his
+sorrow in food was a familiar refuge.
+
+Rajesh’s heightened state of alertness towards his surroundings became another coping mechanism, as
+he transformed his home into a fortress. He would check and recheck the locks on doors and windows,
+his heart racing at every creak of the old house. This hypervigilance stemmed from the belief that
+danger lurked around every corner, a belief that was reinforced by the traumatic memory of losing
+his son. In response to this unrelenting sense of threat, Rajesh found himself checking the locks
+and securing every window, believing that these actions would help create a semblance of safety in a
+world that felt dangerously unpredictable. Each time his mind drifted back to that fateful day, the
+sense of threat intensified, pulling him deeper into a world where he felt he must remain constantly
+alert to prevent further loss. The thought that he could somehow prevent further loss tightened its
+grip on him, leading to a frantic need to ensure safety. However, this constant state of readiness
+often left him feeling exhausted and tense, as if danger was always imminent, even when he was
+alone. He frequently reacted with fear to benign stimuli, interpreting everyday noises as potential
+threats, which only served to heighten his anxiety and sense of impending doom.
+
+The act of checking locks became almost ritualistic, a way to exert control over his environment
+that felt increasingly chaotic in his mind. However, the more he engaged in these maladaptive
+strategies, the more his sense of threat intensified, as if each act of reassurance confirmed that
+his fears were valid and ongoing, trapping him in a cycle of anxiety. Yet, with each check, the
+underlying anxiety only grew stronger, as if every reassurance he sought through these actions
+confirmed that the dangers he feared were indeed real and ever-present. This cycle of checking only
+served to keep the traumatic memories fresh in his mind, as the act of seeking control paradoxically
+reinforced the belief that threats were omnipresent, making it harder for him to process the reality
+of that day. Yet, this compulsion did little to alleviate his fears; instead, it fed into the cycle
+of threat perception and maladaptive coping strategies. Whenever he would engage in these checks, he
+found himself drifting back into the fragmented memories of that fateful day, his emotions spiraling
+once again into despair. The echoes of his son's laughter would morph into haunting memories of the
+loss, leaving him feeling trapped in an unending cycle of grief and anxiety. This cycle was
+suffocating, and Rajesh felt powerless to escape it.
+
+As he sat in his office, surrounded by cases that required his attention, Rajesh found it
+increasingly difficult to focus. The weight of his experiences loomed over him, casting a shadow
+over his professional life. He had started to avoid media that might remind him of similar
+tragedies; the news became a source of distress rather than information. Each story about loss felt
+like a personal affront, triggering an avalanche of painful memories. In conversations, he would
+often notice himself drifting off, lost in thoughts of what had been, rather than engaging with the
+present. It was a life filled with avoidance, where the very things he once loved — his work, his
+friends, and even cooking — felt too heavy to bear.
+
+Finally, the realization that he could no longer navigate this tumultuous sea alone led Rajesh to
+seek help. He hoped to reclaim not only his life but also his ability to remember his son without
+being overwhelmed by grief. Fearful yet hopeful, he entered therapy yearning for a way to make peace
+with his memories and to find a path that would lead him back to the world he once thrived in. What
+he most desired was to transform the pain of his memories into a source of strength, rather than a
+prison, allowing him to honor his son's memory in a healthier way. The vividness of that day often
+invaded his thoughts, and in an effort to quiet the relentless echoes of guilt and sorrow, Rajesh
+found himself reaching for food, believing it could momentarily distract him from the unbearable
+weight of his memories.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The relationship between Memory and Maladaptive Strategies is not explicitly conveyed, as the vignette does not clearly express how memories drive the use of maladaptive coping strategies.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The vignette does not convey how the sense of Threat influences the use of Maladaptive Strategies, missing a clear connection between feeling threatened and engaging in maladaptive behaviors.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The relationship between Maladaptive Strategies and Threat is not established, as it does not demonstrate how engaging in maladaptive strategies impacts the sense of threat.
+
+  [4] FAIL
+Rajesh, a 68-year-old widower, had dedicated his life to defending those who could not afford legal
+representation. After the tragic death of his only son, however, he found himself grappling not only
+with grief but with persistent psychological torment that made his work increasingly unbearable. The
+trauma of that day replayed in his mind like a broken record; he could still hear his son's voice
+filled with excitement as he prepared to leave for what would be his last outing. When Rajesh
+received the call that changed everything, it was as if time had stopped. The vivid imagery of that
+moment, the frantic rush to the hospital, and the desperate hope that was ultimately crushed became
+splintered in his mind — fragmented pieces that haunted him. Each reminder of that day, from the
+smell of antiseptic in the hospital to the sound of his son’s laughter, triggered profound waves of
+grief, leaving Rajesh feeling overwhelmed and helpless.
+
+The memories would often surge uninvited, especially when he was alone in his home, and the silence
+felt deafening. In those moments, Rajesh felt compelled to reach for food, believing it would
+distract him from the painful memories that threatened to engulf him, a strategy that provided
+temporary relief from the emotional turmoil he felt. In those moments, Rajesh had learned that
+reaching for food could momentarily distract him from the onslaught of painful memories, a strategy
+that provided temporary relief from the emotional turmoil he felt. These recollections not only
+encapsulated his sorrow but also opened the floodgates to intense negative emotions like guilt and
+anger. Rajesh often berated himself for not being able to protect his son, spiraling into a cycle of
+self-blame that deepened his sense of loss. Each time he recalled the event, he would find himself
+reaching for food as a distraction, a maladaptive strategy he had developed to cope with the
+unbearable weight of his grief. Overeating became a way to temporarily soothe the pain, but it also
+filled him with shame, compounding his feelings of worthlessness. He was aware that this behavior
+was unhealthy, yet the urge to drown his sorrow in food was a familiar refuge.
+
+Rajesh’s heightened state of alertness towards his surroundings became another coping mechanism, as
+he transformed his home into a fortress. He would check and recheck the locks on doors and windows,
+his heart racing at every creak of the old house. This hypervigilance stemmed from the belief that
+danger lurked around every corner, a belief that was reinforced by the traumatic memory of losing
+his son. In response to this unrelenting sense of threat, Rajesh found himself checking the locks
+and securing every window, believing that these actions would help create a semblance of safety in a
+world that felt dangerously unpredictable. Each time he felt that overwhelming sense of danger, the
+urge to check the locks became stronger, as if securing his environment was the only way to reclaim
+control amidst the chaos of his thoughts. Each time his mind drifted back to that fateful day, the
+sense of threat intensified, pulling him deeper into a world where he felt he must remain constantly
+alert to prevent further loss. The thought that he could somehow prevent further loss tightened its
+grip on him, leading to a frantic need to ensure safety. However, this constant state of readiness
+often left him feeling exhausted and tense, as if danger was always imminent, even when he was
+alone. He frequently reacted with fear to benign stimuli, interpreting everyday noises as potential
+threats, which only served to heighten his anxiety and sense of impending doom.
+
+The act of checking locks became almost ritualistic, a way to exert control over his environment
+that felt increasingly chaotic in his mind. However, the more he engaged in these maladaptive
+strategies, the more his sense of threat intensified, as if each act of reassurance confirmed that
+his fears were valid and ongoing, trapping him in a cycle of anxiety. The act of checking the locks,
+instead of providing comfort, only reinforced his belief that danger was ever-present, solidifying
+the cycle of anxiety that kept him on constant alert. Yet, with each check, the underlying anxiety
+only grew stronger, as if every reassurance he sought through these actions confirmed that the
+dangers he feared were indeed real and ever-present. This cycle of checking only served to keep the
+traumatic memories fresh in his mind, as the act of seeking control paradoxically reinforced the
+belief that threats were omnipresent, making it harder for him to process the reality of that day.
+Yet, this compulsion did little to alleviate his fears; instead, it fed into the cycle of threat
+perception and maladaptive coping strategies. Whenever he would engage in these checks, he found
+himself drifting back into the fragmented memories of that fateful day, his emotions spiraling once
+again into despair. The echoes of his son's laughter would morph into haunting memories of the loss,
+leaving him feeling trapped in an unending cycle of grief and anxiety. This cycle was suffocating,
+and Rajesh felt powerless to escape it.
+
+As he sat in his office, surrounded by cases that required his attention, Rajesh found it
+increasingly difficult to focus. The weight of his experiences loomed over him, casting a shadow
+over his professional life. He had started to avoid media that might remind him of similar
+tragedies; the news became a source of distress rather than information. Each story about loss felt
+like a personal affront, triggering an avalanche of painful memories. In conversations, he would
+often notice himself drifting off, lost in thoughts of what had been, rather than engaging with the
+present. It was a life filled with avoidance, where the very things he once loved — his work, his
+friends, and even cooking — felt too heavy to bear.
+
+Finally, the realization that he could no longer navigate this tumultuous sea alone led Rajesh to
+seek help. He hoped to reclaim not only his life but also his ability to remember his son without
+being overwhelmed by grief. Fearful yet hopeful, he entered therapy yearning for a way to make peace
+with his memories and to find a path that would lead him back to the world he once thrived in. What
+he most desired was to transform the pain of his memories into a source of strength, rather than a
+prison, allowing him to honor his son's memory in a healthier way. The vividness of that day often
+invaded his thoughts, and in an effort to quiet the relentless echoes of guilt and sorrow, Rajesh
+found himself reaching for food, believing it could momentarily distract him from the unbearable
+weight of his memories.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The vignette does not convey that Memory influences Maladaptive Strategies, as it fails to establish a direct causal connection between memories of the traumatic event and his coping strategies.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The vignette does not indicate that Threat influences Maladaptive Strategies, as it does not show how his sense of threat drives his maladaptive behaviors.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not demonstrate that Threat influences Memory, as it does not establish a causal link between his sense of threat and the recollection of the traumatic memory.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The vignette fails to illustrate that Maladaptive Strategies influence Memory, as it does not show how his coping mechanisms lead to or affect his traumatic memories.
+
+  [5] FAIL
+Rajesh, a 68-year-old widower, had dedicated his life to defending those who could not afford legal
+representation. After the tragic death of his only son, however, he found himself grappling not only
+with grief but with persistent psychological torment that made his work increasingly unbearable. The
+trauma of that day replayed in his mind like a broken record; he could still hear his son's voice
+filled with excitement as he prepared to leave for what would be his last outing. When Rajesh
+received the call that changed everything, it was as if time had stopped. The vivid imagery of that
+moment, the frantic rush to the hospital, and the desperate hope that was ultimately crushed became
+splintered in his mind — fragmented pieces that haunted him. Each reminder of that day, from the
+smell of antiseptic in the hospital to the sound of his son’s laughter, triggered profound waves of
+grief, leaving Rajesh feeling overwhelmed and helpless. The memories would often surge uninvited,
+especially when he was alone in his home, and the silence felt deafening. In those moments, Rajesh
+felt compelled to reach for food, believing it would distract him from the painful memories that
+threatened to engulf him, a strategy that provided temporary relief from the emotional turmoil he
+felt. Each time the memories surged, the urge to eat became stronger, as if the act of consuming
+food could somehow shield him from the painful recollections that replayed in his mind. In those
+moments, Rajesh had learned that reaching for food could momentarily distract him from the onslaught
+of painful memories, a strategy that provided temporary relief from the emotional turmoil he felt.
+These recollections not only encapsulated his sorrow but also opened the floodgates to intense
+negative emotions like guilt and anger. Rajesh often berated himself for not being able to protect
+his son, spiraling into a cycle of self-blame that deepened his sense of loss. Each time he recalled
+the event, he would find himself reaching for food as a distraction, a maladaptive strategy he had
+developed to cope with the unbearable weight of his grief. Overeating became a way to temporarily
+soothe the pain, but it also filled him with shame, compounding his feelings of worthlessness. He
+was aware that this behavior was unhealthy, yet the urge to drown his sorrow in food was a familiar
+refuge. Rajesh’s heightened state of alertness towards his surroundings became another coping
+mechanism, as he transformed his home into a fortress. He would check and recheck the locks on doors
+and windows, his heart racing at every creak of the old house. This hypervigilance stemmed from the
+belief that danger lurked around every corner, a belief that was reinforced by the traumatic memory
+of losing his son. Yet, as he engaged in these rituals, he found that the memory of the traumatic
+event loomed larger, as if the very act of trying to control his environment reinforced the reality
+of his fears and the pain of his loss. The heightened sense of threat kept his memories of that day
+at the forefront of his mind, as he felt an urgent need to remain vigilant against the dangers that
+could lead to another loss. In response to this unrelenting sense of threat, Rajesh found himself
+checking the locks and securing every window, believing that these actions would help create a
+semblance of safety in a world that felt dangerously unpredictable. Each time he felt that
+overwhelming sense of danger, the urge to check the locks became stronger, as if securing his
+environment was the only way to reclaim control amidst the chaos of his thoughts. This constant
+checking not only provided a momentary sense of safety but also kept the traumatic memories alive,
+as each time he engaged in these behaviors, the recollection of his son’s death felt more vivid and
+pressing. Each time his mind drifted back to that fateful day, the sense of threat intensified,
+pulling him deeper into a world where he felt he must remain constantly alert to prevent further
+loss. The thought that he could somehow prevent further loss tightened its grip on him, leading to a
+frantic need to ensure safety. However, this constant state of readiness often left him feeling
+exhausted and tense, as if danger was always imminent, even when he was alone. He frequently reacted
+with fear to benign stimuli, interpreting everyday noises as potential threats, which only served to
+heighten his anxiety and sense of impending doom. The act of checking locks became almost
+ritualistic, a way to exert control over his environment that felt increasingly chaotic in his mind.
+However, the more he engaged in these maladaptive strategies, the more his sense of threat
+intensified, as if each act of reassurance confirmed that his fears were valid and ongoing, trapping
+him in a cycle of anxiety. The act of checking the locks, instead of providing comfort, only
+reinforced his belief that danger was ever-present, solidifying the cycle of anxiety that kept him
+on constant alert. Yet, with each check, the underlying anxiety only grew stronger, as if every
+reassurance he sought through these actions confirmed that the dangers he feared were indeed real
+and ever-present. This cycle of checking only served to keep the traumatic memories fresh in his
+mind, as the act of seeking control paradoxically reinforced the belief that threats were
+omnipresent, making it harder for him to process the reality of that day. Yet, this compulsion did
+little to alleviate his fears; instead, it fed into the cycle of threat perception and maladaptive
+coping strategies. Whenever he would engage in these checks, he found himself drifting back into the
+fragmented memories of that fateful day, his emotions spiraling once again into despair. The echoes
+of his son's laughter would morph into haunting memories of the loss, leaving him feeling trapped in
+an unending cycle of grief and anxiety. This cycle was suffocating, and Rajesh felt powerless to
+escape it. As he sat in his office, surrounded by cases that required his attention, Rajesh found it
+increasingly difficult to focus. The weight of his experiences loomed over him, casting a shadow
+over his professional life. He had started to avoid media that might remind him of similar
+tragedies; the news became a source of distress rather than information. Each story about loss felt
+like a personal affront, triggering an avalanche of painful memories. In conversations, he would
+often notice himself drifting off, lost in thoughts of what had been, rather than engaging with the
+present. It was a life filled with avoidance, where the very things he once loved — his work, his
+friends, and even cooking — felt too heavy to bear. Finally, the realization that he could no longer
+navigate this tumultuous sea alone led Rajesh to seek help. He hoped to reclaim not only his life
+but also his ability to remember his son without being overwhelmed by grief. Fearful yet hopeful, he
+entered therapy yearning for a way to make peace with his memories and to find a path that would
+lead him back to the world he once thrived in. What he most desired was to transform the pain of his
+memories into a source of strength, rather than a prison, allowing him to honor his son's memory in
+a healthier way. The vividness of that day often invaded his thoughts, and in an effort to quiet the
+relentless echoes of guilt and sorrow, Rajesh found himself reaching for food, believing it could
+momentarily distract him from the unbearable weight of his memories.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The causal relationship between Memory and Maladaptive Strategies is absent; the vignette does not clearly convey how the traumatic memories influence his maladaptive coping strategies.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The vignette does not establish how Threat leads to Maladaptive Strategies, failing to show that Rajesh's sense of danger drives his coping behaviors.
+
+    ✗ edge:        Maladaptive Strategies → Memory
+      explanation: The relationship between Maladaptive Strategies and Memory is not present; it does not clarify how his coping strategies affect his traumatic memories.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette lacks the connection of Maladaptive Strategies leading to Threat; it does not show how his avoidance behaviors contribute to his perceived sense of threat.
+
+  [6] FAIL
+Rajesh, a 68-year-old widower, had dedicated his life to defending those who could not afford legal
+representation. After the tragic death of his only son, however, he found himself grappling not only
+with grief but with persistent psychological torment that made his work increasingly unbearable. The
+trauma of that day replayed in his mind like a broken record; he could still hear his son's voice
+filled with excitement as he prepared to leave for what would be his last outing. When Rajesh
+received the call that changed everything, it was as if time had stopped. The vivid imagery of that
+moment, the frantic rush to the hospital, and the desperate hope that was ultimately crushed became
+splintered in his mind — fragmented pieces that haunted him. Each reminder of that day, from the
+smell of antiseptic in the hospital to the sound of his son’s laughter, triggered profound waves of
+grief, leaving Rajesh feeling overwhelmed and helpless. The memories would often surge uninvited,
+especially when he was alone in his home, and the silence felt deafening. In those moments, Rajesh
+found himself reaching for food, believing that the distraction it provided could shield him from
+the painful memories that threatened to engulf him. In those moments, Rajesh felt compelled to reach
+for food, believing it would distract him from the painful memories that threatened to engulf him, a
+strategy that provided temporary relief from the emotional turmoil he felt. Each time the memories
+surged, the urge to eat became stronger, as if the act of consuming food could somehow shield him
+from the painful recollections that replayed in his mind. In those moments, Rajesh had learned that
+reaching for food could momentarily distract him from the onslaught of painful memories, a strategy
+that provided temporary relief from the emotional turmoil he felt. These recollections not only
+encapsulated his sorrow but also opened the floodgates to intense negative emotions like guilt and
+anger. Rajesh often berated himself for not being able to protect his son, spiraling into a cycle of
+self-blame that deepened his sense of loss. Each time he recalled the event, he would find himself
+reaching for food as a distraction, a maladaptive strategy he had developed to cope with the
+unbearable weight of his grief. Overeating became a way to temporarily soothe the pain, but it also
+filled him with shame, compounding his feelings of worthlessness. He was aware that this behavior
+was unhealthy, yet the urge to drown his sorrow in food was a familiar refuge. Rajesh’s heightened
+state of alertness towards his surroundings became another coping mechanism, as he transformed his
+home into a fortress. He would check and recheck the locks on doors and windows, his heart racing at
+every creak of the old house. This hypervigilance stemmed from the belief that danger lurked around
+every corner, a belief that was reinforced by the traumatic memory of losing his son. When the
+threat felt so palpable, Rajesh felt compelled to engage in his maladaptive strategies, such as
+checking locks multiple times, believing these actions could protect him from further loss. Yet, as
+he engaged in these rituals, he found that the memory of the traumatic event loomed larger, as if
+the very act of trying to control his environment reinforced the reality of his fears and the pain
+of his loss. The heightened sense of threat kept his memories of that day at the forefront of his
+mind, as he felt an urgent need to remain vigilant against the dangers that could lead to another
+loss. In response to this unrelenting sense of threat, Rajesh found himself checking the locks and
+securing every window, believing that these actions would help create a semblance of safety in a
+world that felt dangerously unpredictable. Each time he felt that overwhelming sense of danger, the
+urge to check the locks became stronger, as if securing his environment was the only way to reclaim
+control amidst the chaos of his thoughts. This constant checking not only provided a momentary sense
+of safety but also kept the traumatic memories alive, as each time he engaged in these behaviors,
+the recollection of his son’s death felt more vivid and pressing. Each time his mind drifted back to
+that fateful day, the sense of threat intensified, pulling him deeper into a world where he felt he
+must remain constantly alert to prevent further loss. The thought that he could somehow prevent
+further loss tightened its grip on him, leading to a frantic need to ensure safety. However, this
+constant state of readiness often left him feeling exhausted and tense, as if danger was always
+imminent, even when he was alone. He frequently reacted with fear to benign stimuli, interpreting
+everyday noises as potential threats, which only served to heighten his anxiety and sense of
+impending doom. The act of checking locks became almost ritualistic, a way to exert control over his
+environment that felt increasingly chaotic in his mind. However, the more he engaged in these
+maladaptive strategies, the more his sense of threat intensified, as if each act of reassurance
+confirmed that his fears were valid and ongoing, trapping him in a cycle of anxiety. The act of
+checking the locks, instead of providing comfort, only reinforced his belief that danger was ever-
+present, solidifying the cycle of anxiety that kept him on constant alert. Yet, with each check, the
+underlying anxiety only grew stronger, as if every reassurance he sought through these actions
+confirmed that the dangers he feared were indeed real and ever-present. This cycle of checking only
+served to keep the traumatic memories fresh in his mind, as the act of seeking control paradoxically
+reinforced the belief that threats were omnipresent, making it harder for him to process the reality
+of that day. Yet, this compulsion did little to alleviate his fears; instead, it fed into the cycle
+of threat perception and maladaptive coping strategies. Whenever he would engage in these checks, he
+found himself drifting back into the fragmented memories of that fateful day, his emotions spiraling
+once again into despair. The echoes of his son's laughter would morph into haunting memories of the
+loss, leaving him feeling trapped in an unending cycle of grief and anxiety. This cycle was
+suffocating, and Rajesh felt powerless to escape it. As he sat in his office, surrounded by cases
+that required his attention, Rajesh found it increasingly difficult to focus. The weight of his
+experiences loomed over him, casting a shadow over his professional life. He had started to avoid
+media that might remind him of similar tragedies; the news became a source of distress rather than
+information. Each story about loss felt like a personal affront, triggering an avalanche of painful
+memories. In conversations, he would often notice himself drifting off, lost in thoughts of what had
+been, rather than engaging with the present. It was a life filled with avoidance, where the very
+things he once loved — his work, his friends, and even cooking — felt too heavy to bear. This cycle
+of avoidance and checking had kept his sense of danger elevated, as he never allowed himself the
+opportunity to experience that safety could exist in the absence of constant vigilance. Finally, the
+realization that he could no longer navigate this tumultuous sea alone led Rajesh to seek help. He
+hoped to reclaim not only his life but also his ability to remember his son without being
+overwhelmed by grief. Fearful yet hopeful, he entered therapy yearning for a way to make peace with
+his memories and to find a path that would lead him back to the world he once thrived in. What he
+most desired was to transform the pain of his memories into a source of strength, rather than a
+prison, allowing him to honor his son's memory in a healthier way. The vividness of that day often
+invaded his thoughts, and in an effort to quiet the relentless echoes of guilt and sorrow, Rajesh
+found himself reaching for food, believing it could momentarily distract him from the unbearable
+weight of his memories. However, each time he engaged in these behaviors, it paradoxically
+reinforced his memories, making them feel more vivid and pressing as if the act of seeking control
+confirmed the reality of his fears.
+
+    ✗ edge:        Memory → Maladaptive Strategies
+      explanation: The relationship where Memory influences Maladaptive Strategies is not present; while both components appear, there is no clear indication that Memory drives the use of Maladaptive Strategies.
+
+    ✗ edge:        Threat → Maladaptive Strategies
+      explanation: The relationship where Threat influences Maladaptive Strategies is absent; although both components are mentioned, the vignette does not convey that the sense of Threat leads to the use of Maladaptive Strategies.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The relationship where Maladaptive Strategies influence Threat is missing; while both components are present, there is no indication that the use of Maladaptive Strategies leads to an increased sense of Threat.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Rajesh, a 68-year-old widower, had dedicated his life to defending those who could not afford legal
+representation. After the tragic death of his only son, however, he found himself grappling not only
+with grief but with persistent psychological torment that made his work increasingly unbearable. The
+trauma of that day replayed in his mind like a broken record; he could still hear his son's voice
+filled with excitement as he prepared to leave for what would be his last outing. When Rajesh
+received the call that changed everything, it was as if time had stopped. The vivid imagery of that
+moment, the frantic rush to the hospital, and the desperate hope that was ultimately crushed became
+splintered in his mind — fragmented pieces that haunted him. Each reminder of that day, from the
+smell of antiseptic in the hospital to the sound of his son’s laughter, triggered profound waves of
+grief, leaving Rajesh feeling overwhelmed and helpless. The memories would often surge uninvited,
+especially when he was alone in his home, and the silence felt deafening. In those moments, Rajesh
+found himself reaching for food, believing that the distraction it provided could shield him from
+the painful memories that threatened to engulf him. In those moments, Rajesh felt compelled to reach
+for food, believing it would distract him from the painful memories that threatened to engulf him, a
+strategy that provided temporary relief from the emotional turmoil he felt. Each time the memories
+surged, the urge to eat became stronger, as if the act of consuming food could somehow shield him
+from the painful recollections that replayed in his mind. In those moments, Rajesh had learned that
+reaching for food could momentarily distract him from the onslaught of painful memories, a strategy
+that provided temporary relief from the emotional turmoil he felt. These recollections not only
+encapsulated his sorrow but also opened the floodgates to intense negative emotions like guilt and
+anger. Rajesh often berated himself for not being able to protect his son, spiraling into a cycle of
+self-blame that deepened his sense of loss. Each time he recalled the event, he would find himself
+reaching for food as a distraction, a maladaptive strategy he had developed to cope with the
+unbearable weight of his grief. Overeating became a way to temporarily soothe the pain, but it also
+filled him with shame, compounding his feelings of worthlessness. He was aware that this behavior
+was unhealthy, yet the urge to drown his sorrow in food was a familiar refuge. Rajesh’s heightened
+state of alertness towards his surroundings became another coping mechanism, as he transformed his
+home into a fortress. He would check and recheck the locks on doors and windows, his heart racing at
+every creak of the old house. This hypervigilance stemmed from the belief that danger lurked around
+every corner, a belief that was reinforced by the traumatic memory of losing his son. When the
+threat felt so palpable, Rajesh felt compelled to engage in his maladaptive strategies, such as
+checking locks multiple times, believing these actions could protect him from further loss. Yet, as
+he engaged in these rituals, he found that the memory of the traumatic event loomed larger, as if
+the very act of trying to control his environment reinforced the reality of his fears and the pain
+of his loss. The heightened sense of threat kept his memories of that day at the forefront of his
+mind, as he felt an urgent need to remain vigilant against the dangers that could lead to another
+loss. In response to this unrelenting sense of threat, Rajesh found himself checking the locks and
+securing every window, believing that these actions would help create a semblance of safety in a
+world that felt dangerously unpredictable. Each time he felt that overwhelming sense of danger, the
+urge to check the locks became stronger, as if securing his environment was the only way to reclaim
+control amidst the chaos of his thoughts. This constant checking not only provided a momentary sense
+of safety but also kept the traumatic memories alive, as each time he engaged in these behaviors,
+the recollection of his son’s death felt more vivid and pressing. Each time his mind drifted back to
+that fateful day, the sense of threat intensified, pulling him deeper into a world where he felt he
+must remain constantly alert to prevent further loss. The thought that he could somehow prevent
+further loss tightened its grip on him, leading to a frantic need to ensure safety. However, this
+constant state of readiness often left him feeling exhausted and tense, as if danger was always
+imminent, even when he was alone. He frequently reacted with fear to benign stimuli, interpreting
+everyday noises as potential threats, which only served to heighten his anxiety and sense of
+impending doom. The act of checking locks became almost ritualistic, a way to exert control over his
+environment that felt increasingly chaotic in his mind. However, the more he engaged in these
+maladaptive strategies, the more his sense of threat intensified, as if each act of reassurance
+confirmed that his fears were valid and ongoing, trapping him in a cycle of anxiety. The act of
+checking the locks, instead of providing comfort, only reinforced his belief that danger was ever-
+present, solidifying the cycle of anxiety that kept him on constant alert. Yet, with each check, the
+underlying anxiety only grew stronger, as if every reassurance he sought through these actions
+confirmed that the dangers he feared were indeed real and ever-present. This cycle of checking only
+served to keep the traumatic memories fresh in his mind, as the act of seeking control paradoxically
+reinforced the belief that threats were omnipresent, making it harder for him to process the reality
+of that day. Yet, this compulsion did little to alleviate his fears; instead, it fed into the cycle
+of threat perception and maladaptive coping strategies. Whenever he would engage in these checks, he
+found himself drifting back into the fragmented memories of that fateful day, his emotions spiraling
+once again into despair. The echoes of his son's laughter would morph into haunting memories of the
+loss, leaving him feeling trapped in an unending cycle of grief and anxiety. This cycle was
+suffocating, and Rajesh felt powerless to escape it. As he sat in his office, surrounded by cases
+that required his attention, Rajesh found it increasingly difficult to focus. The weight of his
+experiences loomed over him, casting a shadow over his professional life. He had started to avoid
+media that might remind him of similar tragedies; the news became a source of distress rather than
+information. Each story about loss felt like a personal affront, triggering an avalanche of painful
+memories. In conversations, he would often notice himself drifting off, lost in thoughts of what had
+been, rather than engaging with the present. It was a life filled with avoidance, where the very
+things he once loved — his work, his friends, and even cooking — felt too heavy to bear. This cycle
+of avoidance and checking had kept his sense of danger elevated, as he never allowed himself the
+opportunity to experience that safety could exist in the absence of constant vigilance. Finally, the
+realization that he could no longer navigate this tumultuous sea alone led Rajesh to seek help. He
+hoped to reclaim not only his life but also his ability to remember his son without being
+overwhelmed by grief. Fearful yet hopeful, he entered therapy yearning for a way to make peace with
+his memories and to find a path that would lead him back to the world he once thrived in. What he
+most desired was to transform the pain of his memories into a source of strength, rather than a
+prison, allowing him to honor his son's memory in a healthier way. The vividness of that day often
+invaded his thoughts, and in an effort to quiet the relentless echoes of guilt and sorrow, Rajesh
+found himself reaching for food, believing it could momentarily distract him from the unbearable
+weight of his memories. However, each time he engaged in these behaviors, it paradoxically
+reinforced his memories, making them feel more vivid and pressing as if the act of seeking control
+confirmed the reality of his fears.

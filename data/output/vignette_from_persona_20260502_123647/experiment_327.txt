@@ -1,0 +1,679 @@
+PERSONA 327  |  2026-05-02 20:32:42
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             28
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Financial Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Media / News: Related news
+    • Weather Similarity: Similar weather conditions to when the event happened
+    • Children Present: Being around children
+  Threat:
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+  Memory:
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Identity Loss: I feel like I don't know myself anymore
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6291
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.3279
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.8899
+  Negative Appraisals → Triggers                     0.8733
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3833
+  Memory → Triggers                                  0.5300
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0248
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9883
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The threat items are keyed to interpersonal assault/home-intrusion danger and pervasive escape planning, which is hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, threat would more plausibly involve medical catastrophe, sudden deterioration, or loss, rather than someone entering the home.
+    item:        Negative Appraisals / Threat: Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    explanation: These threat items also fit poorly with the rest of the profile: the triggers are news, emotional closeness, and weather similarity, none of which plausibly connect to monitoring for an intruder or scanning escape routes. Given the very strong Triggers ↔ Threat edges, the selected threat content should be tightly linked to the triggers, but here the content appears to come from a different trauma schema.
+  [2] FAIL
+    item:        Triggers / Triggers: Emotional Closeness: Someone getting emotionally close to me
+    explanation: For trauma involving a child's life-threatening illness, media/news and weather cues are plausible reminders, but 'someone getting emotionally close to me' is difficult to reconcile as a primary trauma trigger unless there is additional interpersonal trauma history. It does not fit well with the illness-focused threat and memory pattern described by the rest of the profile.
+    item:        Negative Appraisals / Negative Appraisals: Dehumanization: I feel like an object, not like a person
+    explanation: The negative appraisal set is dominated by severe depersonalisation/identity disturbance ('object, not a person'; 'don't know myself anymore'; 'unrecognisable to me'), which is hard to link coherently to the stated trauma type and to the rest of the profile. For a parent traumatised by a child's illness, appraisals would more plausibly center on guilt, responsibility, permanent danger, or inability to protect. This item especially feels clinically mismatched rather than merely unusual.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     27,055
+  output:     3,404
+  total:     30,459
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Daniel, a 28-year-old financial analyst, had always prided himself on his ability to manage stress
+and maintain a level-headed approach to life. But ever since his daughter, Emma, was diagnosed with
+a life-threatening illness two years ago, he felt a profound shift within himself. The day they
+received the news was etched into his memory with startling clarity. He remembered the doctor’s
+grave expression as he delivered the diagnosis, the sterile smell of the hospital room, and the way
+his heart raced as fear gripped him. This vivid memory played on repeat in his mind, and it was not
+just the recollection of the event that haunted him; it was the overwhelming sense of failure that
+accompanied it. Daniel felt he had failed to protect his daughter, and this guilt morphed into a
+distorted sense of self. He could hardly recognize the man he had become, a person always on edge,
+constantly questioning his worth as a father and husband.
+
+The triggers that ignited his anxiety were numerous and often unexpected. Whenever he saw news
+reports about children facing similar health crises, his heart would race, and a wave of panic
+washed over him. He could hear his thoughts spiraling: what if something happened to Emma again?
+Even the weather could send him spiraling back to that fateful day. A sudden storm would evoke
+memories of the overcast skies on the day of her diagnosis, and he would find himself scanning the
+horizon, looking for signs of trouble, an instinct he could not shake. Being around other children
+could feel unbearable, too, as their laughter and playfulness reminded him too acutely of what he
+felt he had almost lost. These experiences only heightened Daniel's sense of threat, leading him to
+a state of constant vigilance. He found himself planning escape routes whenever he entered a crowded
+space, always needing to know where he could go if he needed to flee. His nights were plagued by
+sleeplessness, as he lay awake, hyper-aware of every creak in the house, as if danger lurked around
+every corner.
+
+The memories of Emma's illness were not only vivid; they were almost cinematic, replaying in his
+mind with agonizing detail. Yet, paradoxically, he often found himself pushing those memories away,
+unable to face the full weight of what had happened. It was a defensive mechanism that left him
+feeling fragmented, trying to shield himself from feelings that could overwhelm him. The more he
+attempted to suppress these memories, the more powerful they seemed to become, serving as constant
+reminders of his perceived inadequacies. This cycle of avoidance deepened his negative self-
+appraisals; he could not shake the feeling that he had somehow failed to protect not just his
+daughter but his entire family.
+
+As weeks turned into months, Daniel noticed that his triggers and the resulting anxiety were
+becoming more intertwined. Each time the news broadcast a story about children's health or a storm
+loomed overhead, he felt the familiar pang of guilt and inadequacy return. This incessant loop of
+memories and feelings of threat made it difficult for him to engage fully in his life. His
+relationship with his wife, Sarah, started to suffer as well, as he often pulled away, consumed by
+his fears. He felt he was living in a shadow of his former self, unrecognizable to both her and
+himself.
+
+In this state of distress, Daniel finally reached a breaking point. It was a quiet evening at home
+when he snapped at Sarah over a trivial matter, and in that moment, he realized how far he had
+drifted from the man he used to be. He knew he could not continue like this; the weight of his fears
+and memories was becoming unbearable. It was then he made the decision to seek help, hoping to
+reclaim his life and his identity. But even as he reached out for support, a nagging fear lingered:
+what if he could never fully protect his family? What if he remained forever trapped in this cycle
+of anxiety and guilt? As he sat in the therapist's office, Daniel felt a mix of hope and
+trepidation, uncertain of what lay ahead but desperate to find a way back to himself.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not clearly establish that triggers influence Daniel's sense of threat.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not clearly show that negative appraisals lead to memory.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette does not clearly indicate that memory influences negative appraisals.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not clearly demonstrate that the sense of threat influences memory.
+
+  [2] FAIL
+Daniel, a 28-year-old financial analyst, had always prided himself on his ability to manage stress
+and maintain a level-headed approach to life. But ever since his daughter, Emma, was diagnosed with
+a life-threatening illness two years ago, he felt a profound shift within himself. The day they
+received the news was etched into his memory with startling clarity. He remembered the doctor’s
+grave expression as he delivered the diagnosis, the sterile smell of the hospital room, and the way
+his heart raced as fear gripped him. This vivid memory played on repeat in his mind, and it was not
+just the recollection of the event that haunted him; it was the overwhelming sense of failure that
+accompanied it. Daniel felt he had failed to protect his daughter, and this guilt morphed into a
+distorted sense of self. He could hardly recognize the man he had become, a person always on edge,
+constantly questioning his worth as a father and husband.
+
+The triggers that ignited his anxiety were numerous and often unexpected. Whenever he saw news
+reports about children facing similar health crises, his heart would race, and a wave of panic
+washed over him. These triggers led him to a persistent feeling of danger, amplifying his anxiety
+and making every situation feel fraught with potential disaster for Emma. He could hear his thoughts
+spiraling: what if something happened to Emma again? Even the weather could send him spiraling back
+to that fateful day. A sudden storm would evoke memories of the overcast skies on the day of her
+diagnosis, and he would find himself scanning the horizon, looking for signs of trouble, an instinct
+he could not shake. Being around other children could feel unbearable, too, as their laughter and
+playfulness reminded him too acutely of what he felt he had almost lost. These experiences only
+heightened Daniel's sense of threat, leading him to a state of constant vigilance. He found himself
+planning escape routes whenever he entered a crowded space, always needing to know where he could go
+if he needed to flee. His nights were plagued by sleeplessness, as he lay awake, hyper-aware of
+every creak in the house, as if danger lurked around every corner. This constant sense of threat
+kept the memories of Emma's diagnosis at the forefront of his mind, making them even harder to
+suppress and more distressing to confront.
+
+The memories of Emma's illness were not only vivid; they were almost cinematic, replaying in his
+mind with agonizing detail. Yet, each time those memories surfaced, they were tainted by the
+conviction that he had let this happen, reinforcing his negative self-appraisal and leaving him
+feeling broken. Yet, paradoxically, he often found himself pushing those memories away, unable to
+face the full weight of what had happened. It was a defensive mechanism that left him feeling
+fragmented, trying to shield himself from feelings that could overwhelm him. The more he attempted
+to suppress these memories, the more powerful they seemed to become, serving as constant reminders
+of his perceived inadequacies. This cycle of avoidance deepened his negative self-appraisals; he
+could not shake the feeling that he had somehow failed to protect not just his daughter but his
+entire family. The belief that he had failed created a loop where the memories of Emma's illness
+became more vivid, as if he needed to constantly revisit the moment to understand his perceived
+shortcomings.
+
+As weeks turned into months, Daniel noticed that his triggers and the resulting anxiety were
+becoming more intertwined. Each time the news broadcast a story about children's health or a storm
+loomed overhead, he felt the familiar pang of guilt and inadequacy return. This incessant loop of
+memories and feelings of threat made it difficult for him to engage fully in his life. His
+relationship with his wife, Sarah, started to suffer as well, as he often pulled away, consumed by
+his fears. He felt he was living in a shadow of his former self, unrecognizable to both her and
+himself.
+
+In this state of distress, Daniel finally reached a breaking point. It was a quiet evening at home
+when he snapped at Sarah over a trivial matter, and in that moment, he realized how far he had
+drifted from the man he used to be. He knew he could not continue like this; the weight of his fears
+and memories was becoming unbearable. It was then he made the decision to seek help, hoping to
+reclaim his life and his identity. But even as he reached out for support, a nagging fear lingered:
+what if he could never fully protect his family? What if he remained forever trapped in this cycle
+of anxiety and guilt? As he sat in the therapist's office, Daniel felt a mix of hope and
+trepidation, uncertain of what lay ahead but desperate to find a way back to himself.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not convey how triggers influence Daniel's sense of threat.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not establish how negative appraisals lead to memory recall.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not demonstrate how negative appraisals influence triggers.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette does not clarify how memory impacts negative appraisals.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not show that memory affects triggers.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not indicate that threat influences memory.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not illustrate how threat affects triggers.
+
+  [3] FAIL
+Daniel, a 28-year-old financial analyst, had always prided himself on his ability to manage stress
+and maintain a level-headed approach to life. But ever since his daughter, Emma, was diagnosed with
+a life-threatening illness two years ago, he felt a profound shift within himself. The day they
+received the news was etched into his memory with startling clarity. He remembered the doctor’s
+grave expression as he delivered the diagnosis, the sterile smell of the hospital room, and the way
+his heart raced as fear gripped him. This vivid memory played on repeat in his mind, and it was not
+just the recollection of the event that haunted him; it was the overwhelming sense of failure that
+accompanied it. Daniel felt he had failed to protect his daughter, and this guilt morphed into a
+distorted sense of self. He could hardly recognize the man he had become, a person always on edge,
+constantly questioning his worth as a father and husband.
+
+The triggers that ignited his anxiety were numerous and often unexpected. Each of these triggers led
+to a feeling of danger that felt as real as the original event, amplifying his anxiety in a way that
+made it impossible for him to relax. Whenever he saw news reports about children facing similar
+health crises, his heart would race, and a wave of panic washed over him. These triggers led him to
+a persistent feeling of danger, amplifying his anxiety and making every situation feel fraught with
+potential disaster for Emma. He could hear his thoughts spiraling: what if something happened to
+Emma again? Even the weather could send him spiraling back to that fateful day. A sudden storm would
+evoke memories of the overcast skies on the day of her diagnosis, and he would find himself scanning
+the horizon, looking for signs of trouble, an instinct he could not shake. Being around other
+children could feel unbearable, too, as their laughter and playfulness reminded him too acutely of
+what he felt he had almost lost. These experiences only heightened Daniel's sense of threat, leading
+him to a state of constant vigilance. He found himself planning escape routes whenever he entered a
+crowded space, always needing to know where he could go if he needed to flee. His nights were
+plagued by sleeplessness, as he lay awake, hyper-aware of every creak in the house, as if danger
+lurked around every corner. This constant sense of threat kept the memories of Emma's diagnosis at
+the forefront of his mind, making them even harder to suppress and more distressing to confront.
+
+The memories of Emma's illness were not only vivid; they were almost cinematic, replaying in his
+mind with agonizing detail. Yet, each time those memories surfaced, they were tainted by the
+conviction that he had let this happen, reinforcing his negative self-appraisal and leaving him
+feeling broken. Yet, paradoxically, he often found himself pushing those memories away, unable to
+face the full weight of what had happened. The belief that he had failed to protect Emma kept
+drawing him back to those memories, as if he needed to locate the moment of failure to understand
+his perceived shortcomings. It was a defensive mechanism that left him feeling fragmented, trying to
+shield himself from feelings that could overwhelm him. The more he attempted to suppress these
+memories, the more powerful they seemed to become, serving as constant reminders of his perceived
+inadequacies. This cycle of avoidance deepened his negative self-appraisals; he could not shake the
+feeling that he had somehow failed to protect not just his daughter but his entire family. Each time
+the intrusive memories surfaced, they reinforced the thought that he was fundamentally inadequate,
+making it harder for him to believe that he could ever be the father his daughter needed. The belief
+that he had failed created a loop where the memories of Emma's illness became more vivid, as if he
+needed to constantly revisit the moment to understand his perceived shortcomings.
+
+As weeks turned into months, Daniel noticed that his triggers and the resulting anxiety were
+becoming more intertwined. Each time the news broadcast a story about children's health or a storm
+loomed overhead, he felt the familiar pang of guilt and inadequacy return. His conviction that he
+had let this happen meant that even ordinary situations could trigger those feelings, turning them
+into reminders of his perceived failures. This incessant loop of memories and feelings of threat
+made it difficult for him to engage fully in his life. His relationship with his wife, Sarah,
+started to suffer as well, as he often pulled away, consumed by his fears. He felt he was living in
+a shadow of his former self, unrecognizable to both her and himself. The persistent sense of danger
+he carried made every reminder of his past feel like an urgent alert, keeping him hyper-aware and
+unable to engage fully in life.
+
+In this state of distress, Daniel finally reached a breaking point. It was a quiet evening at home
+when he snapped at Sarah over a trivial matter, and in that moment, he realized how far he had
+drifted from the man he used to be. He knew he could not continue like this; the weight of his fears
+and memories was becoming unbearable. It was then he made the decision to seek help, hoping to
+reclaim his life and his identity. But even as he reached out for support, the weight of his fears
+and memories felt like a looming shadow, each echo of the past reminding him of how fragile his grip
+on control had become. But even as he reached out for support, a nagging fear lingered: what if he
+could never fully protect his family? What if he remained forever trapped in this cycle of anxiety
+and guilt? As he sat in the therapist's office, Daniel felt a mix of hope and trepidation, uncertain
+of what lay ahead but desperate to find a way back to himself.
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not demonstrate how triggers lead to a sense of threat for Daniel, despite both components being present.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: The vignette does not show how triggers influence or create negative appraisals for Daniel.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette lacks a clear connection showing how negative appraisals lead to intrusive memories, even though both components are mentioned.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not convey how negative appraisals drive or contribute to the occurrence of triggers, despite both being present.
+
+  [4] FAIL
+Daniel, a 28-year-old financial analyst, had always prided himself on his ability to manage stress
+and maintain a level-headed approach to life. But ever since his daughter, Emma, was diagnosed with
+a life-threatening illness two years ago, he felt a profound shift within himself. The day they
+received the news was etched into his memory with startling clarity. He remembered the doctor’s
+grave expression as he delivered the diagnosis, the sterile smell of the hospital room, and the way
+his heart raced as fear gripped him. This vivid memory played on repeat in his mind, and it was not
+just the recollection of the event that haunted him; it was the overwhelming sense of failure that
+accompanied it. Daniel felt he had failed to protect his daughter, and this guilt morphed into a
+distorted sense of self. He could hardly recognize the man he had become, a person always on edge,
+constantly questioning his worth as a father and husband. The triggers that ignited his anxiety were
+numerous and often unexpected. Each of these triggers led to a feeling of danger that felt as real
+as the original event, amplifying his anxiety in a way that made it impossible for him to relax.
+Whenever he saw news reports about children facing similar health crises, his heart would race, and
+a wave of panic washed over him. These triggers led him to a persistent feeling of danger,
+amplifying his anxiety and making every situation feel fraught with potential disaster for Emma. He
+could hear his thoughts spiraling: what if something happened to Emma again? Even the weather could
+send him spiraling back to that fateful day. A sudden storm would evoke memories of the overcast
+skies on the day of her diagnosis, and he would find himself scanning the horizon, looking for signs
+of trouble, an instinct he could not shake. Being around other children could feel unbearable, too,
+as their laughter and playfulness reminded him too acutely of what he felt he had almost lost. These
+experiences only heightened Daniel's sense of threat, leading him to a state of constant vigilance.
+He found himself planning escape routes whenever he entered a crowded space, always needing to know
+where he could go if he needed to flee. His nights were plagued by sleeplessness, as he lay awake,
+hyper-aware of every creak in the house, as if danger lurked around every corner. This constant
+sense of threat kept the memories of Emma's diagnosis at the forefront of his mind, making them even
+harder to suppress and more distressing to confront. The memories of Emma's illness were not only
+vivid; they were almost cinematic, replaying in his mind with agonizing detail. Yet, each time those
+memories surfaced, they were tainted by the conviction that he had let this happen, reinforcing his
+negative self-appraisal and leaving him feeling broken. Yet, paradoxically, he often found himself
+pushing those memories away, unable to face the full weight of what had happened. The belief that he
+had failed to protect Emma kept drawing him back to those memories, as if he needed to locate the
+moment of failure to understand his perceived shortcomings. It was a defensive mechanism that left
+him feeling fragmented, trying to shield himself from feelings that could overwhelm him. The more he
+attempted to suppress these memories, the more powerful they seemed to become, serving as constant
+reminders of his perceived inadequacies. This cycle of avoidance deepened his negative self-
+appraisals; he could not shake the feeling that he had somehow failed to protect not just his
+daughter but his entire family. Each time the intrusive memories surfaced, they reinforced the
+thought that he was fundamentally inadequate, making it harder for him to believe that he could ever
+be the father his daughter needed. The belief that he had failed created a loop where the memories
+of Emma's illness became more vivid, as if he needed to constantly revisit the moment to understand
+his perceived shortcomings. As weeks turned into months, Daniel noticed that his triggers and the
+resulting anxiety were becoming more intertwined. Each time the news broadcast a story about
+children's health or a storm loomed overhead, he felt the familiar pang of guilt and inadequacy
+return. His conviction that he had let this happen meant that even ordinary situations could trigger
+those feelings, turning them into reminders of his perceived failures. This incessant loop of
+memories and feelings of threat made it difficult for him to engage fully in his life. "These
+moments ignited a sense of impending danger, as if the very air were thick with threat, reinforcing
+his belief that he could not protect Emma from harm." His relationship with his wife, Sarah, started
+to suffer as well, as he often pulled away, consumed by his fears. He felt he was living in a shadow
+of his former self, unrecognizable to both her and himself. The persistent sense of danger he
+carried made every reminder of his past feel like an urgent alert, keeping him hyper-aware and
+unable to engage fully in life. In this state of distress, Daniel finally reached a breaking point.
+It was a quiet evening at home when he snapped at Sarah over a trivial matter, and in that moment,
+he realized how far he had drifted from the man he used to be. He knew he could not continue like
+this; the weight of his fears and memories was becoming unbearable. It was then he made the decision
+to seek help, hoping to reclaim his life and his identity. But even as he reached out for support,
+the weight of his fears and memories felt like a looming shadow, each echo of the past reminding him
+of how fragile his grip on control had become. But even as he reached out for support, a nagging
+fear lingered: what if he could never fully protect his family? What if he remained forever trapped
+in this cycle of anxiety and guilt? As he sat in the therapist's office, Daniel felt a mix of hope
+and trepidation, uncertain of what lay ahead but desperate to find a way back to himself. "Every
+trigger seemed to echo the conviction that he had failed, leading him to question his worth as a
+father and fueling a cycle of negative self-appraisal that clouded his perception of reality." "This
+conviction made the memories more vivid and accessible, as he unconsciously searched for evidence of
+his failures, each recollection reinforcing his sense of inadequacy." "Each time he felt those
+familiar pangs, he was reminded of his belief that he was fundamentally flawed, which only
+heightened his anxiety and made him hyper-aware of potential dangers around him."
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not clearly establish that triggers lead to a sense of threat in a causal manner.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The vignette does not clearly convey that memory influences negative appraisals.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not clearly establish that threat influences memory in a causal manner.
+
+  [5] FAIL
+Daniel, a 28-year-old financial analyst, had always prided himself on his ability to manage stress
+and maintain a level-headed approach to life. But ever since his daughter, Emma, was diagnosed with
+a life-threatening illness two years ago, he felt a profound shift within himself. The day they
+received the news was etched into his memory with startling clarity. He remembered the doctor’s
+grave expression as he delivered the diagnosis, the sterile smell of the hospital room, and the way
+his heart raced as fear gripped him. This vivid memory played on repeat in his mind, and it was not
+just the recollection of the event that haunted him; it was the overwhelming sense of failure that
+accompanied it. Daniel felt he had failed to protect his daughter, and this guilt morphed into a
+distorted sense of self. He could hardly recognize the man he had become, a person always on edge,
+constantly questioning his worth as a father and husband. The triggers that ignited his anxiety were
+numerous and often unexpected. Each of these triggers led to a feeling of danger that felt as real
+as the original event, amplifying his anxiety in a way that made it impossible for him to relax.
+Whenever he saw news reports about children facing similar health crises, his heart would race, and
+a wave of panic washed over him. These triggers led him to a persistent feeling of danger,
+amplifying his anxiety and making every situation feel fraught with potential disaster for Emma.
+Each time he encountered a trigger, a wave of danger washed over him, leaving him with the
+conviction that something terrible was about to happen, mirroring the fear he felt on the day of her
+diagnosis. He could hear his thoughts spiraling: what if something happened to Emma again? Even the
+weather could send him spiraling back to that fateful day. A sudden storm would evoke memories of
+the overcast skies on the day of her diagnosis, and he would find himself scanning the horizon,
+looking for signs of trouble, an instinct he could not shake. Being around other children could feel
+unbearable, too, as their laughter and playfulness reminded him too acutely of what he felt he had
+almost lost. These experiences only heightened Daniel's sense of threat, leading him to a state of
+constant vigilance. He found himself planning escape routes whenever he entered a crowded space,
+always needing to know where he could go if he needed to flee. His nights were plagued by
+sleeplessness, as he lay awake, hyper-aware of every creak in the house, as if danger lurked around
+every corner. This constant sense of threat kept the memories of Emma's diagnosis at the forefront
+of his mind, making them even harder to suppress and more distressing to confront. The persistent
+feeling of danger he carried made the memories rush back, as if he needed to keep revisiting them to
+stay alert to potential harm. The memories of Emma's illness were not only vivid; they were almost
+cinematic, replaying in his mind with agonizing detail. Yet, each time those memories surfaced, he
+found himself thinking that he had let this happen, reinforcing his belief that he was fundamentally
+inadequate as a father. Yet, each time those memories surfaced, they were tainted by the conviction
+that he had let this happen, reinforcing his negative self-appraisal and leaving him feeling broken.
+Yet, paradoxically, he often found himself pushing those memories away, unable to face the full
+weight of what had happened. The belief that he had failed to protect Emma kept drawing him back to
+those memories, as if he needed to locate the moment of failure to understand his perceived
+shortcomings. It was a defensive mechanism that left him feeling fragmented, trying to shield
+himself from feelings that could overwhelm him. The more he attempted to suppress these memories,
+the more powerful they seemed to become, serving as constant reminders of his perceived
+inadequacies. This cycle of avoidance deepened his negative self-appraisals; he could not shake the
+feeling that he had somehow failed to protect not just his daughter but his entire family. Each time
+the intrusive memories surfaced, they reinforced the thought that he was fundamentally inadequate,
+making it harder for him to believe that he could ever be the father his daughter needed. The belief
+that he had failed created a loop where the memories of Emma's illness became more vivid, as if he
+needed to constantly revisit the moment to understand his perceived shortcomings. As weeks turned
+into months, Daniel noticed that his triggers and the resulting anxiety were becoming more
+intertwined. Each time the news broadcast a story about children's health or a storm loomed
+overhead, he felt the familiar pang of guilt and inadequacy return. His conviction that he had let
+this happen meant that even ordinary situations could trigger those feelings, turning them into
+reminders of his perceived failures. This incessant loop of memories and feelings of threat made it
+difficult for him to engage fully in his life. "These moments ignited a sense of impending danger,
+as if the very air were thick with threat, reinforcing his belief that he could not protect Emma
+from harm." His relationship with his wife, Sarah, started to suffer as well, as he often pulled
+away, consumed by his fears. He felt he was living in a shadow of his former self, unrecognizable to
+both her and himself. The persistent sense of danger he carried made every reminder of his past feel
+like an urgent alert, keeping him hyper-aware and unable to engage fully in life. In this state of
+distress, Daniel finally reached a breaking point. It was a quiet evening at home when he snapped at
+Sarah over a trivial matter, and in that moment, he realized how far he had drifted from the man he
+used to be. He knew he could not continue like this; the weight of his fears and memories was
+becoming unbearable. It was then he made the decision to seek help, hoping to reclaim his life and
+his identity. But even as he reached out for support, the weight of his fears and memories felt like
+a looming shadow, each echo of the past reminding him of how fragile his grip on control had become.
+But even as he reached out for support, a nagging fear lingered: what if he could never fully
+protect his family? What if he remained forever trapped in this cycle of anxiety and guilt? As he
+sat in the therapist's office, Daniel felt a mix of hope and trepidation, uncertain of what lay
+ahead but desperate to find a way back to himself. "Every trigger seemed to echo the conviction that
+he had failed, leading him to question his worth as a father and fueling a cycle of negative self-
+appraisal that clouded his perception of reality." "This conviction made the memories more vivid and
+accessible, as he unconsciously searched for evidence of his failures, each recollection reinforcing
+his sense of inadequacy." "Each time he felt those familiar pangs, he was reminded of his belief
+that he was fundamentally flawed, which only heightened his anxiety and made him hyper-aware of
+potential dangers around him."
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not adequately establish how triggers lead to a sense of threat for Daniel.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette lacks a clear depiction of how negative appraisals influence memory recall.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: There is no explicit connection showing how negative appraisals influence triggers for Daniel.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The relationship between memory and negative appraisals is not clearly stated in the vignette.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not show how memories lead to triggers in Daniel's experience.
+
+    ✗ edge:        Threat → Memory
+      explanation: There is no clear connection demonstrating how a sense of threat influences memory recall.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette lacks a direct causal link between a sense of threat and triggering stimuli.
+
+  [6] FAIL
+Daniel, a 28-year-old financial analyst, had always prided himself on his ability to manage stress
+and maintain a level-headed approach to life. But ever since his daughter, Emma, was diagnosed with
+a life-threatening illness two years ago, he felt a profound shift within himself. The day they
+received the news was etched into his memory with startling clarity. He remembered the doctor’s
+grave expression as he delivered the diagnosis, the sterile smell of the hospital room, and the way
+his heart raced as fear gripped him. This vivid memory played on repeat in his mind, and it was not
+just the recollection of the event that haunted him; it was the overwhelming sense of failure that
+accompanied it. Daniel felt he had failed to protect his daughter, and this guilt morphed into a
+distorted sense of self. He could hardly recognize the man he had become, a person always on edge,
+constantly questioning his worth as a father and husband. The triggers that ignited his anxiety were
+numerous and often unexpected. Each of these triggers led to a feeling of danger that felt as real
+as the original event, amplifying his anxiety in a way that made it impossible for him to relax.
+Whenever he saw news reports about children facing similar health crises, his heart would race, and
+a wave of panic washed over him. These triggers led him to a persistent feeling of danger,
+amplifying his anxiety and making every situation feel fraught with potential disaster for Emma.
+Each time he encountered a trigger, a wave of danger washed over him, leaving him with the
+conviction that something terrible was about to happen, mirroring the fear he felt on the day of her
+diagnosis. He could hear his thoughts spiraling: what if something happened to Emma again? Even the
+weather could send him spiraling back to that fateful day. A sudden storm would evoke memories of
+the overcast skies on the day of her diagnosis, and he would find himself scanning the horizon,
+looking for signs of trouble, an instinct he could not shake. Being around other children could feel
+unbearable, too, as their laughter and playfulness reminded him too acutely of what he felt he had
+almost lost. These experiences only heightened Daniel's sense of threat, leading him to a state of
+constant vigilance. He found himself planning escape routes whenever he entered a crowded space,
+always needing to know where he could go if he needed to flee. His nights were plagued by
+sleeplessness, as he lay awake, hyper-aware of every creak in the house, as if danger lurked around
+every corner. This constant sense of threat kept the memories of Emma's diagnosis at the forefront
+of his mind, making them even harder to suppress and more distressing to confront. The persistent
+feeling of danger he carried made the memories rush back, as if he needed to keep revisiting them to
+stay alert to potential harm. The memories of Emma's illness were not only vivid; they were almost
+cinematic, replaying in his mind with agonizing detail. Yet, each time those memories surfaced, he
+found himself thinking that he had let this happen, reinforcing his belief that he was fundamentally
+inadequate as a father. Yet, each time those memories surfaced, they were tainted by the conviction
+that he had let this happen, reinforcing his negative self-appraisal and leaving him feeling broken.
+Yet, paradoxically, he often found himself pushing those memories away, unable to face the full
+weight of what had happened. The belief that he had failed to protect Emma kept drawing him back to
+those memories, as if he needed to locate the moment of failure to understand his perceived
+shortcomings. It was a defensive mechanism that left him feeling fragmented, trying to shield
+himself from feelings that could overwhelm him. The more he attempted to suppress these memories,
+the more powerful they seemed to become, serving as constant reminders of his perceived
+inadequacies. This cycle of avoidance deepened his negative self-appraisals; he could not shake the
+feeling that he had somehow failed to protect not just his daughter but his entire family. Each time
+the intrusive memories surfaced, they reinforced the thought that he was fundamentally inadequate,
+making it harder for him to believe that he could ever be the father his daughter needed. The belief
+that he had failed created a loop where the memories of Emma's illness became more vivid, as if he
+needed to constantly revisit the moment to understand his perceived shortcomings. As weeks turned
+into months, Daniel noticed that his triggers and the resulting anxiety were becoming more
+intertwined. Each time the news broadcast a story about children's health or a storm loomed
+overhead, he felt the familiar pang of guilt and inadequacy return. His conviction that he had let
+this happen meant that even ordinary situations could trigger those feelings, turning them into
+reminders of his perceived failures. "The cues led to a feeling of danger that felt as real as the
+original event, each trigger igniting a firestorm of anxiety that left him on high alert, as if
+trouble were just around the corner." This incessant loop of memories and feelings of threat made it
+difficult for him to engage fully in his life. "These moments ignited a sense of impending danger,
+as if the very air were thick with threat, reinforcing his belief that he could not protect Emma
+from harm." His relationship with his wife, Sarah, started to suffer as well, as he often pulled
+away, consumed by his fears. "The background hum of danger he carried everywhere made even ordinary
+interactions feel charged with threat, leading him to withdraw further as he felt the weight of his
+perceived failures." He felt he was living in a shadow of his former self, unrecognizable to both
+her and himself. The persistent sense of danger he carried made every reminder of his past feel like
+an urgent alert, keeping him hyper-aware and unable to engage fully in life. In this state of
+distress, Daniel finally reached a breaking point. It was a quiet evening at home when he snapped at
+Sarah over a trivial matter, and in that moment, he realized how far he had drifted from the man he
+used to be. He knew he could not continue like this; the weight of his fears and memories was
+becoming unbearable. It was then he made the decision to seek help, hoping to reclaim his life and
+his identity. But even as he reached out for support, the weight of his fears and memories felt like
+a looming shadow, each echo of the past reminding him of how fragile his grip on control had become.
+But even as he reached out for support, a nagging fear lingered: what if he could never fully
+protect his family? What if he remained forever trapped in this cycle of anxiety and guilt? As he
+sat in the therapist's office, Daniel felt a mix of hope and trepidation, uncertain of what lay
+ahead but desperate to find a way back to himself. "Every trigger seemed to echo the conviction that
+he had failed, leading him to question his worth as a father and fueling a cycle of negative self-
+appraisal that clouded his perception of reality." "This conviction made the memories more vivid and
+accessible, as he unconsciously searched for evidence of his failures, each recollection reinforcing
+his sense of inadequacy." "Each time he felt those familiar pangs, he was reminded of his belief
+that he was fundamentally flawed, which only heightened his anxiety and made him hyper-aware of
+potential dangers around him." "This conviction that he had let this happen meant that each memory
+surfaced with a sharper clarity, always accompanied by a thought that reinforced his sense of
+inadequacy, making the past feel more vivid and accessible." "Once he had concluded that he was
+fundamentally inadequate, almost anything could confirm it — a child's laughter, a brief mention of
+illness, each mundane moment snagging his attention and pulling him back to his fears." "Each time
+the intrusive memories surfaced, they were tainted by the thought that he had let this happen, which
+only reinforced his belief that he was fundamentally inadequate as a father." "The persistent sense
+of danger he carried kept pulling the memories into focus, as if he needed to keep reviewing them to
+stay alert to potential harm, leading to a cycle where he felt trapped in the past."
+
+    ✗ edge:        Triggers → Threat
+      explanation: The vignette does not clearly establish that triggers lead to a sense of threat in a causal manner.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette does not convey how negative appraisals influence memory.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette fails to show how negative appraisals lead to triggers.
+
+    ✗ edge:        Memory → Negative Appraisals
+      explanation: The relationship where memories influence negative appraisals is not explicitly detailed.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Daniel, a 28-year-old financial analyst, had always prided himself on his ability to manage stress
+and maintain a level-headed approach to life. But ever since his daughter, Emma, was diagnosed with
+a life-threatening illness two years ago, he felt a profound shift within himself. The day they
+received the news was etched into his memory with startling clarity. He remembered the doctor’s
+grave expression as he delivered the diagnosis, the sterile smell of the hospital room, and the way
+his heart raced as fear gripped him. This vivid memory played on repeat in his mind, and it was not
+just the recollection of the event that haunted him; it was the overwhelming sense of failure that
+accompanied it. Daniel felt he had failed to protect his daughter, and this guilt morphed into a
+distorted sense of self. He could hardly recognize the man he had become, a person always on edge,
+constantly questioning his worth as a father and husband. The triggers that ignited his anxiety were
+numerous and often unexpected. Each of these triggers led to a feeling of danger that felt as real
+as the original event, amplifying his anxiety in a way that made it impossible for him to relax.
+Whenever he saw news reports about children facing similar health crises, his heart would race, and
+a wave of panic washed over him. These triggers led him to a persistent feeling of danger,
+amplifying his anxiety and making every situation feel fraught with potential disaster for Emma.
+Each time he encountered a trigger, a wave of danger washed over him, leaving him with the
+conviction that something terrible was about to happen, mirroring the fear he felt on the day of her
+diagnosis. He could hear his thoughts spiraling: what if something happened to Emma again? Even the
+weather could send him spiraling back to that fateful day. A sudden storm would evoke memories of
+the overcast skies on the day of her diagnosis, and he would find himself scanning the horizon,
+looking for signs of trouble, an instinct he could not shake. Being around other children could feel
+unbearable, too, as their laughter and playfulness reminded him too acutely of what he felt he had
+almost lost. These experiences only heightened Daniel's sense of threat, leading him to a state of
+constant vigilance. He found himself planning escape routes whenever he entered a crowded space,
+always needing to know where he could go if he needed to flee. His nights were plagued by
+sleeplessness, as he lay awake, hyper-aware of every creak in the house, as if danger lurked around
+every corner. This constant sense of threat kept the memories of Emma's diagnosis at the forefront
+of his mind, making them even harder to suppress and more distressing to confront. The persistent
+feeling of danger he carried made the memories rush back, as if he needed to keep revisiting them to
+stay alert to potential harm. The memories of Emma's illness were not only vivid; they were almost
+cinematic, replaying in his mind with agonizing detail. Yet, each time those memories surfaced, he
+found himself thinking that he had let this happen, reinforcing his belief that he was fundamentally
+inadequate as a father. Yet, each time those memories surfaced, they were tainted by the conviction
+that he had let this happen, reinforcing his negative self-appraisal and leaving him feeling broken.
+Yet, paradoxically, he often found himself pushing those memories away, unable to face the full
+weight of what had happened. The belief that he had failed to protect Emma kept drawing him back to
+those memories, as if he needed to locate the moment of failure to understand his perceived
+shortcomings. It was a defensive mechanism that left him feeling fragmented, trying to shield
+himself from feelings that could overwhelm him. The more he attempted to suppress these memories,
+the more powerful they seemed to become, serving as constant reminders of his perceived
+inadequacies. This cycle of avoidance deepened his negative self-appraisals; he could not shake the
+feeling that he had somehow failed to protect not just his daughter but his entire family. Each time
+the intrusive memories surfaced, they reinforced the thought that he was fundamentally inadequate,
+making it harder for him to believe that he could ever be the father his daughter needed. The belief
+that he had failed created a loop where the memories of Emma's illness became more vivid, as if he
+needed to constantly revisit the moment to understand his perceived shortcomings. As weeks turned
+into months, Daniel noticed that his triggers and the resulting anxiety were becoming more
+intertwined. Each time the news broadcast a story about children's health or a storm loomed
+overhead, he felt the familiar pang of guilt and inadequacy return. His conviction that he had let
+this happen meant that even ordinary situations could trigger those feelings, turning them into
+reminders of his perceived failures. "The cues led to a feeling of danger that felt as real as the
+original event, each trigger igniting a firestorm of anxiety that left him on high alert, as if
+trouble were just around the corner." This incessant loop of memories and feelings of threat made it
+difficult for him to engage fully in his life. "These moments ignited a sense of impending danger,
+as if the very air were thick with threat, reinforcing his belief that he could not protect Emma
+from harm." His relationship with his wife, Sarah, started to suffer as well, as he often pulled
+away, consumed by his fears. "The background hum of danger he carried everywhere made even ordinary
+interactions feel charged with threat, leading him to withdraw further as he felt the weight of his
+perceived failures." He felt he was living in a shadow of his former self, unrecognizable to both
+her and himself. The persistent sense of danger he carried made every reminder of his past feel like
+an urgent alert, keeping him hyper-aware and unable to engage fully in life. In this state of
+distress, Daniel finally reached a breaking point. It was a quiet evening at home when he snapped at
+Sarah over a trivial matter, and in that moment, he realized how far he had drifted from the man he
+used to be. He knew he could not continue like this; the weight of his fears and memories was
+becoming unbearable. It was then he made the decision to seek help, hoping to reclaim his life and
+his identity. But even as he reached out for support, the weight of his fears and memories felt like
+a looming shadow, each echo of the past reminding him of how fragile his grip on control had become.
+But even as he reached out for support, a nagging fear lingered: what if he could never fully
+protect his family? What if he remained forever trapped in this cycle of anxiety and guilt? As he
+sat in the therapist's office, Daniel felt a mix of hope and trepidation, uncertain of what lay
+ahead but desperate to find a way back to himself. "Every trigger seemed to echo the conviction that
+he had failed, leading him to question his worth as a father and fueling a cycle of negative self-
+appraisal that clouded his perception of reality." "This conviction made the memories more vivid and
+accessible, as he unconsciously searched for evidence of his failures, each recollection reinforcing
+his sense of inadequacy." "Each time he felt those familiar pangs, he was reminded of his belief
+that he was fundamentally flawed, which only heightened his anxiety and made him hyper-aware of
+potential dangers around him." "This conviction that he had let this happen meant that each memory
+surfaced with a sharper clarity, always accompanied by a thought that reinforced his sense of
+inadequacy, making the past feel more vivid and accessible." "Once he had concluded that he was
+fundamentally inadequate, almost anything could confirm it — a child's laughter, a brief mention of
+illness, each mundane moment snagging his attention and pulling him back to his fears." "Each time
+the intrusive memories surfaced, they were tainted by the thought that he had let this happen, which
+only reinforced his belief that he was fundamentally inadequate as a father." "The persistent sense
+of danger he carried kept pulling the memories into focus, as if he needed to keep reviewing them to
+stay alert to potential harm, leading to a cycle where he felt trapped in the past."

@@ -1,0 +1,240 @@
+{
+  "persona_id": 257,
+  "source_persona_id": 257,
+  "experiment_timestamp": "2026-05-02 19:58:22",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "gemini-2.5-pro",
+      "persona_crafter": "gemini-2.5-pro",
+      "vignette_crafter": "gemini-2.5-pro",
+      "vignette_validator": "gemini-2.5-pro"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 68,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "Unemployed",
+    "trauma_type": "Physical abuse by romantic partner",
+    "pcl5": 41
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Sleeping Alone",
+        "value": "Sleeping alone or in an unfamiliar place"
+      },
+      {
+        "key": "Feeling Vulnerable",
+        "value": "Feeling emotionally vulnerable"
+      },
+      {
+        "key": "Olfactory (Earth/Outdoor)",
+        "value": "Soil or outdoor smells"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "People Pleasing",
+        "value": "go along with whatever others want to feel safe"
+      },
+      {
+        "key": "Busyness",
+        "value": "I work hard at keeping busy with other things"
+      },
+      {
+        "key": "Mental Distraction",
+        "value": "keep mind occupied all the time"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Safe Zone Only",
+        "value": "I only feel safe in a very limited number of places"
+      },
+      {
+        "key": "Sleep Vigilance",
+        "value": "I have difficulty falling asleep because I need to stay alert"
+      },
+      {
+        "key": "Alert at Home",
+        "value": "I feel on guard even inside my own home"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Blocked Before Complete",
+        "value": "I find myself pushing the memory away before I can fully recall it"
+      },
+      {
+        "key": "Triggered Without Warning",
+        "value": "Something in my surroundings can instantly bring back the full memory without warning"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.6995,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.224,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.1992,
+    "Memory -- Threat": 0.9556,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.3702,
+    "Threat -- Maladaptive Strategies": 0.3139,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.5041,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.3582,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4530875,
+  "edge_density": 0.4,
+  "vignette_word_count": 752,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Medical Care: Seeking medical or psychological help",
+          "explanation": "'Avoid Medical Care' is internally inconsistent as written: the label indicates avoidance, but the item text states 'Seeking medical or psychological help,' which is the opposite behavior."
+        },
+        {
+          "component": "Triggers",
+          "item": "Overwork: work excessively to avoid being alone with thoughts",
+          "explanation": "'Overwork' is hard to reconcile with the patient's unemployment status. While unemployed people can keep excessively busy, this wording specifically implies excessive work as a strategy and is therefore clinically implausible for this demographic unless otherwise qualified."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Medical Care"
+        ],
+        "Triggers": [
+          "Overwork"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Overwork: work excessively to avoid being alone with thoughts",
+          "explanation": "These two items imply an active work-based avoidance pattern, which is hard to reconcile with the patient's stated occupation of unemployed. While keeping busy is plausible, 'Overwork' specifically describes excessive working and is therefore clinically incoherent with being unemployed unless supported by another role context that is not present here."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Overwork"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Checking Behind: I frequently look behind me to check if someone is following me",
+          "explanation": "Checking whether someone is following her suggests a stalking/pursuit-type threat context that is not well aligned with the indexed trauma of physical abuse by a romantic partner, where fear is more typically focused on the partner in domestic spaces rather than unknown followers. With the rest of the profile centered on sleeping alone, vulnerability, restricted safe places, and sleep vigilance, this item pulls toward a different threat pattern."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.",
+          "explanation": "Bodily reenactment can occur in PTSD, but as selected here it implies a highly embodied, posture-specific trauma memory. Given the other memory items emphasize involuntary intrusion plus active truncation of recall, and the threat profile is oriented toward vigilance and restricted safety rather than reliving a specific assault configuration, this item is less well integrated with the rest of the formulation and self-report pattern."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Checking Behind"
+        ],
+        "Memory": [
+          "Bodily Reenactment"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 2,
+    "passed": 1,
+    "failed": 1,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 6710,
+    "output": 7478,
+    "total": 14188
+  },
+  "vignette": "Imani came to therapy at sixty-eight, a woman whose world had shrunk to the size of her small, tidy house. For decades, she had managed, but now the walls felt like they were closing in. The trauma was from a lifetime ago, a relationship in her twenties that ended in violence, but the memory of it remained a brutal, unwelcome guest. The final attack had happened in the backyard of their small rental home. He had dragged her outside after an argument, and she remembered the damp, earthy smell of the garden soil pressed against her cheek and the profound terror of being utterly exposed under an open sky. That specific sensory detail—the smell of the outdoors—had become a potent and unpredictable threat in the years since.\n\nNow, married for over forty years to a gentle man named Michael, Imani lived in a state of constant, quiet vigilance. She felt perpetually on guard, even within the safety of her own home. This pervasive sense of threat made her hyper-aware of her surroundings, and the slightest trigger could unravel her day. If Michael was doing yard work, the smell of turned soil drifting through an open window was enough to instantly bring back a fragment of the memory. It was never the full event; the memory would force its way into her mind, a flash of being on the ground, helpless, before she could mentally slam the door and push it away. Because the memory came back with such sensory force, she began to find traces of it everywhere; the scent of rain on the pavement or the sight of dirt on Michael’s shoes would feel like direct echoes of the attack, pulling her back to that feeling of helplessness. The intrusion of the memory would amplify her feeling of being unsafe, confirming her belief that danger was always lurking, even in a sunlit kitchen. This feeling of being unsafe, in turn, made her even more sensitive to the smell of dirt on Michael's shoes or the scent of rain on pavement, creating a vicious feedback loop.\n\nIn response to these intrusions, whether sparked by a trigger or the memory itself, Imani had developed a fortress of coping strategies. Her primary defence was constant activity. The moment a fragment of the past surfaced, she would launch into a flurry of tasks—scrubbing floors, sorting closets, reorganizing cupboards. She worked tirelessly to keep her hands busy and her mind occupied, believing that if she never stopped moving, the memory couldn't catch her. This relentless busyness was paired with an ingrained habit of people-pleasing. Any hint of conflict or emotional intensity felt dangerous, so she learned to smooth every edge, agreeing to whatever others wanted just to feel safe. If Michael asked what was wrong after seeing a shadow pass over her face, she would immediately brighten, deny anything was amiss, and quickly change the subject to his needs. To feel emotionally vulnerable was to feel exposed, just as she had been that night in the garden.\n\nThese strategies, meant to protect her, had become their own kind of trap. Her world had contracted to only a few places where she felt a semblance of safety. Her home was a sanctuary, but only if the windows were closed and the yard work was done. A trip to the grocery store was manageable, but a walk in a park was unthinkable. Her constant busyness also created a subtle distance in her marriage; Michael felt her perpetual motion as a kind of wall he couldn't get past. Recently, her attempts to manage her anxiety had led directly to triggering it. In an effort to appease her daughter, she agreed to a weekend visit to see her grandchildren, only to be consumed by the terrifying prospect of sleeping in an unfamiliar guest room, alone, while Michael slept on a pull-out couch with their grandson.\n\nThe sleepless nights leading up to the trip were what finally broke her resolve. Lying awake, heart pounding with the certainty that she needed to stay alert, she realised she could no longer manage this on her own. The very strategies she used to control her world were now the reason it was falling apart. She came to therapy not with a grand hope for a cure, but with a quiet, desperate plea for a little more space to breathe—to feel safe in her own home, to sleep through the night, and to one day visit her grandchildren without the past forcing its way in."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Imani came to therapy at sixty-eight, a woman whose world had shrunk to the size of her small, tidy house. For decades, she had managed, but now the walls felt like they were closing in. The trauma was from a lifetime ago, a relationship in her twenties that ended in violence, but the memory of it remained a brutal, unwelcome guest. The final attack had happened in the backyard of their small rental home. He had dragged her outside after an argument, and she remembered the damp, earthy smell of the garden soil pressed against her cheek and the profound terror of being utterly exposed under an open sky. That specific sensory detail—the smell of the outdoors—had become a potent and unpredictable threat in the years since.\n\nNow, married for over forty years to a gentle man named Michael, Imani lived in a state of constant, quiet vigilance. She felt perpetually on guard, even within the safety of her own home. This pervasive sense of threat made her hyper-aware of her surroundings, and the slightest trigger could unravel her day. If Michael was doing yard work, the smell of turned soil drifting through an open window was enough to instantly bring back a fragment of the memory. It was never the full event; the memory would force its way into her mind, a flash of being on the ground, helpless, before she could mentally slam the door and push it away. The intrusion of the memory would amplify her feeling of being unsafe, confirming her belief that danger was always lurking, even in a sunlit kitchen. This feeling of being unsafe, in turn, made her even more sensitive to the smell of dirt on Michael's shoes or the scent of rain on pavement, creating a vicious feedback loop.\n\nIn response to these intrusions, whether sparked by a trigger or the memory itself, Imani had developed a fortress of coping strategies. Her primary defence was constant activity. The moment a fragment of the past surfaced, she would launch into a flurry of tasks—scrubbing floors, sorting closets, reorganizing cupboards. She worked tirelessly to keep her hands busy and her mind occupied, believing that if she never stopped moving, the memory couldn't catch her. This relentless busyness was paired with an ingrained habit of people-pleasing. Any hint of conflict or emotional intensity felt dangerous, so she learned to smooth every edge, agreeing to whatever others wanted just to feel safe. If Michael asked what was wrong after seeing a shadow pass over her face, she would immediately brighten, deny anything was amiss, and quickly change the subject to his needs. To feel emotionally vulnerable was to feel exposed, just as she had been that night in the garden.\n\nThese strategies, meant to protect her, had become their own kind of trap. Her world had contracted to only a few places where she felt a semblance of safety. Her home was a sanctuary, but only if the windows were closed and the yard work was done. A trip to the grocery store was manageable, but a walk in a park was unthinkable. Her constant busyness also created a subtle distance in her marriage; Michael felt her perpetual motion as a kind of wall he couldn't get past. Recently, her attempts to manage her anxiety had led directly to triggering it. In an effort to appease her daughter, she agreed to a weekend visit to see her grandchildren, only to be consumed by the terrifying prospect of sleeping in an unfamiliar guest room, alone, while Michael slept on a pull-out couch with their grandson.\n\nThe sleepless nights leading up to the trip were what finally broke her resolve. Lying awake, heart pounding with the certainty that she needed to stay alert, she realised she could no longer manage this on her own. The very strategies she used to control her world were now the reason it was falling apart. She came to therapy not with a grand hope for a cure, but with a quiet, desperate plea for a little more space to breathe—to feel safe in her own home, to sleep through the night, and to one day visit her grandchildren without the past forcing its way in.", "passed": false, "violations": [{"edge": "Memory → Triggers", "explanation": "The vignette does not describe how the trauma memory itself makes the patient more sensitive to triggers; it states that the sense of threat resulting from the memory increases this sensitivity."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Memory → Triggers: The vignette does not describe how the trauma memory itself makes the patient more sensitive to triggers; it states that the sense of threat resulting from the memory increases this sensitivity.\n  e.g. \"After the memory had surfaced, even the most ordinary things — a kettle whistling, a door slamming — felt like warnings she couldn't afford to ignore.\"\n  e.g. \"The intrusive image left her scanning every room she entered, cataloguing exits, tracking faces, unable to switch off.\"\n  e.g. \"Because the memory came back so vividly, she began to see threads of it everywhere: in strangers' faces, in certain times of day, in the quality of winter light.\""},
+
+    {"vignette": "Imani came to therapy at sixty-eight, a woman whose world had shrunk to the size of her small, tidy house. For decades, she had managed, but now the walls felt like they were closing in. The trauma was from a lifetime ago, a relationship in her twenties that ended in violence, but the memory of it remained a brutal, unwelcome guest. The final attack had happened in the backyard of their small rental home. He had dragged her outside after an argument, and she remembered the damp, earthy smell of the garden soil pressed against her cheek and the profound terror of being utterly exposed under an open sky. That specific sensory detail—the smell of the outdoors—had become a potent and unpredictable threat in the years since.\n\nNow, married for over forty years to a gentle man named Michael, Imani lived in a state of constant, quiet vigilance. She felt perpetually on guard, even within the safety of her own home. This pervasive sense of threat made her hyper-aware of her surroundings, and the slightest trigger could unravel her day. If Michael was doing yard work, the smell of turned soil drifting through an open window was enough to instantly bring back a fragment of the memory. It was never the full event; the memory would force its way into her mind, a flash of being on the ground, helpless, before she could mentally slam the door and push it away. Because the memory came back with such sensory force, she began to find traces of it everywhere; the scent of rain on the pavement or the sight of dirt on Michael’s shoes would feel like direct echoes of the attack, pulling her back to that feeling of helplessness. The intrusion of the memory would amplify her feeling of being unsafe, confirming her belief that danger was always lurking, even in a sunlit kitchen. This feeling of being unsafe, in turn, made her even more sensitive to the smell of dirt on Michael's shoes or the scent of rain on pavement, creating a vicious feedback loop.\n\nIn response to these intrusions, whether sparked by a trigger or the memory itself, Imani had developed a fortress of coping strategies. Her primary defence was constant activity. The moment a fragment of the past surfaced, she would launch into a flurry of tasks—scrubbing floors, sorting closets, reorganizing cupboards. She worked tirelessly to keep her hands busy and her mind occupied, believing that if she never stopped moving, the memory couldn't catch her. This relentless busyness was paired with an ingrained habit of people-pleasing. Any hint of conflict or emotional intensity felt dangerous, so she learned to smooth every edge, agreeing to whatever others wanted just to feel safe. If Michael asked what was wrong after seeing a shadow pass over her face, she would immediately brighten, deny anything was amiss, and quickly change the subject to his needs. To feel emotionally vulnerable was to feel exposed, just as she had been that night in the garden.\n\nThese strategies, meant to protect her, had become their own kind of trap. Her world had contracted to only a few places where she felt a semblance of safety. Her home was a sanctuary, but only if the windows were closed and the yard work was done. A trip to the grocery store was manageable, but a walk in a park was unthinkable. Her constant busyness also created a subtle distance in her marriage; Michael felt her perpetual motion as a kind of wall he couldn't get past. Recently, her attempts to manage her anxiety had led directly to triggering it. In an effort to appease her daughter, she agreed to a weekend visit to see her grandchildren, only to be consumed by the terrifying prospect of sleeping in an unfamiliar guest room, alone, while Michael slept on a pull-out couch with their grandson.\n\nThe sleepless nights leading up to the trip were what finally broke her resolve. Lying awake, heart pounding with the certainty that she needed to stay alert, she realised she could no longer manage this on her own. The very strategies she used to control her world were now the reason it was falling apart. She came to therapy not with a grand hope for a cure, but with a quiet, desperate plea for a little more space to breathe—to feel safe in her own home, to sleep through the night, and to one day visit her grandchildren without the past forcing its way in.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

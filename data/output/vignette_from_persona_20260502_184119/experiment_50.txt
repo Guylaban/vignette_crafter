@@ -1,0 +1,238 @@
+PERSONA 50  |  2026-05-02 19:54:02
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             80
+  gender          Female
+  ethnicity       African
+  relationship_status Widowed
+  occupation      Policy Analyst
+  trauma_type     Life-threatening motor vehicle collision
+  pcl5            74
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Tactile (Temperature): A specific temperature on the skin
+    • Olfactory (Alcohol): Alcohol smell
+    • Olfactory Danger Cue: Burnt smell
+  Threat:
+    • Threat in Movements: Sudden movements by others put me immediately on guard
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • Partial Clarity: Some moments of the event are extremely clear while others are completely blank
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.5784
+  Triggers → Memory                                  0.7259
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.8834
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9204
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Female Presence: Being alone with women
+    explanation: The trigger profile is not clinically coherent with a life-threatening motor vehicle collision. Being alone with women and being looked at sexually strongly imply an interpersonal/sexual trauma context rather than an MVC, and there are no corresponding threat or memory items linking these cues to crash-related danger.
+    item:        Threat / Triggers: Sexual Objectification: Being looked at sexually
+    explanation: The selected threat and memory items describe classic re-experiencing consistent with severe PTSD, but they do not connect plausibly to the chosen trigger content. Strong Triggers→Threat and Triggers→Memory edges would predict crash-related sensory or situational triggers; instead the triggers point to a different trauma theme.
+    item:        Memory / Triggers: Tactile (Temperature): A specific temperature on the skin
+    explanation: A specific temperature on the skin could occur as an idiosyncratic sensory reminder, but in combination with the clearly non-MVC triggers above, the trigger node becomes internally implausible for this trauma type. The issue is with the trigger set as a whole rather than the memory/threat items themselves.
+  [2] FAIL
+    item:        Triggers / Triggers: Sexual Objectification: Being looked at sexually
+    explanation: The trigger set is not clinically coherent with a life-threatening motor vehicle collision. 'Being looked at sexually' is strongly suggestive of sexual trauma rather than MVC-related threat cues, and no memory/threat items provide any bridge that would make this plausible for the same index trauma.
+    item:        Threat / Triggers: Tactile (Temperature): A specific temperature on the skin
+    explanation: The trigger profile lacks any clear thematic connection to the selected threat and memory items. Temperature on the skin and alcohol smell could occasionally occur around an MVC, but with no corresponding collision-specific memory content or appraisal context, the set as a whole appears disconnected from the trauma formulation.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,243
+  output:     3,199
+  total:      9,442
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Martha was eighty years old, a policy analyst who had spent most of her career shaping urban
+transportation regulations. Two years ago, while driving home from a late city council meeting, her
+sedan was T‑boned at an intersection by a pickup truck whose driver was later found to be
+intoxicated. The impact crushed the driver’s side door, and a small fire started in the engine
+compartment. Martha remembers the screech of tires, the shattering glass, and the sensation of heat
+against her skin — but the minutes between the collision and the arrival of the paramedics are a
+complete blank. She recalls the strong smell of alcohol from the other driver as he staggered out of
+his cab, and later, the acrid burnt odor of the smoldering hood. Those sensory fragments, she says,
+return without warning and with startling vividness.
+
+In the months that followed, Martha found that specific temperatures — particularly warmth against
+her skin — could instantly plunge her back into the moment of impact. The heat from a car heater on
+a cold morning, the sun through a window, even the steam from a cup of tea would make her heart race
+and her palms sweat. The smell of alcohol, even a trace from a hand sanitizer or a glass of wine
+across a restaurant, would trigger a wave of fear so strong she felt she was back in the twisted
+metal. A burnt smell — from toast, a candle, or the autumn air — did the same. Each time, the memory
+would surge forward before she could block it: the searing heat, the crushing pressure, the
+confusion. She began to push the memory away before it fully formed, leaving her with only a
+fragment, a flash of terror that hung in the air like smoke.
+
+Martha’s daily life as a policy analyst required her to review reports and attend occasional video
+meetings. But her hypervigilance made even these routines fraught. Sudden movements by others — a
+colleague reaching for a file, a pedestrian stepping off a curb — put her immediately on guard. That
+state of alertness made her more sensitive to the triggers around her: she would notice the faintest
+scent of alcohol or the slightest change in temperature, scanning the environment for danger. And
+when a trigger appeared, it reinforced her sense of threat, creating a closed loop she could not
+escape. She became convinced that something terrible was about to happen again, and that flashbacks
+were a sign she was losing control.
+
+Martha’s husband had died a decade earlier, and she lived alone. She stopped driving altogether,
+took only carefully scheduled buses, and avoided restaurants where alcohol was served. She found
+herself canceling work calls when she felt the familiar heat on her skin, worried that a sudden
+movement from her own hands would send her into a panic. The avoidance narrowed her world: she spent
+most days in her home office, doors closed, a fan always on to keep the temperature cool. Yet even
+there, a whiff of smoke from a neighbor’s barbecue or the warmth of her laptop fan could set off the
+cycle. She began to feel ashamed of her fear, certain that she should have been stronger at her age.
+
+What finally brought Martha to seek help was a video conference with a young analyst who, while
+reaching for a glass of water, made a quick motion that made her gasp and nearly fall out of her
+chair. The humiliated silence on the call told her she could not sustain her professional life this
+way. She is afraid that talking about the accident will make the memories worse, but she is even
+more afraid that if she does not change something, she will disappear entirely into the small, quiet
+space she has built for herself.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not convey that a sense of threat directly leads to or causes the intrusive memory; instead, triggers cause both threat and memory, but the causal link from threat to memory is missing.
+
+  [2] PASS
+Martha was eighty years old, a policy analyst who had spent most of her career shaping urban
+transportation regulations. Two years ago, while driving home from a late city council meeting, her
+sedan was T‑boned at an intersection by a pickup truck whose driver was later found to be
+intoxicated. The impact crushed the driver’s side door, and a small fire started in the engine
+compartment. Martha remembers the screech of tires, the shattering glass, and the sensation of heat
+against her skin — but the minutes between the collision and the arrival of the paramedics are a
+complete blank. She recalls the strong smell of alcohol from the other driver as he staggered out of
+his cab, and later, the acrid burnt odor of the smoldering hood. Those sensory fragments, she says,
+return without warning and with startling vividness.
+
+In the months that followed, Martha found that specific temperatures — particularly warmth against
+her skin — could instantly plunge her back into the moment of impact. The heat from a car heater on
+a cold morning, the sun through a window, even the steam from a cup of tea would make her heart race
+and her palms sweat. The smell of alcohol, even a trace from a hand sanitizer or a glass of wine
+across a restaurant, would trigger a wave of fear so strong she felt she was back in the twisted
+metal. A burnt smell — from toast, a candle, or the autumn air — did the same. Each time, the memory
+would surge forward before she could block it: the searing heat, the crushing pressure, the
+confusion. She began to push the memory away before it fully formed, leaving her with only a
+fragment, a flash of terror that hung in the air like smoke.
+
+Martha’s daily life as a policy analyst required her to review reports and attend occasional video
+meetings. But her hypervigilance made even these routines fraught. Sudden movements by others — a
+colleague reaching for a file, a pedestrian stepping off a curb — put her immediately on guard. That
+state of alertness made her more sensitive to the triggers around her: she would notice the faintest
+scent of alcohol or the slightest change in temperature, scanning the environment for danger. And
+when a trigger appeared, it reinforced her sense of threat, creating a closed loop she could not
+escape. She became convinced that something terrible was about to happen again, and that flashbacks
+were a sign she was losing control. On days when her hypervigilance was at its worst, the intrusive
+fragments surfaced most easily — as if the constant state of danger kept the accident memory just
+beneath the surface, ready to break through without any trigger at all.
+
+Martha’s husband had died a decade earlier, and she lived alone. She stopped driving altogether,
+took only carefully scheduled buses, and avoided restaurants where alcohol was served. She found
+herself canceling work calls when she felt the familiar heat on her skin, worried that a sudden
+movement from her own hands would send her into a panic. The avoidance narrowed her world: she spent
+most days in her home office, doors closed, a fan always on to keep the temperature cool. Yet even
+there, a whiff of smoke from a neighbor’s barbecue or the warmth of her laptop fan could set off the
+cycle. She began to feel ashamed of her fear, certain that she should have been stronger at her age.
+
+What finally brought Martha to seek help was a video conference with a young analyst who, while
+reaching for a glass of water, made a quick motion that made her gasp and nearly fall out of her
+chair. The humiliated silence on the call told her she could not sustain her professional life this
+way. She is afraid that talking about the accident will make the memories worse, but she is even
+more afraid that if she does not change something, she will disappear entirely into the small, quiet
+space she has built for herself.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Martha was eighty years old, a policy analyst who had spent most of her career shaping urban
+transportation regulations. Two years ago, while driving home from a late city council meeting, her
+sedan was T‑boned at an intersection by a pickup truck whose driver was later found to be
+intoxicated. The impact crushed the driver’s side door, and a small fire started in the engine
+compartment. Martha remembers the screech of tires, the shattering glass, and the sensation of heat
+against her skin — but the minutes between the collision and the arrival of the paramedics are a
+complete blank. She recalls the strong smell of alcohol from the other driver as he staggered out of
+his cab, and later, the acrid burnt odor of the smoldering hood. Those sensory fragments, she says,
+return without warning and with startling vividness.
+
+In the months that followed, Martha found that specific temperatures — particularly warmth against
+her skin — could instantly plunge her back into the moment of impact. The heat from a car heater on
+a cold morning, the sun through a window, even the steam from a cup of tea would make her heart race
+and her palms sweat. The smell of alcohol, even a trace from a hand sanitizer or a glass of wine
+across a restaurant, would trigger a wave of fear so strong she felt she was back in the twisted
+metal. A burnt smell — from toast, a candle, or the autumn air — did the same. Each time, the memory
+would surge forward before she could block it: the searing heat, the crushing pressure, the
+confusion. She began to push the memory away before it fully formed, leaving her with only a
+fragment, a flash of terror that hung in the air like smoke.
+
+Martha’s daily life as a policy analyst required her to review reports and attend occasional video
+meetings. But her hypervigilance made even these routines fraught. Sudden movements by others — a
+colleague reaching for a file, a pedestrian stepping off a curb — put her immediately on guard. That
+state of alertness made her more sensitive to the triggers around her: she would notice the faintest
+scent of alcohol or the slightest change in temperature, scanning the environment for danger. And
+when a trigger appeared, it reinforced her sense of threat, creating a closed loop she could not
+escape. She became convinced that something terrible was about to happen again, and that flashbacks
+were a sign she was losing control. On days when her hypervigilance was at its worst, the intrusive
+fragments surfaced most easily — as if the constant state of danger kept the accident memory just
+beneath the surface, ready to break through without any trigger at all.
+
+Martha’s husband had died a decade earlier, and she lived alone. She stopped driving altogether,
+took only carefully scheduled buses, and avoided restaurants where alcohol was served. She found
+herself canceling work calls when she felt the familiar heat on her skin, worried that a sudden
+movement from her own hands would send her into a panic. The avoidance narrowed her world: she spent
+most days in her home office, doors closed, a fan always on to keep the temperature cool. Yet even
+there, a whiff of smoke from a neighbor’s barbecue or the warmth of her laptop fan could set off the
+cycle. She began to feel ashamed of her fear, certain that she should have been stronger at her age.
+
+What finally brought Martha to seek help was a video conference with a young analyst who, while
+reaching for a glass of water, made a quick motion that made her gasp and nearly fall out of her
+chair. The humiliated silence on the call told her she could not sustain her professional life this
+way. She is afraid that talking about the accident will make the memories worse, but she is even
+more afraid that if she does not change something, she will disappear entirely into the small, quiet
+space she has built for herself.

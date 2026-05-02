@@ -1,47 +1,53 @@
+# =============================================================================
+# SIMULATION CONFIG
+# =============================================================================
+
 simulation:
-  num_personas: 3
-  persona_ids: []   # e.g. [23] or [23, 45] — overrides num_personas if set
-  seed: 48
-  max_retries: 2
-  max_violations: 0   # number of validation failures allowed before giving up (0 = strict)
-  temperature: 0.7
-  pipeline: vignette_full   
-  # vignette_mode controls what context the vignette crafter receives:
-  #   full         → demographics + self-report + edges  (default)
-  #   demographics → demographics + self-report, no edges
-  #   no_context   → no demographics, no self-report, no edges
+
+  # ── Personas ────────────────────────────────────────────────────────────────
+  num_personas: 500
+  persona_ids:  []      # e.g. [1, 2, 3] — overrides num_personas if non-empty
+  seed:         42
+
+  # ── Pipeline ─────────────────────────────────────────────────────────────────
+  # craft_persona         → generate & validate personas only (Step 1)
+  # vignette_from_persona → load saved personas, generate & validate vignettes (Step 2)
+  # vignette_full         → craft persona + generate & validate vignette in one run
+  # vignette_no_val       → generate vignette only, no validation
+  # zero_shot             → generate vignette with no persona context
+  pipeline: vignette_from_persona
+  persona_source: data/output/craft_persona_20260501_184525   # required for vignette_from_persona
+
+  # ── Vignette context (used when pipeline includes vignette generation) ───────
+  # full           → demographics + self-report + cognitive edges
+  # no_formulation → demographics + self-report only
+  # zero_shot      → no context
   vignette_mode: full
-  self_report_items: 3    # self-report items selected per active node
-  node_prob: 0.7          # probability each cognitive node is active (0.0–1.0)
-  edge_prob: 0.7          # probability each directed edge between two active nodes is active (0.0–1.0)
-  # persona_source: data/output/vignette_full_20260423_232215   # required when pipeline: vignette_from_persona
+
+  # ── Sampling ─────────────────────────────────────────────────────────────────
+  node_prob:         0.7   # P(node active)
+  edge_prob:         0.7   # P(edge active | both nodes active)
+  self_report_items: 3     # items sampled per active node
+
+  # ── Validation ───────────────────────────────────────────────────────────────
+  max_retries:  5
+  temperature:  0.7
+
+
+# =============================================================================
+# MODELS
+# =============================================================================
+
 
 models:
-  vignette_crafter: gpt-5.4
-  vignette_validator: gpt-5.4
-  persona_validator: gpt-5.4
-  persona_crafter: gpt-5.4
+  persona_validator: qwen3.6-35b
+  persona_crafter:   qwen3.6-35b
+  vignette_crafter:  qwen3.6-35b
+  vignette_validator: qwen3.6-35b
 
 # ── Available models ──────────────────────────────────────────────────────────
-# OpenAI
-#   gpt-5.4-mini
-#   gpt-5.4
-#
-# Anthropic  (requires ANTHROPIC_API_KEY in .env)
-#   claude-opus-4-7
-#   claude-sonnet-4-6
-#   claude-haiku-4-5
-#
-# Gemini  (requires GEMINI_API_KEY in .env)
-#   gemini-2.5-pro
-#   gemini-2.5-flash
-#   gemini-2.0-flash
-#
-# DeepSeek  (requires DEEPSEEK_API_KEY in .env)
-#   llama3.1-70b
-#   deepseek-reasoner
-#
-# Lab / Tailscale  (requires Tailscale connection)
-#   llama3.1-8b
-#   llama3.1-70b
-#   qwen2.5-32b
+# OpenAI        gpt-5.4-mini | gpt-5.4
+# Anthropic     claude-sonnet-4-6 | claude-haiku-4-5
+# Gemini        gemini-2.5-pro | gemini-2.5-flash | gemini-3-flash-preview | gemini-3.1-pro-preview
+# DeepSeek      deepseek-chat | deepseek-reasoner
+# Lab/Tailscale llama3.1-8b | llama3.1-70b | qwen2.5-32b | qwen2.5-72b | qwen3.6-35b | qwen3.6-35b-ablit | gpt-oss-20b | gemma4-31b | nemotron-70b

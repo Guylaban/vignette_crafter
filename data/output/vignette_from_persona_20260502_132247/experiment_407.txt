@@ -1,0 +1,206 @@
+PERSONA 407  |  2026-05-02 16:35:48
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    claude-sonnet-4-6
+    persona_crafter      claude-sonnet-4-6
+    vignette_crafter     claude-sonnet-4-6
+    vignette_validator   claude-sonnet-4-6
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             47
+  gender          Male
+  ethnicity       North American
+  relationship_status Single
+  occupation      Bus Driver
+  trauma_type     Police
+  pcl5            48
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Intrusive Memory: A memory of the event coming to mind suddenly
+    • Event Recall: Talking about the event
+    • Authority Presence: Police
+  Maladaptive Strategies:
+    • Face Hiding: cover face with hands
+    • Avoid People: avoid other people
+    • Sensory Distraction: I put on loud music or TV
+  Threat:
+    • Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    • Concentration: Having difficulty concentrating
+    • Door and Lock Checking: I repeatedly check that doors and windows are locked
+  Negative Appraisals:
+    • World is Dangerous: The world is a dangerous place
+    • Lost Community: I have lost my connection to my community and culture
+    • Mistrust: People can't be trusted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3839
+  Triggers → Threat                                  0.4188
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.9908
+  Negative Appraisals → Threat                       0.0585
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.1785
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.7323
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0490
+  Threat → Triggers                                  0.4127
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.6061
+  Maladaptive Strategies → Triggers                  0.4654
+  Maladaptive Strategies → Threat                    0.9988
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Sexual Objectification: Being looked at sexually
+    explanation: The profile is for a male patient with police trauma, but two trigger items and the body-shame appraisal are specifically sexual-trauma themed. That is hard to reconcile with the indexed trauma type unless there is an additional sexual trauma history, which is not supported elsewhere in the profile.
+    item:        Negative Appraisals / Triggers: Sexual Trauma Cues: Comments on sexual violence
+    explanation: Within the trigger/appraisal cluster, the content centers on sexual victimization, while the rest of the profile does not describe corresponding sexual-trauma memory content or threat meaning. This makes the selected items clinically incoherent as a single trauma-linked PTSD profile.
+    item:        Threat / Negative Appraisals: Body Shame: I feel ashamed of what happened to my body
+    explanation: Door/window checking suggests a home-intrusion or generalized safety threat, but the trigger and appraisal content centers on sexualized trauma cues. That threat item is not well linked to the rest of the selected profile and pulls the formulation in a different direction.
+  [2] FAIL
+    item:        Triggers / Triggers: Sexual Trauma Cues: Comments on sexual violence
+    explanation: For a police trauma in a 47-year-old male bus driver, sexual-trauma-specific trigger content is hard to reconcile unless the index event involved sexual assault or exposure to sexual violence in a highly personal way; nothing else in the profile supports that specificity.
+    item:        Negative Appraisals / Negative Appraisals: Body Shame: I feel ashamed of what happened to my body
+    explanation: Body-focused shame is more characteristic of sexual assault or severe bodily violation. In this profile it does not cohere with the police trauma framing, and it is reinforced only by the sexual-trauma-specific trigger, creating an implausible subtheme not supported by the rest of the nodes.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,898
+  output:       951
+  total:      4,849
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Marcus is a 47-year-old single man who works as a city bus driver. He presents with a PCL-5 score of
+48, describing a cluster of symptoms that have progressively narrowed his life over the past several
+months following a traumatic encounter with police.
+
+The incident occurred on an evening when Marcus was stopped while driving home from a late shift.
+What began as a routine traffic stop escalated rapidly: officers drew their weapons, ordered him to
+the ground, and held him face-down on the asphalt for an extended period before determining they had
+the wrong vehicle. He was not physically injured, but the experience of lying prone, unable to see
+what was happening, surrounded by shouting voices and the cold weight of a knee on his back, left a
+mark that has not faded. The specific texture of that helplessness — the inability to see faces, the
+sounds of authority closing in — would become the fault lines along which his symptoms later cracked
+open.
+
+In the weeks that followed, Marcus found that the memory did not stay where he tried to put it. It
+came back suddenly and without invitation, most often when he was at work. Driving his route through
+the city, he would turn a corner and see a patrol car idling at a stop, and the sight of a uniformed
+officer was enough to pull him back to the asphalt. The memory arrived not as a recollection but as
+a re-immersion — the shouting, the cold ground, the disorientation. When these intrusions struck,
+Marcus would instinctively cover his face with both hands, a gesture that reproduced the posture of
+the original event and briefly blocked out the world around him. He also began turning up the radio
+in the cab to a volume that passengers occasionally complained about, filling his head with noise as
+a way of drowning out the internal replay. Talking about the event with anyone — a dispatcher who
+asked what was wrong, a friend who noticed the change in him — produced the same flooding, and so he
+stopped doing that too.
+
+Marcus had come to believe, with a certainty that felt like knowledge rather than fear, that the
+world was a fundamentally dangerous place and that people in positions of authority could not be
+trusted. This conviction did not remain abstract. It coloured how he scanned his environment: at
+home, he checked his door and window locks repeatedly before bed, sometimes three or four times, and
+still lay awake irritable and unable to settle his attention on anything. At work, the
+hypervigilance made sustained concentration difficult, and he had received a formal note from his
+supervisor about missing a scheduled stop. The belief that people could not be trusted had also
+driven him to withdraw from the informal community of fellow drivers — the break-room conversations,
+the shared meals — so that what had once been a source of belonging now felt like a space full of
+potential threat. His sense of disconnection from his community and culture had deepened as a
+result, which in turn reinforced his conviction that the world offered no safe harbour, keeping him
+primed and watchful in a way that made the next trigger easier to reach.
+
+The strategies Marcus used to manage his distress had quietly made things worse. The face-hiding and
+the loud music offered momentary relief but prevented him from processing what had happened, leaving
+the memory raw and close to the surface. His withdrawal from other people meant there was no one to
+challenge his growing certainty that the world was dangerous and that trust was a liability, beliefs
+that in turn kept his nervous system in a state of readiness that made ordinary stimuli feel
+threatening. That state of threat, once activated, made the intrusive memories more accessible, so
+that each patrol car or mention of the incident triggered the full weight of the original experience
+again. The cycle had become self-sustaining in a way Marcus could feel but could not name.
+
+What finally brought him to seek help was the supervisor's formal note and the quiet recognition
+that he was losing the job — and with it the last structured thing in his life. He arrived at the
+intake appointment guarded and slow to make eye contact. What he said he wanted most was to stop
+feeling like he was still on that road.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Marcus is a 47-year-old single man who works as a city bus driver. He presents with a PCL-5 score of
+48, describing a cluster of symptoms that have progressively narrowed his life over the past several
+months following a traumatic encounter with police.
+
+The incident occurred on an evening when Marcus was stopped while driving home from a late shift.
+What began as a routine traffic stop escalated rapidly: officers drew their weapons, ordered him to
+the ground, and held him face-down on the asphalt for an extended period before determining they had
+the wrong vehicle. He was not physically injured, but the experience of lying prone, unable to see
+what was happening, surrounded by shouting voices and the cold weight of a knee on his back, left a
+mark that has not faded. The specific texture of that helplessness — the inability to see faces, the
+sounds of authority closing in — would become the fault lines along which his symptoms later cracked
+open.
+
+In the weeks that followed, Marcus found that the memory did not stay where he tried to put it. It
+came back suddenly and without invitation, most often when he was at work. Driving his route through
+the city, he would turn a corner and see a patrol car idling at a stop, and the sight of a uniformed
+officer was enough to pull him back to the asphalt. The memory arrived not as a recollection but as
+a re-immersion — the shouting, the cold ground, the disorientation. When these intrusions struck,
+Marcus would instinctively cover his face with both hands, a gesture that reproduced the posture of
+the original event and briefly blocked out the world around him. He also began turning up the radio
+in the cab to a volume that passengers occasionally complained about, filling his head with noise as
+a way of drowning out the internal replay. Talking about the event with anyone — a dispatcher who
+asked what was wrong, a friend who noticed the change in him — produced the same flooding, and so he
+stopped doing that too.
+
+Marcus had come to believe, with a certainty that felt like knowledge rather than fear, that the
+world was a fundamentally dangerous place and that people in positions of authority could not be
+trusted. This conviction did not remain abstract. It coloured how he scanned his environment: at
+home, he checked his door and window locks repeatedly before bed, sometimes three or four times, and
+still lay awake irritable and unable to settle his attention on anything. At work, the
+hypervigilance made sustained concentration difficult, and he had received a formal note from his
+supervisor about missing a scheduled stop. The belief that people could not be trusted had also
+driven him to withdraw from the informal community of fellow drivers — the break-room conversations,
+the shared meals — so that what had once been a source of belonging now felt like a space full of
+potential threat. His sense of disconnection from his community and culture had deepened as a
+result, which in turn reinforced his conviction that the world offered no safe harbour, keeping him
+primed and watchful in a way that made the next trigger easier to reach.
+
+The strategies Marcus used to manage his distress had quietly made things worse. The face-hiding and
+the loud music offered momentary relief but prevented him from processing what had happened, leaving
+the memory raw and close to the surface. His withdrawal from other people meant there was no one to
+challenge his growing certainty that the world was dangerous and that trust was a liability, beliefs
+that in turn kept his nervous system in a state of readiness that made ordinary stimuli feel
+threatening. That state of threat, once activated, made the intrusive memories more accessible, so
+that each patrol car or mention of the incident triggered the full weight of the original experience
+again. The cycle had become self-sustaining in a way Marcus could feel but could not name.
+
+What finally brought him to seek help was the supervisor's formal note and the quiet recognition
+that he was losing the job — and with it the last structured thing in his life. He arrived at the
+intake appointment guarded and slow to make eye contact. What he said he wanted most was to stop
+feeling like he was still on that road.

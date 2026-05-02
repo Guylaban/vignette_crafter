@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "agent_name": "Persona_87_PersonaValidator",
+    "role": "PersonaValidator",
+    "call_index": 2,
+    "timestamp": "2026-05-01 16:53:48"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a validator checking whether a PTSD patient's self-report profile is clinically coherent.\n\nDemographics and trauma type have already been validated. Your job is to check three things:\n1. Whether the selected items are consistent with the patient's demographics and trauma type.\n2. Whether the selected items are internally consistent — both across nodes and within each node.\n3. Whether the selected items are consistent with the cognitive formulation — items from a node should reflect the edge pattern of that node.\n\nSCOPE: Only flag items belonging to these five components: Triggers, Threat, Negative Appraisals, Memory, Maladaptive Strategies.\nDo NOT flag PCL-5 score, overall severity, or any meta-level concern — only flag individual items within the five components above.\n\nJUDGMENT GUIDELINES:\n\n- Clearly implausible vs merely unusual:\n  A combination is clearly implausible if a clinician would immediately question whether the items could describe the same patient with the same trauma.\n  Unusual or unexpected combinations are not enough to flag — real patients are heterogeneous.\n  Only flag when the mismatch is hard to explain clinically.\n\n- Within-node consistency:\n  Three items from the same node should not directly contradict each other.\n  Thematic redundancy is fine.\n  Flag only when two items within the same node express opposing clinical states.\n\n- Cross-node consistency:\n  The items across all nodes should describe a coherent patient.\n  Flag when items from different nodes pull in opposite directions in a way that cannot plausibly coexist \n  For example, triggers that imply a specific threat context that is entirely absent from the appraisals and memory items, or maladaptive strategies that address a symptom type not represented anywhere else in the profile.\n\n- Cognitive formulation alignment:\n  The cognitive formulation specifies which nodes are active and the strength of edges between them.\n  A strong edge between two nodes (e.g. Triggers → Threat) means those components are tightly linked for this patient — the self-report items from those nodes should reflect a plausible clinical connection.\n  Items from a node with no strong outgoing or incoming edges should not contradict the isolated role of that node.\n  Do not flag items solely because an edge is weak or absent — only flag when the items actively contradict the formulation structure.\n\n- PCL-5 severity:\n  The PCL-5 score reflects overall symptom severity.\n  Flag if the items selected across nodes are clearly mismatched with that severity level — either consistently too mild or consistently too severe relative to the score.\n\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following patient's self-report for clinical coherence with their demographics, trauma type, and cognitive formulation.\n\nPatient demographics:\n  age: 76\n  gender: Female\n  ethnicity: South Eastern Asian\n  relationship_status: In a relationship\n  occupation: Parole Officer\n  trauma_type: Life-threatening motor vehicle collision\n  pcl5: 42\n\nCognitive formulation (Ehlers & Clark model):\nActive edges:\n  - Triggers → Memory (strength: 0.73)\n  - Triggers → Negative Appraisals (strength: 0.02)\n  - Negative Appraisals → Maladaptive Strategies (strength: 0.70)\n  - Negative Appraisals → Threat (strength: 0.79)\n  - Negative Appraisals → Triggers (strength: 0.44)\n  - Memory → Maladaptive Strategies (strength: 0.17)\n  - Memory → Threat (strength: 0.88)\n  - Memory → Negative Appraisals (strength: 0.38)\n  - Threat → Memory (strength: 0.76)\n  - Threat → Negative Appraisals (strength: 0.46)\n  - Maladaptive Strategies → Memory (strength: 0.03)\n  - Maladaptive Strategies → Negative Appraisals (strength: 0.11)\n  - Maladaptive Strategies → Triggers (strength: 0.89)\n  - Maladaptive Strategies → Threat (strength: 0.08)\n\nInactive edges:\n  - Triggers → Maladaptive Strategies\n  - Triggers → Threat\n  - Negative Appraisals → Memory\n  - Memory → Triggers\n  - Threat → Maladaptive Strategies\n  - Threat → Triggers\n\nSelf-report items:\n  Triggers: Public Transport: Bus riding, Being Criticised: Being criticised or corrected, Auditory (Cars): Car sounds\n  Maladaptive Strategies: Avoid Event Site: avoid site of the event, Avoid Relaxation: avoid relaxing because it feels dangerous, Avoid Driving: Driving or being a passenger in a vehicle\n  Threat: Safe Zone Only: I only feel safe in a very limited number of places, Scanning for Danger: I constantly scan my surroundings for signs of danger, Startle to Sounds: I jump or startle at ordinary sounds that would not bother most people\n  Memory: Reliving Event: When I remember the frightening event I feel like it is happening right now., Snapshot Memory: I remember the frightening event as a few moments, and each moment is a picture in my mind., Sudden Pieces: Fragments of the memory appear suddenly without warning and then disappear\n  Negative Appraisals: Character Blame: The event happened to me because of the sort of person I am, Thought Avoidance: If I think about the event, I will not be able to handle it, Life Destroyed: My life has been destroyed by the trauma"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "issue_components": [
+      "Triggers",
+      "Negative Appraisals",
+      "Maladaptive Strategies"
+    ],
+    "issue_items": [
+      "Triggers: Being Criticised: Being criticised or corrected",
+      "Negative Appraisals: Character Blame: The event happened to me because of the sort of person I am",
+      "Maladaptive Strategies: Avoid Relaxation: avoid relaxing because it feels dangerous"
+    ],
+    "issue_explanations": [
+      "'Being criticised or corrected' is hard to reconcile as a trauma-linked trigger for a life-threatening motor vehicle collision when the rest of the profile is strongly organized around transport/vehicle danger, sensory vehicle cues, and intrusive crash memories. It introduces an interpersonal trigger theme not supported by the memory, threat, or appraisal items.",
+      "'The event happened to me because of the sort of person I am' is a characterological self-blame appraisal that is not impossible after an MVC, but here it sits awkwardly with the otherwise fear/safety-based formulation centered on danger, intrusion, and transport cues. The other appraisals are inability to cope with trauma thoughts and global life damage; this item shifts toward a moral/character theme not reflected elsewhere.",
+      "'Avoid relaxing because it feels dangerous' is more typical when hypervigilance itself is the central coping target, but this profile's maladaptive strategies are otherwise concrete avoidance of driving and the event site in response to vehicle-linked trauma cues. Since Triggers → Maladaptive Strategies is inactive and the trigger set is specifically transport/auditory plus one interpersonal cue, this item is weakly connected to the rest of the reported pattern and lacks support from other items beyond general hyperarousal."
+    ]
+  }
+}
