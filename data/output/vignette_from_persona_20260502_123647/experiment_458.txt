@@ -1,0 +1,710 @@
+PERSONA 458  |  2026-05-02 23:18:00
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    gpt-4o-mini
+    persona_crafter      gpt-4o-mini
+    vignette_crafter     gpt-4o-mini
+    vignette_validator   gpt-4o-mini
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             30
+  gender          Female
+  ethnicity       African
+  relationship_status Married
+  occupation      School Counselor
+  trauma_type     Police
+  pcl5            63
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Feeling Tired: Feeling very tired or exhausted
+    • Auditory (Loud Noises): Loud noises
+    • Olfactory (Alcohol): Alcohol smell
+  Maladaptive Strategies:
+    • Avoid Emotional Stress: Situations that make me feel strong emotions
+    • Avoid Positive Events: Situations that might make me feel happy or hopeful
+    • Avoid People: avoid other people
+  Threat:
+    • Threat in Movements: Sudden movements by others put me immediately on guard
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+  Negative Appraisals:
+    • Defective Self: There is something wrong with me as a person
+    • Isolation: I feel isolated and set apart from others
+    • Self-Blame: The event happened because of the way I acted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.7176
+  Negative Appraisals → Threat                       0.3927
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.5499
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.8949
+  Maladaptive Strategies → Triggers                  0.2372
+  Maladaptive Strategies → Threat                    0.0454
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Driving with Others
+    explanation: The transport-related content is not clinically well anchored to the rest of the profile. 'Driving with Others' and 'Avoid Public Transport' imply a prominent transport/travel trigger-avoidance pattern, but the Threat and Negative Appraisal items are centered on hypervigilance to others' movements, interpersonal danger, shame, and isolation rather than transport-specific trauma meanings. That mismatch is hard to explain as the same dominant self-report profile for a police-related trauma.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Public Transport
+    explanation: The trigger node is also weakly integrated in the formulation: Triggers has no active links to Threat, Negative Appraisals, or Memory. Given that, the selected trigger content should not imply a strong specific threat pathway that is absent elsewhere. The transport-specific trigger/avoidance pair suggests a major cue-threat connection that is not reflected in the formulation or other nodes.
+  [2] FAIL
+    item:        Triggers / Triggers: Perceived Threat: People acting suspiciously
+    explanation: The trigger item 'people acting suspiciously' implies a socially interpreted cue linked to hostile intent, but the threat items are dominated by non-social movement sensitivity ('unexpected movement', 'sudden movements'). That pattern is not impossible, but here the trigger-threat pairing is weakly coherent because the formulation does not support a strong Triggers → Threat linkage, and the selected trigger does not clearly connect to the specific threat content endorsed.
+    item:        Threat / Threat: Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+    explanation: The two threat items form a tight cluster around hypervigilance to sudden movement, which is coherent for police-related trauma. However, pairing them with 'risky behavior' pulls the threat node in the opposite direction: immediate danger sensitivity and exaggerated guard are difficult to reconcile with concurrent high-risk behavior unless there is other profile content explaining impulsive disinhibition, which is absent here.
+    item:        Maladaptive Strategies / Threat: Threat in Movements: Sudden movements by others put me immediately on guard
+    explanation: 'Avoid positive events' is not well supported by the rest of the profile. The negative appraisals emphasize defectiveness, isolation, and loss of community, and the threat items emphasize movement-based danger. Avoiding emotionally stressful situations and other people fits that pattern, but avoiding potentially happy or hopeful situations introduces a different process without corresponding appraisal or memory content to explain it.
+  [3] FAIL
+    item:        Threat / Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm
+    explanation: 'Risky Behavior' is difficult to reconcile with the rest of the profile, which is otherwise dominated by fear, hypervigilance, avoidance, and social withdrawal. In this configuration it points in the opposite direction from the threat system described by the other items and lacks support from the maladaptive-strategy items.
+    item:        Negative Appraisals / Negative Appraisals: Lost Community: I have lost my connection to my community and culture
+    explanation: 'Lost Community' is not impossible, but it is weakly integrated with the rest of the profile. The other appraisal items center on personal defectiveness and interpersonal isolation, while no other trigger, memory, threat, or coping item reflects community/cultural disruption specifically after police trauma.
+    item:        Triggers / Triggers: Tactile (Touch): Physical touch
+    explanation: 'Physical touch' as a trigger is not impossible, but here it is less well connected to the rest of the selected items than loud noises and sudden movements. The remainder of the profile suggests a police-related threat theme centered on vigilance to environmental danger rather than touch-specific trauma cues.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     26,310
+  output:     3,260
+  total:     29,570
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  6 attempt(s)  →  FAIL
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Kemi, a 30-year-old school counselor, sat across from her therapist, her eyes betraying a weary
+soul. The weight of her experiences hung heavily on her, particularly the day she witnessed a police
+officer violently arresting a close friend. That event had spiraled into a cacophony of distressing
+memories and symptoms that Kemi struggled to navigate. She could still hear the sharp crack of the
+officer's baton and the panicked shouts of the crowd, a moment that reverberated through her life
+like a haunting echo. Since that day, Kemi had felt an insatiable fear creeping into her daily
+activities, a sense that danger lurked just beneath the surface.
+
+The traumatic encounter had triggered an overwhelming sense of threat that pervaded Kemi’s life.
+Sudden movements by others sent her heart racing; she could feel the adrenaline coursing through her
+veins as if she were still in that moment, her body primed for a fight or flight response. This
+hyperalertness became a constant companion, making it impossible for her to relax even in the safety
+of her own home. Kemi often found herself scrutinizing the people around her, her mind racing with
+the belief that something terrible was about to happen. It was in these moments that the nagging
+thought resurfaced — there must be something wrong with her for her to feel this way, which only
+served to deepen her isolation. She believed she was broken in some fundamental way.
+
+As Kemi’s thoughts spiraled inward, she began employing maladaptive strategies to cope with the
+overwhelming emotional stress. She avoided situations that might elicit strong feelings, steering
+clear of emotional discussions with her husband and friends. This self-imposed isolation led her to
+withdraw from social gatherings, where laughter and joy could easily turn into feelings of guilt or
+sadness. Kemi was convinced that her presence would only bring discomfort to others, especially when
+she would burst into tears at the slightest provocation. In her mind, she was to blame for the
+incident, believing her own actions somehow warranted the police's aggression. This self-blame
+compounded her sense of isolation, reinforcing her decision to pull away from the people who cared
+for her.
+
+Even joyful moments became triggers for Kemi, who found herself avoiding positive events, fearing
+the possibility of happiness would only highlight her inadequacies. Whenever she heard laughter or
+saw a group of friends enjoying themselves, she would feel an overwhelming urge to escape. The smell
+of alcohol, often wafting from parties or gatherings, would transport her back to that fateful day,
+making her feel dizzy and exhausted. She had come to associate loud noises with chaos and danger,
+which only fueled her desire to retreat from the world around her. Each time she avoided these
+triggers, she felt a momentary relief, but it was quickly overshadowed by the realization that her
+avoidance was only reinforcing her negative beliefs about herself.
+
+Kemi’s life had become a delicate balance of managing her fears and maintaining her facade as a
+counselor. She found herself unable to engage with her students as she once had, her own emotional
+struggles clouding her ability to support them. The threat of her own feelings turned the very space
+meant for healing into a battleground of anxiety and despair. She felt trapped in a cycle where her
+avoidance perpetuated her negative self-appraisal, making her feel even more defective and alone. It
+was a painful irony that as she sought to protect herself, she only reinforced the idea that she was
+broken.
+
+After months of grappling with these challenges, Kemi finally reached a breaking point. The
+exhaustion of living in constant vigilance, coupled with the apparent disconnect from her loved
+ones, drove her to seek help. She hoped to find a way to navigate her feelings and reconnect with
+herself and those around her. Yet, beneath her desire for healing lay a deep-seated fear — what if
+she could not overcome this? What if the person she had become was the only version of herself that
+existed now? Kemi sat in therapy, her heart pounding, aware that this was the first step toward not
+only confronting her past but also reclaiming her future.
+
+    ✗ edge:        Negative Appraisals → Maladaptive Strategies
+      explanation: The vignette does not establish a causal relationship where negative appraisals lead to maladaptive strategies.
+
+    ✗ edge:        Threat → Negative Appraisals
+      explanation: The vignette does not establish a causal relationship where threat leads to negative appraisals.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not establish a causal relationship where maladaptive strategies reinforce negative appraisals.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not establish a causal relationship where maladaptive strategies contribute to a sense of threat.
+
+  [2] FAIL
+Kemi, a 30-year-old school counselor, sat across from her therapist, her eyes betraying a weary
+soul. The weight of her experiences hung heavily on her, particularly the day she witnessed a police
+officer violently arresting a close friend. That event had spiraled into a cacophony of distressing
+memories and symptoms that Kemi struggled to navigate. She could still hear the sharp crack of the
+officer's baton and the panicked shouts of the crowd, a moment that reverberated through her life
+like a haunting echo. Since that day, Kemi had felt an insatiable fear creeping into her daily
+activities, a sense that danger lurked just beneath the surface.
+
+The traumatic encounter had triggered an overwhelming sense of threat that pervaded Kemi’s life.
+Sudden movements by others sent her heart racing; she could feel the adrenaline coursing through her
+veins as if she were still in that moment, her body primed for a fight or flight response. This
+hyperalertness became a constant companion, making it impossible for her to relax even in the safety
+of her own home. The constant sense of danger was the most convincing proof she had that her life
+had changed beyond repair, leading her to believe that she was now a person who could never truly
+feel safe again. Kemi often found herself scrutinizing the people around her, her mind racing with
+the belief that something terrible was about to happen. It was in these moments that the nagging
+thought resurfaced — there must be something wrong with her for her to feel this way, which only
+served to deepen her isolation. She believed she was broken in some fundamental way.
+
+As Kemi’s thoughts spiraled inward, she began employing maladaptive strategies to cope with the
+overwhelming emotional stress. She avoided situations that might elicit strong feelings, steering
+clear of emotional discussions with her husband and friends. This self-imposed isolation led her to
+withdraw from social gatherings, where laughter and joy could easily turn into feelings of guilt or
+sadness. Never having stayed in a situation long enough to find out it was safe, her body had never
+received the evidence it needed — the threat remained as high as the day it was set, reinforcing her
+belief that she was under constant danger. Kemi was convinced that her presence would only bring
+discomfort to others, especially when she would burst into tears at the slightest provocation. Each
+time she used these avoidance strategies, the quiet accumulation of evidence told her that she
+couldn't cope without them, thus confirming her negative self-appraisal that she was broken and
+unworthy of connection. In her mind, she was to blame for the incident, believing her own actions
+somehow warranted the police's aggression. As she grappled with this heavy self-blame, Kemi began to
+feel that perhaps she was more fragile than others, reinforcing her belief that she needed to avoid
+emotional discussions and social situations at all costs. This self-blame compounded her sense of
+isolation, reinforcing her decision to pull away from the people who cared for her.
+
+Even joyful moments became triggers for Kemi, who found herself avoiding positive events, fearing
+the possibility of happiness would only highlight her inadequacies. Whenever she heard laughter or
+saw a group of friends enjoying themselves, she would feel an overwhelming urge to escape. The smell
+of alcohol, often wafting from parties or gatherings, would transport her back to that fateful day,
+making her feel dizzy and exhausted. She had come to associate loud noises with chaos and danger,
+which only fueled her desire to retreat from the world around her. Each time she avoided these
+triggers, she felt a momentary relief, but it was quickly overshadowed by the realization that her
+avoidance was only reinforcing her negative beliefs about herself.
+
+Kemi’s life had become a delicate balance of managing her fears and maintaining her facade as a
+counselor. She found herself unable to engage with her students as she once had, her own emotional
+struggles clouding her ability to support them. The threat of her own feelings turned the very space
+meant for healing into a battleground of anxiety and despair. She felt trapped in a cycle where her
+avoidance perpetuated her negative self-appraisal, making her feel even more defective and alone. It
+was a painful irony that as she sought to protect herself, she only reinforced the idea that she was
+broken.
+
+After months of grappling with these challenges, Kemi finally reached a breaking point. The
+exhaustion of living in constant vigilance, coupled with the apparent disconnect from her loved
+ones, drove her to seek help. She hoped to find a way to navigate her feelings and reconnect with
+herself and those around her. Yet, beneath her desire for healing lay a deep-seated fear — what if
+she could not overcome this? What if the person she had become was the only version of herself that
+existed now? Kemi sat in therapy, her heart pounding, aware that this was the first step toward not
+only confronting her past but also reclaiming her future.
+
+    ✗ edge:        Negative Appraisals → Maladaptive Strategies
+      explanation: The vignette does not demonstrate how negative appraisals lead to maladaptive strategies employed by Kemi.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette fails to show how maladaptive strategies reinforce negative appraisals in Kemi's mind.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: There is no clear causal connection indicating how Kemi's maladaptive strategies contribute to her sense of threat.
+
+  [3] FAIL
+Kemi, a 30-year-old school counselor, sat across from her therapist, her eyes betraying a weary
+soul. The weight of her experiences hung heavily on her, particularly the day she witnessed a police
+officer violently arresting a close friend. That event had spiraled into a cacophony of distressing
+memories and symptoms that Kemi struggled to navigate. She could still hear the sharp crack of the
+officer's baton and the panicked shouts of the crowd, a moment that reverberated through her life
+like a haunting echo. Since that day, Kemi had felt an insatiable fear creeping into her daily
+activities, a sense that danger lurked just beneath the surface.
+
+The traumatic encounter had triggered an overwhelming sense of threat that pervaded Kemi’s life.
+Sudden movements by others sent her heart racing; she could feel the adrenaline coursing through her
+veins as if she were still in that moment, her body primed for a fight or flight response. This
+hyperalertness became a constant companion, making it impossible for her to relax even in the safety
+of her own home. The constant sense of danger was the most convincing proof she had that her life
+had changed beyond repair, leading her to believe that she was now a person who could never truly
+feel safe again. Kemi often found herself scrutinizing the people around her, her mind racing with
+the belief that something terrible was about to happen. This belief led her to conclude that
+avoiding emotional discussions and social situations was the only way to protect herself,
+reinforcing her negative view that she was fragile and unable to handle normal interactions. It was
+in these moments that the nagging thought resurfaced — there must be something wrong with her for
+her to feel this way, which only served to deepen her isolation. She believed she was broken in some
+fundamental way.
+
+As Kemi’s thoughts spiraled inward, she began employing maladaptive strategies to cope with the
+overwhelming emotional stress. She avoided situations that might elicit strong feelings, steering
+clear of emotional discussions with her husband and friends. This self-imposed isolation led her to
+withdraw from social gatherings, where laughter and joy could easily turn into feelings of guilt or
+sadness. Never having stayed in a situation long enough to find out it was safe, her body had never
+received the evidence it needed — the threat remained as high as the day it was set, and each act of
+avoidance only confirmed her fears. Each time she stepped back from these gatherings, it deepened
+her conviction that she was unworthy of connection, solidifying the belief that she was broken in
+some fundamental way. Never having stayed in a situation long enough to find out it was safe, her
+body had never received the evidence it needed — the threat remained as high as the day it was set,
+reinforcing her belief that she was under constant danger. Kemi was convinced that her presence
+would only bring discomfort to others, especially when she would burst into tears at the slightest
+provocation. Each time she used these avoidance strategies, the quiet accumulation of evidence told
+her that she couldn't cope without them, thus confirming her negative self-appraisal that she was
+broken and unworthy of connection. In her mind, she was to blame for the incident, believing her own
+actions somehow warranted the police's aggression. As she grappled with this heavy self-blame, Kemi
+began to feel that perhaps she was more fragile than others, reinforcing her belief that she needed
+to avoid emotional discussions and social situations at all costs. The fact that these safety
+behaviors had become her go-to coping mechanism quietly communicated to her that she couldn't manage
+without them, further embedding her negative self-appraisal and the sense that she was perpetually
+at risk. This self-blame compounded her sense of isolation, reinforcing her decision to pull away
+from the people who cared for her.
+
+Even joyful moments became triggers for Kemi, who found herself avoiding positive events, fearing
+the possibility of happiness would only highlight her inadequacies. Each time she bypassed these
+moments, it felt like a confirmation that she couldn't handle happiness, reinforcing her belief that
+something was fundamentally wrong with her. Whenever she heard laughter or saw a group of friends
+enjoying themselves, she would feel an overwhelming urge to escape. The smell of alcohol, often
+wafting from parties or gatherings, would transport her back to that fateful day, making her feel
+dizzy and exhausted. She had come to associate loud noises with chaos and danger, which only fueled
+her desire to retreat from the world around her. Each time she avoided these triggers, she felt a
+momentary relief, but it was quickly overshadowed by the realization that her avoidance was only
+reinforcing her negative beliefs about herself.
+
+Kemi’s life had become a delicate balance of managing her fears and maintaining her facade as a
+counselor. She found herself unable to engage with her students as she once had, her own emotional
+struggles clouding her ability to support them. The threat of her own feelings turned the very space
+meant for healing into a battleground of anxiety and despair. She felt trapped in a cycle where her
+avoidance perpetuated her negative self-appraisal, making her feel even more defective and alone. It
+was a painful irony that as she sought to protect herself, she only reinforced the idea that she was
+broken.
+
+After months of grappling with these challenges, Kemi finally reached a breaking point. The
+exhaustion of living in constant vigilance, coupled with the apparent disconnect from her loved
+ones, drove her to seek help. She hoped to find a way to navigate her feelings and reconnect with
+herself and those around her. Yet, beneath her desire for healing lay a deep-seated fear — what if
+she could not overcome this? What if the person she had become was the only version of herself that
+existed now? Kemi sat in therapy, her heart pounding, aware that this was the first step toward not
+only confronting her past but also reclaiming her future.
+
+    ✗ edge:        Negative Appraisals → Maladaptive Strategies
+      explanation: The vignette does not explicitly convey that negative appraisals directly lead to maladaptive strategies employed by Kemi.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not show that Kemi's maladaptive strategies reinforce her negative appraisals, failing to connect the two components causally.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not establish that Kemi's maladaptive strategies contribute to her sense of threat.
+
+  [4] FAIL
+Kemi, a 30-year-old school counselor, sat across from her therapist, her eyes betraying a weary
+soul. The weight of her experiences hung heavily on her, particularly the day she witnessed a police
+officer violently arresting a close friend. That event had spiraled into a cacophony of distressing
+memories and symptoms that Kemi struggled to navigate. She could still hear the sharp crack of the
+officer's baton and the panicked shouts of the crowd, a moment that reverberated through her life
+like a haunting echo. Since that day, Kemi had felt an insatiable fear creeping into her daily
+activities, a sense that danger lurked just beneath the surface.
+
+The traumatic encounter had triggered an overwhelming sense of threat that pervaded Kemi’s life.
+Sudden movements by others sent her heart racing; she could feel the adrenaline coursing through her
+veins as if she were still in that moment, her body primed for a fight or flight response. This
+hyperalertness became a constant companion, making it impossible for her to relax even in the safety
+of her own home. The constant sense of danger was the most convincing proof she had that her life
+had changed beyond repair, leading her to believe that she was now a person who could never truly
+feel safe again. Kemi often found herself scrutinizing the people around her, her mind racing with
+the belief that something terrible was about to happen. This belief led her to conclude that
+avoiding emotional discussions and social situations was the only way to protect herself,
+reinforcing her negative view that she was fragile and unable to handle normal interactions. If she
+believed that she was fragile, then steering clear of emotional discussions felt like a necessary
+strategy to avoid further distress, as she had come to think that her feelings were too much to
+handle. It was in these moments that the nagging thought resurfaced — there must be something wrong
+with her for her to feel this way, which only served to deepen her isolation. She believed she was
+broken in some fundamental way.
+
+As Kemi’s thoughts spiraled inward, she began employing maladaptive strategies to cope with the
+overwhelming emotional stress. She avoided situations that might elicit strong feelings, steering
+clear of emotional discussions with her husband and friends. This self-imposed isolation led her to
+withdraw from social gatherings, where laughter and joy could easily turn into feelings of guilt or
+sadness. Never having stayed in a situation long enough to find out it was safe, her body had never
+received the evidence it needed — the threat remained as high as the day it was set, and each act of
+avoidance only confirmed her fears. The avoidance tactics she employed only heightened her sense of
+threat, as each time she evaded a situation, her body interpreted it as proof that danger was still
+present, keeping her trapped in a cycle of fear. Each time she stepped back from these gatherings,
+it deepened her conviction that she was unworthy of connection, solidifying the belief that she was
+broken in some fundamental way. Every act of avoidance further confirmed her fears, making her feel
+more fragile and reinforcing the idea that she was incapable of forming meaningful connections with
+others. Never having stayed in a situation long enough to find out it was safe, her body had never
+received the evidence it needed — the threat remained as high as the day it was set, reinforcing her
+belief that she was under constant danger. Kemi was convinced that her presence would only bring
+discomfort to others, especially when she would burst into tears at the slightest provocation. Each
+time she used these avoidance strategies, the quiet accumulation of evidence told her that she
+couldn't cope without them, thus confirming her negative self-appraisal that she was broken and
+unworthy of connection. In her mind, she was to blame for the incident, believing her own actions
+somehow warranted the police's aggression. As she grappled with this heavy self-blame, Kemi began to
+feel that perhaps she was more fragile than others, reinforcing her belief that she needed to avoid
+emotional discussions and social situations at all costs. The fact that these safety behaviors had
+become her go-to coping mechanism quietly communicated to her that she couldn't manage without them,
+further embedding her negative self-appraisal and the sense that she was perpetually at risk. Each
+time she relied on these maladaptive strategies, it felt like a confirmation that she was not only
+fragile but that the world remained a dangerous place, reinforcing her negative self-image and sense
+of threat. This self-blame compounded her sense of isolation, reinforcing her decision to pull away
+from the people who cared for her.
+
+Even joyful moments became triggers for Kemi, who found herself avoiding positive events, fearing
+the possibility of happiness would only highlight her inadequacies. Each time she bypassed these
+moments, it felt like a confirmation that she couldn't handle happiness, reinforcing her belief that
+something was fundamentally wrong with her. Whenever she heard laughter or saw a group of friends
+enjoying themselves, she would feel an overwhelming urge to escape. The smell of alcohol, often
+wafting from parties or gatherings, would transport her back to that fateful day, making her feel
+dizzy and exhausted. She had come to associate loud noises with chaos and danger, which only fueled
+her desire to retreat from the world around her. Each time she avoided these triggers, she felt a
+momentary relief, but it was quickly overshadowed by the realization that her avoidance was only
+reinforcing her negative beliefs about herself.
+
+Kemi’s life had become a delicate balance of managing her fears and maintaining her facade as a
+counselor. She found herself unable to engage with her students as she once had, her own emotional
+struggles clouding her ability to support them. The threat of her own feelings turned the very space
+meant for healing into a battleground of anxiety and despair. She felt trapped in a cycle where her
+avoidance perpetuated her negative self-appraisal, making her feel even more defective and alone. It
+was a painful irony that as she sought to protect herself, she only reinforced the idea that she was
+broken.
+
+After months of grappling with these challenges, Kemi finally reached a breaking point. The
+exhaustion of living in constant vigilance, coupled with the apparent disconnect from her loved
+ones, drove her to seek help. She hoped to find a way to navigate her feelings and reconnect with
+herself and those around her. Yet, beneath her desire for healing lay a deep-seated fear — what if
+she could not overcome this? What if the person she had become was the only version of herself that
+existed now? Kemi sat in therapy, her heart pounding, aware that this was the first step toward not
+only confronting her past but also reclaiming her future.
+
+    ✗ edge:        Negative Appraisals → Maladaptive Strategies
+      explanation: The vignette does not clearly convey how negative appraisals drive Kemi to employ maladaptive strategies.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette fails to illustrate how her maladaptive strategies reinforce her negative appraisals.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not demonstrate how her maladaptive strategies contribute to her sense of threat.
+
+  [5] FAIL
+Kemi, a 30-year-old school counselor, sat across from her therapist, her eyes betraying a weary
+soul. The weight of her experiences hung heavily on her, particularly the day she witnessed a police
+officer violently arresting a close friend. That event had spiraled into a cacophony of distressing
+memories and symptoms that Kemi struggled to navigate. She could still hear the sharp crack of the
+officer's baton and the panicked shouts of the crowd, a moment that reverberated through her life
+like a haunting echo. Since that day, Kemi had felt an insatiable fear creeping into her daily
+activities, a sense that danger lurked just beneath the surface.
+
+The traumatic encounter had triggered an overwhelming sense of threat that pervaded Kemi’s life.
+Sudden movements by others sent her heart racing; she could feel the adrenaline coursing through her
+veins as if she were still in that moment, her body primed for a fight or flight response. This
+hyperalertness became a constant companion, making it impossible for her to relax even in the safety
+of her own home. The constant sense of danger was the most convincing proof she had that her life
+had changed beyond repair, leading her to believe that she was now a person who could never truly
+feel safe again. Kemi often found herself scrutinizing the people around her, her mind racing with
+the belief that something terrible was about to happen. This belief became a driving force behind
+her maladaptive strategies, leading her to avoid interactions that could potentially expose her to
+emotional turmoil, as she concluded that her feelings were too overwhelming to handle. This belief
+led her to conclude that avoiding emotional discussions and social situations was the only way to
+protect herself, reinforcing her negative view that she was fragile and unable to handle normal
+interactions. If she believed that she was fragile, then steering clear of emotional discussions
+felt like a necessary strategy to avoid further distress, as she had come to think that her feelings
+were too much to handle. It was in these moments that the nagging thought resurfaced — there must be
+something wrong with her for her to feel this way, which only served to deepen her isolation. She
+believed she was broken in some fundamental way.
+
+As Kemi’s thoughts spiraled inward, she began employing maladaptive strategies to cope with the
+overwhelming emotional stress. She avoided situations that might elicit strong feelings, steering
+clear of emotional discussions with her husband and friends. This self-imposed isolation led her to
+withdraw from social gatherings, where laughter and joy could easily turn into feelings of guilt or
+sadness. Never having stayed in a situation long enough to find out it was safe, her body had never
+received the evidence it needed — the threat remained as high as the day it was set, and each act of
+avoidance only confirmed her fears. The avoidance tactics she employed only heightened her sense of
+threat, as each time she evaded a situation, her body interpreted it as proof that danger was still
+present, keeping her trapped in a cycle of fear. Without ever testing the feeling, she had no way to
+know that the threat was not what her body insisted it was — her avoidance sealed off the
+possibility of discovering safety in her interactions. Each time she stepped back from these
+gatherings, it deepened her conviction that she was unworthy of connection, solidifying the belief
+that she was broken in some fundamental way. Every act of avoidance further confirmed her fears,
+making her feel more fragile and reinforcing the idea that she was incapable of forming meaningful
+connections with others. Each time she relied on these avoidance strategies, it felt like a
+confirmation that she was not only fragile but that the world remained a dangerous place, deepening
+her negative self-appraisal that she was broken and unworthy of connection. Never having stayed in a
+situation long enough to find out it was safe, her body had never received the evidence it needed —
+the threat remained as high as the day it was set, reinforcing her belief that she was under
+constant danger. Kemi was convinced that her presence would only bring discomfort to others,
+especially when she would burst into tears at the slightest provocation. Each time she used these
+avoidance strategies, the quiet accumulation of evidence told her that she couldn't cope without
+them, thus confirming her negative self-appraisal that she was broken and unworthy of connection. In
+her mind, she was to blame for the incident, believing her own actions somehow warranted the
+police's aggression. As she grappled with this heavy self-blame, Kemi began to feel that perhaps she
+was more fragile than others, reinforcing her belief that she needed to avoid emotional discussions
+and social situations at all costs. The fact that these safety behaviors had become her go-to coping
+mechanism quietly communicated to her that she couldn't manage without them, further embedding her
+negative self-appraisal and the sense that she was perpetually at risk. Each time she relied on
+these maladaptive strategies, it felt like a confirmation that she was not only fragile but that the
+world remained a dangerous place, reinforcing her negative self-image and sense of threat. This
+self-blame compounded her sense of isolation, reinforcing her decision to pull away from the people
+who cared for her.
+
+Even joyful moments became triggers for Kemi, who found herself avoiding positive events, fearing
+the possibility of happiness would only highlight her inadequacies. Each time she bypassed these
+moments, it felt like a confirmation that she couldn't handle happiness, reinforcing her belief that
+something was fundamentally wrong with her. Whenever she heard laughter or saw a group of friends
+enjoying themselves, she would feel an overwhelming urge to escape. The smell of alcohol, often
+wafting from parties or gatherings, would transport her back to that fateful day, making her feel
+dizzy and exhausted. She had come to associate loud noises with chaos and danger, which only fueled
+her desire to retreat from the world around her. Each time she avoided these triggers, she felt a
+momentary relief, but it was quickly overshadowed by the realization that her avoidance was only
+reinforcing her negative beliefs about herself.
+
+Kemi’s life had become a delicate balance of managing her fears and maintaining her facade as a
+counselor. She found herself unable to engage with her students as she once had, her own emotional
+struggles clouding her ability to support them. The threat of her own feelings turned the very space
+meant for healing into a battleground of anxiety and despair. She felt trapped in a cycle where her
+avoidance perpetuated her negative self-appraisal, making her feel even more defective and alone. It
+was a painful irony that as she sought to protect herself, she only reinforced the idea that she was
+broken.
+
+After months of grappling with these challenges, Kemi finally reached a breaking point. The
+exhaustion of living in constant vigilance, coupled with the apparent disconnect from her loved
+ones, drove her to seek help. She hoped to find a way to navigate her feelings and reconnect with
+herself and those around her. Yet, beneath her desire for healing lay a deep-seated fear — what if
+she could not overcome this? What if the person she had become was the only version of herself that
+existed now? Kemi sat in therapy, her heart pounding, aware that this was the first step toward not
+only confronting her past but also reclaiming her future.
+
+    ✗ edge:        Negative Appraisals → Maladaptive Strategies
+      explanation: The vignette does not establish a causal relationship where negative appraisals lead to the use of maladaptive strategies.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The vignette does not establish a causal relationship where maladaptive strategies reinforce negative appraisals.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The vignette does not establish a causal relationship where maladaptive strategies heighten the sense of threat.
+
+  [6] FAIL
+Kemi, a 30-year-old school counselor, sat across from her therapist, her eyes betraying a weary
+soul. The weight of her experiences hung heavily on her, particularly the day she witnessed a police
+officer violently arresting a close friend. That event had spiraled into a cacophony of distressing
+memories and symptoms that Kemi struggled to navigate. She could still hear the sharp crack of the
+officer's baton and the panicked shouts of the crowd, a moment that reverberated through her life
+like a haunting echo. Since that day, Kemi had felt an insatiable fear creeping into her daily
+activities, a sense that danger lurked just beneath the surface.
+
+The traumatic encounter had triggered an overwhelming sense of threat that pervaded Kemi’s life.
+Sudden movements by others sent her heart racing; she could feel the adrenaline coursing through her
+veins as if she were still in that moment, her body primed for a fight or flight response. This
+hyperalertness became a constant companion, making it impossible for her to relax even in the safety
+of her own home. The constant sense of danger was the most convincing proof she had that her life
+had changed beyond repair, leading her to believe that she was now a person who could never truly
+feel safe again. Kemi often found herself scrutinizing the people around her, her mind racing with
+the belief that something terrible was about to happen. This belief became a driving force behind
+her maladaptive strategies, leading her to avoid interactions that could potentially expose her to
+emotional turmoil, as she concluded that her feelings were too overwhelming to handle. Kemi had come
+to see her inability to engage as evidence of her fragility, believing that if she were truly
+capable of handling her emotions, she wouldn't need to avoid them entirely. This belief led her to
+conclude that avoiding emotional discussions and social situations was the only way to protect
+herself, reinforcing her negative view that she was fragile and unable to handle normal
+interactions. If she believed that she was fragile, then steering clear of emotional discussions
+felt like a necessary strategy to avoid further distress, as she had come to think that her feelings
+were too much to handle. It was in these moments that the nagging thought resurfaced — there must be
+something wrong with her for her to feel this way, which only served to deepen her isolation. She
+believed she was broken in some fundamental way.
+
+As Kemi’s thoughts spiraled inward, she began employing maladaptive strategies to cope with the
+overwhelming emotional stress. She avoided situations that might elicit strong feelings, steering
+clear of emotional discussions with her husband and friends. This self-imposed isolation led her to
+withdraw from social gatherings, where laughter and joy could easily turn into feelings of guilt or
+sadness. Never having stayed in a situation long enough to find out it was safe, her body had never
+received the evidence it needed — the threat remained as high as the day it was set, and each act of
+avoidance only confirmed her fears. Each time she evaded a situation, her mind reinforced the belief
+that danger was still present, making it impossible for her to trust that her feelings of threat
+were unfounded. The avoidance tactics she employed only heightened her sense of threat, as each time
+she evaded a situation, her body interpreted it as proof that danger was still present, keeping her
+trapped in a cycle of fear. Without ever testing the feeling, she had no way to know that the threat
+was not what her body insisted it was — her avoidance sealed off the possibility of discovering
+safety in her interactions. Each time she stepped back from these gatherings, it deepened her
+conviction that she was unworthy of connection, solidifying the belief that she was broken in some
+fundamental way. As her avoidance tactics increased, Kemi felt an unsettling confirmation that she
+must be more fragile than others, or else she would have been able to face these situations without
+retreating. Every act of avoidance further confirmed her fears, making her feel more fragile and
+reinforcing the idea that she was incapable of forming meaningful connections with others. Each time
+she relied on these avoidance strategies, it felt like a confirmation that she was not only fragile
+but that the world remained a dangerous place, deepening her negative self-appraisal that she was
+broken and unworthy of connection. Never having stayed in a situation long enough to find out it was
+safe, her body had never received the evidence it needed — the threat remained as high as the day it
+was set, reinforcing her belief that she was under constant danger. Kemi was convinced that her
+presence would only bring discomfort to others, especially when she would burst into tears at the
+slightest provocation. Each time she used these avoidance strategies, the quiet accumulation of
+evidence told her that she couldn't cope without them, thus confirming her negative self-appraisal
+that she was broken and unworthy of connection. In her mind, she was to blame for the incident,
+believing her own actions somehow warranted the police's aggression. As she grappled with this heavy
+self-blame, Kemi began to feel that perhaps she was more fragile than others, reinforcing her belief
+that she needed to avoid emotional discussions and social situations at all costs. The fact that
+these safety behaviors had become her go-to coping mechanism quietly communicated to her that she
+couldn't manage without them, further embedding her negative self-appraisal and the sense that she
+was perpetually at risk. Each time she relied on these maladaptive strategies, it felt like a
+confirmation that she was not only fragile but that the world remained a dangerous place,
+reinforcing her negative self-image and sense of threat. This self-blame compounded her sense of
+isolation, reinforcing her decision to pull away from the people who cared for her.
+
+Even joyful moments became triggers for Kemi, who found herself avoiding positive events, fearing
+the possibility of happiness would only highlight her inadequacies. Each time she bypassed these
+moments, it felt like a confirmation that she couldn't handle happiness, reinforcing her belief that
+something was fundamentally wrong with her. Whenever she heard laughter or saw a group of friends
+enjoying themselves, she would feel an overwhelming urge to escape. The smell of alcohol, often
+wafting from parties or gatherings, would transport her back to that fateful day, making her feel
+dizzy and exhausted. She had come to associate loud noises with chaos and danger, which only fueled
+her desire to retreat from the world around her. Each time she avoided these triggers, she felt a
+momentary relief, but it was quickly overshadowed by the realization that her avoidance was only
+reinforcing her negative beliefs about herself.
+
+Kemi’s life had become a delicate balance of managing her fears and maintaining her facade as a
+counselor. She found herself unable to engage with her students as she once had, her own emotional
+struggles clouding her ability to support them. The threat of her own feelings turned the very space
+meant for healing into a battleground of anxiety and despair. Her reliance on avoidance strategies
+only heightened this sense of threat, as the more she stayed away, the more she internalized the
+belief that her feelings were uncontrollable and dangerous. She felt trapped in a cycle where her
+avoidance perpetuated her negative self-appraisal, making her feel even more defective and alone. It
+was a painful irony that as she sought to protect herself, she only reinforced the idea that she was
+broken.
+
+After months of grappling with these challenges, Kemi finally reached a breaking point. The
+exhaustion of living in constant vigilance, coupled with the apparent disconnect from her loved
+ones, drove her to seek help. She hoped to find a way to navigate her feelings and reconnect with
+herself and those around her. Yet, beneath her desire for healing lay a deep-seated fear — what if
+she could not overcome this? What if the person she had become was the only version of herself that
+existed now? Kemi sat in therapy, her heart pounding, aware that this was the first step toward not
+only confronting her past but also reclaiming her future.
+
+    ✗ edge:        Negative Appraisals → Maladaptive Strategies
+      explanation: The connection from Negative Appraisals to Maladaptive Strategies is absent; while Kemi has negative beliefs about herself, there is no explicit indication that these beliefs directly lead her to adopt avoidance strategies.
+
+    ✗ edge:        Maladaptive Strategies → Negative Appraisals
+      explanation: The connection from Maladaptive Strategies to Negative Appraisals is absent; the vignette does not convey how her avoidance strategies specifically reinforce her negative beliefs about herself.
+
+    ✗ edge:        Maladaptive Strategies → Threat
+      explanation: The connection from Maladaptive Strategies to Threat is absent; there is no clear depiction of how her avoidance strategies contribute to her sense of threat.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Kemi, a 30-year-old school counselor, sat across from her therapist, her eyes betraying a weary
+soul. The weight of her experiences hung heavily on her, particularly the day she witnessed a police
+officer violently arresting a close friend. That event had spiraled into a cacophony of distressing
+memories and symptoms that Kemi struggled to navigate. She could still hear the sharp crack of the
+officer's baton and the panicked shouts of the crowd, a moment that reverberated through her life
+like a haunting echo. Since that day, Kemi had felt an insatiable fear creeping into her daily
+activities, a sense that danger lurked just beneath the surface.
+
+The traumatic encounter had triggered an overwhelming sense of threat that pervaded Kemi’s life.
+Sudden movements by others sent her heart racing; she could feel the adrenaline coursing through her
+veins as if she were still in that moment, her body primed for a fight or flight response. This
+hyperalertness became a constant companion, making it impossible for her to relax even in the safety
+of her own home. The constant sense of danger was the most convincing proof she had that her life
+had changed beyond repair, leading her to believe that she was now a person who could never truly
+feel safe again. Kemi often found herself scrutinizing the people around her, her mind racing with
+the belief that something terrible was about to happen. This belief became a driving force behind
+her maladaptive strategies, leading her to avoid interactions that could potentially expose her to
+emotional turmoil, as she concluded that her feelings were too overwhelming to handle. Kemi had come
+to see her inability to engage as evidence of her fragility, believing that if she were truly
+capable of handling her emotions, she wouldn't need to avoid them entirely. This belief led her to
+conclude that avoiding emotional discussions and social situations was the only way to protect
+herself, reinforcing her negative view that she was fragile and unable to handle normal
+interactions. If she believed that she was fragile, then steering clear of emotional discussions
+felt like a necessary strategy to avoid further distress, as she had come to think that her feelings
+were too much to handle. It was in these moments that the nagging thought resurfaced — there must be
+something wrong with her for her to feel this way, which only served to deepen her isolation. She
+believed she was broken in some fundamental way.
+
+As Kemi’s thoughts spiraled inward, she began employing maladaptive strategies to cope with the
+overwhelming emotional stress. She avoided situations that might elicit strong feelings, steering
+clear of emotional discussions with her husband and friends. This self-imposed isolation led her to
+withdraw from social gatherings, where laughter and joy could easily turn into feelings of guilt or
+sadness. Never having stayed in a situation long enough to find out it was safe, her body had never
+received the evidence it needed — the threat remained as high as the day it was set, and each act of
+avoidance only confirmed her fears. Each time she evaded a situation, her mind reinforced the belief
+that danger was still present, making it impossible for her to trust that her feelings of threat
+were unfounded. The avoidance tactics she employed only heightened her sense of threat, as each time
+she evaded a situation, her body interpreted it as proof that danger was still present, keeping her
+trapped in a cycle of fear. Without ever testing the feeling, she had no way to know that the threat
+was not what her body insisted it was — her avoidance sealed off the possibility of discovering
+safety in her interactions. Each time she stepped back from these gatherings, it deepened her
+conviction that she was unworthy of connection, solidifying the belief that she was broken in some
+fundamental way. As her avoidance tactics increased, Kemi felt an unsettling confirmation that she
+must be more fragile than others, or else she would have been able to face these situations without
+retreating. Every act of avoidance further confirmed her fears, making her feel more fragile and
+reinforcing the idea that she was incapable of forming meaningful connections with others. Each time
+she relied on these avoidance strategies, it felt like a confirmation that she was not only fragile
+but that the world remained a dangerous place, deepening her negative self-appraisal that she was
+broken and unworthy of connection. Never having stayed in a situation long enough to find out it was
+safe, her body had never received the evidence it needed — the threat remained as high as the day it
+was set, reinforcing her belief that she was under constant danger. Kemi was convinced that her
+presence would only bring discomfort to others, especially when she would burst into tears at the
+slightest provocation. Each time she used these avoidance strategies, the quiet accumulation of
+evidence told her that she couldn't cope without them, thus confirming her negative self-appraisal
+that she was broken and unworthy of connection. In her mind, she was to blame for the incident,
+believing her own actions somehow warranted the police's aggression. As she grappled with this heavy
+self-blame, Kemi began to feel that perhaps she was more fragile than others, reinforcing her belief
+that she needed to avoid emotional discussions and social situations at all costs. The fact that
+these safety behaviors had become her go-to coping mechanism quietly communicated to her that she
+couldn't manage without them, further embedding her negative self-appraisal and the sense that she
+was perpetually at risk. Each time she relied on these maladaptive strategies, it felt like a
+confirmation that she was not only fragile but that the world remained a dangerous place,
+reinforcing her negative self-image and sense of threat. This self-blame compounded her sense of
+isolation, reinforcing her decision to pull away from the people who cared for her.
+
+Even joyful moments became triggers for Kemi, who found herself avoiding positive events, fearing
+the possibility of happiness would only highlight her inadequacies. Each time she bypassed these
+moments, it felt like a confirmation that she couldn't handle happiness, reinforcing her belief that
+something was fundamentally wrong with her. Whenever she heard laughter or saw a group of friends
+enjoying themselves, she would feel an overwhelming urge to escape. The smell of alcohol, often
+wafting from parties or gatherings, would transport her back to that fateful day, making her feel
+dizzy and exhausted. She had come to associate loud noises with chaos and danger, which only fueled
+her desire to retreat from the world around her. Each time she avoided these triggers, she felt a
+momentary relief, but it was quickly overshadowed by the realization that her avoidance was only
+reinforcing her negative beliefs about herself.
+
+Kemi’s life had become a delicate balance of managing her fears and maintaining her facade as a
+counselor. She found herself unable to engage with her students as she once had, her own emotional
+struggles clouding her ability to support them. The threat of her own feelings turned the very space
+meant for healing into a battleground of anxiety and despair. Her reliance on avoidance strategies
+only heightened this sense of threat, as the more she stayed away, the more she internalized the
+belief that her feelings were uncontrollable and dangerous. She felt trapped in a cycle where her
+avoidance perpetuated her negative self-appraisal, making her feel even more defective and alone. It
+was a painful irony that as she sought to protect herself, she only reinforced the idea that she was
+broken.
+
+After months of grappling with these challenges, Kemi finally reached a breaking point. The
+exhaustion of living in constant vigilance, coupled with the apparent disconnect from her loved
+ones, drove her to seek help. She hoped to find a way to navigate her feelings and reconnect with
+herself and those around her. Yet, beneath her desire for healing lay a deep-seated fear — what if
+she could not overcome this? What if the person she had become was the only version of herself that
+existed now? Kemi sat in therapy, her heart pounding, aware that this was the first step toward not
+only confronting her past but also reclaiming her future.
