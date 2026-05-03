@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "agent_name": "Persona_427_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-03 03:46:10"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Memory\n  - Negative Appraisals\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Maladaptive Strategies\n  - Triggers → Threat\n  - Triggers → Memory\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Triggers\n  - Memory → Maladaptive Strategies\n  - Memory → Threat\n  - Memory → Negative Appraisals\n  - Memory → Triggers\n  - Threat → Maladaptive Strategies\n  - Threat → Triggers\n  - Maladaptive Strategies → Memory\n  - Maladaptive Strategies → Negative Appraisals\n  - Maladaptive Strategies → Triggers\n  - Maladaptive Strategies → Threat\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nErik is a 28-year-old social media manager who deployed to Afghanistan six years ago as a combat medic. During a routine convoy, his vehicle hit an IED. He crawled through wreckage to reach a fellow soldier whose leg was nearly severed, the bone visible through torn fabric. A medevac helicopter landed minutes later, its rotor blades hammering the air as Erik helped load the wounded man. That night, under fire again, he made a split-second decision to take cover behind a low wall instead of helping another soldier drag a casualty—a choice he now replays with shame. The memories come in disjoined flashes: the smell of diesel, a sergeant’s radio static, the weight of a litter, but never the whole sequence. Sometimes he feels the full panic and nausea without any accompanying image, which leaves him disoriented and convinced the event is too extreme to have really happened.\n\nBack home, Erik moved in with his girlfriend and took a job curating a brand’s social feed. The role requires constant scanning of images—news clips, user posts, advertisements—and he quickly discovered his triggers. A photo of a hiking accident showing an open wound sends his heart racing; the distant sound of a helicopter from a construction site makes him duck in his chair. Driving with colleagues to offsite meetings forces him to grip the door handle, expecting an explosion. In response, Erik has built an elaborate system of avoidance. He unfollows any account that posts violent imagery, deletes military-related content before it reaches his feed, and walks out of rooms where he sees a police officer’s uniform. He rehearses every phone call or in-person interaction in his head beforehand, testing possible topics to steer clear of anything that might lead to questions about his service. He also refuses invitations to run or hike, arguing that “putting my body under stress” would only bring back the physical memory of combat.\n\nThe avoidance keeps him safe in the moment, but it also keeps the memories fresh and unprocessed. Each time he sidesteps a trigger—a YouTube thumbnail of a wounded veteran, a coworker’s mention of a military discount—the fragmented images stay raw, and his conviction deepens that he is permanently damaged, an outsider who cannot live a normal life. He has come to believe that someone else would not have frozen behind that wall; a better soldier would have gone for the second man. These appraisals make him hypervigilant. At night he lies rigid, unable to fall asleep because he needs to stay alert to imagined sounds. When his girlfriend touches his shoulder unexpectedly, he jolts and swats her hand away. He monitors her face for signs of pity or frustration.\n\nOver the past few months, the loops have tightened. A single trigger—the sight of a child’s skinned knee in a playground photo—floods him with emotion without a clear memory, which in turn convinces him he is irreparably broken. That belief then makes him even more watchful for potential triggers, scanning his environment for uniforms, wounds, or aircraft sounds. His rehearsed conversations have made him socially stiff; his girlfriend complains he “scripts everything.” He stopped joining her for drives because being a passenger sets off flashbacks, and he now works from home exclusively, missing team meetings. His PCL-5 score is 56. What finally brought him to therapy was not the fear itself, but his girlfriend’s tearful question last week: “Do you even feel like you’re still here?” Erik hopes that talking about the memories might shrink them, but he is terrified that naming the fragments will only prove they are too real—and that he really is the person he fears he has become.\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Memory → Triggers",
+      "Threat → Triggers",
+      "Maladaptive Strategies → Triggers",
+      "Maladaptive Strategies → Threat"
+    ],
+    "violation_explanations": [
+      "No paragraph conveys that the trauma memory influences or leads to triggers.",
+      "No paragraph conveys that a sense of threat influences or leads to triggers.",
+      "No paragraph conveys that maladaptive strategies influence or lead to triggers.",
+      "No paragraph conveys that maladaptive strategies influence or lead to a sense of threat."
+    ]
+  }
+}

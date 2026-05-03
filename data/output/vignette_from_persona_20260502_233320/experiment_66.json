@@ -1,0 +1,228 @@
+{
+  "persona_id": 66,
+  "source_persona_id": 66,
+  "experiment_timestamp": "2026-05-03 08:49:45",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 55,
+    "gender": "Male",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "Painter",
+    "trauma_type": "Unexpected or traumatic death of a loved one",
+    "pcl5": 67
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Emergency Contexts",
+        "value": "Ambulances"
+      },
+      {
+        "key": "Workplace",
+        "value": "Workplace"
+      },
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Night Vigilance",
+        "value": "I find it harder to feel safe at night than during the day"
+      },
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Alert at Home",
+        "value": "I feel on guard even inside my own home"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Identity Loss",
+        "value": "I feel like I don't know myself anymore"
+      },
+      {
+        "key": "Isolation",
+        "value": "I feel isolated and set apart from others"
+      },
+      {
+        "key": "Life Destroyed",
+        "value": "My life has been destroyed by the trauma"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.6166,
+    "Triggers -- Memory": 0.6486,
+    "Triggers -- Negative Appraisals": 0.9671,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.7983,
+    "Negative Appraisals -- Memory": 0.1076,
+    "Negative Appraisals -- Triggers": 0.7494,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.6908,
+    "Memory -- Negative Appraisals": 0.3804,
+    "Memory -- Triggers": 0.6828,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.1592,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.3025,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5548454545454545,
+  "edge_density": 0.55,
+  "vignette_word_count": 602,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event",
+          "explanation": "Physical pain in the same body parts as during the event is hard to reconcile with the indexed trauma being an unexpected or traumatic death of a loved one, unless the patient was also physically injured during the event. That makes this item clinically implausible from the provided trauma context."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Mistrust: People can't be trusted",
+          "explanation": "A global mistrust appraisal is a weak fit with bereavement trauma unless there is some interpersonal betrayal, negligence, or assault-related context. The rest of the profile centers on loss, alarm, and isolation rather than interpersonal threat from other people, so this item is not well supported by the trauma type or the other selected items."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Pain Recall"
+        ],
+        "Negative Appraisals": [
+          "Mistrust"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Others Cycling: People cycling",
+          "explanation": "For trauma involving the unexpected death of a loved one, ambulances can plausibly cue the death context and workplace cues may be idiosyncratically linked, but 'People cycling' is hard to connect clinically unless the loved one died in a cycling-related incident, which is not reflected anywhere else in threat, appraisals, or memory. It stands out as a trigger with no supporting context in the rest of the profile."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "The memory profile is dominated by grief-related recall and affective reliving without clear imagery, which fits bereavement trauma. 'Intense shame' on recall is not impossible, but here it lacks support from the negative appraisals, which focus on identity loss, isolation, and life destruction rather than self-blame, guilt, or humiliation. In this profile, shame is insufficiently integrated with the rest of the formulation and trauma type."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Others Cycling"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "When Elijah’s younger brother collapsed in their Atlanta kitchen, the sudden stillness was broken only by the frantic wail of approaching ambulances. He had dialed emergency services with shaking hands, waiting in the hallway as the flashing lights washed over the peeling paint, until the paramedics shook their heads. The event left him with no gradual goodbyes, only the stark, unblinking images of his brother’s pale face and the hollow finality of the stretcher’s wheels. In the months that followed, Elijah, a fifty-five-year-old Black American painter, found his carefully ordered life unraveling. The moment a siren passed his high-rise scaffold or a foreman mentioned a crew member’s recent bereavement, his shoulders locked and his chest tightened into a rigid plate of dread. These environmental cues did not merely remind him of the past; they actively threw him into a state of raw physical readiness, even as they surfaced the same vivid, freezing pictures and overwhelming sorrow that had first broken him. Each time the memories of his brother’s stillness rose, they confirmed his deepest fears: he felt like a stranger to his own hands, permanently cut off from the community he once knew, and certain that his life had been irreparably shattered. The belief that his world was ruined made the mere thought of dusk unbearable, his body bracing for collapse before the sun even dipped below the horizon. That same conviction pulled up the fragmented images and hollow grief he tried to outrun, while the fear of his own fractured state kept his ears wide open for any hint of loss or emergency, turning ordinary job-site chatter into a relentless threat scan. He came to believe that his own nervous system was fundamentally broken, a realization that only made the hallway flashes more frequent. The sudden rush of those visual memories and the weight of his grief instantly dropped his heart rate into a frantic rhythm, leaving his muscles coiled and ready to bolt. Some mornings, he wakes up drenched in the visceral panic of that hallway without a single picture in his mind, just the raw, body-shaking certainty that disaster has returned. He began to describe the event not as a story, but as a physical weight that crushed his chest whenever he tried to speak of it, confirming his isolation from everyone else. Replaying those moments only deepened his conviction that he was unmoored from his former self, while the memories themselves acted as magnets, pulling his attention back to every passing wail, every hushed conversation about sudden hospital stays, and every sudden workplace deadline that mimicked the original chaos. His constant bodily readiness and the way he patrolled his own living room at night prevented him from resting, which in turn left his mind wide open to the intrusive pictures and the crushing grief that followed. This perpetual state of alertness also forced him to retreat from the scaffolding, scanning every corner for emergency vehicles or signs of collapse, until he could no longer hold the physical demands of his own livelihood or maintain the quiet routines his wife had come to rely on. He now avoids lifting heavy brushes or standing on ladders, his hands trembling at the mere suggestion of urgency. Now, sitting in a therapist’s office, he admits that the fear of another sudden loss has finally overwhelmed his need to endure alone. He fears that if he looks too closely at the wreckage, he will lose the last fragments of the man he used to be, yet he hopes that by naming the storm, he might finally learn to rest in his own home."
+,
+
+  "vignette_attempts": [
+    {"vignette": "When Elijah’s younger brother collapsed in their Atlanta kitchen, the sudden stillness was broken only by the frantic wail of approaching ambulances. He had dialed emergency services with shaking hands, waiting in the hallway as the flashing lights washed over the peeling paint, until the paramedics shook their heads. The event left him with no gradual goodbyes, only the stark, unblinking images of his brother’s pale face and the hollow finality of the stretcher’s wheels. In the months that followed, Elijah, a fifty-five-year-old Black American painter, found his carefully ordered life unraveling. The moment a siren passed his high-rise scaffold or a foreman mentioned a crew member’s recent bereavement, his shoulders locked and his chest tightened into a rigid plate of dread. These environmental cues did not merely remind him of the past; they actively threw him into a state of raw physical readiness, even as they surfaced the same vivid, freezing pictures and overwhelming sorrow that had first broken him. Each time the memories of his brother’s stillness rose, they confirmed his deepest fears: he felt like a stranger to his own hands, permanently cut off from the community he once knew, and certain that his life had been irreparably shattered. The belief that his world was ruined made the mere thought of dusk unbearable, his body bracing for collapse before the sun even dipped below the horizon. That same conviction pulled up the fragmented images and hollow grief he tried to outrun, while the fear of his own fractured state kept his ears wide open for any hint of loss or emergency, turning ordinary job-site chatter into a relentless threat scan. He came to believe that his own nervous system was fundamentally broken, a realization that only made the hallway flashes more frequent. The sudden rush of those visual memories and the weight of his grief instantly dropped his heart rate into a frantic rhythm, leaving his muscles coiled and ready to bolt. Some mornings, he wakes up drenched in the visceral panic of that hallway without a single picture in his mind, just the raw, body-shaking certainty that disaster has returned. He began to describe the event not as a story, but as a physical weight that crushed his chest whenever he tried to speak of it, confirming his isolation from everyone else. Replaying those moments only deepened his conviction that he was unmoored from his former self, while the memories themselves acted as magnets, pulling his attention back to every passing wail, every hushed conversation about sudden hospital stays, and every sudden workplace deadline that mimicked the original chaos. His constant bodily readiness and the way he patrolled his own living room at night prevented him from resting, which in turn left his mind wide open to the intrusive pictures and the crushing grief that followed. This perpetual state of alertness also forced him to retreat from the scaffolding, scanning every corner for emergency vehicles or signs of collapse, until he could no longer hold the physical demands of his own livelihood or maintain the quiet routines his wife had come to rely on. He now avoids lifting heavy brushes or standing on ladders, his hands trembling at the mere suggestion of urgency. Now, sitting in a therapist’s office, he admits that the fear of another sudden loss has finally overwhelmed his need to endure alone. He fears that if he looks too closely at the wreckage, he will lose the last fragments of the man he used to be, yet he hopes that by naming the storm, he might finally learn to rest in his own home.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

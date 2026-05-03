@@ -1,0 +1,297 @@
+{
+  "persona_id": 347,
+  "source_persona_id": 347,
+  "experiment_timestamp": "2026-05-03 02:03:48",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-reasoner",
+      "persona_crafter": "deepseek-reasoner",
+      "vignette_crafter": "deepseek-reasoner",
+      "vignette_validator": "deepseek-reasoner"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 61,
+    "gender": "Male",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Non-profit Worker",
+    "trauma_type": "Life-threatening motor vehicle collision",
+    "pcl5": 42
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Tactile (Texture)",
+        "value": "A specific texture associated with the event"
+      },
+      {
+        "key": "Crash Imagery",
+        "value": "Cars hit by accident"
+      },
+      {
+        "key": "Crash Discussions",
+        "value": "Talk about accidents"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      },
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Terror on Recall",
+        "value": "Remembering the event brings back the same terror I felt at the time"
+      },
+      {
+        "key": "Reliving Event",
+        "value": "When I remember the frightening event I feel like it is happening right now."
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.2646,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.7426,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.3069,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.4163,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Memory"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4326,
+  "edge_density": 0.2,
+  "vignette_word_count": 706,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Offender Cues: Seeing the offender",
+          "explanation": "For a life-threatening motor vehicle collision, 'seeing the offender' is hard to reconcile unless there was an assault component not reflected in the trauma type. It implies a perpetrator-based trauma rather than an accident."
+        },
+        {
+          "component": "Memory",
+          "item": "Triggers: Sexual Trauma Cues: Comments on sexual violence",
+          "explanation": "'Comments on sexual violence' is strongly suggestive of sexual trauma cues and is not clinically coherent with the indexed trauma being a motor vehicle collision."
+        },
+        {
+          "component": "Threat",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Within the memory node, intense shame on recall is not impossible after an MVC, but alongside offender-based and sexual-trauma triggers it points toward a different trauma narrative rather than the stated collision trauma."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Offender Cues"
+        ],
+        "Memory": [
+          "Triggers"
+        ],
+        "Threat": [
+          "Memory"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Sexual Trauma Cues: Comments on sexual violence",
+          "explanation": "The trigger 'comments on sexual violence' is hard to reconcile with a life-threatening motor vehicle collision and the rest of the profile, which contains no sexual-trauma-related memory or appraisal content. This looks like a trauma-type mismatch rather than a plausible idiosyncratic cue."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Night Vigilance: I find it harder to feel safe at night than during the day",
+          "explanation": "The threat items cluster around interpersonal/home-intrusion danger (studying faces for threat, checking doors/windows, feeling unsafe at night), which is poorly matched to a motor vehicle collision profile. There are no corresponding triggers or memory items about assault, burglary, or nighttime attack that would make this threat pattern coherent."
+        },
+        {
+          "component": "Memory",
+          "item": "Threat: Threat in Faces: I study people's faces and body language to detect if they are a threat",
+          "explanation": "The memory item 'intense shame' is not impossible after a collision, but in this profile it sits awkwardly because there are no negative appraisal items explaining shame (e.g. self-blame, humiliation, perceived weakness), and the other content points instead to terror/dissociation plus unrelated sexual-trauma and interpersonal-threat cues. Overall this reduces coherence across nodes."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Sexual Trauma Cues"
+        ],
+        "Threat": [
+          "Night Vigilance"
+        ],
+        "Memory": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat in Faces: I study people's faces and body language to detect if they are a threat",
+          "explanation": "The Threat items are not coherent with the indexed trauma type. For a life-threatening motor vehicle collision, hypervigilance can fit, but scanning people's faces for interpersonal threat and repeated door/window checking imply a chronic interpersonal or home-intrusion danger context that is hard to reconcile with the rest of the profile."
+        },
+        {
+          "component": "Memory",
+          "item": "Door and Lock Checking: I repeatedly check that doors and windows are locked",
+          "explanation": "Within the Threat node, 'Threat in Faces' and 'Door and Lock Checking' point to fear of dangerous people or intrusion, whereas the triggers are crash-specific and the memory items are about the accident itself. This cross-node mismatch is difficult to explain clinically as one coherent trauma-linked profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Threat in Faces"
+        ],
+        "Memory": [
+          "Door and Lock Checking"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Door and Lock Checking: I repeatedly check that doors and windows are locked",
+          "explanation": "The trauma is a life-threatening motor vehicle collision, and the rest of the profile centers on crash-related triggers, sensory reminders, and trauma-memory re-experiencing. Repeated checking of doors and windows suggests a home-intrusion/security threat theme that is not supported by the trauma type, memory content, or other selected items. This makes the Threat node less coherent with the rest of the profile and with the formulation, which tightly links memory and threat rather than indicating a separate security-checking concern."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Door and Lock Checking"
+        ]
+      }
+    },
+    {
+      "attempt": 5,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory Feels Alien: The memory feels like it belongs to someone else rather than to me",
+          "explanation": "Within the Memory node, 'memory feels alien' suggests dissociative detachment from the trauma memory, while 'terror on recall' indicates vivid re-experiencing; these can coexist, but pairing them with intense shame is hard to reconcile for a life-threatening motor vehicle collision without any supporting negative appraisal items. The memory profile mixes depersonalized detachment and strong self-conscious shame in a way that lacks clinical support elsewhere in the profile."
+        },
+        {
+          "component": "Threat",
+          "item": "Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "For a life-threatening motor vehicle collision, the Threat items are coherent with danger sensitivity, but the memory item 'intense shame on recall' is not well anchored to the trauma type or formulation. Shame would usually be supported by negative appraisal content (e.g., self-blame, weakness, humiliation), yet the Negative Appraisals node is absent and specified as disconnected. This makes the shame item clinically unsupported relative to the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Memory Feels Alien"
+        ],
+        "Threat": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 6,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "For a life-threatening motor vehicle collision, intense shame on recall is not impossible, but it is the only item implying a strong self-evaluative meaning of the trauma. That theme is not supported by any Negative Appraisal items and sits awkwardly with the formulation, where Negative Appraisals are inactive and Memory is linked primarily with sensory reliving and threat."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Hypervigilance: Being superalert or watchful or on guard",
+          "explanation": "The Threat items are coherent with post-collision hyperarousal, but all three are generalized threat-monitoring responses. Given the formulation, Threat is strongly driven by Memory and not by Triggers directly, so threat content would more plausibly be tied to trauma recollection or crash-specific danger cues. As selected, these items read as broad hyperarousal without a clear connection to the memory-driven pattern specified by the formulation."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Shame on Recall"
+        ],
+        "Threat": [
+          "Hypervigilance"
+        ]
+      }
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2792,
+    "output": 1978,
+    "total": 4770
+  },
+  "vignette": "Raj was fifty-nine when it happened, driving home on a clear Tuesday evening through a suburban intersection he had taken a thousand times. A pickup truck ran the red light at speed and T-boned his sedan on the passenger side, spinning the car across two lanes before it came to rest against a light pole. He remembers the sound of metal folding, the way the seatbelt locked and pressed across his chest, and — most vividly — the strange, rough texture of the torn seatbelt webbing that ended up against his cheek as the car came to a stop, his head pinned against the headrest by the force of the impact. He remembers thinking, with a clarity that still frightens him, that this was it, that the next thing he would feel was nothing at all. He was cut free by emergency services and spent three days in the hospital with a concussion and soft tissue injuries, but the physical wounds healed within weeks. What did not heal was the memory.\n\nFor months afterward, any mention of car accidents in conversation, any news report about a collision, any photograph of a damaged vehicle, would send a jolt through him that landed him straight back in that spinning car, feeling the seatbelt webbing against his face, hearing the impact, smelling the dust and gasoline. The memory arrived not as recollection but as reliving — a sudden, immersive return in which he could feel the terror in his chest exactly as it had been. That terror, once it arrived, did not leave easily. Raj found himself scanning rooms for exits, flinching at unexpected noises, and reacting to sudden movements near him as though they carried threat. His wife noticed that he no longer sat with his back to the door at restaurants. He noticed that his heart pounded whenever a car behind him braked sharply. And each time his body responded this way — each time his pulse raced or he startled — the memory of the crash surged back with renewed force, as though his own fear was the trigger that unlocked the whole scene again.\n\nThe reliving made Raj hypervigilant to reminders he might otherwise have ignored. He began noticing every dented bumper on the road, every car stopped at an intersection at an odd angle, every conversation in his office that turned to traffic or commutes. He worked for a community non-profit coordinating housing assistance, a job that required long phone calls with clients who often mentioned recent struggles, including car trouble or accidents. Each time a client said the word crash or collision, Raj would feel the texture of that torn seatbelt against his face, and for a few seconds he would lose the thread of the call, the room dissolving into that remembered moment. He learned to steer conversations away from these subjects, but the steering itself exhausted him. He became quieter at work, less available to colleagues, because every interaction carried the risk of a reminder. His wife, who had always known him as a talkative and engaged partner, found him withdrawn and jumpy. She asked what was wrong. He said nothing was wrong. He believed, at first, that time would do its work. But the memory had not faded. If anything, it had sharpened.\n\nWhat finally brought Raj to seek help was a moment that frightened him more than the crash itself. He was stopped at a traffic light — the same intersection, though he had not consciously chosen it — when a city bus passed within a few feet of his driver-side window, its engine rumbling loudly. He heard the sound, felt the vibration, and for several seconds he was certain he was back in the car on that Tuesday evening, waiting for the impact that had already happened. He pulled over and sat with his hands shaking on the steering wheel, staring at the dashboard, unable to move for nearly ten minutes. When he got home, he told his wife he needed help. He is terrified that the crash is not a memory he carries but a place he keeps returning to. He is hoping that talking about it will make it stay where it belongs: in the past."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Raj was fifty-nine when it happened, driving home on a clear Tuesday evening through a suburban intersection he had taken a thousand times. A pickup truck ran the red light at speed and T-boned his sedan on the passenger side, spinning the car across two lanes before it came to rest against a light pole. He remembers the sound of metal folding, the way the seatbelt locked and pressed across his chest, and — most vividly — the strange, rough texture of the torn seatbelt webbing that ended up against his cheek as the car came to a stop, his head pinned against the headrest by the force of the impact. He remembers thinking, with a clarity that still frightens him, that this was it, that the next thing he would feel was nothing at all. He was cut free by emergency services and spent three days in the hospital with a concussion and soft tissue injuries, but the physical wounds healed within weeks. What did not heal was the memory.\n\nFor months afterward, any mention of car accidents in conversation, any news report about a collision, any photograph of a damaged vehicle, would send a jolt through him that landed him straight back in that spinning car, feeling the seatbelt webbing against his face, hearing the impact, smelling the dust and gasoline. The memory arrived not as recollection but as reliving — a sudden, immersive return in which he could feel the terror in his chest exactly as it had been. That terror, once it arrived, did not leave easily. Raj found himself scanning rooms for exits, flinching at unexpected noises, and reacting to sudden movements near him as though they carried threat. His wife noticed that he no longer sat with his back to the door at restaurants. He noticed that his heart pounded whenever a car behind him braked sharply. And each time his body responded this way — each time his pulse raced or he startled — the memory of the crash surged back with renewed force, as though his own fear was the trigger that unlocked the whole scene again.\n\nThe reliving made Raj hypervigilant to reminders he might otherwise have ignored. He began noticing every dented bumper on the road, every car stopped at an intersection at an odd angle, every conversation in his office that turned to traffic or commutes. He worked for a community non-profit coordinating housing assistance, a job that required long phone calls with clients who often mentioned recent struggles, including car trouble or accidents. Each time a client said the word crash or collision, Raj would feel the texture of that torn seatbelt against his face, and for a few seconds he would lose the thread of the call, the room dissolving into that remembered moment. He learned to steer conversations away from these subjects, but the steering itself exhausted him. He became quieter at work, less available to colleagues, because every interaction carried the risk of a reminder. His wife, who had always known him as a talkative and engaged partner, found him withdrawn and jumpy. She asked what was wrong. He said nothing was wrong. He believed, at first, that time would do its work. But the memory had not faded. If anything, it had sharpened.\n\nWhat finally brought Raj to seek help was a moment that frightened him more than the crash itself. He was stopped at a traffic light — the same intersection, though he had not consciously chosen it — when a city bus passed within a few feet of his driver-side window, its engine rumbling loudly. He heard the sound, felt the vibration, and for several seconds he was certain he was back in the car on that Tuesday evening, waiting for the impact that had already happened. He pulled over and sat with his hands shaking on the steering wheel, staring at the dashboard, unable to move for nearly ten minutes. When he got home, he told his wife he needed help. He is terrified that the crash is not a memory he carries but a place he keeps returning to. He is hoping that talking about it will make it stay where it belongs: in the past.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,360 @@
+PERSONA 269  |  2026-05-03 00:27:45
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             80
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Widowed
+  occupation      Data Scientist
+  trauma_type     Relief worker in war zone
+  pcl5            50
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Moral Violation: People misbehaving
+    • Entrapment: Having no options
+    • Dream Residue: Waking up from a nightmare
+  Maladaptive Strategies:
+    • Avoid News: News reports about events similar to what happened to me
+    • Rehearse Conversations: rehearse what to say before any interaction
+    • Checking Surroundings: constantly scan environment for signs of threat
+  Memory:
+    • Reliving Event: When I remember the frightening event I feel like it is happening right now.
+    • Feels Present Not Past: The memory feels like it is happening right now rather than something that is over
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+  Negative Appraisals:
+    • Fear Going Crazy: My reactions since the event mean that I am going crazy
+    • Fear of Rage: I will not be able to control my anger and will do something terrible
+    • World is Dangerous: The world is a dangerous place
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.1161
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0264
+  Triggers → Negative Appraisals                     0.2741
+  Negative Appraisals → Maladaptive Strategies       0.5356
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.1271
+  Negative Appraisals → Triggers                     0.3609
+  Memory → Maladaptive Strategies                    0.4030
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3404
+  Memory → Triggers                                  0.3761
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.3887
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.1976
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: no items selected
+    explanation: The cognitive formulation isolates Threat completely, so absence of Threat items is not itself a problem; however, the current profile strongly emphasizes trauma-memory reexperiencing and appraisals without any explicit threat content, making the night-specific avoidance item look weakly anchored to the rest of the selected profile.
+    item:        Maladaptive Strategies / Avoid Night: Going out at night or being outside after dark
+    explanation: 'Avoid Night' implies fear linked to darkness/outdoor danger, but there are no Threat items and no memory/trigger content tied to night-time, darkness, or outdoor contexts. For this relief-worker trauma, that strategy is not impossible, but in this profile it is the least coherent item because it addresses a threat context not otherwise represented across Triggers, Memory, or Negative Appraisals.
+  [2] FAIL
+    item:        Threat / Threat: Hypervigilance: Being superalert or watchful or on guard
+    explanation: The formulation isolates Threat completely: all edges to and from Threat are inactive. Yet the selected Threat items are central, high-intensity PTSD threat responses and are also mirrored elsewhere. This makes Threat functionally active in a way that contradicts the formulation structure.
+    item:        Negative Appraisals / Threat: Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+    explanation: Threat: Flashbacks and Threat: Physical Reactivity are tightly linked to the Memory and Triggers nodes, but the formulation specifies no active links involving Threat. Including these as Threat items makes the profile inconsistent with the stated node architecture.
+    item:        Triggers / Threat: Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    explanation: Negative Appraisals: Hypervigilance and Maladaptive Strategies: Checking Surroundings both imply an ongoing current-danger/threat monitoring pattern, which again makes Threat clinically central despite Threat being fully disconnected in the formulation.
+    item:        Maladaptive Strategies / Negative Appraisals: Hypervigilance: I have to be on guard all the time
+    explanation: Triggers: Entrapment: Having no options is the least coherent trigger relative to the rest of the profile. The remaining items focus on moral reminders and nightmare residue, while appraisals and strategies emphasize vigilance, rage, and fear of losing control. Entrapment could occur, but here it lacks a clear connection to the rest of the selected content and weakens coherence.
+  [3] FAIL
+    item:        Threat / Threat: Flashbacks
+    explanation: The cognitive formulation isolates Threat completely: all edges to and from Threat are inactive. However, the selected Threat items describe a prominent, connected threat response cluster (flashbacks, strong physical reactivity, concentration problems from reminders), which is difficult to reconcile with a formulation in which Threat has no active links to Triggers, Memory, Negative Appraisals, or Maladaptive Strategies.
+    item:        Negative Appraisals / Threat: Physical Reactivity
+    explanation: Negative Appraisals: Hypervigilance functions more like a current threat/safety-state belief and implies an active Threat system. That sits poorly with the formulation's fully inactive Threat node, especially when paired with checking surroundings and reactivity/flashback-type threat items.
+  [4] FAIL
+    item:        Threat / Threat: Physical Reactivity
+    explanation: The Threat node is clinically misaligned with the formulation: all incoming and outgoing Threat edges are inactive, so Threat should be relatively isolated or not central. However, the selected threat items describe an active symptomatic threat response cluster (strong emotional/physical reactivity and concentration disruption) that appears tightly tied to triggers and memory intrusions. This creates a contradiction with the formulation structure, especially given concurrent trigger and memory items that imply exactly the kind of reminder-linked threat activation the model marks as inactive. The other nodes are broadly coherent with each other and with the trauma type.
+  [5] FAIL
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: The Threat node is clinically incoherent with the provided cognitive formulation. Threat has no active incoming or outgoing edges, so it should not appear as a tightly integrated maintaining component. Yet all three selected Threat items are non-specific PTSD symptom/severity indicators rather than a coherent sense of current threat, and they are not meaningfully linked to the active Triggers, Memory, Negative Appraisals, and Maladaptive Strategies pattern.
+  [6] FAIL
+    item:        Threat / Threat: Scanning for Danger
+    explanation: Threat is structurally isolated in the formulation, but 'Scanning for Danger' is tightly mirrored by both Maladaptive Strategies: 'Checking Surroundings' and Negative Appraisals: 'I have to be on guard all the time,' making threat function as an active linked node rather than an isolated one.
+    item:        Negative Appraisals / Negative Appraisals: Hypervigilance
+    explanation: Negative Appraisals: 'I have to be on guard all the time' overlaps almost exactly with Threat: 'Scanning for Danger' and Maladaptive Strategies: 'Checking Surroundings,' which contradicts the formulation because Threat has no active links to or from these nodes.
+    item:        Triggers / Threat: Negative Emotions
+    explanation: Threat: 'Negative Emotions' is very broad and non-specific, while the rest of the profile centers on intrusive reliving, moral/entrapment triggers, and vigilance-based coping; as a Threat item it does not fit the otherwise isolated, weakly integrated role of threat in this formulation.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:     11,654
+  output:    16,111
+  total:     27,765
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  3 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Phong was seventy when he volunteered as a data analyst for a humanitarian organization in a
+contested region of the Middle East. What began as a desk job ended abruptly when his convoy was
+ambushed on a supply run. He spent six hours pinned in a collapsed clinic with two wounded
+colleagues, listening to gunfire and the shouts of armed men who ransacked the supplies. One of the
+men, a young fighter, laughed as he kicked a dying medic. Phong could not move, could not help,
+could only press himself against the cold floor and wait. That moment—the laughter, the
+helplessness, the stench of blood and diesel—never left him.
+
+In the months after returning home, the memory did not fade. It intruded without warning: the feel
+of the concrete against his cheek, the crack of a rifle, the medic’s shallow breaths. When the
+memory surfaced, it felt as though he were still in that clinic—not remembering, but reliving. The
+scene would play over and over, a film he could not stop. At first he tried to push it away, but the
+images kept coming, especially at night. He began waking from nightmares with his heart pounding,
+drenched in sweat, the dream residue clinging to him like smoke. Those mornings were the worst: he
+would lie still, certain that if he opened his eyes he would see the ceiling of the clinic, not his
+bedroom.
+
+The waking moments after a nightmare were powerful triggers. They brought the memory roaring back,
+and they also fed his darkest fear: that his mind was unraveling. He began to believe that his
+reactions meant he was going crazy. He also grew terrified of his own anger. Once, while waiting in
+line at the grocery store, a customer cursed at the cashier—a small thing, but Phong felt a surge of
+rage so sudden and intense that he feared he might lash out physically. He retreated, shaking,
+convinced that he could lose control and do something terrible. The world, he concluded, was a
+dangerous place, and he was a danger too.
+
+To manage these fears, Phong adopted a series of careful strategies. He avoided news reports of any
+conflict, turning off the television the moment a war zone appeared. He rehearsed conversations
+before every interaction, running through possible questions and his responses, because he was
+terrified that an unexpected comment might trigger his rage or reveal his instability. In public, he
+constantly scanned his environment, checking doorways, scanning faces for signs of threat. This
+hypervigilance kept his body on constant alert—shoulders tight, jaw clenched, ready to react to
+nothing.
+
+Yet the very acts of rehearsing and scanning kept the memory alive. When he rehearsed a
+conversation, his mind would drift back to the clinic, as if the mental vigilance itself summoned
+the images. The checking behavior also increased his sense of being trapped: every scan of a room
+reminded him that he was always on guard, always without options. He came to see his own strategies
+as part of the threat—they confirmed that the world was unsafe and that he was barely holding on.
+
+He noticed that his irritability had grown. A neighbor’s loud music, a delay in a software
+update—small frustrations triggered angry outbursts that frightened him. He would then avoid human
+contact, canceling plans with his adult children, telling himself he needed to protect them from his
+temper. His job as a data scientist, once a source of pride, became grueling: data sets required
+intense focus, but he could not concentrate. He spent hours rerunning the same analysis, because
+every time he tried to work, the memory of the clinic would surface, and he would lose his train of
+thought.
+
+The cycle tightened. A news headline (trigger) would spark the memory, which reinforced his
+appraisal that the world was dangerous, which led him to scan his surroundings (maladaptive
+strategy), which in turn made him feel trapped, which made him think of the clinic again. Each
+component fed the next, and he became a prisoner of his own vigilance.
+
+Now, at eighty, Phong has been retired for two years, but the symptoms have not lessened. He reaches
+for the remote every time a news broadcast begins. He rehearses the simplest phone calls. His
+children have stopped visiting as frequently, unsure how to reach him. What finally brought him to
+therapy was a morning when he woke from a nightmare and could not, for several seconds, remember
+where he was. He had come to believe that he was losing his mind, and he was terrified of the anger
+he felt toward a stranger who had cut him off in traffic. He hopes that naming the fear might loosen
+its grip, but he is not certain that talking about the clinic will help—or that he can bear to
+revisit it.
+
+    ✗ edge:        Negative Appraisals → Triggers
+      explanation: The vignette does not show that the patient's negative appraisals (e.g., belief the world is dangerous) directly cause triggering stimuli; instead, triggers lead to appraisals.
+
+    ✗ edge:        Maladaptive Strategies → Triggers
+      explanation: The vignette does not demonstrate that maladaptive strategies (e.g., avoidance, hypervigilance) generate triggers; they keep the memory alive but do not cause triggering cues.
+
+  [2] FAIL
+Phong was seventy when he volunteered as a data analyst for a humanitarian organization in a
+contested region of the Middle East. What began as a desk job ended abruptly when his convoy was
+ambushed on a supply run. He spent six hours pinned in a collapsed clinic with two wounded
+colleagues, listening to gunfire and the shouts of armed men who ransacked the supplies. One of the
+men, a young fighter, laughed as he kicked a dying medic. Phong could not move, could not help,
+could only press himself against the cold floor and wait. That moment—the laughter, the
+helplessness, the stench of blood and diesel—never left him. In the months after returning home, the
+memory did not fade. It intruded without warning: the feel of the concrete against his cheek, the
+crack of a rifle, the medic’s shallow breaths. When the memory surfaced, it felt as though he were
+still in that clinic—not remembering, but reliving. The scene would play over and over, a film he
+could not stop. At first he tried to push it away, but the images kept coming, especially at night.
+He began waking from nightmares with his heart pounding, drenched in sweat, the dream residue
+clinging to him like smoke. Those mornings were the worst: he would lie still, certain that if he
+opened his eyes he would see the ceiling of the clinic, not his bedroom. The waking moments after a
+nightmare were powerful triggers. They brought the memory roaring back, and they also fed his
+darkest fear: that his mind was unraveling. He began to believe that his reactions meant he was
+going crazy. He also grew terrified of his own anger. Once, while waiting in line at the grocery
+store, a customer cursed at the cashier—a small thing, but Phong felt a surge of rage so sudden and
+intense that he feared he might lash out physically. He retreated, shaking, convinced that he could
+lose control and do something terrible. The world, he concluded, was a dangerous place, and he was a
+danger too. To manage these fears, Phong adopted a series of careful strategies. He avoided news
+reports of any conflict, turning off the television the moment a war zone appeared. He rehearsed
+conversations before every interaction, running through possible questions and his responses,
+because he was terrified that an unexpected comment might trigger his rage or reveal his
+instability. In public, he constantly scanned his environment, checking doorways, scanning faces for
+signs of threat. This hypervigilance kept his body on constant alert—shoulders tight, jaw clenched,
+ready to react to nothing. Yet the very acts of rehearsing and scanning kept the memory alive. When
+he rehearsed a conversation, his mind would drift back to the clinic, as if the mental vigilance
+itself summoned the images. The checking behavior also increased his sense of being trapped: every
+scan of a room reminded him that he was always on guard, always without options. He came to see his
+own strategies as part of the threat—they confirmed that the world was unsafe and that he was barely
+holding on. Once he had decided the world was dangerous, ordinary sounds became potential threats —
+a car backfiring, a raised voice in the next aisle — and each one pulled him back into the clinic.
+He noticed that his irritability had grown. A neighbor’s loud music, a delay in a software
+update—small frustrations triggered angry outbursts that frightened him. He would then avoid human
+contact, canceling plans with his adult children, telling himself he needed to protect them from his
+temper. His job as a data scientist, once a source of pride, became grueling: data sets required
+intense focus, but he could not concentrate. He spent hours rerunning the same analysis, because
+every time he tried to work, the memory of the clinic would surface, and he would lose his train of
+thought. The cycle tightened. A news headline (trigger) would spark the memory, which reinforced his
+appraisal that the world was dangerous, which led him to scan his surroundings (maladaptive
+strategy), which in turn made him feel trapped, which made him think of the clinic again. Each
+component fed the next, and he became a prisoner of his own vigilance. Now, at eighty, Phong has
+been retired for two years, but the symptoms have not lessened. He reaches for the remote every time
+a news broadcast begins. He rehearses the simplest phone calls. His children have stopped visiting
+as frequently, unsure how to reach him. What finally brought him to therapy was a morning when he
+woke from a nightmare and could not, for several seconds, remember where he was. He had come to
+believe that he was losing his mind, and he was terrified of the anger he felt toward a stranger who
+had cut him off in traffic. He hopes that naming the fear might loosen its grip, but he is not
+certain that talking about the clinic will help—or that he can bear to revisit it. Each avoidance
+deepened the trigger — the very act of turning off the TV made the image more vivid, so that the
+next time he saw even a news headline, the memory was already waiting.
+
+    ✗ edge:        Memory → Triggers
+      explanation: No paragraph shows that the memory causes new triggers or increases trigger sensitivity; the causal direction is from triggers to memory, not the reverse.
+
+  [3] PASS
+Phong was seventy when he volunteered as a data analyst for a humanitarian organization in a
+contested region of the Middle East. What began as a desk job ended abruptly when his convoy was
+ambushed on a supply run. He spent six hours pinned in a collapsed clinic with two wounded
+colleagues, listening to gunfire and the shouts of armed men who ransacked the supplies. One of the
+men, a young fighter, laughed as he kicked a dying medic. Phong could not move, could not help,
+could only press himself against the cold floor and wait. That moment—the laughter, the
+helplessness, the stench of blood and diesel—never left him. In the months after returning home, the
+memory did not fade. It intruded without warning: the feel of the concrete against his cheek, the
+crack of a rifle, the medic’s shallow breaths. When the memory surfaced, it felt as though he were
+still in that clinic—not remembering, but reliving. Because the memory came back so vividly, he
+began to see threads of it everywhere — in the way a stranger laughed, in the smell of diesel at a
+gas station, in the quality of afternoon light — so that once-innocent moments now felt charged with
+danger. The scene would play over and over, a film he could not stop. At first he tried to push it
+away, but the images kept coming, especially at night. He began waking from nightmares with his
+heart pounding, drenched in sweat, the dream residue clinging to him like smoke. Those mornings were
+the worst: he would lie still, certain that if he opened his eyes he would see the ceiling of the
+clinic, not his bedroom. The waking moments after a nightmare were powerful triggers. They brought
+the memory roaring back, and they also fed his darkest fear: that his mind was unraveling. He began
+to believe that his reactions meant he was going crazy. He also grew terrified of his own anger.
+Once, while waiting in line at the grocery store, a customer cursed at the cashier—a small thing,
+but Phong felt a surge of rage so sudden and intense that he feared he might lash out physically. He
+retreated, shaking, convinced that he could lose control and do something terrible. The world, he
+concluded, was a dangerous place, and he was a danger too. To manage these fears, Phong adopted a
+series of careful strategies. He avoided news reports of any conflict, turning off the television
+the moment a war zone appeared. He rehearsed conversations before every interaction, running through
+possible questions and his responses, because he was terrified that an unexpected comment might
+trigger his rage or reveal his instability. In public, he constantly scanned his environment,
+checking doorways, scanning faces for signs of threat. This hypervigilance kept his body on constant
+alert—shoulders tight, jaw clenched, ready to react to nothing. Yet the very acts of rehearsing and
+scanning kept the memory alive. When he rehearsed a conversation, his mind would drift back to the
+clinic, as if the mental vigilance itself summoned the images. The checking behavior also increased
+his sense of being trapped: every scan of a room reminded him that he was always on guard, always
+without options. He came to see his own strategies as part of the threat—they confirmed that the
+world was unsafe and that he was barely holding on. Once he had decided the world was dangerous,
+ordinary sounds became potential threats — a car backfiring, a raised voice in the next aisle — and
+each one pulled him back into the clinic. He noticed that his irritability had grown. A neighbor’s
+loud music, a delay in a software update—small frustrations triggered angry outbursts that
+frightened him. He would then avoid human contact, canceling plans with his adult children, telling
+himself he needed to protect them from his temper. His job as a data scientist, once a source of
+pride, became grueling: data sets required intense focus, but he could not concentrate. He spent
+hours rerunning the same analysis, because every time he tried to work, the memory of the clinic
+would surface, and he would lose his train of thought. The cycle tightened. A news headline
+(trigger) would spark the memory, which reinforced his appraisal that the world was dangerous, which
+led him to scan his surroundings (maladaptive strategy), which in turn made him feel trapped, which
+made him think of the clinic again. Each component fed the next, and he became a prisoner of his own
+vigilance. Now, at eighty, Phong has been retired for two years, but the symptoms have not lessened.
+He reaches for the remote every time a news broadcast begins. He rehearses the simplest phone calls.
+His children have stopped visiting as frequently, unsure how to reach him. What finally brought him
+to therapy was a morning when he woke from a nightmare and could not, for several seconds, remember
+where he was. He had come to believe that he was losing his mind, and he was terrified of the anger
+he felt toward a stranger who had cut him off in traffic. He hopes that naming the fear might loosen
+its grip, but he is not certain that talking about the clinic will help—or that he can bear to
+revisit it. Each avoidance deepened the trigger — the very act of turning off the TV made the image
+more vivid, so that the next time he saw even a news headline, the memory was already waiting.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Phong was seventy when he volunteered as a data analyst for a humanitarian organization in a
+contested region of the Middle East. What began as a desk job ended abruptly when his convoy was
+ambushed on a supply run. He spent six hours pinned in a collapsed clinic with two wounded
+colleagues, listening to gunfire and the shouts of armed men who ransacked the supplies. One of the
+men, a young fighter, laughed as he kicked a dying medic. Phong could not move, could not help,
+could only press himself against the cold floor and wait. That moment—the laughter, the
+helplessness, the stench of blood and diesel—never left him. In the months after returning home, the
+memory did not fade. It intruded without warning: the feel of the concrete against his cheek, the
+crack of a rifle, the medic’s shallow breaths. When the memory surfaced, it felt as though he were
+still in that clinic—not remembering, but reliving. Because the memory came back so vividly, he
+began to see threads of it everywhere — in the way a stranger laughed, in the smell of diesel at a
+gas station, in the quality of afternoon light — so that once-innocent moments now felt charged with
+danger. The scene would play over and over, a film he could not stop. At first he tried to push it
+away, but the images kept coming, especially at night. He began waking from nightmares with his
+heart pounding, drenched in sweat, the dream residue clinging to him like smoke. Those mornings were
+the worst: he would lie still, certain that if he opened his eyes he would see the ceiling of the
+clinic, not his bedroom. The waking moments after a nightmare were powerful triggers. They brought
+the memory roaring back, and they also fed his darkest fear: that his mind was unraveling. He began
+to believe that his reactions meant he was going crazy. He also grew terrified of his own anger.
+Once, while waiting in line at the grocery store, a customer cursed at the cashier—a small thing,
+but Phong felt a surge of rage so sudden and intense that he feared he might lash out physically. He
+retreated, shaking, convinced that he could lose control and do something terrible. The world, he
+concluded, was a dangerous place, and he was a danger too. To manage these fears, Phong adopted a
+series of careful strategies. He avoided news reports of any conflict, turning off the television
+the moment a war zone appeared. He rehearsed conversations before every interaction, running through
+possible questions and his responses, because he was terrified that an unexpected comment might
+trigger his rage or reveal his instability. In public, he constantly scanned his environment,
+checking doorways, scanning faces for signs of threat. This hypervigilance kept his body on constant
+alert—shoulders tight, jaw clenched, ready to react to nothing. Yet the very acts of rehearsing and
+scanning kept the memory alive. When he rehearsed a conversation, his mind would drift back to the
+clinic, as if the mental vigilance itself summoned the images. The checking behavior also increased
+his sense of being trapped: every scan of a room reminded him that he was always on guard, always
+without options. He came to see his own strategies as part of the threat—they confirmed that the
+world was unsafe and that he was barely holding on. Once he had decided the world was dangerous,
+ordinary sounds became potential threats — a car backfiring, a raised voice in the next aisle — and
+each one pulled him back into the clinic. He noticed that his irritability had grown. A neighbor’s
+loud music, a delay in a software update—small frustrations triggered angry outbursts that
+frightened him. He would then avoid human contact, canceling plans with his adult children, telling
+himself he needed to protect them from his temper. His job as a data scientist, once a source of
+pride, became grueling: data sets required intense focus, but he could not concentrate. He spent
+hours rerunning the same analysis, because every time he tried to work, the memory of the clinic
+would surface, and he would lose his train of thought. The cycle tightened. A news headline
+(trigger) would spark the memory, which reinforced his appraisal that the world was dangerous, which
+led him to scan his surroundings (maladaptive strategy), which in turn made him feel trapped, which
+made him think of the clinic again. Each component fed the next, and he became a prisoner of his own
+vigilance. Now, at eighty, Phong has been retired for two years, but the symptoms have not lessened.
+He reaches for the remote every time a news broadcast begins. He rehearses the simplest phone calls.
+His children have stopped visiting as frequently, unsure how to reach him. What finally brought him
+to therapy was a morning when he woke from a nightmare and could not, for several seconds, remember
+where he was. He had come to believe that he was losing his mind, and he was terrified of the anger
+he felt toward a stranger who had cut him off in traffic. He hopes that naming the fear might loosen
+its grip, but he is not certain that talking about the clinic will help—or that he can bear to
+revisit it. Each avoidance deepened the trigger — the very act of turning off the TV made the image
+more vivid, so that the next time he saw even a news headline, the memory was already waiting.

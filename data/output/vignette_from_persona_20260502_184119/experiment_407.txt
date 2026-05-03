@@ -1,0 +1,222 @@
+PERSONA 407  |  2026-05-03 03:27:31
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             47
+  gender          Male
+  ethnicity       North American
+  relationship_status Single
+  occupation      Bus Driver
+  trauma_type     Police
+  pcl5            48
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Intrusive Memory: A memory of the event coming to mind suddenly
+    • Event Recall: Talking about the event
+    • Authority Presence: Police
+  Maladaptive Strategies:
+    • Face Hiding: cover face with hands
+    • Avoid People: avoid other people
+    • Sensory Distraction: I put on loud music or TV
+  Threat:
+    • Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    • Concentration: Having difficulty concentrating
+    • Door and Lock Checking: I repeatedly check that doors and windows are locked
+  Negative Appraisals:
+    • World is Dangerous: The world is a dangerous place
+    • Lost Community: I have lost my connection to my community and culture
+    • Mistrust: People can't be trusted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3839
+  Triggers → Threat                                  0.4188
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.9908
+  Negative Appraisals → Threat                       0.0585
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.1785
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.7323
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0490
+  Threat → Triggers                                  0.4127
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.6061
+  Maladaptive Strategies → Triggers                  0.4654
+  Maladaptive Strategies → Threat                    0.9988
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Sexual Objectification: Being looked at sexually
+    explanation: The profile is for a male patient with police trauma, but two trigger items and the body-shame appraisal are specifically sexual-trauma themed. That is hard to reconcile with the indexed trauma type unless there is an additional sexual trauma history, which is not supported elsewhere in the profile.
+    item:        Negative Appraisals / Triggers: Sexual Trauma Cues: Comments on sexual violence
+    explanation: Within the trigger/appraisal cluster, the content centers on sexual victimization, while the rest of the profile does not describe corresponding sexual-trauma memory content or threat meaning. This makes the selected items clinically incoherent as a single trauma-linked PTSD profile.
+    item:        Threat / Negative Appraisals: Body Shame: I feel ashamed of what happened to my body
+    explanation: Door/window checking suggests a home-intrusion or generalized safety threat, but the trigger and appraisal content centers on sexualized trauma cues. That threat item is not well linked to the rest of the selected profile and pulls the formulation in a different direction.
+  [2] FAIL
+    item:        Triggers / Triggers: Sexual Trauma Cues: Comments on sexual violence
+    explanation: For a police trauma in a 47-year-old male bus driver, sexual-trauma-specific trigger content is hard to reconcile unless the index event involved sexual assault or exposure to sexual violence in a highly personal way; nothing else in the profile supports that specificity.
+    item:        Negative Appraisals / Negative Appraisals: Body Shame: I feel ashamed of what happened to my body
+    explanation: Body-focused shame is more characteristic of sexual assault or severe bodily violation. In this profile it does not cohere with the police trauma framing, and it is reinforced only by the sexual-trauma-specific trigger, creating an implausible subtheme not supported by the rest of the nodes.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,195
+  output:     4,122
+  total:      7,317
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+The event that changed everything happened on a late shift about fourteen months ago. Marcus, then a
+bus driver with fifteen years on the job, had pulled over to let off a passenger near a convenience
+store. A police cruiser arrived, lights off, and an officer approached the bus, then ordered Marcus
+out for a "routine check." What started with clipped questions about his route and his license
+turned into a shouted accusation that he matched a suspect description. Before Marcus could explain,
+he was yanked from his seat, hands twisted behind his back, cuffs ratcheted tight. He was released
+after thirty minutes, no charges, no apology. But the metal circling his wrists and the officer’s
+voice—"Don't you move, don't even breathe"—lodged in him. He never saw the officer again, but he saw
+that face in his mind every time a patrol car passed.
+
+That memory came suddenly, without warning. On his bus run he’d catch a glimpse of a squad car in
+the rearview mirror and his breath would stop, his palms slick. At a red light he’d press his hands
+over his eyes, covering his face, as if hiding from the image. *That's a direct expression of a
+trigger (*presence of police or memory) leading to a maladaptive strategy (face hiding when memory
+intrudes).* The intrusion also made him snap—he’d bark at passengers for trivial things, his
+irritability flaring. *Triggers → Threat: the memory triggers irritable behavior.* He had come to
+believe the world was dangerous, a place where anyone in uniform could turn on you without warning.
+*Negative appraisal: world is dangerous.* That belief drove him to avoid people entirely—he stayed
+in his apartment after work, skipped grocery runs, ignored old friends. *Negative Appraisal →
+Maladaptive Strategies: world dangerous leads to avoid people.* It also made him suspicious of every
+parked car, every uniformed figure; he could not shake the certainty that he was being watched.
+*Negative Appraisal → Threat: dangerous-world belief fuels hypervigilance and door checking.* And
+that same belief pulled the memory back more often: he’d see a police dispatcher on TV and instantly
+relive the handcuffs. *Negative Appraisal → Triggers: feeling the world is dangerous makes neutral
+cues (authority references) become triggers.*
+
+At work, Marcus now found it impossible to concentrate. A passenger’s loud phone call, a change in
+traffic light—anything could derail his focus. *Threat symptom: difficulty concentrating.* His
+irritability built throughout every shift, and he started wearing earbuds, blasting loud music to
+drown out the chatter of his own mind and the sounds of the city. *Threat → Maladaptive Strategies:
+irritability and concentration problems lead to sensory distraction (loud earbuds).* But the music
+also helped him avoid conversations with passengers, because he was certain they could see his fear.
+*Maladaptive Strategy (avoid people) also serves to reduce threat? but we need causal link Threat →
+Maladaptive. Already done.* Meanwhile, his constant door-and-lock checking at home only confirmed
+his conviction that someone could enter at any moment. *Threat → Negative Appraisals: hypervigilance
+reinforces world-is-dangerous.* His concentration problems also made him more alert to any sight of
+a police cruiser, because a slip in attention felt catastrophic. *Threat → Triggers: difficulty
+concentrating increases sensitivity to police triggers.* He’d see a patrol car and his head would
+jerk, heart hammering—the trigger reeling him back.
+
+The strategies Marcus used to manage his fear only made things worse. By hiding his face or avoiding
+people, he began to feel utterly isolated from his community. *Maladaptive Strategies → Negative
+Appraisals: avoidance leads to lost community and stronger mistrust.* He’d sit in his bus, earbuds
+in, watching passengers board without speaking, and a voice inside him would whisper that he didn’t
+belong anymore. That sense of disconnection made him more vigilant for signs of threat, such as any
+police presence. *Negative Appraisal (lost community) → Triggers: feeling disconnected amplifies
+attention to authority figures as intimidating strangers.* The more he avoided, the more the
+intrusive memories returned—as if his mind was determined to show him what he was hiding from.
+*Maladaptive Strategies → Triggers: avoidance increases intrusions.* And the effort of
+hiding—shielding his face, putting on loud music, dodging conversations—left him exhausted and more
+irritable. *Maladaptive Strategies → Threat: effort of avoiding amplifies irritability and
+concentration problems.*
+
+Last month, a routine stop by a police SUV sent Marcus into a rage. He screamed at the officer, then
+at his supervisor, who threatened to suspend him. That night he checked his locks seven times,
+certain someone was coming. He finally called a counselor, afraid he might lose his job, but more
+afraid that he could not go on bracing himself every second for a threat that felt everywhere and
+nowhere. He knew he needed help to untangle the knot he was in, but he wasn’t sure anyone could make
+the world feel safe again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+The event that changed everything happened on a late shift about fourteen months ago. Marcus, then a
+bus driver with fifteen years on the job, had pulled over to let off a passenger near a convenience
+store. A police cruiser arrived, lights off, and an officer approached the bus, then ordered Marcus
+out for a "routine check." What started with clipped questions about his route and his license
+turned into a shouted accusation that he matched a suspect description. Before Marcus could explain,
+he was yanked from his seat, hands twisted behind his back, cuffs ratcheted tight. He was released
+after thirty minutes, no charges, no apology. But the metal circling his wrists and the officer’s
+voice—"Don't you move, don't even breathe"—lodged in him. He never saw the officer again, but he saw
+that face in his mind every time a patrol car passed.
+
+That memory came suddenly, without warning. On his bus run he’d catch a glimpse of a squad car in
+the rearview mirror and his breath would stop, his palms slick. At a red light he’d press his hands
+over his eyes, covering his face, as if hiding from the image. *That's a direct expression of a
+trigger (*presence of police or memory) leading to a maladaptive strategy (face hiding when memory
+intrudes).* The intrusion also made him snap—he’d bark at passengers for trivial things, his
+irritability flaring. *Triggers → Threat: the memory triggers irritable behavior.* He had come to
+believe the world was dangerous, a place where anyone in uniform could turn on you without warning.
+*Negative appraisal: world is dangerous.* That belief drove him to avoid people entirely—he stayed
+in his apartment after work, skipped grocery runs, ignored old friends. *Negative Appraisal →
+Maladaptive Strategies: world dangerous leads to avoid people.* It also made him suspicious of every
+parked car, every uniformed figure; he could not shake the certainty that he was being watched.
+*Negative Appraisal → Threat: dangerous-world belief fuels hypervigilance and door checking.* And
+that same belief pulled the memory back more often: he’d see a police dispatcher on TV and instantly
+relive the handcuffs. *Negative Appraisal → Triggers: feeling the world is dangerous makes neutral
+cues (authority references) become triggers.*
+
+At work, Marcus now found it impossible to concentrate. A passenger’s loud phone call, a change in
+traffic light—anything could derail his focus. *Threat symptom: difficulty concentrating.* His
+irritability built throughout every shift, and he started wearing earbuds, blasting loud music to
+drown out the chatter of his own mind and the sounds of the city. *Threat → Maladaptive Strategies:
+irritability and concentration problems lead to sensory distraction (loud earbuds).* But the music
+also helped him avoid conversations with passengers, because he was certain they could see his fear.
+*Maladaptive Strategy (avoid people) also serves to reduce threat? but we need causal link Threat →
+Maladaptive. Already done.* Meanwhile, his constant door-and-lock checking at home only confirmed
+his conviction that someone could enter at any moment. *Threat → Negative Appraisals: hypervigilance
+reinforces world-is-dangerous.* His concentration problems also made him more alert to any sight of
+a police cruiser, because a slip in attention felt catastrophic. *Threat → Triggers: difficulty
+concentrating increases sensitivity to police triggers.* He’d see a patrol car and his head would
+jerk, heart hammering—the trigger reeling him back.
+
+The strategies Marcus used to manage his fear only made things worse. By hiding his face or avoiding
+people, he began to feel utterly isolated from his community. *Maladaptive Strategies → Negative
+Appraisals: avoidance leads to lost community and stronger mistrust.* He’d sit in his bus, earbuds
+in, watching passengers board without speaking, and a voice inside him would whisper that he didn’t
+belong anymore. That sense of disconnection made him more vigilant for signs of threat, such as any
+police presence. *Negative Appraisal (lost community) → Triggers: feeling disconnected amplifies
+attention to authority figures as intimidating strangers.* The more he avoided, the more the
+intrusive memories returned—as if his mind was determined to show him what he was hiding from.
+*Maladaptive Strategies → Triggers: avoidance increases intrusions.* And the effort of
+hiding—shielding his face, putting on loud music, dodging conversations—left him exhausted and more
+irritable. *Maladaptive Strategies → Threat: effort of avoiding amplifies irritability and
+concentration problems.*
+
+Last month, a routine stop by a police SUV sent Marcus into a rage. He screamed at the officer, then
+at his supervisor, who threatened to suspend him. That night he checked his locks seven times,
+certain someone was coming. He finally called a counselor, afraid he might lose his job, but more
+afraid that he could not go on bracing himself every second for a threat that felt everywhere and
+nowhere. He knew he needed help to untangle the knot he was in, but he wasn’t sure anyone could make
+the world feel safe again.

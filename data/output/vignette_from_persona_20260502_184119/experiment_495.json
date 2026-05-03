@@ -1,0 +1,291 @@
+{
+  "persona_id": 495,
+  "source_persona_id": 495,
+  "experiment_timestamp": "2026-05-03 05:00:34",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-reasoner",
+      "persona_crafter": "deepseek-reasoner",
+      "vignette_crafter": "deepseek-reasoner",
+      "vignette_validator": "deepseek-reasoner"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 43,
+    "gender": "Female",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Plumber",
+    "trauma_type": "Toxic chemical exposure",
+    "pcl5": 79
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Olfactory (Smoke)",
+        "value": "Smoke or fire smell"
+      },
+      {
+        "key": "Olfactory (Smell)",
+        "value": "Related smells"
+      },
+      {
+        "key": "Olfactory Danger Cue",
+        "value": "Burnt smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid All Feelings",
+        "value": "avoid anything that could cause negative or positive feelings"
+      },
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Waking Alert",
+        "value": "I wake during the night to check whether I am safe"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      },
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.3252,
+    "Triggers -- Threat": 0.8013,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.3746,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.7232,
+    "Maladaptive Strategies -- Threat": 0.5706
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.55898,
+  "edge_density": 0.25,
+  "vignette_word_count": 672,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Explosion): Explosion or bang sounds",
+          "explanation": "For toxic chemical exposure, the trigger set is hard to reconcile with the trauma type: explosion sounds and a specific perfume/cologne suggest a blast/fire or interpersonal-associated cue pattern rather than a chemically exposed patient, especially with no matching memory or appraisal content to explain these cues."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Olfactory (Cologne/Perfume): A specific perfume or cologne",
+          "explanation": "The three trigger items do not form a coherent trigger profile for a single toxic exposure trauma. Explosion sounds imply an acute blast-related event, perfume/cologne implies a highly idiosyncratic associative cue, and sleeping alone/unfamiliar place is a vulnerability context rather than a specific trauma reminder; together they lack a clear shared link to the reported trauma."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Sleeping Alone: Sleeping alone or in an unfamiliar place",
+          "explanation": "Threat items center on strangers, vague delays, and nighttime safety checking, which reads as a generalized interpersonal/hypervigilance threat profile rather than one tied to toxic chemical exposure. Given the strong Triggers → Threat edge, the threats should be plausibly elicited by the reported triggers, but strangers and delays are poorly connected to explosion sounds, perfume, and sleeping alone."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Explosion)"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Sleeping Alone: Sleeping alone or in an unfamiliar place",
+          "explanation": "For toxic chemical exposure, the olfactory triggers are clinically coherent, but 'sleeping alone or in an unfamiliar place' is a qualitatively different trigger theme more typical of interpersonal assault, combat, or burglary-related threat learning. It is hard to link this item to the same trauma profile described by the other trigger items."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations",
+          "explanation": "The threat profile is dominated by generalized interpersonal danger ('strangers approaching me') and vague catastrophe in delays, whereas the trigger profile is specifically smell-based and exposure-related. With a strong Triggers → Threat edge, the threat items should plausibly arise from those triggers; here the link is weak because the endorsed threats do not center on contamination, poisoning, bodily harm from exposure, or unsafe environments."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Sleeping Alone"
+        ],
+        "Threat": [
+          "Threat from Strangers"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Olfactory (Cologne/Perfume): A specific perfume or cologne",
+          "explanation": "For toxic chemical exposure, hospital/antiseptic and smoke smells are plausible olfactory trauma reminders, but a specific perfume/cologne is hard to reconcile with the same exposure unless there is additional context not reflected elsewhere in the profile. It stands out as a trigger type not supported by the other selected items."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat in Delays: When something takes longer than expected I assume something bad is happening",
+          "explanation": "The threat profile is dominated by immediate safety checking and hypervigilance, closely matching the strong Triggers ↔ Threat and Maladaptive Strategies → Threat pattern. 'Threat in Delays' implies a more generalized expectancy of bad outcomes from lateness or delay, which is not well anchored to the toxic exposure context or to the other selected trigger items. It is less coherent with the otherwise concrete contamination/safety-related threat pattern."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory (Cologne/Perfume)"
+        ],
+        "Threat": [
+          "Threat in Delays"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Olfactory (Hospital): Hospital or antiseptic smell",
+          "explanation": "For toxic chemical exposure, hospital/antiseptic smells can be plausible aftermath cues if linked to treatment, but the overall profile lacks any memory or appraisal content anchoring medical aftermath; combined with the other smell triggers and home-intruder threat items, this trigger set does not form a coherent trauma-linked pattern."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "The threat items are dominated by fear of a person entering the home or needing to check for personal safety at night, which suggests interpersonal attack/home invasion rather than toxic chemical exposure. This is hard to reconcile with the trigger profile of chemical/smell cues."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory (Hospital)"
+        ],
+        "Threat": [
+          "Intrusion Monitoring"
+        ]
+      }
+    },
+    {
+      "attempt": 5,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Olfactory (Alcohol): Alcohol smell",
+          "explanation": "For a toxic chemical exposure trauma, smoke/related smells are plausible olfactory triggers, but alcohol smell is hard to connect unless the exposure specifically involved solvents or alcohol-like chemicals. With no supporting threat or memory content tying the trauma to alcohol-like odours, this item is clinically questionable."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Overanalysing: I go over and over the details of the event trying to make sense of it",
+          "explanation": "The formulation makes Negative Appraisals and Memory effectively isolated/inactive, while the active pattern centres on Triggers ↔ Threat and Maladaptive Strategies. Overanalysing the event to make sense of it is more characteristic of appraisal/meaning-making processes than of the otherwise selected strategy pattern (avoidance and checking). In this profile it sits weakly with the active edge structure and lacks support from any appraisal items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory (Alcohol)"
+        ],
+        "Maladaptive Strategies": [
+          "Overanalysing"
+        ]
+      }
+    },
+    {
+      "attempt": 6,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Checking Locks: repeatedly check locks, doors, or windows",
+          "explanation": "For toxic chemical exposure, repeatedly checking locks/doors/windows is not a plausible fit with the rest of the profile. The triggers and threat items center on olfactory danger cues and generalized safety monitoring after exposure, but checking locks is a security/intruder-oriented behavior that is hard to reconcile with the stated trauma and selected threat content. It does not align well with the active Triggers → Threat / Maladaptive Strategies pattern, because the dominant trigger-threat link here is chemical/smoke smell rather than break-in danger."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Checking Locks"
+        ]
+      }
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2810,
+    "output": 2359,
+    "total": 5169
+  },
+  "vignette": "Priya, a 43-year-old plumber, still remembers the morning that changed everything. She was working on a residential plumbing repair when a corroded pipe burst, releasing a cloud of industrial solvent fumes that had been trapped behind a wall. The smell was acrid, chemical—like scorched plastic and burnt copper. Within seconds her throat burned, her vision blurred, and she collapsed, gasping. Emergency responders pulled her out; she spent three days in the hospital being treated for acute chemical pneumonitis. She was discharged with a clean bill of physical health, but something had lodged itself deep inside her.\n\nWeeks later, Priya could not shake the feeling that the smell was still there. A neighbor's barbecue sent her heart hammering; the faint odor of burnt toast from a coworker's lunch made her break into a cold sweat. What frightened her most was how quickly her body reacted before her mind could catch up—each time, her chest tightened, her palms grew slick, and she felt the urgent need to get away. She had come to believe that any burnt or smoky odor was a sign of immediate danger. Her husband, Ravi, once left an oven mitt on a burner; Priya smelled it from two rooms away and began shaking uncontrollably, certain another toxic cloud was forming.\n\nIn response, she began scanning every room she entered—checking corners, sniffing the air, looking for vents or appliances that might leak. She learned to avoid any place where she might be surprised by a smell: busy garages, kitchens near restaurants, even her own home when Ravi cooked. She also started avoiding all feelings, positive or negative, because any strong emotion seemed to lower her defenses and make smells feel more present. She would suppress a laugh, numb a worry, tell herself not to react. When she cut her hand on a pipe fitting and needed stitches, she refused to go to the emergency room, terrified that the antiseptic and bleach smells would send her into a panic. She bandaged it herself, and it festered for days before Ravi insisted she see a doctor. She went only after he promised to keep the car windows open.\n\nHer hypervigilance became a loop that tightened over months. The more alert she remained, the more faint odors she detected—a whiff of diesel from a passing truck, the metallic tang of hot solder in her toolbag—and each new detection became another trigger. She woke several times a night to check the smoke alarm, to sniff the bedroom air, to make sure the heater wasn't glowing. Ravi would find her standing by the window at 2 a.m., breathing deliberately, convinced she smelled something burning. She had started sleeping in the living room because the bedroom vents could carry odors from the kitchen. This constant scanning also made her more sensitive to smells at work; she would stop mid-task to stare at a water heater, sure she detected a chemical leak, even when her apprentice assured her nothing was wrong. Her avoidance of feelings meant she never acknowledged the exhaustion or the fear, and so the cycle continued: the threat she sensed kept the triggers alive, and the triggers demanded yet more scanning and numbing.\n\nBy the time she sought help, Priya had lost two jobs—a contractor told her she was too slow because she kept stopping to check the air, and a small residential client complained she refused to work near a gas stove. She was afraid to drive past the hospital where she had been treated, choosing a twenty-minute detour to avoid the smell of its parking deck. She came to therapy because Ravi had given her an ultimatum: he could not watch her shrink away from her own life. What Priya hoped for, more than anything, was to walk into a kitchen without flinching at the scent of a hot pan. But what she feared most was that the smell would never leave her—that she would spend the rest of her days checking, avoiding, and waiting for the next invisible poison to announce itself."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Priya, a 43-year-old plumber, still remembers the morning that changed everything. She was working on a residential plumbing repair when a corroded pipe burst, releasing a cloud of industrial solvent fumes that had been trapped behind a wall. The smell was acrid, chemical—like scorched plastic and burnt copper. Within seconds her throat burned, her vision blurred, and she collapsed, gasping. Emergency responders pulled her out; she spent three days in the hospital being treated for acute chemical pneumonitis. She was discharged with a clean bill of physical health, but something had lodged itself deep inside her.\n\nWeeks later, Priya could not shake the feeling that the smell was still there. A neighbor's barbecue sent her heart hammering; the faint odor of burnt toast from a coworker's lunch made her break into a cold sweat. What frightened her most was how quickly her body reacted before her mind could catch up—each time, her chest tightened, her palms grew slick, and she felt the urgent need to get away. She had come to believe that any burnt or smoky odor was a sign of immediate danger. Her husband, Ravi, once left an oven mitt on a burner; Priya smelled it from two rooms away and began shaking uncontrollably, certain another toxic cloud was forming.\n\nIn response, she began scanning every room she entered—checking corners, sniffing the air, looking for vents or appliances that might leak. She learned to avoid any place where she might be surprised by a smell: busy garages, kitchens near restaurants, even her own home when Ravi cooked. She also started avoiding all feelings, positive or negative, because any strong emotion seemed to lower her defenses and make smells feel more present. She would suppress a laugh, numb a worry, tell herself not to react. When she cut her hand on a pipe fitting and needed stitches, she refused to go to the emergency room, terrified that the antiseptic and bleach smells would send her into a panic. She bandaged it herself, and it festered for days before Ravi insisted she see a doctor. She went only after he promised to keep the car windows open.\n\nHer hypervigilance became a loop that tightened over months. The more alert she remained, the more faint odors she detected—a whiff of diesel from a passing truck, the metallic tang of hot solder in her toolbag—and each new detection became another trigger. She woke several times a night to check the smoke alarm, to sniff the bedroom air, to make sure the heater wasn't glowing. Ravi would find her standing by the window at 2 a.m., breathing deliberately, convinced she smelled something burning. She had started sleeping in the living room because the bedroom vents could carry odors from the kitchen. This constant scanning also made her more sensitive to smells at work; she would stop mid-task to stare at a water heater, sure she detected a chemical leak, even when her apprentice assured her nothing was wrong. Her avoidance of feelings meant she never acknowledged the exhaustion or the fear, and so the cycle continued: the threat she sensed kept the triggers alive, and the triggers demanded yet more scanning and numbing.\n\nBy the time she sought help, Priya had lost two jobs—a contractor told her she was too slow because she kept stopping to check the air, and a small residential client complained she refused to work near a gas stove. She was afraid to drive past the hospital where she had been treated, choosing a twenty-minute detour to avoid the smell of its parking deck. She came to therapy because Ravi had given her an ultimatum: he could not watch her shrink away from her own life. What Priya hoped for, more than anything, was to walk into a kitchen without flinching at the scent of a hot pan. But what she feared most was that the smell would never leave her—that she would spend the rest of her days checking, avoiding, and waiting for the next invisible poison to announce itself.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

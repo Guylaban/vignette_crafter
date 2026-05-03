@@ -1,0 +1,182 @@
+PERSONA 447  |  2026-05-03 04:09:13
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             71
+  gender          Female
+  ethnicity       South Eastern Asian
+  relationship_status Married
+  occupation      Lawyer
+  trauma_type     Assault
+  pcl5            71
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Auditory (Sounds): Related sounds
+    • Sexual Objectification: Being looked at sexually
+    • Somatic (Heart Racing): Own heart racing or pounding
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Threat in Delays: When something takes longer than expected I assume something bad is happening
+    • Night Vigilance: I find it harder to feel safe at night than during the day
+  Negative Appraisals:
+    • Body Unreliable: I can no longer trust my own body
+    • Hypervigilance: I have to be on guard all the time
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.8190
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.1737
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.5641
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.4687
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9991
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Being Praised: Receiving praise or positive attention
+    explanation: 'Being praised' is a hard-to-explain trigger in this profile. With assault trauma, the other trigger items (related sounds, being naked) plausibly cue danger/vulnerability, and the threat items are about danger and vigilance. Praise/positive attention points in a very different interpersonal direction and is not supported by corresponding appraisals or threat content, so it weakens cross-node coherence.
+    item:        Negative Appraisals / Negative Appraisals: Fear Going Crazy: My reactions since the event mean that I am going crazy
+    explanation: 'Fear going crazy' is poorly aligned with the rest of the profile. The threat items emphasize external danger and vigilance, and the trigger pattern centers on assault-related cues. A dominant appraisal of losing one's mind would usually be accompanied by threat content about internal loss of control or dissociation-like danger, which is absent here.
+  [2] FAIL
+    item:        Triggers / Triggers: Vulnerability: Being naked
+    explanation: For an assault trauma, the trigger pattern strongly suggests a sexual assault context (being naked, being looked at sexually). That is not impossible, but the rest of the profile does not support that specific context strongly enough to make the set cohere: there are no matching sexual-assault-linked threat or memory items, and the only bodily appraisal is about the body being unreliable rather than violated or contaminated.
+    item:        Negative Appraisals / Triggers: Sexual Objectification: Being looked at sexually
+    explanation: 'I can no longer trust my own body' is more typically linked to injury, dissociation, panic-like bodily cues, or medical trauma. It does not fit well with the mainly sexual-vulnerability trigger pattern unless there is additional supporting content, which is absent here.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,824
+  output:     3,860
+  total:      6,684
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Mai was 69 when it happened, a Tuesday in late October. She had been a lawyer for forty-three years,
+and the office still smelled of old law books and her husband’s cologne from the morning. The client
+was a man in his fifties, soft-spoken at first, but when she explained why his appeal was unlikely
+to succeed, something shifted in his voice. It dropped, became deliberate. He looked at her in a way
+that made her skin shrink—a long, slow survey from her face to her neck and down. She told herself
+to stay calm, but her heart started hammering against her ribs, and before she could stand, he was
+around the desk, one hand on her shoulder, the other in her hair. It lasted maybe ninety seconds.
+She did not scream. Afterward he left, and Mai sat frozen, her body humming with a terror she had
+never known. She did not call the police. She went home and told her husband she had a headache.
+
+In the weeks that followed, Mai tried to return to work as if nothing had happened. But the world
+had been remade without her permission. The sound of a man’s voice with a certain low cadence—a
+client, a judge, even a stranger in an elevator—would make her heart lurch, and then the fear would
+wash over her like a hot, shameful wave. She began to avoid hearings where she knew the opposing
+counsel was male and loud. She left in the middle of a deposition once, her hand pressed to her
+chest, certain she was having a heart attack. That was when she started to believe her own body had
+turned against her. It had failed to fight, and now it could not be trusted not to betray her with
+its racing, its trembling, its sudden collapses into panic. The world, she came to see, was a
+dangerous place where a quiet Tuesday could destroy you. She had to be on guard all the time.
+
+Her hypervigilance made her scan every room for exits and for men who looked at her too long. She
+noticed her own heartbeat constantly now—the moment it sped up, she would brace herself for danger,
+and that very brace made it worse. When something took longer than expected, a conference that ran
+late or a traffic light that stayed red too long, she was certain something terrible was about to
+happen. At night, the sense of safety drained away completely; she kept the bedroom lights on until
+her husband gently turned them off, and then she lay awake, listening. When she felt the familiar
+pull of guilt—*I should have screamed, I should have pushed him away*—her chest would tighten and
+her pulse would race, and that racing itself became a trigger, a loop she could not break. One
+evening, during a dinner with old friends, a guest asked if she was feeling unwell, and Mai realized
+her hand was pressed to her chest again, her heart pounding. She excused herself and did not return.
+She stopped accepting invitations to evening events altogether.
+
+The hardest thing was that her job, which had once given her purpose, had become a minefield. A
+delay in court proceedings would flood her with dread; she would imagine the case turning violent,
+the judge attacked, herself helpless. She started delegating male clients to a younger partner,
+though she could not explain why. Her husband, a kind man who had never pressed her, asked if she
+was angry with him. She was not. She was just—*afraid* was too small a word. She was convinced that
+any moment, any sound, any look could unravel her. It was her husband who finally said, after she
+had spent another night rigid beside him, “Mai, you can’t keep living like this.” She agreed, though
+what she was most afraid of was that therapy would only confirm what she already believed: that her
+body was broken, that the world was too dangerous, and that the part of her that had felt safe was
+gone forever.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Mai was 69 when it happened, a Tuesday in late October. She had been a lawyer for forty-three years,
+and the office still smelled of old law books and her husband’s cologne from the morning. The client
+was a man in his fifties, soft-spoken at first, but when she explained why his appeal was unlikely
+to succeed, something shifted in his voice. It dropped, became deliberate. He looked at her in a way
+that made her skin shrink—a long, slow survey from her face to her neck and down. She told herself
+to stay calm, but her heart started hammering against her ribs, and before she could stand, he was
+around the desk, one hand on her shoulder, the other in her hair. It lasted maybe ninety seconds.
+She did not scream. Afterward he left, and Mai sat frozen, her body humming with a terror she had
+never known. She did not call the police. She went home and told her husband she had a headache.
+
+In the weeks that followed, Mai tried to return to work as if nothing had happened. But the world
+had been remade without her permission. The sound of a man’s voice with a certain low cadence—a
+client, a judge, even a stranger in an elevator—would make her heart lurch, and then the fear would
+wash over her like a hot, shameful wave. She began to avoid hearings where she knew the opposing
+counsel was male and loud. She left in the middle of a deposition once, her hand pressed to her
+chest, certain she was having a heart attack. That was when she started to believe her own body had
+turned against her. It had failed to fight, and now it could not be trusted not to betray her with
+its racing, its trembling, its sudden collapses into panic. The world, she came to see, was a
+dangerous place where a quiet Tuesday could destroy you. She had to be on guard all the time.
+
+Her hypervigilance made her scan every room for exits and for men who looked at her too long. She
+noticed her own heartbeat constantly now—the moment it sped up, she would brace herself for danger,
+and that very brace made it worse. When something took longer than expected, a conference that ran
+late or a traffic light that stayed red too long, she was certain something terrible was about to
+happen. At night, the sense of safety drained away completely; she kept the bedroom lights on until
+her husband gently turned them off, and then she lay awake, listening. When she felt the familiar
+pull of guilt—*I should have screamed, I should have pushed him away*—her chest would tighten and
+her pulse would race, and that racing itself became a trigger, a loop she could not break. One
+evening, during a dinner with old friends, a guest asked if she was feeling unwell, and Mai realized
+her hand was pressed to her chest again, her heart pounding. She excused herself and did not return.
+She stopped accepting invitations to evening events altogether.
+
+The hardest thing was that her job, which had once given her purpose, had become a minefield. A
+delay in court proceedings would flood her with dread; she would imagine the case turning violent,
+the judge attacked, herself helpless. She started delegating male clients to a younger partner,
+though she could not explain why. Her husband, a kind man who had never pressed her, asked if she
+was angry with him. She was not. She was just—*afraid* was too small a word. She was convinced that
+any moment, any sound, any look could unravel her. It was her husband who finally said, after she
+had spent another night rigid beside him, “Mai, you can’t keep living like this.” She agreed, though
+what she was most afraid of was that therapy would only confirm what she already believed: that her
+body was broken, that the world was too dangerous, and that the part of her that had felt safe was
+gone forever.

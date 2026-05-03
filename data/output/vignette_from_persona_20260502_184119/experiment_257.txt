@@ -1,0 +1,270 @@
+PERSONA 257  |  2026-05-03 00:15:47
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             68
+  gender          Female
+  ethnicity       African
+  relationship_status Married
+  occupation      Unemployed
+  trauma_type     Physical abuse by romantic partner
+  pcl5            41
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Sleeping Alone: Sleeping alone or in an unfamiliar place
+    • Feeling Vulnerable: Feeling emotionally vulnerable
+    • Olfactory (Earth/Outdoor): Soil or outdoor smells
+  Maladaptive Strategies:
+    • People Pleasing: go along with whatever others want to feel safe
+    • Busyness: I work hard at keeping busy with other things
+    • Mental Distraction: keep mind occupied all the time
+  Threat:
+    • Safe Zone Only: I only feel safe in a very limited number of places
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Alert at Home: I feel on guard even inside my own home
+  Memory:
+    • Uncontrolled Access: The memory forces its way into my mind when I do not want it to
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.6995
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.2240
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.1992
+  Memory → Threat                                    0.9556
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.3702
+  Threat → Maladaptive Strategies                    0.3139
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.5041
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.3582
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Medical Care: Seeking medical or psychological help
+    explanation: 'Avoid Medical Care' is internally inconsistent as written: the label indicates avoidance, but the item text states 'Seeking medical or psychological help,' which is the opposite behavior.
+    item:        Triggers / Overwork: work excessively to avoid being alone with thoughts
+    explanation: 'Overwork' is hard to reconcile with the patient's unemployment status. While unemployed people can keep excessively busy, this wording specifically implies excessive work as a strategy and is therefore clinically implausible for this demographic unless otherwise qualified.
+  [2] FAIL
+    item:        Maladaptive Strategies / Overwork: work excessively to avoid being alone with thoughts
+    explanation: These two items imply an active work-based avoidance pattern, which is hard to reconcile with the patient's stated occupation of unemployed. While keeping busy is plausible, 'Overwork' specifically describes excessive working and is therefore clinically incoherent with being unemployed unless supported by another role context that is not present here.
+  [3] FAIL
+    item:        Threat / Threat: Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: Checking whether someone is following her suggests a stalking/pursuit-type threat context that is not well aligned with the indexed trauma of physical abuse by a romantic partner, where fear is more typically focused on the partner in domestic spaces rather than unknown followers. With the rest of the profile centered on sleeping alone, vulnerability, restricted safe places, and sleep vigilance, this item pulls toward a different threat pattern.
+    item:        Memory / Memory: Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+    explanation: Bodily reenactment can occur in PTSD, but as selected here it implies a highly embodied, posture-specific trauma memory. Given the other memory items emphasize involuntary intrusion plus active truncation of recall, and the threat profile is oriented toward vigilance and restricted safety rather than reliving a specific assault configuration, this item is less well integrated with the rest of the formulation and self-report pattern.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,908
+  output:     6,600
+  total:     13,508
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Amara is a 68-year-old African American woman who has been married to her current husband, Leonard,
+for over forty years. Decades ago, during her early twenties, she was in a relationship with a man
+named Derrick, a landscaper who often came home with the smell of earth and soil clinging to his
+clothes. The abuse escalated over many months, culminating in a night when he dragged her by the
+hair across the linoleum floor of their apartment, threw her against the wall, and then pinned her
+to the ground with his knee on her chest. The scent of dirt from his work clothes and the damp
+concrete floor filled her nostrils as she struggled to breathe. She escaped that night and never saw
+him again, but the memory of that moment—the pressure, the smell, the helplessness—remained buried
+but intact.
+
+Now, decades later, Amara cannot tolerate certain olfactory triggers. When she walks past a freshly
+turned garden or Leonard brings in firewood after working in the yard, the soil smell instantly
+transports her back to that apartment floor. Her mind is hijacked without warning: the memory forces
+its way in, vivid and visceral, before she can brace herself. At the same time, she often finds
+herself pushing the memory away before fully recalling it, as if her mind slams a door mid-
+recollection. To cope with these intrusions, Amara has developed a set of strategies that keep her
+mind occupied at all times. When the smell catches her, she immediately dives into a household
+task—scrubbing the kitchen counter, reorganizing cabinets—anything to stay busy. She also relies on
+mental distraction: she counts backward from a hundred, recites old song lyrics, or mentally lists
+every vegetable in alphabetical order. Later, when Leonard is away on business trips and she is
+sleeping alone, the vulnerability of an empty bed triggers the same intrusive memory, and she again
+fills the silence with busyness until she exhausts herself.
+
+The memory itself generates a pervasive sense of threat that colors her daily life. After an
+intrusion, Amara feels her muscles tighten; she becomes acutely aware of every sound in the house,
+certain that someone might be approaching. This heightened vigilance does not fade even inside her
+own home—she is on guard near doors and windows, checking locks repeatedly. She feels safe only in a
+very limited number of places: the living room couch, the bathroom with the door locked, and her car
+when it is parked in the garage. The sleeping alone trigger emerges partly because the memory makes
+her feel emotionally vulnerable: when Leonard is gone, there is no one to buffer that sense of
+threat, and the fear of an intruder spikes. In turn, that threat leads Amara to deploy her coping
+strategies more aggressively: she keeps the television on all night for noise, she mentally plans
+tomorrow’s tasks to crowd out the vigilance, and she agrees to anything Leonard suggests over the
+phone to avoid a conflict that might leave her feeling more alone. Sometimes her people-pleasing
+actually becomes a trigger itself: after she automatically tells a neighbor “yes” to an invitation
+she does not want, she arrives at the gathering feeling exposed and vulnerable, and the soil smell
+from a nearby planter sends her spiraling.
+
+The cycles have become self-reinforcing over the years. Because Amara constantly distracts herself
+and keeps busy, she rarely allows her mind to rest, and that exhaustion lowers her threshold for
+feeling vulnerable—so even a minor emotional upset can trigger a memory. She has stopped driving to
+unfamiliar areas because the new smells and sounds might catch her off guard, and she now only
+leaves the house for essential errands, always returning to the safe zone of her living room couch.
+Leonard has noticed her withdrawal but does not know the full history; she has never told him about
+Derrick, worried that the conversation would stir things up and that Leonard might see her as
+damaged. After a recent trip when Leonard left for a week, Amara spent five sleepless nights in a
+state of high alert, scrubbing the kitchen floor at 3 a.m. and then bursting into tears when he
+returned. She finally decided to seek help because she is terrified that the memory is stealing the
+years she has left with Leonard, and she can no longer pretend that keeping busy is enough. What
+frightens her most is the idea that if she stops distracting herself, the memory will engulf her
+completely—but she also hopes, faintly, that a therapist might show her how to let it go without
+being destroyed.
+
+    ✗ edge:        Threat → Triggers
+      explanation: The vignette does not convey that the sense of threat directly causes or creates triggers. Instead, threat is depicted as a consequence of triggers and memory, leading to maladaptive strategies or hypervigilance, but not as a cause of triggers.
+
+  [2] PASS
+Amara is a 68-year-old African American woman who has been married to her current husband, Leonard,
+for over forty years. Decades ago, during her early twenties, she was in a relationship with a man
+named Derrick, a landscaper who often came home with the smell of earth and soil clinging to his
+clothes. The abuse escalated over many months, culminating in a night when he dragged her by the
+hair across the linoleum floor of their apartment, threw her against the wall, and then pinned her
+to the ground with his knee on her chest. The scent of dirt from his work clothes and the damp
+concrete floor filled her nostrils as she struggled to breathe. She escaped that night and never saw
+him again, but the memory of that moment—the pressure, the smell, the helplessness—remained buried
+but intact.
+
+Now, decades later, Amara cannot tolerate certain olfactory triggers. When she walks past a freshly
+turned garden or Leonard brings in firewood after working in the yard, the soil smell instantly
+transports her back to that apartment floor. Her mind is hijacked without warning: the memory forces
+its way in, vivid and visceral, before she can brace herself. At the same time, she often finds
+herself pushing the memory away before fully recalling it, as if her mind slams a door mid-
+recollection. To cope with these intrusions, Amara has developed a set of strategies that keep her
+mind occupied at all times. When the smell catches her, she immediately dives into a household
+task—scrubbing the kitchen counter, reorganizing cabinets—anything to stay busy. She also relies on
+mental distraction: she counts backward from a hundred, recites old song lyrics, or mentally lists
+every vegetable in alphabetical order. Later, when Leonard is away on business trips and she is
+sleeping alone, the vulnerability of an empty bed triggers the same intrusive memory, and she again
+fills the silence with busyness until she exhausts herself.
+
+The memory itself generates a pervasive sense of threat that colors her daily life. After an
+intrusion, Amara feels her muscles tighten; she becomes acutely aware of every sound in the house,
+certain that someone might be approaching. This heightened vigilance does not fade even inside her
+own home—she is on guard near doors and windows, checking locks repeatedly. The constant hum of
+danger she carried with her made ordinary moments feel charged—a creak in the hallway or the crackle
+of the old radiator became warnings, each one confirming what her body already knew. She feels safe
+only in a very limited number of places: the living room couch, the bathroom with the door locked,
+and her car when it is parked in the garage. The sleeping alone trigger emerges partly because the
+memory makes her feel emotionally vulnerable: when Leonard is gone, there is no one to buffer that
+sense of threat, and the fear of an intruder spikes. In turn, that threat leads Amara to deploy her
+coping strategies more aggressively: she keeps the television on all night for noise, she mentally
+plans tomorrow’s tasks to crowd out the vigilance, and she agrees to anything Leonard suggests over
+the phone to avoid a conflict that might leave her feeling more alone. Sometimes her people-pleasing
+actually becomes a trigger itself: after she automatically tells a neighbor “yes” to an invitation
+she does not want, she arrives at the gathering feeling exposed and vulnerable, and the soil smell
+from a nearby planter sends her spiraling.
+
+The cycles have become self-reinforcing over the years. Because Amara constantly distracts herself
+and keeps busy, she rarely allows her mind to rest, and that exhaustion lowers her threshold for
+feeling vulnerable—so even a minor emotional upset can trigger a memory. She has stopped driving to
+unfamiliar areas because the new smells and sounds might catch her off guard, and she now only
+leaves the house for essential errands, always returning to the safe zone of her living room couch.
+Leonard has noticed her withdrawal but does not know the full history; she has never told him about
+Derrick, worried that the conversation would stir things up and that Leonard might see her as
+damaged. After a recent trip when Leonard left for a week, Amara spent five sleepless nights in a
+state of high alert, scrubbing the kitchen floor at 3 a.m. and then bursting into tears when he
+returned. She finally decided to seek help because she is terrified that the memory is stealing the
+years she has left with Leonard, and she can no longer pretend that keeping busy is enough. What
+frightens her most is the idea that if she stops distracting herself, the memory will engulf her
+completely—but she also hopes, faintly, that a therapist might show her how to let it go without
+being destroyed.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Amara is a 68-year-old African American woman who has been married to her current husband, Leonard,
+for over forty years. Decades ago, during her early twenties, she was in a relationship with a man
+named Derrick, a landscaper who often came home with the smell of earth and soil clinging to his
+clothes. The abuse escalated over many months, culminating in a night when he dragged her by the
+hair across the linoleum floor of their apartment, threw her against the wall, and then pinned her
+to the ground with his knee on her chest. The scent of dirt from his work clothes and the damp
+concrete floor filled her nostrils as she struggled to breathe. She escaped that night and never saw
+him again, but the memory of that moment—the pressure, the smell, the helplessness—remained buried
+but intact.
+
+Now, decades later, Amara cannot tolerate certain olfactory triggers. When she walks past a freshly
+turned garden or Leonard brings in firewood after working in the yard, the soil smell instantly
+transports her back to that apartment floor. Her mind is hijacked without warning: the memory forces
+its way in, vivid and visceral, before she can brace herself. At the same time, she often finds
+herself pushing the memory away before fully recalling it, as if her mind slams a door mid-
+recollection. To cope with these intrusions, Amara has developed a set of strategies that keep her
+mind occupied at all times. When the smell catches her, she immediately dives into a household
+task—scrubbing the kitchen counter, reorganizing cabinets—anything to stay busy. She also relies on
+mental distraction: she counts backward from a hundred, recites old song lyrics, or mentally lists
+every vegetable in alphabetical order. Later, when Leonard is away on business trips and she is
+sleeping alone, the vulnerability of an empty bed triggers the same intrusive memory, and she again
+fills the silence with busyness until she exhausts herself.
+
+The memory itself generates a pervasive sense of threat that colors her daily life. After an
+intrusion, Amara feels her muscles tighten; she becomes acutely aware of every sound in the house,
+certain that someone might be approaching. This heightened vigilance does not fade even inside her
+own home—she is on guard near doors and windows, checking locks repeatedly. The constant hum of
+danger she carried with her made ordinary moments feel charged—a creak in the hallway or the crackle
+of the old radiator became warnings, each one confirming what her body already knew. She feels safe
+only in a very limited number of places: the living room couch, the bathroom with the door locked,
+and her car when it is parked in the garage. The sleeping alone trigger emerges partly because the
+memory makes her feel emotionally vulnerable: when Leonard is gone, there is no one to buffer that
+sense of threat, and the fear of an intruder spikes. In turn, that threat leads Amara to deploy her
+coping strategies more aggressively: she keeps the television on all night for noise, she mentally
+plans tomorrow’s tasks to crowd out the vigilance, and she agrees to anything Leonard suggests over
+the phone to avoid a conflict that might leave her feeling more alone. Sometimes her people-pleasing
+actually becomes a trigger itself: after she automatically tells a neighbor “yes” to an invitation
+she does not want, she arrives at the gathering feeling exposed and vulnerable, and the soil smell
+from a nearby planter sends her spiraling.
+
+The cycles have become self-reinforcing over the years. Because Amara constantly distracts herself
+and keeps busy, she rarely allows her mind to rest, and that exhaustion lowers her threshold for
+feeling vulnerable—so even a minor emotional upset can trigger a memory. She has stopped driving to
+unfamiliar areas because the new smells and sounds might catch her off guard, and she now only
+leaves the house for essential errands, always returning to the safe zone of her living room couch.
+Leonard has noticed her withdrawal but does not know the full history; she has never told him about
+Derrick, worried that the conversation would stir things up and that Leonard might see her as
+damaged. After a recent trip when Leonard left for a week, Amara spent five sleepless nights in a
+state of high alert, scrubbing the kitchen floor at 3 a.m. and then bursting into tears when he
+returned. She finally decided to seek help because she is terrified that the memory is stealing the
+years she has left with Leonard, and she can no longer pretend that keeping busy is enough. What
+frightens her most is the idea that if she stops distracting herself, the memory will engulf her
+completely—but she also hopes, faintly, that a therapist might show her how to let it go without
+being destroyed.

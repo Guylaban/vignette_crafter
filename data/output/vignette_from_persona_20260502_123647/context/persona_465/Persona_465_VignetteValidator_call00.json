@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "agent_name": "Persona_465_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-02 23:23:54"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Memory\n  - Negative Appraisals\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Threat\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Threat\n  - Negative Appraisals → Memory\n  - Negative Appraisals → Triggers\n  - Memory → Threat\n  - Memory → Negative Appraisals\n  - Memory → Triggers\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nClara, a 39-year-old non-profit worker, carried the weight of her trauma like an invisible shroud. The assault had shattered her sense of safety and community, a reality she had once taken for granted. It happened on a quiet evening as she made her way home from a meeting. A man approached her, brandishing a knife, and in that moment, Clara's world flipped upside down. The chaotic memories of that night played in her mind like a disjointed film reel; she could remember the glint of the blade but struggled to order the events that followed. The confusion of her recollections left her feeling helpless, as if she were trapped in a replaying nightmare. \n\nIn the months that followed, Clara found herself increasingly jumpy, startled by the most innocuous sounds, her heart racing at the slightest thud or creak. The visual triggers of weapons were everywhere; a kitchen knife, a child's toy gun—each object sent her spiraling back to that night, flooding her with anxiety and dread. It was not just the objects that haunted her; the very thought of being vulnerable, of being naked before others, became an unbearable reminder of her powerlessness during the assault. This sense of vulnerability was exacerbated by her inability to trust safety, even when her husband reassured her that she was safe at home. Clara had come to believe that no place was truly secure, and the night brought a heightened sense of threat that left her vigilant and restless.\n\nClara's deep-seated negative appraisals began to seep into her thoughts, fueling her inner turmoil. She felt disconnected from her community, as if the assault had severed her ties to the culture she once cherished. What frightened her most was the belief that she had become weak, that she had failed to protect herself. She often compared herself to others, convinced that someone else would have handled the situation better, would have fought back or escaped. These comparisons only deepened her sense of shame and isolation, further entrenching her in a cycle of self-blame. Clara’s thoughts spiraled as she replayed the incident, her memory igniting intense feelings of rage that she couldn’t articulate. The anger surged within her whenever she tried to recount the details, only adding to her confusion. \n\nAs weeks turned into months, Clara's emotional landscape grew darker. She avoided gatherings and social events, fearing that her triggers would surface and expose her vulnerability. The once vibrant woman who dedicated her days to helping others now found herself withdrawing from her community, feeling as if she had lost her place in the world. She couldn't shake the feeling that every reminder of the assault—be it a news story about violence or a weapon she glimpsed in a store—was a reflection of her own inadequacy. Each trigger not only reignited her sense of threat but also reinforced the belief that she was not worthy of safety or connection.\n\nClara's struggles culminated in a moment of clarity when she realized that she could no longer bear the weight of her trauma alone. It was during a quiet evening, one of many sleepless nights spent tossing and turning, that she finally voiced her fears to her husband. She expressed her longing to feel safe again, to reconnect with her community, and to reclaim her narrative. It was a turning point, a moment when she recognized that she needed help. Now, as she sits in her therapist's office, Clara hopes to reclaim her sense of agency and overcome the debilitating grip of her past, yet she is terrified of revisiting those memories, fearing the rage and vulnerability that might resurface.\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Triggers → Threat",
+      "Negative Appraisals → Threat",
+      "Negative Appraisals → Memory",
+      "Negative Appraisals → Triggers",
+      "Memory → Threat"
+    ],
+    "violation_explanations": [
+      "The relationship indicating that triggers lead to a sense of threat is not clearly established.",
+      "The connection showing that negative appraisals lead to a sense of threat is absent.",
+      "The causal link between negative appraisals and memory is not present.",
+      "The relationship indicating that negative appraisals lead to triggers is missing.",
+      "The connection showing that memory leads to a sense of threat is not established."
+    ]
+  }
+}

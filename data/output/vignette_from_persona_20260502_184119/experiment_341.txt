@@ -1,0 +1,264 @@
+PERSONA 341  |  2026-05-03 01:57:01
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             51
+  gender          Male
+  ethnicity       North American
+  relationship_status Widowed
+  occupation      School Principal
+  trauma_type     Life-threatening illness
+  pcl5            56
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Alcohol): Alcohol smell
+    • Olfactory (Hospital): Hospital or antiseptic smell
+    • Medical Procedures: Undergoing a medical examination or procedure
+  Maladaptive Strategies:
+    • Rehearse Conversations: rehearse what to say before any interaction
+    • Isolate Completely: cut off all contact with friends and family
+    • Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+  Memory:
+    • Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory
+    • Emotion Without Image: Sometimes I feel the full emotional intensity of the event without any clear image or memory
+    • Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+  Negative Appraisals:
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Can't Rely on Self: I can't rely on myself
+    • Body Unreliable: I can no longer trust my own body
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.8020
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.3811
+  Triggers → Negative Appraisals                     0.1807
+  Negative Appraisals → Maladaptive Strategies       0.5032
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.9760
+  Negative Appraisals → Triggers                     0.6863
+  Memory → Maladaptive Strategies                    0.3804
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.4463
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.8162
+  Maladaptive Strategies → Triggers                  0.6259
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: Military-themed conversations are hard to reconcile with a life-threatening illness trauma in a 51-year-old school principal; this trigger implies a combat-related context not represented anywhere else in the profile.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Similar People: Seeing other people that were involved in the event or that look similar
+    explanation: Avoiding people involved in the event or who look similar fits interpersonal/assault/accident traumas better than life-threatening illness, where there are typically no 'other people involved' in that sense. It is not well supported by the rest of the profile.
+  [2] FAIL
+    item:        Triggers / Triggers: Future Orientation: Talking about the future
+    explanation: For a life-threatening illness trauma, 'talking about the future' as a trigger is plausible, but 'alcohol smell' is hard to connect unless alcohol was part of treatment context; nothing else in the profile supports that association, making this trigger set clinically incoherent.
+    item:        Negative Appraisals / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: 'People can't be trusted' is more typical of interpersonal trauma and is poorly anchored to a life-threatening illness trauma in the absence of any treatment-related betrayal, conflict, or mistrust themes elsewhere in the profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Affective Expression: Crying
+    explanation: 'Crying' is not a trauma cue but an affective response/behavior, so it is clinically incoherent as a trigger item relative to the other trigger items, which are concrete sensory reminders linked to life-threatening illness (alcohol smell, hospital/antiseptic smell).
+    item:        Negative Appraisals / Negative Appraisals: Mistrust: People can't be trusted
+    explanation: A global mistrust appraisal is a poor fit for the rest of the profile and trauma type. In life-threatening illness, the other items center on altered self and self-reliance, while 'People can't be trusted' implies an interpersonal betrayal/threat theme that is not supported by the memory, trigger, or strategy items and does not align well with the otherwise weak/inactive Threat links.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,897
+  output:     5,126
+  total:     12,023
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Michael was fifty-one, a school principal in a Midwestern district, when a routine flu spiraled into
+sepsis. For three weeks in the ICU, he lay tethered to monitors and IV lines, the antiseptic reek of
+alcohol wipes and hand sanitizer saturating every breath. He could not move; the doctors’ hands on
+his chest, the cold gel of the ultrasound probe, the repeated blood draws—these became the entire
+texture of his waking hours. His wife had died five years earlier, and he faced those weeks alone,
+the beeping machines the only voice in the room.
+
+After discharge, Michael returned to work determined to resume his life. But the world had become a
+minefield of sensory triggers. The first time a janitor mopped the school hallway near his office,
+the faint sting of rubbing alcohol hit his nostrils, and his heart slammed. He felt his body go
+rigid, the same frozen helplessness he had known in the ICU bed. He could not bring the actual
+hospital scenes to mind—when he tried to remember details, the memory slid away—yet the emotion
+surged without any picture, a raw terror that left him breathless. A routine physical examination he
+had scheduled six months later sent him into a full-body reenactment: lying on the exam table, he
+felt his limbs lock, as if the sepsis had returned.
+
+These encounters with triggers did not just activate his memory; they corroded his sense of self.
+After a doctor’s appointment, he would think, “I can’t trust my own body anymore. It almost killed
+me once, and it will again.” He felt unrecognizable to himself—the confident principal who bounded
+through hallways had become a man who flinched at the smell of a bandage. That negative appraisal of
+his own unreliability, in turn, made him exquisitely sensitive to any olfactory cue. He began to
+notice the antiseptic scent in the school nurse’s office from three doors away, scanning hallways
+for it every morning.
+
+Over the months, Michael developed a set of strategies that only deepened the cycle. Before any
+staff meeting or parent conference, he rehearsed what he would say, poring over talking points until
+he had a script, because he no longer trusted his ability to respond naturally. “I can’t rely on
+myself to handle an unexpected question,” he told himself. This rehearsal, while offering temporary
+control, left him feeling even more like a stranger inside his own skin—an actor playing a
+principal. He began to isolate completely, canceling dinner invitations with his few remaining
+friends and avoiding phone calls. The isolation reinforced his belief that he had become someone he
+did not recognize. When he did interact, the rehearsed conversations felt hollow, and afterward he
+would encounter triggers more acutely: a friend’s hand sanitizer on a desk, the alcohol smell in a
+church foyer. Each avoidance made the next trigger feel more dangerous.
+
+The memory intrusions fed directly into his maladaptive strategies. When the bodily reenactment
+seized him—usually triggered by a hospital smell or a reminder of a procedure—he would cancel plans
+for the rest of the day, holing up in his office or home. “I can’t let anyone see me like this,” he
+thought, “because this frozen, helpless person isn’t me.” The emotion-without-image episodes were
+particularly disturbing; he would feel the full dread of the ICU without any story to attach it to,
+and then conclude, “See, your body is betraying you again.” This strengthened his resolve to avoid
+medical settings altogether—he had not been to a physician in eighteen months, even when a
+persistent cough worried him.
+
+Now, nearly two years later, Michael stands in the threshold of his own life. A colleague recently
+pulled him aside and said he seemed distant, that the staff missed his easy laugh. The comment stung
+because it was true. He finally made an appointment with a therapist, not because he believes he can
+change, but because the isolation has grown unbearable. What frightens him most is the thought that
+the person he was is gone forever, that his body will always be an enemy. What he hopes for, barely,
+is to find a version of himself he can live inside without constant vigilance.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: The vignette shows memory causing negative appraisals but not the reverse; negative appraisals do not lead to memory intrusions.
+
+  [2] PASS
+Michael was fifty-one, a school principal in a Midwestern district, when a routine flu spiraled into
+sepsis. For three weeks in the ICU, he lay tethered to monitors and IV lines, the antiseptic reek of
+alcohol wipes and hand sanitizer saturating every breath. He could not move; the doctors’ hands on
+his chest, the cold gel of the ultrasound probe, the repeated blood draws—these became the entire
+texture of his waking hours. His wife had died five years earlier, and he faced those weeks alone,
+the beeping machines the only voice in the room.
+
+After discharge, Michael returned to work determined to resume his life. But the world had become a
+minefield of sensory triggers. The first time a janitor mopped the school hallway near his office,
+the faint sting of rubbing alcohol hit his nostrils, and his heart slammed. He felt his body go
+rigid, the same frozen helplessness he had known in the ICU bed. He could not bring the actual
+hospital scenes to mind—when he tried to remember details, the memory slid away—yet the emotion
+surged without any picture, a raw terror that left him breathless. A routine physical examination he
+had scheduled six months later sent him into a full-body reenactment: lying on the exam table, he
+felt his limbs lock, as if the sepsis had returned.
+
+These encounters with triggers did not just activate his memory; they corroded his sense of self.
+After a doctor’s appointment, he would think, “I can’t trust my own body anymore. It almost killed
+me once, and it will again.” He felt unrecognizable to himself—the confident principal who bounded
+through hallways had become a man who flinched at the smell of a bandage. That negative appraisal of
+his own unreliability, in turn, made him exquisitely sensitive to any olfactory cue. That same
+conviction—that his body could not be trusted—kept pulling him back into the ICU, the memory
+surfacing each time as if to prove the verdict true. He began to notice the antiseptic scent in the
+school nurse’s office from three doors away, scanning hallways for it every morning.
+
+Over the months, Michael developed a set of strategies that only deepened the cycle. Before any
+staff meeting or parent conference, he rehearsed what he would say, poring over talking points until
+he had a script, because he no longer trusted his ability to respond naturally. “I can’t rely on
+myself to handle an unexpected question,” he told himself. This rehearsal, while offering temporary
+control, left him feeling even more like a stranger inside his own skin—an actor playing a
+principal. He began to isolate completely, canceling dinner invitations with his few remaining
+friends and avoiding phone calls. The isolation reinforced his belief that he had become someone he
+did not recognize. When he did interact, the rehearsed conversations felt hollow, and afterward he
+would encounter triggers more acutely: a friend’s hand sanitizer on a desk, the alcohol smell in a
+church foyer. Each avoidance made the next trigger feel more dangerous.
+
+The memory intrusions fed directly into his maladaptive strategies. When the bodily reenactment
+seized him—usually triggered by a hospital smell or a reminder of a procedure—he would cancel plans
+for the rest of the day, holing up in his office or home. “I can’t let anyone see me like this,” he
+thought, “because this frozen, helpless person isn’t me.” The emotion-without-image episodes were
+particularly disturbing; he would feel the full dread of the ICU without any story to attach it to,
+and then conclude, “See, your body is betraying you again.” This strengthened his resolve to avoid
+medical settings altogether—he had not been to a physician in eighteen months, even when a
+persistent cough worried him.
+
+Now, nearly two years later, Michael stands in the threshold of his own life. A colleague recently
+pulled him aside and said he seemed distant, that the staff missed his easy laugh. The comment stung
+because it was true. He finally made an appointment with a therapist, not because he believes he can
+change, but because the isolation has grown unbearable. What frightens him most is the thought that
+the person he was is gone forever, that his body will always be an enemy. What he hopes for, barely,
+is to find a version of himself he can live inside without constant vigilance.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Michael was fifty-one, a school principal in a Midwestern district, when a routine flu spiraled into
+sepsis. For three weeks in the ICU, he lay tethered to monitors and IV lines, the antiseptic reek of
+alcohol wipes and hand sanitizer saturating every breath. He could not move; the doctors’ hands on
+his chest, the cold gel of the ultrasound probe, the repeated blood draws—these became the entire
+texture of his waking hours. His wife had died five years earlier, and he faced those weeks alone,
+the beeping machines the only voice in the room.
+
+After discharge, Michael returned to work determined to resume his life. But the world had become a
+minefield of sensory triggers. The first time a janitor mopped the school hallway near his office,
+the faint sting of rubbing alcohol hit his nostrils, and his heart slammed. He felt his body go
+rigid, the same frozen helplessness he had known in the ICU bed. He could not bring the actual
+hospital scenes to mind—when he tried to remember details, the memory slid away—yet the emotion
+surged without any picture, a raw terror that left him breathless. A routine physical examination he
+had scheduled six months later sent him into a full-body reenactment: lying on the exam table, he
+felt his limbs lock, as if the sepsis had returned.
+
+These encounters with triggers did not just activate his memory; they corroded his sense of self.
+After a doctor’s appointment, he would think, “I can’t trust my own body anymore. It almost killed
+me once, and it will again.” He felt unrecognizable to himself—the confident principal who bounded
+through hallways had become a man who flinched at the smell of a bandage. That negative appraisal of
+his own unreliability, in turn, made him exquisitely sensitive to any olfactory cue. That same
+conviction—that his body could not be trusted—kept pulling him back into the ICU, the memory
+surfacing each time as if to prove the verdict true. He began to notice the antiseptic scent in the
+school nurse’s office from three doors away, scanning hallways for it every morning.
+
+Over the months, Michael developed a set of strategies that only deepened the cycle. Before any
+staff meeting or parent conference, he rehearsed what he would say, poring over talking points until
+he had a script, because he no longer trusted his ability to respond naturally. “I can’t rely on
+myself to handle an unexpected question,” he told himself. This rehearsal, while offering temporary
+control, left him feeling even more like a stranger inside his own skin—an actor playing a
+principal. He began to isolate completely, canceling dinner invitations with his few remaining
+friends and avoiding phone calls. The isolation reinforced his belief that he had become someone he
+did not recognize. When he did interact, the rehearsed conversations felt hollow, and afterward he
+would encounter triggers more acutely: a friend’s hand sanitizer on a desk, the alcohol smell in a
+church foyer. Each avoidance made the next trigger feel more dangerous.
+
+The memory intrusions fed directly into his maladaptive strategies. When the bodily reenactment
+seized him—usually triggered by a hospital smell or a reminder of a procedure—he would cancel plans
+for the rest of the day, holing up in his office or home. “I can’t let anyone see me like this,” he
+thought, “because this frozen, helpless person isn’t me.” The emotion-without-image episodes were
+particularly disturbing; he would feel the full dread of the ICU without any story to attach it to,
+and then conclude, “See, your body is betraying you again.” This strengthened his resolve to avoid
+medical settings altogether—he had not been to a physician in eighteen months, even when a
+persistent cough worried him.
+
+Now, nearly two years later, Michael stands in the threshold of his own life. A colleague recently
+pulled him aside and said he seemed distant, that the staff missed his easy laugh. The comment stung
+because it was true. He finally made an appointment with a therapist, not because he believes he can
+change, but because the isolation has grown unbearable. What frightens him most is the thought that
+the person he was is gone forever, that his body will always be an enemy. What he hopes for, barely,
+is to find a version of himself he can live inside without constant vigilance.

@@ -1,0 +1,217 @@
+PERSONA 238  |  2026-05-02 23:52:07
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             49
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      City Council Member
+  trauma_type     Combat
+  pcl5            42
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Sensory Distraction: I put on loud music or TV
+    • Thought Monitoring: constantly monitor own thoughts for signs of going crazy
+    • Avoid Being Touched: Any form of physical contact with others
+  Threat:
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+    • Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    • Sleep Problems: Trouble falling or staying asleep
+  Memory:
+    • Incomplete Picture: I feel like I am only remembering parts of what happened and the rest is missing
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+  Negative Appraisals:
+    • Body as Enemy: My body keeps reacting as if I am still in danger even when I am safe
+    • World is Dangerous: The world is a dangerous place
+    • Hypervigilance: I have to be on guard all the time
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.2768
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.4450
+  Memory → Threat                                    0.7496
+  Memory → Negative Appraisals                       0.8847
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.2921
+  Threat → Negative Appraisals                       0.4268
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0413
+  Maladaptive Strategies → Negative Appraisals       0.9489
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Lost Community: I have lost my connection to my community and culture
+    explanation: 'Lost Community and culture' is not impossible for a combat trauma survivor, but for a 49-year-old married male European city council member it is the least coherent appraisal in this profile and is weakly anchored to the rest of the selected nodes. The rest of the profile centers on bodily danger, touch/startle, fragmented trauma recall, and safety distrust; this item instead implies a culturally/community dislocation theme that is not supported elsewhere in Triggers/Threat/Memory/Maladaptive Strategies.
+    item:        Memory / Memory: Grief on Recall: When I remember the event I feel overwhelming grief
+    explanation: 'Overwhelming grief on recall' is not inherently inconsistent, but here it is the least coherent memory item relative to the formulation and other selected items. The profile is dominated by fear-based threat, bodily vulnerability, touch alarm, and cognitive disorganization of recall. A grief-dominant recall item without corresponding loss/bereavement appraisals or related strategies makes the memory cluster less internally aligned.
+  [2] FAIL
+    item:        Negative Appraisals / Physical Vulnerability: My body has been permanently damaged by what happened
+    explanation: The profile is largely coherent for a middle-aged male combat survivor, but this appraisal is the main mismatch. 'My body has been permanently damaged' implies a salient lasting physical injury. That idea is not supported elsewhere in the selected profile: memory items focus on fragmented, terror-laden recall; threat items emphasize current danger, mistrust of safety, startle to touch, and sleep disturbance; maladaptive strategies emphasize sensory distraction, thought monitoring, and avoidance of touch. There are no triggers selected, and no other items indicate ongoing medical consequences or trauma themes centered on bodily injury. In this profile, the appraisal reads as if it belongs to a different subtype centered on physical injury rather than the represented combat-related fear/terror formulation.
+  [3] FAIL
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: For a combat trauma profile in a 49-year-old male, this specific self-blame item is the main coherence problem. The rest of the profile centers on persistent danger, touch-triggered alarm, fragmented/terror-laden memory, and defensive avoidance, which fits combat-related PTSD. In contrast, 'the event happened because of the way I acted' implies a strong internal-causal guilt formulation that is not otherwise supported by the selected memory, threat, or strategy items. This makes the appraisal set less coherent with the overall profile and with the formulation, where Memory and Threat strongly feed Negative Appraisals focused on ongoing danger rather than responsibility for causing the trauma. Self-blame can occur in combat PTSD, but here it is insufficiently connected to the other selected items and stands out as the least clinically coherent item.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      3,113
+  output:     2,327
+  total:      5,440
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Michael was forty-nine when he finally walked into a therapist’s office, a year after retiring from
+the city council. He had served two terms, known for his steady voice in budget debates and his
+reluctance to attend community meet-and-greets. His wife, Diane, had been after him for months. “You
+flinch every time I touch you,” she said. “You haven’t slept through the night in years. Something’s
+wrong.” He knew she was right, but he couldn’t bring himself to explain why.
+
+The trouble started in Afghanistan, during his second deployment. He was a logistics officer, not
+infantry, but that didn’t matter the day the convoy hit an IED. He remembered the blast — the
+pressure, the ringing, the smoke — but after that, the memory broke apart. He could piece together
+fragments: the medic’s hands on his arm, a soldier shouting, the taste of dust and copper. But the
+middle was gone, a blank that left him dizzy when he tried to fill it. When he recounted the event
+to Diane or to his VA doctor, he would lose his thread mid-sentence, stammer, and give up. The
+terror, though, never faded. Every time the memory surfaced — triggered by a car backfiring or a
+helicopter overhead — it hit him with the same visceral force, his heart hammering, his chest tight.
+
+Back home, Michael began to see the world differently. The bombing had taught him that danger could
+be anywhere, and he became certain that he had to stay on guard at all times. He scanned crowds for
+suspicious packages, noted every exit in a room, and sat with his back to the wall at restaurants.
+His own body betrayed him: his palms would sweat, his muscles would tense, and he would feel a surge
+of adrenaline for no reason he could name. He came to believe that his body was his enemy, reacting
+as if the IED were still detonating. This sense of constant threat made it impossible to trust
+safety even when Diane assured him they were fine. At night, he lay awake, listening for footsteps,
+and when he finally fell asleep, a sudden sound would jolt him awake, gasping.
+
+The threat itself spiraled back into his memory. The more hypervigilant he became, the more he
+noticed gaps in his recall — he would catch himself flinching at a touch and then wonder what he had
+been remembering, the fragments seeming to dissolve further. Sleep deprivation eroded his
+concentration, making the blank spots in his story even larger.
+
+To cope, Michael developed strategies that he thought would keep him functional. He blasted loud
+music or talk radio whenever he was home alone, using the noise to drown out intrusive images. He
+constantly monitored his own thoughts, scanning for any sign that he was “losing it” — a flash of
+anger, a memory that came on too strong. And he avoided being touched by anyone: no handshakes at
+council events, no hugs from friends, no sudden pats on the back. When Diane reached for him in bed,
+he would stiffen and pull away.
+
+These strategies, however, only made things worse. The sensory distraction kept him from sitting
+with his memories, so they never integrated; he remained stuck with the same incomplete, terror-
+laden fragments. His thought monitoring convinced him that something was wrong with his mind,
+reinforcing the belief that his body and brain were untrustworthy. Avoiding touch meant he never had
+a corrective experience — nobody’s gentle touch ever taught him that contact could be safe. Instead,
+any accidental brush from a constituent at a town hall sent his heart racing, and he would retreat
+into his office, certain the world was dangerous.
+
+The cycle tightened. Because he could not trust his own memory, he felt more vulnerable, which
+deepened his hypervigilance. Because he was always on guard, his memory stayed fragmented and
+frightening. His negative appraisals — the world is dangerous, my body is against me — fed directly
+into his sense of threat, making the startle response quicker and the sleeplessness worse. In turn,
+every startle, every sleepless night, confirmed that he was right to see danger everywhere.
+
+What finally brought Michael to the clinic was a moment at a council retirement party. A colleague
+clapped him on the back, and he spun around, fist raised, before he could stop himself. The room
+went quiet. Diane had tears in her eyes. He realized then that his strategies were failing him as a
+husband and as a public servant. He still cannot explain what happened in that convoy without losing
+the thread, and the terror is as fresh as ever. He is afraid that therapy will mean reliving it, but
+he is more afraid of losing Diane — and himself — to the silence he has built around the missing
+parts of his story.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Michael was forty-nine when he finally walked into a therapist’s office, a year after retiring from
+the city council. He had served two terms, known for his steady voice in budget debates and his
+reluctance to attend community meet-and-greets. His wife, Diane, had been after him for months. “You
+flinch every time I touch you,” she said. “You haven’t slept through the night in years. Something’s
+wrong.” He knew she was right, but he couldn’t bring himself to explain why.
+
+The trouble started in Afghanistan, during his second deployment. He was a logistics officer, not
+infantry, but that didn’t matter the day the convoy hit an IED. He remembered the blast — the
+pressure, the ringing, the smoke — but after that, the memory broke apart. He could piece together
+fragments: the medic’s hands on his arm, a soldier shouting, the taste of dust and copper. But the
+middle was gone, a blank that left him dizzy when he tried to fill it. When he recounted the event
+to Diane or to his VA doctor, he would lose his thread mid-sentence, stammer, and give up. The
+terror, though, never faded. Every time the memory surfaced — triggered by a car backfiring or a
+helicopter overhead — it hit him with the same visceral force, his heart hammering, his chest tight.
+
+Back home, Michael began to see the world differently. The bombing had taught him that danger could
+be anywhere, and he became certain that he had to stay on guard at all times. He scanned crowds for
+suspicious packages, noted every exit in a room, and sat with his back to the wall at restaurants.
+His own body betrayed him: his palms would sweat, his muscles would tense, and he would feel a surge
+of adrenaline for no reason he could name. He came to believe that his body was his enemy, reacting
+as if the IED were still detonating. This sense of constant threat made it impossible to trust
+safety even when Diane assured him they were fine. At night, he lay awake, listening for footsteps,
+and when he finally fell asleep, a sudden sound would jolt him awake, gasping.
+
+The threat itself spiraled back into his memory. The more hypervigilant he became, the more he
+noticed gaps in his recall — he would catch himself flinching at a touch and then wonder what he had
+been remembering, the fragments seeming to dissolve further. Sleep deprivation eroded his
+concentration, making the blank spots in his story even larger.
+
+To cope, Michael developed strategies that he thought would keep him functional. He blasted loud
+music or talk radio whenever he was home alone, using the noise to drown out intrusive images. He
+constantly monitored his own thoughts, scanning for any sign that he was “losing it” — a flash of
+anger, a memory that came on too strong. And he avoided being touched by anyone: no handshakes at
+council events, no hugs from friends, no sudden pats on the back. When Diane reached for him in bed,
+he would stiffen and pull away.
+
+These strategies, however, only made things worse. The sensory distraction kept him from sitting
+with his memories, so they never integrated; he remained stuck with the same incomplete, terror-
+laden fragments. His thought monitoring convinced him that something was wrong with his mind,
+reinforcing the belief that his body and brain were untrustworthy. Avoiding touch meant he never had
+a corrective experience — nobody’s gentle touch ever taught him that contact could be safe. Instead,
+any accidental brush from a constituent at a town hall sent his heart racing, and he would retreat
+into his office, certain the world was dangerous.
+
+The cycle tightened. Because he could not trust his own memory, he felt more vulnerable, which
+deepened his hypervigilance. Because he was always on guard, his memory stayed fragmented and
+frightening. His negative appraisals — the world is dangerous, my body is against me — fed directly
+into his sense of threat, making the startle response quicker and the sleeplessness worse. In turn,
+every startle, every sleepless night, confirmed that he was right to see danger everywhere.
+
+What finally brought Michael to the clinic was a moment at a council retirement party. A colleague
+clapped him on the back, and he spun around, fist raised, before he could stop himself. The room
+went quiet. Diane had tears in her eyes. He realized then that his strategies were failing him as a
+husband and as a public servant. He still cannot explain what happened in that convoy without losing
+the thread, and the terror is as fresh as ever. He is afraid that therapy will mean reliving it, but
+he is more afraid of losing Diane — and himself — to the silence he has built around the missing
+parts of his story.

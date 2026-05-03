@@ -1,0 +1,257 @@
+PERSONA 482  |  2026-05-03 04:48:59
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             30
+  gender          Male
+  ethnicity       North American
+  relationship_status Married
+  occupation      Carpenter
+  trauma_type     Witnessed other trauma
+  pcl5            61
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Tactile (Touch): Physical touch
+    • Gustatory (Taste): A specific taste associated with the event
+    • Visual (Injuries): Visible injuries or wounds on others
+  Maladaptive Strategies:
+    • Overeat: eat excessively to manage distress
+    • Dissociate Deliberately: deliberately try to leave my body or blank out
+    • Avoid Thinking: Thinking about the event
+  Memory:
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    • Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    • Nonverbal Memory: I can't seem to put the frightening event into words.
+  Negative Appraisals:
+    • Life Destroyed: My life has been destroyed by the trauma
+    • Can't Rely on Self: I can't rely on myself
+    • Permanent Damage: I have permanently changed for the worse
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0803
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.1703
+  Triggers → Negative Appraisals                     0.4216
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.7449
+  Negative Appraisals → Triggers                     0.3843
+  Memory → Maladaptive Strategies                    0.8620
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.7516
+  Memory → Triggers                                  0.1281
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.8437
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, 'I can talk about what happened very easily' conflicts with the same node's strong intrusive, poorly controlled re-experiencing items ('triggered without warning' and 'full sensory reliving'). Severe reliving can coexist with disclosure, but 'very easily' pulls in the opposite direction and is the clearest within-node inconsistency.
+    item:        Negative Appraisals / Memory: Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    explanation: The cognitive formulation leaves Threat disconnected from the active network, yet 'Hypervigilance: I have to be on guard all the time' implies a strong ongoing sense of current threat. That threat-focused appraisal is not supported by the formulation and is not matched by any Threat-node content.
+    item:        Triggers / Memory: Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    explanation: 'Entrapment: Having no options' as a trigger is hard to reconcile with the rest of the profile. The negative appraisals and memory content center on global damage/self-reliance and sensory reliving, not on themes of being trapped or unable to escape, so this trigger appears insufficiently grounded in the reported formulation.
+    item:        Maladaptive Strategies / Negative Appraisals: Hypervigilance: I have to be on guard all the time
+    explanation: 'Avoid Physical Stress' is weakly supported by the rest of the profile. The triggers and appraisals do not indicate body-strain or exertion as a salient trauma-linked theme, making this strategy look disconnected from the reported trigger-memory-appraisal pattern.
+  [2] FAIL
+    item:        Triggers / Triggers: Entrapment: Having no options
+    explanation: The trigger profile is centered on entrapment, touch, and a specific taste, which implies reactivity to concrete sensory or situational reminders of the witnessed trauma. 'Entrapment: Having no options' is harder to reconcile with the rest of the profile because the memory and appraisal items do not describe being trapped or immobilized; they emphasize sensory reliving, nonverbal memory, hypervigilance, and global damage/self-doubt rather than a trapped-state theme. For a witnessed-trauma case, this item stands out as poorly integrated with the rest of the formulation.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Physical Stress: Situations that put my body under stress
+    explanation: 'Avoid Physical Stress' is not well supported by the rest of the five-component profile. The selected triggers and memory items point to sensory cue-driven reliving, and the appraisals concern vigilance, self-reliance, and life damage. Avoiding bodily stress suggests fear of physiological arousal or somatic activation, but there are no corresponding threat or appraisal items about bodily danger, losing control when activated, or physical collapse. It therefore looks like a maladaptive strategy targeting a symptom pattern not otherwise represented in the profile.
+  [3] FAIL
+    item:        Maladaptive Strategies / Avoid Reminders: Being reminded of the event by others
+    explanation: 'Avoid Reminders' appears mis-keyed: the strategy should be an avoidant behavior (e.g., avoiding being reminded), but the selected text describes a trigger/reminder rather than something the patient does. This makes the maladaptive-strategy item internally incoherent.
+    item:        Negative Appraisals / Hypervigilance: I have to be on guard all the time
+    explanation: The profile includes a prominent current-threat appraisal ('I have to be on guard all the time') despite Threat being structurally inactive: there are no active edges to or from Threat, and the rest of the profile is dominated by memory-based reexperiencing, negative self-appraisals, and coping strategies rather than an active external-danger formulation. This item fits Threat more than Negative Appraisals and is inconsistent with the specified formulation.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,968
+  output:     8,880
+  total:     15,848
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+James, a thirty-year-old carpenter, still cannot find the words for what happened that afternoon in
+the workshop. He was steadying a length of oak while his colleague, Mike, ran the table saw. The
+blade caught a knot; the wood kicked back. Mike’s hand slid forward into the spinning blade. James
+saw the fingers separate, saw the blood spray across the bench, felt the warm wetness on his own
+face and hands. He tried to clamp a towel around Mike’s wrist, and for a moment the metallic taste
+of blood—his own or Mike’s, he could never sort out—filled his mouth. That taste, the slick of blood
+on his palms, the image of Mike’s ruined hand: these are the pieces that have shattered his life.
+
+Months later, any physical touch can drop him back into that moment. When his wife places a hand on
+his shoulder, he flinches. The pressure of sawdust against his skin on a job site makes his stomach
+lurch. And each time that happens, the full memory returns without warning—not as a recollection but
+as a complete sensory reliving: the scream, the spray, the taste, the sticky heat on his hands. It
+all comes back at once, and he cannot put any of it into words. He has tried to tell his wife what
+it feels like, but the words dissolve. So instead, when the memory hits, he does everything he can
+to shut it down. He deliberately tries to leave his body, focusing on a spot on the ceiling until he
+blanks out. Or he eats—cookies, sandwiches, anything—to fill the hollow that opens in his chest. He
+has come to believe that his life has been permanently destroyed, that he is fundamentally changed
+for the worse and can no longer rely on himself to stay present or to protect anyone.
+
+The taste itself has become a trap. If he catches even a hint of metal in his mouth—from a fork,
+from the air after rain—the reliving begins again, and with it the conviction that he is damaged
+beyond repair. And that conviction, in turn, makes him hypervigilant to every possible trigger. He
+scans his environment for signs of injury, avoids touching raw materials with his bare hands, and
+recoils from his wife’s affection because the appraisals of permanent change make him believe that
+any sensory reminder will confirm he is ruined. The cycle tightens: a trigger brings the memory; the
+memory reinforces his negative beliefs; those beliefs make him more sensitive to triggers; and each
+maladaptive response—the overeating, the dissociation, the refusal to think about the event—only
+deepens his sense that he has lost control of his life.
+
+At work, he can no longer handle jobs that require close teamwork. He turned down a kitchen
+renovation because it meant working near a saw. His marriage has grown strained; his wife feels
+pushed away, and he cannot explain why he flinches from her. He has started avoiding thinking about
+the accident altogether, but the thoughts break through anyway, unbidden. Last week, while sanding a
+cabinet, a splinter drew a bead of blood on his thumb. The taste of copper flooded his mouth, and he
+was back in the workshop, hands slick, Mike’s scream in his ears, the belief that his life is over
+solidifying once more. That was when he finally called a clinic.
+
+He is not sure what help could look like. He is certain he can never go back to who he was, and he
+is terrified that talking will make it worse. But he cannot go on like this—every touch a warning,
+every taste a trap, every working day a fresh confrontation with his own brokenness.
+
+    ✗ edge:        Triggers → Maladaptive Strategies
+      explanation: No paragraph directly shows that triggers lead to maladaptive strategies; triggers instead lead to memory or negative appraisals which then prompt strategies.
+
+    ✗ edge:        Triggers → Negative Appraisals
+      explanation: No paragraph directly shows that triggers cause negative appraisals; the link goes through memory (trigger → memory → appraisal).
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: No paragraph directly shows that negative appraisals cause intrusive memories; memories are triggered by external cues and then reinforce appraisals.
+
+    ✗ edge:        Memory → Triggers
+      explanation: No paragraph directly shows that memory causes triggers; memory increases sensitivity to triggers via appraisals, not directly.
+
+  [2] PASS
+James, a thirty-year-old carpenter, still cannot find the words for what happened that afternoon in
+the workshop. He was steadying a length of oak while his colleague, Mike, ran the table saw. The
+blade caught a knot; the wood kicked back. Mike’s hand slid forward into the spinning blade. James
+saw the fingers separate, saw the blood spray across the bench, felt the warm wetness on his own
+face and hands. He tried to clamp a towel around Mike’s wrist, and for a moment the metallic taste
+of blood—his own or Mike’s, he could never sort out—filled his mouth. That taste, the slick of blood
+on his palms, the image of Mike’s ruined hand: these are the pieces that have shattered his life.
+
+Months later, any physical touch can drop him back into that moment. When his wife places a hand on
+his shoulder, he flinches. That flinch was not just a reaction—it was a signal; without thinking, he
+would reach for food or fix his gaze on a distant point to escape the sensation of being touched.
+The pressure of sawdust against his skin on a job site makes his stomach lurch. And each time that
+happens, the full memory returns without warning—not as a recollection but as a complete sensory
+reliving: the scream, the spray, the taste, the sticky heat on his hands. It all comes back at once,
+and he cannot put any of it into words. After the memory faded, he found himself flinching at sounds
+he had barely noticed before—the slam of a door, the screech of a chair leg—as if the memory had
+sharpened his senses to danger. He has tried to tell his wife what it feels like, but the words
+dissolve. So instead, when the memory hits, he does everything he can to shut it down. He
+deliberately tries to leave his body, focusing on a spot on the ceiling until he blanks out. Or he
+eats—cookies, sandwiches, anything—to fill the hollow that opens in his chest. He has come to
+believe that his life has been permanently destroyed, that he is fundamentally changed for the worse
+and can no longer rely on himself to stay present or to protect anyone. That belief kept pulling the
+accident back into his mind, as though his brain needed to replay the evidence of his own damage.
+
+The taste itself has become a trap. Even a fleeting taste of copper on his tongue made him certain,
+in that instant, that he was ruined. If he catches even a hint of metal in his mouth—from a fork,
+from the air after rain—the reliving begins again, and with it the conviction that he is damaged
+beyond repair. And that conviction, in turn, makes him hypervigilant to every possible trigger. He
+scans his environment for signs of injury, avoids touching raw materials with his bare hands, and
+recoils from his wife’s affection because the appraisals of permanent change make him believe that
+any sensory reminder will confirm he is ruined. The cycle tightens: a trigger brings the memory; the
+memory reinforces his negative beliefs; those beliefs make him more sensitive to triggers; and each
+maladaptive response—the overeating, the dissociation, the refusal to think about the event—only
+deepens his sense that he has lost control of his life.
+
+At work, he can no longer handle jobs that require close teamwork. He turned down a kitchen
+renovation because it meant working near a saw. His marriage has grown strained; his wife feels
+pushed away, and he cannot explain why he flinches from her. He has started avoiding thinking about
+the accident altogether, but the thoughts break through anyway, unbidden. Last week, while sanding a
+cabinet, a splinter drew a bead of blood on his thumb. The taste of copper flooded his mouth, and he
+was back in the workshop, hands slick, Mike’s scream in his ears, the belief that his life is over
+solidifying once more. That was when he finally called a clinic.
+
+He is not sure what help could look like. He is certain he can never go back to who he was, and he
+is terrified that talking will make it worse. But he cannot go on like this—every touch a warning,
+every taste a trap, every working day a fresh confrontation with his own brokenness.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+James, a thirty-year-old carpenter, still cannot find the words for what happened that afternoon in
+the workshop. He was steadying a length of oak while his colleague, Mike, ran the table saw. The
+blade caught a knot; the wood kicked back. Mike’s hand slid forward into the spinning blade. James
+saw the fingers separate, saw the blood spray across the bench, felt the warm wetness on his own
+face and hands. He tried to clamp a towel around Mike’s wrist, and for a moment the metallic taste
+of blood—his own or Mike’s, he could never sort out—filled his mouth. That taste, the slick of blood
+on his palms, the image of Mike’s ruined hand: these are the pieces that have shattered his life.
+
+Months later, any physical touch can drop him back into that moment. When his wife places a hand on
+his shoulder, he flinches. That flinch was not just a reaction—it was a signal; without thinking, he
+would reach for food or fix his gaze on a distant point to escape the sensation of being touched.
+The pressure of sawdust against his skin on a job site makes his stomach lurch. And each time that
+happens, the full memory returns without warning—not as a recollection but as a complete sensory
+reliving: the scream, the spray, the taste, the sticky heat on his hands. It all comes back at once,
+and he cannot put any of it into words. After the memory faded, he found himself flinching at sounds
+he had barely noticed before—the slam of a door, the screech of a chair leg—as if the memory had
+sharpened his senses to danger. He has tried to tell his wife what it feels like, but the words
+dissolve. So instead, when the memory hits, he does everything he can to shut it down. He
+deliberately tries to leave his body, focusing on a spot on the ceiling until he blanks out. Or he
+eats—cookies, sandwiches, anything—to fill the hollow that opens in his chest. He has come to
+believe that his life has been permanently destroyed, that he is fundamentally changed for the worse
+and can no longer rely on himself to stay present or to protect anyone. That belief kept pulling the
+accident back into his mind, as though his brain needed to replay the evidence of his own damage.
+
+The taste itself has become a trap. Even a fleeting taste of copper on his tongue made him certain,
+in that instant, that he was ruined. If he catches even a hint of metal in his mouth—from a fork,
+from the air after rain—the reliving begins again, and with it the conviction that he is damaged
+beyond repair. And that conviction, in turn, makes him hypervigilant to every possible trigger. He
+scans his environment for signs of injury, avoids touching raw materials with his bare hands, and
+recoils from his wife’s affection because the appraisals of permanent change make him believe that
+any sensory reminder will confirm he is ruined. The cycle tightens: a trigger brings the memory; the
+memory reinforces his negative beliefs; those beliefs make him more sensitive to triggers; and each
+maladaptive response—the overeating, the dissociation, the refusal to think about the event—only
+deepens his sense that he has lost control of his life.
+
+At work, he can no longer handle jobs that require close teamwork. He turned down a kitchen
+renovation because it meant working near a saw. His marriage has grown strained; his wife feels
+pushed away, and he cannot explain why he flinches from her. He has started avoiding thinking about
+the accident altogether, but the thoughts break through anyway, unbidden. Last week, while sanding a
+cabinet, a splinter drew a bead of blood on his thumb. The taste of copper flooded his mouth, and he
+was back in the workshop, hands slick, Mike’s scream in his ears, the belief that his life is over
+solidifying once more. That was when he finally called a clinic.
+
+He is not sure what help could look like. He is certain he can never go back to who he was, and he
+is terrified that talking will make it worse. But he cannot go on like this—every touch a warning,
+every taste a trap, every working day a fresh confrontation with his own brokenness.

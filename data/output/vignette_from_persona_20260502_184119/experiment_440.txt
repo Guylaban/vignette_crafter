@@ -1,0 +1,299 @@
+PERSONA 440  |  2026-05-03 04:01:16
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             56
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Divorced
+  occupation      Detective
+  trauma_type     Physical abuse by caregiver (childhood)
+  pcl5            62
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory Danger Cue: Burnt smell
+    • Victim Similarity: People who look similar to the victims
+    • Positive Emotion Confusion: Positive emotions
+  Maladaptive Strategies:
+    • Avoid Similar Clothes: avoid wearing similar clothes
+    • Memory Detachment: I detach myself from the memories
+    • Avoid People: avoid other people
+  Threat:
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+    • Rage on Recall: When I remember the event I feel intense rage
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+  Negative Appraisals:
+    • Shattered Beliefs: My beliefs about how the world works have been completely destroyed
+    • Bad Coper: My reactions since the event show that I am a lousy coper
+    • Character Blame: The event happened to me because of the sort of person I am
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3139
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0368
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.9902
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.3682
+  Memory → Threat                                    0.2385
+  Memory → Negative Appraisals                       0.0697
+  Memory → Triggers                                  0.0709
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.8633
+  Threat → Triggers                                  0.2359
+  Maladaptive Strategies → Memory                    0.2886
+  Maladaptive Strategies → Negative Appraisals       0.9021
+  Maladaptive Strategies → Triggers                  0.2685
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+    explanation: The inaction/self-blame item is hard to reconcile with the indexed trauma of childhood physical abuse by a caregiver. In a child victim context, 'not doing more to stop what happened' implies agency that is typically not clinically plausible for the same trauma profile; a more general shame/self-blame item would fit, but this specific omission-guilt wording is questionable.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: Within the Threat node, 'difficulty concentrating' is not a threat appraisal but a general arousal/cognitive symptom. The other Threat items reflect current danger and hypervigilance ('strong physical reactions to reminders', 'need to stay alert to fall asleep'). This item weakens within-node coherence and does not match the node's formulation role as perceived current threat.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      7,879
+  output:    10,060
+  total:     17,939
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Tane was born on a small Pacific island, the eldest of five children in a household where his
+father’s love was measured in silence and his punishments in open-handed blows. The beatings began
+before he could remember a time without them—a belt across the thighs, a fist to the ribs, the sting
+of a wooden spoon broken on his back. There was no pattern: sometimes a bad grade, sometimes a
+spilled drink, sometimes nothing at all. What Tane learned was that safety was an illusion and that
+his own body was a site of shame. He learned to stay small. By the time he left home at seventeen,
+he had buried the memories under a quiet, watchful competence that later made him an excellent
+detective.
+
+But the past never stays buried. Now fifty-six, divorced, living alone in a cramped apartment near
+the precinct, Tane is a walking archive of unwelcome returns. A case came in three months ago—a
+domestic that ended with a fire. When he stepped onto the scene, the acrid smell of burnt insulation
+and melted plastic hit his nostrils, and suddenly he was ten years old, pinned against the kitchen
+wall, the smell of his father’s cigarette mixing with the scorch of a hot iron. The trigger brought
+the full memory without warning: the rage, the helplessness, the burning shame. He stood frozen in
+the hallway, his heart hammering, while his partner called his name. That night, he could not sleep
+because he needed to stay alert—to what, he could not name. Every creak of the floorboards was a
+threat.
+
+Since then, Tane has become a master of avoidance. He avoids wearing any dark-colored shirts that
+might resemble the ones his father favored. He avoids people as much as possible, staying late at
+the station to dodge the crowds at happy hour. When a witness—a middle-aged man with a broad face
+and tired eyes—walked into the interrogation room, Tane felt his jaw tighten. The man looked nothing
+like his father, yet the resemblance in posture, in the way he sat, triggered something. Tane cut
+the interview short. He has also grown expert at detaching himself from the memories: when a
+flashback surfaces, he mentally steps sideways, blanking his mind, pushing the images away into a
+grey fog. But the detachment never lasts. Lying in bed, he feels the rage on recall—a hot, helpless
+fury that makes his fists clench and his breathing turn ragged. He has come to believe that his
+reactions since the event prove he is a lousy coper. A real detective would be able to handle a
+smell, a face. The event happened to him because of the sort of person he is, he tells himself:
+weak, defective, deserving.
+
+His shattered beliefs about the world are reinforced every time a memory intrudes. He used to think
+the world made sense, that people got what they deserved. Now he sees only randomness and cruelty.
+When he tries to explain what happened to his therapist—a middle-aged woman who asked about his
+childhood three sessions ago—he loses the thread and cannot finish. The words collapse. The rage
+rises, and he clams up. His therapist says he is doing well, but Tane knows that avoidance only
+makes it worse. The more he detaches, the more the memories burst through without warning. The more
+he avoids people, the more hypervigilant he becomes, scanning every face for potential danger. His
+physical reactivity—the pounding heart, the sweaty palms—convinces him that he is broken. Last week,
+during a surveillance operation, he saw a man in a blue jacket standing near a car, and his body
+reacted before his mind caught up: he ducked behind a dumpster, breath coming in short gasps. It was
+just a man waiting for a ride. But Tane’s threat system had already hijacked him, and afterward he
+berated himself for being a coward.
+
+Positive emotions confuse him most of all. At his daughter’s wedding two years ago, he felt a swell
+of happiness watching her dance. Then a wave of panic hit him. Joy felt dangerous, like a trap. He
+left early, blaming a migraine. Now he finds himself suspicious of laughter, of any warmth. The
+causal loops have tightened into a noose: a trigger brings the memory; the memory ratchets up
+threat; threat feeds his negative appraisals; those appraisals make him avoid; avoidance makes
+triggers more potent. He is exhausted.
+
+What finally brought Tane to the veterans’ mental health clinic—though he never served in the
+military, only in the police force—was an ultimatum from his captain after he froze during a routine
+evidence search in a burnt-out apartment building. He sat in the waiting room with his hands on his
+knees, certain he would fail at this too. What he fears most is that his mind is permanent: that the
+man who beat him has won, that all these years of being a detective were just a long delay before
+the collapse. What he hopes for, barely daring to whisper it even to himself, is that someone might
+show him how to put the memories away for good.
+
+    ✗ edge:        Negative Appraisals → Memory
+      explanation: Negative Appraisals → Memory: The vignette does not show that negative appraisals cause intrusive memories; instead, memories reinforce negative appraisals.
+
+    ✗ edge:        Memory → Triggers
+      explanation: Memory → Triggers: The vignette does not demonstrate that the memory itself leads to increased triggering; it shows triggers leading to memory.
+
+    ✗ edge:        Threat → Triggers
+      explanation: Threat → Triggers: There is no direct causal link where a sense of threat makes triggers more potent or more frequent; avoidance is shown to mediate that effect.
+
+  [2] PASS
+Tane was born on a small Pacific island, the eldest of five children in a household where his
+father’s love was measured in silence and his punishments in open-handed blows. The beatings began
+before he could remember a time without them—a belt across the thighs, a fist to the ribs, the sting
+of a wooden spoon broken on his back. There was no pattern: sometimes a bad grade, sometimes a
+spilled drink, sometimes nothing at all. What Tane learned was that safety was an illusion and that
+his own body was a site of shame. He learned to stay small. By the time he left home at seventeen,
+he had buried the memories under a quiet, watchful competence that later made him an excellent
+detective.
+
+But the past never stays buried. Now fifty-six, divorced, living alone in a cramped apartment near
+the precinct, Tane is a walking archive of unwelcome returns. A case came in three months ago—a
+domestic that ended with a fire. When he stepped onto the scene, the acrid smell of burnt insulation
+and melted plastic hit his nostrils, and suddenly he was ten years old, pinned against the kitchen
+wall, the smell of his father’s cigarette mixing with the scorch of a hot iron. The trigger brought
+the full memory without warning: the rage, the helplessness, the burning shame. He stood frozen in
+the hallway, his heart hammering, while his partner called his name. That night, he could not sleep
+because he needed to stay alert—to what, he could not name. Already running on that background hum
+of danger, he found that almost anything could tip into a warning—a car backfiring, a raised voice,
+the smell of cigarette smoke drifting from a neighbor's window. Every creak of the floorboards was a
+threat. Because the memory had surfaced so vividly, he began to see warnings everywhere: in a
+distant siren, in the clatter of a dropped key, in the way a stranger's footsteps slowed outside his
+door.
+
+Since then, Tane has become a master of avoidance. He avoids wearing any dark-colored shirts that
+might resemble the ones his father favored. He avoids people as much as possible, staying late at
+the station to dodge the crowds at happy hour. When a witness—a middle-aged man with a broad face
+and tired eyes—walked into the interrogation room, Tane felt his jaw tighten. The man looked nothing
+like his father, yet the resemblance in posture, in the way he sat, triggered something. Tane cut
+the interview short. He has also grown expert at detaching himself from the memories: when a
+flashback surfaces, he mentally steps sideways, blanking his mind, pushing the images away into a
+grey fog. But the detachment never lasts. Lying in bed, he feels the rage on recall—a hot, helpless
+fury that makes his fists clench and his breathing turn ragged. He has come to believe that his
+reactions since the event prove he is a lousy coper. A real detective would be able to handle a
+smell, a face. The event happened to him because of the sort of person he is, he tells himself:
+weak, defective, deserving. This belief that he was defective kept dragging him back into the memory
+of that night, as if his mind needed to confirm the verdict.
+
+His shattered beliefs about the world are reinforced every time a memory intrudes. He used to think
+the world made sense, that people got what they deserved. Now he sees only randomness and cruelty.
+When he tries to explain what happened to his therapist—a middle-aged woman who asked about his
+childhood three sessions ago—he loses the thread and cannot finish. The words collapse. The rage
+rises, and he clams up. His therapist says he is doing well, but Tane knows that avoidance only
+makes it worse. The more he detaches, the more the memories burst through without warning. The more
+he avoids people, the more hypervigilant he becomes, scanning every face for potential danger. His
+physical reactivity—the pounding heart, the sweaty palms—convinces him that he is broken. Last week,
+during a surveillance operation, he saw a man in a blue jacket standing near a car, and his body
+reacted before his mind caught up: he ducked behind a dumpster, breath coming in short gasps. It was
+just a man waiting for a ride. But Tane’s threat system had already hijacked him, and afterward he
+berated himself for being a coward.
+
+Positive emotions confuse him most of all. At his daughter’s wedding two years ago, he felt a swell
+of happiness watching her dance. Then a wave of panic hit him. Joy felt dangerous, like a trap. He
+left early, blaming a migraine. Now he finds himself suspicious of laughter, of any warmth. The
+causal loops have tightened into a noose: a trigger brings the memory; the memory ratchets up
+threat; threat feeds his negative appraisals; those appraisals make him avoid; avoidance makes
+triggers more potent. He is exhausted.
+
+What finally brought Tane to the veterans’ mental health clinic—though he never served in the
+military, only in the police force—was an ultimatum from his captain after he froze during a routine
+evidence search in a burnt-out apartment building. He sat in the waiting room with his hands on his
+knees, certain he would fail at this too. What he fears most is that his mind is permanent: that the
+man who beat him has won, that all these years of being a detective were just a long delay before
+the collapse. What he hopes for, barely daring to whisper it even to himself, is that someone might
+show him how to put the memories away for good.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Tane was born on a small Pacific island, the eldest of five children in a household where his
+father’s love was measured in silence and his punishments in open-handed blows. The beatings began
+before he could remember a time without them—a belt across the thighs, a fist to the ribs, the sting
+of a wooden spoon broken on his back. There was no pattern: sometimes a bad grade, sometimes a
+spilled drink, sometimes nothing at all. What Tane learned was that safety was an illusion and that
+his own body was a site of shame. He learned to stay small. By the time he left home at seventeen,
+he had buried the memories under a quiet, watchful competence that later made him an excellent
+detective.
+
+But the past never stays buried. Now fifty-six, divorced, living alone in a cramped apartment near
+the precinct, Tane is a walking archive of unwelcome returns. A case came in three months ago—a
+domestic that ended with a fire. When he stepped onto the scene, the acrid smell of burnt insulation
+and melted plastic hit his nostrils, and suddenly he was ten years old, pinned against the kitchen
+wall, the smell of his father’s cigarette mixing with the scorch of a hot iron. The trigger brought
+the full memory without warning: the rage, the helplessness, the burning shame. He stood frozen in
+the hallway, his heart hammering, while his partner called his name. That night, he could not sleep
+because he needed to stay alert—to what, he could not name. Already running on that background hum
+of danger, he found that almost anything could tip into a warning—a car backfiring, a raised voice,
+the smell of cigarette smoke drifting from a neighbor's window. Every creak of the floorboards was a
+threat. Because the memory had surfaced so vividly, he began to see warnings everywhere: in a
+distant siren, in the clatter of a dropped key, in the way a stranger's footsteps slowed outside his
+door.
+
+Since then, Tane has become a master of avoidance. He avoids wearing any dark-colored shirts that
+might resemble the ones his father favored. He avoids people as much as possible, staying late at
+the station to dodge the crowds at happy hour. When a witness—a middle-aged man with a broad face
+and tired eyes—walked into the interrogation room, Tane felt his jaw tighten. The man looked nothing
+like his father, yet the resemblance in posture, in the way he sat, triggered something. Tane cut
+the interview short. He has also grown expert at detaching himself from the memories: when a
+flashback surfaces, he mentally steps sideways, blanking his mind, pushing the images away into a
+grey fog. But the detachment never lasts. Lying in bed, he feels the rage on recall—a hot, helpless
+fury that makes his fists clench and his breathing turn ragged. He has come to believe that his
+reactions since the event prove he is a lousy coper. A real detective would be able to handle a
+smell, a face. The event happened to him because of the sort of person he is, he tells himself:
+weak, defective, deserving. This belief that he was defective kept dragging him back into the memory
+of that night, as if his mind needed to confirm the verdict.
+
+His shattered beliefs about the world are reinforced every time a memory intrudes. He used to think
+the world made sense, that people got what they deserved. Now he sees only randomness and cruelty.
+When he tries to explain what happened to his therapist—a middle-aged woman who asked about his
+childhood three sessions ago—he loses the thread and cannot finish. The words collapse. The rage
+rises, and he clams up. His therapist says he is doing well, but Tane knows that avoidance only
+makes it worse. The more he detaches, the more the memories burst through without warning. The more
+he avoids people, the more hypervigilant he becomes, scanning every face for potential danger. His
+physical reactivity—the pounding heart, the sweaty palms—convinces him that he is broken. Last week,
+during a surveillance operation, he saw a man in a blue jacket standing near a car, and his body
+reacted before his mind caught up: he ducked behind a dumpster, breath coming in short gasps. It was
+just a man waiting for a ride. But Tane’s threat system had already hijacked him, and afterward he
+berated himself for being a coward.
+
+Positive emotions confuse him most of all. At his daughter’s wedding two years ago, he felt a swell
+of happiness watching her dance. Then a wave of panic hit him. Joy felt dangerous, like a trap. He
+left early, blaming a migraine. Now he finds himself suspicious of laughter, of any warmth. The
+causal loops have tightened into a noose: a trigger brings the memory; the memory ratchets up
+threat; threat feeds his negative appraisals; those appraisals make him avoid; avoidance makes
+triggers more potent. He is exhausted.
+
+What finally brought Tane to the veterans’ mental health clinic—though he never served in the
+military, only in the police force—was an ultimatum from his captain after he froze during a routine
+evidence search in a burnt-out apartment building. He sat in the waiting room with his hands on his
+knees, certain he would fail at this too. What he fears most is that his mind is permanent: that the
+man who beat him has won, that all these years of being a detective were just a long delay before
+the collapse. What he hopes for, barely daring to whisper it even to himself, is that someone might
+show him how to put the memories away for good.

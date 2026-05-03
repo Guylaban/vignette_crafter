@@ -1,0 +1,180 @@
+PERSONA 314  |  2026-05-03 01:29:52
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             18
+  gender          Male
+  ethnicity       African
+  relationship_status Single
+  occupation      Tax Consultant
+  trauma_type     Rape
+  pcl5            74
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Shouting: Shouting
+    • Auditory (Door): Doors opening or slamming
+    • Male Presence: Being alone with men
+  Threat:
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+    • Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+    • Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations
+  Memory:
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+    • Emotion Without Image: Sometimes I feel the full emotional intensity of the event without any clear image or memory
+    • Taste Vividness: I can taste what I tasted during the event when the memory returns
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.1774
+  Triggers → Memory                                  0.1836
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.9475
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.3162
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.2855
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Military Topics: Talks about military
+    explanation: For an 18-year-old male whose trauma type is rape, the trigger 'Military Topics' is hard to reconcile with the rest of the profile. The other trigger, threat, and memory items coherently suggest interpersonal/close-contact danger (touch, strangers, shouting, doors, vivid sensory reliving), but military-related talk implies a trauma context that is otherwise absent. This is not supported by the threat or memory content and does not fit the formulation as a plausible trigger tightly linked to the presented threat-memory pattern.
+  [2] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      5,596
+  output:     5,624
+  total:     11,220
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Kwame was seventeen when it happened, a late summer evening after his shift at a downtown firm where
+he was finishing an internship in tax consulting. A senior colleague, a man whose voice he had
+learned to trust, offered him a ride home. Instead, the car turned into an empty parking garage. The
+man’s voice rose—shouting, demanding—and then the car door slammed, sealing them inside. Kwame can
+still taste the metallic salt of his own blood from where his lip split against the window frame;
+that taste arrives now without warning, sometimes with no image at all, just a full-body wave of
+terror that leaves him breathless. In the months since, he has come to believe that any man in a
+professional setting might be hiding the same capacity for violence. At his current job as a tax
+consultant—the same firm, different department—he avoids one-on-one meetings with male clients,
+inventing scheduling conflicts or insisting a junior associate join. When a door in the office
+hallway clicks shut, his heart lurches; the sound triggers a vivid flash of that car door, and he
+feels the same helpless immobilization. The taste follows, unbidden, and the more these memories
+intrude, the more hypervigilant he becomes to every shout and every unfamiliar male face. He has
+started to react with a full-body flinch when anyone touches him unexpectedly—a colleague’s hand on
+his shoulder makes him gasp—and he now walks the long way around the building to avoid passing
+through the lobby where strangers might approach. What frightens him most is how the threat feels
+self-perpetuating: the more he scans for danger, the more often he catches himself noticing a
+slamming door or a raised voice, and each such trigger reignites the memory, which in turn makes the
+world feel more dangerous. He has stopped going to new restaurants or stores, sticking only to the
+familiar grocery route he knows by heart, because unfamiliar places trigger a sense of total
+vulnerability. At home, he lives alone and keeps the television on low during the day to mask any
+sudden sounds from the hallway. It was after a client meeting last week—a male client shouted into
+his phone in the corridor outside Kwame’s office—that the taste returned so strongly he had to
+excuse himself to the bathroom and vomit. His supervisor’s concern finally pushed him to schedule an
+appointment with a therapist. Kwame is terrified that he will never feel safe again, but he is
+equally afraid that if he stops avoiding, the world will overwhelm him entirely.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not convey that the patient's sense of threat or perceived danger directly leads to or triggers the intrusive memory; instead, the memory is triggered by external cues or arises spontaneously, and threat is a consequence of the memory or part of the cycle via scanning for triggers.
+
+  [2] PASS
+Kwame was seventeen when it happened, a late summer evening after his shift at a downtown firm where
+he was finishing an internship in tax consulting. A senior colleague, a man whose voice he had
+learned to trust, offered him a ride home. Instead, the car turned into an empty parking garage. The
+man’s voice rose—shouting, demanding—and then the car door slammed, sealing them inside. Kwame can
+still taste the metallic salt of his own blood from where his lip split against the window frame;
+that taste arrives now without warning, sometimes with no image at all, just a full-body wave of
+terror that leaves him breathless. In the months since, he has come to believe that any man in a
+professional setting might be hiding the same capacity for violence. At his current job as a tax
+consultant—the same firm, different department—he avoids one-on-one meetings with male clients,
+inventing scheduling conflicts or insisting a junior associate join. When a door in the office
+hallway clicks shut, his heart lurches; the sound triggers a vivid flash of that car door, and he
+feels the same helpless immobilization. The taste follows, unbidden, and the more these memories
+intrude, the more hypervigilant he becomes to every shout and every unfamiliar male face. He has
+started to react with a full-body flinch when anyone touches him unexpectedly—a colleague’s hand on
+his shoulder makes him gasp—and he now walks the long way around the building to avoid passing
+through the lobby where strangers might approach. What frightens him most is how the threat feels
+self-perpetuating: the more he scans for danger, the more often he catches himself noticing a
+slamming door or a raised voice, and each such trigger reignites the memory, which in turn makes the
+world feel more dangerous. He had come to realize that even on quiet days, when no door slammed and
+no voice rose, the mere feeling that danger was near would summon the memory from nowhere — a
+sudden, unwanted arrival that felt like part of the threat itself. He has stopped going to new
+restaurants or stores, sticking only to the familiar grocery route he knows by heart, because
+unfamiliar places trigger a sense of total vulnerability. At home, he lives alone and keeps the
+television on low during the day to mask any sudden sounds from the hallway. It was after a client
+meeting last week—a male client shouted into his phone in the corridor outside Kwame’s office—that
+the taste returned so strongly he had to excuse himself to the bathroom and vomit. His supervisor’s
+concern finally pushed him to schedule an appointment with a therapist. Kwame is terrified that he
+will never feel safe again, but he is equally afraid that if he stops avoiding, the world will
+overwhelm him entirely.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Kwame was seventeen when it happened, a late summer evening after his shift at a downtown firm where
+he was finishing an internship in tax consulting. A senior colleague, a man whose voice he had
+learned to trust, offered him a ride home. Instead, the car turned into an empty parking garage. The
+man’s voice rose—shouting, demanding—and then the car door slammed, sealing them inside. Kwame can
+still taste the metallic salt of his own blood from where his lip split against the window frame;
+that taste arrives now without warning, sometimes with no image at all, just a full-body wave of
+terror that leaves him breathless. In the months since, he has come to believe that any man in a
+professional setting might be hiding the same capacity for violence. At his current job as a tax
+consultant—the same firm, different department—he avoids one-on-one meetings with male clients,
+inventing scheduling conflicts or insisting a junior associate join. When a door in the office
+hallway clicks shut, his heart lurches; the sound triggers a vivid flash of that car door, and he
+feels the same helpless immobilization. The taste follows, unbidden, and the more these memories
+intrude, the more hypervigilant he becomes to every shout and every unfamiliar male face. He has
+started to react with a full-body flinch when anyone touches him unexpectedly—a colleague’s hand on
+his shoulder makes him gasp—and he now walks the long way around the building to avoid passing
+through the lobby where strangers might approach. What frightens him most is how the threat feels
+self-perpetuating: the more he scans for danger, the more often he catches himself noticing a
+slamming door or a raised voice, and each such trigger reignites the memory, which in turn makes the
+world feel more dangerous. He had come to realize that even on quiet days, when no door slammed and
+no voice rose, the mere feeling that danger was near would summon the memory from nowhere — a
+sudden, unwanted arrival that felt like part of the threat itself. He has stopped going to new
+restaurants or stores, sticking only to the familiar grocery route he knows by heart, because
+unfamiliar places trigger a sense of total vulnerability. At home, he lives alone and keeps the
+television on low during the day to mask any sudden sounds from the hallway. It was after a client
+meeting last week—a male client shouted into his phone in the corridor outside Kwame’s office—that
+the taste returned so strongly he had to excuse himself to the bathroom and vomit. His supervisor’s
+concern finally pushed him to schedule an appointment with a therapist. Kwame is terrified that he
+will never feel safe again, but he is equally afraid that if he stops avoiding, the world will
+overwhelm him entirely.

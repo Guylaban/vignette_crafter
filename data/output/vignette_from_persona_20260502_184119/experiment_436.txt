@@ -1,0 +1,177 @@
+PERSONA 436  |  2026-05-03 03:55:52
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             33
+  gender          Male
+  ethnicity       North American
+  relationship_status Married
+  occupation      Prosecutor
+  trauma_type     Terrorism
+  pcl5            56
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Feeling Tired: Feeling very tired or exhausted
+    • Olfactory (Alcohol): Alcohol smell
+    • Auditory (Explosion): Explosion or bang sounds
+  Memory:
+    • No Coherent Story: I cannot tell a clear story of what happened even to myself
+    • More Real Than Normal: My memories of the event feel more real and vivid than memories of ordinary things
+    • Feels Present Not Past: The memory feels like it is happening right now rather than something that is over
+  Negative Appraisals:
+    • Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+    • Distrust Others: People are not what they seem
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.5587
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.9403
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.5109
+  Memory → Triggers                                  0.3558
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Idealized Families: Happy families
+    explanation: The trigger set is not coherent with the trauma type and the rest of the profile. For terrorism trauma in a prosecutor, 'Happy families' could plausibly trigger loss/safety themes, but 'Medical equipment such as needles or drips' points toward a medical trauma context that is not otherwise represented in the memory or appraisal items. This looks like a hard-to-explain trigger mismatch rather than ordinary heterogeneity.
+    item:        Negative Appraisals / Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips
+    explanation: 'I feel dirty or contaminated because of what happened' is typically associated with interpersonal/sexual trauma or moral contamination themes. In this profile, the other appraisals are inaction guilt and distrust, and the memory items describe vivid, present-tense traumatic reliving of a terrorism event. Without any sexual assault, bodily violation, or contamination-related trigger/memory content, this appraisal is clinically discordant with the trauma type and the rest of the formulation.
+  [2] FAIL
+    item:        Triggers / Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips
+    explanation: For a terrorism trauma in a 33-year-old prosecutor, the selected trigger set is weakly anchored to the trauma described. 'Needles/medical equipment' could occur if he sustained injuries, and 'alcohol smell' could occur if alcohol was present during aftermath or coping, but together they imply a medical/assault-like or hospital-associated cue pattern that is not supported anywhere else in the profile. With no memory or appraisal content linking the trauma to injury treatment, intoxication, or bodily violation, these triggers are clinically hard to place.
+    item:        Negative Appraisals / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: 'I feel dirty or contaminated because of what happened' is more typical of sexual assault, moral contamination, or exposure involving bodily fluids. In a terrorism case it is not impossible, but here it is not supported by the rest of the selected items: the memories emphasize disorganization and nowness, and the appraisals emphasize guilt and distrust, not bodily violation or pollution. This makes the contamination item the least coherent appraisal in the set.
+  [3] FAIL
+    item:        Negative Appraisals / Contamination: I feel dirty or contaminated because of what happened
+    explanation: For an adult male prosecutor with terrorism trauma, the appraisal of feeling 'dirty or contaminated' is hard to reconcile with the rest of the profile. The other items center on sensory trauma triggers (alcohol smell, explosion sounds), disorganized yet vivid reliving memory, and guilt/distrust appraisals, which fit terrorism exposure. 'Contamination' more strongly suggests trauma involving sexual assault, bodily violation, or moral taint, and here it lacks support from the memory, trigger, or strategy nodes. This makes it a clinically questionable outlier within the allowed components.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,649
+  output:     2,861
+  total:      5,510
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Nathan is a 33-year-old prosecutor in a Midwestern district attorney's office, married for six years
+to a high school teacher. He had been leading a high-profile terrorism-related trial when a bomb
+detonated in the courthouse parking garage. He escaped with minor injuries, but two colleagues and a
+security guard were killed. In the aftermath, Nathan could not hold a coherent sequence of the
+minutes before and after the blast. What he carried instead were fragments—the pressure wave, the
+silence afterward, the smell of gasoline and burnt rubber. That smell, or anything that remotely
+resembles it, still pulls him back as though no time has passed. The memory feels more real than
+ordinary recollections; it has a vivid, present-tense quality that leaves him disoriented, as if he
+is still standing in the smoke.
+
+Nathan works long hours, often arriving home exhausted. Fatigue now functions as a trigger: when he
+is drained, the intrusive images surface more easily, and with them comes a wave of self-
+condemnation. He cannot forgive himself for not doing more, for not warning people fast enough. In
+his darker moments he is certain he should have protected others and failed. These appraisals
+tighten around him when he encounters any reminder. A colleague’s cologne that carries a hint of
+alcohol sets off the same loop: the scent appears, and within seconds Nathan is mentally back in the
+garage, replaying his inaction. He has begun avoiding after-work social events where drinks are
+served, telling his wife he is too tired. The exhaustion itself then becomes another reminder of his
+perceived weakness, feeding the guilt.
+
+His guilt, in turn, deepens the fragmentation of his memory. The more he blames himself, the more
+the event feels present rather than past, as though he must keep reliving it to find a way to change
+the outcome. Yet the story remains stubbornly incoherent; he cannot piece together why he survived
+when others did not. This lack of narrative fuels his distrust of people around him. He catches
+himself scrutinizing colleagues’ motives, wondering if they are hiding something. At work he avoids
+the parking garage and takes a longer route through the building, even though he knows the explosion
+was a one-time event. He has started leaving his office early to avoid the echo of footsteps in the
+hallway, which can sound like running before a blast.
+
+The memory itself also triggers his physical state. When a spontaneous image of the explosion
+surfaces—often when he is tired or hears a sudden bang—his heart pounds and he feels the fatigue
+deepen, as though the recollection drains him. The tiredness then becomes another cue. This cycle
+has eroded his concentration; he has missed filing deadlines and received a formal warning from his
+supervisor. At home he is irritable, and his wife has commented that he seems “somewhere else.” What
+finally brought Nathan to seek help was a moment in court: a door slammed, he flinched, and he
+realized he had been scanning the room for exits. He is afraid that if he does not get control of
+this, he will lose his career and his marriage. But what frightens him most is the thought that
+facing the memories will only prove that he really did fail.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Nathan is a 33-year-old prosecutor in a Midwestern district attorney's office, married for six years
+to a high school teacher. He had been leading a high-profile terrorism-related trial when a bomb
+detonated in the courthouse parking garage. He escaped with minor injuries, but two colleagues and a
+security guard were killed. In the aftermath, Nathan could not hold a coherent sequence of the
+minutes before and after the blast. What he carried instead were fragments—the pressure wave, the
+silence afterward, the smell of gasoline and burnt rubber. That smell, or anything that remotely
+resembles it, still pulls him back as though no time has passed. The memory feels more real than
+ordinary recollections; it has a vivid, present-tense quality that leaves him disoriented, as if he
+is still standing in the smoke.
+
+Nathan works long hours, often arriving home exhausted. Fatigue now functions as a trigger: when he
+is drained, the intrusive images surface more easily, and with them comes a wave of self-
+condemnation. He cannot forgive himself for not doing more, for not warning people fast enough. In
+his darker moments he is certain he should have protected others and failed. These appraisals
+tighten around him when he encounters any reminder. A colleague’s cologne that carries a hint of
+alcohol sets off the same loop: the scent appears, and within seconds Nathan is mentally back in the
+garage, replaying his inaction. He has begun avoiding after-work social events where drinks are
+served, telling his wife he is too tired. The exhaustion itself then becomes another reminder of his
+perceived weakness, feeding the guilt.
+
+His guilt, in turn, deepens the fragmentation of his memory. The more he blames himself, the more
+the event feels present rather than past, as though he must keep reliving it to find a way to change
+the outcome. Yet the story remains stubbornly incoherent; he cannot piece together why he survived
+when others did not. This lack of narrative fuels his distrust of people around him. He catches
+himself scrutinizing colleagues’ motives, wondering if they are hiding something. At work he avoids
+the parking garage and takes a longer route through the building, even though he knows the explosion
+was a one-time event. He has started leaving his office early to avoid the echo of footsteps in the
+hallway, which can sound like running before a blast.
+
+The memory itself also triggers his physical state. When a spontaneous image of the explosion
+surfaces—often when he is tired or hears a sudden bang—his heart pounds and he feels the fatigue
+deepen, as though the recollection drains him. The tiredness then becomes another cue. This cycle
+has eroded his concentration; he has missed filing deadlines and received a formal warning from his
+supervisor. At home he is irritable, and his wife has commented that he seems “somewhere else.” What
+finally brought Nathan to seek help was a moment in court: a door slammed, he flinched, and he
+realized he had been scanning the room for exits. He is afraid that if he does not get control of
+this, he will lose his career and his marriage. But what frightens him most is the thought that
+facing the memories will only prove that he really did fail.

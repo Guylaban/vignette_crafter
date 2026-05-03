@@ -1,0 +1,224 @@
+{
+  "persona_id": 327,
+  "source_persona_id": 327,
+  "experiment_timestamp": "2026-05-03 01:40:55",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-reasoner",
+      "persona_crafter": "deepseek-reasoner",
+      "vignette_crafter": "deepseek-reasoner",
+      "vignette_validator": "deepseek-reasoner"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 28,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Financial Analyst",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 75
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Media / News",
+        "value": "Related news"
+      },
+      {
+        "key": "Weather Similarity",
+        "value": "Similar weather conditions to when the event happened"
+      },
+      {
+        "key": "Children Present",
+        "value": "Being around children"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      },
+      {
+        "key": "Escape Route Planning",
+        "value": "I always identify escape routes before I feel comfortable anywhere"
+      },
+      {
+        "key": "Sleep Vigilance",
+        "value": "I have difficulty falling asleep because I need to stay alert"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      },
+      {
+        "key": "Blocked Before Complete",
+        "value": "I find myself pushing the memory away before I can fully recall it"
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Identity Loss",
+        "value": "I feel like I don't know myself anymore"
+      },
+      {
+        "key": "Unrecognisable Self",
+        "value": "The person I have become is unrecognisable to me"
+      },
+      {
+        "key": "Failed to Protect",
+        "value": "I should have protected others and I failed"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.6291,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.3279,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.8899,
+    "Negative Appraisals -- Triggers": 0.8733,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.3833,
+    "Memory -- Triggers": 0.53,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0248,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9883,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.580825,
+  "edge_density": 0.4,
+  "vignette_word_count": 774,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "The threat items are keyed to interpersonal assault/home-intrusion danger and pervasive escape planning, which is hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, threat would more plausibly involve medical catastrophe, sudden deterioration, or loss, rather than someone entering the home."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Threat: Escape Route Planning: I always identify escape routes before I feel comfortable anywhere",
+          "explanation": "These threat items also fit poorly with the rest of the profile: the triggers are news, emotional closeness, and weather similarity, none of which plausibly connect to monitoring for an intruder or scanning escape routes. Given the very strong Triggers ↔ Threat edges, the selected threat content should be tightly linked to the triggers, but here the content appears to come from a different trauma schema."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Intrusion Monitoring"
+        ],
+        "Negative Appraisals": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Emotional Closeness: Someone getting emotionally close to me",
+          "explanation": "For trauma involving a child's life-threatening illness, media/news and weather cues are plausible reminders, but 'someone getting emotionally close to me' is difficult to reconcile as a primary trauma trigger unless there is additional interpersonal trauma history. It does not fit well with the illness-focused threat and memory pattern described by the rest of the profile."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Dehumanization: I feel like an object, not like a person",
+          "explanation": "The negative appraisal set is dominated by severe depersonalisation/identity disturbance ('object, not a person'; 'don't know myself anymore'; 'unrecognisable to me'), which is hard to link coherently to the stated trauma type and to the rest of the profile. For a parent traumatised by a child's illness, appraisals would more plausibly center on guilt, responsibility, permanent danger, or inability to protect. This item especially feels clinically mismatched rather than merely unusual."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Emotional Closeness"
+        ],
+        "Negative Appraisals": [
+          "Dehumanization"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 2,
+    "passed": 1,
+    "failed": 1,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 6910,
+    "output": 5619,
+    "total": 12529
+  },
+  "vignette": "Marcus is a twenty-eight-year-old financial analyst, married and living in a suburban home with his wife and their three-year-old daughter. Eight months ago, his daughter was hospitalized with a severe bacterial infection that spiraled into sepsis. For three days the doctors could not guarantee she would survive. Marcus sat in a sterile hospital room, watching her tiny body fight, listening to the rhythmic hiss of the ventilator, and memorizing the flat gray light coming through the window. She recovered fully, but the experience carved a wound that has not healed.\n\nNow, any reminder of that time can send him into a panicked state. On a mild, overcast morning, when the light through his office window matches that hospital gray, Marcus finds his chest tightening and his breath shortening. He has come to believe that such weather is a sign that something terrible is about to happen again. A news segment about childhood illness, even a brief mention on the radio during his commute, makes him grip the steering wheel until his knuckles whiten. He reacts as if he is in immediate danger even though nothing is wrong. He has started scanning every room he enters for exits—at work he chooses the desk closest to the stairwell, and at restaurants he sits facing the door, cataloging alternate routes in case he needs to flee. At night, he lies awake for hours, his senses trained on every sound from his daughter’s room, too alert to let sleep come.\n\nThese triggers also feed a corrosive self-appraisal. When Marcus hears about another sick child, or sees a toddler in the grocery store, the thought surfaces: *I should have protected her and I failed.* He did not fail—the medical team acted swiftly—but the feeling is visceral. He feels like a stranger to himself. The person he is now, always bracing for catastrophe, is unrecognizable compared to the easygoing father he used to be. He does not know who he is anymore. The more these negative appraisals take hold, the more acutely he notices triggers. He becomes hyperattentive to any cough or sniffle from his daughter, and to worried glances from his wife, interpreting them as confirmations that danger is present. This belief that he had failed to protect her kept pulling his mind back to the hospital room, replaying the moment he had been told she might not survive, as if reliving it could somehow undo it.\n\nHis memory of the hospitalization is both vivid and fragmentary. He can replay the exact image of the heart monitor’s numbers dropping, the doctor’s face, the rain streaming down the hospital window—but just as the memory threatens to reach the worst moment, he pushes it away before it completes. He has come to believe that if he lets himself fully remember, he will break. Yet the images intrude unbidden, mostly visual snapshots that flash into his mind when he is trying to work on spreadsheets. After those images surface, the world around him sharpens with threat—the rustle of papers, a colleague's cough, the hum of the air conditioner all feel like warnings he cannot afford to ignore. Each intrusion reinforces his belief that he failed to protect his daughter. In turn, the constant sense of threat keeps the memory alive: whenever he feels that sudden alarm, the hospital scenes return with renewed intensity. And because he is always on edge, he spots triggers where they might not exist—a child crying in the grocery store, a siren outside—and the cycle tightens.\n\nAvoidance has come to dominate his life. He no longer watches the news, changed his commute to avoid passing the hospital, and has asked his wife to take their daughter to the park without him. At work, his concentration has slipped; a colleague noticed his jumpiness and asked if he was okay. Marcus brushed it off, but the question stung. He feels trapped in a version of himself he does not respect.\n\nWhat finally brought him to seek help was a minor incident: his daughter developed a mild fever, and within seconds he was kneeling beside her bed, trembling, trying to remember the breathing exercises the nurses had taught him. His wife found him there and gently told him that their daughter was fine, that the fever would pass. Marcus knew she was right, but he could not make his body believe it. He is terrified that he will pass this vigilance on to his daughter, but he also cannot imagine living any other way. He hopes therapy can give him back the person he used to be—the father who could laugh on a rainy day instead of bracing for the worst."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Marcus is a twenty-eight-year-old financial analyst, married and living in a suburban home with his wife and their three-year-old daughter. Eight months ago, his daughter was hospitalized with a severe bacterial infection that spiraled into sepsis. For three days the doctors could not guarantee she would survive. Marcus sat in a sterile hospital room, watching her tiny body fight, listening to the rhythmic hiss of the ventilator, and memorizing the flat gray light coming through the window. She recovered fully, but the experience carved a wound that has not healed.\n\nNow, any reminder of that time can send him into a panicked state. On a mild, overcast morning, when the light through his office window matches that hospital gray, Marcus finds his chest tightening and his breath shortening. He has come to believe that such weather is a sign that something terrible is about to happen again. A news segment about childhood illness, even a brief mention on the radio during his commute, makes him grip the steering wheel until his knuckles whiten. He reacts as if he is in immediate danger even though nothing is wrong. He has started scanning every room he enters for exits—at work he chooses the desk closest to the stairwell, and at restaurants he sits facing the door, cataloging alternate routes in case he needs to flee. At night, he lies awake for hours, his senses trained on every sound from his daughter’s room, too alert to let sleep come.\n\nThese triggers also feed a corrosive self-appraisal. When Marcus hears about another sick child, or sees a toddler in the grocery store, the thought surfaces: *I should have protected her and I failed.* He did not fail—the medical team acted swiftly—but the feeling is visceral. He feels like a stranger to himself. The person he is now, always bracing for catastrophe, is unrecognizable compared to the easygoing father he used to be. He does not know who he is anymore. The more these negative appraisals take hold, the more acutely he notices triggers. He becomes hyperattentive to any cough or sniffle from his daughter, and to worried glances from his wife, interpreting them as confirmations that danger is present.\n\nHis memory of the hospitalization is both vivid and fragmentary. He can replay the exact image of the heart monitor’s numbers dropping, the doctor’s face, the rain streaming down the hospital window—but just as the memory threatens to reach the worst moment, he pushes it away before it completes. He has come to believe that if he lets himself fully remember, he will break. Yet the images intrude unbidden, mostly visual snapshots that flash into his mind when he is trying to work on spreadsheets. Each intrusion reinforces his belief that he failed to protect his daughter. In turn, the constant sense of threat keeps the memory alive: whenever he feels that sudden alarm, the hospital scenes return with renewed intensity. And because he is always on edge, he spots triggers where they might not exist—a child crying in the grocery store, a siren outside—and the cycle tightens.\n\nAvoidance has come to dominate his life. He no longer watches the news, changed his commute to avoid passing the hospital, and has asked his wife to take their daughter to the park without him. At work, his concentration has slipped; a colleague noticed his jumpiness and asked if he was okay. Marcus brushed it off, but the question stung. He feels trapped in a version of himself he does not respect.\n\nWhat finally brought him to seek help was a minor incident: his daughter developed a mild fever, and within seconds he was kneeling beside her bed, trembling, trying to remember the breathing exercises the nurses had taught him. His wife found him there and gently told him that their daughter was fine, that the fever would pass. Marcus knew she was right, but he could not make his body believe it. He is terrified that he will pass this vigilance on to his daughter, but he also cannot imagine living any other way. He hopes therapy can give him back the person he used to be—the father who could laugh on a rainy day instead of bracing for the worst.", "passed": false, "violations": [{"edge": "Negative Appraisals → Memory", "explanation": "The vignette does not show that negative appraisals cause or lead to memory recall; instead, memory intrudes spontaneously and then triggers negative appraisals."}, {"edge": "Memory → Triggers", "explanation": "The vignette does not show that memory causes the patient to notice triggers; instead, threat leads to hypervigilance for triggers."}], "violation_count": 2, "feedback": "REQUIRED EDGES MISSING:\n- Negative Appraisals → Memory: The vignette does not show that negative appraisals cause or lead to memory recall; instead, memory intrudes spontaneously and then triggers negative appraisals.\n  e.g. \"The belief that she was permanently changed kept bringing her back to the moment it had happened, as if she needed to locate exactly where she had been lost.\"\n  e.g. \"Telling herself that she should have seen it coming made the memory more vivid and easier to find — it sat there waiting, proof of her failure.\"\n  e.g. \"The conviction that she was weak fed directly into the flashback, colouring it, making it worse: she wasn't just there again, she was there again and helpless.\"\n- Memory → Triggers: The vignette does not show that memory causes the patient to notice triggers; instead, threat leads to hypervigilance for triggers.\n  e.g. \"After the memory had surfaced, even the most ordinary things — a kettle whistling, a door slamming — felt like warnings she couldn't afford to ignore.\"\n  e.g. \"The intrusive image left her scanning every room she entered, cataloguing exits, tracking faces, unable to switch off.\"\n  e.g. \"Because the memory came back so vividly, she began to see threads of it everywhere: in strangers' faces, in certain times of day, in the quality of winter light.\""},
+
+    {"vignette": "Marcus is a twenty-eight-year-old financial analyst, married and living in a suburban home with his wife and their three-year-old daughter. Eight months ago, his daughter was hospitalized with a severe bacterial infection that spiraled into sepsis. For three days the doctors could not guarantee she would survive. Marcus sat in a sterile hospital room, watching her tiny body fight, listening to the rhythmic hiss of the ventilator, and memorizing the flat gray light coming through the window. She recovered fully, but the experience carved a wound that has not healed.\n\nNow, any reminder of that time can send him into a panicked state. On a mild, overcast morning, when the light through his office window matches that hospital gray, Marcus finds his chest tightening and his breath shortening. He has come to believe that such weather is a sign that something terrible is about to happen again. A news segment about childhood illness, even a brief mention on the radio during his commute, makes him grip the steering wheel until his knuckles whiten. He reacts as if he is in immediate danger even though nothing is wrong. He has started scanning every room he enters for exits—at work he chooses the desk closest to the stairwell, and at restaurants he sits facing the door, cataloging alternate routes in case he needs to flee. At night, he lies awake for hours, his senses trained on every sound from his daughter’s room, too alert to let sleep come.\n\nThese triggers also feed a corrosive self-appraisal. When Marcus hears about another sick child, or sees a toddler in the grocery store, the thought surfaces: *I should have protected her and I failed.* He did not fail—the medical team acted swiftly—but the feeling is visceral. He feels like a stranger to himself. The person he is now, always bracing for catastrophe, is unrecognizable compared to the easygoing father he used to be. He does not know who he is anymore. The more these negative appraisals take hold, the more acutely he notices triggers. He becomes hyperattentive to any cough or sniffle from his daughter, and to worried glances from his wife, interpreting them as confirmations that danger is present. This belief that he had failed to protect her kept pulling his mind back to the hospital room, replaying the moment he had been told she might not survive, as if reliving it could somehow undo it.\n\nHis memory of the hospitalization is both vivid and fragmentary. He can replay the exact image of the heart monitor’s numbers dropping, the doctor’s face, the rain streaming down the hospital window—but just as the memory threatens to reach the worst moment, he pushes it away before it completes. He has come to believe that if he lets himself fully remember, he will break. Yet the images intrude unbidden, mostly visual snapshots that flash into his mind when he is trying to work on spreadsheets. After those images surface, the world around him sharpens with threat—the rustle of papers, a colleague's cough, the hum of the air conditioner all feel like warnings he cannot afford to ignore. Each intrusion reinforces his belief that he failed to protect his daughter. In turn, the constant sense of threat keeps the memory alive: whenever he feels that sudden alarm, the hospital scenes return with renewed intensity. And because he is always on edge, he spots triggers where they might not exist—a child crying in the grocery store, a siren outside—and the cycle tightens.\n\nAvoidance has come to dominate his life. He no longer watches the news, changed his commute to avoid passing the hospital, and has asked his wife to take their daughter to the park without him. At work, his concentration has slipped; a colleague noticed his jumpiness and asked if he was okay. Marcus brushed it off, but the question stung. He feels trapped in a version of himself he does not respect.\n\nWhat finally brought him to seek help was a minor incident: his daughter developed a mild fever, and within seconds he was kneeling beside her bed, trembling, trying to remember the breathing exercises the nurses had taught him. His wife found him there and gently told him that their daughter was fine, that the fever would pass. Marcus knew she was right, but he could not make his body believe it. He is terrified that he will pass this vigilance on to his daughter, but he also cannot imagine living any other way. He hopes therapy can give him back the person he used to be—the father who could laugh on a rainy day instead of bracing for the worst.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

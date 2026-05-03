@@ -1,0 +1,236 @@
+PERSONA 364  |  2026-05-03 02:31:49
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    deepseek-reasoner
+    persona_crafter      deepseek-reasoner
+    vignette_crafter     deepseek-reasoner
+    vignette_validator   deepseek-reasoner
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             63
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Married
+  occupation      Airline Pilot
+  trauma_type     Combat
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Tactile (Texture): A specific texture associated with the event
+    • Time of Day: The same time of day the event occurred
+    • Auditory (Helicopter): Helicopter or aircraft sounds
+  Threat:
+    • Night Vigilance: I find it harder to feel safe at night than during the day
+    • Threat in Movements: Sudden movements by others put me immediately on guard
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+  Memory:
+    • Memory Feels Alien: The memory feels like it belongs to someone else rather than to me
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+  Negative Appraisals:
+    • Defective Self: There is something wrong with me as a person
+    • Lost Happiness: I used to be a happy person but now I am always miserable.
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.8748
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.9526
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.2392
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.3704
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.4617
+  Memory → Negative Appraisals                       0.1723
+  Memory → Triggers                                  0.3776
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.1542
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.1822
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips
+    explanation: A medical-equipment visual trigger is hard to reconcile as a central combat-related trigger for this profile, especially alongside otherwise combat-consistent threat items and without any medical/hospital-related memory or appraisal content. It suggests a different trauma context and is clinically difficult to integrate with the stated trauma type.
+    item:        Memory / Memory: Rage on Recall + Emotionless Recall + Memory Feels Alien
+    explanation: Within Memory, intense rage on recall conflicts with the paired reports of emotionally numb recall and the memory feeling alien/detached. Fluctuation can occur, but as a compact three-item profile these items pull in opposing directions—high emotional arousal versus marked dissociative detachment—without other memory content to bridge them.
+  [2] FAIL
+    item:        Memory / Memory: Rage on Recall
+    explanation: Within the Memory node, 'Rage on Recall' conflicts with the paired endorsement of markedly detached recall ('Emotionless Recall' and 'Memory Feels Alien'). Intense rage during recall and recall experienced as numb/alien can both occur in PTSD, but selecting all three as coequal memory descriptors creates a direct within-node tension between highly affect-laden remembering and strongly depersonalized, affectless remembering. The rest of the profile coherently reflects severe combat-related PTSD, but this specific Memory combination is the main clinically questionable inconsistency.
+  [3] FAIL
+    item:        Memory / Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+    explanation: Within the Memory node, two items describe markedly detached/derealized recall ('emotionless', 'belongs to someone else') while another describes intensely affect-laden reliving ('same terror I felt at the time'). These can both occur across different moments in PTSD, but as the only three selected memory items they pull in opposing directions and are not a clean, internally coherent depiction of a single dominant memory style for this profile.
+  [4] FAIL
+    item:        Negative Appraisals / Hopelessness: I have no future
+    explanation: These two appraisals are plausible in severe PTSD, but for a 63-year-old married airline pilot they create a hard-to-explain mismatch with the rest of the profile when presented without any trauma-linked appraisal content. 'I have no future' is especially discordant for an older, still-employed patient and is not well integrated with the combat-specific trigger/threat pattern. The Negative Appraisals node is dominated by global depressive identity/future statements rather than trauma-related meanings that would plausibly connect to the very strong Triggers → Negative Appraisals edge in the formulation.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      6,522
+  output:     7,771
+  total:     14,293
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Tama is a 63-year-old airline pilot, married and living in Honolulu, who served as a helicopter
+pilot during the Vietnam War. In 1970, his Huey was hit by ground fire at dusk, crash-landing into a
+rice paddy. He survived, but his co-pilot and two gunners died. He still recalls the sensation of
+the co-pilot's blood soaking through his flight glove—a sticky, warm texture he can feel even now,
+decades later. That specific texture, the fading light of dusk, and the distant thump of rotors
+instantly snap him back to the wreck. The memory feels alien, as though it belongs to some other
+man; yet the terror is vivid and immediate, flooding him without warning. He now avoids tactile
+sensations like damp fabric or certain lotions, and he arranges his schedule so he never lands a
+plane after 7 p.m.—the same time of day, every day.
+
+The connection between triggers and his ongoing sense of threat is relentless. When Tama hears a
+helicopter overhead while driving to the airport, his heart hammers, and he finds himself scanning
+the sky for cover. Sudden movements by passengers or ground crew put him on guard; he has to
+consciously stop himself from ducking. At home, he keeps the blinds drawn after sunset and checks
+each room for exits before sitting down. He has come to believe the world is dangerous, and that
+belief makes the triggers feel like confirmations of danger. The noise of a passing helicopter is
+not just a sound—it means another attack could come. In turn, his hypervigilance amplifies his
+negative appraisals: if he is always on edge, there must be something wrong with him. He used to be
+a happy man, he says, but now he is always miserable, convinced he carries a permanent defect inside
+him.
+
+The memory itself drives both threat and appraisals. When a sudden noise or texture brings the crash
+back without warning, the terror is so complete that Tama feels he is reliving it, which feeds his
+belief that the world is hostile. That belief, in turn, makes him more likely to notice threats—and
+more likely to misinterpret benign triggers as dangerous. At work, he avoids the crew lounge because
+of the rough fabric on the chairs, a texture that reminds him of the rice paddy mud. His co-pilot
+once joked that he was "jumpy," and Tama snapped, embarrassed; he now avoids that co-pilot on
+layovers. His wife has noticed he cannot sit through a movie with her because he fixates on the exit
+sign and begins to sweat when there is a helicopter scene. He tells her it's nothing, but he knows
+the memory is stealing his life.
+
+What finally brought Tama to seek help was an incident last month. While taxiing his 737, the time-
+of-day alarm on his watch chimed at 7:02 p.m., and he froze, his hands locked on the yoke, until the
+tower called him twice. He was terrified he would lose his medical clearance. Now he sits in the
+therapist's office, hoping someone can stop the loop—the triggers that cue the memory, the memory
+that confirms the world is dangerous, the danger that makes him always watchful, and the
+watchfulness that brings the triggers back again. He is most afraid that the defective self he feels
+inside will eventually cost him the only thing he has left: the sky.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not convey that the traumatic memory directly causes or increases triggers; instead, triggers cue the memory, and memory influences triggers only indirectly through appraisals.
+
+    ✗ edge:        Threat → Memory
+      explanation: The vignette does not convey that a sense of threat directly triggers or amplifies the trauma memory; threat leads to hypervigilance and triggers, but not directly to the memory.
+
+  [2] PASS
+Tama is a 63-year-old airline pilot, married and living in Honolulu, who served as a helicopter
+pilot during the Vietnam War. In 1970, his Huey was hit by ground fire at dusk, crash-landing into a
+rice paddy. He survived, but his co-pilot and two gunners died. He still recalls the sensation of
+the co-pilot's blood soaking through his flight glove—a sticky, warm texture he can feel even now,
+decades later. Because the memory came back so completely, Tama began to see reminders of it
+everywhere — the way a shadow fell at a certain angle, the sound of a door closing heavily, the
+colour of rust on a metal railing — ordinary things that now felt like warnings. That specific
+texture, the fading light of dusk, and the distant thump of rotors instantly snap him back to the
+wreck. The memory feels alien, as though it belongs to some other man; yet the terror is vivid and
+immediate, flooding him without warning. He now avoids tactile sensations like damp fabric or
+certain lotions, and he arranges his schedule so he never lands a plane after 7 p.m.—the same time
+of day, every day.
+
+The connection between triggers and his ongoing sense of threat is relentless. When Tama hears a
+helicopter overhead while driving to the airport, his heart hammers, and he finds himself scanning
+the sky for cover. Sudden movements by passengers or ground crew put him on guard; he has to
+consciously stop himself from ducking. At home, he keeps the blinds drawn after sunset and checks
+each room for exits before sitting down. He has come to believe the world is dangerous, and that
+belief makes the triggers feel like confirmations of danger. The noise of a passing helicopter is
+not just a sound—it means another attack could come. On days when the world felt most dangerous, the
+memory was hardest to shake — it would surface in full force, as if his body needed to relive the
+crash to stay ready for the next one. In turn, his hypervigilance amplifies his negative appraisals:
+if he is always on edge, there must be something wrong with him. He used to be a happy man, he says,
+but now he is always miserable, convinced he carries a permanent defect inside him.
+
+The memory itself drives both threat and appraisals. When a sudden noise or texture brings the crash
+back without warning, the terror is so complete that Tama feels he is reliving it, which feeds his
+belief that the world is hostile. That belief, in turn, makes him more likely to notice threats—and
+more likely to misinterpret benign triggers as dangerous. At work, he avoids the crew lounge because
+of the rough fabric on the chairs, a texture that reminds him of the rice paddy mud. His co-pilot
+once joked that he was "jumpy," and Tama snapped, embarrassed; he now avoids that co-pilot on
+layovers. His wife has noticed he cannot sit through a movie with her because he fixates on the exit
+sign and begins to sweat when there is a helicopter scene. He tells her it's nothing, but he knows
+the memory is stealing his life.
+
+What finally brought Tama to seek help was an incident last month. While taxiing his 737, the time-
+of-day alarm on his watch chimed at 7:02 p.m., and he froze, his hands locked on the yoke, until the
+tower called him twice. He was terrified he would lose his medical clearance. Now he sits in the
+therapist's office, hoping someone can stop the loop—the triggers that cue the memory, the memory
+that confirms the world is dangerous, the danger that makes him always watchful, and the
+watchfulness that brings the triggers back again. He is most afraid that the defective self he feels
+inside will eventually cost him the only thing he has left: the sky.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Tama is a 63-year-old airline pilot, married and living in Honolulu, who served as a helicopter
+pilot during the Vietnam War. In 1970, his Huey was hit by ground fire at dusk, crash-landing into a
+rice paddy. He survived, but his co-pilot and two gunners died. He still recalls the sensation of
+the co-pilot's blood soaking through his flight glove—a sticky, warm texture he can feel even now,
+decades later. Because the memory came back so completely, Tama began to see reminders of it
+everywhere — the way a shadow fell at a certain angle, the sound of a door closing heavily, the
+colour of rust on a metal railing — ordinary things that now felt like warnings. That specific
+texture, the fading light of dusk, and the distant thump of rotors instantly snap him back to the
+wreck. The memory feels alien, as though it belongs to some other man; yet the terror is vivid and
+immediate, flooding him without warning. He now avoids tactile sensations like damp fabric or
+certain lotions, and he arranges his schedule so he never lands a plane after 7 p.m.—the same time
+of day, every day.
+
+The connection between triggers and his ongoing sense of threat is relentless. When Tama hears a
+helicopter overhead while driving to the airport, his heart hammers, and he finds himself scanning
+the sky for cover. Sudden movements by passengers or ground crew put him on guard; he has to
+consciously stop himself from ducking. At home, he keeps the blinds drawn after sunset and checks
+each room for exits before sitting down. He has come to believe the world is dangerous, and that
+belief makes the triggers feel like confirmations of danger. The noise of a passing helicopter is
+not just a sound—it means another attack could come. On days when the world felt most dangerous, the
+memory was hardest to shake — it would surface in full force, as if his body needed to relive the
+crash to stay ready for the next one. In turn, his hypervigilance amplifies his negative appraisals:
+if he is always on edge, there must be something wrong with him. He used to be a happy man, he says,
+but now he is always miserable, convinced he carries a permanent defect inside him.
+
+The memory itself drives both threat and appraisals. When a sudden noise or texture brings the crash
+back without warning, the terror is so complete that Tama feels he is reliving it, which feeds his
+belief that the world is hostile. That belief, in turn, makes him more likely to notice threats—and
+more likely to misinterpret benign triggers as dangerous. At work, he avoids the crew lounge because
+of the rough fabric on the chairs, a texture that reminds him of the rice paddy mud. His co-pilot
+once joked that he was "jumpy," and Tama snapped, embarrassed; he now avoids that co-pilot on
+layovers. His wife has noticed he cannot sit through a movie with her because he fixates on the exit
+sign and begins to sweat when there is a helicopter scene. He tells her it's nothing, but he knows
+the memory is stealing his life.
+
+What finally brought Tama to seek help was an incident last month. While taxiing his 737, the time-
+of-day alarm on his watch chimed at 7:02 p.m., and he froze, his hands locked on the yoke, until the
+tower called him twice. He was terrified he would lose his medical clearance. Now he sits in the
+therapist's office, hoping someone can stop the loop—the triggers that cue the memory, the memory
+that confirms the world is dangerous, the danger that makes him always watchful, and the
+watchfulness that brings the triggers back again. He is most afraid that the defective self he feels
+inside will eventually cost him the only thing he has left: the sky.

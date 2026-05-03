@@ -1,0 +1,223 @@
+{
+  "persona_id": 228,
+  "source_persona_id": 228,
+  "experiment_timestamp": "2026-05-02 23:45:41",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "deepseek-reasoner",
+      "persona_crafter": "deepseek-reasoner",
+      "vignette_crafter": "deepseek-reasoner",
+      "vignette_validator": "deepseek-reasoner"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 75,
+    "gender": "Male",
+    "ethnicity": "South Eastern Asian",
+    "relationship_status": "Widowed",
+    "occupation": "Cybersecurity Analyst",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 74
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Medical Procedures",
+        "value": "Undergoing a medical examination or procedure"
+      },
+      {
+        "key": "Pregnancy/Birth Reminders",
+        "value": "Pregnancy, childbirth, or babies in general"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      },
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Feels Present Not Past",
+        "value": "The memory feels like it is happening right now rather than something that is over"
+      },
+      {
+        "key": "Cannot Explain Clearly",
+        "value": "When I try to explain what happened I lose the thread and cannot finish"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.9509,
+    "Triggers -- Memory": 0.8432,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.9744,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0619,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Memory"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.7076,
+  "edge_density": 0.2,
+  "vignette_word_count": 601,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "The trigger set is strongly combat/assault-themed (helicopters, being followed, people in uniform) and is hard to reconcile with the indexed trauma of a child's life-threatening illness. A clinician would question whether these triggers belong to a different trauma history."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Being Followed: Feeling followed or tracked",
+          "explanation": "The threat items similarly suggest interpersonal attack or pursuit/hypervigilance in dangerous public settings (checking locks, needing back to wall) rather than a coherent threat representation linked to a child's medical crisis. Given the very strong Triggers → Threat edge, these threat items should plausibly arise from the listed triggers, but both sets point to a different trauma context than the indexed illness trauma."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Helicopter)"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Being Followed: Feeling followed or tracked",
+          "explanation": "The profile centers on a child's life-threatening illness, but 'being followed or tracked' suggests a stalking/pursuit trauma context that is hard to reconcile with the trauma type and the other selected medical-trauma items."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked",
+          "explanation": "The threat items emphasize interpersonal attack/intrusion vigilance (door-lock checking, needing back to wall) rather than danger linked to medical crisis, loss, or recurrence of illness. In combination with the stalking-like trigger, this pulls the profile toward a persecution/assault formulation that is not clinically coherent with the stated trauma."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Being Followed"
+        ],
+        "Threat": [
+          "Door and Lock Checking"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Authority Figures: People in uniform",
+          "explanation": "For trauma centred on a child's life-threatening illness, 'people in uniform' is a poor fit as a trigger unless the trauma involved military or police contexts; it does not cohere well with the otherwise medical/illness-based profile."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Back to Wall: I feel unsafe unless my back is against a wall where I can see the room",
+          "explanation": "'Back to wall' implies a hypervigilant interpersonal/assault-style danger schema about monitoring the room, which is hard to reconcile with the illness/medical trauma profile and the other listed triggers and memory items that centre on medical procedures and intrusive reliving."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Authority Figures"
+        ],
+        "Threat": [
+          "Back to Wall"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2724,
+    "output": 3258,
+    "total": 5982
+  },
+  "vignette": "Minh’s trauma began thirty years ago when his five-year-old daughter Linh was diagnosed with acute lymphoblastic leukemia. He spent every evening at the children’s hospital after work, sitting by her bedside as the antiseptic smell of the ward—bleach, iodine, hand sanitizer—clung to his clothes. What he could never shake was the sound of the IV pump and the sight of doctors performing lumbar punctures and bone marrow aspirations. Those months became a blur of fear and helplessness, but the memory itself never blurred: it stayed razor-sharp and immediate, as if he were still there, a film that played over and over no matter how many years passed.\n\nDecades later, at seventy-five, Minh works part-time as a cybersecurity analyst. The job demands periodic health screenings, and just a routine blood draw now sends his heart racing and his palms sweating—a strong physical reaction he cannot control. The moment the nurse swabs his arm with an alcohol pad, the hospital smell hits him, and suddenly he is back in that sterile room, watching Linh’s small body stiffen in pain. These triggers do not just provoke anxiety; they pull the entire memory into the present, making it feel as if it is happening right now rather than something long over. The smell, the sight of the needle—they are the direct doorway to the film that plays over and over.\n\nAfter a particularly vivid flashback at work—Minh had briefly lost track of where he was, believing for a moment that he was again at Linh’s bedside—he found himself hyperaware of every antiseptic smell in the building. The memory had primed him to detect triggers that he might otherwise have ignored. That evening, a whiff of hand sanitizer from a colleague sent him reeling again. The memories themselves were creating a world full of triggers, so that even a faint hospital odor on a passing stranger’s clothes could start the cycle anew.\n\nWhat frightened Minh most was the way his own fear amplified the memory. The moment his chest tightened with dread, the memory would snap into sharper focus—the exact shade of the hospital curtain, the sound of the monitor alarms—as if his body’s alarm system was rewinding the film. He had come to believe that if he could just stop the physical reaction, he could keep the memory at bay, but the opposite seemed true: the stronger his fear, the more the memory consumed him, pulling him deeper into the past.\n\nHe avoided any mention of hospitals, changed the channel when medical dramas appeared, and could not bear to visit his daughter when she was pregnant, because seeing her belly triggered images of the neonatal intensive care unit where other babies had fought for life. This avoidance had cost him precious time with his family; his daughter had felt hurt by his distance during her pregnancy. But Minh was certain that his presence would only lead to a full-blown flashback, and he had learned that when the memory flooded back, it was impossible to explain to anyone what had happened. When he tried to describe it, he lost the thread and could not finish a sentence.\n\nFinally, after his annual physical—a required procedure for his job—left him trembling and disoriented for two days, his daughter insisted he see a therapist. Minh comes now because he is tired of being a prisoner to a past that feels more real than the present. He is afraid that the memory will never fade, but he is also hoping that someone can help him find a way to live without feeling like he is still in that hospital room."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Minh’s trauma began thirty years ago when his five-year-old daughter Linh was diagnosed with acute lymphoblastic leukemia. He spent every evening at the children’s hospital after work, sitting by her bedside as the antiseptic smell of the ward—bleach, iodine, hand sanitizer—clung to his clothes. What he could never shake was the sound of the IV pump and the sight of doctors performing lumbar punctures and bone marrow aspirations. Those months became a blur of fear and helplessness, but the memory itself never blurred: it stayed razor-sharp and immediate, as if he were still there, a film that played over and over no matter how many years passed.\n\nDecades later, at seventy-five, Minh works part-time as a cybersecurity analyst. The job demands periodic health screenings, and just a routine blood draw now sends his heart racing and his palms sweating—a strong physical reaction he cannot control. The moment the nurse swabs his arm with an alcohol pad, the hospital smell hits him, and suddenly he is back in that sterile room, watching Linh’s small body stiffen in pain. These triggers do not just provoke anxiety; they pull the entire memory into the present, making it feel as if it is happening right now rather than something long over. The smell, the sight of the needle—they are the direct doorway to the film that plays over and over.\n\nAfter a particularly vivid flashback at work—Minh had briefly lost track of where he was, believing for a moment that he was again at Linh’s bedside—he found himself hyperaware of every antiseptic smell in the building. The memory had primed him to detect triggers that he might otherwise have ignored. That evening, a whiff of hand sanitizer from a colleague sent him reeling again. The memories themselves were creating a world full of triggers, so that even a faint hospital odor on a passing stranger’s clothes could start the cycle anew.\n\nWhat frightened Minh most was the way his own fear amplified the memory. The moment his chest tightened with dread, the memory would snap into sharper focus—the exact shade of the hospital curtain, the sound of the monitor alarms—as if his body’s alarm system was rewinding the film. He had come to believe that if he could just stop the physical reaction, he could keep the memory at bay, but the opposite seemed true: the stronger his fear, the more the memory consumed him, pulling him deeper into the past.\n\nHe avoided any mention of hospitals, changed the channel when medical dramas appeared, and could not bear to visit his daughter when she was pregnant, because seeing her belly triggered images of the neonatal intensive care unit where other babies had fought for life. This avoidance had cost him precious time with his family; his daughter had felt hurt by his distance during her pregnancy. But Minh was certain that his presence would only lead to a full-blown flashback, and he had learned that when the memory flooded back, it was impossible to explain to anyone what had happened. When he tried to describe it, he lost the thread and could not finish a sentence.\n\nFinally, after his annual physical—a required procedure for his job—left him trembling and disoriented for two days, his daughter insisted he see a therapist. Minh comes now because he is tired of being a prisoner to a past that feels more real than the present. He is afraid that the memory will never fade, but he is also hoping that someone can help him find a way to live without feeling like he is still in that hospital room.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

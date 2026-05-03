@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "agent_name": "Persona_454_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 1,
+    "timestamp": "2026-05-03 04:17:13"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Memory\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Threat\n  - Triggers → Memory\n  - Memory → Maladaptive Strategies\n  - Memory → Threat\n  - Threat → Memory\n  - Threat → Triggers\n  - Maladaptive Strategies → Memory\n  - Maladaptive Strategies → Triggers\n  - Maladaptive Strategies → Threat\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\n The sight of a particular jacket or the sound of footsteps too close sent her body into fight-or-flight before her mind could register why — the trigger itself felt like an ambush. That same smell pulled her straight back into the alley where it happened, the memory arriving unbidden and fully formed, as if no time had passed at all. The memory left her feeling hunted in her own apartment, the danger feeling as present as it had that night — she could not separate the past from the perceived threat. Already running on threat, she found that ordinary things — a door closing too sharply, a car backfiring — felt like warnings, expanding the list of cues she had to watch for. The checking gave her a temporary sense of control, but by never testing whether the danger had actually passed, she kept her nervous system convinced that the threat was real and ongoing — the safety behaviours had sealed that possibility off. The persistent sense of danger seemed to keep the memory close to the surface, as if her body was bracing for a repeat and needed to revisit the original to stay one step ahead. By never speaking of it, she had kept the memory sealed and untouched, so that when it did surface it came back as vivid as the first time — the silence had preserved it rather than dissolved it. She had learned that if she kept the television on loud enough, the thoughts couldn't get a foothold — silence was the enemy, and this strategy had become her only reliable shield. Each detour became a reminder in itself, etching the geography of the event deeper into her daily life — the avoidance had drawn a map of the trauma around her.\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Memory → Maladaptive Strategies"
+    ],
+    "violation_explanations": [
+      "No paragraph conveys that the memory influences or leads to maladaptive strategies; the vignette shows strategies used to manage threat and triggers, not directly from the memory."
+    ]
+  }
+}

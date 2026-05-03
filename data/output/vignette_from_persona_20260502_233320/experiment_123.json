@@ -1,0 +1,180 @@
+{
+  "persona_id": 123,
+  "source_persona_id": 123,
+  "experiment_timestamp": "2026-05-03 09:29:21",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 32,
+    "gender": "Male",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Housekeeper",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 61
+  },
+  "self_report": {
+    "Memory": [
+      {
+        "key": "Pain Recall",
+        "value": "When the memory returns I feel physical pain in the same parts of my body as during the event"
+      },
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Distrust Others",
+        "value": "People are not what they seem"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.8557,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.2423,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Memory",
+    "Memory → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Memory",
+    "Memory → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.549,
+  "edge_density": 0.1,
+  "vignette_word_count": 615,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Fragmented Pieces",
+          "explanation": "Within the Memory node, 'My memories of the event come in disconnected pieces that do not fit together' directly conflicts with 'I can talk about what happened very easily.' For a severe mugging-related PTSD profile, markedly fragmented recall and very easy verbal access to the trauma narrative are hard to reconcile as describing the same current memory presentation."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Fragmented Pieces"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Verbal Access: I can talk about what happened very easily.",
+          "explanation": "The Memory node is internally incoherent for a severe mugging/robbery PTSD presentation: 'I can talk about what happened very easily' suggests low avoidance and relatively integrated, verbally accessible trauma memory, whereas simultaneously endorsing very vivid detailed recall and body-based painful reliving implies a highly sensory, distressing, poorly integrated trauma memory. This combination is possible in milder cases, but here it is hard to reconcile clinically within the same Memory profile. The Negative Appraisals items are coherent for robbery trauma, but the Memory selections do not fit cleanly with that node pattern or with the strong Negative Appraisals ↔ Memory linkage in the formulation."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Verbal Access"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Constant Vigilance: I have to be especially careful because you never know what can happen next",
+          "explanation": "This item is more characteristic of ongoing threat/safety behavior than of a pure negative appraisal. In this profile, Threat is not endorsed and all Threat-related edges are inactive, while the active formulation is specifically centered on a Memory ↔ Negative Appraisals loop. The mistrust items fit robbery-related appraisals, but 'Constant Vigilance' introduces a prominent current-threat theme that is not supported elsewhere in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Constant Vigilance"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Arjun was thirty-two when the narrow service alley behind the downtown corporate towers became a trap. He was leaving his night shift as a housekeeper, his utility belt heavy with industrial mops and master keys, when a man dropped from the rusted fire escape. The attacker did not just demand his wallet; he swung a heavy wrench, catching Arjun across the ribs and left thigh, then snatched his phone. Arjun remembered the exact scuff of the attacker’s boot on wet asphalt, the metallic taste of blood on his lips, the flickering halogen light overhead, and the suffocating silence that followed the strike. He never spoke it aloud to his wife or his colleagues. He knew what happened, but the words stuck in his throat, tangled in a knot he could not untie. Whenever the memory returned, a sharp, echoing ache flared in his ribs and thigh, mirroring the exact impact sites. Over the following months, the routine of his housekeeping work, once a source of steady income and quiet pride, became a minefield. He worked in glass-walled high-rises where hundreds of people passed through the lobbies he scrubbed daily, loading carts with fresh linens and emptying bins in quiet corridors. The sterile smell of bleach, the hum of commercial vacuums, the click of keycards against glass doors—all of it had become a backdrop for hyper-vigilance. What frightened him most was the sudden proximity of strangers. A man adjusting his tie in the elevator, a woman reaching into her purse for a security badge, the heavy thud of someone’s heels behind him on a vacant floor—each moment pulled a hyper-clear, detailed film of the mugging to the forefront of his mind. Because he had come to believe the world was a dangerous place and that people simply could not be trusted, his own alertness became a magnet for the past. Every unfamiliar face or shifting shadow was interpreted as a potential threat, and that relentless scanning only served to drag the unspoken, painful memory back into his body, making the trauma feel like it was happening all over again. The vivid recall of the attack, with its raw physical pain, confirmed his deepest fears about the unpredictability of strangers. When the memories returned, they did not just fade; they hardened his convictions that people are not what they seem and that the world itself is fundamentally hostile. To survive this perceived threat, he developed quiet habits of avoidance. He began taking a different route to the subway, crossing the street to avoid anyone walking too closely, and he started checking his apartment locks three times before bed. The strain seeped into his marriage. His wife, Meera, noticed how he flinched when she reached for his arm, how he stayed awake staring at the ceiling, certain that safety was an illusion. He stopped accompanying her to their usual evening walks along the river, telling himself it was to protect her, but in truth, he was protecting himself from the terrifying certainty that danger could strike without warning. By the fourth month, the weight of the loop became too heavy to carry alone. He sat in the intake office, his hands gripping the arms of the chair, the familiar ache in his ribs already starting. He had finally come to seek help because his employer had noticed his hesitation to enter certain service corridors, and because he could no longer pretend that sleep was anything other than a nightly surrender to the flashbacks. What he hoped for was simple: to trust his own feet again, to believe that not every stranger was a threat, and to finally put down the weight of a danger that no longer existed."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Arjun was thirty-two when the narrow service alley behind the downtown corporate towers became a trap. He was leaving his night shift as a housekeeper, his utility belt heavy with industrial mops and master keys, when a man dropped from the rusted fire escape. The attacker did not just demand his wallet; he swung a heavy wrench, catching Arjun across the ribs and left thigh, then snatched his phone. Arjun remembered the exact scuff of the attacker’s boot on wet asphalt, the metallic taste of blood on his lips, the flickering halogen light overhead, and the suffocating silence that followed the strike. He never spoke it aloud to his wife or his colleagues. He knew what happened, but the words stuck in his throat, tangled in a knot he could not untie. Whenever the memory returned, a sharp, echoing ache flared in his ribs and thigh, mirroring the exact impact sites. Over the following months, the routine of his housekeeping work, once a source of steady income and quiet pride, became a minefield. He worked in glass-walled high-rises where hundreds of people passed through the lobbies he scrubbed daily, loading carts with fresh linens and emptying bins in quiet corridors. The sterile smell of bleach, the hum of commercial vacuums, the click of keycards against glass doors—all of it had become a backdrop for hyper-vigilance. What frightened him most was the sudden proximity of strangers. A man adjusting his tie in the elevator, a woman reaching into her purse for a security badge, the heavy thud of someone’s heels behind him on a vacant floor—each moment pulled a hyper-clear, detailed film of the mugging to the forefront of his mind. Because he had come to believe the world was a dangerous place and that people simply could not be trusted, his own alertness became a magnet for the past. Every unfamiliar face or shifting shadow was interpreted as a potential threat, and that relentless scanning only served to drag the unspoken, painful memory back into his body, making the trauma feel like it was happening all over again. The vivid recall of the attack, with its raw physical pain, confirmed his deepest fears about the unpredictability of strangers. When the memories returned, they did not just fade; they hardened his convictions that people are not what they seem and that the world itself is fundamentally hostile. To survive this perceived threat, he developed quiet habits of avoidance. He began taking a different route to the subway, crossing the street to avoid anyone walking too closely, and he started checking his apartment locks three times before bed. The strain seeped into his marriage. His wife, Meera, noticed how he flinched when she reached for his arm, how he stayed awake staring at the ceiling, certain that safety was an illusion. He stopped accompanying her to their usual evening walks along the river, telling himself it was to protect her, but in truth, he was protecting himself from the terrifying certainty that danger could strike without warning. By the fourth month, the weight of the loop became too heavy to carry alone. He sat in the intake office, his hands gripping the arms of the chair, the familiar ache in his ribs already starting. He had finally come to seek help because his employer had noticed his hesitation to enter certain service corridors, and because he could no longer pretend that sleep was anything other than a nightly surrender to the flashbacks. What he hoped for was simple: to trust his own feet again, to believe that not every stranger was a threat, and to finally put down the weight of a danger that no longer existed.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

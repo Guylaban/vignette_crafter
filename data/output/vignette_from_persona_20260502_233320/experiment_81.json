@@ -1,0 +1,305 @@
+{
+  "persona_id": 81,
+  "source_persona_id": 81,
+  "experiment_timestamp": "2026-05-03 09:07:24",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 21,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Single",
+    "occupation": "Bus Driver",
+    "trauma_type": "Military",
+    "pcl5": 53
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Screen Escape",
+        "value": "I spend long hours on my phone, games, or internet to avoid thinking"
+      },
+      {
+        "key": "Avoid Religious Spaces",
+        "value": "Places of worship or religious gatherings"
+      },
+      {
+        "key": "Avoid Crowds",
+        "value": "Crowded places such as shopping centres or public events"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Fragmented Pieces",
+        "value": "My memories of the event come in disconnected pieces that do not fit together"
+      },
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Life Not Worth Living",
+        "value": "I am not sure my life is worth living anymore"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "I have to be on guard all the time"
+      }
+    ],
+    "Triggers": [
+      {
+        "key": "Olfactory Danger Cue",
+        "value": "Burnt smell"
+      },
+      {
+        "key": "Auditory (Explosion)",
+        "value": "Explosion or bang sounds"
+      },
+      {
+        "key": "Auditory (Helicopter)",
+        "value": "Helicopter or aircraft sounds"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.9441,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.7724,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.1146,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.3209,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.3647,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Memory"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.50334,
+  "edge_density": 0.25,
+  "vignette_word_count": 592,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Verbal Access: I can talk about what happened very easily.",
+          "explanation": "Within the Memory node, 'Verbal Access' directly conflicts with the combination of 'Fragmented Pieces' and repetitive intrusive replay. A patient who says the trauma memory is fragmented and involuntarily replayed would not usually also report being able to talk about it very easily; this is a hard within-node contradiction rather than normal heterogeneity."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Memory: Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together.",
+          "explanation": "The maladaptive avoidance items are not clinically well anchored to the rest of the profile or to the military trauma context presented here. Avoiding enclosed spaces and religious spaces suggests specific situational trigger-linked avoidance, but the profile contains no Triggers items and the formulation explicitly leaves Triggers disconnected from the other active components. These avoidance choices therefore do not fit the stated formulation and are hard to connect to the memory/appraisal pattern that is otherwise driving symptoms."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Memory: Memory Replay: My memories of the frightening event are like a film that plays over and over.",
+          "explanation": "Negative appraisals are generally severe and coherent with high PTSD burden, but because the active formulation centers Negative Appraisals driving Maladaptive Strategies and Memory, the selected maladaptive strategies should plausibly arise from those appraisals. 'Screen Escape' fits this, whereas avoidance of enclosed and religious spaces does not clearly follow from the selected appraisals ('Constant Vigilance,' 'Life Not Worth Living,' 'No Accountability')."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Verbal Access"
+        ],
+        "Maladaptive Strategies": [
+          "Memory"
+        ],
+        "Negative Appraisals": [
+          "Memory"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Enclosed Spaces: Enclosed or confined spaces",
+          "explanation": "The maladaptive avoidance items are not clinically well matched to the rest of the profile or to a military trauma formulation here. Avoiding enclosed spaces and religious spaces suggests highly specific trigger-linked avoidance, but the profile contains no Trigger items and no Threat content tied to confinement, ambush, captivity, worship settings, or comparable trauma cues. This makes these two avoidance items feel disconnected from the reported memory and appraisal pattern."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Avoid Religious Spaces: Places of worship or religious gatherings",
+          "explanation": "'Constant Vigilance' implies an active current-sense-of-threat/hypervigilance presentation. In this formulation, Threat is not active and Negative Appraisals has no link to Threat; the rest of the selected items center more on fragmented/repetitive memory, injustice, hopelessness, and cognitive avoidance. That item therefore sits awkwardly with both the node structure and the absence of any corresponding threat-related content elsewhere in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Enclosed Spaces"
+        ],
+        "Negative Appraisals": [
+          "Avoid Religious Spaces"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Constant Vigilance: I have to be especially careful because you never know what can happen next",
+          "explanation": "The Negative Appraisals node mixes three quite different themes—ongoing current danger/hypervigilance, severe depressive hopelessness, and moral/injustice-focused appraisal. These can coexist, but with only three appraisal items and no corresponding Threat or Trigger content, the node lacks a clear coherent theme tied to the formulation."
+        },
+        {
+          "component": "Triggers",
+          "item": "Negative Appraisals: Life Not Worth Living: I am not sure my life is worth living anymore",
+          "explanation": "A prominent appraisal of current danger ('Constant Vigilance') would usually connect clinically with Threat and/or Trigger content, but both nodes are absent here and all edges involving Threat/Triggers are inactive. This makes that item poorly aligned with the stated formulation structure."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Constant Vigilance"
+        ],
+        "Triggers": [
+          "Negative Appraisals"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Olfactory (Alcohol): Alcohol smell",
+          "explanation": "For a military trauma profile, loud noises are coherent, but alcohol smell and burnt smell together are hard to reconcile clinically without any corresponding memory, threat, or appraisal content indicating fire, explosions, intoxication, barracks/social-drinking contexts, or another olfactory-linked trauma scene. The trigger set implies a specific sensory trauma context that is not represented elsewhere in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory (Alcohol)"
+        ]
+      }
+    },
+    {
+      "attempt": 5,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Babies): Babies",
+          "explanation": "The trigger profile is mostly coherent with military trauma (loud noises, burnt smell), but 'Babies' is hard to reconcile with the rest of the profile and trauma type because no memory, threat, appraisal, or strategy item suggests infant-related content or a civilian/family trauma context. This makes that trigger clinically hard to explain within the same trauma narrative."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: No Accountability: The people responsible have faced no consequences",
+          "explanation": "'No Accountability' can occur after military trauma, but here the rest of the profile is dominated by sensory-perceptual trauma memory, generalized danger beliefs, and avoidance/distraction, with no other items indicating moral injury, betrayal, or injustice themes. Given the formulation strongly links Negative Appraisals to Memory and Maladaptive Strategies, this appraisal is insufficiently supported by the accompanying memory and strategy items and sits apart from the otherwise fear-based profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Babies)"
+        ],
+        "Negative Appraisals": [
+          "No Accountability"
+        ]
+      }
+    },
+    {
+      "attempt": 6,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Loud Noises): Loud noises",
+          "explanation": "The trigger items are strongly combat-specific and plausibly fit military trauma, but the formulation marks all Triggers pathways as inactive, including Triggers → Threat, Triggers → Memory, and Triggers → Negative Appraisals. With three intense sensory trauma reminders selected, one would expect at least some linked threat or memory activation. As written, the trigger node is too active and trauma-specific to sit coherently as an isolated component in this formulation."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Triggers: Olfactory Danger Cue: Burnt smell",
+          "explanation": "The appraisal items 'World is Dangerous' and 'I have to be on guard all the time' imply a persistent sense of current threat, yet Threat is entirely disconnected in the formulation and no Threat items are present. These appraisals can occur in PTSD, but together they function as threat-laden beliefs that sit awkwardly with a model where Negative Appraisals link mainly to Memory and Maladaptive Strategies rather than to current threat processing."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Loud Noises)"
+        ],
+        "Negative Appraisals": [
+          "Triggers"
+        ]
+      }
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Two years ago, during a routine convoy stop, a buried charge detonated beside Caleb’s vehicle. The concussive force threw him against the harness, immediately followed by the rhythmic thumping of a gunship returning to suppress enemy positions overhead. The air grew thick with the acrid, chemical tang of scorched metal and burning tires. He pulled himself out through shattered glass, but the sequence of violence never fully assembled in his mind. It remained a collection of disconnected fragments that did not fit together, and though he knew what happened, he simply could not find words to describe it. In the months since his medical discharge, those unplaceable memories stopped behaving like fragments. They began playing over and over in his head, a relentless film he could not pause. His unshakable belief that his life is not worth living anymore filtered his recall, making the memories feel inescapable rather than distant. Because he was certain that the world is a dangerous place, Caleb found himself retreating into his phone, spending long hours on games and the internet to avoid thinking. The memories, playing their endless loop, actively drove him toward these digital screens; when the replay grew too loud, he would lock the route on his map and drown out his own mind. His job as a city bus driver became a gauntlet of sensory triggers. On a Tuesday morning, a car backfired near the intersection, and the sudden auditory cue of an explosion or bang sounds made him jerk the wheel, his breath catching as the noise mirrored the desert. He pulled over, waiting for the phantom rhythm of a helicopter or aircraft sounds to join the noise, his hands gripping the steering wheel until his knuckles turned white. The smell of the bus’s diesel exhaust sometimes thickened in the cabin, a burnt smell that instantly transported him back to the scorched vehicle. Because of these invasions, he began avoiding crowded places such as shopping centres or public events, and he stopped attending his family’s church, steering clear of places of worship or religious gatherings that reminded him of the silence after gunfire. The unrelenting replay of the event did more than startle him; it cemented his negative appraisals. Every time the fragmented pieces resurfaced, they reinforced his conviction that the world is a dangerous place, leaving him feeling he had to be on guard all the time. Conversely, his own coping mechanisms worked against him. By spending long hours on his phone to escape the pain, he never processed the trauma, and this digital escape ensured that the memories remained sharp and unaddressed. The avoidance of crowds and religious spaces left him increasingly isolated, while his supervisors noted the missed stops and distracted driving. His sister’s texts went unanswered, and the hypervigilance that kept him on guard all the time siphoned off his energy. By the time Caleb walked into the clinic, he had run out of routes to hide behind. He was tired of the constant guard, tired of the phone screen glowing in the dark, and tired of the way his life had shrunk. He came in hoping for a way to make the film stop, or at least to understand why the burnt smell in a gas station parking lot could still make his heart stop. He was most afraid that talking would only pull the fragments back together, but he hoped someone might finally help him find the words he had lost, so he could at least try to believe that his life is worth living again."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Two years ago, during a routine convoy stop, a buried charge detonated beside Caleb’s vehicle. The concussive force threw him against the harness, immediately followed by the rhythmic thumping of a gunship returning to suppress enemy positions overhead. The air grew thick with the acrid, chemical tang of scorched metal and burning tires. He pulled himself out through shattered glass, but the sequence of violence never fully assembled in his mind. It remained a collection of disconnected fragments that did not fit together, and though he knew what happened, he simply could not find words to describe it. In the months since his medical discharge, those unplaceable memories stopped behaving like fragments. They began playing over and over in his head, a relentless film he could not pause. His unshakable belief that his life is not worth living anymore filtered his recall, making the memories feel inescapable rather than distant. Because he was certain that the world is a dangerous place, Caleb found himself retreating into his phone, spending long hours on games and the internet to avoid thinking. The memories, playing their endless loop, actively drove him toward these digital screens; when the replay grew too loud, he would lock the route on his map and drown out his own mind. His job as a city bus driver became a gauntlet of sensory triggers. On a Tuesday morning, a car backfired near the intersection, and the sudden auditory cue of an explosion or bang sounds made him jerk the wheel, his breath catching as the noise mirrored the desert. He pulled over, waiting for the phantom rhythm of a helicopter or aircraft sounds to join the noise, his hands gripping the steering wheel until his knuckles turned white. The smell of the bus’s diesel exhaust sometimes thickened in the cabin, a burnt smell that instantly transported him back to the scorched vehicle. Because of these invasions, he began avoiding crowded places such as shopping centres or public events, and he stopped attending his family’s church, steering clear of places of worship or religious gatherings that reminded him of the silence after gunfire. The unrelenting replay of the event did more than startle him; it cemented his negative appraisals. Every time the fragmented pieces resurfaced, they reinforced his conviction that the world is a dangerous place, leaving him feeling he had to be on guard all the time. Conversely, his own coping mechanisms worked against him. By spending long hours on his phone to escape the pain, he never processed the trauma, and this digital escape ensured that the memories remained sharp and unaddressed. The avoidance of crowds and religious spaces left him increasingly isolated, while his supervisors noted the missed stops and distracted driving. His sister’s texts went unanswered, and the hypervigilance that kept him on guard all the time siphoned off his energy. By the time Caleb walked into the clinic, he had run out of routes to hide behind. He was tired of the constant guard, tired of the phone screen glowing in the dark, and tired of the way his life had shrunk. He came in hoping for a way to make the film stop, or at least to understand why the burnt smell in a gas station parking lot could still make his heart stop. He was most afraid that talking would only pull the fragments back together, but he hoped someone might finally help him find the words he had lost, so he could at least try to believe that his life is worth living again.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}
