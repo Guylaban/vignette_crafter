@@ -1,0 +1,181 @@
+PERSONA 228  |  2026-05-03 12:15:54
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen2.5-32b
+    persona_crafter      qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             75
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Widowed
+  occupation      Cybersecurity Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            74
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Medical Procedures: Undergoing a medical examination or procedure
+    • Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Feels Present Not Past: The memory feels like it is happening right now rather than something that is over
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.9509
+  Triggers → Memory                                  0.8432
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.9744
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0619
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Helicopter): Helicopter or aircraft sounds
+    explanation: The trigger set is strongly combat/assault-themed (helicopters, being followed, people in uniform) and is hard to reconcile with the indexed trauma of a child's life-threatening illness. A clinician would question whether these triggers belong to a different trauma history.
+    item:        Threat / Triggers: Being Followed: Feeling followed or tracked
+    explanation: The threat items similarly suggest interpersonal attack or pursuit/hypervigilance in dangerous public settings (checking locks, needing back to wall) rather than a coherent threat representation linked to a child's medical crisis. Given the very strong Triggers → Threat edge, these threat items should plausibly arise from the listed triggers, but both sets point to a different trauma context than the indexed illness trauma.
+  [2] FAIL
+    item:        Triggers / Triggers: Being Followed: Feeling followed or tracked
+    explanation: The profile centers on a child's life-threatening illness, but 'being followed or tracked' suggests a stalking/pursuit trauma context that is hard to reconcile with the trauma type and the other selected medical-trauma items.
+    item:        Threat / Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: The threat items emphasize interpersonal attack/intrusion vigilance (door-lock checking, needing back to wall) rather than danger linked to medical crisis, loss, or recurrence of illness. In combination with the stalking-like trigger, this pulls the profile toward a persecution/assault formulation that is not clinically coherent with the stated trauma.
+  [3] FAIL
+    item:        Triggers / Triggers: Authority Figures: People in uniform
+    explanation: For trauma centred on a child's life-threatening illness, 'people in uniform' is a poor fit as a trigger unless the trauma involved military or police contexts; it does not cohere well with the otherwise medical/illness-based profile.
+    item:        Threat / Threat: Back to Wall: I feel unsafe unless my back is against a wall where I can see the room
+    explanation: 'Back to wall' implies a hypervigilant interpersonal/assault-style danger schema about monitoring the room, which is hard to reconcile with the illness/medical trauma profile and the other listed triggers and memory items that centre on medical procedures and intrusive reliving.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Mr. Tran was a widowed 75-year-old South Eastern Asian male who worked as a cybersecurity analyst.
+His life took a harrowing turn when his young child fell critically ill several years ago. The
+traumatic event of watching his child fight for their life in the hospital left an indelible mark on
+Mr. Tran’s psyche, and he now sought help to navigate through the distressing aftermath. The trauma
+was so vivid that even the slightest reminder could send him spiraling back into the depths of fear
+and horror. One day at work, while reading a report filled with clinical terms, he caught a whiff of
+antiseptic from a colleague who had recently been to the hospital. The smell instantly transported
+Mr. Tran back to the sterile environment where his child lay in critical condition. This olfactory
+trigger was potent because it was tied directly to the stark and terrifying moments he experienced
+there. Mr. Tran found that undergoing any medical examination or procedure could elicit a visceral
+reaction within him. Every time he had to visit a doctor, the fear of reliving those harrowing days
+would grip him tightly, making his heart race and his hands shake uncontrollably. The memory felt
+not just like a film but like something happening right now—his body reacting as if the stressful
+experience were actually unfolding again before his eyes. The recurrence of these triggers
+heightened Mr. Tran’s sense of threat. He was certain that any reminder of those days would unleash
+the same overwhelming negative emotions he had experienced during his child's illness. This fear
+made it difficult for him to seek medical care, even when necessary. For example, despite having
+chronic pain issues, he avoided going to doctors out of sheer dread. Mr. Tran’s memories were like a
+film that played over and over again in his mind. He would often find himself reliving the moments
+of panic and despair, unable to break free from the loop. These vivid recollections made it almost
+impossible for him to distinguish between past and present. When he tried to explain what had
+happened, he would get lost in the details, losing the thread of his narrative mid-sentence. The
+fear and physical reactivity associated with these triggers further reinforced his negative
+appraisals about the traumatic event itself. The memory of watching helplessly as his child battled
+for their life made every subsequent encounter with medical reminders a potent threat. This cycle
+tightened over time: each trigger reignited the memory, which in turn heightened his sense of threat
+and physical reactivity. One day, while at work, Mr. Tran received an email from a colleague about a
+new case involving hospital security breaches. The mention of hospitals and medical procedures
+immediately triggered a flashback, and he felt as if he were back in that sterile room with his
+child fighting for life. His hands trembled uncontrollably, and he could feel the panic rising
+within him. He realized then that these experiences were taking an immense toll on both his personal
+well-being and his professional capabilities. Mr. Tran had come to believe that avoiding any
+potential trigger was the only way to manage his distress, but this avoidance strategy had
+significant consequences. His work performance suffered as he found it increasingly difficult to
+focus amidst constant reminders of the hospital environment. He knew deep down that there must be a
+better way to cope with these memories and triggers. Ultimately, what finally brought Mr. Tran to
+seek help was a profound realization: he could no longer bear living in perpetual fear of reliving
+those harrowing days. His greatest hope was to regain control over his life and find ways to process
+the trauma without it dictating every aspect of his existence.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Mr. Tran was a widowed 75-year-old South Eastern Asian male who worked as a cybersecurity analyst.
+His life took a harrowing turn when his young child fell critically ill several years ago. The
+traumatic event of watching his child fight for their life in the hospital left an indelible mark on
+Mr. Tran’s psyche, and he now sought help to navigate through the distressing aftermath. The trauma
+was so vivid that even the slightest reminder could send him spiraling back into the depths of fear
+and horror. One day at work, while reading a report filled with clinical terms, he caught a whiff of
+antiseptic from a colleague who had recently been to the hospital. The smell instantly transported
+Mr. Tran back to the sterile environment where his child lay in critical condition. This olfactory
+trigger was potent because it was tied directly to the stark and terrifying moments he experienced
+there. Mr. Tran found that undergoing any medical examination or procedure could elicit a visceral
+reaction within him. Every time he had to visit a doctor, the fear of reliving those harrowing days
+would grip him tightly, making his heart race and his hands shake uncontrollably. The memory felt
+not just like a film but like something happening right now—his body reacting as if the stressful
+experience were actually unfolding again before his eyes. The recurrence of these triggers
+heightened Mr. Tran’s sense of threat. He was certain that any reminder of those days would unleash
+the same overwhelming negative emotions he had experienced during his child's illness. This fear
+made it difficult for him to seek medical care, even when necessary. For example, despite having
+chronic pain issues, he avoided going to doctors out of sheer dread. Mr. Tran’s memories were like a
+film that played over and over again in his mind. He would often find himself reliving the moments
+of panic and despair, unable to break free from the loop. These vivid recollections made it almost
+impossible for him to distinguish between past and present. When he tried to explain what had
+happened, he would get lost in the details, losing the thread of his narrative mid-sentence. The
+fear and physical reactivity associated with these triggers further reinforced his negative
+appraisals about the traumatic event itself. The memory of watching helplessly as his child battled
+for their life made every subsequent encounter with medical reminders a potent threat. This cycle
+tightened over time: each trigger reignited the memory, which in turn heightened his sense of threat
+and physical reactivity. One day, while at work, Mr. Tran received an email from a colleague about a
+new case involving hospital security breaches. The mention of hospitals and medical procedures
+immediately triggered a flashback, and he felt as if he were back in that sterile room with his
+child fighting for life. His hands trembled uncontrollably, and he could feel the panic rising
+within him. He realized then that these experiences were taking an immense toll on both his personal
+well-being and his professional capabilities. Mr. Tran had come to believe that avoiding any
+potential trigger was the only way to manage his distress, but this avoidance strategy had
+significant consequences. His work performance suffered as he found it increasingly difficult to
+focus amidst constant reminders of the hospital environment. He knew deep down that there must be a
+better way to cope with these memories and triggers. Ultimately, what finally brought Mr. Tran to
+seek help was a profound realization: he could no longer bear living in perpetual fear of reliving
+those harrowing days. His greatest hope was to regain control over his life and find ways to process
+the trauma without it dictating every aspect of his existence.

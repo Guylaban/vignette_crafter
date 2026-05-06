@@ -1,0 +1,262 @@
+{
+  "persona_id": 20,
+  "source_persona_id": 20,
+  "experiment_timestamp": "2026-05-04 03:54:30",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 44,
+    "gender": "Female",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Retail Worker",
+    "trauma_type": "Witnessed other trauma",
+    "pcl5": 68
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Affective Expression",
+        "value": "Crying"
+      },
+      {
+        "key": "Somatic (Dizziness)",
+        "value": "Feeling dizzy or lightheaded"
+      },
+      {
+        "key": "Event Recall",
+        "value": "Talking about the event"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Meaning Seeking",
+        "value": "I think about why the event has happened to me"
+      },
+      {
+        "key": "People Pleasing",
+        "value": "go along with whatever others want to feel safe"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      },
+      {
+        "key": "Scanning for Danger",
+        "value": "I constantly scan my surroundings for signs of danger"
+      },
+      {
+        "key": "Startle Response",
+        "value": "Feeling jumpy or easily startled"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Confused Sequence",
+        "value": "I cannot put the memories of the event in the right order"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      },
+      {
+        "key": "Overwhelm on Recall",
+        "value": "When the memory returns I feel so overwhelmed by emotion that I have to stop"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.8707,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0637,
+    "Memory -- Threat": 0.6264,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4476,
+    "Threat -- Maladaptive Strategies": 0.2744,
+    "Threat -- Memory": 0.2951,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0386,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.8013,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.427225,
+  "edge_density": 0.4,
+  "vignette_word_count": 589,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger",
+          "explanation": "The threat profile is strongly centered on current external danger and hypervigilant escape planning (avoiding unfamiliar places, scanning exits), but the memory items emphasize disorganized recall plus grief and rage without a clear link to present-moment environmental threat. That makes the Threat ↔ Memory pattern only weakly coherent for a witnessed-trauma presentation."
+        },
+        {
+          "component": "Memory",
+          "item": "Threat: Scanning Exits: I scan for exits as soon as I enter any room or building",
+          "explanation": "Within Memory, intense rage and overwhelming grief can co-occur, but with only three items and the third being confused sequence, the node reads as two different dominant emotional meanings of the trauma rather than one coherent memory profile. This is not impossible, but combined with the rest of the profile it creates a clinically mixed signal."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "Maladaptive Strategies are not well aligned within-node: checking surroundings fits the threat items, but meaning seeking is a ruminative appraisal-focused strategy and people pleasing is an interpersonal safety strategy. Together they imply three different maintaining processes without support from Negative Appraisals or other nodes."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Avoid Unfamiliar Places"
+        ],
+        "Memory": [
+          "Threat"
+        ],
+        "Maladaptive Strategies": [
+          "Memory"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Concentration: Having difficulty concentrating",
+          "explanation": "The threat node mixes core trauma-related threat responses (hypervigilance, scanning exits) with a nonspecific consequence item (difficulty concentrating). Concentration problems are common in PTSD, but here they do not clearly represent perceived current threat and are weakly aligned with the rest of the threat content."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "Within the memory node, intense rage on recall and overwhelming grief on recall can coexist, but paired with confused sequence they do not form a clearly coherent memory profile for a single witnessed-trauma account unless the event involved a very specific interpersonal betrayal/loss narrative. As presented, the emotional tone is mixed enough that a clinician would question whether these memory items are describing the same dominant trauma memory state."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Concentration"
+        ],
+        "Memory": [
+          "Rage on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Cars): Car sounds",
+          "explanation": "The profile suggests a highly generalized interpersonal/public-space danger style (scanning exits, constant danger monitoring, checking surroundings) that is not anchored by the rest of the formulation. For a witnessed-other-trauma case, this could occur, but here the only concrete trigger cue is 'car sounds,' which implies a more specific event context. The threat items are broad and pervasive in a way that is hard to reconcile with the otherwise grief-dominated memory content."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Scanning Exits: I scan for exits as soon as I enter any room or building",
+          "explanation": "Within and across nodes, 'Checking Surroundings' is essentially the same behavior as the threat items 'Scanning for Danger' and 'Hypervigilance,' creating a near-duplicate symptom loop rather than distinct components. Given the formulation, Threat and Maladaptive Strategies should be plausibly linked but not indistinguishable copies of the same content."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Threat: Hypervigilance: Being superalert or watchful or on guard",
+          "explanation": "The memory node is dominated by disorganization and overwhelming grief on recall, with no content suggesting ongoing intentional harm, entrapment, or assaultive threat. That makes the very strong public-space exit scanning pattern feel clinically mismatched: it implies an active expectation of immediate external danger that is not supported by the memory material or the specific trigger content provided."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Cars)"
+        ],
+        "Threat": [
+          "Scanning Exits"
+        ],
+        "Maladaptive Strategies": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Sima, a 44-year-old South Asian woman married to her high school sweetheart and working at a local retail store, has been struggling with the aftermath of witnessing a violent assault on a coworker last year. The event left an indelible mark on her psyche, manifesting in a myriad of symptoms that have gradually eroded her sense of safety and well-being. The day of the traumatic incident was a typical Wednesday at work when she witnessed a man aggressively confront her colleague, pushing him against the wall and striking him repeatedly. Sima's vivid memory of this event is fragmented, making it difficult for her to reconstruct the sequence of events clearly. When she recalls the assault, Sima feels overwhelmed by intense grief and emotional turmoil that forces her to pause whatever she is doing. This confusion around the event’s timeline (Confused Sequence) often triggers memories and a flood of emotions, particularly when she hears crying or sees someone feeling dizzy or lightheaded (Affective Expression: Crying, Somatic (Dizziness): Feeling dizzy or lightheaded). The recurrence of these symptoms intensifies her distress, as the overwhelming grief and emotional overload compel her to disengage from the situation. To cope with this intense emotional burden, Sima has adopted several maladaptive strategies. She constantly scans her surroundings for any signs of danger (Checking Surroundings), always on high alert in case a similar incident might occur again. This hypervigilance leads her to think deeply about why such an event happened to her (Meaning Seeking) and often makes her go along with whatever others want to feel safe (People Pleasing). The constant scanning for danger (Threat: Scanning for Danger) exacerbates her startle response, making her feel jumpy or easily startled. This heightened state of alertness is a direct result of the intense memories she experiences when triggered by certain sights or sounds at work. For instance, if someone is crying in the store, Sima becomes acutely aware and on edge, triggering her memory of the assault. Sima's relentless scanning for danger also leads her to engage in more maladaptive strategies like meaning seeking and people pleasing. She believes that understanding why such a terrible event occurred will help alleviate some of her anxiety. Additionally, she conforms to others’ wishes as a way to ensure her own safety, even if it means sacrificing her needs or preferences. The cycle has become increasingly self-reinforcing: when Sima is triggered by events or sensations reminiscent of the assault, her memory is flooded with overwhelming grief and emotional turmoil. This triggers further hypervigilance and an increased startle response. Her maladaptive strategies, such as scanning for danger and meaning seeking, exacerbate these feelings, making it difficult to break out of this cycle. The weight of these symptoms has taken a toll on Sima’s work life and her relationships. She finds herself avoiding conversations about the event at work, which has led to some tension with colleagues who are unaware of the depth of her trauma. At home, she tries to avoid discussions that might lead to emotional triggers but has noticed that her husband sometimes feels distant because of it. Finally seeking help after months of struggling, Sima hopes to regain a sense of stability and control over her life. She is most afraid of the day when she might be triggered again in public, unable to manage her emotions or find solace in familiar surroundings. Despite these fears, she is determined to understand why this event has affected her so profoundly and seeks support in breaking free from the grip of her trauma."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Sima, a 44-year-old South Asian woman married to her high school sweetheart and working at a local retail store, has been struggling with the aftermath of witnessing a violent assault on a coworker last year. The event left an indelible mark on her psyche, manifesting in a myriad of symptoms that have gradually eroded her sense of safety and well-being. The day of the traumatic incident was a typical Wednesday at work when she witnessed a man aggressively confront her colleague, pushing him against the wall and striking him repeatedly. Sima's vivid memory of this event is fragmented, making it difficult for her to reconstruct the sequence of events clearly. When she recalls the assault, Sima feels overwhelmed by intense grief and emotional turmoil that forces her to pause whatever she is doing. This confusion around the event’s timeline (Confused Sequence) often triggers memories and a flood of emotions, particularly when she hears crying or sees someone feeling dizzy or lightheaded (Affective Expression: Crying, Somatic (Dizziness): Feeling dizzy or lightheaded). The recurrence of these symptoms intensifies her distress, as the overwhelming grief and emotional overload compel her to disengage from the situation. To cope with this intense emotional burden, Sima has adopted several maladaptive strategies. She constantly scans her surroundings for any signs of danger (Checking Surroundings), always on high alert in case a similar incident might occur again. This hypervigilance leads her to think deeply about why such an event happened to her (Meaning Seeking) and often makes her go along with whatever others want to feel safe (People Pleasing). The constant scanning for danger (Threat: Scanning for Danger) exacerbates her startle response, making her feel jumpy or easily startled. This heightened state of alertness is a direct result of the intense memories she experiences when triggered by certain sights or sounds at work. For instance, if someone is crying in the store, Sima becomes acutely aware and on edge, triggering her memory of the assault. Sima's relentless scanning for danger also leads her to engage in more maladaptive strategies like meaning seeking and people pleasing. She believes that understanding why such a terrible event occurred will help alleviate some of her anxiety. Additionally, she conforms to others’ wishes as a way to ensure her own safety, even if it means sacrificing her needs or preferences. The cycle has become increasingly self-reinforcing: when Sima is triggered by events or sensations reminiscent of the assault, her memory is flooded with overwhelming grief and emotional turmoil. This triggers further hypervigilance and an increased startle response. Her maladaptive strategies, such as scanning for danger and meaning seeking, exacerbate these feelings, making it difficult to break out of this cycle. The weight of these symptoms has taken a toll on Sima’s work life and her relationships. She finds herself avoiding conversations about the event at work, which has led to some tension with colleagues who are unaware of the depth of her trauma. At home, she tries to avoid discussions that might lead to emotional triggers but has noticed that her husband sometimes feels distant because of it. Finally seeking help after months of struggling, Sima hopes to regain a sense of stability and control over her life. She is most afraid of the day when she might be triggered again in public, unable to manage her emotions or find solace in familiar surroundings. Despite these fears, she is determined to understand why this event has affected her so profoundly and seeks support in breaking free from the grip of her trauma.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

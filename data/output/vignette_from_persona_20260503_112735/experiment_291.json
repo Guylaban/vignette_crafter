@@ -1,0 +1,214 @@
+{
+  "persona_id": 291,
+  "source_persona_id": 291,
+  "experiment_timestamp": "2026-05-03 12:29:17",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen2.5-32b",
+      "persona_crafter": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 55,
+    "gender": "Male",
+    "ethnicity": "North American",
+    "relationship_status": "Divorced",
+    "occupation": "Fashion Designer",
+    "trauma_type": "Physical abuse by caregiver (childhood)",
+    "pcl5": 41
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Other-Blame Rumination",
+        "value": "I dwell on what other people have done to me"
+      },
+      {
+        "key": "Avoid Dreams",
+        "value": "Situations or times of day that tend to bring on nightmares"
+      },
+      {
+        "key": "Self-Blame Rumination",
+        "value": "I dwell on what I have done wrong"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Touch",
+        "value": "I react with alarm when someone touches me unexpectedly"
+      },
+      {
+        "key": "Threat in Silence",
+        "value": "Unusual silence makes me feel something dangerous is about to happen"
+      },
+      {
+        "key": "Alert at Home",
+        "value": "I feel on guard even inside my own home"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "No Coherent Story",
+        "value": "I cannot tell a clear story of what happened even to myself"
+      },
+      {
+        "key": "Emotionless Recall",
+        "value": "Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger"
+      },
+      {
+        "key": "Guilt on Recall",
+        "value": "When I remember the event I feel intense guilt"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      },
+      {
+        "key": "Fear Going Crazy",
+        "value": "My reactions since the event mean that I am going crazy"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.5018,
+    "Negative Appraisals -- Threat": 0.6384,
+    "Negative Appraisals -- Memory": 0.5211,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.44,
+    "Memory -- Negative Appraisals": 0.6151,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.6911,
+    "Threat -- Negative Appraisals": 0.6347,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.3552,
+    "Maladaptive Strategies -- Negative Appraisals": 0.9548,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5946888888888888,
+  "edge_density": 0.45,
+  "vignette_word_count": 569,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "field": "age",
+          "explanation": "Occupation 'Retired' is implausible for age 38 because retired is only considered plausible at age 50 or older."
+        }
+      ],
+      "problematic_fields": [
+        "age",
+        "occupation"
+      ]
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Catastrophising Others: I worry obsessively about bad things happening to people I care about",
+          "explanation": "'Catastrophising Others' is hard to integrate with the rest of the profile and the trauma type. The other items center on childhood physical abuse, mistrust, touch-sensitivity, fragmented memory, guilt, and self-damage; obsessive worry about harm befalling loved ones points to a different threat theme and is not supported by the appraisals or memory content."
+        },
+        {
+          "component": "Threat",
+          "item": "Door and Lock Checking: I repeatedly check that doors and windows are locked",
+          "explanation": "'Door and Lock Checking' suggests a home-intrusion/security threat theme. In this profile, threat is otherwise expressed as interpersonal danger cues (unexpected touch, ominous silence) linked to caregiver abuse. Without matching appraisals or memory content about break-ins or external intruders, this item is difficult to reconcile with the rest of the selected items."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Catastrophising Others"
+        ],
+        "Threat": [
+          "Door and Lock Checking"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "John, a 55-year-old North American fashion designer, has experienced significant psychological distress stemming from childhood physical abuse by his caregiver. Divorced and now living alone, John often finds himself mired in thoughts of past injustices and self-criticism, which have become deeply ingrained over the years. The trauma he experienced was severe and persistent, leaving him with a fragmented sense of what actually happened. When he tries to piece together his memories, they feel disjointed and incomplete, as if there are pieces missing from the puzzle. This fragmentation is exacerbated by his intense guilt each time he remembers the events, which only reinforces his belief that he bears some responsibility for what occurred. John's belief in permanent damage has been a driving force behind much of his distress. He feels irreparably changed and often wonders if these changes mean he is going crazy. This fear has led him to ruminate not just on what others did to him, but also on what he perceives as his own failures. These thoughts are relentless, especially in the late hours of the night when nightmares might strike. He avoids situations or times that trigger these memories, like the quiet moments right before falling asleep. His mistrust of people has only grown over time, and it is this deep-seated distrust that fuels much of his maladaptive strategies. John finds himself blaming others for his current state and repeatedly dwelling on their actions, convinced that they have contributed to his suffering. This other-blame rumination often spirals into self-blame as he questions whether he could have done anything differently. The combination of these beliefs has made John hyper-vigilant in various aspects of his life. Even within the safety of his own home, he feels on guard and constantly alert for any signs of danger. The silence that sometimes pervades his house can be particularly unsettling, triggering a sense of impending threat. These feelings are exacerbated by fragmented memories where crucial details feel missing, leading him to second-guess his own perceptions. John's work as a fashion designer provides an interesting backdrop against which these symptoms play out. The bustling environment and constant physical contact with fabrics and models have become increasingly challenging for him. He reacts with alarm whenever someone touches him unexpectedly, particularly during fittings or design sessions where such interactions are frequent. This has strained his professional relationships and led to several misunderstandings that further reinforce his mistrust. The interplay between his maladaptive strategies and memory issues is evident in how he processes his past trauma. His constant rumination on what happened leads to a distorted recollection, making it difficult for him to form a coherent narrative of the abuse. This lack of clarity only deepens his sense of guilt and mistrust, creating a vicious cycle where each belief reinforces the others. What finally brought John to seek help was a culmination of these symptoms affecting both his personal life and career. He found himself isolating more frequently, avoiding social gatherings and professional collaborations due to overwhelming anxiety and fear. The intensity of his distress became unbearable, and he realized that without intervention, his quality of life would continue to deteriorate. John is most afraid of losing control completely and becoming a shadow of the person he once was. He hopes for relief from the constant mental anguish, a way to reconcile his fragmented memories, and a chance to regain trust in others and himself."
+,
+
+  "vignette_attempts": [
+    {"vignette": "John, a 55-year-old North American fashion designer, has experienced significant psychological distress stemming from childhood physical abuse by his caregiver. Divorced and now living alone, John often finds himself mired in thoughts of past injustices and self-criticism, which have become deeply ingrained over the years. The trauma he experienced was severe and persistent, leaving him with a fragmented sense of what actually happened. When he tries to piece together his memories, they feel disjointed and incomplete, as if there are pieces missing from the puzzle. This fragmentation is exacerbated by his intense guilt each time he remembers the events, which only reinforces his belief that he bears some responsibility for what occurred. John's belief in permanent damage has been a driving force behind much of his distress. He feels irreparably changed and often wonders if these changes mean he is going crazy. This fear has led him to ruminate not just on what others did to him, but also on what he perceives as his own failures. These thoughts are relentless, especially in the late hours of the night when nightmares might strike. He avoids situations or times that trigger these memories, like the quiet moments right before falling asleep. His mistrust of people has only grown over time, and it is this deep-seated distrust that fuels much of his maladaptive strategies. John finds himself blaming others for his current state and repeatedly dwelling on their actions, convinced that they have contributed to his suffering. This other-blame rumination often spirals into self-blame as he questions whether he could have done anything differently. The combination of these beliefs has made John hyper-vigilant in various aspects of his life. Even within the safety of his own home, he feels on guard and constantly alert for any signs of danger. The silence that sometimes pervades his house can be particularly unsettling, triggering a sense of impending threat. These feelings are exacerbated by fragmented memories where crucial details feel missing, leading him to second-guess his own perceptions. John's work as a fashion designer provides an interesting backdrop against which these symptoms play out. The bustling environment and constant physical contact with fabrics and models have become increasingly challenging for him. He reacts with alarm whenever someone touches him unexpectedly, particularly during fittings or design sessions where such interactions are frequent. This has strained his professional relationships and led to several misunderstandings that further reinforce his mistrust. The interplay between his maladaptive strategies and memory issues is evident in how he processes his past trauma. His constant rumination on what happened leads to a distorted recollection, making it difficult for him to form a coherent narrative of the abuse. This lack of clarity only deepens his sense of guilt and mistrust, creating a vicious cycle where each belief reinforces the others. What finally brought John to seek help was a culmination of these symptoms affecting both his personal life and career. He found himself isolating more frequently, avoiding social gatherings and professional collaborations due to overwhelming anxiety and fear. The intensity of his distress became unbearable, and he realized that without intervention, his quality of life would continue to deteriorate. John is most afraid of losing control completely and becoming a shadow of the person he once was. He hopes for relief from the constant mental anguish, a way to reconcile his fragmented memories, and a chance to regain trust in others and himself.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

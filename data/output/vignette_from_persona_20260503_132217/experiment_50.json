@@ -1,0 +1,207 @@
+{
+  "persona_id": 50,
+  "source_persona_id": 50,
+  "experiment_timestamp": "2026-05-03 14:28:34",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 80,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Widowed",
+    "occupation": "Policy Analyst",
+    "trauma_type": "Life-threatening motor vehicle collision",
+    "pcl5": 74
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Tactile (Temperature)",
+        "value": "A specific temperature on the skin"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      },
+      {
+        "key": "Olfactory Danger Cue",
+        "value": "Burnt smell"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Movements",
+        "value": "Sudden movements by others put me immediately on guard"
+      },
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Partial Clarity",
+        "value": "Some moments of the event are extremely clear while others are completely blank"
+      },
+      {
+        "key": "Triggered Without Warning",
+        "value": "Something in my surroundings can instantly bring back the full memory without warning"
+      },
+      {
+        "key": "Blocked Before Complete",
+        "value": "I find myself pushing the memory away before I can fully recall it"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.5784,
+    "Triggers -- Memory": 0.7259,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.8834,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9204,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.777025,
+  "edge_density": 0.2,
+  "vignette_word_count": 625,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Female Presence: Being alone with women",
+          "explanation": "The trigger profile is not clinically coherent with a life-threatening motor vehicle collision. Being alone with women and being looked at sexually strongly imply an interpersonal/sexual trauma context rather than an MVC, and there are no corresponding threat or memory items linking these cues to crash-related danger."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Sexual Objectification: Being looked at sexually",
+          "explanation": "The selected threat and memory items describe classic re-experiencing consistent with severe PTSD, but they do not connect plausibly to the chosen trigger content. Strong Triggers→Threat and Triggers→Memory edges would predict crash-related sensory or situational triggers; instead the triggers point to a different trauma theme."
+        },
+        {
+          "component": "Memory",
+          "item": "Triggers: Tactile (Temperature): A specific temperature on the skin",
+          "explanation": "A specific temperature on the skin could occur as an idiosyncratic sensory reminder, but in combination with the clearly non-MVC triggers above, the trigger node becomes internally implausible for this trauma type. The issue is with the trigger set as a whole rather than the memory/threat items themselves."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Female Presence"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Memory": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Sexual Objectification: Being looked at sexually",
+          "explanation": "The trigger set is not clinically coherent with a life-threatening motor vehicle collision. 'Being looked at sexually' is strongly suggestive of sexual trauma rather than MVC-related threat cues, and no memory/threat items provide any bridge that would make this plausible for the same index trauma."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Tactile (Temperature): A specific temperature on the skin",
+          "explanation": "The trigger profile lacks any clear thematic connection to the selected threat and memory items. Temperature on the skin and alcohol smell could occasionally occur around an MVC, but with no corresponding collision-specific memory content or appraisal context, the set as a whole appears disconnected from the trauma formulation."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Sexual Objectification"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "In the wake of a life-threatening motor vehicle collision, Vivian had been sitting in the passenger seat of her husband’s sedan on a rain-slicked interstate. The impact was instantaneous and brutal. Vivian remembered the violent lurch of the chassis, the deafening crunch of metal folding inward, and the sudden shock of freezing rain soaking through her coat as the window shattered. Beneath the metallic tang of spilled coolant, she caught a sharp note of burnt rubber from the overheating engine, followed by the heavy, sweet scent of bourbon clinging to her husband’s clothes as he slumped over the wheel. The crash had been a blur of terror and confusion, but those sensory fragments—how the cold had seeped into her bones, the acrid burn of rubber, the unmistakable smell of alcohol—had been etched into her nervous system with unrelenting precision. In the weeks that followed, Vivian found herself navigating a world that felt suddenly hostile to ordinary sensations. When a specific temperature on her skin shifted—whether the chill of an open subway door or the sudden heat of a radiated vent—it directly ignited the threat response, flooding her with sudden horror and shame. The scents were the worst. The faint whiff of alcohol in a grocery store aisle or the burnt aroma of a kitchen burner left unattended would trigger a visceral jolt, her body bracing against invisible impacts. What frightened her most was how these sensory cues bypassed her rational mind entirely, forcing her memory to fracture; they would instantly pull fragments of the crash to the surface, but her instinct to survive immediately pushed the rest away, leaving her unable to let the recollection complete its arc. As the months passed, Vivian’s hypervigilance became the lens through which she experienced her days, fundamentally altering her work and her relationships. At the state capitol, where she spent her days analyzing traffic fatality reports, the environment itself felt charged with latent danger. When a colleague’s chair scraped loudly or a phone was dropped on the polished floor, Vivian’s entire frame would tense, her gaze locking onto their sudden movements as if preparing for another collision. She had come to believe that survival demanded constant vigilance, and this sustained dread kept her memory in a state of disjointed fragments, preventing her from ever reconstructing a full narrative. When a flashback would suddenly pull her back into the moment of the crash, the overwhelming fear and guilt would paralyze her ability to process the event, forcing her mind to compartmentalize the trauma into partial, unconnected snapshots. The relentless threat state, in turn, recalibrated her entire perception of safety, causing her nervous system to mistake ordinary temperature shifts and faint odors for imminent danger. Her avoidance of driving, and later, her hesitation to ride in any vehicle, stemmed directly from this exhausting cycle of perceived threat and fragmented recall. Now, at eighty, Vivian finds her independence quietly eroding under the weight of a decade-long struggle. She no longer visits the cemetery where her husband rests, fearing the sudden temperature drop at the graveside will trigger a panic attack. She has stopped attending neighborhood gatherings, dreading the chance encounter of a familiar liquor scent. The cognitive load of constantly scanning her environment for danger, managing the guilt of her survival, and holding her traumatic memory at bay has left her emotionally exhausted. She sought out therapy not because she expected a cure, but because the tightening loop of hyperarousal and fragmented recollection had finally overshadowed the work she once loved. Vivian is most afraid of losing her remaining clarity and autonomy, yet she hopes, perhaps for the first time, to untangle the fear from the memory and reclaim a life that does not feel like it is waiting to crash."
+,
+
+  "vignette_attempts": [
+    {"vignette": "In the wake of a life-threatening motor vehicle collision, Vivian had been sitting in the passenger seat of her husband’s sedan on a rain-slicked interstate. The impact was instantaneous and brutal. Vivian remembered the violent lurch of the chassis, the deafening crunch of metal folding inward, and the sudden shock of freezing rain soaking through her coat as the window shattered. Beneath the metallic tang of spilled coolant, she caught a sharp note of burnt rubber from the overheating engine, followed by the heavy, sweet scent of bourbon clinging to her husband’s clothes as he slumped over the wheel. The crash had been a blur of terror and confusion, but those sensory fragments—how the cold had seeped into her bones, the acrid burn of rubber, the unmistakable smell of alcohol—had been etched into her nervous system with unrelenting precision. In the weeks that followed, Vivian found herself navigating a world that felt suddenly hostile to ordinary sensations. When a specific temperature on her skin shifted—whether the chill of an open subway door or the sudden heat of a radiated vent—it directly ignited the threat response, flooding her with sudden horror and shame. The scents were the worst. The faint whiff of alcohol in a grocery store aisle or the burnt aroma of a kitchen burner left unattended would trigger a visceral jolt, her body bracing against invisible impacts. What frightened her most was how these sensory cues bypassed her rational mind entirely, forcing her memory to fracture; they would instantly pull fragments of the crash to the surface, but her instinct to survive immediately pushed the rest away, leaving her unable to let the recollection complete its arc. As the months passed, Vivian’s hypervigilance became the lens through which she experienced her days, fundamentally altering her work and her relationships. At the state capitol, where she spent her days analyzing traffic fatality reports, the environment itself felt charged with latent danger. When a colleague’s chair scraped loudly or a phone was dropped on the polished floor, Vivian’s entire frame would tense, her gaze locking onto their sudden movements as if preparing for another collision. She had come to believe that survival demanded constant vigilance, and this sustained dread kept her memory in a state of disjointed fragments, preventing her from ever reconstructing a full narrative. When a flashback would suddenly pull her back into the moment of the crash, the overwhelming fear and guilt would paralyze her ability to process the event, forcing her mind to compartmentalize the trauma into partial, unconnected snapshots. The relentless threat state, in turn, recalibrated her entire perception of safety, causing her nervous system to mistake ordinary temperature shifts and faint odors for imminent danger. Her avoidance of driving, and later, her hesitation to ride in any vehicle, stemmed directly from this exhausting cycle of perceived threat and fragmented recall. Now, at eighty, Vivian finds her independence quietly eroding under the weight of a decade-long struggle. She no longer visits the cemetery where her husband rests, fearing the sudden temperature drop at the graveside will trigger a panic attack. She has stopped attending neighborhood gatherings, dreading the chance encounter of a familiar liquor scent. The cognitive load of constantly scanning her environment for danger, managing the guilt of her survival, and holding her traumatic memory at bay has left her emotionally exhausted. She sought out therapy not because she expected a cure, but because the tightening loop of hyperarousal and fragmented recollection had finally overshadowed the work she once loved. Vivian is most afraid of losing her remaining clarity and autonomy, yet she hopes, perhaps for the first time, to untangle the fear from the memory and reclaim a life that does not feel like it is waiting to crash.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

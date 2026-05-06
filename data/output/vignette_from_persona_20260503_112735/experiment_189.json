@@ -1,0 +1,194 @@
+{
+  "persona_id": 189,
+  "source_persona_id": 189,
+  "experiment_timestamp": "2026-05-03 12:07:06",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen2.5-32b",
+      "persona_crafter": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 72,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Widowed",
+    "occupation": "Forester",
+    "trauma_type": "Civilian in war zone",
+    "pcl5": 64
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Nighttime/Dark",
+        "value": "Night-time or waking up in the dark"
+      },
+      {
+        "key": "Auditory (Explosion)",
+        "value": "Explosion or bang sounds"
+      },
+      {
+        "key": "Perceived Threat",
+        "value": "People acting suspiciously"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Sensory Distraction",
+        "value": "I put on loud music or TV"
+      },
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Hypervigilance towards people",
+        "value": "vigilant for dangerous people"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0701,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies"
+  ],
+  "required_edges": [
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.0701,
+  "edge_density": 0.05,
+  "vignette_word_count": 513,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Being Alone: Being alone in a room or building",
+          "explanation": "The item is not a maladaptive strategy but describes an avoided situation/trigger-like context. It is internally mismatched with the other strategy items, which are actual coping behaviors (covering face, using loud music/TV). It also weakens cross-node coherence because the profile contains no corresponding threat, appraisal, or memory content explaining why being alone is specifically targeted."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Being Alone"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Object Throwing: Throwing objects",
+          "explanation": "The trigger set is partly coherent for a civilian in a war zone (gunshot noise, darkness), but 'Throwing objects' is hard to reconcile as a salient trauma-related trigger without any supporting threat, memory, or appraisal content linking thrown objects to the war trauma."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Face Hiding: cover face with hands",
+          "explanation": "The maladaptive strategies are not internally coherent with the formulation or with each other as the only active node pair is a very weak Maladaptive Strategies → Triggers link, yet the selected strategies imply multiple different symptom targets (acute fear concealment, sensory suppression, hypervigilant threat monitoring) without corresponding threat, memory, or appraisal content."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Object Throwing"
+        ],
+        "Maladaptive Strategies": [
+          "Face Hiding"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory/Threat: Gunshot noise",
+          "explanation": "The trigger items are plausible for a civilian in a war zone, but the profile is not internally coherent with the cognitive formulation because all links from Triggers to other nodes are inactive and no Threat, Memory, or Negative Appraisal items are present to give these highly specific combat-like auditory triggers any connected meaning in the formulation."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Auditory (Explosion): Explosion or bang sounds",
+          "explanation": "Using loud music or TV as sensory distraction sits awkwardly with the dominant trigger pattern of gunshot and explosion sounds: this strategy relies on additional intense auditory input despite the only reported triggers being threatening noises. That is a hard-to-explain within-profile mismatch unless other non-auditory symptoms are present, which are not reported here."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory/Threat"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Martha, a 72-year-old African American widow and retired forester, has been living with the traumatic memories of her time in a war-torn region. The experience left an indelible mark on her psyche, manifesting in specific triggers that have disrupted her daily life. She has come to believe that certain sounds and dark environments are constant reminders of the chaos she endured. The traumatic event itself was a harrowing experience for Martha. During one particularly violent night, explosions rocked the region where she lived. The sounds were deafening, and the fear she felt as she woke up in the pitch-black darkness was overwhelming. She vividly remembers the feeling of helplessness as she watched buildings crumble around her and heard people screaming in panic. This memory has since become a potent trigger for her. Martha's triggers have significantly impacted her life, particularly at night when the darkness brings back those intense feelings of terror. To cope with these overwhelming sensations, she has adopted several maladaptive strategies. One of these is to keep loud music or television on throughout the evening. This sensory distraction helps to mitigate some of the fear associated with nighttime and dark environments by drowning out any potential auditory triggers. However, Martha’s hypervigilance extends beyond just her environment; she constantly scans for signs of perceived threat, especially in crowded places. She is particularly vigilant when it comes to people acting suspiciously, which has led her to avoid social gatherings altogether. This behavior often leaves her feeling isolated and disconnected from the community that once provided comfort. These maladaptive strategies have inadvertently reinforced her triggers rather than alleviating them. For instance, the loud music she plays at night initially serves as a distraction but often leads to increased anxiety when she hears sudden loud noises or explosions during the day, causing her to spiral back into a state of high alertness and fear. Her constant vigilance towards potential threats has made it difficult for her to feel safe in public spaces, further isolating her from friends and community events. Martha’s hypervigilance has also affected her interactions at work as a forester. She is constantly on edge around colleagues and feels that they are always ready to pounce, even though there is no rational basis for these fears. This tension has led to strained relationships with her coworkers, who find her behavior perplexing and difficult to understand. What finally brought Martha to seek help was the realization that her coping mechanisms were only exacerbating her fear rather than providing relief. She is most afraid of being trapped in a cycle where each trigger leads to heightened anxiety and further isolation. At the same time, she is hopeful that with professional guidance, she can find healthier ways to manage her symptoms and reclaim some sense of normalcy in her life. Martha’s story is one of resilience but also of the profound impact trauma can have on an individual's daily functioning and relationships. Despite her current struggles, she remains determined to overcome these challenges and regain a semblance of peace and security in her everyday life."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Martha, a 72-year-old African American widow and retired forester, has been living with the traumatic memories of her time in a war-torn region. The experience left an indelible mark on her psyche, manifesting in specific triggers that have disrupted her daily life. She has come to believe that certain sounds and dark environments are constant reminders of the chaos she endured. The traumatic event itself was a harrowing experience for Martha. During one particularly violent night, explosions rocked the region where she lived. The sounds were deafening, and the fear she felt as she woke up in the pitch-black darkness was overwhelming. She vividly remembers the feeling of helplessness as she watched buildings crumble around her and heard people screaming in panic. This memory has since become a potent trigger for her. Martha's triggers have significantly impacted her life, particularly at night when the darkness brings back those intense feelings of terror. To cope with these overwhelming sensations, she has adopted several maladaptive strategies. One of these is to keep loud music or television on throughout the evening. This sensory distraction helps to mitigate some of the fear associated with nighttime and dark environments by drowning out any potential auditory triggers. However, Martha’s hypervigilance extends beyond just her environment; she constantly scans for signs of perceived threat, especially in crowded places. She is particularly vigilant when it comes to people acting suspiciously, which has led her to avoid social gatherings altogether. This behavior often leaves her feeling isolated and disconnected from the community that once provided comfort. These maladaptive strategies have inadvertently reinforced her triggers rather than alleviating them. For instance, the loud music she plays at night initially serves as a distraction but often leads to increased anxiety when she hears sudden loud noises or explosions during the day, causing her to spiral back into a state of high alertness and fear. Her constant vigilance towards potential threats has made it difficult for her to feel safe in public spaces, further isolating her from friends and community events. Martha’s hypervigilance has also affected her interactions at work as a forester. She is constantly on edge around colleagues and feels that they are always ready to pounce, even though there is no rational basis for these fears. This tension has led to strained relationships with her coworkers, who find her behavior perplexing and difficult to understand. What finally brought Martha to seek help was the realization that her coping mechanisms were only exacerbating her fear rather than providing relief. She is most afraid of being trapped in a cycle where each trigger leads to heightened anxiety and further isolation. At the same time, she is hopeful that with professional guidance, she can find healthier ways to manage her symptoms and reclaim some sense of normalcy in her life. Martha’s story is one of resilience but also of the profound impact trauma can have on an individual's daily functioning and relationships. Despite her current struggles, she remains determined to overcome these challenges and regain a semblance of peace and security in her everyday life.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

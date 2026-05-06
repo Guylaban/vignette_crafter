@@ -1,0 +1,201 @@
+PERSONA 171  |  2026-05-03 10:38:50
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             66
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Married
+  occupation      Roofer
+  trauma_type     Toxic chemical exposure
+  pcl5            36
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Nighttime/Dark: Night-time or waking up in the dark
+    • Olfactory (Hospital): Hospital or antiseptic smell
+    • Olfactory (Smell): Related smells
+  Maladaptive Strategies:
+    • Past Dwelling: I dwell on how I used to be before the event
+    • Avoid Assertiveness: never disagree or assert myself to avoid conflict
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Concentration: Having difficulty concentrating
+    • Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+  Memory:
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Emotion Without Image: Sometimes I feel the full emotional intensity of the event without any clear image or memory
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Hopelessness: I have no future
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.5917
+  Triggers → Threat                                  0.6739
+  Triggers → Memory                                  0.1541
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.5840
+  Negative Appraisals → Threat                       0.8566
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.5099
+  Memory → Maladaptive Strategies                    0.8214
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.7187
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.7565
+  Threat → Memory                                    0.7281
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.7012
+  Maladaptive Strategies → Triggers                  0.6768
+  Maladaptive Strategies → Threat                    0.8364
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        gender
+    explanation: Occupation 'Nun' is implausible for a Male patient.
+  [2] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Visual (Water/Flooding): Water, flooding, or large bodies of water
+    explanation: For a toxic chemical exposure trauma, water/flooding/large bodies of water is a poor fit as a trauma cue unless there is specific contamination-through-water context, which is not reflected anywhere else in the profile. The other items suggest generalized danger and intrusive memory, not a flood/water-based trauma context, so this trigger is hard to explain clinically.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid New Relationships: Starting new friendships or relationships
+    explanation: Avoiding new friendships or relationships is not well linked to the rest of the formulation. The profile centers on toxic exposure, hypervigilant threat monitoring, intrusive memories, and self-devaluation/hopelessness, but contains no interpersonal threat, mistrust, shame, or relationship-focused appraisals that would make this strategy a coherent consequence. It appears to target a symptom domain not otherwise represented in the selected items.
+  [2] FAIL
+    item:        Triggers / Triggers: Known People: Related people
+    explanation: For toxic chemical exposure, hospital/antiseptic smell and darkness/nighttime can plausibly cue the event or its aftermath, but 'Known People: Related people' is hard to justify unless the trauma centrally involved family members. Nothing else in the profile suggests interpersonal betrayal, family-linked danger, or family members as part of the exposure, so this trigger appears poorly matched to the trauma type and the rest of the formulation.
+    item:        Negative Appraisals / Negative Appraisals: Lost Meaning: Nothing in my life feels meaningful anymore
+    explanation: The negative appraisals are heavily global and depressive/existential ('Nothing in my life feels meaningful anymore', 'I have no future') rather than trauma-linked threat/self-appraisals. In this formulation Negative Appraisals has a very strong link to Threat, but the threat items are about persistent danger/vigilance in unfamiliar places. 'Can't rely on myself' fits that pattern; the meaninglessness/hopelessness items do not connect well to the toxic exposure theme, the selected triggers, or the specific threat content, making the node less coherent.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+The rupture of the industrial solvent tank on the commercial roofing job left Minh Tran choking on
+acrid fumes that burned his throat and stripped the air from his lungs. Rushed to the emergency
+department, he was intubated in a dimly lit bay where the sharp, clinical scent of antiseptic filled
+his nostrils as he fought for every breath. When the physical wounds healed, the trauma had already
+taken root. Now, whenever Minh walked into his house and the evening shadows pooled across the
+floorboards, the darkness alone was enough to pull the frightening event into sharp, unrelenting
+focus. These specific environmental cues directly fed into his intrusive recall; the sudden onset of
+nighttime darkness and the sterile tang of cleaning products instantly triggered vivid, detailed
+memories of the burning roof and the gurney wheels rattling over hospital tile. The memories did not
+stay confined to his mind. They immediately funneled into his physiological threat response. His
+heart would hammer against his ribs, and even though he knew he was safely tucked in his own bed, he
+remained utterly unable to relax. That persistent physiological alertness fractured his
+concentration and made it impossible to track the seams of his roofing plans. To compensate for the
+looming sense of exposure, he began steering clear of unfamiliar neighborhoods where he felt he
+could not properly assess the danger. As the weeks bled into months, the way he interpreted the
+incident began to warp his reality. He came to believe the world was fundamentally a dangerous place
+where toxic accidents could claim him at any moment, and he had lost complete faith in his own
+ability to rely on himself. These negative appraisals acted as a magnifying glass, causing him to
+scan the environment with renewed intensity; because he was certain the world was unsafe and his own
+judgment was broken, he became hyper-vigilant to chemical odors and dim corridors that might signal
+another outbreak. His deep-seated convictions also cemented into his social habits. Because he could
+no longer trust himself or foresee future stability, he stopped asserting himself with his crew and
+avoided any disagreement to keep the peace. He adopted a rigid rule of suppression, forcing himself
+to push down any thought that approached the trauma. Yet, this relentless mental blocking only
+deepened his despair. The relentless memory replay continuously eroded his confidence. As the
+frightening event played over and over, it directly cemented his conviction that he had lost the
+ability to rely on himself and that his future was hopeless. When the memories inevitably
+resurfaced, they triggered the exact same maladaptive retreat. Faced with the return of the vivid
+event recall, he would once again clamp down on his thoughts and withdraw, cementing the very
+appraisals of helplessness that kept him stuck. His persistent inability to relax and his fractured
+concentration directly pushed him toward passive coping. To manage the overwhelming arousal, he
+learned to avoid unfamiliar places and suppress his own needs, which in turn made the memories that
+surfaced when he finally dropped his guard arrive as raw, overwhelming emotional waves without clear
+context. This sustained physiological tension forced him into avoidance and suppression, which
+directly increased his sensitivity to environmental cues. His refusal to assert himself and his
+habit of suppressing thoughts left him psychologically defenseless, causing even minor odors or
+shifts in lighting to become potent triggers. The constant mental suppression and conflict avoidance
+directly amplified his concentration difficulties and kept his threat response permanently elevated.
+Today, Minh sits in a quiet clinic office, his hands clasped tightly around a paper cup of water. He
+has come to this appointment after his wife gently pointed out that he barely sleeps, that he
+flinches at the smell of her laundry detergent, and that he has stopped taking on any roofing
+contracts that require traveling outside their zip code. What frightens him most is the creeping
+conviction that his mind has permanently broken, that he is forever trapped between the burning roof
+and the sterile hospital ward. What he hopes for is simply to feel safe in his own home again, to
+look at the night sky without his breath catching, and to finally believe that he can rely on
+himself to build a future that does not end in fumes and fear.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+The rupture of the industrial solvent tank on the commercial roofing job left Minh Tran choking on
+acrid fumes that burned his throat and stripped the air from his lungs. Rushed to the emergency
+department, he was intubated in a dimly lit bay where the sharp, clinical scent of antiseptic filled
+his nostrils as he fought for every breath. When the physical wounds healed, the trauma had already
+taken root. Now, whenever Minh walked into his house and the evening shadows pooled across the
+floorboards, the darkness alone was enough to pull the frightening event into sharp, unrelenting
+focus. These specific environmental cues directly fed into his intrusive recall; the sudden onset of
+nighttime darkness and the sterile tang of cleaning products instantly triggered vivid, detailed
+memories of the burning roof and the gurney wheels rattling over hospital tile. The memories did not
+stay confined to his mind. They immediately funneled into his physiological threat response. His
+heart would hammer against his ribs, and even though he knew he was safely tucked in his own bed, he
+remained utterly unable to relax. That persistent physiological alertness fractured his
+concentration and made it impossible to track the seams of his roofing plans. To compensate for the
+looming sense of exposure, he began steering clear of unfamiliar neighborhoods where he felt he
+could not properly assess the danger. As the weeks bled into months, the way he interpreted the
+incident began to warp his reality. He came to believe the world was fundamentally a dangerous place
+where toxic accidents could claim him at any moment, and he had lost complete faith in his own
+ability to rely on himself. These negative appraisals acted as a magnifying glass, causing him to
+scan the environment with renewed intensity; because he was certain the world was unsafe and his own
+judgment was broken, he became hyper-vigilant to chemical odors and dim corridors that might signal
+another outbreak. His deep-seated convictions also cemented into his social habits. Because he could
+no longer trust himself or foresee future stability, he stopped asserting himself with his crew and
+avoided any disagreement to keep the peace. He adopted a rigid rule of suppression, forcing himself
+to push down any thought that approached the trauma. Yet, this relentless mental blocking only
+deepened his despair. The relentless memory replay continuously eroded his confidence. As the
+frightening event played over and over, it directly cemented his conviction that he had lost the
+ability to rely on himself and that his future was hopeless. When the memories inevitably
+resurfaced, they triggered the exact same maladaptive retreat. Faced with the return of the vivid
+event recall, he would once again clamp down on his thoughts and withdraw, cementing the very
+appraisals of helplessness that kept him stuck. His persistent inability to relax and his fractured
+concentration directly pushed him toward passive coping. To manage the overwhelming arousal, he
+learned to avoid unfamiliar places and suppress his own needs, which in turn made the memories that
+surfaced when he finally dropped his guard arrive as raw, overwhelming emotional waves without clear
+context. This sustained physiological tension forced him into avoidance and suppression, which
+directly increased his sensitivity to environmental cues. His refusal to assert himself and his
+habit of suppressing thoughts left him psychologically defenseless, causing even minor odors or
+shifts in lighting to become potent triggers. The constant mental suppression and conflict avoidance
+directly amplified his concentration difficulties and kept his threat response permanently elevated.
+Today, Minh sits in a quiet clinic office, his hands clasped tightly around a paper cup of water. He
+has come to this appointment after his wife gently pointed out that he barely sleeps, that he
+flinches at the smell of her laundry detergent, and that he has stopped taking on any roofing
+contracts that require traveling outside their zip code. What frightens him most is the creeping
+conviction that his mind has permanently broken, that he is forever trapped between the burning roof
+and the sterile hospital ward. What he hopes for is simply to feel safe in his own home again, to
+look at the night sky without his breath catching, and to finally believe that he can rely on
+himself to build a future that does not end in fumes and fear.

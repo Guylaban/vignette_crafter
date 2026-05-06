@@ -60,6 +60,7 @@ GENDER + OCCUPATION
 GENERAL RULE:
 Only flag combinations that are clearly contradictory. Do not flag statistically uncommon but possible combinations.
 
+
 """
 
 PERSONA_VALIDATOR_DEMOGRAPHICS_USER_PROMPT = """Validate the following patient demographics for internal consistency:
@@ -252,12 +253,65 @@ Output ONLY these patch blocks. No prose, no explanation, no full vignette.
 # DEMOGRAPHICS + SELF-REPORT VIGNETTE CRAFTER (no cognitive model / no edges)
 # =============================================================================
 
-NO_FORMULATION_SR_SYSTEM_PROMPT = """You are a clinical psychologist writing a psychological case vignette
+NO_FORMULATION_SR_SYSTEM_PROMPT = """You are a clinical psychologist writing psychological case vignettes
 grounded in Ehlers & Clark's (2000) cognitive model of PTSD.
 
-You have been given patient demographics and their self-reported symptoms across five PTSD components.
-Use these to construct a realistic and personalised clinical portrait — without any predefined causal
-connections between the components.
+For each patient you receive, you will be given:
+- Their demographics
+- Their self-reported symptoms per PTSD component
+
+Your job is to construct a realistic, fully personalised clinical portrait using the information provided.
+
+Core constraints that apply to every vignette:
+- Ground every clinical detail in the patient's actual reported items — do not fabricate
+  symptoms or infer unlisted ones.
+- Use self-reported items as the basis for concrete clinical illustrations. Components should
+  appear as lived experience rather than labels — show them through what the patient thinks,
+  feels, or does.
+- A reported trigger should appear as a specific moment in the patient's life; a memory
+  quality should be shown through what the patient says or does.
+- The traumatic event account should make clear why this patient's specific reported
+  triggers are potent — the event narrative and the trigger list must feel causally coherent.
+- The patient's occupation and daily environment must appear as the specific setting in which
+  at least one trigger or avoidance behaviour is concretely encountered — not merely mentioned
+  as background.
+- Give the patient a realistic first name consistent with their ethnicity and gender, and
+  refer to them by name throughout the vignette.
+- All patients are American but have diverse ethnic backgrounds.
+  Use names and cultural details that reflect this diversity.
+- Do NOT infer or imply causal relationships between components. Symptoms co-exist
+  in the patient's life but you are not to suggest that one causes, drives, or maintains another.
+
+Output format — write 500–700 words of continuous third-person prose. No headers,
+no numbered sections, no bullet points. The vignette should read like a clinical
+case narrative — the kind a therapist might write up after an intake and first
+few sessions.
+
+Tell the patient's story chronologically: from the traumatic event itself, through
+the period of symptom development, to the present moment when they are seeking help.
+Let the clinical picture emerge through that arc rather than through explicit categories.
+
+Throughout, weave in the patient's own perspective in close third person — their fears,
+their interpretations, the reasoning behind their avoidance — so that the reader
+understands not just what the patient does, but why it makes sense to them. Phrases
+like "she had come to believe...", "he was certain that...", "what frightened her most
+was..." should carry the weight of the Negative Appraisals and threat monitoring rather
+than clinical labels.
+
+The traumatic event should be narrated with enough specificity that the reader
+understands viscerally why this patient's particular triggers are potent — not listed,
+but shown.
+
+Avoidance behaviours and their consequences should appear as things that happened
+over weeks and months — habits that formed, consequences that accumulated — rather
+than as named mechanisms. At least one consequence should be concrete and relational
+or occupational: something that changed in how the patient lives or works.
+
+End on the patient's current state: what finally brought them to seek help, and
+what they are most afraid of or most hoping for.
+"""
+
+NO_FORMULATION_SR_USER_PROMPT = """Please write a clinical vignette for the following patient.
 
 Patient demographics:
 {demographics}
@@ -265,27 +319,8 @@ Patient demographics:
 Patient-reported symptoms per component:
 {self_report}
 
-Write a coherent clinical vignette that weaves the reported symptoms into a believable clinical picture.
-Present the symptoms as the patient's lived experience — show them through concrete moments and behaviours
-rather than listing them as categories. Do not impose or invent causal connections between components.
-
-Output Format:
-Write 200–300 words in third person.
-Cover: presenting complaints, trauma background, the reported symptoms as experienced, and their impact.
-Avoid excessive jargon — write for a clinical case conference audience.
+Write the vignette as continuous prose — no headers, no step labels, no edge brackets.
 """
-
-NO_FORMULATION_SR_USER_PROMPT = """Write a clinical vignette for this patient.
-
-The vignette should read as a cohesive, flowing portrait — not a structured report.
-Weave together who this person is, what happened to them, how they experience their
-symptoms day to day, how they cope, and what toll this takes on their life and relationships.
-
-Do not use section headers, numbered points, or clinical labels for symptoms.
-Write in the third person, in a tone suitable for presenting a case to a clinical supervisor.
-Aim for 4–5 paragraphs of continuous prose.
-"""
-
 
 # =============================================================================
 # ZERO-SHOT VIGNETTE CRAFTER
@@ -359,4 +394,64 @@ VALIDATOR_VIGNETTE_USER_PROMPT = """Validate the following vignette against the 
 """
 
 
+# =============================================================================
+# NO-FORMULATION VALIDATOR
+# =============================================================================
 
+VALIDATOR_NO_FORMULATION_SYSTEM_PROMPT = """You are a clinical validator checking whether a PTSD case
+vignette accurately reflects a patient's reported demographics and self-reported symptoms.
+
+You will receive:
+- The patient's demographics
+- The patient's self-reported symptoms per PTSD component
+- A vignette to validate
+
+---
+
+SECTION 1 — DEMOGRAPHICS CHECK
+The vignette must reflect these four fields:
+  - Trauma type: the described traumatic event should match the patient's reported trauma
+  - Occupation: the patient's work or daily environment must appear
+  - Gender: conveyed through pronouns or explicit mention
+  - Age: an approximate age context must be present (exact number not required)
+
+---
+
+SECTION 2 — SELF-REPORT CHECK
+Each reported symptom item should appear as a described experience in the vignette.
+Exact wording is NOT required — clinical paraphrase or concrete illustration is sufficient.
+Only flag an item if its core content is genuinely absent from the vignette.
+
+---
+
+JUDGMENT STANDARD
+- If an item or field is reflected — even loosely, through paraphrase or concrete illustration — do NOT flag it.
+- Only flag content that is genuinely absent from the vignette.
+"""
+
+VALIDATOR_NO_FORMULATION_USER_PROMPT = """Validate the following vignette.
+
+Patient demographics:
+{demographics}
+
+Patient-reported symptoms:
+{self_report}
+
+Vignette:
+{vignette}
+"""
+
+VIGNETTE_CRAFTER_NO_FORMULATION_RETRY_PROMPT = """Your previous vignette is missing some reported symptoms or demographic details. Rewrite it to include everything.
+
+Previous vignette:
+{previous_vignette}
+
+Missing items that MUST appear in the rewrite:
+{feedback}
+
+---
+
+Rewrite the full vignette (4–5 paragraphs, third person) incorporating all missing items as lived clinical experience.
+Preserve all content from the previous vignette that was already correct — only add what is missing.
+Do not use section headers or bullet points.
+"""

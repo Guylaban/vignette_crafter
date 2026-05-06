@@ -1,0 +1,239 @@
+{
+  "persona_id": 193,
+  "source_persona_id": 193,
+  "experiment_timestamp": "2026-05-04 04:30:35",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 68,
+    "gender": "Female",
+    "ethnicity": "North American",
+    "relationship_status": "Married",
+    "occupation": "Retired",
+    "trauma_type": "Unexpected or traumatic death of a loved one",
+    "pcl5": 66
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Busyness",
+        "value": "I work hard at keeping busy with other things"
+      },
+      {
+        "key": "Avoid People",
+        "value": "avoid other people"
+      },
+      {
+        "key": "Avoid Social Contacts",
+        "value": "Seeing people that I socialised with before the event"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Isolation",
+        "value": "I feel isolated and set apart from others"
+      },
+      {
+        "key": "Belong Nowhere",
+        "value": "I no longer belong anywhere"
+      },
+      {
+        "key": "Failed to Protect",
+        "value": "I should have protected others and I failed"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.7616,
+    "Negative Appraisals -- Threat": 0.6451,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.6353,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.5246
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.64165,
+  "edge_density": 0.2,
+  "vignette_word_count": 539,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Overworking: I throw myself into work or tasks to keep my mind occupied",
+          "explanation": "For a 68-year-old retired patient, 'Overworking' is questionable as phrased because it implies a current work role; while keeping busy with tasks is plausible, the specific work-focused item is a poor fit to the demographic context."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance",
+          "explanation": "'Avoid Evaluation' is hard to link coherently to the indexed trauma of unexpected death of a loved one and to the rest of the profile. It suggests social/performance concerns that are not reflected in the threat or appraisal items and does not fit the formulation's main Negative Appraisals ↔ Threat loop."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Overworking"
+        ],
+        "Negative Appraisals": [
+          "Avoid Evaluation"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Being Touched: Any form of physical contact with others",
+          "explanation": "For trauma type of unexpected death of a loved one, 'Avoid Being Touched' is hard to explain clinically unless there is interpersonal assault or bodily violation content, which is not present elsewhere in the profile. It appears mismatched to the trauma context and to the other selected items."
+        },
+        {
+          "component": "Threat",
+          "item": "Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance",
+          "explanation": "'Avoid Evaluation' suggests shame about appearance/performance or social evaluative threat, but the rest of the profile centers bereavement-related guilt, isolation, and generalized danger. This strategy does not connect well to the stated trauma type or to the active appraisal-threat loop."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it",
+          "explanation": "The threat items depict pervasive physical danger and inability to feel safe anywhere. In bereavement PTSD this can occur, but here the appraisals provided are mainly isolation and self-blame rather than danger-based meanings. The strong Negative Appraisals ↔ Threat loop is not well reflected because the appraisals do not explain this specific form of persistent external danger."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Being Touched"
+        ],
+        "Threat": [
+          "Avoid Evaluation"
+        ],
+        "Negative Appraisals": [
+          "Cannot Trust Safety"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance",
+          "explanation": "'Avoid Evaluation' is hard to reconcile with the rest of the profile and the trauma type of traumatic bereavement. The other selected items center on grief-related self-blame, isolation, and generalized danger, but fear of being evaluated for appearance/performance suggests a social-evaluative concern not otherwise represented in threat, memory, triggers, or appraisals."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Self-Blame: The event happened because of the way I acted",
+          "explanation": "'Self-Blame' can occur after the unexpected death of a loved one, but in this profile it sits awkwardly beside the chosen maladaptive strategies and threat items. If the patient blames herself for the death, one would expect linked strategies or threat content tied to guilt, responsibility, rumination, or death-related cues; instead the profile emphasizes social withdrawal and generic unsafety, making this item insufficiently integrated with the rest."
+        },
+        {
+          "component": "Threat",
+          "item": "Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it",
+          "explanation": "'Cannot Trust Safety' is not impossible in PTSD, but with traumatic bereavement and no trigger or memory items selected, the threat profile becomes very generalized. In combination with the social-evaluative avoidance item, it creates a mixed formulation in which the source of danger is unclear: bereavement-related guilt/loss versus broad physical danger versus fear of scrutiny. This weakens coherence across nodes given the active Negative Appraisals ↔ Threat linkage."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Evaluation"
+        ],
+        "Negative Appraisals": [
+          "Self-Blame"
+        ],
+        "Threat": [
+          "Cannot Trust Safety"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Mary, a 68-year-old North American woman, recently lost her husband of over 40 years to an unexpected heart attack. The suddenness and severity of his death have left her feeling deeply isolated and set apart from others, as if she no longer belongs anywhere. This pervasive sense of isolation has driven Mary to adopt maladaptive strategies such as busyness and social avoidance as a way to cope with the overwhelming pain and grief. Since her husband’s passing, Mary has been working tirelessly at keeping herself busy with household chores and other activities that keep her mind off the loss. She avoids interacting with friends and even family members who remind her of happier times they once shared together. The thought of seeing people she socialized with before the event fills her with a sense of dread and guilt, as if these interactions would only serve to highlight how much she feels out of place now. Mary's body remains constantly tense and ready to react to any perceived danger, even when she knows she is in safe environments. She struggles to relax, often feeling on edge as if another tragedy could strike at any moment. This heightened state of alertness exacerbates her negative emotions, such as fear, horror, anger, guilt, and shame. The more Mary feels isolated and set apart from others, the more these feelings intensify, leading her to feel even more threatened. Her belief that she should have done something to protect her husband has compounded her sense of failure and isolation. She finds herself constantly questioning whether there were signs she missed or actions she could have taken differently. This relentless self-criticism and feeling of not belonging anywhere contribute significantly to her ongoing state of hyper-vigilance. Over the past few months, Mary’s efforts to stay busy have only served to reinforce her sense of threat. She fears that if she slows down or takes a moment to grieve openly, it might lead to an overwhelming flood of negative emotions and memories. This fear keeps her in a constant state of alertness, further isolating her from the world around her. The cumulative effect of these interconnected maladaptive strategies and heightened states of threat has taken a toll on Mary’s life. She finds herself increasingly isolated, both emotionally and socially, and is aware that this cycle feels impossible to break on her own. The constant tension and inability to relax have also begun to affect her physical health, leading to sleep disturbances and general unease. What finally brought Mary to seek help was a growing realization that her relentless busyness and social isolation were not sustainable or healthy ways to cope with her loss. She is most afraid of being stuck in this cycle of pain and guilt forever but also hopes for a way to find peace and acceptance, reconnecting with others and herself without the constant shadow of threat hanging over her. Mary's journey has been marked by deep emotional turmoil and a profound sense of disconnection from those around her. The interplay between her negative appraisals, maladaptive strategies, and heightened threat response has created a self-reinforcing cycle that she hopes therapy can help break, allowing her to find some semblance of peace in her daily life."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Mary, a 68-year-old North American woman, recently lost her husband of over 40 years to an unexpected heart attack. The suddenness and severity of his death have left her feeling deeply isolated and set apart from others, as if she no longer belongs anywhere. This pervasive sense of isolation has driven Mary to adopt maladaptive strategies such as busyness and social avoidance as a way to cope with the overwhelming pain and grief. Since her husband’s passing, Mary has been working tirelessly at keeping herself busy with household chores and other activities that keep her mind off the loss. She avoids interacting with friends and even family members who remind her of happier times they once shared together. The thought of seeing people she socialized with before the event fills her with a sense of dread and guilt, as if these interactions would only serve to highlight how much she feels out of place now. Mary's body remains constantly tense and ready to react to any perceived danger, even when she knows she is in safe environments. She struggles to relax, often feeling on edge as if another tragedy could strike at any moment. This heightened state of alertness exacerbates her negative emotions, such as fear, horror, anger, guilt, and shame. The more Mary feels isolated and set apart from others, the more these feelings intensify, leading her to feel even more threatened. Her belief that she should have done something to protect her husband has compounded her sense of failure and isolation. She finds herself constantly questioning whether there were signs she missed or actions she could have taken differently. This relentless self-criticism and feeling of not belonging anywhere contribute significantly to her ongoing state of hyper-vigilance. Over the past few months, Mary’s efforts to stay busy have only served to reinforce her sense of threat. She fears that if she slows down or takes a moment to grieve openly, it might lead to an overwhelming flood of negative emotions and memories. This fear keeps her in a constant state of alertness, further isolating her from the world around her. The cumulative effect of these interconnected maladaptive strategies and heightened states of threat has taken a toll on Mary’s life. She finds herself increasingly isolated, both emotionally and socially, and is aware that this cycle feels impossible to break on her own. The constant tension and inability to relax have also begun to affect her physical health, leading to sleep disturbances and general unease. What finally brought Mary to seek help was a growing realization that her relentless busyness and social isolation were not sustainable or healthy ways to cope with her loss. She is most afraid of being stuck in this cycle of pain and guilt forever but also hopes for a way to find peace and acceptance, reconnecting with others and herself without the constant shadow of threat hanging over her. Mary's journey has been marked by deep emotional turmoil and a profound sense of disconnection from those around her. The interplay between her negative appraisals, maladaptive strategies, and heightened threat response has created a self-reinforcing cycle that she hopes therapy can help break, allowing her to find some semblance of peace in her daily life.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

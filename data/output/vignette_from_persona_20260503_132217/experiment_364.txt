@@ -1,0 +1,200 @@
+PERSONA 364  |  2026-05-03 21:36:35
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             63
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Married
+  occupation      Airline Pilot
+  trauma_type     Combat
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Tactile (Texture): A specific texture associated with the event
+    • Time of Day: The same time of day the event occurred
+    • Auditory (Helicopter): Helicopter or aircraft sounds
+  Threat:
+    • Night Vigilance: I find it harder to feel safe at night than during the day
+    • Threat in Movements: Sudden movements by others put me immediately on guard
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+  Memory:
+    • Memory Feels Alien: The memory feels like it belongs to someone else rather than to me
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+  Negative Appraisals:
+    • Defective Self: There is something wrong with me as a person
+    • Lost Happiness: I used to be a happy person but now I am always miserable.
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.8748
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.9526
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.2392
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.3704
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.4617
+  Memory → Negative Appraisals                       0.1723
+  Memory → Triggers                                  0.3776
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.1542
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.1822
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips
+    explanation: A medical-equipment visual trigger is hard to reconcile as a central combat-related trigger for this profile, especially alongside otherwise combat-consistent threat items and without any medical/hospital-related memory or appraisal content. It suggests a different trauma context and is clinically difficult to integrate with the stated trauma type.
+    item:        Memory / Memory: Rage on Recall + Emotionless Recall + Memory Feels Alien
+    explanation: Within Memory, intense rage on recall conflicts with the paired reports of emotionally numb recall and the memory feeling alien/detached. Fluctuation can occur, but as a compact three-item profile these items pull in opposing directions—high emotional arousal versus marked dissociative detachment—without other memory content to bridge them.
+  [2] FAIL
+    item:        Memory / Memory: Rage on Recall
+    explanation: Within the Memory node, 'Rage on Recall' conflicts with the paired endorsement of markedly detached recall ('Emotionless Recall' and 'Memory Feels Alien'). Intense rage during recall and recall experienced as numb/alien can both occur in PTSD, but selecting all three as coequal memory descriptors creates a direct within-node tension between highly affect-laden remembering and strongly depersonalized, affectless remembering. The rest of the profile coherently reflects severe combat-related PTSD, but this specific Memory combination is the main clinically questionable inconsistency.
+  [3] FAIL
+    item:        Memory / Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+    explanation: Within the Memory node, two items describe markedly detached/derealized recall ('emotionless', 'belongs to someone else') while another describes intensely affect-laden reliving ('same terror I felt at the time'). These can both occur across different moments in PTSD, but as the only three selected memory items they pull in opposing directions and are not a clean, internally coherent depiction of a single dominant memory style for this profile.
+  [4] FAIL
+    item:        Negative Appraisals / Hopelessness: I have no future
+    explanation: These two appraisals are plausible in severe PTSD, but for a 63-year-old married airline pilot they create a hard-to-explain mismatch with the rest of the profile when presented without any trauma-linked appraisal content. 'I have no future' is especially discordant for an older, still-employed patient and is not well integrated with the combat-specific trigger/threat pattern. The Negative Appraisals node is dominated by global depressive identity/future statements rather than trauma-related meanings that would plausibly connect to the very strong Triggers → Negative Appraisals edge in the formulation.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+The ridge assault had begun in the fading light of a desert twilight, the exact hour that would
+later feel like a pressure dropping in his chest. Kahu remembered the coarse, sand-grit canvas of
+the tactical cover scratching against his forearms, a texture that would lodge itself in his nervous
+system long after he’d traded desert camo for a pilot’s uniform. Above the dry scrub, the thumping
+rhythm of troop transports had echoed through the canyon, a sound that carried the weight of both
+rescue and annihilation. When he returned home at sixty-one, Kahu had expected to breathe easier.
+Instead, the cockpit became a theater of unspoken alerts. During evening approaches at his airline,
+the low thrum of ground service aircraft drifting past the departure gate sent his pulse racing,
+making him grip the yoke with white knuckles while his eyes constantly tracked the hangar doors. He
+began avoiding dusk flights, not because he disliked the hour, but because the fading light felt
+like a trap snapping shut, leaving him stranded in a cockpit that suddenly felt like a tomb. Every
+time the helicopter blades cut the air, Kahu’s shoulders locked and his eyes darted to the nearest
+exit before the sound had even faded. The environment that had once offered him command now felt
+like a minefield, and the sudden shift of a co-pilot in the jump seat made him flinch instantly, his
+body bracing for impact before his mind could register the threat. As the vigilance mounted, he
+began to believe he was fundamentally broken, that the steady, capable man he used to be had been
+erased by the war. He told himself the world had become irredeemably dangerous, a place where safety
+was a temporary illusion and happiness was a memory he would never reclaim. The triggers didn’t just
+alarm him; they convinced him that his own wiring was defective, turning routine airline operations
+into a daily confirmation of his loss. The combat memory never arrived as a coherent story. Instead,
+it intruded as a disembodied fragment that felt like it belonged to a stranger, complete with the
+same suffocating terror he had felt when the ridge erupted. Those fragmented recollections did not
+stay confined to the past. When the terror surged, his breath shortened and his threat monitoring
+intensified, as if the present moment were still collapsing around him. Simultaneously, the memory’s
+cold weight reinforced his conviction that he was morally and emotionally shattered, that the
+happiness of his thirties and forties was gone forever, leaving only a permanent, quiet misery. The
+memories didn’t just visit him; they authenticated his worst self-judgments, making the past feel
+like a verdict rather than an event. Once he had convinced himself that he was defective and that
+the world would never be safe again, Kahu’s attention narrowed to anything that resembled the
+threat, treating routine airline operations as a gauntlet of potential ambushes. He started
+interpreting the texture of his flight bag’s lining as a warning sign, his mind fixating on the
+tactile details the moment dusk approached. That same defective self-belief kept his alarm system
+permanently dialed to maximum, so even a sudden movement by a ground crew member would spike his
+heart rate into overdrive. And because his vigilance was so high, his mind kept pulling backward,
+dredging up the alien terror of the ridge whenever he felt unsafe, which only made him more
+sensitive to the first sound of a rotor or the dimming of the hangar lights. His relentless scanning
+of exits and bracing for sudden shifts kept his nervous system primed, ensuring that the faintest
+texture or fading light registered as an immediate signal, which in turn kept the terror cycling
+without pause. For two years, Kahu had managed by rigidly controlling his schedule and avoiding
+twilight departures, but the habit of scanning every airport terminal for escape routes had begun to
+fracture his marriage. His wife noticed how he would sit with his back to the wall at dinner, how he
+would startle at the sound of a distant plane overhead, and how the joy they once shared had been
+replaced by a careful, quiet distance. He finally booked an intake after a pre-flight check
+triggered a full flashback, forcing him to declare a medical hold. He was hoping for a way to sit
+through a normal evening without checking the door, and what terrified him most was that he might
+never trust his own mind again, that the defective man he believed himself to be would always be
+waiting in the cockpit.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+The ridge assault had begun in the fading light of a desert twilight, the exact hour that would
+later feel like a pressure dropping in his chest. Kahu remembered the coarse, sand-grit canvas of
+the tactical cover scratching against his forearms, a texture that would lodge itself in his nervous
+system long after he’d traded desert camo for a pilot’s uniform. Above the dry scrub, the thumping
+rhythm of troop transports had echoed through the canyon, a sound that carried the weight of both
+rescue and annihilation. When he returned home at sixty-one, Kahu had expected to breathe easier.
+Instead, the cockpit became a theater of unspoken alerts. During evening approaches at his airline,
+the low thrum of ground service aircraft drifting past the departure gate sent his pulse racing,
+making him grip the yoke with white knuckles while his eyes constantly tracked the hangar doors. He
+began avoiding dusk flights, not because he disliked the hour, but because the fading light felt
+like a trap snapping shut, leaving him stranded in a cockpit that suddenly felt like a tomb. Every
+time the helicopter blades cut the air, Kahu’s shoulders locked and his eyes darted to the nearest
+exit before the sound had even faded. The environment that had once offered him command now felt
+like a minefield, and the sudden shift of a co-pilot in the jump seat made him flinch instantly, his
+body bracing for impact before his mind could register the threat. As the vigilance mounted, he
+began to believe he was fundamentally broken, that the steady, capable man he used to be had been
+erased by the war. He told himself the world had become irredeemably dangerous, a place where safety
+was a temporary illusion and happiness was a memory he would never reclaim. The triggers didn’t just
+alarm him; they convinced him that his own wiring was defective, turning routine airline operations
+into a daily confirmation of his loss. The combat memory never arrived as a coherent story. Instead,
+it intruded as a disembodied fragment that felt like it belonged to a stranger, complete with the
+same suffocating terror he had felt when the ridge erupted. Those fragmented recollections did not
+stay confined to the past. When the terror surged, his breath shortened and his threat monitoring
+intensified, as if the present moment were still collapsing around him. Simultaneously, the memory’s
+cold weight reinforced his conviction that he was morally and emotionally shattered, that the
+happiness of his thirties and forties was gone forever, leaving only a permanent, quiet misery. The
+memories didn’t just visit him; they authenticated his worst self-judgments, making the past feel
+like a verdict rather than an event. Once he had convinced himself that he was defective and that
+the world would never be safe again, Kahu’s attention narrowed to anything that resembled the
+threat, treating routine airline operations as a gauntlet of potential ambushes. He started
+interpreting the texture of his flight bag’s lining as a warning sign, his mind fixating on the
+tactile details the moment dusk approached. That same defective self-belief kept his alarm system
+permanently dialed to maximum, so even a sudden movement by a ground crew member would spike his
+heart rate into overdrive. And because his vigilance was so high, his mind kept pulling backward,
+dredging up the alien terror of the ridge whenever he felt unsafe, which only made him more
+sensitive to the first sound of a rotor or the dimming of the hangar lights. His relentless scanning
+of exits and bracing for sudden shifts kept his nervous system primed, ensuring that the faintest
+texture or fading light registered as an immediate signal, which in turn kept the terror cycling
+without pause. For two years, Kahu had managed by rigidly controlling his schedule and avoiding
+twilight departures, but the habit of scanning every airport terminal for escape routes had begun to
+fracture his marriage. His wife noticed how he would sit with his back to the wall at dinner, how he
+would startle at the sound of a distant plane overhead, and how the joy they once shared had been
+replaced by a careful, quiet distance. He finally booked an intake after a pre-flight check
+triggered a full flashback, forcing him to declare a medical hold. He was hoping for a way to sit
+through a normal evening without checking the door, and what terrified him most was that he might
+never trust his own mind again, that the defective man he believed himself to be would always be
+waiting in the cockpit.

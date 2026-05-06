@@ -1,0 +1,205 @@
+{
+  "persona_id": 282,
+  "source_persona_id": 282,
+  "experiment_timestamp": "2026-05-03 12:27:23",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen2.5-32b",
+      "persona_crafter": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 70,
+    "gender": "Male",
+    "ethnicity": "North American",
+    "relationship_status": "Married",
+    "occupation": "Salesperson",
+    "trauma_type": "Assault",
+    "pcl5": 35
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Intrusive Thoughts",
+        "value": "Unwanted thoughts"
+      },
+      {
+        "key": "Offender Cues",
+        "value": "Seeing the offender"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Location",
+        "value": "Going to or near the place where the event happened"
+      },
+      {
+        "key": "Emotional Numbing",
+        "value": "I numb my feelings"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Unrecognisable Self",
+        "value": "The person I have become is unrecognisable to me"
+      },
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      },
+      {
+        "key": "Self-Blame",
+        "value": "The event happened because of the way I acted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.661,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0856,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.7082,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4849333333333334,
+  "edge_density": 0.15,
+  "vignette_word_count": 562,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Victim Similarity: People who look similar to the victims",
+          "explanation": "For a single-patient assault trauma, 'people who look similar to the victims' is clinically incoherent because it implies multiple victims or identification with other victims rather than the patient's own assault experience. A more self-referential trigger would be expected."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Others-Would-Cope: Somebody else would have stopped the event from happening",
+          "explanation": "'Somebody else would have stopped the event from happening' sits awkwardly with the rest of the profile's self-directed shame and identity-change appraisals. It implies confidence that another person would have prevented the assault, which conflicts with the patient's own vulnerability/self-blame framing in a way that is hard to integrate clinically."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Victim Similarity"
+        ],
+        "Negative Appraisals": [
+          "Others-Would-Cope"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Medical Procedures: Undergoing a medical examination or procedure",
+          "explanation": "For an assault trauma in a 70-year-old male, 'medical procedures' plus 'body shame' implies a strong bodily injury/medical aftermath theme, but the rest of the profile does not support that theme. With only offender cues and intrusive thoughts otherwise present, the medical trigger looks insufficiently anchored and may be mismatched to the rest of the assault profile."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Body Shame: I feel ashamed of what happened to my body",
+          "explanation": "'Body shame' is not impossible after assault, but alongside 'defective self' and 'unrecognisable self' it suggests a bodily violation/injury-focused appraisal pattern that is not well reflected in the other selected nodes. The triggers and strategies mainly reflect avoidance, numbing, and offender-related activation rather than body-focused trauma processing."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Catastrophising Others: I worry obsessively about bad things happening to people I care about",
+          "explanation": "'Catastrophising others' is weakly connected to the rest of the selected profile. The active formulation links Triggers strongly with Maladaptive Strategies and Negative Appraisals strongly with Triggers, but this strategy is not a plausible direct response to the chosen triggers (medical procedures, intrusive thoughts, offender cues) and is not well explained by the selected appraisals. It addresses a generalized harm concern that is otherwise absent from the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Medical Procedures"
+        ],
+        "Negative Appraisals": [
+          "Body Shame"
+        ],
+        "Maladaptive Strategies": [
+          "Catastrophising Others"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "John is a 70-year-old North American man who has recently experienced an assault that has profoundly affected his life. John’s occupation as a salesperson in a busy retail store had always been a source of stability and pride for him until the traumatic event occurred three months ago. The incident took place during one of John's regular evening shifts when he was alone in the store. A man, who turned out to be an old acquaintance with a history of alcohol abuse, entered the store and became increasingly aggressive as the night wore on. The encounter escalated into a physical altercation, leaving John severely shaken and traumatized. Since then, unwanted thoughts about the assault have frequently intruded upon his daily life. These intrusive thoughts are particularly triggered by certain cues, such as seeing the offender or smelling alcohol, which often occur when he passes by the local bar where the assailant frequents. Whenever these triggers emerge, John feels a surge of anxiety and fear. To cope with these overwhelming feelings, John has developed several maladaptive strategies. He avoids going near the store where the assault took place and has even stopped visiting areas in his neighborhood that remind him of the incident. Furthermore, he attempts to numb his emotions by immersing himself in work or other activities that keep him distracted from thinking about the trauma. However, these strategies only provide temporary relief and do not address the underlying emotional distress. John’s negative appraisals have also intensified over time. He has come to believe that the person he is now is unrecognizable compared to who he was before the assault. His self-blame has grown to a point where he often thinks, “The event happened because of something I did.” This belief not only fuels his feelings of defectiveness but also exacerbates his intrusive thoughts and triggers. For instance, when John sees or smells alcohol in public places, his anxiety spikes, leading him to further avoid situations that might expose him to these cues. His wife has noticed changes in his behavior as well; he has become more withdrawn and distant, often shutting down emotionally when she tries to discuss the incident with him. These behaviors have strained their relationship, as John’s avoidance of emotional engagement and constant vigilance for triggers have created a barrier between them. The cycle continues to tighten: whenever intrusive thoughts surface, they reinforce his negative appraisals about himself, leading to heightened anxiety and more frequent use of maladaptive strategies like avoidance and emotional numbing. This relentless loop has made it increasingly difficult for John to function normally in his daily life. What finally prompted him to seek help was a recent incident at work where he froze during a meeting, unable to think clearly or respond appropriately due to an intrusive thought triggered by the smell of alcohol from another attendee’s drink. His manager expressed concern about his performance and well-being, which made John realize that he needed professional assistance. John is most afraid of becoming a shell of who he used to be, but at the same time, he hopes for guidance on how to regain control over his life without feeling constantly haunted by the traumatic event. He seeks help not just for himself but also to restore his relationship with his wife and find a way back to the person he was before the assault."
+,
+
+  "vignette_attempts": [
+    {"vignette": "John is a 70-year-old North American man who has recently experienced an assault that has profoundly affected his life. John’s occupation as a salesperson in a busy retail store had always been a source of stability and pride for him until the traumatic event occurred three months ago. The incident took place during one of John's regular evening shifts when he was alone in the store. A man, who turned out to be an old acquaintance with a history of alcohol abuse, entered the store and became increasingly aggressive as the night wore on. The encounter escalated into a physical altercation, leaving John severely shaken and traumatized. Since then, unwanted thoughts about the assault have frequently intruded upon his daily life. These intrusive thoughts are particularly triggered by certain cues, such as seeing the offender or smelling alcohol, which often occur when he passes by the local bar where the assailant frequents. Whenever these triggers emerge, John feels a surge of anxiety and fear. To cope with these overwhelming feelings, John has developed several maladaptive strategies. He avoids going near the store where the assault took place and has even stopped visiting areas in his neighborhood that remind him of the incident. Furthermore, he attempts to numb his emotions by immersing himself in work or other activities that keep him distracted from thinking about the trauma. However, these strategies only provide temporary relief and do not address the underlying emotional distress. John’s negative appraisals have also intensified over time. He has come to believe that the person he is now is unrecognizable compared to who he was before the assault. His self-blame has grown to a point where he often thinks, “The event happened because of something I did.” This belief not only fuels his feelings of defectiveness but also exacerbates his intrusive thoughts and triggers. For instance, when John sees or smells alcohol in public places, his anxiety spikes, leading him to further avoid situations that might expose him to these cues. His wife has noticed changes in his behavior as well; he has become more withdrawn and distant, often shutting down emotionally when she tries to discuss the incident with him. These behaviors have strained their relationship, as John’s avoidance of emotional engagement and constant vigilance for triggers have created a barrier between them. The cycle continues to tighten: whenever intrusive thoughts surface, they reinforce his negative appraisals about himself, leading to heightened anxiety and more frequent use of maladaptive strategies like avoidance and emotional numbing. This relentless loop has made it increasingly difficult for John to function normally in his daily life. What finally prompted him to seek help was a recent incident at work where he froze during a meeting, unable to think clearly or respond appropriately due to an intrusive thought triggered by the smell of alcohol from another attendee’s drink. His manager expressed concern about his performance and well-being, which made John realize that he needed professional assistance. John is most afraid of becoming a shell of who he used to be, but at the same time, he hopes for guidance on how to regain control over his life without feeling constantly haunted by the traumatic event. He seeks help not just for himself but also to restore his relationship with his wife and find a way back to the person he was before the assault.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

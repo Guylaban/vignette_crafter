@@ -1,0 +1,194 @@
+{
+  "persona_id": 189,
+  "source_persona_id": 189,
+  "experiment_timestamp": "2026-05-04 01:58:01",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "gpt-oss-20b",
+      "persona_validator": "gpt-oss-20b",
+      "vignette_crafter": "gpt-oss-20b",
+      "vignette_validator": "gpt-oss-20b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 72,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Widowed",
+    "occupation": "Forester",
+    "trauma_type": "Civilian in war zone",
+    "pcl5": 64
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Nighttime/Dark",
+        "value": "Night-time or waking up in the dark"
+      },
+      {
+        "key": "Auditory (Explosion)",
+        "value": "Explosion or bang sounds"
+      },
+      {
+        "key": "Perceived Threat",
+        "value": "People acting suspiciously"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Sensory Distraction",
+        "value": "I put on loud music or TV"
+      },
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Hypervigilance towards people",
+        "value": "vigilant for dangerous people"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0701,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies"
+  ],
+  "required_edges": [
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.0701,
+  "edge_density": 0.05,
+  "vignette_word_count": 652,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Being Alone: Being alone in a room or building",
+          "explanation": "The item is not a maladaptive strategy but describes an avoided situation/trigger-like context. It is internally mismatched with the other strategy items, which are actual coping behaviors (covering face, using loud music/TV). It also weakens cross-node coherence because the profile contains no corresponding threat, appraisal, or memory content explaining why being alone is specifically targeted."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Being Alone"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Object Throwing: Throwing objects",
+          "explanation": "The trigger set is partly coherent for a civilian in a war zone (gunshot noise, darkness), but 'Throwing objects' is hard to reconcile as a salient trauma-related trigger without any supporting threat, memory, or appraisal content linking thrown objects to the war trauma."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Face Hiding: cover face with hands",
+          "explanation": "The maladaptive strategies are not internally coherent with the formulation or with each other as the only active node pair is a very weak Maladaptive Strategies → Triggers link, yet the selected strategies imply multiple different symptom targets (acute fear concealment, sensory suppression, hypervigilant threat monitoring) without corresponding threat, memory, or appraisal content."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Object Throwing"
+        ],
+        "Maladaptive Strategies": [
+          "Face Hiding"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory/Threat: Gunshot noise",
+          "explanation": "The trigger items are plausible for a civilian in a war zone, but the profile is not internally coherent with the cognitive formulation because all links from Triggers to other nodes are inactive and no Threat, Memory, or Negative Appraisal items are present to give these highly specific combat-like auditory triggers any connected meaning in the formulation."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Auditory (Explosion): Explosion or bang sounds",
+          "explanation": "Using loud music or TV as sensory distraction sits awkwardly with the dominant trigger pattern of gunshot and explosion sounds: this strategy relies on additional intense auditory input despite the only reported triggers being threatening noises. That is a hard-to-explain within-profile mismatch unless other non-auditory symptoms are present, which are not reported here."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory/Threat"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Anna Nwanne, a 72‑year‑old African American woman, works as a forester in the pine‑studded hills outside Tuscaloosa. In 1983, when she was 18, she was a civilian in a war‑torn region of West Africa, caught in a sudden mortar attack on a market square. The explosion cracked the concrete, and she was shaken by the shrapnel‑laden wind. The night after the attack she lay awake, hearing the distant boom of artillery, feeling the ground tremble as if a shell were about to strike again. That night, the darkness of the market, the muffled echo of gunfire, and the sudden motion of people in the shadows left an indelible impression. When she returned to the United States, the memory of that darkness became a living threat. Years later, Anna reports three types of triggers that continually intrude. The first is the nighttime or simply the absence of light. She cannot sleep unless the room is lit, because the darkness makes her feel exposed to unseen danger. The second is any sudden loud bang, such as the clatter of a firecracker or the distant rumble of a truck; she imagines it is an explosion like that night. The third is the sight of people acting suspiciously – a man who looks in her direction or a stranger who lingers too close. The forest’s early evening light often gives way to dusk; when a lone deer runs across the trail, she feels a surge of alarm. Her coping has taken the shape of three maladaptive strategies. First, she uses sensory distraction, blasting loud music or turning on the television to mask the quiet of the night. She believes that noise will drown out the imagined explosions that might hide in the shadows. Second, she engages in constant checking of her surroundings, walking slowly along the ridge and looking for any sign of danger. This habit was born in the war zone where she learned that a single, unseen threat could bring death. Third, she maintains hypervigilance toward people, scanning faces and body language for any hint of menace. These strategies lead to triggers: her relentless searching of the forest floor at night turns the darkness itself into a cue for potential threat, and the loud noise she creates in her cabin paradoxically heightens her isolation, making the absence of light feel more terrifying. The persistent vigilance toward strangers magnifies ordinary movements into alarms, reinforcing the feeling that danger is always present. The cycle of maladaptive strategies and triggers has had real costs. At work, Anna’s forester duties require early mornings and late afternoons when the light is dim. Her need to check every branch, to listen for odd sounds, and to keep an eye on every passerby slows her progress, and she often misses deadlines. Her colleagues have noticed that she withdraws from group meetings, preferring to work alone. The isolation has strained her relationship with her son, who has moved to Atlanta. He worries that his mother’s fear might keep her from enjoying the woods she loves. Despite her efforts, Anna’s condition has worsened. She now scores 64 on the PCL‑5, indicating a severe level of PTSD. She can barely sleep, and each morning she wakes drenched in sweat, convinced that someone has followed her home. The fear that she may be walking into a trap at work, the belief that a harmless clatter could be a bomb, and the suspicion that any passerby could be a threat have made her life a constant state of heightened alarm. She is only now seeking help because she feels her health is deteriorating, her job is at risk, and she can no longer manage her own safety. She hopes that therapy will teach her a different way to navigate the dark and to interpret the quiet, so that she can return to the forest she loves without being haunted by the war‑scarred memories of her youth."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Anna Nwanne, a 72‑year‑old African American woman, works as a forester in the pine‑studded hills outside Tuscaloosa. In 1983, when she was 18, she was a civilian in a war‑torn region of West Africa, caught in a sudden mortar attack on a market square. The explosion cracked the concrete, and she was shaken by the shrapnel‑laden wind. The night after the attack she lay awake, hearing the distant boom of artillery, feeling the ground tremble as if a shell were about to strike again. That night, the darkness of the market, the muffled echo of gunfire, and the sudden motion of people in the shadows left an indelible impression. When she returned to the United States, the memory of that darkness became a living threat. Years later, Anna reports three types of triggers that continually intrude. The first is the nighttime or simply the absence of light. She cannot sleep unless the room is lit, because the darkness makes her feel exposed to unseen danger. The second is any sudden loud bang, such as the clatter of a firecracker or the distant rumble of a truck; she imagines it is an explosion like that night. The third is the sight of people acting suspiciously – a man who looks in her direction or a stranger who lingers too close. The forest’s early evening light often gives way to dusk; when a lone deer runs across the trail, she feels a surge of alarm. Her coping has taken the shape of three maladaptive strategies. First, she uses sensory distraction, blasting loud music or turning on the television to mask the quiet of the night. She believes that noise will drown out the imagined explosions that might hide in the shadows. Second, she engages in constant checking of her surroundings, walking slowly along the ridge and looking for any sign of danger. This habit was born in the war zone where she learned that a single, unseen threat could bring death. Third, she maintains hypervigilance toward people, scanning faces and body language for any hint of menace. These strategies lead to triggers: her relentless searching of the forest floor at night turns the darkness itself into a cue for potential threat, and the loud noise she creates in her cabin paradoxically heightens her isolation, making the absence of light feel more terrifying. The persistent vigilance toward strangers magnifies ordinary movements into alarms, reinforcing the feeling that danger is always present. The cycle of maladaptive strategies and triggers has had real costs. At work, Anna’s forester duties require early mornings and late afternoons when the light is dim. Her need to check every branch, to listen for odd sounds, and to keep an eye on every passerby slows her progress, and she often misses deadlines. Her colleagues have noticed that she withdraws from group meetings, preferring to work alone. The isolation has strained her relationship with her son, who has moved to Atlanta. He worries that his mother’s fear might keep her from enjoying the woods she loves. Despite her efforts, Anna’s condition has worsened. She now scores 64 on the PCL‑5, indicating a severe level of PTSD. She can barely sleep, and each morning she wakes drenched in sweat, convinced that someone has followed her home. The fear that she may be walking into a trap at work, the belief that a harmless clatter could be a bomb, and the suspicion that any passerby could be a threat have made her life a constant state of heightened alarm. She is only now seeking help because she feels her health is deteriorating, her job is at risk, and she can no longer manage her own safety. She hopes that therapy will teach her a different way to navigate the dark and to interpret the quiet, so that she can return to the forest she loves without being haunted by the war‑scarred memories of her youth.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

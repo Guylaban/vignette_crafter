@@ -1,0 +1,194 @@
+{
+  "persona_id": 339,
+  "source_persona_id": 339,
+  "experiment_timestamp": "2026-05-03 12:39:16",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen2.5-32b",
+      "persona_crafter": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 55,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Single",
+    "occupation": "Counselor",
+    "trauma_type": "Man-made disaster",
+    "pcl5": 74
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Object Throwing",
+        "value": "Throwing objects"
+      },
+      {
+        "key": "Olfactory Danger Cue",
+        "value": "Burnt smell"
+      },
+      {
+        "key": "Olfactory (Smoke)",
+        "value": "Smoke or fire smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Friends",
+        "value": "avoid seeing friends"
+      },
+      {
+        "key": "Avoid Thinking",
+        "value": "Thinking about the event"
+      },
+      {
+        "key": "Thought Monitoring",
+        "value": "constantly monitor own thoughts for signs of going crazy"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Olfactory Recall",
+        "value": "When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened."
+      },
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Memory Feels Alien",
+        "value": "The memory feels like it belongs to someone else rather than to me"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Body as Enemy",
+        "value": "My body keeps reacting as if I am still in danger even when I am safe"
+      },
+      {
+        "key": "Constant Vigilance",
+        "value": "I have to be especially careful because you never know what can happen next"
+      },
+      {
+        "key": "Thought Avoidance",
+        "value": "If I think about the event, I will not be able to handle it"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.7217,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.9479,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.7072,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.4576,
+    "Memory -- Triggers": 0.6779,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.5742,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Negative Appraisals → Memory",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Memory"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Negative Appraisals → Memory",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6810833333333334,
+  "edge_density": 0.3,
+  "vignette_word_count": 559,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Others Cycling: People cycling",
+          "explanation": "The trigger set suggests a highly specific external threat context involving cyclists and thrown objects, but the rest of the profile (memory and appraisals) does not contain corresponding content about that kind of event. In a man-made disaster profile, 'burnt smell' coheres with disaster-related sensory memory, whereas 'people cycling' and 'throwing objects' pull toward a different trauma scenario and are hard to integrate with the remaining items."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Object Throwing: Throwing objects",
+          "explanation": "'Avoid seeing friends' is not well supported by the rest of the selected profile. The active formulation strongly links Triggers with Memory and Maladaptive Strategies, and the endorsed strategies are otherwise cognitive/internal (thought avoidance, thought monitoring). Social avoidance could occur in PTSD, but here it is not tied to any endorsed trigger, memory content, or appraisal pattern, making it look like a strategy for a different symptom cluster than the one described."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Others Cycling"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "John is a 55-year-old European-American man who has been struggling with post-traumatic stress disorder (PTSD) following his involvement in a devastating industrial accident. As a counselor, John’s daily work often requires him to manage high-stress situations, but the recent traumatic event has significantly impacted his ability to cope. The incident occurred during a routine visit to a chemical plant where he was providing counseling services for employees. A sudden explosion and fire engulfed the facility, causing severe damage and resulting in multiple casualties. The intense heat, smoke, and acrid smell of burnt materials filled the air as John struggled to escape. Since then, he has been plagued by potent triggers that remind him of this terrifying experience. The scent of smoke or anything burning can instantly transport John back to that harrowing day. He vividly recalls the choking fumes and the overwhelming sense of danger they represented. When these olfactory cues arise, John often finds himself re-experiencing the intense fear without any clear visual recollection, leaving him feeling raw and vulnerable. This emotional intensity without a corresponding image further amplifies his distress. John has come to believe that his body is betraying him; it continues to react with heightened anxiety even when he knows he’s safe. He feels a constant need for vigilance, as if the next disaster could strike at any moment. As a result, he avoids seeing friends and refrains from discussing the event altogether. John monitors his own thoughts obsessively, constantly scanning for signs that he might be losing control. The memory of the incident often feels alien to him, almost like it belongs to someone else rather than himself. This disconnect exacerbates his sense of disorientation and mistrust towards his own experiences. When he encounters triggers such as the smell of smoke or objects being thrown, John’s memories flood back, intensifying his negative appraisals that his body is an enemy and that constant vigilance is necessary for survival. John’s efforts to avoid thinking about the event have only compounded his struggles. His attempts at thought avoidance lead to increased intrusions where he vividly relives the experience through olfactory recall. The scent of burnt materials can suddenly overwhelm him, plunging him into a state of intense fear and disorientation. These memories are so potent that they disrupt his work as a counselor, making it difficult for him to provide support to others without feeling consumed by his own trauma. Over time, John’s avoidance behaviors have taken a toll on his relationships and professional life. His reluctance to engage with friends and colleagues has left him increasingly isolated, further deepening his sense of disconnection from reality. He has come to fear that if he allows himself to fully confront the event, it will be too much for him to bear. What finally prompted John to seek help was a particularly distressing encounter at work where the smell of smoke from a nearby accident triggered a full-blown panic attack. His colleagues were concerned and urged him to get professional support. Now, as he begins therapy, John is most afraid that his memories will never fade and that he will remain trapped in this cycle of fear and avoidance. He hopes that with help, he can regain control over his life and find a way to manage the haunting reminders of the traumatic event without being overwhelmed by them."
+,
+
+  "vignette_attempts": [
+    {"vignette": "John is a 55-year-old European-American man who has been struggling with post-traumatic stress disorder (PTSD) following his involvement in a devastating industrial accident. As a counselor, John’s daily work often requires him to manage high-stress situations, but the recent traumatic event has significantly impacted his ability to cope. The incident occurred during a routine visit to a chemical plant where he was providing counseling services for employees. A sudden explosion and fire engulfed the facility, causing severe damage and resulting in multiple casualties. The intense heat, smoke, and acrid smell of burnt materials filled the air as John struggled to escape. Since then, he has been plagued by potent triggers that remind him of this terrifying experience. The scent of smoke or anything burning can instantly transport John back to that harrowing day. He vividly recalls the choking fumes and the overwhelming sense of danger they represented. When these olfactory cues arise, John often finds himself re-experiencing the intense fear without any clear visual recollection, leaving him feeling raw and vulnerable. This emotional intensity without a corresponding image further amplifies his distress. John has come to believe that his body is betraying him; it continues to react with heightened anxiety even when he knows he’s safe. He feels a constant need for vigilance, as if the next disaster could strike at any moment. As a result, he avoids seeing friends and refrains from discussing the event altogether. John monitors his own thoughts obsessively, constantly scanning for signs that he might be losing control. The memory of the incident often feels alien to him, almost like it belongs to someone else rather than himself. This disconnect exacerbates his sense of disorientation and mistrust towards his own experiences. When he encounters triggers such as the smell of smoke or objects being thrown, John’s memories flood back, intensifying his negative appraisals that his body is an enemy and that constant vigilance is necessary for survival. John’s efforts to avoid thinking about the event have only compounded his struggles. His attempts at thought avoidance lead to increased intrusions where he vividly relives the experience through olfactory recall. The scent of burnt materials can suddenly overwhelm him, plunging him into a state of intense fear and disorientation. These memories are so potent that they disrupt his work as a counselor, making it difficult for him to provide support to others without feeling consumed by his own trauma. Over time, John’s avoidance behaviors have taken a toll on his relationships and professional life. His reluctance to engage with friends and colleagues has left him increasingly isolated, further deepening his sense of disconnection from reality. He has come to fear that if he allows himself to fully confront the event, it will be too much for him to bear. What finally prompted John to seek help was a particularly distressing encounter at work where the smell of smoke from a nearby accident triggered a full-blown panic attack. His colleagues were concerned and urged him to get professional support. Now, as he begins therapy, John is most afraid that his memories will never fade and that he will remain trapped in this cycle of fear and avoidance. He hopes that with help, he can regain control over his life and find a way to manage the haunting reminders of the traumatic event without being overwhelmed by them.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

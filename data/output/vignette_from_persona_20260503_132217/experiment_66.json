@@ -1,0 +1,228 @@
+{
+  "persona_id": 66,
+  "source_persona_id": 66,
+  "experiment_timestamp": "2026-05-03 14:49:22",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 55,
+    "gender": "Male",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "Painter",
+    "trauma_type": "Unexpected or traumatic death of a loved one",
+    "pcl5": 67
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Emergency Contexts",
+        "value": "Ambulances"
+      },
+      {
+        "key": "Workplace",
+        "value": "Workplace"
+      },
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Night Vigilance",
+        "value": "I find it harder to feel safe at night than during the day"
+      },
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Alert at Home",
+        "value": "I feel on guard even inside my own home"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Identity Loss",
+        "value": "I feel like I don't know myself anymore"
+      },
+      {
+        "key": "Isolation",
+        "value": "I feel isolated and set apart from others"
+      },
+      {
+        "key": "Life Destroyed",
+        "value": "My life has been destroyed by the trauma"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.6166,
+    "Triggers -- Memory": 0.6486,
+    "Triggers -- Negative Appraisals": 0.9671,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.7983,
+    "Negative Appraisals -- Memory": 0.1076,
+    "Negative Appraisals -- Triggers": 0.7494,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.6908,
+    "Memory -- Negative Appraisals": 0.3804,
+    "Memory -- Triggers": 0.6828,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.1592,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.3025,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5548454545454545,
+  "edge_density": 0.55,
+  "vignette_word_count": 639,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event",
+          "explanation": "Physical pain in the same body parts as during the event is hard to reconcile with the indexed trauma being an unexpected or traumatic death of a loved one, unless the patient was also physically injured during the event. That makes this item clinically implausible from the provided trauma context."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Mistrust: People can't be trusted",
+          "explanation": "A global mistrust appraisal is a weak fit with bereavement trauma unless there is some interpersonal betrayal, negligence, or assault-related context. The rest of the profile centers on loss, alarm, and isolation rather than interpersonal threat from other people, so this item is not well supported by the trauma type or the other selected items."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Pain Recall"
+        ],
+        "Negative Appraisals": [
+          "Mistrust"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Others Cycling: People cycling",
+          "explanation": "For trauma involving the unexpected death of a loved one, ambulances can plausibly cue the death context and workplace cues may be idiosyncratically linked, but 'People cycling' is hard to connect clinically unless the loved one died in a cycling-related incident, which is not reflected anywhere else in threat, appraisals, or memory. It stands out as a trigger with no supporting context in the rest of the profile."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "The memory profile is dominated by grief-related recall and affective reliving without clear imagery, which fits bereavement trauma. 'Intense shame' on recall is not impossible, but here it lacks support from the negative appraisals, which focus on identity loss, isolation, and life destruction rather than self-blame, guilt, or humiliation. In this profile, shame is insufficiently integrated with the rest of the formulation and trauma type."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Others Cycling"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Elijah stood at the edge of a client’s living room, his brush hovering over a freshly primed wall. His PCL-5 score of 67 reflects the severity of a presentation that began when his younger brother Isaiah collapsed at a neighborhood barbecue, and by the time the paramedics arrived, Elijah had already knelt beside a chest that no longer answered. The shock of that sudden stillness rewired his nervous system, and now the distant wail of an ambulance cutting through his street immediately locks his shoulders, forcing his breath shallow as his body braces for impact. When that sound reaches him, the image of Isaiah’s final, peaceful face surfaces unbidden, pulling a wave of grief so heavy it steals his air. Elijah tells himself he cannot continue this work, convinced that the accident had permanently dismantled his life and left him set apart from everyone who still believes in tomorrow. This conviction that his future is ruined dictates his nights, ensuring he sleeps only in fits, his body locked in a permanent state of readiness even inside his own bedroom. He scans the corners of the house for any sign of approaching crisis, a habit that makes him hyperaware of the neighborhood, so that a neighbor’s tearful retelling of a recent funeral instantly pulls his focus outward. When the fear peaks, it leaves him with a hollow, imageless dread that somehow feels more real than any picture, a sensation that reinforces his belief that he no longer knows who he is beneath the fear. The more he fears the loss of his old self, the more he expects danger to arrive unannounced, which keeps his shoulders drawn up and his breath shallow whenever he steps onto a scaffold or passes a hospital driveway. His wife notices how he withdraws, how the quiet of their marital bed has been replaced by restless pacing that leaves him exhausted before dawn. He avoids discussing Isaiah’s death, fearing that speaking the words will shatter the fragile calm he has managed to construct, yet the very act of hiding deepens his isolation, feeding the ruminations that keep him mentally chained to the moment of the collapse. Over weeks, this cycle has become his architecture: the vivid flashbacks keep his nervous system permanently on alert, which in turn convinces him that his identity is fractured and his life is beyond repair. That hollow dread then pushes him to avoid any workplace that mirrors the trauma, steering him away from ladders and drop cloths. Meanwhile, the night vigilance bleeds into his waking hours, fragmenting his focus and spawning more visual memories of the collapse. His constant state of alert at home makes him scan every passing street corner for emergency vehicles and every casual conversation for the cadence of mourning, which tightens the loop. His paint can no longer hold his focus; the job that once grounded him now feels like a minefield, and his contractor has noticed how he leaves early when a radio picks up emergency broadcasts. He has come to believe that his body is a trap, constantly firing alarms at nothing, but also that he deserves the exhaustion because he failed to save Isaiah. Now, at fifty-five, he sits in his therapist’s office with calloused hands clenched around his knees, hoping someone can teach him how to breathe again. What frightens him most is the prospect of returning to the scaffold, of facing the open sky and the weight of a life that feels permanently broken. He wants to wake up without scanning the ceiling for danger, to hear a siren without his muscles seizing, and to remember his brother without feeling like the ground has given way beneath him. He is ready to stop running from the quiet, even if it means facing the storm he has spent months trying to outrun."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Elijah stood at the edge of a client’s living room, his brush hovering over a freshly primed wall. His PCL-5 score of 67 reflects the severity of a presentation that began when his younger brother Isaiah collapsed at a neighborhood barbecue, and by the time the paramedics arrived, Elijah had already knelt beside a chest that no longer answered. The shock of that sudden stillness rewired his nervous system, and now the distant wail of an ambulance cutting through his street immediately locks his shoulders, forcing his breath shallow as his body braces for impact. When that sound reaches him, the image of Isaiah’s final, peaceful face surfaces unbidden, pulling a wave of grief so heavy it steals his air. Elijah tells himself he cannot continue this work, convinced that the accident had permanently dismantled his life and left him set apart from everyone who still believes in tomorrow. This conviction that his future is ruined dictates his nights, ensuring he sleeps only in fits, his body locked in a permanent state of readiness even inside his own bedroom. He scans the corners of the house for any sign of approaching crisis, a habit that makes him hyperaware of the neighborhood, so that a neighbor’s tearful retelling of a recent funeral instantly pulls his focus outward. When the fear peaks, it leaves him with a hollow, imageless dread that somehow feels more real than any picture, a sensation that reinforces his belief that he no longer knows who he is beneath the fear. The more he fears the loss of his old self, the more he expects danger to arrive unannounced, which keeps his shoulders drawn up and his breath shallow whenever he steps onto a scaffold or passes a hospital driveway. His wife notices how he withdraws, how the quiet of their marital bed has been replaced by restless pacing that leaves him exhausted before dawn. He avoids discussing Isaiah’s death, fearing that speaking the words will shatter the fragile calm he has managed to construct, yet the very act of hiding deepens his isolation, feeding the ruminations that keep him mentally chained to the moment of the collapse. Over weeks, this cycle has become his architecture: the vivid flashbacks keep his nervous system permanently on alert, which in turn convinces him that his identity is fractured and his life is beyond repair. That hollow dread then pushes him to avoid any workplace that mirrors the trauma, steering him away from ladders and drop cloths. Meanwhile, the night vigilance bleeds into his waking hours, fragmenting his focus and spawning more visual memories of the collapse. His constant state of alert at home makes him scan every passing street corner for emergency vehicles and every casual conversation for the cadence of mourning, which tightens the loop. His paint can no longer hold his focus; the job that once grounded him now feels like a minefield, and his contractor has noticed how he leaves early when a radio picks up emergency broadcasts. He has come to believe that his body is a trap, constantly firing alarms at nothing, but also that he deserves the exhaustion because he failed to save Isaiah. Now, at fifty-five, he sits in his therapist’s office with calloused hands clenched around his knees, hoping someone can teach him how to breathe again. What frightens him most is the prospect of returning to the scaffold, of facing the open sky and the weight of a life that feels permanently broken. He wants to wake up without scanning the ceiling for danger, to hear a siren without his muscles seizing, and to remember his brother without feeling like the ground has given way beneath him. He is ready to stop running from the quiet, even if it means facing the storm he has spent months trying to outrun.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

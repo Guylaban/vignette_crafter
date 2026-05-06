@@ -1,0 +1,190 @@
+PERSONA 235  |  2026-05-03 18:37:09
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             50
+  gender          Male
+  ethnicity       African
+  relationship_status Married
+  occupation      Plumber
+  trauma_type     Assault
+  pcl5            73
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Threat:
+    • Safe Zone Only: I only feel safe in a very limited number of places
+    • Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+    • Sleep Problems: Trouble falling or staying asleep
+  Memory:
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+    • Nonverbal Memory: I can't seem to put the frightening event into words.
+  Negative Appraisals:
+    • No Longer Capable: I am no longer capable of doing the things that defined me
+    • Injustice: What happened to me was deeply unfair and nothing has been done about it
+    • Self-Doubt: I can't trust that I will do the right thing
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.7327
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0668
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.4979
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Memory: Guilt on Recall
+    explanation: The Memory node is internally strained: intense guilt, rage, and overwhelming grief on recall can co-occur, but selecting all three as core recall responses without any memory-content item suggests an over-broad affect cluster rather than a coherent memory profile.
+    item:        Memory / Memory: Rage on Recall
+    explanation: Cross-node coherence is weak between Negative Appraisals and Memory: 'No Accountability' aligns with anger/rage, but 'Contamination' is more typical of sexual trauma or morally violating trauma and is not well supported by the rest of the assault profile.
+    item:        Negative Appraisals / Memory: Grief on Recall
+    explanation: For an adult male assaulted in a non-sexual assault profile, 'Contamination: I feel dirty or contaminated because of what happened' is clinically hard to reconcile unless other items indicate sexual assault, bodily violation, or washing/avoidance themes, which are absent here.
+  [2] FAIL
+    item:        Threat / Memory: Guilt on Recall
+    explanation: For an adult male assault survivor, intense guilt, overwhelming grief, and feeling dirty/contaminated can occur, but this specific combination is hard to reconcile without any accompanying sexual-assault-type cues elsewhere in the profile. The contamination appraisal in particular pulls toward a trauma meaning not supported by the other selected items.
+    item:        Memory / Memory: Grief on Recall
+    explanation: Within the Memory node, 'Guilt on Recall' and 'Grief on Recall' are not contradictory, but paired with predominantly visual memories they imply a complex emotional recall profile that would usually be echoed in appraisals more directly tied to guilt/loss. Instead, the appraisal set emphasizes injustice, incapacity, and contamination, which do not form a tight thematic cluster.
+    item:        Negative Appraisals / Negative Appraisals: Contamination
+    explanation: The formulation has a strong Negative Appraisals → Threat link, so appraisals should plausibly explain the threat items. 'No Longer Capable' fits hypervigilance/feeling unsafe, but 'No Accountability' mainly reflects injustice and does not clearly drive 'Safe Zone Only' or 'Startle to Movement.' 'Contamination' especially does not map well to the selected threat items, making the appraisal-to-threat pattern clinically incoherent.
+  [3] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: Within Negative Appraisals, Self-Blame and No Accountability point in different directions of responsibility for the assault. A patient can feel both guilt and anger, but stated this strongly they suggest opposing appraisals about who is responsible.
+    item:        Memory / Negative Appraisals: No Accountability: The people responsible have faced no consequences
+    explanation: Memory item Guilt on Recall reinforces self-blame, which increases the inconsistency with the concurrent appraisal that perpetrators are the ones who should face consequences. The profile mixes strong perpetrator-focused blame with strong self-focused blame without a coherent bridge in the selected items.
+  [4] FAIL
+    item:        Negative Appraisals / Negative Appraisals: No Accountability
+    explanation: The negative appraisal items are dominated by external blame/injustice ('the people responsible have faced no consequences', 'what happened was deeply unfair and nothing has been done about it'), which fits an assault survivor, but this sits poorly with 'When I remember the event I feel intense guilt.' Intense guilt usually implies some degree of self-blame, responsibility, or perceived preventability. While mixed emotions are possible, this combination is clinically hard to reconcile here because the appraisal node contains no corresponding self-blaming belief and instead consistently locates responsibility outside the patient.
+    item:        Memory / Negative Appraisals: Injustice
+    explanation: Within the Memory node, 'Guilt on Recall' is not well aligned with the other memory qualities selected ('mostly pictures or images' and 'can't put the event into words'), which describe sensory, poorly elaborated trauma memory. Those memory-form items plausibly link to threat, but guilt-on-recall points to a different meaning structure that is not supported by the selected negative appraisals. Given the formulation's strongest active pathway is Negative Appraisals → Threat, the absence of guilt-based appraisals makes the guilt memory item feel disconnected from the rest of the profile.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Three years ago, Cedric finished a late-night service call in a poorly lit warehouse district. He
+was walking to his truck when a figure dropped from a loading dock, striking him from the blind side
+before he could draw a breath. The assault was swift and disorienting, focused on keeping him off
+balance while flashes of a rusted pipe, a flickering halogen work light, and the attacker’s heavy
+boots filled his vision. He remembers the concrete against his cheek and the weight of the blow, but
+whenever he tries to reconstruct the evening for his wife, Maya, the narrative dissolves. He cannot
+find the words to explain what happened, only the stark, unblinking photographs that replay behind
+his eyes. The suddenness of the attack and its reliance on visual disorientation explained why his
+body now treated every peripheral flicker as a prelude to violence. When those photographs of the
+assault surfaced in his mind, the accompanying guilt on recall would lock his chest and make his
+eyes dart toward the nearest exit, his posture rigid and ready to flee. This physical bracing slowly
+dictated his daily routine. He began avoiding the sprawling distribution centers he used to service,
+steering clear of parking garages and any corridor where lighting flickered. He stayed within the
+strict boundaries of his own home and the small, well-lit corner of his workshop, retreating until
+he only felt safe in those highly controlled spaces. Whenever a colleague reached across his
+workbench or a neighbor stepped quickly off a porch, his startle response kicked in immediately, his
+pulse spiking as if the threat were actively returning. His conviction that he was no longer capable
+of handling the physical demands of his trade, paired with a deep suspicion that his own judgment
+had failed him, made the world feel perpetually hostile. These beliefs directly shrank his
+environment and amplified his hypervigilance. He stopped taking commercial retrofits because he was
+certain he would be trapped again, and his hesitation to make quick decisions on the job drew
+pointed comments from his foreman. The injustice of what happened to him, and the fact that nothing
+had been done about it, sat alongside his self-doubt, convincing him that stepping into unfamiliar
+environments was both pointless and dangerous. Consequently, he confined his movements to familiar
+routes and refused to engage with new projects, his avoidance calcifying into a rigid routine that
+kept him anchored to the ground floor. The chronic sleep problems that followed the attack eroded
+his cognitive resilience, leaving his mind exposed to the intrusions he could no longer suppress.
+Exhausted from nights spent fighting to fall or stay asleep, his mental defenses lowered, allowing
+the fragmented visual memories to surface during the day with greater frequency and intensity. He
+found himself staring at the workbench where his tools sat, the rusted pipe and halogen light
+flashing unbidden in his periphery even while daylight held. The exhaustion turned his occupational
+environment into a landscape of potential triggers; a sudden shift of a wrench or the abrupt
+movement of a client in a cramped basement would instantly pull him back into the attack’s sensory
+loop. Maya watched him grow quiet and distant, noting how he flinched when she placed a cup on the
+table and how he now measured every step of his life against his shrinking safe zones. He came to
+the clinic because the guilt on recall had become unbearable and the constant vigilance was
+exhausting him. He hoped someone could help him quiet the images and regain his sense of agency,
+though he remained deeply afraid that trusting himself again would only leave him vulnerable to
+proving his own negative appraisals right.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Three years ago, Cedric finished a late-night service call in a poorly lit warehouse district. He
+was walking to his truck when a figure dropped from a loading dock, striking him from the blind side
+before he could draw a breath. The assault was swift and disorienting, focused on keeping him off
+balance while flashes of a rusted pipe, a flickering halogen work light, and the attacker’s heavy
+boots filled his vision. He remembers the concrete against his cheek and the weight of the blow, but
+whenever he tries to reconstruct the evening for his wife, Maya, the narrative dissolves. He cannot
+find the words to explain what happened, only the stark, unblinking photographs that replay behind
+his eyes. The suddenness of the attack and its reliance on visual disorientation explained why his
+body now treated every peripheral flicker as a prelude to violence. When those photographs of the
+assault surfaced in his mind, the accompanying guilt on recall would lock his chest and make his
+eyes dart toward the nearest exit, his posture rigid and ready to flee. This physical bracing slowly
+dictated his daily routine. He began avoiding the sprawling distribution centers he used to service,
+steering clear of parking garages and any corridor where lighting flickered. He stayed within the
+strict boundaries of his own home and the small, well-lit corner of his workshop, retreating until
+he only felt safe in those highly controlled spaces. Whenever a colleague reached across his
+workbench or a neighbor stepped quickly off a porch, his startle response kicked in immediately, his
+pulse spiking as if the threat were actively returning. His conviction that he was no longer capable
+of handling the physical demands of his trade, paired with a deep suspicion that his own judgment
+had failed him, made the world feel perpetually hostile. These beliefs directly shrank his
+environment and amplified his hypervigilance. He stopped taking commercial retrofits because he was
+certain he would be trapped again, and his hesitation to make quick decisions on the job drew
+pointed comments from his foreman. The injustice of what happened to him, and the fact that nothing
+had been done about it, sat alongside his self-doubt, convincing him that stepping into unfamiliar
+environments was both pointless and dangerous. Consequently, he confined his movements to familiar
+routes and refused to engage with new projects, his avoidance calcifying into a rigid routine that
+kept him anchored to the ground floor. The chronic sleep problems that followed the attack eroded
+his cognitive resilience, leaving his mind exposed to the intrusions he could no longer suppress.
+Exhausted from nights spent fighting to fall or stay asleep, his mental defenses lowered, allowing
+the fragmented visual memories to surface during the day with greater frequency and intensity. He
+found himself staring at the workbench where his tools sat, the rusted pipe and halogen light
+flashing unbidden in his periphery even while daylight held. The exhaustion turned his occupational
+environment into a landscape of potential triggers; a sudden shift of a wrench or the abrupt
+movement of a client in a cramped basement would instantly pull him back into the attack’s sensory
+loop. Maya watched him grow quiet and distant, noting how he flinched when she placed a cup on the
+table and how he now measured every step of his life against his shrinking safe zones. He came to
+the clinic because the guilt on recall had become unbearable and the constant vigilance was
+exhausting him. He hoped someone could help him quiet the images and regain his sense of agency,
+though he remained deeply afraid that trusting himself again would only leave him vulnerable to
+proving his own negative appraisals right.

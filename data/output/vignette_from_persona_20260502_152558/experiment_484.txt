@@ -1,0 +1,285 @@
+PERSONA 484  |  2026-05-05 12:43:06
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      gemini-2.5-pro
+    persona_validator    gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             77
+  gender          Male
+  ethnicity       African
+  relationship_status Married
+  occupation      School Principal
+  trauma_type     Assault
+  pcl5            70
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Alcohol): Alcohol smell
+    • Loss of Control: Lack of control
+    • Loss of Autonomy: Being forced to do something
+  Threat:
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+    • Startle Response: Feeling jumpy or easily startled
+    • Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+  Memory:
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+    • Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Self-Blame: The event happened because of the way I acted
+    • Can't Rely on Others: I can't rely on other people
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.9799
+  Triggers → Memory                                  0.6086
+  Triggers → Negative Appraisals                     0.2325
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0185
+  Negative Appraisals → Memory                       0.3832
+  Negative Appraisals → Triggers                     0.1382
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.1433
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.3026
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.2243
+  Threat → Negative Appraisals                       0.1461
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: For an assault trauma, the trigger pattern is difficult to reconcile clinically: explosion/bang sounds and hospital/antiseptic smells imply very different trauma contexts or aftermaths, with no accompanying memory or appraisal content linking them into a coherent assault narrative. This is more than merely unusual because the trigger set suggests mixed trauma cues rather than one assault profile.
+    item:        Threat / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: The appraisal 'My body has been permanently damaged by what happened' does not fit well with the rest of the profile. Threat items focus on immediate environmental danger and startle, while memory items center on grief, auditory recall, and emotional numbing; none support a prominent bodily injury theme. In the absence of corroborating assault-related injury cues, this appraisal appears mismatched.
+    item:        Negative Appraisals / Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened
+    explanation: Given the very strong Triggers → Threat edge, trigger items should plausibly feed the specific threat pattern. 'Being naked' can fit vulnerability and danger, but explosion sounds and hospital smells do not connect well to the selected threat items for a single assault formulation, making the trigger-to-threat linkage clinically incoherent.
+  [2] FAIL
+    item:        Triggers / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: For an assault trauma, hospital/antiseptic smell is only coherent if the assault involved serious injury or hospital treatment, but nothing in threat, memory, or appraisals anchors the trauma to a medical context. In this profile it stands out as insufficiently connected to the rest of the formulation.
+    item:        Negative Appraisals / Triggers: Vulnerability: Being naked
+    explanation: 'Being naked' as a trigger implies a sexual assault, humiliation, medical exposure, or a very specific vulnerability context. The other items do not support that context: threat items reflect generalized hypervigilance/startle, memory items do not indicate bodily violation or exposure, and appraisals focus on self-blame/protection of others rather than sexualized shame. This makes the trigger hard to reconcile with the rest of the profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Vulnerability: Being naked
+    explanation: For an assault trauma, 'being naked' as a trigger is not impossible, but without any corroborating memory, threat, or appraisal content suggesting sexual assault, humiliation, or clothing-related vulnerability, it stands out as poorly integrated with the rest of the profile. The other trigger items point to alcohol cues and loss of control, while threat items center on hypervigilance/startle; this specific trigger appears disconnected from the described trauma representation.
+    item:        Negative Appraisals / Negative Appraisals: Failed to Protect: I should have protected others and I failed
+    explanation: 'I should have protected others and I failed' implies the patient experienced the assault in a protector/caretaker role or alongside endangered others. No memory, trigger, or threat item references other people being harmed or the patient's responsibility toward them. The rest of the appraisals are self-focused incompetence/blame, so this item is the main cross-node inconsistency.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      7,233
+  output:     8,802
+  total:     16,035
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  2 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] FAIL
+Adebayo had been principal of Northwood High for twenty-two years, a man whose presence filled a
+room, whose quiet authority was a bedrock for students and staff alike. At seventy-seven, he moved
+with the deliberate grace of a man comfortable with his place in the world. That world, however, had
+fractured six months ago. Walking home from a late school board dinner, two young men cornered him
+in the shadow of an overpass. The reek of cheap liquor was the first thing he noticed, a cloying
+cloud that seemed to suffocate him. They were laughing as they shoved him, forcing him to his knees
+on the gritty pavement. They took his wallet and, worse, the gold watch his father had given him. He
+remembered the scrape of the concrete on his trousers and the slurred, mocking tone in their voices
+more than the loss of his possessions. It was the absolute loss of control, the feeling of being
+made small, that had lodged itself inside him.
+
+In the weeks that followed, Adebayo tried to carry on, believing his resilience was a matter of
+will. But a corrosive new logic began to govern his thoughts. He became certain the assault was his
+fault; he had been careless, walking alone so late, and had shown weakness (**Self-Blame**). This
+conviction that he had failed to protect himself curdled into a deeper belief: he could no longer
+rely on his own judgment or strength (**Can't Rely on Self**). This pervasive sense of his own
+unreliability made the world feel profoundly dangerous. Because he believed he was vulnerable
+(**Negative Appraisals → Threat**), he began to feel constantly on edge. In his own school, a place
+he knew as well as his own home, he found himself scanning for exits the moment he entered the
+auditorium for assembly. The sudden movement of a student rushing past him in the hallway would
+cause him to flinch violently, his body reacting as if to an imminent blow (**Startle to
+Movement**).
+
+His new beliefs also reshaped the past. When he thought back to that night (**Negative Appraisals →
+Memory**), his self-blame forced him to focus on the moment of his own compliance, the feeling of
+his knees hitting the ground, and a wave of overwhelming grief would wash over him for the man he
+used to be. The memories themselves became treacherous. Sometimes, a flashback would come with a
+chilling auditory clarity, and he would hear their taunting laughter in his head as if they were
+standing right behind him (**Auditory Recall**). These intrusive memories felt like fresh assaults,
+each one plunging him back into a state of high alert (**Memory → Threat**), his heart hammering in
+his chest as he sat at his own desk. Feeling so jumpy and out of control only served to confirm his
+worst fears about himself, reinforcing his belief that he was broken and fundamentally untrustworthy
+(**Threat → Negative Appraisals**).
+
+The cycle began to feed on itself, tightening its grip on his daily life. A parent arrived for a
+meeting one afternoon, and the faint smell of alcohol on their breath was enough to ignite the
+entire circuit. The scent immediately triggered a primal sense of threat (**Triggers → Threat**);
+Adebayo felt a desperate need to get out of his own office, his eyes darting to the door. The smell
+also dragged the memory of the assault to the forefront of his mind (**Triggers → Memory**), so
+vivid he could almost feel the cold pavement on his knees. This visceral reaction, happening in the
+safety of his school, felt like a profound personal failing, cementing his conviction that he was no
+longer capable (**Triggers → Negative Appraisals**). The intense threat he felt made the intrusive
+memories even more persistent (**Threat → Memory**), and the memories, in turn, kept his body locked
+in a state of fear.
+
+His world shrank. The belief that he couldn't rely on himself or others made him hyper-aware of any
+situation where he wasn't completely in charge (**Negative Appraisals → Triggers**). He began to
+avoid staff socials and delegated tasks he once enjoyed, becoming irritable and distant. His wife,
+Funke, noticed he refused to go to restaurants that served alcohol. The breaking point came at a
+small retirement party for a beloved teacher. Another faculty member, clapping him on the back in a
+gesture of camaraderie, caused Adebayo to spin around so violently he knocked a tray of glasses from
+a table. The sound of shattering glass echoed in the sudden silence of the room. The humiliation was
+absolute. It was this public display of his loss of control that finally brought him to therapy, his
+voice quiet as he explained his greatest fear: that the man his community had relied on for decades
+was gone, replaced by a frightened stranger he no longer recognized.
+
+    ✗ edge:        Memory → Triggers
+      explanation: The vignette does not describe how the trauma memory influences or leads to an increased awareness of triggers.
+
+  [2] PASS
+Adebayo had been principal of Northwood High for twenty-two years, a man whose presence filled a
+room, whose quiet authority was a bedrock for students and staff alike. At seventy-seven, he moved
+with the deliberate grace of a man comfortable with his place in the world. That world, however, had
+fractured six months ago. Walking home from a late school board dinner, two young men cornered him
+in the shadow of an overpass. The reek of cheap liquor was the first thing he noticed, a cloying
+cloud that seemed to suffocate him. They were laughing as they shoved him, forcing him to his knees
+on the gritty pavement. They took his wallet and, worse, the gold watch his father had given him. He
+remembered the scrape of the concrete on his trousers and the slurred, mocking tone in their voices
+more than the loss of his possessions. It was the absolute loss of control, the feeling of being
+made small, that had lodged itself inside him.
+
+In the weeks that followed, Adebayo tried to carry on, believing his resilience was a matter of
+will. But a corrosive new logic began to govern his thoughts. He became certain the assault was his
+fault; he had been careless, walking alone so late, and had shown weakness (**Self-Blame**). This
+conviction that he had failed to protect himself curdled into a deeper belief: he could no longer
+rely on his own judgment or strength (**Can't Rely on Self**). This pervasive sense of his own
+unreliability made the world feel profoundly dangerous. Because he believed he was vulnerable
+(**Negative Appraisals → Threat**), he began to feel constantly on edge. In his own school, a place
+he knew as well as his own home, he found himself scanning for exits the moment he entered the
+auditorium for assembly. The sudden movement of a student rushing past him in the hallway would
+cause him to flinch violently, his body reacting as if to an imminent blow (**Startle to
+Movement**).
+
+His new beliefs also reshaped the past. When he thought back to that night (**Negative Appraisals →
+Memory**), his self-blame forced him to focus on the moment of his own compliance, the feeling of
+his knees hitting the ground, and a wave of overwhelming grief would wash over him for the man he
+used to be. The memories themselves became treacherous. Sometimes, a flashback would come with a
+chilling auditory clarity, and he would hear their taunting laughter in his head as if they were
+standing right behind him (**Auditory Recall**). These intrusive memories felt like fresh assaults,
+each one plunging him back into a state of high alert (**Memory → Threat**), his heart hammering in
+his chest as he sat at his own desk. Feeling so jumpy and out of control only served to confirm his
+worst fears about himself, reinforcing his belief that he was broken and fundamentally untrustworthy
+(**Threat → Negative Appraisals**).
+
+The cycle began to feed on itself, tightening its grip on his daily life. A parent arrived for a
+meeting one afternoon, and the faint smell of alcohol on their breath was enough to ignite the
+entire circuit. The scent immediately triggered a primal sense of threat (**Triggers → Threat**);
+Adebayo felt a desperate need to get out of his own office, his eyes darting to the door. The smell
+also dragged the memory of the assault to the forefront of his mind (**Triggers → Memory**), so
+vivid he could almost feel the cold pavement on his knees. This visceral reaction, happening in the
+safety of his school, felt like a profound personal failing, cementing his conviction that he was no
+longer capable (**Triggers → Negative Appraisals**). The intense threat he felt made the intrusive
+memories even more persistent (**Threat → Memory**), and the memories, in turn, kept his body locked
+in a state of fear.
+
+His world shrank. The belief that he couldn't rely on himself or others made him hyper-aware of any
+situation where he wasn't completely in charge (**Negative Appraisals → Triggers**). He began to
+avoid staff socials and delegated tasks he once enjoyed, becoming irritable and distant. His wife,
+Funke, noticed he refused to go to restaurants that served alcohol. The breaking point came at a
+small retirement party for a beloved teacher. Another faculty member, clapping him on the back in a
+gesture of camaraderie, caused Adebayo to spin around so violently he knocked a tray of glasses from
+a table. The sound of shattering glass echoed in the sudden silence of the room. The humiliation was
+absolute. It was this public display of his loss of control that finally brought him to therapy, his
+voice quiet as he explained his greatest fear: that the man his community had relied on for decades
+was gone, replaced by a frightened stranger he no longer recognized. Because these memories could
+ambush him at any moment, he began to scan his environment for any hint of danger, becoming acutely
+sensitive to the smell of alcohol or the sound of aggressive laughter, treating them as advance
+warnings of another assault.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Adebayo had been principal of Northwood High for twenty-two years, a man whose presence filled a
+room, whose quiet authority was a bedrock for students and staff alike. At seventy-seven, he moved
+with the deliberate grace of a man comfortable with his place in the world. That world, however, had
+fractured six months ago. Walking home from a late school board dinner, two young men cornered him
+in the shadow of an overpass. The reek of cheap liquor was the first thing he noticed, a cloying
+cloud that seemed to suffocate him. They were laughing as they shoved him, forcing him to his knees
+on the gritty pavement. They took his wallet and, worse, the gold watch his father had given him. He
+remembered the scrape of the concrete on his trousers and the slurred, mocking tone in their voices
+more than the loss of his possessions. It was the absolute loss of control, the feeling of being
+made small, that had lodged itself inside him.
+
+In the weeks that followed, Adebayo tried to carry on, believing his resilience was a matter of
+will. But a corrosive new logic began to govern his thoughts. He became certain the assault was his
+fault; he had been careless, walking alone so late, and had shown weakness (**Self-Blame**). This
+conviction that he had failed to protect himself curdled into a deeper belief: he could no longer
+rely on his own judgment or strength (**Can't Rely on Self**). This pervasive sense of his own
+unreliability made the world feel profoundly dangerous. Because he believed he was vulnerable
+(**Negative Appraisals → Threat**), he began to feel constantly on edge. In his own school, a place
+he knew as well as his own home, he found himself scanning for exits the moment he entered the
+auditorium for assembly. The sudden movement of a student rushing past him in the hallway would
+cause him to flinch violently, his body reacting as if to an imminent blow (**Startle to
+Movement**).
+
+His new beliefs also reshaped the past. When he thought back to that night (**Negative Appraisals →
+Memory**), his self-blame forced him to focus on the moment of his own compliance, the feeling of
+his knees hitting the ground, and a wave of overwhelming grief would wash over him for the man he
+used to be. The memories themselves became treacherous. Sometimes, a flashback would come with a
+chilling auditory clarity, and he would hear their taunting laughter in his head as if they were
+standing right behind him (**Auditory Recall**). These intrusive memories felt like fresh assaults,
+each one plunging him back into a state of high alert (**Memory → Threat**), his heart hammering in
+his chest as he sat at his own desk. Feeling so jumpy and out of control only served to confirm his
+worst fears about himself, reinforcing his belief that he was broken and fundamentally untrustworthy
+(**Threat → Negative Appraisals**).
+
+The cycle began to feed on itself, tightening its grip on his daily life. A parent arrived for a
+meeting one afternoon, and the faint smell of alcohol on their breath was enough to ignite the
+entire circuit. The scent immediately triggered a primal sense of threat (**Triggers → Threat**);
+Adebayo felt a desperate need to get out of his own office, his eyes darting to the door. The smell
+also dragged the memory of the assault to the forefront of his mind (**Triggers → Memory**), so
+vivid he could almost feel the cold pavement on his knees. This visceral reaction, happening in the
+safety of his school, felt like a profound personal failing, cementing his conviction that he was no
+longer capable (**Triggers → Negative Appraisals**). The intense threat he felt made the intrusive
+memories even more persistent (**Threat → Memory**), and the memories, in turn, kept his body locked
+in a state of fear.
+
+His world shrank. The belief that he couldn't rely on himself or others made him hyper-aware of any
+situation where he wasn't completely in charge (**Negative Appraisals → Triggers**). He began to
+avoid staff socials and delegated tasks he once enjoyed, becoming irritable and distant. His wife,
+Funke, noticed he refused to go to restaurants that served alcohol. The breaking point came at a
+small retirement party for a beloved teacher. Another faculty member, clapping him on the back in a
+gesture of camaraderie, caused Adebayo to spin around so violently he knocked a tray of glasses from
+a table. The sound of shattering glass echoed in the sudden silence of the room. The humiliation was
+absolute. It was this public display of his loss of control that finally brought him to therapy, his
+voice quiet as he explained his greatest fear: that the man his community had relied on for decades
+was gone, replaced by a frightened stranger he no longer recognized. Because these memories could
+ambush him at any moment, he began to scan his environment for any hint of danger, becoming acutely
+sensitive to the smell of alcohol or the sound of aggressive laughter, treating them as advance
+warnings of another assault.

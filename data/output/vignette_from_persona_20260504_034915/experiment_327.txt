@@ -1,0 +1,180 @@
+PERSONA 327  |  2026-05-04 04:58:38
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      qwen2.5-32b
+    persona_validator    qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             28
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Financial Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Media / News: Related news
+    • Weather Similarity: Similar weather conditions to when the event happened
+    • Children Present: Being around children
+  Threat:
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+  Memory:
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Identity Loss: I feel like I don't know myself anymore
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6291
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.3279
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.8899
+  Negative Appraisals → Triggers                     0.8733
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3833
+  Memory → Triggers                                  0.5300
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0248
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9883
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The threat items are keyed to interpersonal assault/home-intrusion danger and pervasive escape planning, which is hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, threat would more plausibly involve medical catastrophe, sudden deterioration, or loss, rather than someone entering the home.
+    item:        Negative Appraisals / Threat: Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    explanation: These threat items also fit poorly with the rest of the profile: the triggers are news, emotional closeness, and weather similarity, none of which plausibly connect to monitoring for an intruder or scanning escape routes. Given the very strong Triggers ↔ Threat edges, the selected threat content should be tightly linked to the triggers, but here the content appears to come from a different trauma schema.
+  [2] FAIL
+    item:        Triggers / Triggers: Emotional Closeness: Someone getting emotionally close to me
+    explanation: For trauma involving a child's life-threatening illness, media/news and weather cues are plausible reminders, but 'someone getting emotionally close to me' is difficult to reconcile as a primary trauma trigger unless there is additional interpersonal trauma history. It does not fit well with the illness-focused threat and memory pattern described by the rest of the profile.
+    item:        Negative Appraisals / Negative Appraisals: Dehumanization: I feel like an object, not like a person
+    explanation: The negative appraisal set is dominated by severe depersonalisation/identity disturbance ('object, not a person'; 'don't know myself anymore'; 'unrecognisable to me'), which is hard to link coherently to the stated trauma type and to the rest of the profile. For a parent traumatised by a child's illness, appraisals would more plausibly center on guilt, responsibility, permanent danger, or inability to protect. This item especially feels clinically mismatched rather than merely unusual.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+John, a 28-year-old European-American married man and financial analyst, has been grappling with
+intense anxiety since his young child was hospitalized due to a life-threatening illness. The
+traumatic event occurred during a particularly cold winter when the family was already stressed by
+inclement weather conditions. In the immediate aftermath of his child’s hospitalization, John found
+himself reacting in ways that made little sense to those around him but were deeply rooted in the
+fear and helplessness he experienced. He became hyper-vigilant about any news or media mentions
+related to similar illnesses, feeling as if they brought the trauma back with a visceral punch. The
+sight of children in public spaces triggered intense anxiety, making everyday activities like
+grocery shopping or walking through a park feel overwhelming. John’s sense of danger was not
+confined to these external triggers; he often felt as though he were in immediate peril even when
+there was no real threat present. This heightened state of alertness led him to meticulously plan
+escape routes whenever they visited new places, ensuring he could quickly exit if needed. He also
+struggled with sleep, finding it difficult to fall asleep because the need for constant vigilance
+left him too tense. The clarity and vividness of his memories were both a blessing and a curse.
+John’s recollections of that cold winter and the hospital stay were detailed and intrusive, often
+surfacing when he least expected them. These memories were mostly visual, bringing back scenes from
+the emergency room with crystal-clear detail. Despite this vivid recall, there were moments where he
+felt like his memory was blocked before it could fully unfold, as if his mind was protecting him by
+not letting certain details come to light. John’s inner turmoil went beyond just these symptoms; he
+had begun to question who he was and how the trauma had fundamentally changed him. He felt that his
+sense of self had been irrevocably altered, making him feel unrecognizable even to himself. The
+weight of feeling like he failed to protect his child added another layer of guilt and self-blame.
+These negative appraisals fueled his recurrent memories and triggered his anxiety in a vicious
+cycle. For instance, when John saw children at work or around the office, it often led him to relive
+the trauma vividly, reinforcing his belief that he was unable to protect those he loved. The clarity
+of these intrusive images made it even harder for him to accept himself as someone who had failed.
+Over time, this cycle began to affect his daily life and relationships. His wife noticed a
+significant change in his demeanor; John became increasingly isolated, avoiding situations where he
+might encounter children or hear news that could trigger a panic response. The pressure of these
+triggers and the threat they represented made it difficult for him to focus on work, leading to a
+decline in performance and strained interactions with colleagues. The intensity of his reactions
+began to impact their marriage as well. John’s hyper-vigilance and need for control over every
+situation created an environment of tension at home. His wife, sensing the depth of his distress,
+encouraged him to seek help, realizing that he needed professional support to navigate through this
+turmoil. John had come to believe that seeking therapy was a step towards regaining control and
+understanding himself again. He was most afraid of losing his identity completely but hoped for a
+future where he could feel like his old self without the constant fear lurking in the background.
+With these hopes, John took the first step toward addressing his trauma and its enduring impact on
+his life.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+John, a 28-year-old European-American married man and financial analyst, has been grappling with
+intense anxiety since his young child was hospitalized due to a life-threatening illness. The
+traumatic event occurred during a particularly cold winter when the family was already stressed by
+inclement weather conditions. In the immediate aftermath of his child’s hospitalization, John found
+himself reacting in ways that made little sense to those around him but were deeply rooted in the
+fear and helplessness he experienced. He became hyper-vigilant about any news or media mentions
+related to similar illnesses, feeling as if they brought the trauma back with a visceral punch. The
+sight of children in public spaces triggered intense anxiety, making everyday activities like
+grocery shopping or walking through a park feel overwhelming. John’s sense of danger was not
+confined to these external triggers; he often felt as though he were in immediate peril even when
+there was no real threat present. This heightened state of alertness led him to meticulously plan
+escape routes whenever they visited new places, ensuring he could quickly exit if needed. He also
+struggled with sleep, finding it difficult to fall asleep because the need for constant vigilance
+left him too tense. The clarity and vividness of his memories were both a blessing and a curse.
+John’s recollections of that cold winter and the hospital stay were detailed and intrusive, often
+surfacing when he least expected them. These memories were mostly visual, bringing back scenes from
+the emergency room with crystal-clear detail. Despite this vivid recall, there were moments where he
+felt like his memory was blocked before it could fully unfold, as if his mind was protecting him by
+not letting certain details come to light. John’s inner turmoil went beyond just these symptoms; he
+had begun to question who he was and how the trauma had fundamentally changed him. He felt that his
+sense of self had been irrevocably altered, making him feel unrecognizable even to himself. The
+weight of feeling like he failed to protect his child added another layer of guilt and self-blame.
+These negative appraisals fueled his recurrent memories and triggered his anxiety in a vicious
+cycle. For instance, when John saw children at work or around the office, it often led him to relive
+the trauma vividly, reinforcing his belief that he was unable to protect those he loved. The clarity
+of these intrusive images made it even harder for him to accept himself as someone who had failed.
+Over time, this cycle began to affect his daily life and relationships. His wife noticed a
+significant change in his demeanor; John became increasingly isolated, avoiding situations where he
+might encounter children or hear news that could trigger a panic response. The pressure of these
+triggers and the threat they represented made it difficult for him to focus on work, leading to a
+decline in performance and strained interactions with colleagues. The intensity of his reactions
+began to impact their marriage as well. John’s hyper-vigilance and need for control over every
+situation created an environment of tension at home. His wife, sensing the depth of his distress,
+encouraged him to seek help, realizing that he needed professional support to navigate through this
+turmoil. John had come to believe that seeking therapy was a step towards regaining control and
+understanding himself again. He was most afraid of losing his identity completely but hoped for a
+future where he could feel like his old self without the constant fear lurking in the background.
+With these hopes, John took the first step toward addressing his trauma and its enduring impact on
+his life.

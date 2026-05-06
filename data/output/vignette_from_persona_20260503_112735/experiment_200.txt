@@ -1,0 +1,176 @@
+PERSONA 200  |  2026-05-03 12:09:33
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen2.5-32b
+    persona_crafter      qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             31
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Divorced
+  occupation      Social Media Manager
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            49
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Threat:
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+  Memory:
+    • Olfactory Recall: When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened.
+    • Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+  Negative Appraisals:
+    • Self-Doubt: I can't trust that I will do the right thing
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Permanent Damage: I have permanently changed for the worse
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.9594
+  Negative Appraisals → Memory                       0.9149
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.9230
+  Memory → Negative Appraisals                       0.0142
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.1818
+  Threat → Negative Appraisals                       0.6995
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: Within Memory, 'I can talk about what happened very easily' sits in tension with the more trauma-disconnected pattern implied by emotionless/numb recall and sensory reliving. Those can occasionally coexist, but this combination is clinically questionable as a compact 3-item profile because one item suggests relatively integrated verbal access while the others suggest poorly integrated or detached trauma memory.
+    item:        Threat / Memory: Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+    explanation: 'Door and Lock Checking' is a poor fit for the stated trauma type of accidentally causing serious injury to another. It implies an intruder/home-security threat that is not supported by the other selected Memory or Negative Appraisal items, which center more on guilt, identity change, and trauma recall rather than fear of break-in or assault. This makes the Threat profile less coherent across nodes.
+  [2] FAIL
+    item:        Threat / Door and Lock Checking: I repeatedly check that doors and windows are locked
+    explanation: For a trauma involving accidentally causing serious injury to another person, repeated checking of doors and windows being locked suggests a home-intrusion/interpersonal danger theme that is not supported by the other threat, memory, or appraisal items. The rest of the profile centers on guilt, altered self-view, disconnection, and poorly elaborated trauma memory rather than fear of external attack.
+    item:        Negative Appraisals / Lost Community: I have lost my connection to my community and culture
+    explanation: Loss of connection to community and culture is not impossible, but in this profile it is insufficiently linked to the stated trauma and the other selected items. The other appraisals focus on self-doubt and identity change after causing harm, whereas this item introduces a broader sociocultural rupture that is not reflected elsewhere in memory or threat content, making the node less coherent.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Sara is a 31-year-old Middle Eastern woman who works as a social media manager. She was divorced two
+years ago and has been struggling with significant emotional distress since accidentally causing
+serious injury to another person. Her experience of this traumatic event has led her to develop a
+series of psychological symptoms that have significantly impacted her daily life. The incident
+occurred one evening when Sara was driving home after a long day at work. In a moment of
+distraction, she failed to notice the stop sign and collided with another vehicle. The other driver
+sustained severe injuries and had to be rushed to the hospital. Since then, Sara has been haunted by
+the memory of that night, particularly the distinct scent of burning rubber from her car tires on
+impact. This olfactory recall often triggers intense emotions and fear, making it difficult for her
+to remain calm in situations where she might encounter similar smells. Sara’s startle response has
+also become heightened; any sudden touch or unexpected noise can cause an immediate sense of alarm,
+leading her to react as if danger is imminent even when there isn’t any. These false alarms are a
+constant source of distress and have made it challenging for her to trust that she will do the right
+thing in potentially dangerous situations, deepening her self-doubt. The event has also altered how
+Sara views herself and her actions. She often feels numb when recalling what happened, as if
+observing the events through someone else’s eyes. This detachment is compounded by an overwhelming
+sense of guilt and shame that she cannot escape. The inability to describe these feelings in words
+further isolates her from others who might provide support. Sara’s negative appraisals play a
+significant role in perpetuating her distress. She feels unrecognizable, believing that the person
+she has become after the accident is fundamentally different and permanently damaged for the worse.
+This perception of permanent change exacerbates her anxiety about future incidents, making it
+difficult to trust herself and her judgment. These negative appraisals contribute directly to Sara’s
+heightened threat sensitivity. Her constant self-doubt makes it hard for her to feel safe or secure
+in situations that might remind her of the accident. For instance, driving has become a significant
+source of distress; she is acutely aware of every stop sign and feels on edge whenever she needs to
+operate a vehicle. The interplay between Sara’s negative appraisals, memory recall, and threat
+sensitivity creates a self-reinforcing cycle that tightens over time. Her olfactory memories,
+particularly the scent of burning rubber, trigger strong emotions and feelings of guilt, which in
+turn heighten her anxiety about driving and being in similar situations again. Sara has found
+herself increasingly isolated from colleagues at work due to these symptoms. She avoids attending
+company events where she might be touched unexpectedly or exposed to unfamiliar smells that could
+trigger a flashback. This avoidance has strained her relationships both professionally and
+personally, leading to further feelings of isolation and self-doubt. What finally brought Sara to
+seek help was the realization that her fear and guilt were consuming her life. She understood that
+these emotions were impacting not only her work but also her ability to connect with others. Despite
+feeling unrecognizable to herself and fearing she might never fully recover, Sara hopes that therapy
+will provide a way to manage her symptoms and regain some sense of normalcy in her daily life.
+Sara’s journey has been marked by significant emotional turmoil, but she is determined to find a
+path forward despite the lingering shadows of her traumatic experience.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Sara is a 31-year-old Middle Eastern woman who works as a social media manager. She was divorced two
+years ago and has been struggling with significant emotional distress since accidentally causing
+serious injury to another person. Her experience of this traumatic event has led her to develop a
+series of psychological symptoms that have significantly impacted her daily life. The incident
+occurred one evening when Sara was driving home after a long day at work. In a moment of
+distraction, she failed to notice the stop sign and collided with another vehicle. The other driver
+sustained severe injuries and had to be rushed to the hospital. Since then, Sara has been haunted by
+the memory of that night, particularly the distinct scent of burning rubber from her car tires on
+impact. This olfactory recall often triggers intense emotions and fear, making it difficult for her
+to remain calm in situations where she might encounter similar smells. Sara’s startle response has
+also become heightened; any sudden touch or unexpected noise can cause an immediate sense of alarm,
+leading her to react as if danger is imminent even when there isn’t any. These false alarms are a
+constant source of distress and have made it challenging for her to trust that she will do the right
+thing in potentially dangerous situations, deepening her self-doubt. The event has also altered how
+Sara views herself and her actions. She often feels numb when recalling what happened, as if
+observing the events through someone else’s eyes. This detachment is compounded by an overwhelming
+sense of guilt and shame that she cannot escape. The inability to describe these feelings in words
+further isolates her from others who might provide support. Sara’s negative appraisals play a
+significant role in perpetuating her distress. She feels unrecognizable, believing that the person
+she has become after the accident is fundamentally different and permanently damaged for the worse.
+This perception of permanent change exacerbates her anxiety about future incidents, making it
+difficult to trust herself and her judgment. These negative appraisals contribute directly to Sara’s
+heightened threat sensitivity. Her constant self-doubt makes it hard for her to feel safe or secure
+in situations that might remind her of the accident. For instance, driving has become a significant
+source of distress; she is acutely aware of every stop sign and feels on edge whenever she needs to
+operate a vehicle. The interplay between Sara’s negative appraisals, memory recall, and threat
+sensitivity creates a self-reinforcing cycle that tightens over time. Her olfactory memories,
+particularly the scent of burning rubber, trigger strong emotions and feelings of guilt, which in
+turn heighten her anxiety about driving and being in similar situations again. Sara has found
+herself increasingly isolated from colleagues at work due to these symptoms. She avoids attending
+company events where she might be touched unexpectedly or exposed to unfamiliar smells that could
+trigger a flashback. This avoidance has strained her relationships both professionally and
+personally, leading to further feelings of isolation and self-doubt. What finally brought Sara to
+seek help was the realization that her fear and guilt were consuming her life. She understood that
+these emotions were impacting not only her work but also her ability to connect with others. Despite
+feeling unrecognizable to herself and fearing she might never fully recover, Sara hopes that therapy
+will provide a way to manage her symptoms and regain some sense of normalcy in her daily life.
+Sara’s journey has been marked by significant emotional turmoil, but she is determined to find a
+path forward despite the lingering shadows of her traumatic experience.

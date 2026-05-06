@@ -1,0 +1,199 @@
+{
+  "persona_id": 103,
+  "source_persona_id": 103,
+  "experiment_timestamp": "2026-05-04 04:11:47",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 39,
+    "gender": "Male",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Interior Designer",
+    "trauma_type": "Unexpected or traumatic death of a loved one",
+    "pcl5": 39
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Anniversaries",
+        "value": "The anniversary of the event"
+      },
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      },
+      {
+        "key": "Funerals/Graves",
+        "value": "Funerals, cemeteries, or grief-related events"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Worst Case Rehearsal",
+        "value": "mentally rehearse worst case scenarios to feel prepared"
+      },
+      {
+        "key": "Avoid Anniversaries",
+        "value": "Dates or anniversaries connected to the event"
+      },
+      {
+        "key": "Avoid Grief Reminders",
+        "value": "Anything that reminds me of someone I have lost"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      },
+      {
+        "key": "Body Reacts Before Mind",
+        "value": "My body reacts to danger before I have even had time to think"
+      },
+      {
+        "key": "Irritability",
+        "value": "Irritable behavior, angry outbursts, or acting aggressively"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.6147,
+    "Triggers -- Threat": 0.9309,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.4625,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.4203
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Maladaptive Strategies",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Maladaptive Strategies",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6071,
+  "edge_density": 0.2,
+  "vignette_word_count": 505,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Animal Phobia: Talks or photos about snakes",
+          "explanation": "These trigger items are not clinically coherent with the indexed trauma of unexpected/traumatic death of a loved one. Snake-related and pregnancy/birth reminders imply trauma contexts unrelated to bereavement, and there is no supporting threat or memory content linking them to this loss."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "Avoiding military/police uniforms or weapons similarly implies a trauma context involving violence, combat, or armed threat, which is unsupported by the stated trauma type and by the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Animal Phobia"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Pregnancy/Birth Reminders: Pregnancy, childbirth, or babies in general",
+          "explanation": "For an index trauma of unexpected/traumatic death of a loved one, pregnancy/birth reminders are hard to justify unless the death specifically involved childbirth or infant loss; nothing else in the profile supports that context. This makes the trigger clinically implausible relative to the stated trauma type."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Avoid Uniform or Weapons: Military, police uniforms or weapons",
+          "explanation": "Avoiding military/police uniforms or weapons implies a trauma context involving combat, assault, or armed responders. That does not fit the rest of this bereavement-focused profile and is not supported by the other trigger, threat, or strategy items, so it appears incoherent with the trauma type and overall formulation."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Pregnancy/Birth Reminders"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Uniform or Weapons"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Suresh, a 39-year-old South Asian interior designer, has been struggling since the unexpected death of his brother five years ago. The anniversary of this event remains deeply ingrained in his psyche, and any mention of losing loved ones or attending funerals triggers intense emotional responses. These anniversaries and grief-related events have become powerful reminders that continue to haunt him. Suresh's wife, Priya, noticed a significant change in his behavior after the death of their brother. On each anniversary of his passing, Suresh would withdraw into himself, avoiding any conversations about loss or attending memorial services. He had come to believe that mentally rehearsing worst-case scenarios could somehow prepare him for future tragedies. This mental rehearsal often left him feeling anxious and on edge. The emotional weight of these triggers has led Suresh to engage in avoidance behaviors, such as skipping important dates connected to the event and avoiding any reminders of his brother’s loss. However, this avoidance has not brought him relief; instead, it has amplified his sense of threat. He often experiences flashbacks where he suddenly feels as if the stressful experience were happening again, plunging him back into a state of intense distress. Suresh's heightened vigilance and hypervigilance manifest in other ways too. His body reacts to perceived danger before he has time to think, leaving him irritable and prone to angry outbursts. This irritability is not just limited to his personal life; it spills over into his work as an interior designer, where deadlines and client demands often push his buttons. Suresh’s avoidance behaviors have led to a cycle that continues to tighten around him. For example, when he avoids talking about loss at social gatherings, his anxiety increases, making him more prone to irritability. This irritability then reinforces his belief that he must continue rehearsing worst-case scenarios to feel prepared for any potential threat. The occupational impact of Suresh’s symptoms is evident in the strained relationships with clients and colleagues. He has missed several important meetings due to sudden panic attacks or overwhelming grief, which has affected project timelines and team morale. His wife, Priya, feels increasingly concerned about his well-being and has urged him to seek help. What frightens Suresh most is the fear of losing control and not being able to protect those he loves from future tragedies. He hopes that therapy can provide him with tools to manage his anxiety and break the cycle of avoidance and threat monitoring. As he contemplates seeking professional support, Suresh is determined to find a way to navigate through these overwhelming emotions without letting them dictate his life. Suresh’s journey has been marked by periods of intense distress followed by attempts at self-protection through avoidance and mental rehearsal. The weight of his brother’s loss continues to influence every aspect of his daily life, from his work as an interior designer to his interactions with loved ones. It is this realization that finally brought him to the decision to seek help, hoping to regain a sense of control over his emotions and experiences."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Suresh, a 39-year-old South Asian interior designer, has been struggling since the unexpected death of his brother five years ago. The anniversary of this event remains deeply ingrained in his psyche, and any mention of losing loved ones or attending funerals triggers intense emotional responses. These anniversaries and grief-related events have become powerful reminders that continue to haunt him. Suresh's wife, Priya, noticed a significant change in his behavior after the death of their brother. On each anniversary of his passing, Suresh would withdraw into himself, avoiding any conversations about loss or attending memorial services. He had come to believe that mentally rehearsing worst-case scenarios could somehow prepare him for future tragedies. This mental rehearsal often left him feeling anxious and on edge. The emotional weight of these triggers has led Suresh to engage in avoidance behaviors, such as skipping important dates connected to the event and avoiding any reminders of his brother’s loss. However, this avoidance has not brought him relief; instead, it has amplified his sense of threat. He often experiences flashbacks where he suddenly feels as if the stressful experience were happening again, plunging him back into a state of intense distress. Suresh's heightened vigilance and hypervigilance manifest in other ways too. His body reacts to perceived danger before he has time to think, leaving him irritable and prone to angry outbursts. This irritability is not just limited to his personal life; it spills over into his work as an interior designer, where deadlines and client demands often push his buttons. Suresh’s avoidance behaviors have led to a cycle that continues to tighten around him. For example, when he avoids talking about loss at social gatherings, his anxiety increases, making him more prone to irritability. This irritability then reinforces his belief that he must continue rehearsing worst-case scenarios to feel prepared for any potential threat. The occupational impact of Suresh’s symptoms is evident in the strained relationships with clients and colleagues. He has missed several important meetings due to sudden panic attacks or overwhelming grief, which has affected project timelines and team morale. His wife, Priya, feels increasingly concerned about his well-being and has urged him to seek help. What frightens Suresh most is the fear of losing control and not being able to protect those he loves from future tragedies. He hopes that therapy can provide him with tools to manage his anxiety and break the cycle of avoidance and threat monitoring. As he contemplates seeking professional support, Suresh is determined to find a way to navigate through these overwhelming emotions without letting them dictate his life. Suresh’s journey has been marked by periods of intense distress followed by attempts at self-protection through avoidance and mental rehearsal. The weight of his brother’s loss continues to influence every aspect of his daily life, from his work as an interior designer to his interactions with loved ones. It is this realization that finally brought him to the decision to seek help, hoping to regain a sense of control over his emotions and experiences.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

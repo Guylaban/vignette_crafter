@@ -1,0 +1,191 @@
+{
+  "persona_id": 332,
+  "source_persona_id": 332,
+  "experiment_timestamp": "2026-05-04 02:50:15",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "gpt-oss-20b",
+      "persona_validator": "gpt-oss-20b",
+      "vignette_crafter": "gpt-oss-20b",
+      "vignette_validator": "gpt-oss-20b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 43,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "IT Support",
+    "trauma_type": "Physical abuse by caregiver (childhood)",
+    "pcl5": 55
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Being in Nature",
+        "value": "Being in a natural environment similar to where it happened"
+      },
+      {
+        "key": "Event Recall",
+        "value": "Talking about the event"
+      },
+      {
+        "key": "Locked Spaces",
+        "value": "Being in a locked or confined room"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Concentration",
+        "value": "Having difficulty concentrating"
+      },
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Intrinsic Fault",
+        "value": "There is something about me that made the event happen"
+      },
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      },
+      {
+        "key": "Character Blame",
+        "value": "The event happened to me because of the sort of person I am"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.4489,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.763,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.1261,
+    "Threat -- Triggers": 0.1116,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.3624,
+  "edge_density": 0.2,
+  "vignette_word_count": 789,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened",
+          "explanation": "The Negative Appraisals node is internally inconsistent for childhood physical abuse by a caregiver. 'Intrinsic Fault' fits a child abuse formulation, but 'Violated Values' implies the patient believes she herself committed morally troubling actions, which is hard to reconcile with being a child victim unless there is additional unreported perpetration or compliance behavior. 'Physical Vulnerability' as permanent bodily damage is also a distinct injury-based appraisal that is not supported elsewhere in the profile. Taken together, these three appraisals do not form a coherent single appraisal pattern."
+        },
+        {
+          "component": "Triggers",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "'Being in Nature' is difficult to reconcile with the trauma type of repeated physical abuse by a caregiver unless the abuse specifically occurred in a natural/outdoor setting. The rest of the profile points to interpersonal danger, shame, and hypervigilance rather than context-specific outdoor reminders, so this trigger looks trauma-incongruent."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Physical Vulnerability"
+        ],
+        "Triggers": [
+          "Negative Appraisals"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "For childhood physical abuse by a caregiver, the selected negative appraisals are mostly coherent when they center on shame, defectiveness, and self-blame (e.g., intrinsic fault, defective self). However, 'I acted in ways that go against who I am' implies perpetration or morally troubling behavior by the patient, which is hard to reconcile with the trauma type unless there is additional context not represented elsewhere. Within the node, it pulls in a different direction from the other appraisals, which depict the patient as harmed/defective rather than as having committed value-violating actions."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Violated Values"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Nia, a 43‑year‑old African‑American IT support specialist, was raised in a modest suburban household where her father’s temper turned violent at the slightest misstep. The most searing memory she carries dates back to when she was seven: a sweltering summer afternoon, the backyard a patchwork of mulch and pine trees, her father’s fists hammering against her back as she tried to hide in the shadows of a gnarled oak. The thud of each blow left a lasting echo in her mind, a sound she would later recognize whenever the wind rustled through the same kind of trees, even miles away. That single night became the fulcrum upon which her self‑concept and perception of danger pivoted. She began to internalize the abuse as a reflection of something inherent within herself, an intrinsic fault that had invited such violence. In the days that followed, Nia told herself that she was the cause of the pain; she felt a defective self and a character that warranted the cruelty she endured. Over the ensuing decades the three core components of her distress—negative appraisals, threat, and triggers—wove tightly together. The belief that something about her made the abuse inevitable kept her body in a state of constant readiness; every creak of a floorboard or distant siren felt like an incoming attack. This persistent alertness, in turn, amplified her negative appraisals because she interpreted her own vigilance as a sign of weakness or a sign that she had somehow made the world hostile. The cycle tightened when she started avoiding any situation that could resemble the backyard: she no longer allowed herself to step outside for a walk, even to run errands, and she deliberately kept her office computer turned off when the lights flickered. When she found herself in a locked server room at work—an environment she could not control and that was physically confined—her body reacted as if a threat had materialized, her heart racing and her breath shallow. That hypervigilance made the server room a trigger, and the experience reinforced the notion that her own presence in such spaces could provoke danger. The negative appraisal that “I am the problem” was then reinforced each time she felt a false alarm; the body’s alarm system sounded a warning that she was indeed defective, and the threat to her safety was an internal, self‑generated one. Nia’s occupation as an IT support technician places her daily in a small, locked room at the edge of the campus building, a cramped space where cables snake like vines. The physical confinement of that environment, combined with the subtle hum of the cooling fans, becomes a concrete reminder of the father’s hand that once struck her. She often stays late at the office, not because she enjoys the work but because the familiarity of the routine offers a semblance of control that her home life never did. Yet even those late hours are haunted by a sense that something is always lurking. When a colleague asks her to discuss a problem she feels it is an invitation to recall the abuse, a trigger that unleashes a torrent of panic and the false belief that she must flee. The day after she has a brief, frantic moment where she imagines a threat emerging from the walls, her concentration shatters and she finds herself unable to focus on troubleshooting the error log. The combination of a triggered environment and an overactive threat system leaves her exhausted, a state that spills over into her marriage where she withdraws from conversations with her husband, fearing he might unknowingly trigger her fear of being hurt again. Despite the pervasive avoidance, Nia’s work demands regular interaction with clients, and she increasingly misses deadlines, which she attributes to “the way I am.” Her PCL‑5 score of 55 confirms the severity of her symptoms, but she rarely acknowledges this in conversations with her husband, preferring instead to rationalize her lack of productivity as simply a result of the high stress of the job. The most recent catalyst that compelled her to seek help was a sudden panic attack during a team meeting, when the sudden announcement of a system outage jolted her into a hyper‑vigilant state, her chest tightening, and her mind racing through memories of that backyard. The fear of being unable to manage the crisis, combined with a growing dread that she might one day lose her job or her husband’s love, forced her to reach out to a therapist. She now hopes to untangle the web of her self‑blame, regain her sense of safety, and reclaim the small moments she once cherished, like a quiet walk in the park, without the looming dread that every leaf or locked door may become a trigger."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Nia, a 43‑year‑old African‑American IT support specialist, was raised in a modest suburban household where her father’s temper turned violent at the slightest misstep. The most searing memory she carries dates back to when she was seven: a sweltering summer afternoon, the backyard a patchwork of mulch and pine trees, her father’s fists hammering against her back as she tried to hide in the shadows of a gnarled oak. The thud of each blow left a lasting echo in her mind, a sound she would later recognize whenever the wind rustled through the same kind of trees, even miles away. That single night became the fulcrum upon which her self‑concept and perception of danger pivoted. She began to internalize the abuse as a reflection of something inherent within herself, an intrinsic fault that had invited such violence. In the days that followed, Nia told herself that she was the cause of the pain; she felt a defective self and a character that warranted the cruelty she endured. Over the ensuing decades the three core components of her distress—negative appraisals, threat, and triggers—wove tightly together. The belief that something about her made the abuse inevitable kept her body in a state of constant readiness; every creak of a floorboard or distant siren felt like an incoming attack. This persistent alertness, in turn, amplified her negative appraisals because she interpreted her own vigilance as a sign of weakness or a sign that she had somehow made the world hostile. The cycle tightened when she started avoiding any situation that could resemble the backyard: she no longer allowed herself to step outside for a walk, even to run errands, and she deliberately kept her office computer turned off when the lights flickered. When she found herself in a locked server room at work—an environment she could not control and that was physically confined—her body reacted as if a threat had materialized, her heart racing and her breath shallow. That hypervigilance made the server room a trigger, and the experience reinforced the notion that her own presence in such spaces could provoke danger. The negative appraisal that “I am the problem” was then reinforced each time she felt a false alarm; the body’s alarm system sounded a warning that she was indeed defective, and the threat to her safety was an internal, self‑generated one. Nia’s occupation as an IT support technician places her daily in a small, locked room at the edge of the campus building, a cramped space where cables snake like vines. The physical confinement of that environment, combined with the subtle hum of the cooling fans, becomes a concrete reminder of the father’s hand that once struck her. She often stays late at the office, not because she enjoys the work but because the familiarity of the routine offers a semblance of control that her home life never did. Yet even those late hours are haunted by a sense that something is always lurking. When a colleague asks her to discuss a problem she feels it is an invitation to recall the abuse, a trigger that unleashes a torrent of panic and the false belief that she must flee. The day after she has a brief, frantic moment where she imagines a threat emerging from the walls, her concentration shatters and she finds herself unable to focus on troubleshooting the error log. The combination of a triggered environment and an overactive threat system leaves her exhausted, a state that spills over into her marriage where she withdraws from conversations with her husband, fearing he might unknowingly trigger her fear of being hurt again. Despite the pervasive avoidance, Nia’s work demands regular interaction with clients, and she increasingly misses deadlines, which she attributes to “the way I am.” Her PCL‑5 score of 55 confirms the severity of her symptoms, but she rarely acknowledges this in conversations with her husband, preferring instead to rationalize her lack of productivity as simply a result of the high stress of the job. The most recent catalyst that compelled her to seek help was a sudden panic attack during a team meeting, when the sudden announcement of a system outage jolted her into a hyper‑vigilant state, her chest tightening, and her mind racing through memories of that backyard. The fear of being unable to manage the crisis, combined with a growing dread that she might one day lose her job or her husband’s love, forced her to reach out to a therapist. She now hopes to untangle the web of her self‑blame, regain her sense of safety, and reclaim the small moments she once cherished, like a quiet walk in the park, without the looming dread that every leaf or locked door may become a trigger.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

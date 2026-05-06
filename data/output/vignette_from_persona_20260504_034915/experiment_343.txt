@@ -1,0 +1,195 @@
+PERSONA 343  |  2026-05-04 05:02:03
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      qwen2.5-32b
+    persona_validator    qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             38
+  gender          Female
+  ethnicity       African
+  relationship_status Married
+  occupation      Fisherman
+  trauma_type     Trauma to a loved one
+  pcl5            76
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Anniversaries: The anniversary of the event
+    • Crash Discussions: Talk about accidents
+    • Crash Imagery: Cars hit by accident
+  Maladaptive Strategies:
+    • Prevention Rumination: I dwell on how the event could have been prevented
+    • Compulsive Spending: I spend money impulsively to distract or comfort myself
+    • Delay Sleep: stay up until very late
+  Threat:
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Irritability: Irritable behavior, angry outbursts, or acting aggressively
+  Negative Appraisals:
+    • Inaction Guilt: I will never forgive myself for not doing more to stop what happened
+    • Self-Blame: The event happened because of the way I acted
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.9013
+  Triggers → Threat                                  0.6445
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0567
+  Negative Appraisals → Threat                       0.1964
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.8271
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.1865
+  Maladaptive Strategies → Triggers                  0.7022
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Sexual Objectification: Being looked at sexually
+    explanation: The profile is centered on trauma to a loved one with transport-linked reminders (similar cars, anniversary) and hypervigilant threat monitoring. 'Being looked at sexually' is hard to reconcile with the other trigger content and the trauma type; it implies a sexual-threat cue that is not supported by the rest of the profile.
+    item:        Negative Appraisals / Negative Appraisals: Violated Values: I acted in ways that go against who I am
+    explanation: Within the appraisal set, severe guilt/self-blame for not preventing harm to a loved one is coherent, but 'I acted in ways that go against who I am' suggests a distinct moral-injury/perpetration theme not otherwise represented in memory, triggers, threat, or strategies. In this profile it pulls away from the dominant failed-protection formulation and is clinically hard to integrate.
+  [2] FAIL
+    item:        Threat / Threat in Faces: I study people's faces and body language to detect if they are a threat
+    explanation: These threat items suggest a generalized interpersonal-danger formulation focused on potentially hostile people/strangers, which is hard to reconcile with the stated trauma type of trauma to a loved one in a car-related context indicated by the triggers. The triggers are specific to cars/accidents/anniversary cues, but the threat items shift to surveillance for dangerous people rather than fear of accidents, loss, or harm befalling loved ones.
+    item:        Triggers / Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations
+    explanation: Given the strong Triggers → Threat edge, the threat content should plausibly connect to the trigger content. Here, car similarity, anniversaries, and discussions of accidents would more coherently evoke danger on roads, fear of losing loved ones, or distress about accidents; instead, the selected threat items emphasize strangers and facial/body-language threat detection, which is a weak clinical fit and suggests a different trauma pattern.
+  [3] FAIL
+    item:        Triggers / Triggers: Car Similarity: Similar cars
+    explanation: For trauma to a loved one, the trigger pattern strongly suggests a road traffic accident involving a car (similar cars, anniversaries, talk about accidents). That is coherent. However, the threat items 'startle to touch' and especially 'threat from strangers approaching' imply a current interpersonal assault-style danger pattern that does not fit the rest of the profile, which is organized around accident/loved-one-loss cues and guilt about failing to protect. These threat items are hard to link clinically to the selected triggers and appraisals for this specific trauma.
+    item:        Threat / Threat: Startle to Touch: I react with alarm when someone touches me unexpectedly
+    explanation: This is also misaligned with the formulation: Triggers strongly connect to Threat, so the threat items should plausibly arise from the trigger context. Accident-related triggers would more coherently pair with threat items such as danger on roads, fear of accidents, or fear that loved ones are unsafe. Interpersonal stranger-threat items pull the profile toward a different trauma context and are difficult to reconcile with the active Triggers → Threat edge.
+  [4] FAIL
+    item:        Threat / Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations
+    explanation: This threat item is poorly aligned with the rest of the profile. The trauma is to a loved one and the trigger set is tightly centered on accident reminders (anniversary, accident discussions, accident imagery), while negative appraisals are guilt about failing to protect. A generalized fear of strangers in ordinary situations suggests a different threat theme (interpersonal assault/hypervigilance toward unknown people) that is not supported by the other selected trigger, memory/appraisal, or strategy items. Given the strong Triggers → Threat edge, the threat items should plausibly arise from the accident-related triggers; this item does not fit that formulation.
+  [5] FAIL
+    item:        Threat / Threat: Flashbacks
+    explanation: Flashbacks imply a prominent trauma-memory re-experiencing component, but the profile provides no Memory items and the formulation specifies Memory as inactive with no Trigger–Memory or Threat–Memory linkage. In this profile, that makes this item poorly aligned with the formulation and less coherent than the other threat items, which fit trigger-linked distress and physiological arousal.
+  [6] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Nia, a 38-year-old African woman married to a fisherman, has been struggling with the aftermath of a
+traumatic event involving her son. On that fateful day, Nia's son was involved in a serious car
+accident while driving home from work, leaving him severely injured and hospitalized for weeks. Ever
+since then, anniversaries have become sources of profound distress for Nia. She dreads the dates
+when the accident occurred, feeling a heavy sense of dread that lingers throughout those days. The
+anniversary marks the beginning of a cycle where thoughts of the event consume her. On these days,
+she often hears conversations around car accidents or sees images related to crashes on TV, which
+trigger intense physical reactions and negative emotions. Her heart races, and she experiences waves
+of fear and horror as if reliving that moment. These triggers intensify her feelings of guilt and
+self-blame for not preventing the accident in some way. Nia has come to believe that if only she had
+been more vigilant or done something differently, her son wouldn't have suffered so much. She
+ruminates on these thoughts endlessly, imagining how things could have gone differently and
+replaying scenarios where she manages to stop the accident from happening. This rumination leads her
+to stay up very late into the night, often going through old emails and texts for signs that she
+missed. Her maladaptive strategies also include impulsive spending. Nia finds herself buying
+unnecessary items, often luxury goods or extravagant dinners out, as a way to momentarily escape the
+overwhelming feelings of guilt and self-blame. She hopes that these acts will somehow make up for
+her perceived failures. However, this behavior only reinforces her sense of helplessness and
+inadequacy. The anniversary serves as a powerful trigger that initiates Nia's cycle of maladaptive
+behaviors. Each time she experiences the negative emotions and physical reactivity associated with
+the accident, her tendency to ruminate intensifies. She becomes more irritable at work, snapping at
+colleagues over minor issues, which further exacerbates her sense of failure and guilt. Nia’s
+feelings of inaction guilt and self-blame have become intertwined with these behaviors, creating a
+reinforcing loop. Her belief that she failed to protect her son leads to increased negative emotions
+when triggered by discussions or imagery related to the accident. These negative emotions then fuel
+her maladaptive strategies, such as impulsive spending and prolonged insomnia. The cycle has taken a
+significant toll on Nia’s daily life. As a fisherman's wife, she often finds herself avoiding
+conversations about accidents at work, which can be frequent given the nature of her husband’s
+occupation. This avoidance has led to strained interactions with colleagues who feel that she is
+distant or unapproachable. The combination of guilt and self-blame has also affected Nia’s
+relationship with her son. She feels like a failure as both a mother and a spouse, which only
+deepens her sense of isolation and despair. Her husband notices the changes but struggles to
+understand why she withdraws so much during anniversaries or when accidents are discussed. Nia's
+current state is one of profound distress, and it is this relentless cycle that finally brought her
+to seek help. What frightens her most is the idea that she will never be able to forgive herself for
+not preventing the accident. Despite this fear, she hopes to find a way to break free from the
+constant rumination and destructive behaviors that have been consuming her life. She is now seeking
+therapy with the hope of understanding why these thoughts and feelings are so overwhelming and
+learning strategies to manage them more effectively. Nia wants to reclaim her sense of self and
+reconnect with her son, but she fears that the guilt and blame will always overshadow any progress
+she makes.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Nia, a 38-year-old African woman married to a fisherman, has been struggling with the aftermath of a
+traumatic event involving her son. On that fateful day, Nia's son was involved in a serious car
+accident while driving home from work, leaving him severely injured and hospitalized for weeks. Ever
+since then, anniversaries have become sources of profound distress for Nia. She dreads the dates
+when the accident occurred, feeling a heavy sense of dread that lingers throughout those days. The
+anniversary marks the beginning of a cycle where thoughts of the event consume her. On these days,
+she often hears conversations around car accidents or sees images related to crashes on TV, which
+trigger intense physical reactions and negative emotions. Her heart races, and she experiences waves
+of fear and horror as if reliving that moment. These triggers intensify her feelings of guilt and
+self-blame for not preventing the accident in some way. Nia has come to believe that if only she had
+been more vigilant or done something differently, her son wouldn't have suffered so much. She
+ruminates on these thoughts endlessly, imagining how things could have gone differently and
+replaying scenarios where she manages to stop the accident from happening. This rumination leads her
+to stay up very late into the night, often going through old emails and texts for signs that she
+missed. Her maladaptive strategies also include impulsive spending. Nia finds herself buying
+unnecessary items, often luxury goods or extravagant dinners out, as a way to momentarily escape the
+overwhelming feelings of guilt and self-blame. She hopes that these acts will somehow make up for
+her perceived failures. However, this behavior only reinforces her sense of helplessness and
+inadequacy. The anniversary serves as a powerful trigger that initiates Nia's cycle of maladaptive
+behaviors. Each time she experiences the negative emotions and physical reactivity associated with
+the accident, her tendency to ruminate intensifies. She becomes more irritable at work, snapping at
+colleagues over minor issues, which further exacerbates her sense of failure and guilt. Nia’s
+feelings of inaction guilt and self-blame have become intertwined with these behaviors, creating a
+reinforcing loop. Her belief that she failed to protect her son leads to increased negative emotions
+when triggered by discussions or imagery related to the accident. These negative emotions then fuel
+her maladaptive strategies, such as impulsive spending and prolonged insomnia. The cycle has taken a
+significant toll on Nia’s daily life. As a fisherman's wife, she often finds herself avoiding
+conversations about accidents at work, which can be frequent given the nature of her husband’s
+occupation. This avoidance has led to strained interactions with colleagues who feel that she is
+distant or unapproachable. The combination of guilt and self-blame has also affected Nia’s
+relationship with her son. She feels like a failure as both a mother and a spouse, which only
+deepens her sense of isolation and despair. Her husband notices the changes but struggles to
+understand why she withdraws so much during anniversaries or when accidents are discussed. Nia's
+current state is one of profound distress, and it is this relentless cycle that finally brought her
+to seek help. What frightens her most is the idea that she will never be able to forgive herself for
+not preventing the accident. Despite this fear, she hopes to find a way to break free from the
+constant rumination and destructive behaviors that have been consuming her life. She is now seeking
+therapy with the hope of understanding why these thoughts and feelings are so overwhelming and
+learning strategies to manage them more effectively. Nia wants to reclaim her sense of self and
+reconnect with her son, but she fears that the guilt and blame will always overshadow any progress
+she makes.

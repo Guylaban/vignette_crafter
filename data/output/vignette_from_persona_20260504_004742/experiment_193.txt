@@ -1,0 +1,207 @@
+PERSONA 193  |  2026-05-04 01:59:13
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      gpt-oss-20b
+    persona_validator    gpt-oss-20b
+    vignette_crafter     gpt-oss-20b
+    vignette_validator   gpt-oss-20b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             68
+  gender          Female
+  ethnicity       North American
+  relationship_status Married
+  occupation      Retired
+  trauma_type     Unexpected or traumatic death of a loved one
+  pcl5            66
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Busyness: I work hard at keeping busy with other things
+    • Avoid People: avoid other people
+    • Avoid Social Contacts: Seeing people that I socialised with before the event
+  Threat:
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+  Negative Appraisals:
+    • Isolation: I feel isolated and set apart from others
+    • Belong Nowhere: I no longer belong anywhere
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.7616
+  Negative Appraisals → Threat                       0.6451
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.6353
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.5246
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Overworking: I throw myself into work or tasks to keep my mind occupied
+    explanation: For a 68-year-old retired patient, 'Overworking' is questionable as phrased because it implies a current work role; while keeping busy with tasks is plausible, the specific work-focused item is a poor fit to the demographic context.
+    item:        Negative Appraisals / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' is hard to link coherently to the indexed trauma of unexpected death of a loved one and to the rest of the profile. It suggests social/performance concerns that are not reflected in the threat or appraisal items and does not fit the formulation's main Negative Appraisals ↔ Threat loop.
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Being Touched: Any form of physical contact with others
+    explanation: For trauma type of unexpected death of a loved one, 'Avoid Being Touched' is hard to explain clinically unless there is interpersonal assault or bodily violation content, which is not present elsewhere in the profile. It appears mismatched to the trauma context and to the other selected items.
+    item:        Threat / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' suggests shame about appearance/performance or social evaluative threat, but the rest of the profile centers bereavement-related guilt, isolation, and generalized danger. This strategy does not connect well to the stated trauma type or to the active appraisal-threat loop.
+    item:        Negative Appraisals / Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    explanation: The threat items depict pervasive physical danger and inability to feel safe anywhere. In bereavement PTSD this can occur, but here the appraisals provided are mainly isolation and self-blame rather than danger-based meanings. The strong Negative Appraisals ↔ Threat loop is not well reflected because the appraisals do not explain this specific form of persistent external danger.
+  [3] FAIL
+    item:        Maladaptive Strategies / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: 'Avoid Evaluation' is hard to reconcile with the rest of the profile and the trauma type of traumatic bereavement. The other selected items center on grief-related self-blame, isolation, and generalized danger, but fear of being evaluated for appearance/performance suggests a social-evaluative concern not otherwise represented in threat, memory, triggers, or appraisals.
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: 'Self-Blame' can occur after the unexpected death of a loved one, but in this profile it sits awkwardly beside the chosen maladaptive strategies and threat items. If the patient blames herself for the death, one would expect linked strategies or threat content tied to guilt, responsibility, rumination, or death-related cues; instead the profile emphasizes social withdrawal and generic unsafety, making this item insufficiently integrated with the rest.
+    item:        Threat / Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it
+    explanation: 'Cannot Trust Safety' is not impossible in PTSD, but with traumatic bereavement and no trigger or memory items selected, the threat profile becomes very generalized. In combination with the social-evaluative avoidance item, it creates a mixed formulation in which the source of danger is unclear: bereavement-related guilt/loss versus broad physical danger versus fear of scrutiny. This weakens coherence across nodes given the active Negative Appraisals ↔ Threat linkage.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Mary had never imagined that the day she would hear the ambulance siren at her doorstep would
+forever alter the rhythm of her life. When her son, who had always been the center of her world, was
+pronounced dead in a sudden heart attack, the grief that followed was a cold, relentless weight that
+settled on her chest. She felt immediately isolated, as if the walls of her house had opened and
+swallowed the people she had once known. The guilt that rushed through her—“I should have seen it
+coming, I should have protected him”—clung to her like a second skin. Convinced that she had failed,
+Mary began to steer clear of the very gatherings that once felt safe. The weekly family dinner
+became a silent, uncomfortable tableau; her husband’s gentle attempts to offer support were met with
+a polite, yet distant, nod. To keep herself from the ache of those moments, Mary turned to busyness.
+She poured her days into household chores, reorganizing the garage, volunteering with the local
+library, and always had something on her agenda that pulled her away from the quiet of the living
+room where her grief sat waiting. The sense of failure and isolation sharpened every nerve in Mary’s
+body. In the days that followed, she could feel her muscles tightening at the slightest reminder of
+her son—an unexpected phone call, the flicker of a television news story about a sudden death, even
+a neighbor’s laugh in the park. Her heart hammered, and she could not find relief even while curled
+in the armchair at home. The dread that something bad might happen again tightened her chest each
+time she closed her eyes. The terror that had once been a fleeting thought was now a constant
+presence: “What if another one of us is next?” she would whisper to herself, even as she sat in
+front of the stove. The weight of those thoughts made it impossible for her to relax; the quiet
+moments that should have brought peace instead became a storm of negative emotions—fear, anger, and
+the heavy shiver of shame that she felt had followed her like a shadow. Over the weeks, the constant
+state of alertness seemed to feed back into the very beliefs that had first driven her to
+withdrawal. The endless loops of anxiety made the isolation feel more real, as if the world was now
+truly a place where she did not belong. Each time a neighbor knocked on the door, or a car honked
+outside, the body’s reaction felt like a prelude to tragedy. Mary began to interpret even the most
+mundane situations through the lens of potential harm, and this heightened threat perception
+reinforced her conviction that she was no longer part of a safe community. The memory of her son’s
+sudden death became a beacon that illuminated her fear of any possible danger, and her belief that
+she could never protect anyone again solidified. She saw her own avoidance—her reluctance to open
+her front door, her avoidance of the local café—as evidence of her own failure, thereby tightening
+the knot of guilt around her. At the same time, Mary’s strategies to stay busy and steer clear of
+people only amplified the sense of threat that had already become her constant companion. By filling
+her days with chores and volunteering, she kept her mind in motion, but the mental energy required
+to remain alert made her body stay tense. The physical strain of keeping a perfect schedule, the
+hurried steps to avoid crowds, the sharpness she kept about herself for the fear of being exposed
+all heightened her sense that danger was always near. The more she worked to keep herself from the
+discomfort of the present, the more her body stayed on high alert, and the more she feared that any
+moment could bring the next loss. Her home, once a place of solace, became a battleground where the
+rhythm of her breathing matched the steady tick of her anxiety. She could no longer find moments of
+calm, and her constant vigilance felt as though it was a protective shield—yet in reality, it only
+pushed her further into a circle of isolation and fear. The cycle, though unspoken, was tightening,
+leaving Mary increasingly trapped in a loop of avoidance, threat, and guilt. Now, at the age of 68,
+Mary sits in her quiet kitchen with her husband’s hand clasped around hers. The call she finally
+mustered to seek help was triggered by an evening when she realized that even the simple act of
+turning off the stove left her heart racing, as if she were still on a battlefield. She has come to
+fear that her next step, if she does not find a way out, will be to cut herself off entirely, to
+shut herself in so completely that even she would not have to face the weight of her memories. She
+hopes that talking to a professional will give her a way to untangle the web of thoughts that keep
+her body on edge and to find a place where she can feel, at last, a sense of belonging and safety
+again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Mary had never imagined that the day she would hear the ambulance siren at her doorstep would
+forever alter the rhythm of her life. When her son, who had always been the center of her world, was
+pronounced dead in a sudden heart attack, the grief that followed was a cold, relentless weight that
+settled on her chest. She felt immediately isolated, as if the walls of her house had opened and
+swallowed the people she had once known. The guilt that rushed through her—“I should have seen it
+coming, I should have protected him”—clung to her like a second skin. Convinced that she had failed,
+Mary began to steer clear of the very gatherings that once felt safe. The weekly family dinner
+became a silent, uncomfortable tableau; her husband’s gentle attempts to offer support were met with
+a polite, yet distant, nod. To keep herself from the ache of those moments, Mary turned to busyness.
+She poured her days into household chores, reorganizing the garage, volunteering with the local
+library, and always had something on her agenda that pulled her away from the quiet of the living
+room where her grief sat waiting. The sense of failure and isolation sharpened every nerve in Mary’s
+body. In the days that followed, she could feel her muscles tightening at the slightest reminder of
+her son—an unexpected phone call, the flicker of a television news story about a sudden death, even
+a neighbor’s laugh in the park. Her heart hammered, and she could not find relief even while curled
+in the armchair at home. The dread that something bad might happen again tightened her chest each
+time she closed her eyes. The terror that had once been a fleeting thought was now a constant
+presence: “What if another one of us is next?” she would whisper to herself, even as she sat in
+front of the stove. The weight of those thoughts made it impossible for her to relax; the quiet
+moments that should have brought peace instead became a storm of negative emotions—fear, anger, and
+the heavy shiver of shame that she felt had followed her like a shadow. Over the weeks, the constant
+state of alertness seemed to feed back into the very beliefs that had first driven her to
+withdrawal. The endless loops of anxiety made the isolation feel more real, as if the world was now
+truly a place where she did not belong. Each time a neighbor knocked on the door, or a car honked
+outside, the body’s reaction felt like a prelude to tragedy. Mary began to interpret even the most
+mundane situations through the lens of potential harm, and this heightened threat perception
+reinforced her conviction that she was no longer part of a safe community. The memory of her son’s
+sudden death became a beacon that illuminated her fear of any possible danger, and her belief that
+she could never protect anyone again solidified. She saw her own avoidance—her reluctance to open
+her front door, her avoidance of the local café—as evidence of her own failure, thereby tightening
+the knot of guilt around her. At the same time, Mary’s strategies to stay busy and steer clear of
+people only amplified the sense of threat that had already become her constant companion. By filling
+her days with chores and volunteering, she kept her mind in motion, but the mental energy required
+to remain alert made her body stay tense. The physical strain of keeping a perfect schedule, the
+hurried steps to avoid crowds, the sharpness she kept about herself for the fear of being exposed
+all heightened her sense that danger was always near. The more she worked to keep herself from the
+discomfort of the present, the more her body stayed on high alert, and the more she feared that any
+moment could bring the next loss. Her home, once a place of solace, became a battleground where the
+rhythm of her breathing matched the steady tick of her anxiety. She could no longer find moments of
+calm, and her constant vigilance felt as though it was a protective shield—yet in reality, it only
+pushed her further into a circle of isolation and fear. The cycle, though unspoken, was tightening,
+leaving Mary increasingly trapped in a loop of avoidance, threat, and guilt. Now, at the age of 68,
+Mary sits in her quiet kitchen with her husband’s hand clasped around hers. The call she finally
+mustered to seek help was triggered by an evening when she realized that even the simple act of
+turning off the stove left her heart racing, as if she were still on a battlefield. She has come to
+fear that her next step, if she does not find a way out, will be to cut herself off entirely, to
+shut herself in so completely that even she would not have to face the weight of her memories. She
+hopes that talking to a professional will give her a way to untangle the web of thoughts that keep
+her body on edge and to find a place where she can feel, at last, a sense of belonging and safety
+again.

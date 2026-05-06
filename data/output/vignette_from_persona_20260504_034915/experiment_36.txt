@@ -1,0 +1,191 @@
+PERSONA 36  |  2026-05-04 03:57:55
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      qwen2.5-32b
+    persona_validator    qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             65
+  gender          Female
+  ethnicity       North American
+  relationship_status Widowed
+  occupation      Military Medic
+  trauma_type     Life-threatening accident
+  pcl5            57
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Discomfort: Feeling uncomfortable
+    • Crash Imagery: Cars hit by accident
+    • Car Similarity: Similar cars
+  Maladaptive Strategies:
+    • Overeat: eat excessively to manage distress
+    • Distraction: I distract myself with something else
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • Reliving Event: When I remember the frightening event I feel like it is happening right now.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.3707
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.7549
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.2468
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.6815
+  Maladaptive Strategies → Threat                    0.4462
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Visual (Water/Flooding): Water, flooding, or large bodies of water
+    explanation: The trauma type is a life-threatening accident, but the water/flooding trigger suggests a very specific drowning/flood disaster context that is unsupported by the rest of the profile. No other trigger, threat, memory, or strategy item reflects a water-related accident, making this trigger feel disconnected from the reported trauma representation.
+    item:        Threat / Threat: Threat in Silence: Unusual silence makes me feel something dangerous is about to happen
+    explanation: 'Threat in Silence' implies danger associated with quiet/ominous stillness, whereas the rest of the profile points more toward active danger monitoring (weapons, commands) and a possibly chaotic accident context. This silence-based threat cue is not impossible, but here it lacks support from the other selected items and sits awkwardly with the accident formulation.
+    item:        Memory / Memory: Guilt on Recall: When I remember the event I feel intense guilt
+    explanation: Intense guilt on recall is not impossible after an accident, but in this profile it is the only item indicating moral/self-blame content. There are no negative appraisal items to support guilt themes, and the remaining memory/threat content emphasizes sensory reliving and danger monitoring rather than responsibility or wrongdoing. This makes the guilt item weakly integrated with the rest of the formulation.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Being Touched: Any form of physical contact with others
+    explanation: Avoiding being touched suggests a contact-based interpersonal threat or bodily boundary issue, but the rest of the profile does not indicate assault/interpersonal trauma or touch-related triggers/threats. For a life-threatening accident profile, this item appears poorly matched to the trauma context and to the other selected nodes.
+  [2] FAIL
+    item:        Threat / Threat: Sleep Problems: Trouble falling or staying asleep
+    explanation: Sleep problems are not a threat appraisal item and do not fit coherently within the Threat node as framed by the other selected threat items; it reflects general arousal/insomnia rather than perceived current danger.
+    item:        Memory / Threat: Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+    explanation: Hypervigilance specifically focused on weapons is hard to reconcile with the trauma type of a life-threatening accident, especially when the trigger and memory items are vehicle-accident related and there are no appraisals or memories suggesting assault/combat-related danger. This creates a cross-node mismatch.
+  [3] FAIL
+    item:        Triggers / Authority Commands: Being given orders or instructions
+    explanation: For a life-threatening accident formulation, 'Authority Commands' is difficult to link to the rest of the profile. The other trigger and strategy items center on vehicle/crash-related reactivity, but this item implies a different trauma context or conditioning pattern that is not supported by the memory or threat content.
+    item:        Threat / Noticing Weapons: I notice potential weapons or dangerous objects in any environment
+    explanation: 'Noticing Weapons' is poorly matched to the accident trauma narrative and to the rest of the selected items. Hypervigilance to loud sounds and bodily danger readiness fit post-accident threat sensitization, but specific scanning for weapons suggests a violence/combat-related threat schema that is not otherwise represented.
+    item:        Maladaptive Strategies / Avoid Driving: Driving or being a passenger in a vehicle
+    explanation: 'Avoid Driving' fits the accident trauma, but it sits awkwardly alongside the non-accident-specific items 'Authority Commands' and 'Noticing Weapons.' Together these items split the profile between vehicle-accident and combat/assault-like themes, reducing overall coherence with the stated trauma type and the Trigger→Threat linkage.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Martha, a 65-year-old widow and former military medic, has been struggling with intense distress
+following a life-threatening car accident that occurred several months ago. The event left her
+shaken not only by its immediate physical impact but also by the psychological toll it took on her
+daily life. On the day of the accident, Martha was driving home from a routine errand when another
+vehicle lost control and crashed into hers. She vividly remembers the screeching tires, the
+sickening crunch as metal collided with metal, and the overwhelming sense of helplessness as she
+waited for rescue. Since then, any similar sounds or sights—such as hearing the screech of brakes or
+seeing a car that resembles the one involved in the accident—trigger intense distress. When Martha
+hears unexpected loud noises, her body goes on high alert, tense and ready to react to danger. This
+heightened state is exacerbated by flashbacks where she suddenly feels or acts as if the stressful
+experience were happening again. The memory of the crash feels so vivid that it's as though she
+can't distinguish between past and present. When these memories return, Martha often finds herself
+overwhelmed by emotion, unable to find words to describe her feelings. This emotional overwhelm
+further reinforces her sense of threat. Martha has developed several maladaptive strategies to cope
+with this distress. She tends to overeat excessively to manage the overwhelming emotions that arise
+from her triggers and flashbacks. Additionally, she distracts herself with other activities to avoid
+dwelling on the trauma. Sometimes, she tries hard not to think about it at all, but these efforts
+often backfire, leaving her feeling more anxious. The cycle begins when Martha encounters a trigger,
+such as seeing a car that resembles the one in the accident or hearing a loud noise. This
+immediately puts her body on high alert and triggers flashbacks and intense memories of the event.
+As she feels overwhelmed by these intrusive thoughts and emotions, she resorts to overeating or
+distracting herself to cope with the distress. However, this only temporarily alleviates her
+anxiety; it often leads to an increase in negative feelings and reinforces her sense of threat. For
+example, one day while driving, Martha saw a car similar to the one involved in her accident. The
+mere sight triggered a vivid flashback where she relived the sound of screeching tires and the panic
+of waiting for help. Her body tensed up immediately, and she felt as though she were back at the
+scene of the crash. This heightened state of alertness left her so distressed that she overate later
+to soothe herself. Despite these efforts, the intrusive memories returned, making her feel even more
+anxious. Over time, this cycle has led Martha to avoid driving altogether and limit her social
+outings. The constant tension and fear have also strained her relationship with her children, who
+worry about her but struggle to understand why she avoids going out or even discussing what
+happened. Recently, the combination of her avoidance behaviors and growing distress finally prompted
+Martha to seek help. She is most afraid that she will never be able to leave her house without
+feeling terrified and overwhelmed by memories of the accident. At the same time, she hopes that
+therapy can provide tools to manage these overwhelming feelings and allow her to reclaim some sense
+of normalcy in her daily life. Martha’s story illustrates how her triggers, maladaptive coping
+strategies, and heightened threat perceptions have formed a self-reinforcing cycle that has
+significantly impacted her quality of life. She is eager for support to break this pattern and
+regain control over her experiences.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Martha, a 65-year-old widow and former military medic, has been struggling with intense distress
+following a life-threatening car accident that occurred several months ago. The event left her
+shaken not only by its immediate physical impact but also by the psychological toll it took on her
+daily life. On the day of the accident, Martha was driving home from a routine errand when another
+vehicle lost control and crashed into hers. She vividly remembers the screeching tires, the
+sickening crunch as metal collided with metal, and the overwhelming sense of helplessness as she
+waited for rescue. Since then, any similar sounds or sights—such as hearing the screech of brakes or
+seeing a car that resembles the one involved in the accident—trigger intense distress. When Martha
+hears unexpected loud noises, her body goes on high alert, tense and ready to react to danger. This
+heightened state is exacerbated by flashbacks where she suddenly feels or acts as if the stressful
+experience were happening again. The memory of the crash feels so vivid that it's as though she
+can't distinguish between past and present. When these memories return, Martha often finds herself
+overwhelmed by emotion, unable to find words to describe her feelings. This emotional overwhelm
+further reinforces her sense of threat. Martha has developed several maladaptive strategies to cope
+with this distress. She tends to overeat excessively to manage the overwhelming emotions that arise
+from her triggers and flashbacks. Additionally, she distracts herself with other activities to avoid
+dwelling on the trauma. Sometimes, she tries hard not to think about it at all, but these efforts
+often backfire, leaving her feeling more anxious. The cycle begins when Martha encounters a trigger,
+such as seeing a car that resembles the one in the accident or hearing a loud noise. This
+immediately puts her body on high alert and triggers flashbacks and intense memories of the event.
+As she feels overwhelmed by these intrusive thoughts and emotions, she resorts to overeating or
+distracting herself to cope with the distress. However, this only temporarily alleviates her
+anxiety; it often leads to an increase in negative feelings and reinforces her sense of threat. For
+example, one day while driving, Martha saw a car similar to the one involved in her accident. The
+mere sight triggered a vivid flashback where she relived the sound of screeching tires and the panic
+of waiting for help. Her body tensed up immediately, and she felt as though she were back at the
+scene of the crash. This heightened state of alertness left her so distressed that she overate later
+to soothe herself. Despite these efforts, the intrusive memories returned, making her feel even more
+anxious. Over time, this cycle has led Martha to avoid driving altogether and limit her social
+outings. The constant tension and fear have also strained her relationship with her children, who
+worry about her but struggle to understand why she avoids going out or even discussing what
+happened. Recently, the combination of her avoidance behaviors and growing distress finally prompted
+Martha to seek help. She is most afraid that she will never be able to leave her house without
+feeling terrified and overwhelmed by memories of the accident. At the same time, she hopes that
+therapy can provide tools to manage these overwhelming feelings and allow her to reclaim some sense
+of normalcy in her daily life. Martha’s story illustrates how her triggers, maladaptive coping
+strategies, and heightened threat perceptions have formed a self-reinforcing cycle that has
+significantly impacted her quality of life. She is eager for support to break this pattern and
+regain control over her experiences.

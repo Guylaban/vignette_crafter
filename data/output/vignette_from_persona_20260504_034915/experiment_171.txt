@@ -1,0 +1,203 @@
+PERSONA 171  |  2026-05-04 04:25:57
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      qwen2.5-32b
+    persona_validator    qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             66
+  gender          Male
+  ethnicity       South Eastern Asian
+  relationship_status Married
+  occupation      Roofer
+  trauma_type     Toxic chemical exposure
+  pcl5            36
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Nighttime/Dark: Night-time or waking up in the dark
+    • Olfactory (Hospital): Hospital or antiseptic smell
+    • Olfactory (Smell): Related smells
+  Maladaptive Strategies:
+    • Past Dwelling: I dwell on how I used to be before the event
+    • Avoid Assertiveness: never disagree or assert myself to avoid conflict
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Concentration: Having difficulty concentrating
+    • Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+  Memory:
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Emotion Without Image: Sometimes I feel the full emotional intensity of the event without any clear image or memory
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Hopelessness: I have no future
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.5917
+  Triggers → Threat                                  0.6739
+  Triggers → Memory                                  0.1541
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.5840
+  Negative Appraisals → Threat                       0.8566
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.5099
+  Memory → Maladaptive Strategies                    0.8214
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.7187
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.7565
+  Threat → Memory                                    0.7281
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.7012
+  Maladaptive Strategies → Triggers                  0.6768
+  Maladaptive Strategies → Threat                    0.8364
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        gender
+    explanation: Occupation 'Nun' is implausible for a Male patient.
+  [2] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Visual (Water/Flooding): Water, flooding, or large bodies of water
+    explanation: For a toxic chemical exposure trauma, water/flooding/large bodies of water is a poor fit as a trauma cue unless there is specific contamination-through-water context, which is not reflected anywhere else in the profile. The other items suggest generalized danger and intrusive memory, not a flood/water-based trauma context, so this trigger is hard to explain clinically.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid New Relationships: Starting new friendships or relationships
+    explanation: Avoiding new friendships or relationships is not well linked to the rest of the formulation. The profile centers on toxic exposure, hypervigilant threat monitoring, intrusive memories, and self-devaluation/hopelessness, but contains no interpersonal threat, mistrust, shame, or relationship-focused appraisals that would make this strategy a coherent consequence. It appears to target a symptom domain not otherwise represented in the selected items.
+  [2] FAIL
+    item:        Triggers / Triggers: Known People: Related people
+    explanation: For toxic chemical exposure, hospital/antiseptic smell and darkness/nighttime can plausibly cue the event or its aftermath, but 'Known People: Related people' is hard to justify unless the trauma centrally involved family members. Nothing else in the profile suggests interpersonal betrayal, family-linked danger, or family members as part of the exposure, so this trigger appears poorly matched to the trauma type and the rest of the formulation.
+    item:        Negative Appraisals / Negative Appraisals: Lost Meaning: Nothing in my life feels meaningful anymore
+    explanation: The negative appraisals are heavily global and depressive/existential ('Nothing in my life feels meaningful anymore', 'I have no future') rather than trauma-linked threat/self-appraisals. In this formulation Negative Appraisals has a very strong link to Threat, but the threat items are about persistent danger/vigilance in unfamiliar places. 'Can't rely on myself' fits that pattern; the meaninglessness/hopelessness items do not connect well to the toxic exposure theme, the selected triggers, or the specific threat content, making the node less coherent.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Mr. Tran, a 66-year-old South Eastern Asian male, has been struggling with the aftermath of a
+traumatic event that occurred several months ago when he was exposed to toxic chemicals at his
+workplace as a roofer. The incident left him feeling profoundly unsafe and triggered a cascade of
+symptoms that have significantly impacted his daily life. The trauma began when Mr. Tran was working
+on a roof in an industrial area where construction materials were improperly stored. As he moved
+across the site, a container of toxic chemicals tipped over, releasing fumes that overwhelmed him
+instantly. The sensation of choking and dizziness was terrifying, and the memory of that moment has
+stayed with him ever since. Nighttime is now one of Mr. Tran's most potent triggers. When it gets
+dark, he feels an overwhelming sense of dread and anxiety. He avoids going to unfamiliar places
+because he cannot assess the danger they may pose. This avoidance behavior is a direct response to
+his heightened state of alertness; even in safe environments, he struggles to relax. For example,
+when he wakes up in the middle of the night and sees the dark shadows cast by his bedroom furniture,
+he immediately thinks about that terrifying moment on the roof. The fear that something could happen
+again keeps him from feeling at ease. The hospital-like antiseptic smell also triggers Mr. Tran's
+anxiety. Whenever he encounters a similar scent, it brings back vivid memories of the incident. He
+describes these memories as clear and detailed films playing over and over in his mind, which makes
+it hard for him to concentrate on anything else. This continuous replay of traumatic memories has
+made him feel that the world is an inherently dangerous place, leading him to avoid places he
+associates with danger. Mr. Tran’s tendency to dwell on how he used to be before the event is a
+significant maladaptive strategy. He constantly thinks about his past self and what he could do
+without these fears. The more he dwells on this, the less confident he becomes in relying on
+himself, which feeds into his sense of hopelessness and reinforces his belief that the world is
+dangerous. This negative appraisal cycle makes it difficult for him to assert himself or disagree
+with others, as he fears conflict might lead to another traumatic situation. His maladaptive
+strategies have also exacerbated his triggers. For instance, when he suppresses thoughts about the
+trauma, it only seems to make them more vivid and intense. He finds that avoiding situations where
+he might encounter similar smells or environments has become a habitual response. However, this
+avoidance has led him to miss out on many aspects of life, such as social gatherings and family
+events. The memory replay in his mind is so clear and detailed that it often leaves him feeling
+emotionally overwhelmed without any specific image. This emotional intensity further reinforces his
+sense of hopelessness and the belief that he cannot rely on himself. He has become convinced that he
+will never be able to fully trust his own judgment again, which makes it even harder for him to
+relax or assert himself. Mr. Tran’s difficulty concentrating is another consequence of his
+heightened state of alertness. The fear that something dangerous could happen at any moment keeps
+him in a constant state of vigilance. This threat monitoring has made it nearly impossible for him
+to focus on tasks, which has impacted his work as a roofer. He often finds himself avoiding
+unfamiliar jobsites or refusing assignments that might take him to new locations. Despite these
+challenges, what finally brought Mr. Tran to seek help was the realization that he could no longer
+cope with the intensity of his fears and the impact they were having on his relationships and daily
+functioning. He is most afraid of losing control and being unable to protect himself from another
+traumatic event. However, he is also hoping for a way to regain some sense of normalcy and
+confidence in his ability to navigate the world without constant fear. In summary, Mr. Tran's
+experiences since the toxic chemical exposure have led him into a self-reinforcing cycle where
+triggers intensify his maladaptive strategies, negative appraisals, and threat perceptions. This
+cycle has made it increasingly difficult for him to function both personally and professionally.
+Despite these challenges, he remains hopeful that with support, he can find ways to manage his fears
+and reclaim aspects of his life that have been lost to trauma.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Mr. Tran, a 66-year-old South Eastern Asian male, has been struggling with the aftermath of a
+traumatic event that occurred several months ago when he was exposed to toxic chemicals at his
+workplace as a roofer. The incident left him feeling profoundly unsafe and triggered a cascade of
+symptoms that have significantly impacted his daily life. The trauma began when Mr. Tran was working
+on a roof in an industrial area where construction materials were improperly stored. As he moved
+across the site, a container of toxic chemicals tipped over, releasing fumes that overwhelmed him
+instantly. The sensation of choking and dizziness was terrifying, and the memory of that moment has
+stayed with him ever since. Nighttime is now one of Mr. Tran's most potent triggers. When it gets
+dark, he feels an overwhelming sense of dread and anxiety. He avoids going to unfamiliar places
+because he cannot assess the danger they may pose. This avoidance behavior is a direct response to
+his heightened state of alertness; even in safe environments, he struggles to relax. For example,
+when he wakes up in the middle of the night and sees the dark shadows cast by his bedroom furniture,
+he immediately thinks about that terrifying moment on the roof. The fear that something could happen
+again keeps him from feeling at ease. The hospital-like antiseptic smell also triggers Mr. Tran's
+anxiety. Whenever he encounters a similar scent, it brings back vivid memories of the incident. He
+describes these memories as clear and detailed films playing over and over in his mind, which makes
+it hard for him to concentrate on anything else. This continuous replay of traumatic memories has
+made him feel that the world is an inherently dangerous place, leading him to avoid places he
+associates with danger. Mr. Tran’s tendency to dwell on how he used to be before the event is a
+significant maladaptive strategy. He constantly thinks about his past self and what he could do
+without these fears. The more he dwells on this, the less confident he becomes in relying on
+himself, which feeds into his sense of hopelessness and reinforces his belief that the world is
+dangerous. This negative appraisal cycle makes it difficult for him to assert himself or disagree
+with others, as he fears conflict might lead to another traumatic situation. His maladaptive
+strategies have also exacerbated his triggers. For instance, when he suppresses thoughts about the
+trauma, it only seems to make them more vivid and intense. He finds that avoiding situations where
+he might encounter similar smells or environments has become a habitual response. However, this
+avoidance has led him to miss out on many aspects of life, such as social gatherings and family
+events. The memory replay in his mind is so clear and detailed that it often leaves him feeling
+emotionally overwhelmed without any specific image. This emotional intensity further reinforces his
+sense of hopelessness and the belief that he cannot rely on himself. He has become convinced that he
+will never be able to fully trust his own judgment again, which makes it even harder for him to
+relax or assert himself. Mr. Tran’s difficulty concentrating is another consequence of his
+heightened state of alertness. The fear that something dangerous could happen at any moment keeps
+him in a constant state of vigilance. This threat monitoring has made it nearly impossible for him
+to focus on tasks, which has impacted his work as a roofer. He often finds himself avoiding
+unfamiliar jobsites or refusing assignments that might take him to new locations. Despite these
+challenges, what finally brought Mr. Tran to seek help was the realization that he could no longer
+cope with the intensity of his fears and the impact they were having on his relationships and daily
+functioning. He is most afraid of losing control and being unable to protect himself from another
+traumatic event. However, he is also hoping for a way to regain some sense of normalcy and
+confidence in his ability to navigate the world without constant fear. In summary, Mr. Tran's
+experiences since the toxic chemical exposure have led him into a self-reinforcing cycle where
+triggers intensify his maladaptive strategies, negative appraisals, and threat perceptions. This
+cycle has made it increasingly difficult for him to function both personally and professionally.
+Despite these challenges, he remains hopeful that with support, he can find ways to manage his fears
+and reclaim aspects of his life that have been lost to trauma.

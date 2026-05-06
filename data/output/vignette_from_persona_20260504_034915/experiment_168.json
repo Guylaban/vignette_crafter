@@ -1,0 +1,232 @@
+{
+  "persona_id": 168,
+  "source_persona_id": 168,
+  "experiment_timestamp": "2026-05-04 04:25:17",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 54,
+    "gender": "Female",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Chef",
+    "trauma_type": "Assault",
+    "pcl5": 68
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Certain Conversation Topics",
+        "value": "Certain conversation topics"
+      },
+      {
+        "key": "Emotional Closeness",
+        "value": "Someone getting emotionally close to me"
+      },
+      {
+        "key": "Male Presence",
+        "value": "Being alone with men"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      },
+      {
+        "key": "Threat from Strangers",
+        "value": "I feel threatened by strangers approaching me even in ordinary situations"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Nonverbal Memory",
+        "value": "I can't seem to put the frightening event into words."
+      },
+      {
+        "key": "Fragmented Pieces",
+        "value": "My memories of the event come in disconnected pieces that do not fit together"
+      },
+      {
+        "key": "Bodily Reenactment",
+        "value": "When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Fear of Harm",
+        "value": "You can never know who will harm you"
+      },
+      {
+        "key": "Betrayal",
+        "value": "I was betrayed by someone I trusted"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.7933,
+    "Triggers -- Negative Appraisals": 0.3072,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.6402,
+    "Negative Appraisals -- Memory": 0.6693,
+    "Negative Appraisals -- Triggers": 0.1876,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0382,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.9709,
+    "Threat -- Negative Appraisals": 0.3681,
+    "Threat -- Triggers": 0.4417,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4907222222222222,
+  "edge_density": 0.45,
+  "vignette_word_count": 548,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Military Topics: Talks about military",
+          "explanation": "For a civilian assault trauma, 'talks about military' is a hard-to-explain trigger unless the assault specifically involved military context, which is not otherwise reflected anywhere in the profile. It is not supported by the other trigger, memory, threat, or appraisal items."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Survival Guilt: I feel guilty for surviving when others did not",
+          "explanation": "'I feel guilty for surviving when others did not' implies a trauma involving deaths of others or a mass-casualty context. That does not cohere with the rest of this profile, which otherwise describes an individual assault without any indication that others were killed."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Military Topics"
+        ],
+        "Negative Appraisals": [
+          "Survival Guilt"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Fear of Rage: I will not be able to control my anger and will do something terrible",
+          "explanation": "This appraisal is the main incoherent item in the profile. The rest of the report is organized around fear, betrayal, hypervigilance, male-related/interpersonal triggers, and fragmented sensory trauma memory after assault. In contrast, fearing that she will lose control of her own rage and do something terrible introduces a perpetration/anger-control theme that is not supported by the triggers, threat items, or memory content. It does not fit the dominant cognitive formulation in which negative appraisals feed threat and memory; the other appraisal items plausibly amplify fear and mistrust, but this one points to a different clinical concern not otherwise represented in the profile. Given the otherwise tightly fear-based assault presentation, this item is hard to integrate clinically with the selected set."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Fear of Rage"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Sleep Vigilance: I have difficulty falling asleep because I need to stay alert",
+          "explanation": "This threat item is the least coherent element in the profile. The rest of the selected triggers, appraisals, and memory items consistently describe an interpersonal assault formulation centered on men, betrayal, mistrust, conversational/emotional triggers, and trauma memories. By contrast, needing to stay alert at night implies a more generalized ongoing danger-monitoring pattern that is not specifically supported by the selected triggers or appraisals. It is not impossible in PTSD, but here it fits less well than the other threat items and is weakly linked to the formulation, especially because Threat has no active edge to Maladaptive Strategies and the profile lacks other nighttime/sleep-related material."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Sleep Vigilance"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Sara is a 54-year-old European American chef who recently experienced an assault that has left her struggling with a profound sense of insecurity and fragmented memories. The traumatic event occurred one evening when she was alone in the kitchen at work. An acquaintance, someone she had known for years, unexpectedly appeared and attacked her, leaving her shaken and unsure of how to process what happened. Since the assault, Sara’s symptoms have been pervasive and distressing. Certain conversation topics, particularly those related to safety or relationships, trigger intense recollections of the event. When confronted with these topics, she finds herself flooded by nonverbal memories that are difficult to articulate but vividly reenact her physical sensations during the attack. The memory fragments often feel disjointed, leaving her feeling as though she cannot fully grasp what happened. Emotional closeness and being alone with men have become particularly challenging for Sara. She avoids these situations at all costs because they reignite intense feelings of betrayal and mistrust. Her husband has noticed a marked change in her behavior, noting how she becomes anxious when he attempts to engage in intimate conversations or even casual chats about their past together. The assault has reinforced her belief that you can never know who will harm you, and this fear extends beyond just men; it encompasses all strangers. Sara’s hypervigilance is a constant state of being. She feels superalert at all times, reacting strongly to unexpected movements or the approach of any individual. This hyperarousal often leads her back into fragmented memories of the assault. Her body reenacts the physical posture she was in during the attack, and these intrusive images exacerbate her fear of harm. The more frequently Sara experiences these triggers, the stronger her negative appraisals become, creating a cycle where her sense of mistrust deepens. Sara’s occupation as a chef has been significantly impacted by her symptoms. She finds herself avoiding certain conversations with colleagues about past work-related incidents or safety protocols. Her anxiety around being alone with men extends to interactions in the kitchen, leading her to frequently request shifts without male coworkers present. This behavior has strained relationships at work and made her feel increasingly isolated. The assault has fundamentally altered Sara’s perception of trust and safety. She believes she was betrayed by someone she trusted, and this belief colors all of her current social interactions. As a result, she often feels threatened even in ordinary situations, such as when strangers approach her in the street or at work. These feelings of threat are reinforced by fragmented memories that do not fit together, leaving her feeling disoriented and constantly on guard. What frightens Sara most is the unpredictability of her symptoms and the fear that she will never truly feel safe again. Her husband has been supportive but recognizes the toll this experience is taking on their relationship. It was his encouragement that finally brought her to seek help, hoping to break the cycle of avoidance and hypervigilance that has overtaken her life. Sara’s current state reflects a complex interplay between her triggers, memories, negative appraisals, and heightened sense of threat. She is acutely aware of how her perceptions have changed since the assault, and she hopes for a return to a sense of normalcy and trust in her daily interactions."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Sara is a 54-year-old European American chef who recently experienced an assault that has left her struggling with a profound sense of insecurity and fragmented memories. The traumatic event occurred one evening when she was alone in the kitchen at work. An acquaintance, someone she had known for years, unexpectedly appeared and attacked her, leaving her shaken and unsure of how to process what happened. Since the assault, Sara’s symptoms have been pervasive and distressing. Certain conversation topics, particularly those related to safety or relationships, trigger intense recollections of the event. When confronted with these topics, she finds herself flooded by nonverbal memories that are difficult to articulate but vividly reenact her physical sensations during the attack. The memory fragments often feel disjointed, leaving her feeling as though she cannot fully grasp what happened. Emotional closeness and being alone with men have become particularly challenging for Sara. She avoids these situations at all costs because they reignite intense feelings of betrayal and mistrust. Her husband has noticed a marked change in her behavior, noting how she becomes anxious when he attempts to engage in intimate conversations or even casual chats about their past together. The assault has reinforced her belief that you can never know who will harm you, and this fear extends beyond just men; it encompasses all strangers. Sara’s hypervigilance is a constant state of being. She feels superalert at all times, reacting strongly to unexpected movements or the approach of any individual. This hyperarousal often leads her back into fragmented memories of the assault. Her body reenacts the physical posture she was in during the attack, and these intrusive images exacerbate her fear of harm. The more frequently Sara experiences these triggers, the stronger her negative appraisals become, creating a cycle where her sense of mistrust deepens. Sara’s occupation as a chef has been significantly impacted by her symptoms. She finds herself avoiding certain conversations with colleagues about past work-related incidents or safety protocols. Her anxiety around being alone with men extends to interactions in the kitchen, leading her to frequently request shifts without male coworkers present. This behavior has strained relationships at work and made her feel increasingly isolated. The assault has fundamentally altered Sara’s perception of trust and safety. She believes she was betrayed by someone she trusted, and this belief colors all of her current social interactions. As a result, she often feels threatened even in ordinary situations, such as when strangers approach her in the street or at work. These feelings of threat are reinforced by fragmented memories that do not fit together, leaving her feeling disoriented and constantly on guard. What frightens Sara most is the unpredictability of her symptoms and the fear that she will never truly feel safe again. Her husband has been supportive but recognizes the toll this experience is taking on their relationship. It was his encouragement that finally brought her to seek help, hoping to break the cycle of avoidance and hypervigilance that has overtaken her life. Sara’s current state reflects a complex interplay between her triggers, memories, negative appraisals, and heightened sense of threat. She is acutely aware of how her perceptions have changed since the assault, and she hopes for a return to a sense of normalcy and trust in her daily interactions.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

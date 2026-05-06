@@ -1,0 +1,205 @@
+{
+  "persona_id": 282,
+  "source_persona_id": 282,
+  "experiment_timestamp": "2026-05-04 04:49:10",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 70,
+    "gender": "Male",
+    "ethnicity": "North American",
+    "relationship_status": "Married",
+    "occupation": "Salesperson",
+    "trauma_type": "Assault",
+    "pcl5": 35
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Intrusive Thoughts",
+        "value": "Unwanted thoughts"
+      },
+      {
+        "key": "Offender Cues",
+        "value": "Seeing the offender"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Location",
+        "value": "Going to or near the place where the event happened"
+      },
+      {
+        "key": "Emotional Numbing",
+        "value": "I numb my feelings"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Unrecognisable Self",
+        "value": "The person I have become is unrecognisable to me"
+      },
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      },
+      {
+        "key": "Self-Blame",
+        "value": "The event happened because of the way I acted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.661,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0856,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.7082,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4849333333333334,
+  "edge_density": 0.15,
+  "vignette_word_count": 620,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Victim Similarity: People who look similar to the victims",
+          "explanation": "For a single-patient assault trauma, 'people who look similar to the victims' is clinically incoherent because it implies multiple victims or identification with other victims rather than the patient's own assault experience. A more self-referential trigger would be expected."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Others-Would-Cope: Somebody else would have stopped the event from happening",
+          "explanation": "'Somebody else would have stopped the event from happening' sits awkwardly with the rest of the profile's self-directed shame and identity-change appraisals. It implies confidence that another person would have prevented the assault, which conflicts with the patient's own vulnerability/self-blame framing in a way that is hard to integrate clinically."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Victim Similarity"
+        ],
+        "Negative Appraisals": [
+          "Others-Would-Cope"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Medical Procedures: Undergoing a medical examination or procedure",
+          "explanation": "For an assault trauma in a 70-year-old male, 'medical procedures' plus 'body shame' implies a strong bodily injury/medical aftermath theme, but the rest of the profile does not support that theme. With only offender cues and intrusive thoughts otherwise present, the medical trigger looks insufficiently anchored and may be mismatched to the rest of the assault profile."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Body Shame: I feel ashamed of what happened to my body",
+          "explanation": "'Body shame' is not impossible after assault, but alongside 'defective self' and 'unrecognisable self' it suggests a bodily violation/injury-focused appraisal pattern that is not well reflected in the other selected nodes. The triggers and strategies mainly reflect avoidance, numbing, and offender-related activation rather than body-focused trauma processing."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Catastrophising Others: I worry obsessively about bad things happening to people I care about",
+          "explanation": "'Catastrophising others' is weakly connected to the rest of the selected profile. The active formulation links Triggers strongly with Maladaptive Strategies and Negative Appraisals strongly with Triggers, but this strategy is not a plausible direct response to the chosen triggers (medical procedures, intrusive thoughts, offender cues) and is not well explained by the selected appraisals. It addresses a generalized harm concern that is otherwise absent from the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Medical Procedures"
+        ],
+        "Negative Appraisals": [
+          "Body Shame"
+        ],
+        "Maladaptive Strategies": [
+          "Catastrophising Others"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Mr. Thompson is a 70-year-old married man who has been working in sales for over four decades. His life took a sudden and devastating turn when he was physically assaulted outside his local grocery store late last year. The event left him with deep emotional scars that have only worsened over time. Ever since the assault, Mr. Thompson has experienced intrusive thoughts about the incident. These unwanted memories frequently resurface during quiet moments or even while he's at work. For instance, the smell of alcohol in a bar can instantly transport him back to that night outside the grocery store. He vividly recalls the attacker’s face and how the cold metal of the weapon pressed against his skin, causing him immense distress. The intensity of these intrusive thoughts has led Mr. Thompson to avoid places associated with the assault. This includes not only the grocery store where it happened but also any nearby areas that remind him of that fateful night. He numbs his feelings by retreating into a detached state, trying hard not to think about what occurred and keeping himself busy at work and home. Mr. Thompson’s sense of self has been deeply affected by this trauma. He feels unrecognizable as the person he once was; the incident has left him with an overwhelming sense that something is fundamentally wrong with him as a human being. This feeling of defectiveness is compounded by his belief that if only he had acted differently, the assault might not have happened. These negative appraisals fuel his intrusive thoughts and make it difficult for Mr. Thompson to find any relief from his distress. He often wonders why he has changed so drastically and how he can ever regain a sense of normalcy in his life. The constant cycle of self-blame and fear of encountering triggers makes him feel trapped, unable to break free from the traumatic experience. In particular, the recurring smell of alcohol reminds Mr. Thompson of the attacker’s presence that night, intensifying his anxiety and compounding his efforts to avoid any such reminders. He has come to believe that going near the scene of the assault would only exacerbate these feelings of inadequacy and self-blame. Consequently, he avoids not just the grocery store but also similar locations where alcohol might be present. The distressing thoughts and avoidance behaviors have begun to impact his work as a salesperson. He has become less engaged in social interactions at client meetings, fearing that any small trigger could send him spiraling back into memories of the assault. This has strained relationships with colleagues and clients alike, leaving him feeling isolated both professionally and personally. Mr. Thompson’s marriage has also suffered as he withdraws emotionally from his wife. She notices that he is less involved in family activities and often preoccupied by thoughts of the past. The emotional distance between them grows each day, adding to Mr. Thompson's sense of isolation and self-doubt. Despite his efforts to manage these overwhelming feelings on his own, the constant reminders and negative self-assessments have become too much for him to bear alone. What finally brought Mr. Thompson to seek help was a recent encounter at a social event where the smell of alcohol triggered a severe panic attack. In that moment, he realized that he could no longer continue living in this state of fear and disconnection. Mr. Thompson hopes that with professional support, he can begin to reclaim his sense of self and find ways to cope with his intrusive thoughts without feeling controlled by them. He is most afraid of losing the person he once was entirely but is also deeply hopeful for a future where he can navigate life’s challenges with greater peace and resilience."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Mr. Thompson is a 70-year-old married man who has been working in sales for over four decades. His life took a sudden and devastating turn when he was physically assaulted outside his local grocery store late last year. The event left him with deep emotional scars that have only worsened over time. Ever since the assault, Mr. Thompson has experienced intrusive thoughts about the incident. These unwanted memories frequently resurface during quiet moments or even while he's at work. For instance, the smell of alcohol in a bar can instantly transport him back to that night outside the grocery store. He vividly recalls the attacker’s face and how the cold metal of the weapon pressed against his skin, causing him immense distress. The intensity of these intrusive thoughts has led Mr. Thompson to avoid places associated with the assault. This includes not only the grocery store where it happened but also any nearby areas that remind him of that fateful night. He numbs his feelings by retreating into a detached state, trying hard not to think about what occurred and keeping himself busy at work and home. Mr. Thompson’s sense of self has been deeply affected by this trauma. He feels unrecognizable as the person he once was; the incident has left him with an overwhelming sense that something is fundamentally wrong with him as a human being. This feeling of defectiveness is compounded by his belief that if only he had acted differently, the assault might not have happened. These negative appraisals fuel his intrusive thoughts and make it difficult for Mr. Thompson to find any relief from his distress. He often wonders why he has changed so drastically and how he can ever regain a sense of normalcy in his life. The constant cycle of self-blame and fear of encountering triggers makes him feel trapped, unable to break free from the traumatic experience. In particular, the recurring smell of alcohol reminds Mr. Thompson of the attacker’s presence that night, intensifying his anxiety and compounding his efforts to avoid any such reminders. He has come to believe that going near the scene of the assault would only exacerbate these feelings of inadequacy and self-blame. Consequently, he avoids not just the grocery store but also similar locations where alcohol might be present. The distressing thoughts and avoidance behaviors have begun to impact his work as a salesperson. He has become less engaged in social interactions at client meetings, fearing that any small trigger could send him spiraling back into memories of the assault. This has strained relationships with colleagues and clients alike, leaving him feeling isolated both professionally and personally. Mr. Thompson’s marriage has also suffered as he withdraws emotionally from his wife. She notices that he is less involved in family activities and often preoccupied by thoughts of the past. The emotional distance between them grows each day, adding to Mr. Thompson's sense of isolation and self-doubt. Despite his efforts to manage these overwhelming feelings on his own, the constant reminders and negative self-assessments have become too much for him to bear alone. What finally brought Mr. Thompson to seek help was a recent encounter at a social event where the smell of alcohol triggered a severe panic attack. In that moment, he realized that he could no longer continue living in this state of fear and disconnection. Mr. Thompson hopes that with professional support, he can begin to reclaim his sense of self and find ways to cope with his intrusive thoughts without feeling controlled by them. He is most afraid of losing the person he once was entirely but is also deeply hopeful for a future where he can navigate life’s challenges with greater peace and resilience.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "persona_id": 128,
+  "source_persona_id": 128,
+  "experiment_timestamp": "2026-05-04 01:34:22",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "gpt-oss-20b",
+      "persona_validator": "gpt-oss-20b",
+      "vignette_crafter": "gpt-oss-20b",
+      "vignette_validator": "gpt-oss-20b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 80,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Widowed",
+    "occupation": "Social Worker",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 45
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      },
+      {
+        "key": "Visual (Needles/Medical)",
+        "value": "Medical equipment such as needles or drips"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      },
+      {
+        "key": "Thought Suppression",
+        "value": "I try to push them out of my mind"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Violated Values",
+        "value": "I acted in ways that go against who I am"
+      },
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Helplessness",
+        "value": "I can't stop bad things from happening to me"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.5473,
+    "Triggers -- Negative Appraisals": 0.571,
+    "Negative Appraisals -- Maladaptive Strategies": 0.3304,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.869,
+    "Negative Appraisals -- Triggers": 0.862,
+    "Memory -- Maladaptive Strategies": 0.5358,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.8212,
+    "Memory -- Triggers": 0.4595,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7363,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6369444444444444,
+  "edge_density": 0.45,
+  "vignette_word_count": 773,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Weapons): Weapons or objects used as weapons",
+          "explanation": "For trauma type of a child's life-threatening illness, weapon-related visual triggers are hard to reconcile unless there is additional unreported violent trauma. Hospital smells and loss-related conversations fit, but weapons/object-as-weapon cues are clinically implausible for the same index trauma."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Fear of Harm: You can never know who will harm you",
+          "explanation": "The appraisal 'You can never know who will harm you' implies interpersonal danger/assailant threat, which is poorly matched to the validated trauma of a child's serious illness. This also aligns awkwardly with the rest of the profile, which is otherwise illness/loss/moral injury themed rather than assault-based."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Weapons)"
+        ],
+        "Negative Appraisals": [
+          "Fear of Harm"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "'Intense rage on recall' is hard to reconcile with the rest of this profile for an 80-year-old mother traumatized by a child's life-threatening illness. The other items center on helplessness, permanent change, loss-related and hospital triggers, and intrusive affect without image. Distress, fear, guilt, grief, or sadness would fit more coherently; rage is not impossible, but here it is insufficiently supported by any corresponding appraisal or trigger content and stands out as clinically incongruent."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Face Hiding: cover face with hands",
+          "explanation": "'Cover face with hands' is not well supported as a maladaptive strategy in this profile. The active formulation links maladaptive strategies mainly to negative appraisals and memory, and the other strategies chosen (avoid going out, thought suppression) fit intrusive distress and negative beliefs. Face hiding is more typical of acute shame/panic/social exposure and is not clearly connected to the hospital/loss triggers, intrusive memory pattern, or appraisals provided, making it the least coherent item in this set."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Rage on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Face Hiding"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Lina, an 80‑year‑old woman of Middle Eastern descent, has spent most of her adult life helping others as a social worker in a bustling urban community center. Yet beneath her calm, composed exterior lies a deep‑seated pain that has clung to her for over eight decades. When she was eight, her younger brother, Amir, fell gravely ill with a rare, life‑threatening infection. The family rushed him to a regional hospital, where the sterile antiseptic scent clung to the air, the constant hiss of oxygen tubing, and the rhythmic clink of needles and drips surrounded her. Each of those sounds and smells has become a living trigger. Whenever a friend brings up the loss of a loved one, or a colleague casually mentions a hospital visit, Lina’s senses are flooded with the smell of antiseptic and the visual memory of a bright blue drip set. Those triggers instantly pull her back into the emotional core of that night, a raw, unfiltered feeling that she can’t quite picture but that makes her chest tighten. The more she experiences these triggers, the more she feels her brother’s absence gnaw at her, and she begins to question her own values. Lina tells her therapist that she feels as if she has violated her core principle of being a steady, caring presence for others, because the terror that took her brother’s life has left her with a lingering sense that she is unprepared to help anyone in crisis. The weight of that perceived moral failure settles into her thoughts. She tells herself that she has been forever altered, that the trauma has permanently damaged her ability to support the vulnerable. Each time the hospital scent returns, she is flooded with an uncontrollable surge of grief that overwhelms her, and she pushes those memories out of her mind with a frantic effort to suppress them. In the quiet hours of the night, she lies awake and rehearses a hundred scenarios of failure, trying to keep the memory from intruding. Her avoidance has become a pervasive strategy: she refuses to attend community events outside the center, avoids any conversation about medical care, and steers clear of any ambulance noises or the sight of a new patient arriving. These maladaptive strategies only reinforce her belief that she is helpless and that bad things will inevitably happen to her or to those she loves. The more she steers away from triggers, the more she feels her life is under siege, and the deeper she sinks into helplessness. Her avoidance of hospitals and medical cues, born of negative appraisal, in turn heightens her sensitivity to the very triggers she is trying to escape; the smell of antiseptic becomes a daily reminder of the threat she feels is lurking. When the memories surface again, they do so in waves. At times, Lina hears her brother’s whispered words from the hospital room, and at other moments the memory swells so intensely that she can almost feel the weight of his lungs constricting. The uncontrolled access of these memories makes her fearful of speaking at the community center because she worries the conversation will bring the hospital smell back into her mind. The grief that follows each recall feeds her negative appraisal, making her feel that her values have been broken, that her life has been damaged, and that she is powerless. She believes that her avoidance is the only way to protect herself from the inevitable collapse of her world. In turn, these avoidance behaviors further reinforce her negative appraisal: each time she stays inside the walls of her office, she perceives the world as hostile and threatening, cementing her sense of helplessness. Now, eighty years later, Lina finds herself sitting in her small apartment, her hands trembling as she flips through the pages of her old medical records. She has stopped accepting new clients for several months because the thought of a patient’s arrival triggers an avalanche of pain and guilt. Her marriage, now long ended with a widower, had once been her steady anchor, but the loss of her husband has added a new layer of grief that she can barely articulate. The combination of grief, the memory of her brother’s death, and the fear that her past will dictate her future have finally driven her to seek professional help. Lina’s greatest fear is that if she confronts these memories, the entire fabric of her life will unravel. Yet, at the same time, she clings to the small hope that by sharing her story, she might finally reclaim the sense of agency and value that she feels has been lost for so long."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Lina, an 80‑year‑old woman of Middle Eastern descent, has spent most of her adult life helping others as a social worker in a bustling urban community center. Yet beneath her calm, composed exterior lies a deep‑seated pain that has clung to her for over eight decades. When she was eight, her younger brother, Amir, fell gravely ill with a rare, life‑threatening infection. The family rushed him to a regional hospital, where the sterile antiseptic scent clung to the air, the constant hiss of oxygen tubing, and the rhythmic clink of needles and drips surrounded her. Each of those sounds and smells has become a living trigger. Whenever a friend brings up the loss of a loved one, or a colleague casually mentions a hospital visit, Lina’s senses are flooded with the smell of antiseptic and the visual memory of a bright blue drip set. Those triggers instantly pull her back into the emotional core of that night, a raw, unfiltered feeling that she can’t quite picture but that makes her chest tighten. The more she experiences these triggers, the more she feels her brother’s absence gnaw at her, and she begins to question her own values. Lina tells her therapist that she feels as if she has violated her core principle of being a steady, caring presence for others, because the terror that took her brother’s life has left her with a lingering sense that she is unprepared to help anyone in crisis. The weight of that perceived moral failure settles into her thoughts. She tells herself that she has been forever altered, that the trauma has permanently damaged her ability to support the vulnerable. Each time the hospital scent returns, she is flooded with an uncontrollable surge of grief that overwhelms her, and she pushes those memories out of her mind with a frantic effort to suppress them. In the quiet hours of the night, she lies awake and rehearses a hundred scenarios of failure, trying to keep the memory from intruding. Her avoidance has become a pervasive strategy: she refuses to attend community events outside the center, avoids any conversation about medical care, and steers clear of any ambulance noises or the sight of a new patient arriving. These maladaptive strategies only reinforce her belief that she is helpless and that bad things will inevitably happen to her or to those she loves. The more she steers away from triggers, the more she feels her life is under siege, and the deeper she sinks into helplessness. Her avoidance of hospitals and medical cues, born of negative appraisal, in turn heightens her sensitivity to the very triggers she is trying to escape; the smell of antiseptic becomes a daily reminder of the threat she feels is lurking. When the memories surface again, they do so in waves. At times, Lina hears her brother’s whispered words from the hospital room, and at other moments the memory swells so intensely that she can almost feel the weight of his lungs constricting. The uncontrolled access of these memories makes her fearful of speaking at the community center because she worries the conversation will bring the hospital smell back into her mind. The grief that follows each recall feeds her negative appraisal, making her feel that her values have been broken, that her life has been damaged, and that she is powerless. She believes that her avoidance is the only way to protect herself from the inevitable collapse of her world. In turn, these avoidance behaviors further reinforce her negative appraisal: each time she stays inside the walls of her office, she perceives the world as hostile and threatening, cementing her sense of helplessness. Now, eighty years later, Lina finds herself sitting in her small apartment, her hands trembling as she flips through the pages of her old medical records. She has stopped accepting new clients for several months because the thought of a patient’s arrival triggers an avalanche of pain and guilt. Her marriage, now long ended with a widower, had once been her steady anchor, but the loss of her husband has added a new layer of grief that she can barely articulate. The combination of grief, the memory of her brother’s death, and the fear that her past will dictate her future have finally driven her to seek professional help. Lina’s greatest fear is that if she confronts these memories, the entire fabric of her life will unravel. Yet, at the same time, she clings to the small hope that by sharing her story, she might finally reclaim the sense of agency and value that she feels has been lost for so long.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,193 @@
+PERSONA 458  |  2026-05-03 13:03:42
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen2.5-32b
+    persona_crafter      qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             30
+  gender          Female
+  ethnicity       African
+  relationship_status Married
+  occupation      School Counselor
+  trauma_type     Police
+  pcl5            63
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Feeling Tired: Feeling very tired or exhausted
+    • Auditory (Loud Noises): Loud noises
+    • Olfactory (Alcohol): Alcohol smell
+  Maladaptive Strategies:
+    • Avoid Emotional Stress: Situations that make me feel strong emotions
+    • Avoid Positive Events: Situations that might make me feel happy or hopeful
+    • Avoid People: avoid other people
+  Threat:
+    • Threat in Movements: Sudden movements by others put me immediately on guard
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+  Negative Appraisals:
+    • Defective Self: There is something wrong with me as a person
+    • Isolation: I feel isolated and set apart from others
+    • Self-Blame: The event happened because of the way I acted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.7176
+  Negative Appraisals → Threat                       0.3927
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.5499
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.8949
+  Maladaptive Strategies → Triggers                  0.2372
+  Maladaptive Strategies → Threat                    0.0454
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Driving with Others
+    explanation: The transport-related content is not clinically well anchored to the rest of the profile. 'Driving with Others' and 'Avoid Public Transport' imply a prominent transport/travel trigger-avoidance pattern, but the Threat and Negative Appraisal items are centered on hypervigilance to others' movements, interpersonal danger, shame, and isolation rather than transport-specific trauma meanings. That mismatch is hard to explain as the same dominant self-report profile for a police-related trauma.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Public Transport
+    explanation: The trigger node is also weakly integrated in the formulation: Triggers has no active links to Threat, Negative Appraisals, or Memory. Given that, the selected trigger content should not imply a strong specific threat pathway that is absent elsewhere. The transport-specific trigger/avoidance pair suggests a major cue-threat connection that is not reflected in the formulation or other nodes.
+  [2] FAIL
+    item:        Triggers / Triggers: Perceived Threat: People acting suspiciously
+    explanation: The trigger item 'people acting suspiciously' implies a socially interpreted cue linked to hostile intent, but the threat items are dominated by non-social movement sensitivity ('unexpected movement', 'sudden movements'). That pattern is not impossible, but here the trigger-threat pairing is weakly coherent because the formulation does not support a strong Triggers → Threat linkage, and the selected trigger does not clearly connect to the specific threat content endorsed.
+    item:        Threat / Threat: Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+    explanation: The two threat items form a tight cluster around hypervigilance to sudden movement, which is coherent for police-related trauma. However, pairing them with 'risky behavior' pulls the threat node in the opposite direction: immediate danger sensitivity and exaggerated guard are difficult to reconcile with concurrent high-risk behavior unless there is other profile content explaining impulsive disinhibition, which is absent here.
+    item:        Maladaptive Strategies / Threat: Threat in Movements: Sudden movements by others put me immediately on guard
+    explanation: 'Avoid positive events' is not well supported by the rest of the profile. The negative appraisals emphasize defectiveness, isolation, and loss of community, and the threat items emphasize movement-based danger. Avoiding emotionally stressful situations and other people fits that pattern, but avoiding potentially happy or hopeful situations introduces a different process without corresponding appraisal or memory content to explain it.
+  [3] FAIL
+    item:        Threat / Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm
+    explanation: 'Risky Behavior' is difficult to reconcile with the rest of the profile, which is otherwise dominated by fear, hypervigilance, avoidance, and social withdrawal. In this configuration it points in the opposite direction from the threat system described by the other items and lacks support from the maladaptive-strategy items.
+    item:        Negative Appraisals / Negative Appraisals: Lost Community: I have lost my connection to my community and culture
+    explanation: 'Lost Community' is not impossible, but it is weakly integrated with the rest of the profile. The other appraisal items center on personal defectiveness and interpersonal isolation, while no other trigger, memory, threat, or coping item reflects community/cultural disruption specifically after police trauma.
+    item:        Triggers / Triggers: Tactile (Touch): Physical touch
+    explanation: 'Physical touch' as a trigger is not impossible, but here it is less well connected to the rest of the selected items than loud noises and sudden movements. The remainder of the profile suggests a police-related threat theme centered on vigilance to environmental danger rather than touch-specific trauma cues.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Aisha is a 30-year-old African woman who works as a school counselor and is married. Her trauma
+stems from a violent encounter with police during which she was wrongfully arrested and falsely
+accused of a crime she did not commit. The event has left her feeling deeply traumatized, with
+lingering symptoms that have significantly impacted her daily life. On the night of the traumatic
+event, Aisha was returning home after attending a community meeting when she was suddenly surrounded
+by officers who believed she matched the description of a suspect in an unrelated incident. Despite
+her protests and attempts to clarify her identity, the situation escalated rapidly as she was
+forcefully restrained and taken into custody. The experience left her feeling violated and wronged,
+convinced that there must be something fundamentally flawed about herself for this event to have
+occurred. Since then, Aisha has found herself increasingly on edge, particularly when she feels
+tired or exhausted, which often happens after a long day at work. She is hyperalert to loud noises
+and the smell of alcohol, both of which remind her of that night. The smell of alcohol, in
+particular, triggers vivid flashbacks of the officers’ presence and their aggressive demeanor. The
+event has also led Aisha to develop a deep sense of isolation and self-blame. She believes that if
+she had acted differently or been more cautious, none of this would have happened. This belief has
+driven her to adopt maladaptive strategies such as avoiding situations where she might feel strong
+emotions, including positive ones. For instance, she often declines invitations to social gatherings
+with colleagues and avoids attending community events where she feels vulnerable. Aisha's avoidance
+behaviors are partly rooted in her negative appraisals of herself. She had come to believe that
+there is something wrong with her as a person, leading her to feel isolated and set apart from
+others. This sense of defectiveness has fueled her hypervigilance and fear, making it difficult for
+her to relax even when she knows she is in a safe place. One particularly challenging aspect of
+Aisha’s life has been her occupation as a school counselor. She finds herself constantly on guard
+during interactions with students and colleagues, often avoiding eye contact or becoming overly
+cautious around sudden movements by others. These behaviors have strained some relationships at
+work, leading to misunderstandings and a feeling that she is not fully present in her role. Aisha’s
+hypervigilance has also extended into her personal life, where she is hyperalert to any potential
+signs of danger. She often feels isolated from her husband, who finds it difficult to understand the
+depth of her fears and how they affect their relationship. The cycle of negative appraisals and
+maladaptive strategies has become self-reinforcing over time. For example, Aisha’s belief that she
+is defective as a person leads her to avoid emotionally charged situations, which in turn reinforces
+her sense of isolation and self-blame. This avoidance also amplifies her triggers and increases her
+hypervigilance. It was the cumulative impact on her work and personal life that finally pushed Aisha
+to seek help. She is most afraid of being trapped in this cycle indefinitely, feeling disconnected
+from those around her and unable to fully engage with her role as a school counselor or with her
+family. What she hopes for is finding a way to break free from these patterns and regain a sense of
+control over her life. Aisha’s journey towards recovery begins with understanding the roots of her
+negative appraisals and how they drive her maladaptive strategies, ultimately reinforcing her
+hypervigilance and isolation. Through therapy, she aims to build resilience and find ways to cope
+with her triggers without compromising her ability to connect with others and fulfill her
+professional responsibilities.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Aisha is a 30-year-old African woman who works as a school counselor and is married. Her trauma
+stems from a violent encounter with police during which she was wrongfully arrested and falsely
+accused of a crime she did not commit. The event has left her feeling deeply traumatized, with
+lingering symptoms that have significantly impacted her daily life. On the night of the traumatic
+event, Aisha was returning home after attending a community meeting when she was suddenly surrounded
+by officers who believed she matched the description of a suspect in an unrelated incident. Despite
+her protests and attempts to clarify her identity, the situation escalated rapidly as she was
+forcefully restrained and taken into custody. The experience left her feeling violated and wronged,
+convinced that there must be something fundamentally flawed about herself for this event to have
+occurred. Since then, Aisha has found herself increasingly on edge, particularly when she feels
+tired or exhausted, which often happens after a long day at work. She is hyperalert to loud noises
+and the smell of alcohol, both of which remind her of that night. The smell of alcohol, in
+particular, triggers vivid flashbacks of the officers’ presence and their aggressive demeanor. The
+event has also led Aisha to develop a deep sense of isolation and self-blame. She believes that if
+she had acted differently or been more cautious, none of this would have happened. This belief has
+driven her to adopt maladaptive strategies such as avoiding situations where she might feel strong
+emotions, including positive ones. For instance, she often declines invitations to social gatherings
+with colleagues and avoids attending community events where she feels vulnerable. Aisha's avoidance
+behaviors are partly rooted in her negative appraisals of herself. She had come to believe that
+there is something wrong with her as a person, leading her to feel isolated and set apart from
+others. This sense of defectiveness has fueled her hypervigilance and fear, making it difficult for
+her to relax even when she knows she is in a safe place. One particularly challenging aspect of
+Aisha’s life has been her occupation as a school counselor. She finds herself constantly on guard
+during interactions with students and colleagues, often avoiding eye contact or becoming overly
+cautious around sudden movements by others. These behaviors have strained some relationships at
+work, leading to misunderstandings and a feeling that she is not fully present in her role. Aisha’s
+hypervigilance has also extended into her personal life, where she is hyperalert to any potential
+signs of danger. She often feels isolated from her husband, who finds it difficult to understand the
+depth of her fears and how they affect their relationship. The cycle of negative appraisals and
+maladaptive strategies has become self-reinforcing over time. For example, Aisha’s belief that she
+is defective as a person leads her to avoid emotionally charged situations, which in turn reinforces
+her sense of isolation and self-blame. This avoidance also amplifies her triggers and increases her
+hypervigilance. It was the cumulative impact on her work and personal life that finally pushed Aisha
+to seek help. She is most afraid of being trapped in this cycle indefinitely, feeling disconnected
+from those around her and unable to fully engage with her role as a school counselor or with her
+family. What she hopes for is finding a way to break free from these patterns and regain a sense of
+control over her life. Aisha’s journey towards recovery begins with understanding the roots of her
+negative appraisals and how they drive her maladaptive strategies, ultimately reinforcing her
+hypervigilance and isolation. Through therapy, she aims to build resilience and find ways to cope
+with her triggers without compromising her ability to connect with others and fulfill her
+professional responsibilities.

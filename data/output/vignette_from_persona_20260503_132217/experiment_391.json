@@ -1,0 +1,196 @@
+{
+  "persona_id": 391,
+  "source_persona_id": 391,
+  "experiment_timestamp": "2026-05-03 22:11:14",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 60,
+    "gender": "Male",
+    "ethnicity": "South Eastern Asian",
+    "relationship_status": "Married",
+    "occupation": "Fisherman",
+    "trauma_type": "Trauma to a loved one",
+    "pcl5": 40
+  },
+  "self_report": {
+    "Threat": [
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      },
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      },
+      {
+        "key": "Sleep Problems",
+        "value": "Trouble falling or staying asleep"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      },
+      {
+        "key": "Emotional Numbness",
+        "value": "I feel dead inside"
+      },
+      {
+        "key": "Survival Guilt",
+        "value": "I feel guilty for surviving when others did not"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0241,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.3355,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Threat",
+    "Threat → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Threat",
+    "Threat → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.17980000000000002,
+  "edge_density": 0.1,
+  "vignette_word_count": 584,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Physical Vulnerability: My body has been permanently damaged by what happened",
+          "explanation": "For trauma to a loved one, the appraisal that the patient's own body has been permanently damaged is hard to reconcile unless the patient was also directly physically injured; that direct-injury theme is not supported elsewhere in the profile."
+        },
+        {
+          "component": "Threat",
+          "item": "Back to Wall: I feel unsafe unless my back is against a wall where I can see the room",
+          "explanation": "Threat items center on personal physical danger and hypervigilance in the environment ('back to wall', exaggerated startle), which fits direct personal assault/combat trauma more than trauma to a loved one, and is not well linked to the reported appraisal content."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Physical Vulnerability"
+        ],
+        "Threat": [
+          "Back to Wall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Sleep Vigilance: I have difficulty falling asleep because I need to stay alert",
+          "explanation": "For trauma to a loved one, this item implies an ongoing need to guard against immediate external danger to oneself. That does not fit well with the rest of the profile, which centers on bereavement-related cognitions (survival guilt, numbness) rather than personal threat exposure. It is also weakly aligned with the formulation, where Threat is linked mainly with Negative Appraisals and not with trigger-driven hyperarousal or ongoing danger monitoring."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Sleep Vigilance"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Startle to Sounds",
+          "explanation": "The threat items are dominated by nonspecific hyperarousal and reminder reactivity, which usually implies trigger-linked activation, but the formulation specifies Triggers → Threat as inactive. With no trigger content present, 'physical reactions when reminded' is poorly aligned with the stated formulation structure."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Threat: Physical Reactivity",
+          "explanation": "'Mistrust: People can't be trusted' is a broad interpersonal appraisal that is not well anchored to trauma to a loved one in the rest of this profile. The other appraisal items center on guilt and emotional deadness, but pervasive mistrust suggests a different trauma pattern and lacks support from the selected threat items."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Startle to Sounds"
+        ],
+        "Negative Appraisals": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "The gale came without warning three years ago, turning the Atlantic into a churning wall of black water. Kiet was on the bow of the trawler, hauling heavy nets, when the deck pitched violently. He turned to shout to his younger brother, Tien, but a rogue wave swallowed the starboard rail where Tien had been securing a winch. The radio crackled with static before the vessel listed hard. Kiet clawed his way to the wheelhouse, his lungs burning with salt and diesel fumes, while the men below were lost to the sea. He had been on the bridge when the others went under, and that uneven placement became a quiet, unshakable weight in his chest. In the months that followed, the ocean never felt the same. On the water, Kiet worked the winches and mended line with mechanical precision, but his body stayed braced for the next crash. A sudden jolt of the hull would send a jarring tremor through his shoulders; a coiled rope on deck would make his pulse hammer against his ribs as if he were already being dragged under. Nights were worse. He lay awake in his marriage bed, listening to the wind strike the siding, his mind replaying the exact moment the deck tilted. He stopped sleeping through the night, waking instead with a dry mouth and a chest tight with unspoken horror and shame. His quiet certainty that he was fundamentally separate from everyone else, and that people simply could not be trusted to keep the vessel steady, turned every ordinary sound into a physical alarm. Because he believed the world was unsafe and his own survival was an unearned accident, his body reacted to the water, the salt, and the sudden calls of his crew with immediate, violent readiness. The appraisal that he was alone in his guilt had already lit the fuse, so when the diesel engine sputtered or a deckhand laughed too loudly near the rail, his stomach dropped and his breath shallowed instantly, as though the past were pressing against his skin. Over time, the physical toll rewired how he read the world. Every time the hull groaned or a neighbor leaned too close to ask about the catch, Kiet’s heart would kick hard against his sternum, and a cold wave of fear would pool in his gut. That relentless physical alarm taught him what to believe. He began to view his wife’s quiet evenings as distant, as though separated by thick glass, and the constant bodily vigilance convinced him that the past was still happening, that survival was a mistake, and that reaching out would only invite sudden losses. He drifted into a hollow stillness, moving through his routines like a man wading through deep water, while the guilt of living when Tien did not settled heavier on his shoulders. Now, at sixty, Kiet still runs the early morning departures, but he keeps the wheelhouse door shut and avoids the lower deck after dusk. What finally brought him to the clinic was the way his hands shook so badly he dropped a spool of line during Sunday service, followed by a week of waking before dawn with his throat tight and his mind braced for a storm that never broke. He told his wife he was coming for answers, though his real fear was that the water would never stop rising. He hoped, quietly, to find a way to step back onto solid ground without feeling like a fraud for still being here."
+,
+
+  "vignette_attempts": [
+    {"vignette": "The gale came without warning three years ago, turning the Atlantic into a churning wall of black water. Kiet was on the bow of the trawler, hauling heavy nets, when the deck pitched violently. He turned to shout to his younger brother, Tien, but a rogue wave swallowed the starboard rail where Tien had been securing a winch. The radio crackled with static before the vessel listed hard. Kiet clawed his way to the wheelhouse, his lungs burning with salt and diesel fumes, while the men below were lost to the sea. He had been on the bridge when the others went under, and that uneven placement became a quiet, unshakable weight in his chest. In the months that followed, the ocean never felt the same. On the water, Kiet worked the winches and mended line with mechanical precision, but his body stayed braced for the next crash. A sudden jolt of the hull would send a jarring tremor through his shoulders; a coiled rope on deck would make his pulse hammer against his ribs as if he were already being dragged under. Nights were worse. He lay awake in his marriage bed, listening to the wind strike the siding, his mind replaying the exact moment the deck tilted. He stopped sleeping through the night, waking instead with a dry mouth and a chest tight with unspoken horror and shame. His quiet certainty that he was fundamentally separate from everyone else, and that people simply could not be trusted to keep the vessel steady, turned every ordinary sound into a physical alarm. Because he believed the world was unsafe and his own survival was an unearned accident, his body reacted to the water, the salt, and the sudden calls of his crew with immediate, violent readiness. The appraisal that he was alone in his guilt had already lit the fuse, so when the diesel engine sputtered or a deckhand laughed too loudly near the rail, his stomach dropped and his breath shallowed instantly, as though the past were pressing against his skin. Over time, the physical toll rewired how he read the world. Every time the hull groaned or a neighbor leaned too close to ask about the catch, Kiet’s heart would kick hard against his sternum, and a cold wave of fear would pool in his gut. That relentless physical alarm taught him what to believe. He began to view his wife’s quiet evenings as distant, as though separated by thick glass, and the constant bodily vigilance convinced him that the past was still happening, that survival was a mistake, and that reaching out would only invite sudden losses. He drifted into a hollow stillness, moving through his routines like a man wading through deep water, while the guilt of living when Tien did not settled heavier on his shoulders. Now, at sixty, Kiet still runs the early morning departures, but he keeps the wheelhouse door shut and avoids the lower deck after dusk. What finally brought him to the clinic was the way his hands shook so badly he dropped a spool of line during Sunday service, followed by a week of waking before dawn with his throat tight and his mind braced for a storm that never broke. He told his wife he was coming for answers, though his real fear was that the water would never stop rising. He hoped, quietly, to find a way to step back onto solid ground without feeling like a fraud for still being here.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

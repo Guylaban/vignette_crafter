@@ -28,6 +28,11 @@ def main():
         default=None,
         help="Pipeline to run (overrides pipeline in YAML): vignette_full, vignette_from_persona, zero_shot, ...",
     )
+    parser.add_argument(
+        "--output-dir", "-o",
+        default=None,
+        help="Write results into this existing directory instead of creating a new timestamped one.",
+    )
     args = parser.parse_args()
 
     with open(args.config, encoding="utf-8") as f:
@@ -36,9 +41,12 @@ def main():
     sim  = cfg["simulation"]
     models = cfg["models"]
 
-    timestamp    = datetime.now().strftime("%Y%m%d_%H%M%S")
-    pipeline     = args.pipeline or sim.get("pipeline", "vignette")
-    experiment_dir = Path("data/output") / f"{pipeline}_{timestamp}"
+    pipeline = args.pipeline or sim.get("pipeline", "vignette")
+    if args.output_dir:
+        experiment_dir = Path(args.output_dir)
+    else:
+        timestamp      = datetime.now().strftime("%Y%m%d_%H%M%S")
+        experiment_dir = Path("data/output") / f"{pipeline}_{timestamp}"
     experiment_dir.mkdir(parents=True, exist_ok=True)
 
     setup_logging(experiment_dir)

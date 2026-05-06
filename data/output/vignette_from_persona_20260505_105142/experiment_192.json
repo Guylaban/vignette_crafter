@@ -1,0 +1,242 @@
+{
+  "persona_id": 192,
+  "source_persona_id": 192,
+  "experiment_timestamp": "2026-05-05 23:42:48",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "llama3.1-70b",
+      "persona_validator": "llama3.1-70b",
+      "vignette_crafter": "llama3.1-70b",
+      "vignette_validator": "llama3.1-70b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 57,
+    "gender": "Female",
+    "ethnicity": "Latin American",
+    "relationship_status": "Divorced",
+    "occupation": "Physical Therapist",
+    "trauma_type": "Natural disaster",
+    "pcl5": 39
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Somatic (Nausea)",
+        "value": "Feeling nauseous"
+      },
+      {
+        "key": "Name Reminders",
+        "value": "Hearing related names"
+      },
+      {
+        "key": "Visual (Water/Flooding)",
+        "value": "Water, flooding, or large bodies of water"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Dissociate Deliberately",
+        "value": "deliberately try to leave my body or blank out"
+      },
+      {
+        "key": "Past Dwelling",
+        "value": "I dwell on how I used to be before the event"
+      },
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Sleep Problems",
+        "value": "Trouble falling or staying asleep"
+      },
+      {
+        "key": "Safe Zone Only",
+        "value": "I only feel safe in a very limited number of places"
+      },
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Memory Feels Alien",
+        "value": "The memory feels like it belongs to someone else rather than to me"
+      },
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.8718,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.3701,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.2099,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.8365,
+    "Maladaptive Strategies -- Memory": 0.2939,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.2734,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4759333333333333,
+  "edge_density": 0.3,
+  "vignette_word_count": 544,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Uniforms): Military or police uniforms",
+          "explanation": "For a natural-disaster trauma, military/police uniforms are not a plausible primary trigger unless there is additional trauma context; this item points to an interpersonal/authority-related trauma theme not represented elsewhere."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Name Reminders: Hearing related names",
+          "explanation": "'Hearing related names' is hard to reconcile with natural disaster as the index trauma unless a specific deceased/injured person is central, which is not supported by the rest of the profile."
+        },
+        {
+          "component": "Memory",
+          "item": "Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "Listening for someone entering the home implies an interpersonal intruder/assailant threat rather than disaster-related danger, creating a cross-node mismatch with the trauma type and trigger/memory content."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Threat: Safe Zone Only: I only feel safe in a very limited number of places",
+          "explanation": "Feeling safe only in a very limited number of places can occur in PTSD, but here it clusters with home-intruder monitoring and touch avoidance into an interpersonal-danger profile that is poorly matched to natural disaster trauma."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Uniforms)"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Memory": [
+          "Threat"
+        ],
+        "Maladaptive Strategies": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "The threat item implies fear of an intruder or interpersonal attack in the home, which is hard to reconcile with a natural-disaster trauma profile. With flooding/water triggers present, the expected threat would be environmental danger rather than someone entering the home."
+        },
+        {
+          "component": "Memory",
+          "item": "Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Intense shame on recall is not impossible after a natural disaster, but here it lacks support from the rest of the profile: there are no negative-appraisal items about personal blame, humiliation, or moral failure that would make shame a coherent central memory response."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Being Touched: Any form of physical contact with others",
+          "explanation": "Avoiding all physical contact is more characteristic of interpersonal trauma and is not clinically well linked to the reported disaster-related triggers and memory items. It addresses a symptom domain not otherwise represented in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Intrusion Monitoring"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Being Touched"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Anaís had always been drawn to the water's edge, finding solace in the rhythmic lapping of waves against the shore. But that was before Hurricane María ravaged her hometown in Puerto Rico, leaving devastation and loss in its wake. The storm surge had inundated her family's home, sweeping away cherished possessions and memories. Anaís, then a physical therapist, had been forced to flee with her children, watching in horror as their community was reduced to rubble. In the years since, Anaís's relationship with water had changed irrevocably. The mere sight of it – whether on television, in photographs, or even in the form of a glassy lake – made her stomach roil with nausea. She'd catch herself dwelling on memories of how she used to be before the storm: carefree, spontaneous, and always ready to take on new challenges. Now, those same memories felt alien, as if they belonged to someone else entirely. The grief that welled up when she recalled the event was crushing, making it hard for her to breathe. As a physical therapist, Anaís had always prided herself on her ability to stay present and focused. But after María, she found herself dissociating from her body during sessions with patients – deliberately \"leaving\" her physical form as if it were a fragile shell that might shatter under stress. This coping mechanism allowed her to temporarily escape the memories that threatened to overwhelm her. However, it also meant that she struggled to connect with her patients on a deeper level, fearing that their own traumas would trigger her own. Avoiding social gatherings and public places became a matter of self-preservation for Anaís. The sounds of laughter, music, or even everyday conversation seemed amplified, setting off alarms in her mind and sending her heart racing. She'd become hyper-vigilant, constantly scanning her surroundings for signs of danger – even in the safety of her own home. As a result, she only felt truly secure within a narrow radius: her bedroom, with its blackout curtains and earplugs, became her safe zone. Hearing names that reminded her of people from her past – friends, family members, or acquaintances lost to the storm – was enough to send Anaís tumbling back into memories she'd rather forget. It was as if those names unlocked a floodgate, releasing emotions and sensations that she'd thought were long buried. In those moments, her mind would go blank, leaving only the echoes of what had been – a past that refused to stay buried. Despite her best efforts to avoid it, Anaís couldn't shake off the feeling that danger lurked around every corner. Her sleep grew fitful and fragmented, with nightmares that left her gasping for air. Even in the stillness of night, she'd lie awake, listening for the sound of rain or wind – anything that might signal another disaster on the horizon. Anaís knew she needed help to break free from this cycle of avoidance and hypervigilance. But what terrified her most was losing control entirely – surrendering to the memories and emotions she'd kept at bay for so long. As she began seeking therapy, Anaís couldn't shake off the feeling that she was standing on shaky ground, with the waters of her past threatening to consume her once more."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Anaís had always been drawn to the water's edge, finding solace in the rhythmic lapping of waves against the shore. But that was before Hurricane María ravaged her hometown in Puerto Rico, leaving devastation and loss in its wake. The storm surge had inundated her family's home, sweeping away cherished possessions and memories. Anaís, then a physical therapist, had been forced to flee with her children, watching in horror as their community was reduced to rubble. In the years since, Anaís's relationship with water had changed irrevocably. The mere sight of it – whether on television, in photographs, or even in the form of a glassy lake – made her stomach roil with nausea. She'd catch herself dwelling on memories of how she used to be before the storm: carefree, spontaneous, and always ready to take on new challenges. Now, those same memories felt alien, as if they belonged to someone else entirely. The grief that welled up when she recalled the event was crushing, making it hard for her to breathe. As a physical therapist, Anaís had always prided herself on her ability to stay present and focused. But after María, she found herself dissociating from her body during sessions with patients – deliberately \"leaving\" her physical form as if it were a fragile shell that might shatter under stress. This coping mechanism allowed her to temporarily escape the memories that threatened to overwhelm her. However, it also meant that she struggled to connect with her patients on a deeper level, fearing that their own traumas would trigger her own. Avoiding social gatherings and public places became a matter of self-preservation for Anaís. The sounds of laughter, music, or even everyday conversation seemed amplified, setting off alarms in her mind and sending her heart racing. She'd become hyper-vigilant, constantly scanning her surroundings for signs of danger – even in the safety of her own home. As a result, she only felt truly secure within a narrow radius: her bedroom, with its blackout curtains and earplugs, became her safe zone. Hearing names that reminded her of people from her past – friends, family members, or acquaintances lost to the storm – was enough to send Anaís tumbling back into memories she'd rather forget. It was as if those names unlocked a floodgate, releasing emotions and sensations that she'd thought were long buried. In those moments, her mind would go blank, leaving only the echoes of what had been – a past that refused to stay buried. Despite her best efforts to avoid it, Anaís couldn't shake off the feeling that danger lurked around every corner. Her sleep grew fitful and fragmented, with nightmares that left her gasping for air. Even in the stillness of night, she'd lie awake, listening for the sound of rain or wind – anything that might signal another disaster on the horizon. Anaís knew she needed help to break free from this cycle of avoidance and hypervigilance. But what terrified her most was losing control entirely – surrendering to the memories and emotions she'd kept at bay for so long. As she began seeking therapy, Anaís couldn't shake off the feeling that she was standing on shaky ground, with the waters of her past threatening to consume her once more.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

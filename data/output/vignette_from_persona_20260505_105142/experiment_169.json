@@ -1,0 +1,214 @@
+{
+  "persona_id": 169,
+  "source_persona_id": 169,
+  "experiment_timestamp": "2026-05-05 22:11:08",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "llama3.1-70b",
+      "persona_validator": "llama3.1-70b",
+      "vignette_crafter": "llama3.1-70b",
+      "vignette_validator": "llama3.1-70b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 38,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Teacher",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 56
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Crowding",
+        "value": "Crowded places"
+      },
+      {
+        "key": "Driving with Others",
+        "value": "Driving with people"
+      },
+      {
+        "key": "Auditory (Loud Noises)",
+        "value": "Loud noises"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Faces",
+        "value": "I study people's faces and body language to detect if they are a threat"
+      },
+      {
+        "key": "Scanning Exits",
+        "value": "I scan for exits as soon as I enter any room or building"
+      },
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Taste Vividness",
+        "value": "I can taste what I tasted during the event when the memory returns"
+      },
+      {
+        "key": "Full Sensory Reliving",
+        "value": "When the memory comes back it feels completely real across all my senses at once"
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Institutional Failure",
+        "value": "The people or institutions that should have protected me let me down"
+      },
+      {
+        "key": "Injustice",
+        "value": "What happened to me was deeply unfair and nothing has been done about it"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.7688,
+    "Triggers -- Negative Appraisals": 0.1036,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.8737,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.3081,
+    "Memory -- Negative Appraisals": 0.6915,
+    "Memory -- Triggers": 0.5842,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.523,
+    "Threat -- Triggers": 0.4901,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.542875,
+  "edge_density": 0.4,
+  "vignette_word_count": 544,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Explosion): Explosion or bang sounds",
+          "explanation": "For a mugging/robbery trauma, 'explosion or bang sounds' is a poor fit unless there was a firearm discharge or similar blast-like cue; nothing else in the profile suggests that context, so this trigger is clinically hard to reconcile with the trauma type and the rest of the selected items."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Lost Community: I have lost my connection to my community and culture",
+          "explanation": "'I have lost my connection to my community and culture' is difficult to justify from the rest of this profile for an adult European married teacher after a mugging/robbery. The other appraisals focus on self-blame/institutional failure, but this item implies a broader cultural/community rupture that is not supported by the trauma type, demographics, or other nodes."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Explosion)"
+        ],
+        "Negative Appraisals": [
+          "Lost Community"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "For a mugging/robbery trauma, the profile otherwise centers on external danger, sensory reliving, and mistrust/injustice. 'Violated Values' implies the patient did something morally incongruent during the event, but there are no accompanying memory, threat, trigger, or strategy items suggesting perpetration, betrayal of others, failure to act, or shame-based self-condemnation. In this profile it stands apart from the rest of the formulation and is the least clinically coherent item."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Violated Values"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Kai had always loved teaching, but since the mugging six months ago, his enthusiasm had begun to wane. He remembered the night vividly – the sound of footsteps behind him on the deserted street, the hand clamping over his mouth, and the smell of sweat as he was dragged into an alleyway. The experience left him shaken, and certain aspects of it lingered in his mind like a shadow. Whenever Kai found himself in crowded places, like the school's staff room or the local shopping center, he couldn't help but feel on edge. The proximity of strangers made him anxious, as if any one of them could be a threat waiting to strike. One particular sound – loud noises – was especially triggering; it instantly transported him back to that night in the alleyway. He would taste the metallic flavor of fear and adrenaline all over again, and his mind would relive the entire ordeal with vivid clarity. The memories came unbidden, forcing their way into his consciousness like an unwelcome guest. As Kai struggled to make sense of what had happened, he began to feel a growing sense of injustice and disillusionment. He couldn't shake the feeling that the authorities had failed him, that they should have been able to prevent such a violent crime from occurring in the first place. This perception of institutional failure fueled his conviction that the world was a fundamentally dangerous place – and that he needed to be constantly on guard. Kai's hypervigilance became more pronounced as time went by. He started scanning for exits whenever he entered a room, habitually studying people's faces and body language to detect potential threats. Even driving with his wife or friends became an ordeal; the presence of others in the car made him feel trapped and vulnerable. The sound of screeching tires or loud honking would send his heart racing, as if he were back in that alleyway again. As Kai's memories continued to haunt him, they only served to reinforce his negative appraisals. He became increasingly convinced that he lived in a world without safety nets – where anyone could fall victim to violence at any moment. This fear was self-perpetuating; it led him to perceive threats everywhere, even when none existed. The sound of footsteps or rustling leaves outside his classroom door would send him into high alert, as if the mugger had somehow managed to follow him. Kai's relationships began to suffer as a result of his growing paranoia and withdrawal. His wife grew concerned about his increasing irritability and avoidance behaviors. He stopped attending social gatherings, fearing that crowded spaces would trigger another flashback. Even simple tasks like grocery shopping became daunting ordeals, as he struggled to navigate through throngs of people without feeling overwhelmed. It was this sense of being trapped in a never-ending cycle of fear and hypervigilance that finally prompted Kai to seek help. He realized that his life had become unmanageable – and that the memories of that night were still dictating his every move, six months on. As he sat in the therapist's office, he couldn't help but wonder if it was possible to break free from this self-reinforcing cycle, and learn to live with a sense of security once more."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Kai had always loved teaching, but since the mugging six months ago, his enthusiasm had begun to wane. He remembered the night vividly – the sound of footsteps behind him on the deserted street, the hand clamping over his mouth, and the smell of sweat as he was dragged into an alleyway. The experience left him shaken, and certain aspects of it lingered in his mind like a shadow. Whenever Kai found himself in crowded places, like the school's staff room or the local shopping center, he couldn't help but feel on edge. The proximity of strangers made him anxious, as if any one of them could be a threat waiting to strike. One particular sound – loud noises – was especially triggering; it instantly transported him back to that night in the alleyway. He would taste the metallic flavor of fear and adrenaline all over again, and his mind would relive the entire ordeal with vivid clarity. The memories came unbidden, forcing their way into his consciousness like an unwelcome guest. As Kai struggled to make sense of what had happened, he began to feel a growing sense of injustice and disillusionment. He couldn't shake the feeling that the authorities had failed him, that they should have been able to prevent such a violent crime from occurring in the first place. This perception of institutional failure fueled his conviction that the world was a fundamentally dangerous place – and that he needed to be constantly on guard. Kai's hypervigilance became more pronounced as time went by. He started scanning for exits whenever he entered a room, habitually studying people's faces and body language to detect potential threats. Even driving with his wife or friends became an ordeal; the presence of others in the car made him feel trapped and vulnerable. The sound of screeching tires or loud honking would send his heart racing, as if he were back in that alleyway again. As Kai's memories continued to haunt him, they only served to reinforce his negative appraisals. He became increasingly convinced that he lived in a world without safety nets – where anyone could fall victim to violence at any moment. This fear was self-perpetuating; it led him to perceive threats everywhere, even when none existed. The sound of footsteps or rustling leaves outside his classroom door would send him into high alert, as if the mugger had somehow managed to follow him. Kai's relationships began to suffer as a result of his growing paranoia and withdrawal. His wife grew concerned about his increasing irritability and avoidance behaviors. He stopped attending social gatherings, fearing that crowded spaces would trigger another flashback. Even simple tasks like grocery shopping became daunting ordeals, as he struggled to navigate through throngs of people without feeling overwhelmed. It was this sense of being trapped in a never-ending cycle of fear and hypervigilance that finally prompted Kai to seek help. He realized that his life had become unmanageable – and that the memories of that night were still dictating his every move, six months on. As he sat in the therapist's office, he couldn't help but wonder if it was possible to break free from this self-reinforcing cycle, and learn to live with a sense of security once more.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

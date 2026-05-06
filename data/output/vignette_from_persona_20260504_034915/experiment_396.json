@@ -1,0 +1,228 @@
+{
+  "persona_id": 396,
+  "source_persona_id": 396,
+  "experiment_timestamp": "2026-05-04 05:13:23",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 41,
+    "gender": "Male",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Graphic Designer",
+    "trauma_type": "Police",
+    "pcl5": 40
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Olfactory Danger Cue",
+        "value": "Burnt smell"
+      },
+      {
+        "key": "Authority Presence",
+        "value": "Police"
+      },
+      {
+        "key": "Authority Figures",
+        "value": "People in uniform"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Rehearse Conversations",
+        "value": "rehearse what to say before any interaction"
+      },
+      {
+        "key": "Avoid Future Plans",
+        "value": "Making any plans for the future"
+      },
+      {
+        "key": "Hypervigilance towards people",
+        "value": "vigilant for dangerous people"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Guilt on Recall",
+        "value": "When I remember the event I feel intense guilt"
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      },
+      {
+        "key": "Cannot Explain Clearly",
+        "value": "When I try to explain what happened I lose the thread and cannot finish"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      },
+      {
+        "key": "Betrayal",
+        "value": "I was betrayed by someone I trusted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.5459,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.5816,
+    "Negative Appraisals -- Triggers": 0.3042,
+    "Memory -- Maladaptive Strategies": 0.3046,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.9196,
+    "Maladaptive Strategies -- Negative Appraisals": 0.6613,
+    "Maladaptive Strategies -- Triggers": 0.0615,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4826714285714286,
+  "edge_density": 0.35,
+  "vignette_word_count": 511,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Crash Imagery: Cars hit by accident",
+          "explanation": "For a police trauma profile, the trigger set is not clinically coherent as a group. Physical touch can fit, but crash imagery and burnt smell together suggest a road traffic accident or fire-related trauma rather than police-related trauma, and there is no supporting memory or appraisal content tying these cues back to police trauma."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Triggers: Olfactory Danger Cue: Burnt smell",
+          "explanation": "The contamination appraisal is hard to reconcile with the rest of the profile. It more commonly fits sexual assault or severe physical violation. Here it is unsupported by the trigger and memory items, which focus on fragmented recall and guilt rather than shame/violation themes."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Negative Appraisals: Contamination: I feel dirty or contaminated because of what happened",
+          "explanation": "Hypervigilance towards dangerous people could occur after police trauma, but in this profile it is weakly supported because the triggers point toward accident/fire cues rather than interpersonal threat cues. This creates a cross-node mismatch between maladaptive strategy content and the rest of the selected items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Crash Imagery"
+        ],
+        "Negative Appraisals": [
+          "Triggers"
+        ],
+        "Maladaptive Strategies": [
+          "Negative Appraisals"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Contamination: I feel dirty or contaminated because of what happened",
+          "explanation": "'Contamination/feeling dirty' is more typically coherent with sexual assault or severe bodily violation trauma. In a police-trauma profile, it is hard to reconcile this appraisal unless there are other items indicating sexualized assault, humiliating bodily violation, or related memory content, which are absent here."
+        },
+        {
+          "component": "Triggers",
+          "item": "Triggers: Tactile (Touch): Physical touch",
+          "explanation": "A tactile trigger of general physical touch would usually imply trauma involving bodily contact/restraint. That could occur in police trauma, but in this profile there is no supporting memory or appraisal content about physical restraint, assault, or contact-based threat. Given the rest of the profile emphasizes authority/police cues, danger, mistrust, and guilt, this broad touch trigger stands out as insufficiently supported and clinically hard to place."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Contamination"
+        ],
+        "Triggers": [
+          "Tactile (Touch)"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Rajesh, a 41-year-old South Asian man married with two children, works as a graphic designer and has been struggling to cope since his traumatic encounter with police nearly a year ago. The event occurred one evening when he was returning home from work. A routine traffic stop escalated rapidly into an aggressive confrontation, leaving Rajesh feeling vulnerable and betrayed by the very figures meant to protect him. Since then, any burnt smell—a common detail during confrontations—triggers intense flashbacks for Rajesh. Whenever he encounters a person in uniform, even on television or at a distance, his heart races and he feels as though he is reliving that harrowing experience. Each time he recalls the event, it evokes a profound sense of guilt, as if somehow he could have prevented what happened. Rajesh has come to believe that the world is a dangerous place and that people cannot be trusted. These beliefs have made him hypervigilant, constantly scanning for potential threats. When Rajesh sees someone in uniform or smells burnt items, his mind replays the traumatic scene, making it difficult for him to find words to describe what happened and leaving him unable to explain clearly when he attempts to share. His negative appraisals reinforce each other: because he feels betrayed by those he trusted, he is more vigilant of authority figures. This cycle leaves Rajesh feeling constantly on edge, as if the world around him is a threat at every turn. He has begun rehearsing conversations in advance and avoids making any future plans, fearing that something similar might happen again. Rajesh’s hypervigilance extends to his work environment. One day while working late at his office, a janitor wearing a uniform passed by the door of Rajesh's workspace, triggering an immediate surge of anxiety. He felt as though he was back on the street with police, and his heart pounded in his chest. This incident led him to avoid social gatherings or any events where authority figures might be present. His inability to articulate what happened has further compounded his distress. When trying to explain it to his wife, Rajesh loses track of his thoughts and ends up feeling frustrated and misunderstood. His maladaptive strategies have only deepened the issue; he is convinced that by rehearsing conversations and avoiding future plans, he can mitigate the risk of a similar event occurring again. Rajesh's world has become smaller as he has isolated himself from social activities and even some work functions where he might encounter people in uniform. He feels increasingly trapped by his fears and is now seeking help because he realizes that these strategies are no longer working. What frightens him most is the possibility of another traumatic event, but what gives him hope is finding a way to regain control over his life without the constant fear. Rajesh's journey toward therapy has been motivated by the desire to reclaim his sense of safety and trust in the world around him, as well as the hope that he can once again enjoy simple moments without being overwhelmed by triggers or hypervigilance."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Rajesh, a 41-year-old South Asian man married with two children, works as a graphic designer and has been struggling to cope since his traumatic encounter with police nearly a year ago. The event occurred one evening when he was returning home from work. A routine traffic stop escalated rapidly into an aggressive confrontation, leaving Rajesh feeling vulnerable and betrayed by the very figures meant to protect him. Since then, any burnt smell—a common detail during confrontations—triggers intense flashbacks for Rajesh. Whenever he encounters a person in uniform, even on television or at a distance, his heart races and he feels as though he is reliving that harrowing experience. Each time he recalls the event, it evokes a profound sense of guilt, as if somehow he could have prevented what happened. Rajesh has come to believe that the world is a dangerous place and that people cannot be trusted. These beliefs have made him hypervigilant, constantly scanning for potential threats. When Rajesh sees someone in uniform or smells burnt items, his mind replays the traumatic scene, making it difficult for him to find words to describe what happened and leaving him unable to explain clearly when he attempts to share. His negative appraisals reinforce each other: because he feels betrayed by those he trusted, he is more vigilant of authority figures. This cycle leaves Rajesh feeling constantly on edge, as if the world around him is a threat at every turn. He has begun rehearsing conversations in advance and avoids making any future plans, fearing that something similar might happen again. Rajesh’s hypervigilance extends to his work environment. One day while working late at his office, a janitor wearing a uniform passed by the door of Rajesh's workspace, triggering an immediate surge of anxiety. He felt as though he was back on the street with police, and his heart pounded in his chest. This incident led him to avoid social gatherings or any events where authority figures might be present. His inability to articulate what happened has further compounded his distress. When trying to explain it to his wife, Rajesh loses track of his thoughts and ends up feeling frustrated and misunderstood. His maladaptive strategies have only deepened the issue; he is convinced that by rehearsing conversations and avoiding future plans, he can mitigate the risk of a similar event occurring again. Rajesh's world has become smaller as he has isolated himself from social activities and even some work functions where he might encounter people in uniform. He feels increasingly trapped by his fears and is now seeking help because he realizes that these strategies are no longer working. What frightens him most is the possibility of another traumatic event, but what gives him hope is finding a way to regain control over his life without the constant fear. Rajesh's journey toward therapy has been motivated by the desire to reclaim his sense of safety and trust in the world around him, as well as the hope that he can once again enjoy simple moments without being overwhelmed by triggers or hypervigilance.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

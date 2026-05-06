@@ -1,10 +1,13 @@
 """LangChain wrapper for DeepSeek — overrides with_structured_output to use JSON parsing."""
 import json
+import logging
 import re
 from typing import Type
 from pydantic import BaseModel, SecretStr
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import BaseMessage
+
+logger = logging.getLogger(__name__)
 
 
 class _StructuredOutputWrapper:
@@ -15,9 +18,11 @@ class _StructuredOutputWrapper:
         self._schema = schema
 
     def invoke(self, messages: list, **kwargs) -> BaseModel:
+        fields = list(self._schema.model_json_schema()["properties"].keys())
         json_instruction = (
-            f"\nRespond with a valid JSON object only. "
-            f"Match this schema exactly: {self._schema.model_json_schema()}"
+            f"\nRespond with a JSON object only — no explanation, no markdown fences, no schema definition. "
+            f"Fill in actual values for these fields: {fields}. "
+            f"Field types for reference: {self._schema.model_json_schema()['properties']}"
         )
         augmented = list(messages)
         last = augmented[-1]
@@ -28,11 +33,19 @@ class _StructuredOutputWrapper:
         result = self._llm.invoke(augmented)
         from agents.base_agent import _count
         _count(result)
-        text   = result.content if hasattr(result, "content") else str(result)
+        text  = result.content if hasattr(result, "content") else str(result)
+        clean = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
 
-        match = re.search(r"\{.*\}", text, re.DOTALL)
-        data  = json.loads(match.group()) if match else {}
-        return self._schema(**data)
+        try:
+            match = re.search(r"\{.*\}", clean, re.DOTALL)
+            if not match:
+                logger.warning("StructuredOutputWrapper: no JSON object found. Raw text (first 300): %r", text[:300])
+                return None
+            data = json.loads(match.group())
+            return self._schema(**data)
+        except Exception as e:
+            logger.warning("StructuredOutputWrapper parse failed (%s). Clean text (first 300): %r", e, clean[:300])
+            return None
 
 
 class DeepSeekChatModel(ChatOpenAI):

@@ -1,0 +1,224 @@
+{
+  "persona_id": 45,
+  "source_persona_id": 45,
+  "experiment_timestamp": "2026-05-04 01:06:44",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "gpt-oss-20b",
+      "persona_validator": "gpt-oss-20b",
+      "vignette_crafter": "gpt-oss-20b",
+      "vignette_validator": "gpt-oss-20b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 37,
+    "gender": "Male",
+    "ethnicity": "Latin American",
+    "relationship_status": "Divorced",
+    "occupation": "Social Ministry Worker",
+    "trauma_type": "Physical abuse by romantic partner",
+    "pcl5": 48
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Tactile (Restrained)",
+        "value": "Feeling physically restrained or held down"
+      },
+      {
+        "key": "Auditory (Door)",
+        "value": "Doors opening or slamming"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Location",
+        "value": "Going to or near the place where the event happened"
+      },
+      {
+        "key": "Freeze When Threatened",
+        "value": "freeze completely when feeling threatened"
+      },
+      {
+        "key": "Emotion Control",
+        "value": "I try hard to control my emotions"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      },
+      {
+        "key": "Door and Lock Checking",
+        "value": "I repeatedly check that doors and windows are locked"
+      },
+      {
+        "key": "Night Vigilance",
+        "value": "I find it harder to feel safe at night than during the day"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      },
+      {
+        "key": "Auditory Recall",
+        "value": "When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event."
+      },
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.4759,
+    "Triggers -- Threat": 0.8487,
+    "Triggers -- Memory": 0.8836,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4066,
+    "Threat -- Maladaptive Strategies": 0.2027,
+    "Threat -- Memory": 0.0828,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.7668,
+    "Maladaptive Strategies -- Memory": 0.9892,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.1276,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5315444444444445,
+  "edge_density": 0.45,
+  "vignette_word_count": 654,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips",
+          "explanation": "These triggers are hard to reconcile with the stated trauma of physical abuse by a romantic partner. 'Feeling restrained or held down' fits well, but medical equipment and helicopter sounds suggest a medical, combat, or accident context that is not represented in the Threat, Memory, Appraisals, or Strategy items."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "Because Triggers has strong links to Threat and Memory in the formulation, the trigger content should plausibly connect to the patient's danger cues and trauma memories. The profile's Threat items center on interpersonal hypervigilance in close environments (silence, nearby movement, lock checking), and Memory items do not contain medical or aircraft content, making these two triggers clinically incoherent with the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Needles/Medical)"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "'Helicopter or aircraft sounds' is hard to reconcile with the stated trauma type of physical abuse by a romantic partner unless there is additional undisclosed trauma exposure; it does not fit the rest of the profile, which centers on interpersonal/domestic threat cues such as restraint, doors, movement, and lock checking."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat in Silence: Unusual silence makes me feel something dangerous is about to happen",
+          "explanation": "'Unusual silence makes me feel something dangerous is about to happen' is not impossible, but paired with the otherwise specifically interpersonal/domestic cue pattern it weakens coherence because it suggests a different threat context without support from memory or appraisal items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Helicopter)"
+        ],
+        "Threat": [
+          "Threat in Silence"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Carlos, a 37‑year‑old social ministry worker, first remembers the night that turned his life upside down. He was in a cramped apartment, the smell of cheap wine hanging in the air, when his former partner suddenly lifted a hand and gripped his arm so tightly he could feel his pulse in his fingertips. The sudden slam of a door echoed through the hallway, the sound sharp as a knife. He could taste the bitter aftertaste of the alcohol on his tongue. In the days that followed, the memory of being physically restrained, the echo of that door, and the lingering scent of the drink became a vivid, almost cinematic recollection—each detail locked into his mind with frightening clarity. The grief that surfaced when he tried to recall it was so intense that he would often cry without knowing why, as if the past had leapt straight into the present. After that night, Carlos began to notice that the mere feeling of someone reaching for his hand, the abrupt opening or closing of a door, or the whiff of alcohol in a room would set off a flood of panic. He would freeze, his heart hammering, as if the threat were about to return. The realization that these triggers—tactile restraint, auditory door noise, olfactory alcohol—could appear anywhere made him feel like a man trapped in a constant state of vigilance. When the door at his workplace, a community center where he spent weekends volunteering, slammed shut, he would immediately check the locks, a habit that grew into an almost compulsive ritual. The startle reaction to any movement nearby left him perpetually on edge, as if the danger could lurk just behind the next corner. Carlos’s constant threat monitoring did not simply stay in the present. Each time he checked a lock or heard a door creak, the memory of that night would flood back. The vividness of the image—the tight grip, the slamming door—was amplified by the current sensations, making the past feel like a living threat. He found that the more he stayed on guard, the more he clung to that memory, which in turn reinforced his fear of being restrained again. His fear of sudden movement, the urge to keep every door locked, and the dread of the alcohol scent had become interwoven with the traumatic recollection, turning each trigger into a reminder of the original assault. Avoidance became a cornerstone of Carlos’s daily life. He began steering clear of the apartment where the abuse occurred, and he avoided the community center after hours because of the door noise. The act of staying away felt like a protective shield, but it also made his memories more potent. Each time he avoided a place that reminded him of the night, the grief and the sense of vulnerability resurfaced with even greater intensity. The more he withdrew, the more he believed that his own presence threatened his safety, a belief that seemed to reinforce the sense of being held or restrained in other situations—whether in a crowded room or a quiet hallway. The cycle of avoidance, grief, and threat awareness grew tighter, tightening each time he moved from one place to another. It was only after a series of missed opportunities to help a client at the community center—an event he had always taken pride in—that Carlos realized he could no longer ignore the relentless cycle of fear. The constant need to check doors, the sudden freeze when any movement came near, the grief that rose with each recollection, and the avoidance that kept him from his calling had become overwhelming. He reached out for therapy, hoping to break the loop that left him feeling constantly on edge and isolated from his vocation. What terrified him most was the thought that he might never feel safe again, but he also held a fragile hope that he could regain control over his own body and mind."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Carlos, a 37‑year‑old social ministry worker, first remembers the night that turned his life upside down. He was in a cramped apartment, the smell of cheap wine hanging in the air, when his former partner suddenly lifted a hand and gripped his arm so tightly he could feel his pulse in his fingertips. The sudden slam of a door echoed through the hallway, the sound sharp as a knife. He could taste the bitter aftertaste of the alcohol on his tongue. In the days that followed, the memory of being physically restrained, the echo of that door, and the lingering scent of the drink became a vivid, almost cinematic recollection—each detail locked into his mind with frightening clarity. The grief that surfaced when he tried to recall it was so intense that he would often cry without knowing why, as if the past had leapt straight into the present. After that night, Carlos began to notice that the mere feeling of someone reaching for his hand, the abrupt opening or closing of a door, or the whiff of alcohol in a room would set off a flood of panic. He would freeze, his heart hammering, as if the threat were about to return. The realization that these triggers—tactile restraint, auditory door noise, olfactory alcohol—could appear anywhere made him feel like a man trapped in a constant state of vigilance. When the door at his workplace, a community center where he spent weekends volunteering, slammed shut, he would immediately check the locks, a habit that grew into an almost compulsive ritual. The startle reaction to any movement nearby left him perpetually on edge, as if the danger could lurk just behind the next corner. Carlos’s constant threat monitoring did not simply stay in the present. Each time he checked a lock or heard a door creak, the memory of that night would flood back. The vividness of the image—the tight grip, the slamming door—was amplified by the current sensations, making the past feel like a living threat. He found that the more he stayed on guard, the more he clung to that memory, which in turn reinforced his fear of being restrained again. His fear of sudden movement, the urge to keep every door locked, and the dread of the alcohol scent had become interwoven with the traumatic recollection, turning each trigger into a reminder of the original assault. Avoidance became a cornerstone of Carlos’s daily life. He began steering clear of the apartment where the abuse occurred, and he avoided the community center after hours because of the door noise. The act of staying away felt like a protective shield, but it also made his memories more potent. Each time he avoided a place that reminded him of the night, the grief and the sense of vulnerability resurfaced with even greater intensity. The more he withdrew, the more he believed that his own presence threatened his safety, a belief that seemed to reinforce the sense of being held or restrained in other situations—whether in a crowded room or a quiet hallway. The cycle of avoidance, grief, and threat awareness grew tighter, tightening each time he moved from one place to another. It was only after a series of missed opportunities to help a client at the community center—an event he had always taken pride in—that Carlos realized he could no longer ignore the relentless cycle of fear. The constant need to check doors, the sudden freeze when any movement came near, the grief that rose with each recollection, and the avoidance that kept him from his calling had become overwhelming. He reached out for therapy, hoping to break the loop that left him feeling constantly on edge and isolated from his vocation. What terrified him most was the thought that he might never feel safe again, but he also held a fragile hope that he could regain control over his own body and mind.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "persona_id": 128,
+  "source_persona_id": 128,
+  "experiment_timestamp": "2026-05-03 11:54:12",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen2.5-32b",
+      "persona_crafter": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 80,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Widowed",
+    "occupation": "Social Worker",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 45
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      },
+      {
+        "key": "Visual (Needles/Medical)",
+        "value": "Medical equipment such as needles or drips"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      },
+      {
+        "key": "Thought Suppression",
+        "value": "I try to push them out of my mind"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Violated Values",
+        "value": "I acted in ways that go against who I am"
+      },
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Helplessness",
+        "value": "I can't stop bad things from happening to me"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.5473,
+    "Triggers -- Negative Appraisals": 0.571,
+    "Negative Appraisals -- Maladaptive Strategies": 0.3304,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.869,
+    "Negative Appraisals -- Triggers": 0.862,
+    "Memory -- Maladaptive Strategies": 0.5358,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.8212,
+    "Memory -- Triggers": 0.4595,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7363,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6369444444444444,
+  "edge_density": 0.45,
+  "vignette_word_count": 569,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Weapons): Weapons or objects used as weapons",
+          "explanation": "For trauma type of a child's life-threatening illness, weapon-related visual triggers are hard to reconcile unless there is additional unreported violent trauma. Hospital smells and loss-related conversations fit, but weapons/object-as-weapon cues are clinically implausible for the same index trauma."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Fear of Harm: You can never know who will harm you",
+          "explanation": "The appraisal 'You can never know who will harm you' implies interpersonal danger/assailant threat, which is poorly matched to the validated trauma of a child's serious illness. This also aligns awkwardly with the rest of the profile, which is otherwise illness/loss/moral injury themed rather than assault-based."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Weapons)"
+        ],
+        "Negative Appraisals": [
+          "Fear of Harm"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Rage on Recall: When I remember the event I feel intense rage",
+          "explanation": "'Intense rage on recall' is hard to reconcile with the rest of this profile for an 80-year-old mother traumatized by a child's life-threatening illness. The other items center on helplessness, permanent change, loss-related and hospital triggers, and intrusive affect without image. Distress, fear, guilt, grief, or sadness would fit more coherently; rage is not impossible, but here it is insufficiently supported by any corresponding appraisal or trigger content and stands out as clinically incongruent."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Face Hiding: cover face with hands",
+          "explanation": "'Cover face with hands' is not well supported as a maladaptive strategy in this profile. The active formulation links maladaptive strategies mainly to negative appraisals and memory, and the other strategies chosen (avoid going out, thought suppression) fit intrusive distress and negative beliefs. Face hiding is more typical of acute shame/panic/social exposure and is not clearly connected to the hospital/loss triggers, intrusive memory pattern, or appraisals provided, making it the least coherent item in this set."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Rage on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Face Hiding"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Sara, an 80-year-old Middle Eastern woman and a retired social worker, has been struggling with the aftermath of her son’s life-threatening illness. The trauma she experienced during that time continues to shape her daily life in profound ways. The traumatic event itself was marked by prolonged hospitalizations and intensive medical interventions. Sara vividly recalls the sterile smell of antiseptic, the constant beeping of machines, and the sharp glint of needles and IVs—all potent triggers for her now. The memory forces its way into her mind at unexpected moments, often without any clear visual recall, only the overwhelming grief that comes with it. This uncontrolled access to the memory is exacerbated by loss themes in conversations, such as when others discuss their loved ones who have passed away. Sara’s triggers not only lead directly to these intrusive memories but also fuel her negative appraisals about herself and the world. She feels violated because she had to act in ways that went against her values during those difficult times—making decisions under immense pressure, constantly worrying about whether she was doing enough for her son. The memory of those events brings back a sense of permanent damage and helplessness; Sara believes she has changed irrevocably and cannot prevent bad things from happening again. These negative appraisals have driven Sara to adopt several maladaptive strategies that serve as coping mechanisms, but ultimately reinforce the cycle of distress. She tries to suppress thoughts about her son’s illness by pushing them out of her mind whenever they intrude. Additionally, she avoids going out in public and refrains from any medical appointments or hospitals due to fear of encountering cues that remind her of those painful times. The weight of these negative appraisals and the uncontrolled access to memories has led Sara into a spiral where every small trigger can set off a cascade of emotional responses. She feels overwhelmed by the grief on recall, which in turn leads her to avoid medical cues even more vehemently. Her avoidance behaviors, such as staying away from hospitals or not seeking necessary medical care, have real consequences: she is isolated and hesitant to engage with others for fear that they might discuss loss themes. Sara’s retirement does not shield her from these triggers either; in fact, it amplifies them. As a social worker, Sara was used to helping others navigate difficult situations, but now those same conversations about grief and loss can trigger her own trauma. She has come to believe that she cannot control the intensity of her reactions and this sense of helplessness further reinforces her negative appraisals. Despite these overwhelming feelings, something finally brought Sara to seek help. Her grandson’s recent health scare was a tipping point; watching him go through medical treatments brought back all the painful memories she had tried so hard to suppress. She is most afraid that she will not be able to protect her loved ones from suffering again, but at the same time, she hopes for some relief from these constant reminders and fears. In summary, Sara’s journey has been marked by a cycle where triggers lead to intrusive memories and negative appraisals, which in turn reinforce maladaptive coping strategies. This loop continues to tighten, making her daily life increasingly difficult. Her current state is one of profound distress and hope for finding ways to break this vicious cycle and regain some semblance of control over her emotional responses."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Sara, an 80-year-old Middle Eastern woman and a retired social worker, has been struggling with the aftermath of her son’s life-threatening illness. The trauma she experienced during that time continues to shape her daily life in profound ways. The traumatic event itself was marked by prolonged hospitalizations and intensive medical interventions. Sara vividly recalls the sterile smell of antiseptic, the constant beeping of machines, and the sharp glint of needles and IVs—all potent triggers for her now. The memory forces its way into her mind at unexpected moments, often without any clear visual recall, only the overwhelming grief that comes with it. This uncontrolled access to the memory is exacerbated by loss themes in conversations, such as when others discuss their loved ones who have passed away. Sara’s triggers not only lead directly to these intrusive memories but also fuel her negative appraisals about herself and the world. She feels violated because she had to act in ways that went against her values during those difficult times—making decisions under immense pressure, constantly worrying about whether she was doing enough for her son. The memory of those events brings back a sense of permanent damage and helplessness; Sara believes she has changed irrevocably and cannot prevent bad things from happening again. These negative appraisals have driven Sara to adopt several maladaptive strategies that serve as coping mechanisms, but ultimately reinforce the cycle of distress. She tries to suppress thoughts about her son’s illness by pushing them out of her mind whenever they intrude. Additionally, she avoids going out in public and refrains from any medical appointments or hospitals due to fear of encountering cues that remind her of those painful times. The weight of these negative appraisals and the uncontrolled access to memories has led Sara into a spiral where every small trigger can set off a cascade of emotional responses. She feels overwhelmed by the grief on recall, which in turn leads her to avoid medical cues even more vehemently. Her avoidance behaviors, such as staying away from hospitals or not seeking necessary medical care, have real consequences: she is isolated and hesitant to engage with others for fear that they might discuss loss themes. Sara’s retirement does not shield her from these triggers either; in fact, it amplifies them. As a social worker, Sara was used to helping others navigate difficult situations, but now those same conversations about grief and loss can trigger her own trauma. She has come to believe that she cannot control the intensity of her reactions and this sense of helplessness further reinforces her negative appraisals. Despite these overwhelming feelings, something finally brought Sara to seek help. Her grandson’s recent health scare was a tipping point; watching him go through medical treatments brought back all the painful memories she had tried so hard to suppress. She is most afraid that she will not be able to protect her loved ones from suffering again, but at the same time, she hopes for some relief from these constant reminders and fears. In summary, Sara’s journey has been marked by a cycle where triggers lead to intrusive memories and negative appraisals, which in turn reinforce maladaptive coping strategies. This loop continues to tighten, making her daily life increasingly difficult. Her current state is one of profound distress and hope for finding ways to break this vicious cycle and regain some semblance of control over her emotional responses.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

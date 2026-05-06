@@ -1,0 +1,263 @@
+{
+  "persona_id": 264,
+  "source_persona_id": 264,
+  "experiment_timestamp": "2026-05-04 04:45:23",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 40,
+    "gender": "Male",
+    "ethnicity": "Latin American",
+    "relationship_status": "Married",
+    "occupation": "Surgeon",
+    "trauma_type": "Natural disaster",
+    "pcl5": 49
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Auditory (Loud Noises)",
+        "value": "Loud noises"
+      },
+      {
+        "key": "Olfactory (Smoke)",
+        "value": "Smoke or fire smell"
+      },
+      {
+        "key": "Olfactory Danger Cue",
+        "value": "Burnt smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Sexual Coping",
+        "value": "I release my tension with sexual fantasies/ activities"
+      },
+      {
+        "key": "Distraction",
+        "value": "I distract myself with something else"
+      },
+      {
+        "key": "Substance Use",
+        "value": "I drink alcohol, take medication or use drugs"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Triggered Without Warning",
+        "value": "Something in my surroundings can instantly bring back the full memory without warning"
+      },
+      {
+        "key": "Incomplete Picture",
+        "value": "I feel like I am only remembering parts of what happened and the rest is missing"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0396,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.3295,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0819,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.3782,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Memory"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.2073,
+  "edge_density": 0.2,
+  "vignette_word_count": 585,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Animal Phobia: Talks or photos about snakes",
+          "explanation": "The trigger set is not clinically coherent with the stated trauma type of natural disaster. Generic sensory cues can fit disaster trauma, but snakes and babies are highly specific cues with no clear link to a natural disaster and, taken together with body odour, suggest unrelated trigger themes rather than a single trauma network."
+        },
+        {
+          "component": "Memory",
+          "item": "Triggers: Auditory (Babies): Babies",
+          "explanation": "Within the overall profile, the memory/appraisal content is also mismatched. 'Intense shame on recall' usually implies a strong negative appraisal/self-evaluative theme, yet no Negative Appraisals items are endorsed and that node is formulation-wise disconnected. For a natural disaster survivor, shame can occur, but as the only explicit meaning-based memory item it sits awkwardly with otherwise cue-driven fragmented recall and no corresponding appraisal content."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Animal Phobia"
+        ],
+        "Memory": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Babies): Babies",
+          "explanation": "'Babies' as an auditory trigger is hard to reconcile with a natural-disaster trauma in this profile unless there is specific undisclosed trauma content involving infants; the other triggers (loud noises, sweat/body odour) are more disaster-congruent, so this item stands out as clinically implausible rather than merely unusual."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Seeking Conflict: I pick arguments or create drama to distract myself from the trauma",
+          "explanation": "'Seeking conflict/create drama' is weakly connected to the rest of the profile. The formulation links triggers mainly with memory and only minimally with maladaptive strategies, and the other selected items suggest intrusive sensory recall rather than an anger/interpersonal-dysregulation pattern. This coping item appears to target a symptom style not otherwise represented."
+        },
+        {
+          "component": "Memory",
+          "item": "Maladaptive Strategies: Sexual Coping: I release my tension with sexual fantasies/ activities",
+          "explanation": "'Sexual coping' is likewise poorly supported by the rest of the profile. With no threat or negative appraisal content selected and memory items focused on fragmentation/triggered recall, this strategy lacks a clear cognitive-affective anchor in the chosen profile and is difficult to connect specifically to natural-disaster PTSD here."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Babies)"
+        ],
+        "Maladaptive Strategies": [
+          "Seeking Conflict"
+        ],
+        "Memory": [
+          "Maladaptive Strategies"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Olfactory (Sweat/Body): Sweat or body odour",
+          "explanation": "For a natural-disaster trauma, sweat/body odour and alcohol smell are hard to link plausibly as primary trauma reminders unless there is additional disaster-specific context (e.g., shelter crowding, intoxicated bystanders). Loud noises fit, but these two olfactory triggers are clinically difficult to reconcile with the stated trauma type."
+        },
+        {
+          "component": "Memory",
+          "item": "Triggers: Olfactory (Alcohol): Alcohol smell",
+          "explanation": "Intense shame on recall is not impossible after a natural disaster, but as the only affective memory item here it is a poor fit with the rest of the profile, which otherwise emphasizes sensory triggering and fragmented involuntary recall rather than self-blame, humiliation, or morally charged memory content. This makes the memory node less coherent with the trauma type and the selected triggers/strategies."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory (Sweat/Body)"
+        ],
+        "Memory": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Olfactory (Alcohol): Alcohol smell",
+          "explanation": "Alcohol smell is a hard-to-explain trigger for a natural-disaster trauma in the absence of any matching trauma context or linked appraisal content; loud noise and smoke are coherent disaster-related cues, but alcohol odor stands out as clinically implausible here."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Intense shame on recall is not impossible after a natural disaster, but with no negative-appraisal content and no other memory material suggesting shame-linked actions or moral failure, this item is poorly supported and clinically discordant with the rest of the profile."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Alcohol Use: drink alcohol",
+          "explanation": "Using alcohol can occur nonspecifically, but paired with an alcohol-smell trigger it implies trauma meaning centered on alcohol-related cues that is not represented elsewhere in the disaster-based trigger or memory profile, reducing coherence."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory (Alcohol)"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Alcohol Use"
+        ]
+      }
+    },
+    {
+      "attempt": 5,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Juan, a 40-year-old Latin American surgeon married to his high school sweetheart, has been struggling with symptoms following a devastating natural disaster that shook his community last year. The event was traumatic for many, but for Juan, the aftermath has taken an especially heavy toll on both his personal life and his career. The night of the disaster was unforgettable: a powerful earthquake that triggered a series of fires across the city. Juan remembers the intense rumbling, followed by the piercing sound of sirens and the acrid smell of smoke filling the air. The memory is seared into his mind, but it’s only part of what he feels when he encounters certain triggers in his daily life. Loud noises, such as construction work or even sudden door slams at home, can instantly plunge Juan back into the chaos of that night. These moments are often followed by an overwhelming grief that washes over him, a stark reminder of lives lost and things left unspoken. The smell of smoke or burnt wood is equally potent; it brings back fragments of the disaster with such clarity that he feels like only parts of what happened are within his grasp, leaving much else as a painful void. Juan has come to rely on various coping mechanisms to manage these intrusive memories and the intense emotions they evoke. One night after a particularly loud thunderstorm, Juan turned to alcohol to numb the grief and anxiety, finding temporary solace in its embrace. Over time, he began to use sexual fantasies or engage in activities that offered an escape from his distressing thoughts. Distraction has also become a go-to strategy; he often turns on loud music or engrosses himself in puzzles or video games to keep the memories at bay. However, these strategies have not been without consequences. While they offer temporary relief, they do little to address the underlying issues and can sometimes exacerbate his symptoms. After a few drinks or hours of distraction, Juan finds that the grief lingers and can feel even more intense once he sobers up or turns off the television. In his professional life as a surgeon, these triggers have become particularly problematic. The smell of antiseptic in the operating room often evokes the acrid smoke from the fires, making it difficult for him to focus on surgery. He’s found himself cancelling procedures and taking time away from work, leading to strained relationships with colleagues who are increasingly concerned about his well-being. What frightens Juan most is the unpredictability of these triggers and the way they can overwhelm him without warning. The memory fragments and intense grief that follow feel like a relentless cycle he cannot break free from. He has started to wonder if he will ever be able to return to the operating table or even handle routine tasks at home. Despite his efforts to cope, Juan’s symptoms have grown increasingly unbearable. His wife has noticed changes in him and urged him to seek help, concerned about his emotional well-being and how it affects their family life. What brings Juan into therapy is a deep-seated fear of losing himself completely, but also a glimmer of hope that with the right support, he can regain control over his life and find peace. Juan’s journey towards healing begins with understanding these triggers and the cycle they have created in his life. He hopes to learn new ways to manage his distressing memories and avoid relying on maladaptive strategies that ultimately do more harm than good."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Juan, a 40-year-old Latin American surgeon married to his high school sweetheart, has been struggling with symptoms following a devastating natural disaster that shook his community last year. The event was traumatic for many, but for Juan, the aftermath has taken an especially heavy toll on both his personal life and his career. The night of the disaster was unforgettable: a powerful earthquake that triggered a series of fires across the city. Juan remembers the intense rumbling, followed by the piercing sound of sirens and the acrid smell of smoke filling the air. The memory is seared into his mind, but it’s only part of what he feels when he encounters certain triggers in his daily life. Loud noises, such as construction work or even sudden door slams at home, can instantly plunge Juan back into the chaos of that night. These moments are often followed by an overwhelming grief that washes over him, a stark reminder of lives lost and things left unspoken. The smell of smoke or burnt wood is equally potent; it brings back fragments of the disaster with such clarity that he feels like only parts of what happened are within his grasp, leaving much else as a painful void. Juan has come to rely on various coping mechanisms to manage these intrusive memories and the intense emotions they evoke. One night after a particularly loud thunderstorm, Juan turned to alcohol to numb the grief and anxiety, finding temporary solace in its embrace. Over time, he began to use sexual fantasies or engage in activities that offered an escape from his distressing thoughts. Distraction has also become a go-to strategy; he often turns on loud music or engrosses himself in puzzles or video games to keep the memories at bay. However, these strategies have not been without consequences. While they offer temporary relief, they do little to address the underlying issues and can sometimes exacerbate his symptoms. After a few drinks or hours of distraction, Juan finds that the grief lingers and can feel even more intense once he sobers up or turns off the television. In his professional life as a surgeon, these triggers have become particularly problematic. The smell of antiseptic in the operating room often evokes the acrid smoke from the fires, making it difficult for him to focus on surgery. He’s found himself cancelling procedures and taking time away from work, leading to strained relationships with colleagues who are increasingly concerned about his well-being. What frightens Juan most is the unpredictability of these triggers and the way they can overwhelm him without warning. The memory fragments and intense grief that follow feel like a relentless cycle he cannot break free from. He has started to wonder if he will ever be able to return to the operating table or even handle routine tasks at home. Despite his efforts to cope, Juan’s symptoms have grown increasingly unbearable. His wife has noticed changes in him and urged him to seek help, concerned about his emotional well-being and how it affects their family life. What brings Juan into therapy is a deep-seated fear of losing himself completely, but also a glimmer of hope that with the right support, he can regain control over his life and find peace. Juan’s journey towards healing begins with understanding these triggers and the cycle they have created in his life. He hopes to learn new ways to manage his distressing memories and avoid relying on maladaptive strategies that ultimately do more harm than good.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

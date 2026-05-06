@@ -5,11 +5,12 @@ from datetime import datetime
 from pathlib import Path
 from agents.base_agent import set_context_subdir, reset_run_tokens, get_run_tokens
 from agents.vignette_validator_agent import VignetteValidatorAgent
+from agents.no_formulation_validator_agent import NoFormulationValidatorAgent
 from simulation.factory import build_llm
 from simulation.output import to_serializable, write_json, write_txt
 from configs.formulation_config import DIRECT_EDGES
 from simulation.pipelines import PIPELINES
-from simulation.steps import step_persona, step_validate_persona, step_zero_shot, step_craft_persona, step_load_persona
+from simulation.steps import step_persona, step_validate_persona, step_validate_no_formulation, step_zero_shot, step_craft_persona, step_load_persona
 
 logger = logging.getLogger(__name__)
 
@@ -79,6 +80,9 @@ class SimulationRunner:
                 validator = VignetteValidatorAgent(
                     name=f"{label}_VignetteValidator", role="VignetteValidator", llm=self._llms["vignette_validator"],
                 )
+                no_formulation_validator = NoFormulationValidatorAgent(
+                    name=f"{label}_NoFormulationValidator", role="NoFormulationValidator", llm=self._llms["vignette_validator"],
+                )
 
                 for step in self.pipeline:
                     logger.info("[%s] step_%s: starting", label, step)
@@ -91,7 +95,10 @@ class SimulationRunner:
                     elif step == "persona":
                         state.update(step_persona(label, persona_id, self._llms, self.persona_context, state, self.use_formulation, self.node_prob, self.edge_prob, self.n_items))
                     elif step == "validate_vignette":
-                        state.update(step_validate_persona(label, state, validator, self.max_retries))
+                        if self.use_formulation:
+                            state.update(step_validate_persona(label, state, validator, self.max_retries))
+                        else:
+                            state.update(step_validate_no_formulation(label, state, no_formulation_validator, self.max_retries))
                     elif step == "zero_shot":
                         state.update(step_zero_shot(label, persona_id, self._llms, self.node_prob, self.edge_prob, self.n_items))
                     logger.info("[%s] step_%s: done", label, step)
@@ -118,16 +125,27 @@ class SimulationRunner:
         agg_edges         = state.get("agg_edges", {})
         final_vignette    = state.get("vignette", "")
 
-        active_nodes    = state.get("active_nodes") or sorted({n for (p, c), w in agg_edges.items() if w > 0 for n in (p, c)})
-        required_edges  = [f"{p} → {c}" for (p, c), w in agg_edges.items() if w > 0]
-        final_violation_edges = {v["edge"] for v in (vignette_attempts[-1].get("violations", []) if vignette_attempts else [])}
-        satisfied_edges = [e for e in required_edges if e not in final_violation_edges]
-
-        n_required      = len(required_edges)
-        edge_coverage_rate       = len(satisfied_edges) / n_required if n_required > 0 else None
-        required_weights         = [w for (p, c), w in agg_edges.items() if w > 0]
-        mean_required_edge_weight = sum(required_weights) / len(required_weights) if required_weights else None
-        edge_density             = n_required / len(DIRECT_EDGES) if DIRECT_EDGES else None
+        if self.use_formulation:
+            active_nodes   = state.get("active_nodes") or sorted({n for (p, c), w in agg_edges.items() if w > 0 for n in (p, c)})
+            required_edges = [f"{p} → {c}" for (p, c), w in agg_edges.items() if w > 0]
+            n_required     = len(required_edges)
+            final_violation_edges = {v["edge"] for v in (vignette_attempts[-1].get("violations", []) if vignette_attempts else [])}
+            satisfied_edges       = [e for e in required_edges if e not in final_violation_edges]
+            edge_coverage_rate    = len(satisfied_edges) / n_required if n_required > 0 else None
+            required_weights      = [w for (p, c), w in agg_edges.items() if w > 0]
+            mean_required_edge_weight = sum(required_weights) / len(required_weights) if required_weights else None
+            edge_density          = n_required / len(DIRECT_EDGES) if DIRECT_EDGES else None
+            formulation_fields    = {
+                "agg_edges":                 agg_edges,
+                "active_nodes":              active_nodes,
+                "required_edges":            required_edges,
+                "satisfied_edges":           satisfied_edges,
+                "edge_coverage_rate":        edge_coverage_rate,
+                "mean_required_edge_weight": mean_required_edge_weight,
+                "edge_density":              edge_density,
+            }
+        else:
+            formulation_fields = {}
 
         output = to_serializable({
             "persona_id":            persona_id,
@@ -147,13 +165,7 @@ class SimulationRunner:
             },
             "demographics":               state.get("demographics", {}),
             "self_report":                state.get("self_report", {}),
-            "agg_edges":                  agg_edges,
-            "active_nodes":               active_nodes,
-            "required_edges":             required_edges,
-            "satisfied_edges":            satisfied_edges,
-            "edge_coverage_rate":         edge_coverage_rate,
-            "mean_required_edge_weight":  mean_required_edge_weight,
-            "edge_density":               edge_density,
+            **formulation_fields,
             "vignette_word_count":        len(final_vignette.split()),
             "demographics_validation_attempts": state.get("demographics_validation_attempts", []),
             "selfreport_validation_attempts":   state.get("selfreport_validation_attempts", []),

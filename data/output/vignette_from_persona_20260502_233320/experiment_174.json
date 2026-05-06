@@ -1,0 +1,210 @@
+{
+  "persona_id": 174,
+  "source_persona_id": 174,
+  "experiment_timestamp": "2026-05-03 10:43:34",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 66,
+    "gender": "Female",
+    "ethnicity": "Oceania",
+    "relationship_status": "Widowed",
+    "occupation": "Network Engineer",
+    "trauma_type": "Assault",
+    "pcl5": 75
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Expressions of Affection",
+        "value": "Physical affection such as hugs"
+      },
+      {
+        "key": "Emotional Closeness",
+        "value": "Someone getting emotionally close to me"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Restrict Eating",
+        "value": "control eating strictly to feel in control"
+      },
+      {
+        "key": "Stop Enjoyment",
+        "value": "give up pleasant activities"
+      },
+      {
+        "key": "Avoid Intimacy",
+        "value": "Being emotionally close or intimate with others"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Noticing Weapons",
+        "value": "I notice potential weapons or dangerous objects in any environment"
+      },
+      {
+        "key": "Startle to Touch",
+        "value": "I react with alarm when someone touches me unexpectedly"
+      },
+      {
+        "key": "Cannot Trust Safety",
+        "value": "Even when others tell me I am safe I find it impossible to believe it"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Helplessness",
+        "value": "I can't stop bad things from happening to me"
+      },
+      {
+        "key": "Violated Values",
+        "value": "I acted in ways that go against who I am"
+      },
+      {
+        "key": "Body Shame",
+        "value": "I feel ashamed of what happened to my body"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.7663,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.4556,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0456,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.6628,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.4364,
+    "Maladaptive Strategies -- Triggers": 0.3952,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.46031666666666665,
+  "edge_density": 0.3,
+  "vignette_word_count": 548,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Survival Guilt: I feel guilty for surviving when others did not",
+          "explanation": "Survival guilt implies an assault context involving other victims who died or a mass-casualty scenario, which is not supported anywhere else in the profile. The rest of the items describe interpersonal violation, hypervigilance, touch reactivity, and shame/control responses, making this appraisal hard to reconcile with the same assault presentation."
+        },
+        {
+          "component": "Triggers",
+          "item": "Triggers: Being in Nature: Being in a natural environment similar to where it happened",
+          "explanation": "Being in nature as a salient trigger suggests the assault occurred in a natural/outdoor setting, but the rest of the profile instead centers on interpersonal closeness, touch, home-security checking, and scanning for danger. That outdoor-context trigger is insufficiently supported by the other selected items and feels disconnected from the overall assault formulation."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked",
+          "explanation": "Repeated door/window checking implies a home-intrusion or ongoing entry threat theme. That specific threat context is not reflected in the triggers or appraisals, which focus more on interpersonal intimacy and violation. As selected, it pulls toward a different assault scenario than the rest of the profile."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Avoid Uniform or Weapons: Military, police uniforms or weapons",
+          "explanation": "Avoiding military/police uniforms or weapons points to a trauma meaningfully linked to armed perpetrators or authority/military cues. No other item supports that specific cue network; the profile otherwise emphasizes affection, emotional closeness, touch, guilt, helplessness, and control. This strategy appears to address a symptom pattern not otherwise represented."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Survival Guilt"
+        ],
+        "Triggers": [
+          "Being in Nature"
+        ],
+        "Threat": [
+          "Door and Lock Checking"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Uniform or Weapons"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "At sixty-six, widowed and accustomed to navigating complex infrastructure alone, Lani found her world fractured by the attack in a damp concrete stairwell. A stranger had emerged with the heavy, fermenting stench of liquor clinging to his clothes, seizing her shoulders and pinning her against the pipes while the metallic click of a folding knife echoed in the narrow space. In that suffocating instant, she was paralyzed by the conviction that she could do nothing to stop what was happening, her body feeling desecrated by the prolonged, unyielding violence that followed. Now, the mere scent of spilled beer in a breakroom sends her heart into a frantic rhythm, and when a maintenance worker reaches out to adjust a rack panel, she flinches violently. Her mind refuses to accept security guards’ assurances that the facility is safe; she remains convinced another violation could materialize behind any server door. What frightened her most was how her own interpretations had sharpened the sensory alarms. Because she carried the heavy conviction that her moral boundaries had been shattered and that she was fundamentally powerless against malice, ordinary gestures suddenly felt predatory. When a neighbor moved in for a greeting hug, Lani’s chest tightened, transforming a simple expression of affection into a visceral threat. That escalating alarm inevitably pushed her toward rigid behavioral control; she began strictly rationing her meals, treating every calorie as a lever of power, and quietly withdrew from the hiking trails she had once cherished. Her internal narrative of worthlessness also directly dictated her routines. Convinced that her body was a site of violation and that she was incapable of preventing future harm, she systematically eliminated anything inviting unpredictability. She stopped attending her daughter’s dinners, telling herself it was too exhausting, when the truth was that emotional closeness felt like an open wound. These behaviors, however, began to confirm her darkest predictions; by withdrawing and enforcing strict dietary limits, she starved herself of evidence contradicting her helplessness, cementing the belief that she remained fundamentally broken. The hypervigilance that took root further hardened her routines. Every time she caught herself cataloging heavy toolboxes in the warehouse annex, treating them as imminent threats, she felt compelled to cancel plans at the last minute. She would scan a room for exits before eating, the constant threat monitoring leaving her too exhausted to engage, which paradoxically made the environment feel more alien. Consequently, within the humming server farm where she works as a network engineer, her avoidance strategies made those cues feel more intrusive; when a contractor placed a hand on her shoulder to point out a cable configuration, the touch triggered a sharp retreat, forcing her to step back and abandon the planned site walkthrough. This remote work arrangement has quietly isolated her from the technical team she once led, turning casual hallway conversations into sources of dread. Her daughter has stopped calling, mistaking distance for indifference, while Lani tells herself solitude is the only safeguard. She finally scheduled a trauma specialist after a panic episode in a grocery store, triggered by a clerk’s lingering question about a spilled drink. What she hopes for is not just the fading of alarms, but a way to trust that she can move through the world without bracing for a shadow that no longer exists."
+,
+
+  "vignette_attempts": [
+    {"vignette": "At sixty-six, widowed and accustomed to navigating complex infrastructure alone, Lani found her world fractured by the attack in a damp concrete stairwell. A stranger had emerged with the heavy, fermenting stench of liquor clinging to his clothes, seizing her shoulders and pinning her against the pipes while the metallic click of a folding knife echoed in the narrow space. In that suffocating instant, she was paralyzed by the conviction that she could do nothing to stop what was happening, her body feeling desecrated by the prolonged, unyielding violence that followed. Now, the mere scent of spilled beer in a breakroom sends her heart into a frantic rhythm, and when a maintenance worker reaches out to adjust a rack panel, she flinches violently. Her mind refuses to accept security guards’ assurances that the facility is safe; she remains convinced another violation could materialize behind any server door. What frightened her most was how her own interpretations had sharpened the sensory alarms. Because she carried the heavy conviction that her moral boundaries had been shattered and that she was fundamentally powerless against malice, ordinary gestures suddenly felt predatory. When a neighbor moved in for a greeting hug, Lani’s chest tightened, transforming a simple expression of affection into a visceral threat. That escalating alarm inevitably pushed her toward rigid behavioral control; she began strictly rationing her meals, treating every calorie as a lever of power, and quietly withdrew from the hiking trails she had once cherished. Her internal narrative of worthlessness also directly dictated her routines. Convinced that her body was a site of violation and that she was incapable of preventing future harm, she systematically eliminated anything inviting unpredictability. She stopped attending her daughter’s dinners, telling herself it was too exhausting, when the truth was that emotional closeness felt like an open wound. These behaviors, however, began to confirm her darkest predictions; by withdrawing and enforcing strict dietary limits, she starved herself of evidence contradicting her helplessness, cementing the belief that she remained fundamentally broken. The hypervigilance that took root further hardened her routines. Every time she caught herself cataloging heavy toolboxes in the warehouse annex, treating them as imminent threats, she felt compelled to cancel plans at the last minute. She would scan a room for exits before eating, the constant threat monitoring leaving her too exhausted to engage, which paradoxically made the environment feel more alien. Consequently, within the humming server farm where she works as a network engineer, her avoidance strategies made those cues feel more intrusive; when a contractor placed a hand on her shoulder to point out a cable configuration, the touch triggered a sharp retreat, forcing her to step back and abandon the planned site walkthrough. This remote work arrangement has quietly isolated her from the technical team she once led, turning casual hallway conversations into sources of dread. Her daughter has stopped calling, mistaking distance for indifference, while Lani tells herself solitude is the only safeguard. She finally scheduled a trauma specialist after a panic episode in a grocery store, triggered by a clerk’s lingering question about a spilled drink. What she hopes for is not just the fading of alarms, but a way to trust that she can move through the world without bracing for a shadow that no longer exists.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

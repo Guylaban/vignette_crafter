@@ -1,0 +1,236 @@
+{
+  "persona_id": 407,
+  "source_persona_id": 407,
+  "experiment_timestamp": "2026-05-03 22:32:39",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 47,
+    "gender": "Male",
+    "ethnicity": "North American",
+    "relationship_status": "Single",
+    "occupation": "Bus Driver",
+    "trauma_type": "Police",
+    "pcl5": 48
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Intrusive Memory",
+        "value": "A memory of the event coming to mind suddenly"
+      },
+      {
+        "key": "Event Recall",
+        "value": "Talking about the event"
+      },
+      {
+        "key": "Authority Presence",
+        "value": "Police"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Face Hiding",
+        "value": "cover face with hands"
+      },
+      {
+        "key": "Avoid People",
+        "value": "avoid other people"
+      },
+      {
+        "key": "Sensory Distraction",
+        "value": "I put on loud music or TV"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Irritability",
+        "value": "Irritable behavior, angry outbursts, or acting aggressively"
+      },
+      {
+        "key": "Concentration",
+        "value": "Having difficulty concentrating"
+      },
+      {
+        "key": "Door and Lock Checking",
+        "value": "I repeatedly check that doors and windows are locked"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      },
+      {
+        "key": "Lost Community",
+        "value": "I have lost my connection to my community and culture"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.3839,
+    "Triggers -- Threat": 0.4188,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.9908,
+    "Negative Appraisals -- Threat": 0.0585,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.1785,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.7323,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.049,
+    "Threat -- Triggers": 0.4127,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.6061,
+    "Maladaptive Strategies -- Triggers": 0.4654,
+    "Maladaptive Strategies -- Threat": 0.9988
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4813454545454546,
+  "edge_density": 0.55,
+  "vignette_word_count": 688,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Sexual Objectification: Being looked at sexually",
+          "explanation": "The profile is for a male patient with police trauma, but two trigger items and the body-shame appraisal are specifically sexual-trauma themed. That is hard to reconcile with the indexed trauma type unless there is an additional sexual trauma history, which is not supported elsewhere in the profile."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Triggers: Sexual Trauma Cues: Comments on sexual violence",
+          "explanation": "Within the trigger/appraisal cluster, the content centers on sexual victimization, while the rest of the profile does not describe corresponding sexual-trauma memory content or threat meaning. This makes the selected items clinically incoherent as a single trauma-linked PTSD profile."
+        },
+        {
+          "component": "Threat",
+          "item": "Negative Appraisals: Body Shame: I feel ashamed of what happened to my body",
+          "explanation": "Door/window checking suggests a home-intrusion or generalized safety threat, but the trigger and appraisal content centers on sexualized trauma cues. That threat item is not well linked to the rest of the selected profile and pulls the formulation in a different direction."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Sexual Objectification"
+        ],
+        "Negative Appraisals": [
+          "Triggers"
+        ],
+        "Threat": [
+          "Negative Appraisals"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Sexual Trauma Cues: Comments on sexual violence",
+          "explanation": "For a police trauma in a 47-year-old male bus driver, sexual-trauma-specific trigger content is hard to reconcile unless the index event involved sexual assault or exposure to sexual violence in a highly personal way; nothing else in the profile supports that specificity."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Body Shame: I feel ashamed of what happened to my body",
+          "explanation": "Body-focused shame is more characteristic of sexual assault or severe bodily violation. In this profile it does not cohere with the police trauma framing, and it is reinforced only by the sexual-trauma-specific trigger, creating an implausible subtheme not supported by the rest of the nodes."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Sexual Trauma Cues"
+        ],
+        "Negative Appraisals": [
+          "Body Shame"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Marcus Vance was forty-seven when his city bus was forced to a halt during a routine traffic stop. He watched from the driver’s window as uniformed officers tackled a man in a faded baseball cap, the crack of a baton echoing over the idling engine. That sudden convergence of sirens, authority, and physical restraint rewired his nervous system. Whenever he caught sight of a patrol car now, a memory of the event comes to mind suddenly, and he finds himself talking about the event to his morning dispatcher in hushed, fragmented sentences, needing to voice the details until the words lose their meaning. That authority presence does not merely remind him of the past; it immediately ignites a cascade of irritability and fractured concentration, making his jaw tighten and his hands grip the steering wheel until his knuckles whiten. That sudden intrusion leaves him with no option but to drop his hands over his face and blast the cab’s stereo, using loud music to drown out the panic before it spills into the passenger cabin. Over the following months, the certainty that the world is an inherently dangerous place takes root, and it is this belief that turns a routine glance toward a uniformed figure into an immediate trigger for the memory to surface unbidden. The conviction that people cannot be trusted does not sit quietly in his head; it breeds a constant undercurrent of irritability and makes settling his mind on a route map nearly impossible. He finds himself pacing the hallway of his apartment, repeatedly checking that doors and windows are locked, and this relentless vigilance slowly drains him of any desire to attend neighborhood gatherings, cementing his feeling that he has lost his connection to his community. By deliberately avoiding other people and retreating behind his cab’s partition, he isolates himself so completely that his original mistrust hardens into certainty, and the sense of lost community becomes a quiet reality. That same avoidance means he never gets used to seeing officers on the street; every time a uniformed figure appears, the unfamiliarity acts as a fresh trigger, pulling the event recall forward with brutal clarity. His constant habit of door and lock checking keeps his nervous system in a state of high alert, and that heightened state lowers his threshold for authority presence, making the memory of the event surface more frequently. The exhaustion of having difficulty concentrating and the simmering anger of his irritability leave him with no mental bandwidth for social engagement, so he defaults to covering his face with his hands and turning up the television until the screens go blank. Prolonging his escape into loud music and sensory distraction only leaves the unresolved threat response to pool in his chest, so his irritability escalates into angry outbursts that he barely recognizes as his own. Because he is certain that people cannot be trusted, he interprets casual social cues as hostile, and this mistrust directly pushes him toward face hiding and deeper withdrawal. The cycle tightened through his afternoon shifts. Driving route 42 now, he spots a marked cruiser parked near a bus stop, and the sight immediately pulls a vivid event recall forward, flooding him with the terror of that first stop. His body answers with a spike of irritability and a frantic need to look away, and the resulting concentration loss makes him miss his next scheduled turn. He pulls over, hides his face in his palms, and cranks the radio until his ears ring, a sensory distraction that temporarily numbs the panic but leaves him exhausted. That withdrawal confirms his belief that the world is too dangerous to navigate alone, and that certainty ensures he will keep avoiding people. When he finally walked into the community clinic last Tuesday, he brought a crumpled prescription bottle and a confession that he could no longer pretend to handle the route alone. He did not know if therapy could untangle the knot, but he was terrified that another year of checking locks and hiding from the streets would leave him completely alone in a city that suddenly felt like a hunting ground."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Marcus Vance was forty-seven when his city bus was forced to a halt during a routine traffic stop. He watched from the driver’s window as uniformed officers tackled a man in a faded baseball cap, the crack of a baton echoing over the idling engine. That sudden convergence of sirens, authority, and physical restraint rewired his nervous system. Whenever he caught sight of a patrol car now, a memory of the event comes to mind suddenly, and he finds himself talking about the event to his morning dispatcher in hushed, fragmented sentences, needing to voice the details until the words lose their meaning. That authority presence does not merely remind him of the past; it immediately ignites a cascade of irritability and fractured concentration, making his jaw tighten and his hands grip the steering wheel until his knuckles whiten. That sudden intrusion leaves him with no option but to drop his hands over his face and blast the cab’s stereo, using loud music to drown out the panic before it spills into the passenger cabin. Over the following months, the certainty that the world is an inherently dangerous place takes root, and it is this belief that turns a routine glance toward a uniformed figure into an immediate trigger for the memory to surface unbidden. The conviction that people cannot be trusted does not sit quietly in his head; it breeds a constant undercurrent of irritability and makes settling his mind on a route map nearly impossible. He finds himself pacing the hallway of his apartment, repeatedly checking that doors and windows are locked, and this relentless vigilance slowly drains him of any desire to attend neighborhood gatherings, cementing his feeling that he has lost his connection to his community. By deliberately avoiding other people and retreating behind his cab’s partition, he isolates himself so completely that his original mistrust hardens into certainty, and the sense of lost community becomes a quiet reality. That same avoidance means he never gets used to seeing officers on the street; every time a uniformed figure appears, the unfamiliarity acts as a fresh trigger, pulling the event recall forward with brutal clarity. His constant habit of door and lock checking keeps his nervous system in a state of high alert, and that heightened state lowers his threshold for authority presence, making the memory of the event surface more frequently. The exhaustion of having difficulty concentrating and the simmering anger of his irritability leave him with no mental bandwidth for social engagement, so he defaults to covering his face with his hands and turning up the television until the screens go blank. Prolonging his escape into loud music and sensory distraction only leaves the unresolved threat response to pool in his chest, so his irritability escalates into angry outbursts that he barely recognizes as his own. Because he is certain that people cannot be trusted, he interprets casual social cues as hostile, and this mistrust directly pushes him toward face hiding and deeper withdrawal. The cycle tightened through his afternoon shifts. Driving route 42 now, he spots a marked cruiser parked near a bus stop, and the sight immediately pulls a vivid event recall forward, flooding him with the terror of that first stop. His body answers with a spike of irritability and a frantic need to look away, and the resulting concentration loss makes him miss his next scheduled turn. He pulls over, hides his face in his palms, and cranks the radio until his ears ring, a sensory distraction that temporarily numbs the panic but leaves him exhausted. That withdrawal confirms his belief that the world is too dangerous to navigate alone, and that certainty ensures he will keep avoiding people. When he finally walked into the community clinic last Tuesday, he brought a crumpled prescription bottle and a confession that he could no longer pretend to handle the route alone. He did not know if therapy could untangle the knot, but he was terrified that another year of checking locks and hiding from the streets would leave him completely alone in a city that suddenly felt like a hunting ground.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

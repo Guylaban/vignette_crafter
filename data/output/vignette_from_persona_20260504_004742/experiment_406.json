@@ -1,0 +1,227 @@
+{
+  "persona_id": 406,
+  "source_persona_id": 406,
+  "experiment_timestamp": "2026-05-04 03:16:43",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "gpt-oss-20b",
+      "persona_validator": "gpt-oss-20b",
+      "vignette_crafter": "gpt-oss-20b",
+      "vignette_validator": "gpt-oss-20b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 46,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Single",
+    "occupation": "Pharmacist",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 42
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      },
+      {
+        "key": "Meaning Seeking",
+        "value": "I think about why the event has happened to me"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Startle to Sounds",
+        "value": "I jump or startle at ordinary sounds that would not bother most people"
+      },
+      {
+        "key": "Sleep Problems",
+        "value": "Trouble falling or staying asleep"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Weakness Belief",
+        "value": "I am a weak person"
+      },
+      {
+        "key": "No Good Ahead",
+        "value": "Nothing good can happen to me anymore"
+      },
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.2992,
+    "Negative Appraisals -- Threat": 0.5503,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.6715,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.2943,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7703,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.8261
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5686166666666667,
+  "edge_density": 0.3,
+  "vignette_word_count": 825,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Grief Reminders: Anything that reminds me of someone I have lost",
+          "explanation": "'Avoid Grief Reminders' implies bereavement/loss of a deceased person, which is hard to reconcile with the indexed trauma of a child's life-threatening illness unless the child died; that is not the stated trauma type. This item appears trauma-incongruent."
+        },
+        {
+          "component": "Threat",
+          "item": "Hypervigilance towards people: vigilant for dangerous people",
+          "explanation": "'Hypervigilance towards people: vigilant for dangerous people' suggests interpersonal danger/assault-related threat. The rest of the profile centers on generalized unsafety and negative self-appraisals rather than fear of dangerous people, making this item poorly matched to the trauma type and the other selected items."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Grief Reminders"
+        ],
+        "Threat": [
+          "Hypervigilance towards people"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Hypervigilance towards people: vigilant for dangerous people",
+          "explanation": "The profile is built around a child's life-threatening illness, but 'vigilant for dangerous people' implies an interpersonal/assault-type danger focus that is hard to reconcile with the rest of the profile, which otherwise reflects generalized vulnerability and medical trauma. This item appears trauma-incongruent for the stated trauma type."
+        },
+        {
+          "component": "Threat",
+          "item": "Maladaptive Strategies: Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations",
+          "explanation": "Avoiding hospitals/ambulances/physical examinations is plausible for medical trauma, but it sits awkwardly alongside 'vigilant for dangerous people,' which points to a different threat domain. Within Maladaptive Strategies, these two strategies suggest different trauma contexts that are difficult to explain as one coherent profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Hypervigilance towards people"
+        ],
+        "Threat": [
+          "Maladaptive Strategies"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Magical Thinking: I tell myself the event did not really happen or was not that bad",
+          "explanation": "For a trauma centered on a child's life-threatening illness, minimizing that the event 'did not really happen or was not that bad' is hard to reconcile with the rest of the profile, which shows marked ongoing threat and strongly negative self-appraisals. Thought suppression and avoidance of medical cues fit, but this item points toward denial/minimization in a way that clashes with the severity and emotional meaning of the other endorsed items."
+        },
+        {
+          "component": "Threat",
+          "item": "Waking Alert: I wake during the night to check whether I am safe",
+          "explanation": "'I wake during the night to check whether I am safe' suggests a danger-focused nighttime safety-checking pattern centered on the patient's own physical safety. In the context of trauma from a child's severe illness, threat is more plausibly organized around the child's safety/health or medical crises. This item is not impossible, but paired with the absence of child-focused threat content it is clinically mismatched to the trauma context."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Magical Thinking"
+        ],
+        "Threat": [
+          "Waking Alert"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Mariam, a 46‑year‑old pharmacist in a Midwestern city, was seventeen when her six‑year‑old son was rushed to a hospital with a severe case of meningitis. The ambulance’s siren seemed to echo her heart as she watched her son’s pale face, the fever spiking, and the doctors speaking in hurried, technical terms that made her feel powerless. The night her son finally passed the fever threshold and the lights went out, Mariam’s life seemed to hinge on a single, unshakable fear: that if she were ever again in a medical environment, she could lose someone she loved. Within weeks of the tragedy, Mariam found herself suppressing thoughts about the hospital and her son’s illness, clenching her jaw whenever a memory surfaced. In the pharmacy, where she was surrounded by medications and the quiet hum of dispensing machines, she began to scan the floor for signs of a hospital waiting room or an ambulance. When a colleague mentioned a new flu vaccine, Mariam’s shoulders tightened, and she hurriedly excused herself to a restroom. Her job, which once felt grounding, now felt like a reminder of the life she had lost. Mariam’s core beliefs—she was weak, she could never be protected, and she was fundamentally flawed—stoked the very avoidance she employed. She interpreted every beep of the pharmacy’s automated teller as a potential alarm of danger, and the sight of a pill bottle with a blue cap reminded her of the hospital’s medication tray. The conviction that she was a weak person, that nothing good could happen to her, and that something was wrong with her as a person made the act of stepping into a medical setting feel like an affront to her self‑worth. Thus, her negative appraisals directly fueled her avoidance of hospitals, ambulances, and any physical examination. These same beliefs also deepened her sense of threat. The conviction that she was inherently fragile and that her world was perpetually at risk made the mere notion of a routine checkup feel like an impending disaster. She felt a chronic undercurrent of danger that could not be shaken even in the safety of her own home. Her inability to relax, her startle reflex to everyday sounds, and the restless nights where the echo of a passing car amplified the memory of the ambulance’s siren—all of these heightened threat sensations were rooted in her negative appraisal that she was vulnerable and doomed. The persistent threat sensations, in turn, pushed Mariam further into avoidance. Each time a familiar ringtone or the clatter of a pharmacy counter reminded her of hospital noise, she would bolt to a back room and cover her ears. Her startle at ordinary sounds left her perpetually on edge, and the lack of restful sleep forced her to check the clock obsessively, as if the hands might turn back to a dangerous past. In these moments, avoidance became a coping strategy that seemed necessary to keep the relentless sense of danger at bay. As the cycle tightened, the fear of danger reinforced Mariam’s negative self‑appraisal. Every moment she could not quiet her heart’s racing, she reminded herself that she was weak and doomed. The sense that she could never be safe amplified the belief that something was fundamentally wrong with her. The self‑critical voice grew louder, and the feeling that her future held no good only intensified. The avoidance and suppression that Mariam employed also fed back into her appraisal of danger. By staying away from medical cues, she deprived herself of any opportunity to see that she could remain safe and healthy, thereby perpetuating the feeling that a hospital was a looming threat. Each time she avoided a routine checkup, she would later ruminate about the missed opportunity, and the anxiety that a dangerous event might occur again would surge, reinforcing her sense of threat. Her avoidance and suppression also compounded her sense of threat. The more she stayed away from any medical environment, the more the memory of the ambulance’s siren grew louder in her mind. Each time she slept, she would wake at a minute interval, hearing her own heartbeat in the quiet, feeling as if a siren were echoing once more. The lack of restful sleep further increased her hypervigilance, creating a spiral that left her in a constant state of alarm. Today, Mariam sits in the pharmacy’s break room, her hands wrapped around a cup of coffee that has long since gone cold. The fluorescent lights flicker, and the distant hum of the refrigeration unit sounds like the distant wail of an ambulance. She has come to the pharmacy because the relentless anxiety has begun to erode her ability to focus on the job she loves. Her fear that she will be caught again in a hospital environment is overwhelming, yet she also holds a faint hope that professional help might allow her to untangle the loop of negative thoughts, threat, and avoidance that has kept her chained to her past."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Mariam, a 46‑year‑old pharmacist in a Midwestern city, was seventeen when her six‑year‑old son was rushed to a hospital with a severe case of meningitis. The ambulance’s siren seemed to echo her heart as she watched her son’s pale face, the fever spiking, and the doctors speaking in hurried, technical terms that made her feel powerless. The night her son finally passed the fever threshold and the lights went out, Mariam’s life seemed to hinge on a single, unshakable fear: that if she were ever again in a medical environment, she could lose someone she loved. Within weeks of the tragedy, Mariam found herself suppressing thoughts about the hospital and her son’s illness, clenching her jaw whenever a memory surfaced. In the pharmacy, where she was surrounded by medications and the quiet hum of dispensing machines, she began to scan the floor for signs of a hospital waiting room or an ambulance. When a colleague mentioned a new flu vaccine, Mariam’s shoulders tightened, and she hurriedly excused herself to a restroom. Her job, which once felt grounding, now felt like a reminder of the life she had lost. Mariam’s core beliefs—she was weak, she could never be protected, and she was fundamentally flawed—stoked the very avoidance she employed. She interpreted every beep of the pharmacy’s automated teller as a potential alarm of danger, and the sight of a pill bottle with a blue cap reminded her of the hospital’s medication tray. The conviction that she was a weak person, that nothing good could happen to her, and that something was wrong with her as a person made the act of stepping into a medical setting feel like an affront to her self‑worth. Thus, her negative appraisals directly fueled her avoidance of hospitals, ambulances, and any physical examination. These same beliefs also deepened her sense of threat. The conviction that she was inherently fragile and that her world was perpetually at risk made the mere notion of a routine checkup feel like an impending disaster. She felt a chronic undercurrent of danger that could not be shaken even in the safety of her own home. Her inability to relax, her startle reflex to everyday sounds, and the restless nights where the echo of a passing car amplified the memory of the ambulance’s siren—all of these heightened threat sensations were rooted in her negative appraisal that she was vulnerable and doomed. The persistent threat sensations, in turn, pushed Mariam further into avoidance. Each time a familiar ringtone or the clatter of a pharmacy counter reminded her of hospital noise, she would bolt to a back room and cover her ears. Her startle at ordinary sounds left her perpetually on edge, and the lack of restful sleep forced her to check the clock obsessively, as if the hands might turn back to a dangerous past. In these moments, avoidance became a coping strategy that seemed necessary to keep the relentless sense of danger at bay. As the cycle tightened, the fear of danger reinforced Mariam’s negative self‑appraisal. Every moment she could not quiet her heart’s racing, she reminded herself that she was weak and doomed. The sense that she could never be safe amplified the belief that something was fundamentally wrong with her. The self‑critical voice grew louder, and the feeling that her future held no good only intensified. The avoidance and suppression that Mariam employed also fed back into her appraisal of danger. By staying away from medical cues, she deprived herself of any opportunity to see that she could remain safe and healthy, thereby perpetuating the feeling that a hospital was a looming threat. Each time she avoided a routine checkup, she would later ruminate about the missed opportunity, and the anxiety that a dangerous event might occur again would surge, reinforcing her sense of threat. Her avoidance and suppression also compounded her sense of threat. The more she stayed away from any medical environment, the more the memory of the ambulance’s siren grew louder in her mind. Each time she slept, she would wake at a minute interval, hearing her own heartbeat in the quiet, feeling as if a siren were echoing once more. The lack of restful sleep further increased her hypervigilance, creating a spiral that left her in a constant state of alarm. Today, Mariam sits in the pharmacy’s break room, her hands wrapped around a cup of coffee that has long since gone cold. The fluorescent lights flicker, and the distant hum of the refrigeration unit sounds like the distant wail of an ambulance. She has come to the pharmacy because the relentless anxiety has begun to erode her ability to focus on the job she loves. Her fear that she will be caught again in a hospital environment is overwhelming, yet she also holds a faint hope that professional help might allow her to untangle the loop of negative thoughts, threat, and avoidance that has kept her chained to her past.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

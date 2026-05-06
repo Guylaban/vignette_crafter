@@ -1,0 +1,200 @@
+{
+  "persona_id": 149,
+  "source_persona_id": 149,
+  "experiment_timestamp": "2026-05-03 10:07:33",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 54,
+    "gender": "Male",
+    "ethnicity": "Latin American",
+    "relationship_status": "Married",
+    "occupation": "Parole Officer",
+    "trauma_type": "Police violence",
+    "pcl5": 68
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Moral Violation",
+        "value": "People misbehaving"
+      },
+      {
+        "key": "Stress",
+        "value": "Stress"
+      },
+      {
+        "key": "Somatic (Heart Racing)",
+        "value": "Own heart racing or pounding"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Silence",
+        "value": "Unusual silence makes me feel something dangerous is about to happen"
+      },
+      {
+        "key": "Startle Response",
+        "value": "Feeling jumpy or easily startled"
+      },
+      {
+        "key": "Scanning for Danger",
+        "value": "I constantly scan my surroundings for signs of danger"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Blocked Before Complete",
+        "value": "I find myself pushing the memory away before I can fully recall it"
+      },
+      {
+        "key": "Story Feels Unreal",
+        "value": "The memory is so extreme it is hard to believe it actually happened to me"
+      },
+      {
+        "key": "Incomplete Picture",
+        "value": "I feel like I am only remembering parts of what happened and the rest is missing"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Betrayal",
+        "value": "I was betrayed by someone I trusted"
+      },
+      {
+        "key": "Injustice",
+        "value": "What happened to me was deeply unfair and nothing has been done about it"
+      },
+      {
+        "key": "Institutional Failure",
+        "value": "The people or institutions that should have protected me let me down"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.5525,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.3473,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.7865,
+    "Negative Appraisals -- Triggers": 0.7895,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.2438,
+    "Memory -- Negative Appraisals": 0.0871,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.4918,
+    "Threat -- Negative Appraisals": 0.4683,
+    "Threat -- Triggers": 0.8238,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5100666666666667,
+  "edge_density": 0.45,
+  "vignette_word_count": 632,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm",
+          "explanation": "'Risky Behavior' is difficult to reconcile with the rest of the profile, which otherwise emphasizes hypervigilance, startle, danger in silence, fragmented/avoided trauma memory, and appraisals of betrayal and injustice after police violence. Those other items describe a fearful, threat-sensitive presentation; endorsing active risk-taking as a core threat item pulls in the opposite direction and is not supported elsewhere in the selected nodes."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Can't Rely on Self: I can't rely on myself",
+          "explanation": "'Can't Rely on Self' is a weaker fit than the other appraisals for this trauma/context. The profile is organized around external betrayal/injustice linked to police violence, but this item shifts to global self-distrust without corresponding self-blame, shame, incompetence, or strategy items elsewhere. In combination with the strong betrayal/injustice theme, it creates a less coherent appraisal profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Risky Behavior"
+        ],
+        "Negative Appraisals": [
+          "Can't Rely on Self"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "When Mateo stood in the rain outside a low-income housing complex years ago, he had expected a routine parole check. Instead, his own supervisor bypassed protocol and tackled a compliant man, the violence sudden and brutal. In the weeks that followed, ordinary workplace friction morphed into something visceral. Every time he witnessed someone mistreating another person, or even felt a spike of daily stress, his chest would constrict as his own heart began to pound. Those physiological spikes did not merely accompany the moments of moral violation; they actively primed his nervous system to expect violence, turning a routine patrol into a potential ambush. The repeated exposure to unchecked misconduct, paired with the relentless pressure of his caseload, slowly convinced him that the system was fundamentally compromised and that his own trust in the hierarchy had been misplaced. His heightened state quickly rewired his perception of safety. Mateo began to notice how the quiet hum of his patrol car or an empty hallway would instantly tighten his shoulders, as if unusual silence guaranteed that danger was closing in. He found himself constantly scanning mirrors and sightlines, jumpy at the sound of a slamming door, his body locked in a permanent state of surveillance. This relentless scanning did more than exhaust him; the hyperarousal fractured his recall, causing him to push the memory away before he could fully process it. The incomplete picture of the raid left critical gaps, and those unanswered questions made ordinary quiet moments feel loaded with impending danger. His inability to reconstruct the full timeline reinforced his belief that the department had deliberately erased the truth, solidifying his sense of betrayal and the conviction that what happened to him was deeply unfair and nothing had been done about it. What frightened Mateo most was how his deepening conviction that justice was impossible did more than haunt his thoughts; it lowered his threshold for professional friction, meaning that even minor workplace stressors immediately reignited his chest pounding. His sense of injustice acted as an amplifier, turning normal caseload pressure into acute physiological alerts. Those alerts, in turn, made the quiet moments in his office feel unbearable, each unbroken stretch of silence convincing him that a crisis was imminent. The looming dread of unbroken silence convinced him that his own instincts were the only thing keeping him safe, which in turn deepened his conviction that the institution had failed him. The heightened startle response made every sudden noise feel like a prelude to violence, which kept his heart racing at the mere sight of people misbehaving. Meanwhile, the gaps in his recollection continued to fuel his hypervigilance, as the unreal, fragmented nature of the event stripped away any sense of coherence and pulled him back into threat monitoring. This loop calcified over months, bleeding into his marriage and his professional life. Mateo stopped attending weekend parolee check-ins, citing fatigue, though the truth was that entering unfamiliar neighborhoods made his pulse hammer before he even stepped out of his car. His wife noticed how he flinched when the phone rang or how he would quietly leave a room the moment conversations grew loud. He had come to believe that staying quiet and avoiding the streets was the only way to protect himself from the next moral violation, yet the avoidance only deepened his isolation. Ultimately, it was the realization that he could no longer look his parolees in the eye without fearing their judgment, coupled with a quiet hope that he might reclaim the ability to walk down a street without his body bracing for a threat that never comes, that finally brought him to this office. He was not looking for a way to forget the violence; he was hoping to stop feeling like a prisoner in his own nervous system."
+,
+
+  "vignette_attempts": [
+    {"vignette": "When Mateo stood in the rain outside a low-income housing complex years ago, he had expected a routine parole check. Instead, his own supervisor bypassed protocol and tackled a compliant man, the violence sudden and brutal. In the weeks that followed, ordinary workplace friction morphed into something visceral. Every time he witnessed someone mistreating another person, or even felt a spike of daily stress, his chest would constrict as his own heart began to pound. Those physiological spikes did not merely accompany the moments of moral violation; they actively primed his nervous system to expect violence, turning a routine patrol into a potential ambush. The repeated exposure to unchecked misconduct, paired with the relentless pressure of his caseload, slowly convinced him that the system was fundamentally compromised and that his own trust in the hierarchy had been misplaced. His heightened state quickly rewired his perception of safety. Mateo began to notice how the quiet hum of his patrol car or an empty hallway would instantly tighten his shoulders, as if unusual silence guaranteed that danger was closing in. He found himself constantly scanning mirrors and sightlines, jumpy at the sound of a slamming door, his body locked in a permanent state of surveillance. This relentless scanning did more than exhaust him; the hyperarousal fractured his recall, causing him to push the memory away before he could fully process it. The incomplete picture of the raid left critical gaps, and those unanswered questions made ordinary quiet moments feel loaded with impending danger. His inability to reconstruct the full timeline reinforced his belief that the department had deliberately erased the truth, solidifying his sense of betrayal and the conviction that what happened to him was deeply unfair and nothing had been done about it. What frightened Mateo most was how his deepening conviction that justice was impossible did more than haunt his thoughts; it lowered his threshold for professional friction, meaning that even minor workplace stressors immediately reignited his chest pounding. His sense of injustice acted as an amplifier, turning normal caseload pressure into acute physiological alerts. Those alerts, in turn, made the quiet moments in his office feel unbearable, each unbroken stretch of silence convincing him that a crisis was imminent. The looming dread of unbroken silence convinced him that his own instincts were the only thing keeping him safe, which in turn deepened his conviction that the institution had failed him. The heightened startle response made every sudden noise feel like a prelude to violence, which kept his heart racing at the mere sight of people misbehaving. Meanwhile, the gaps in his recollection continued to fuel his hypervigilance, as the unreal, fragmented nature of the event stripped away any sense of coherence and pulled him back into threat monitoring. This loop calcified over months, bleeding into his marriage and his professional life. Mateo stopped attending weekend parolee check-ins, citing fatigue, though the truth was that entering unfamiliar neighborhoods made his pulse hammer before he even stepped out of his car. His wife noticed how he flinched when the phone rang or how he would quietly leave a room the moment conversations grew loud. He had come to believe that staying quiet and avoiding the streets was the only way to protect himself from the next moral violation, yet the avoidance only deepened his isolation. Ultimately, it was the realization that he could no longer look his parolees in the eye without fearing their judgment, coupled with a quiet hope that he might reclaim the ability to walk down a street without his body bracing for a threat that never comes, that finally brought him to this office. He was not looking for a way to forget the violence; he was hoping to stop feeling like a prisoner in his own nervous system.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

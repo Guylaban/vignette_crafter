@@ -1,0 +1,179 @@
+PERSONA 289  |  2026-05-04 04:50:41
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      qwen2.5-32b
+    persona_validator    qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             26
+  gender          Female
+  ethnicity       Latin American
+  relationship_status Single
+  occupation      Student
+  trauma_type     Toxic chemical exposure
+  pcl5            70
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Darkness: Dark spaces
+    • Nighttime/Dark: Night-time or waking up in the dark
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Maladaptive Strategies:
+    • Avoid Event Site: avoid site of the event
+    • Memory Erasure: I try to erase the memory of the event
+    • Checking Surroundings: constantly scan environment for signs of threat
+  Threat:
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Body on Alert: My body feels constantly tense and ready to react to danger
+  Memory:
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event
+    • Confused Sequence: I cannot put the memories of the event in the right order
+  Negative Appraisals:
+    • Defective Self: There is something wrong with me as a person
+    • Body as Enemy: My body keeps reacting as if I am still in danger even when I am safe
+    • Body Unreliable: I can no longer trust my own body
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.9453
+  Triggers → Threat                                  0.3044
+  Triggers → Memory                                  0.5685
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.8456
+  Negative Appraisals → Threat                       0.3296
+  Negative Appraisals → Memory                       0.1866
+  Negative Appraisals → Triggers                     0.8158
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.5239
+  Memory → Triggers                                  0.6193
+  Threat → Maladaptive Strategies                    0.2919
+  Threat → Memory                                    0.2811
+  Threat → Negative Appraisals                       0.8865
+  Threat → Triggers                                  0.9185
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.1496
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Stranger Interaction: Talking to strangers
+    explanation: For toxic chemical exposure, stranger interaction and dark spaces are hard to link to the trauma context given the rest of the profile. The other nodes center on bodily harm/contamination-type consequences, pain recall, and event-site avoidance; these triggers instead suggest interpersonal or assault-related trauma themes.
+    item:        Threat / Triggers: Darkness: Dark spaces
+    explanation: Startle to unexpected touch is not impossible, but paired with stranger interaction and the absence of interpersonal threat appraisals, it pulls the profile toward an assault/interpersonal trauma pattern rather than toxic exposure. This makes the threat profile less coherent with the stated trauma type and with the other threat items.
+    item:        Negative Appraisals / Threat: Startle to Touch: I react with alarm when someone touches me unexpectedly
+    explanation: The appraisal that others can see what happened just by looking at me implies visible stigma or externally legible damage. With toxic chemical exposure, this could fit only if there were clear visible injuries, but the rest of the profile emphasizes internal bodily reactions, pain recall, and disorganized memory rather than visible disfigurement. Together this item sits awkwardly with the rest of the formulation.
+  [2] FAIL
+    item:        Threat / Threat: Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+    explanation: For toxic chemical exposure, the threat profile is centered on contamination/physical harm cues. 'Flashbacks' is not impossible, but paired with the rest of this profile it implies a strongly re-experiencing, event-reliving presentation. That would usually be linked to trauma-congruent cues about the exposure itself; here the trigger and appraisal content is instead dominated by darkness/night and generalized bodily defectiveness, making this specific threat item clinically hard to integrate with the rest of the profile.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Hypervigilance towards people: vigilant for dangerous people
+    explanation: 'Hypervigilance towards people' is a poor fit for a toxic chemical exposure trauma when there are no corresponding interpersonal threat appraisals or memories. The rest of the profile focuses on bodily reactions, event site avoidance, and attempts to suppress the memory, which are coherent for chemical exposure. Vigilance for dangerous people introduces an interpersonal-assault type coping pattern that is not supported by the trigger, threat, memory, or appraisal items and is therefore clinically incoherent in this profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Feeling Happy: Feeling happy or relaxed
+    explanation: 'Feeling happy or relaxed' is hard to reconcile as a primary trigger for toxic chemical exposure when the other trigger items are darkness/night-time and the rest of the profile centers on bodily danger, environmental threat, and sensory reminders. Positive affect as a trigger is not impossible, but here it is clinically disconnected from the trauma type and from the other selected nodes.
+    item:        Negative Appraisals / Negative Appraisals: Exposed to Others: I feel that others can see what happened to me just by looking at me
+    explanation: 'Others can see what happened to me just by looking at me' fits traumas involving visible stigma, assault, or shame-based social exposure better than toxic chemical exposure as represented by the rest of this profile. It does not cohere well with the other appraisals, which are about bodily malfunction and defectiveness rather than visible external marking.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Sofía, a 26-year-old Latin American woman and student, experienced severe toxic chemical exposure
+during her internship at a laboratory. The incident left her with lingering psychological scars that
+have been affecting her daily life significantly. The night of the accident was the beginning of her
+descent into anxiety and fear. Sofía had come to believe there was something wrong with her as a
+person after the event. She recalled how the darkness enveloped her as she struggled to breathe
+amidst the noxious fumes, and this experience made dark spaces particularly triggering for her.
+Nighttime became an oppressive reminder of that moment when everything seemed to fall apart. Any
+trace of antiseptic smells from hospitals also sent her into a state of high alert. Sofía’s fears
+were exacerbated by the realization that she could no longer trust her own body, which kept reacting
+as if she was still in danger even when she was safe. This belief led her to constantly scan her
+environment for signs of threat and avoid places associated with the incident. She had developed a
+sense of confusion about the sequence of events, often unable to put the memories in order, which
+further contributed to her anxiety. Her efforts to erase the memory of the event only deepened her
+distress. The more she tried to push away thoughts of that night, the more vivid and painful they
+became. Each time a trigger reminded her of the experience, her body reacted with strong physical
+sensations, leaving her tense and ready to react to any perceived danger. For example, when she
+smelled antiseptic at the hospital for her follow-up checkups, she would suddenly feel an
+overwhelming sense of panic, her heart racing as if she were back in that lab. The confusion
+surrounding the sequence of events made it difficult for Sofía to articulate what had happened. “I
+know what happened but I am unable to find words to describe it,” she often told herself. This
+inability to express her experience added to her sense of defectiveness, reinforcing her belief that
+there was something fundamentally wrong with her. Sofía’s constant scanning of the environment for
+signs of threat only heightened her anxiety. Her body remained on high alert, reacting strongly even
+to unexpected touches from friends or colleagues. She had grown increasingly isolated as a result of
+these behaviors. For instance, she would avoid group outings and social gatherings at night, fearing
+that dark spaces might trigger intense panic attacks. Over time, Sofía’s maladaptive strategies
+became more entrenched. Her attempts to erase the memory only led to fragmented recollections where
+she felt physical pain in the same parts of her body as during the event. This experience further
+fueled her negative appraisals and reinforced her belief that there was something fundamentally
+wrong with her. The cumulative effect of these symptoms finally prompted Sofía to seek help, driven
+by a deep-seated fear that she might never fully recover from the trauma. She hoped for relief from
+the constant tension and fear, seeking a way to reclaim control over her life and find peace amidst
+the chaos of her memories.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Sofía, a 26-year-old Latin American woman and student, experienced severe toxic chemical exposure
+during her internship at a laboratory. The incident left her with lingering psychological scars that
+have been affecting her daily life significantly. The night of the accident was the beginning of her
+descent into anxiety and fear. Sofía had come to believe there was something wrong with her as a
+person after the event. She recalled how the darkness enveloped her as she struggled to breathe
+amidst the noxious fumes, and this experience made dark spaces particularly triggering for her.
+Nighttime became an oppressive reminder of that moment when everything seemed to fall apart. Any
+trace of antiseptic smells from hospitals also sent her into a state of high alert. Sofía’s fears
+were exacerbated by the realization that she could no longer trust her own body, which kept reacting
+as if she was still in danger even when she was safe. This belief led her to constantly scan her
+environment for signs of threat and avoid places associated with the incident. She had developed a
+sense of confusion about the sequence of events, often unable to put the memories in order, which
+further contributed to her anxiety. Her efforts to erase the memory of the event only deepened her
+distress. The more she tried to push away thoughts of that night, the more vivid and painful they
+became. Each time a trigger reminded her of the experience, her body reacted with strong physical
+sensations, leaving her tense and ready to react to any perceived danger. For example, when she
+smelled antiseptic at the hospital for her follow-up checkups, she would suddenly feel an
+overwhelming sense of panic, her heart racing as if she were back in that lab. The confusion
+surrounding the sequence of events made it difficult for Sofía to articulate what had happened. “I
+know what happened but I am unable to find words to describe it,” she often told herself. This
+inability to express her experience added to her sense of defectiveness, reinforcing her belief that
+there was something fundamentally wrong with her. Sofía’s constant scanning of the environment for
+signs of threat only heightened her anxiety. Her body remained on high alert, reacting strongly even
+to unexpected touches from friends or colleagues. She had grown increasingly isolated as a result of
+these behaviors. For instance, she would avoid group outings and social gatherings at night, fearing
+that dark spaces might trigger intense panic attacks. Over time, Sofía’s maladaptive strategies
+became more entrenched. Her attempts to erase the memory only led to fragmented recollections where
+she felt physical pain in the same parts of her body as during the event. This experience further
+fueled her negative appraisals and reinforced her belief that there was something fundamentally
+wrong with her. The cumulative effect of these symptoms finally prompted Sofía to seek help, driven
+by a deep-seated fear that she might never fully recover from the trauma. She hoped for relief from
+the constant tension and fear, seeking a way to reclaim control over her life and find peace amidst
+the chaos of her memories.

@@ -4,6 +4,7 @@ from .base_agent import BaseAgent
 from data.input.input import sample_formulation, sample_demographics
 from configs.prompts import (VIGNETTE_CRAFTER_PROMPT_CONTEXT,
                              VIGNETTE_CRAFTER_RETRY_PROMPT,
+                             VIGNETTE_CRAFTER_NO_FORMULATION_RETRY_PROMPT,
                              VIGNETTE_CRAFTER_USER_PROMPT,
                              NO_FORMULATION_SR_SYSTEM_PROMPT,
                              NO_FORMULATION_SR_USER_PROMPT,
@@ -37,11 +38,11 @@ class VignetteCrafterAgent(BaseAgent):
                        use_demographics, use_self_report, use_formulation) -> tuple[str, str]:
         if not use_formulation and (use_demographics or use_self_report):
             sr = self_report or self._nodes_to_self_report(context["nodes"])
-            prompt = NO_FORMULATION_SR_SYSTEM_PROMPT.format(
+            user_prompt = NO_FORMULATION_SR_USER_PROMPT.format(
                 demographics=self.fmt_demographics(demo) if use_demographics else "  (not provided)",
                 self_report=self.fmt_self_report(sr)     if use_self_report  else "  (not provided)",
             )
-            return prompt, NO_FORMULATION_SR_USER_PROMPT
+            return NO_FORMULATION_SR_SYSTEM_PROMPT, user_prompt
 
         if not use_formulation:
             return ZERO_SHOT_VIGNETTE_PROMPT, "Write a clinical vignette for a patient with PTSD."
@@ -75,6 +76,17 @@ class VignetteCrafterAgent(BaseAgent):
         raw = self.respond(retry_prompt)
         self.vignette = self._apply_diff(self.vignette, raw)
         logger.info("[%s] vignette revised after feedback", self.name)
+        return self.vignette
+
+    def create_vignette_with_no_formulation_feedback(self, feedback: str) -> str:
+        retry_prompt = VIGNETTE_CRAFTER_NO_FORMULATION_RETRY_PROMPT.format(
+            feedback=feedback,
+            previous_vignette=self.vignette,
+        )
+        self.reset_memory()
+        raw = self.respond(retry_prompt)
+        self.vignette = self._extract_vignette(raw)
+        logger.info("[%s] vignette rewritten after no_formulation feedback", self.name)
         return self.vignette
 
     # ── Vignette extraction ───────────────────────────────────────────────────

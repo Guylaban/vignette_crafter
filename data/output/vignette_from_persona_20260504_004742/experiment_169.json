@@ -1,0 +1,214 @@
+{
+  "persona_id": 169,
+  "source_persona_id": 169,
+  "experiment_timestamp": "2026-05-04 01:50:36",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "gpt-oss-20b",
+      "persona_validator": "gpt-oss-20b",
+      "vignette_crafter": "gpt-oss-20b",
+      "vignette_validator": "gpt-oss-20b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 38,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Teacher",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 56
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Crowding",
+        "value": "Crowded places"
+      },
+      {
+        "key": "Driving with Others",
+        "value": "Driving with people"
+      },
+      {
+        "key": "Auditory (Loud Noises)",
+        "value": "Loud noises"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Faces",
+        "value": "I study people's faces and body language to detect if they are a threat"
+      },
+      {
+        "key": "Scanning Exits",
+        "value": "I scan for exits as soon as I enter any room or building"
+      },
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Taste Vividness",
+        "value": "I can taste what I tasted during the event when the memory returns"
+      },
+      {
+        "key": "Full Sensory Reliving",
+        "value": "When the memory comes back it feels completely real across all my senses at once"
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Institutional Failure",
+        "value": "The people or institutions that should have protected me let me down"
+      },
+      {
+        "key": "Injustice",
+        "value": "What happened to me was deeply unfair and nothing has been done about it"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.7688,
+    "Triggers -- Negative Appraisals": 0.1036,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.8737,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.3081,
+    "Memory -- Negative Appraisals": 0.6915,
+    "Memory -- Triggers": 0.5842,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.523,
+    "Threat -- Triggers": 0.4901,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.542875,
+  "edge_density": 0.4,
+  "vignette_word_count": 686,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Explosion): Explosion or bang sounds",
+          "explanation": "For a mugging/robbery trauma, 'explosion or bang sounds' is a poor fit unless there was a firearm discharge or similar blast-like cue; nothing else in the profile suggests that context, so this trigger is clinically hard to reconcile with the trauma type and the rest of the selected items."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Lost Community: I have lost my connection to my community and culture",
+          "explanation": "'I have lost my connection to my community and culture' is difficult to justify from the rest of this profile for an adult European married teacher after a mugging/robbery. The other appraisals focus on self-blame/institutional failure, but this item implies a broader cultural/community rupture that is not supported by the trauma type, demographics, or other nodes."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Explosion)"
+        ],
+        "Negative Appraisals": [
+          "Lost Community"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Violated Values: I acted in ways that go against who I am",
+          "explanation": "For a mugging/robbery trauma, the profile otherwise centers on external danger, sensory reliving, and mistrust/injustice. 'Violated Values' implies the patient did something morally incongruent during the event, but there are no accompanying memory, threat, trigger, or strategy items suggesting perpetration, betrayal of others, failure to act, or shame-based self-condemnation. In this profile it stands apart from the rest of the formulation and is the least clinically coherent item."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Violated Values"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Thomas, a 38‑year‑old European‑American history teacher, sits in a quiet corner of the school office, the fluorescent hum of the overhead lights a distant echo of the night that still gnaws at him. Two years earlier, while returning home from grading exams on a Thursday evening, he had been confronted by a masked stranger in the middle of a crowded subway tunnel. The robber’s voice, low and frantic, had cut through the clatter of rolling trains, and a hot breath of fear had pressed against his chest. The stranger had shoved a backpack onto his shoulder, demanding cash, then left with a flash of metal. The taste of cold sweat on his tongue lingered long after he stepped out onto the platform, a taste he could still summon when he hears the muffled clink of a subway door. That memory is not merely a recollection; it is a full‑sensory reliving, the scene playing over as vividly as the night itself, and it bursts into his mind uncontrolled whenever he is in a crowd or hears a sudden noise. The crowded places that now trigger him are the very spaces he once traversed with confidence: the packed school hallway after class, the school bus that carries his students, the aisles of the grocery store on a weekend morning. Every time the rush of people approaches, Thomas’s gaze is drawn instinctively to the faces around him, and he scans for exits as soon as he steps into a room. This vigilant scanning is his way of pre‑empting the same kind of threat he once faced, a habit that stems directly from the memory of that night. The loud clang of a school bell, the shiver of an unexpected movement from a passing student, or the roar of a passing truck on the street all serve as triggers that bring the mugging to the surface, each one reminding him that the world still feels perilous. The memory’s return is intertwined with his sense of injustice. When the image of the robber’s face floods his mind, Thomas recalls the night’s police response—a slow, delayed arrival, a lack of immediate security, and a feeling that the institutions meant to protect him were absent. He has come to believe that institutional failure has compounded the injustice of the attack, that the authorities should have acted faster and more decisively. This belief, born of the memory, fuels a persistent conviction that the world is dangerous and that he is perpetually vulnerable. The sense of threat, therefore, is not merely a present feeling; it is a cognitive appraisal that feeds back into the memory, deepening the emotional impact each time he encounters a trigger. The cycle tightens in the classroom, where Thomas’s threat monitoring has taken a concrete form. He avoids stepping onto the crowded lunch table, opting instead to stay behind the desks. The constant vigilance of watching student faces for signs of hostility makes it difficult for him to engage with his colleagues, and the early morning commute on the bus has become a ritual of cautious silence. His avoidance has led to professional consequences: a decline in classroom participation, a strained relationship with his supervisor, and an increased sense of isolation from the community he once taught. He has started to question whether teaching—once his passion—can continue if every day feels like a potential threat. The present day finds Thomas in an intake interview, his voice steady but his eyes darting to the door as if any movement could signal danger. He says he seeks help because the triggers are no longer fleeting; they occupy most of his waking hours. He fears that his memories will one day catch him off guard, that he will be unable to manage the panic that follows a sudden noise or a sudden close proximity to strangers. Yet amid this fear, he also expresses a hopeful yearning: to return to a classroom where he can speak without scanning every face, to feel that his world can be one where institutional support is reliable, and where the past is a lesson rather than a lived threat."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Thomas, a 38‑year‑old European‑American history teacher, sits in a quiet corner of the school office, the fluorescent hum of the overhead lights a distant echo of the night that still gnaws at him. Two years earlier, while returning home from grading exams on a Thursday evening, he had been confronted by a masked stranger in the middle of a crowded subway tunnel. The robber’s voice, low and frantic, had cut through the clatter of rolling trains, and a hot breath of fear had pressed against his chest. The stranger had shoved a backpack onto his shoulder, demanding cash, then left with a flash of metal. The taste of cold sweat on his tongue lingered long after he stepped out onto the platform, a taste he could still summon when he hears the muffled clink of a subway door. That memory is not merely a recollection; it is a full‑sensory reliving, the scene playing over as vividly as the night itself, and it bursts into his mind uncontrolled whenever he is in a crowd or hears a sudden noise. The crowded places that now trigger him are the very spaces he once traversed with confidence: the packed school hallway after class, the school bus that carries his students, the aisles of the grocery store on a weekend morning. Every time the rush of people approaches, Thomas’s gaze is drawn instinctively to the faces around him, and he scans for exits as soon as he steps into a room. This vigilant scanning is his way of pre‑empting the same kind of threat he once faced, a habit that stems directly from the memory of that night. The loud clang of a school bell, the shiver of an unexpected movement from a passing student, or the roar of a passing truck on the street all serve as triggers that bring the mugging to the surface, each one reminding him that the world still feels perilous. The memory’s return is intertwined with his sense of injustice. When the image of the robber’s face floods his mind, Thomas recalls the night’s police response—a slow, delayed arrival, a lack of immediate security, and a feeling that the institutions meant to protect him were absent. He has come to believe that institutional failure has compounded the injustice of the attack, that the authorities should have acted faster and more decisively. This belief, born of the memory, fuels a persistent conviction that the world is dangerous and that he is perpetually vulnerable. The sense of threat, therefore, is not merely a present feeling; it is a cognitive appraisal that feeds back into the memory, deepening the emotional impact each time he encounters a trigger. The cycle tightens in the classroom, where Thomas’s threat monitoring has taken a concrete form. He avoids stepping onto the crowded lunch table, opting instead to stay behind the desks. The constant vigilance of watching student faces for signs of hostility makes it difficult for him to engage with his colleagues, and the early morning commute on the bus has become a ritual of cautious silence. His avoidance has led to professional consequences: a decline in classroom participation, a strained relationship with his supervisor, and an increased sense of isolation from the community he once taught. He has started to question whether teaching—once his passion—can continue if every day feels like a potential threat. The present day finds Thomas in an intake interview, his voice steady but his eyes darting to the door as if any movement could signal danger. He says he seeks help because the triggers are no longer fleeting; they occupy most of his waking hours. He fears that his memories will one day catch him off guard, that he will be unable to manage the panic that follows a sudden noise or a sudden close proximity to strangers. Yet amid this fear, he also expresses a hopeful yearning: to return to a classroom where he can speak without scanning every face, to feel that his world can be one where institutional support is reliable, and where the past is a lesson rather than a lived threat.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

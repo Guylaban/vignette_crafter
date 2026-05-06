@@ -1,0 +1,227 @@
+{
+  "persona_id": 406,
+  "source_persona_id": 406,
+  "experiment_timestamp": "2026-05-03 22:31:05",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 46,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Single",
+    "occupation": "Pharmacist",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 42
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      },
+      {
+        "key": "Meaning Seeking",
+        "value": "I think about why the event has happened to me"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Startle to Sounds",
+        "value": "I jump or startle at ordinary sounds that would not bother most people"
+      },
+      {
+        "key": "Sleep Problems",
+        "value": "Trouble falling or staying asleep"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Weakness Belief",
+        "value": "I am a weak person"
+      },
+      {
+        "key": "No Good Ahead",
+        "value": "Nothing good can happen to me anymore"
+      },
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.2992,
+    "Negative Appraisals -- Threat": 0.5503,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.6715,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.2943,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7703,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.8261
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5686166666666667,
+  "edge_density": 0.3,
+  "vignette_word_count": 624,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Grief Reminders: Anything that reminds me of someone I have lost",
+          "explanation": "'Avoid Grief Reminders' implies bereavement/loss of a deceased person, which is hard to reconcile with the indexed trauma of a child's life-threatening illness unless the child died; that is not the stated trauma type. This item appears trauma-incongruent."
+        },
+        {
+          "component": "Threat",
+          "item": "Hypervigilance towards people: vigilant for dangerous people",
+          "explanation": "'Hypervigilance towards people: vigilant for dangerous people' suggests interpersonal danger/assault-related threat. The rest of the profile centers on generalized unsafety and negative self-appraisals rather than fear of dangerous people, making this item poorly matched to the trauma type and the other selected items."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Grief Reminders"
+        ],
+        "Threat": [
+          "Hypervigilance towards people"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Hypervigilance towards people: vigilant for dangerous people",
+          "explanation": "The profile is built around a child's life-threatening illness, but 'vigilant for dangerous people' implies an interpersonal/assault-type danger focus that is hard to reconcile with the rest of the profile, which otherwise reflects generalized vulnerability and medical trauma. This item appears trauma-incongruent for the stated trauma type."
+        },
+        {
+          "component": "Threat",
+          "item": "Maladaptive Strategies: Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations",
+          "explanation": "Avoiding hospitals/ambulances/physical examinations is plausible for medical trauma, but it sits awkwardly alongside 'vigilant for dangerous people,' which points to a different threat domain. Within Maladaptive Strategies, these two strategies suggest different trauma contexts that are difficult to explain as one coherent profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Hypervigilance towards people"
+        ],
+        "Threat": [
+          "Maladaptive Strategies"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Magical Thinking: I tell myself the event did not really happen or was not that bad",
+          "explanation": "For a trauma centered on a child's life-threatening illness, minimizing that the event 'did not really happen or was not that bad' is hard to reconcile with the rest of the profile, which shows marked ongoing threat and strongly negative self-appraisals. Thought suppression and avoidance of medical cues fit, but this item points toward denial/minimization in a way that clashes with the severity and emotional meaning of the other endorsed items."
+        },
+        {
+          "component": "Threat",
+          "item": "Waking Alert: I wake during the night to check whether I am safe",
+          "explanation": "'I wake during the night to check whether I am safe' suggests a danger-focused nighttime safety-checking pattern centered on the patient's own physical safety. In the context of trauma from a child's severe illness, threat is more plausibly organized around the child's safety/health or medical crises. This item is not impossible, but paired with the absence of child-focused threat content it is clinically mismatched to the trauma context."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Magical Thinking"
+        ],
+        "Threat": [
+          "Waking Alert"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Samira had been counting pills at her community pharmacy counter when the call about her ten-year-old son, Tariq, came through. He had collapsed during soccer practice, his airway swelling shut from a severe anaphylactic reaction. The following hours were a blur of shrieking sirens, the frantic beep of the cardiac monitor, and the cold press of an endotracheal tube. That night, Samira stopped sleeping. She would lie awake, her body tense, until the early hours, her mind replaying the rhythm of the flatline that had eventually stabilized into his breathing. When ordinary traffic noises echoed outside her apartment, she would jump, her pulse spiking as if the emergency were repeating itself. Even in the quiet of her living room, she could not relax; her shoulders remained drawn tight, her breath shallow, a permanent state of readiness for the next crisis. The memory of the endotracheal tube and the monitor’s rhythm made her hyper-sensitive to any clinical equipment, while the panic of his swollen airway explained why ordinary sirens now felt like direct threats to her life. The certainty that nothing good could happen to her anymore took root quickly. Samira had come to believe there was something fundamentally wrong with her as a person, that her own fragility must have contributed to the event, and she was too weak to protect what mattered most. To make sense of the devastation, she found herself trapped in cycles of meaning seeking, replaying every decision, every missed symptom, every moment she hadn’t acted fast enough. Because she viewed herself as fundamentally defective and hopeless, these negative appraisals directly fueled her avoidance of medical cues. The sight of syringes in the pharmacy aisle, the distant wail of an ambulance, or even the thought of a routine physical examination triggered a visceral need to flee, shaping her daily movements away from any clinical environment. Her body’s relentless alertness dictated her choices. When a siren passed near her workplace, her body’s inability to relax and sudden startle to sounds would override her rational knowledge, driving her to immediately leave the building and avoid the hospital environment. This deliberate avoidance of hospitals and medical cues, in turn, kept her nervous system locked in a state of perpetual danger, ensuring her startle threshold continued to drop and her inability to relax deepened. The very strategies she employed to protect herself from triggers ended up reinforcing the physiological alarm that made her so vulnerable to them, tightening the cycle with every passing week. The exhaustion of this loop slowly eroded her sense of self. As her sleep problems worsened and her body remained perpetually wired, she interpreted her own trembling hands and forgetful moments as proof that her weakness was permanent. The constant suppression of her thoughts only meant that unprocessed fear lingered in the background, eventually resurfacing as a quiet resignation that she was indeed defective. Meanwhile, her meaning-seeking ruminations occasionally flickered back into her threat system, briefly sharpening her startle response, though this remained a peripheral echo rather than a central driver of her distress. At forty-six, Samira, whose family had emigrated from Lebanon decades ago, sat in the waiting room of a community mental health clinic, her hands resting on her purse. She had stopped working the dispensary counter, handing her notice after a panic episode near the controlled substance cabinet, and her social circle had thinned as she withdrew from gatherings where conversations might turn to health or parenting. She was seeking help because the silence she craved had become unbearable, and the thought of a physical examination felt insurmountable. What she hoped for was simple: to stop bracing for the next tragedy, to finally let her guard down, and to believe that her life could still be safe."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Samira had been counting pills at her community pharmacy counter when the call about her ten-year-old son, Tariq, came through. He had collapsed during soccer practice, his airway swelling shut from a severe anaphylactic reaction. The following hours were a blur of shrieking sirens, the frantic beep of the cardiac monitor, and the cold press of an endotracheal tube. That night, Samira stopped sleeping. She would lie awake, her body tense, until the early hours, her mind replaying the rhythm of the flatline that had eventually stabilized into his breathing. When ordinary traffic noises echoed outside her apartment, she would jump, her pulse spiking as if the emergency were repeating itself. Even in the quiet of her living room, she could not relax; her shoulders remained drawn tight, her breath shallow, a permanent state of readiness for the next crisis. The memory of the endotracheal tube and the monitor’s rhythm made her hyper-sensitive to any clinical equipment, while the panic of his swollen airway explained why ordinary sirens now felt like direct threats to her life. The certainty that nothing good could happen to her anymore took root quickly. Samira had come to believe there was something fundamentally wrong with her as a person, that her own fragility must have contributed to the event, and she was too weak to protect what mattered most. To make sense of the devastation, she found herself trapped in cycles of meaning seeking, replaying every decision, every missed symptom, every moment she hadn’t acted fast enough. Because she viewed herself as fundamentally defective and hopeless, these negative appraisals directly fueled her avoidance of medical cues. The sight of syringes in the pharmacy aisle, the distant wail of an ambulance, or even the thought of a routine physical examination triggered a visceral need to flee, shaping her daily movements away from any clinical environment. Her body’s relentless alertness dictated her choices. When a siren passed near her workplace, her body’s inability to relax and sudden startle to sounds would override her rational knowledge, driving her to immediately leave the building and avoid the hospital environment. This deliberate avoidance of hospitals and medical cues, in turn, kept her nervous system locked in a state of perpetual danger, ensuring her startle threshold continued to drop and her inability to relax deepened. The very strategies she employed to protect herself from triggers ended up reinforcing the physiological alarm that made her so vulnerable to them, tightening the cycle with every passing week. The exhaustion of this loop slowly eroded her sense of self. As her sleep problems worsened and her body remained perpetually wired, she interpreted her own trembling hands and forgetful moments as proof that her weakness was permanent. The constant suppression of her thoughts only meant that unprocessed fear lingered in the background, eventually resurfacing as a quiet resignation that she was indeed defective. Meanwhile, her meaning-seeking ruminations occasionally flickered back into her threat system, briefly sharpening her startle response, though this remained a peripheral echo rather than a central driver of her distress. At forty-six, Samira, whose family had emigrated from Lebanon decades ago, sat in the waiting room of a community mental health clinic, her hands resting on her purse. She had stopped working the dispensary counter, handing her notice after a panic episode near the controlled substance cabinet, and her social circle had thinned as she withdrew from gatherings where conversations might turn to health or parenting. She was seeking help because the silence she craved had become unbearable, and the thought of a physical examination felt insurmountable. What she hoped for was simple: to stop bracing for the next tragedy, to finally let her guard down, and to believe that her life could still be safe.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

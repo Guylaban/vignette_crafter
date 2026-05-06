@@ -1,0 +1,240 @@
+{
+  "persona_id": 365,
+  "source_persona_id": 365,
+  "experiment_timestamp": "2026-05-03 21:37:59",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 56,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Dancer",
+    "trauma_type": "Accidentally caused serious injury to another",
+    "pcl5": 62
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Certain Songs",
+        "value": "Certain songs"
+      },
+      {
+        "key": "Crowding/Overstimulation",
+        "value": "Crowded spaces"
+      },
+      {
+        "key": "Crash Imagery",
+        "value": "Cars hit by accident"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Past Dwelling",
+        "value": "I dwell on how I used to be before the event"
+      },
+      {
+        "key": "Avoid Location",
+        "value": "Going to or near the place where the event happened"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Concentration",
+        "value": "Having difficulty concentrating"
+      },
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Sleep Vigilance",
+        "value": "I have difficulty falling asleep because I need to stay alert"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Inaction Guilt",
+        "value": "I will never forgive myself for not doing more to stop what happened"
+      },
+      {
+        "key": "Failed to Protect",
+        "value": "I should have protected others and I failed"
+      },
+      {
+        "key": "Failed Role",
+        "value": "I have failed in my most important role in life"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.3482,
+    "Negative Appraisals -- Maladaptive Strategies": 0.7473,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.9775,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.8252,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.5244
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Triggers",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Triggers",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.68452,
+  "edge_density": 0.25,
+  "vignette_word_count": 530,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Perpetrator Cues: Anything that reminds me of the person who harmed me",
+          "explanation": "For a trauma defined as accidentally causing serious injury to another, 'Avoid Perpetrator Cues' is hard to reconcile because it implies the patient was harmed by a perpetrator rather than being the agent who injured someone else. That is a direct mismatch with the trauma type."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Humiliation: I feel permanently humiliated by what happened",
+          "explanation": "'Humiliation' is not impossible after this trauma, but paired with the rest of the profile it lacks a clear link to the accidental-injury context; the dominant themes would more plausibly be guilt, responsibility, or fear of causing harm again. It is weaker than the perpetrator-cue problem but still clinically questionable here."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Perpetrator Cues"
+        ],
+        "Negative Appraisals": [
+          "Humiliation"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Body Shame: I feel ashamed of what happened to my body",
+          "explanation": "Body-focused shame is hard to reconcile with the indexed trauma type of accidentally causing serious injury to another, unless there was also significant injury or disfigurement to the patient; no other selected items indicate patient bodily injury, making this appraisal clinically incongruent."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Self-Harm Distraction: I hurt myself physically to stop thinking about the event",
+          "explanation": "Self-harm used as distraction is not impossible, but here it is weakly integrated with the rest of the profile: the other items emphasize guilt, threat vigilance, and cue-triggered distress related to the accident, whereas self-harm implies a severe affect-regulation strategy not supported elsewhere in the selected items. This strategy is therefore clinically poorly anchored in the presented formulation/profile."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Body Shame"
+        ],
+        "Maladaptive Strategies": [
+          "Self-Harm Distraction"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Olfactory Danger Cue: Burnt smell",
+          "explanation": "For a trauma of accidentally causing serious injury to another, a burnt smell implies a fire/burning context that is not supported anywhere else in the profile. With no matching memory content or appraisal theme tied to smoke/fire, this trigger appears trauma-incongruent rather than merely unusual."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Distrust Others: People are not what they seem",
+          "explanation": "The appraisal 'People are not what they seem' suggests interpersonal mistrust/paranoia, which is hard to reconcile with the rest of the profile centered on guilt and failure to protect after accidentally injuring another person. It does not connect plausibly to the listed triggers or strategies and is not supported by any interpersonal threat content."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory Danger Cue"
+        ],
+        "Negative Appraisals": [
+          "Distrust Others"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Six years ago, Arthur stood center stage during a demanding contemporary rehearsal, orchestrating a high-risk partnered lift. His misjudged cue sent his dancer crashing onto the hardwood floor with a sickening impact that mirrored the violent crunch of cars hit by accident. The dancer’s spine fractured, and Arthur watched the career he had helped build collapse in an instant. In the immediate aftermath, he clung to a devastating conviction: he had failed in his most important role in life. This belief that he should have protected others and that he failed completely took root, and it fundamentally altered how his mind processed the world. Whenever a certain song from that rehearsal’s soundtrack played in passing, the auditory cue would instantly pull the memory forward, feeding his conviction that he would never forgive himself for not doing more to stop what happened. His guilt did not simply sit with him; it actively sharpened his environmental scanning, making crowded spaces and sudden impacts feel like imminent threats. Because Arthur’s nervous system refused to settle, even when he knew he was in a safe place, his physiological arousal remained locked at a high baseline. This inability to relax amplified his distress the moment he encountered environmental cues, meaning that crowded streets or loud rehearsals immediately triggered a surge of panic. Rather than allowing his body to adapt, he began relying on rigid coping habits. He stopped going to or near the place where the event happened, telling himself the distance would grant him relief. He tried hard not to think about the trauma, clamping down whenever the image of the fall surfaced, and he found himself dwelling on how he used to be before the accident, comparing his current stiffness to his former fluidity. Yet these strategies only deepened his exhaustion. By pushing the memories out of awareness and retreating from familiar environments, Arthur denied his nervous system any opportunity to recalibrate, which meant his difficulty falling asleep because he needed to stay alert worsened, and his concentration became increasingly fractured. The avoidance that once felt necessary has now calcified into a permanent lifestyle. Arthur no longer teaches or choreographs; instead, he spends his days in a cramped, dimly lit apartment, avoiding the theater district where his company rehearsed. When he forces himself to walk past the dance studios, the sight of other dancers stretching across mirrored walls acts as a potent trigger, immediately reigniting his inaction guilt. His belief that he failed to protect his partner does not just haunt him in isolation; it actively dictates his behavior, pushing him deeper into avoidance and thought suppression, which in turn keeps his threat response chronically active. At fifty-six, his wife has stopped asking him to attend performances or social gatherings because his tension at home has become suffocating. He now sits in a clinic chair for the first time because the difficulty concentrating has made daily tasks unbearable, and the weight of his guilt has finally outweighed his fear of returning to the studio. He hopes to sleep through the night again without scanning the room, and he dreads the possibility that his failure to protect remains a permanent reflection of his character."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Six years ago, Arthur stood center stage during a demanding contemporary rehearsal, orchestrating a high-risk partnered lift. His misjudged cue sent his dancer crashing onto the hardwood floor with a sickening impact that mirrored the violent crunch of cars hit by accident. The dancer’s spine fractured, and Arthur watched the career he had helped build collapse in an instant. In the immediate aftermath, he clung to a devastating conviction: he had failed in his most important role in life. This belief that he should have protected others and that he failed completely took root, and it fundamentally altered how his mind processed the world. Whenever a certain song from that rehearsal’s soundtrack played in passing, the auditory cue would instantly pull the memory forward, feeding his conviction that he would never forgive himself for not doing more to stop what happened. His guilt did not simply sit with him; it actively sharpened his environmental scanning, making crowded spaces and sudden impacts feel like imminent threats. Because Arthur’s nervous system refused to settle, even when he knew he was in a safe place, his physiological arousal remained locked at a high baseline. This inability to relax amplified his distress the moment he encountered environmental cues, meaning that crowded streets or loud rehearsals immediately triggered a surge of panic. Rather than allowing his body to adapt, he began relying on rigid coping habits. He stopped going to or near the place where the event happened, telling himself the distance would grant him relief. He tried hard not to think about the trauma, clamping down whenever the image of the fall surfaced, and he found himself dwelling on how he used to be before the accident, comparing his current stiffness to his former fluidity. Yet these strategies only deepened his exhaustion. By pushing the memories out of awareness and retreating from familiar environments, Arthur denied his nervous system any opportunity to recalibrate, which meant his difficulty falling asleep because he needed to stay alert worsened, and his concentration became increasingly fractured. The avoidance that once felt necessary has now calcified into a permanent lifestyle. Arthur no longer teaches or choreographs; instead, he spends his days in a cramped, dimly lit apartment, avoiding the theater district where his company rehearsed. When he forces himself to walk past the dance studios, the sight of other dancers stretching across mirrored walls acts as a potent trigger, immediately reigniting his inaction guilt. His belief that he failed to protect his partner does not just haunt him in isolation; it actively dictates his behavior, pushing him deeper into avoidance and thought suppression, which in turn keeps his threat response chronically active. At fifty-six, his wife has stopped asking him to attend performances or social gatherings because his tension at home has become suffocating. He now sits in a clinic chair for the first time because the difficulty concentrating has made daily tasks unbearable, and the weight of his guilt has finally outweighed his fear of returning to the studio. He hopes to sleep through the night again without scanning the room, and he dreads the possibility that his failure to protect remains a permanent reflection of his character.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "persona_id": 193,
+  "source_persona_id": 193,
+  "experiment_timestamp": "2026-05-03 17:39:20",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 68,
+    "gender": "Female",
+    "ethnicity": "North American",
+    "relationship_status": "Married",
+    "occupation": "Retired",
+    "trauma_type": "Unexpected or traumatic death of a loved one",
+    "pcl5": 66
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Busyness",
+        "value": "I work hard at keeping busy with other things"
+      },
+      {
+        "key": "Avoid People",
+        "value": "avoid other people"
+      },
+      {
+        "key": "Avoid Social Contacts",
+        "value": "Seeing people that I socialised with before the event"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Isolation",
+        "value": "I feel isolated and set apart from others"
+      },
+      {
+        "key": "Belong Nowhere",
+        "value": "I no longer belong anywhere"
+      },
+      {
+        "key": "Failed to Protect",
+        "value": "I should have protected others and I failed"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.7616,
+    "Negative Appraisals -- Threat": 0.6451,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.6353,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.5246
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.64165,
+  "edge_density": 0.2,
+  "vignette_word_count": 793,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Overworking: I throw myself into work or tasks to keep my mind occupied",
+          "explanation": "For a 68-year-old retired patient, 'Overworking' is questionable as phrased because it implies a current work role; while keeping busy with tasks is plausible, the specific work-focused item is a poor fit to the demographic context."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance",
+          "explanation": "'Avoid Evaluation' is hard to link coherently to the indexed trauma of unexpected death of a loved one and to the rest of the profile. It suggests social/performance concerns that are not reflected in the threat or appraisal items and does not fit the formulation's main Negative Appraisals ↔ Threat loop."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Overworking"
+        ],
+        "Negative Appraisals": [
+          "Avoid Evaluation"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Being Touched: Any form of physical contact with others",
+          "explanation": "For trauma type of unexpected death of a loved one, 'Avoid Being Touched' is hard to explain clinically unless there is interpersonal assault or bodily violation content, which is not present elsewhere in the profile. It appears mismatched to the trauma context and to the other selected items."
+        },
+        {
+          "component": "Threat",
+          "item": "Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance",
+          "explanation": "'Avoid Evaluation' suggests shame about appearance/performance or social evaluative threat, but the rest of the profile centers bereavement-related guilt, isolation, and generalized danger. This strategy does not connect well to the stated trauma type or to the active appraisal-threat loop."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it",
+          "explanation": "The threat items depict pervasive physical danger and inability to feel safe anywhere. In bereavement PTSD this can occur, but here the appraisals provided are mainly isolation and self-blame rather than danger-based meanings. The strong Negative Appraisals ↔ Threat loop is not well reflected because the appraisals do not explain this specific form of persistent external danger."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Being Touched"
+        ],
+        "Threat": [
+          "Avoid Evaluation"
+        ],
+        "Negative Appraisals": [
+          "Cannot Trust Safety"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance",
+          "explanation": "'Avoid Evaluation' is hard to reconcile with the rest of the profile and the trauma type of traumatic bereavement. The other selected items center on grief-related self-blame, isolation, and generalized danger, but fear of being evaluated for appearance/performance suggests a social-evaluative concern not otherwise represented in threat, memory, triggers, or appraisals."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Self-Blame: The event happened because of the way I acted",
+          "explanation": "'Self-Blame' can occur after the unexpected death of a loved one, but in this profile it sits awkwardly beside the chosen maladaptive strategies and threat items. If the patient blames herself for the death, one would expect linked strategies or threat content tied to guilt, responsibility, rumination, or death-related cues; instead the profile emphasizes social withdrawal and generic unsafety, making this item insufficiently integrated with the rest."
+        },
+        {
+          "component": "Threat",
+          "item": "Cannot Trust Safety: Even when others tell me I am safe I find it impossible to believe it",
+          "explanation": "'Cannot Trust Safety' is not impossible in PTSD, but with traumatic bereavement and no trigger or memory items selected, the threat profile becomes very generalized. In combination with the social-evaluative avoidance item, it creates a mixed formulation in which the source of danger is unclear: bereavement-related guilt/loss versus broad physical danger versus fear of scrutiny. This weakens coherence across nodes given the active Negative Appraisals ↔ Threat linkage."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Evaluation"
+        ],
+        "Negative Appraisals": [
+          "Self-Blame"
+        ],
+        "Threat": [
+          "Cannot Trust Safety"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "The phone call came on a Tuesday in November, shattering sixty-eight years of assumed security. Eleanor Vance had missed her brother’s flight by a misplaced calendar notification, a simple scheduling error that soon felt like a profound moral failure. When the police arrived at the interstate rest stop where he had stopped to call her, he was alone, the car crumpled against a steel guardrail. In the immediate aftermath, Eleanor was certain she should have protected others and I failed to shield him from the road. The conviction that she failed to protect him took root before the body was even released. As weeks bled into months, this belief anchored a deep, isolating conviction that she no longer belonged anywhere among people who lived without such looming finality. She began to feel isolated and set apart from others, as though a glass wall had been erected between her and the rest of the world. Eleanor’s negative appraisals directly drove her withdrawal from the very relationships she once cherished. Because she believed she was fundamentally broken and responsible for the tragedy, she avoided other people and strictly limited herself to avoiding social contacts with anyone she had socialised with before the event. She convinced herself that shared memories at the retirement community clubhouse would only magnify her guilt, so she worked hard at keeping busy with other things, filling her days with aggressive garden weeding and repetitive household repairs. These avoidance behaviours and relentless routines became the primary architecture of her retirement, erected specifically to escape the negative appraisals that made ordinary company feel impossible. The weight of those self-blaming beliefs quickly forged the landscape of her ongoing threat response. Because Eleanor held onto the conviction that she had failed to protect her brother, her mind began cataloging every potential danger as proof of her inadequacy. The simple sight of a car idling in her driveway triggered a wave of horror, while the sound of tires on wet pavement sent her shoulders hitching to her ears. Her body felt constantly tense and ready to react to danger, even when the kitchen was quiet and the windows were closed. This physiological alarm system did not discriminate between actual risk and memory; it simply ensured that Eleanor could not relax even when she knew she was in a safe place, turning her negative appraisals into a continuous state of dread. The threat state soon looped back, solidifying her negative appraisals into an unbreakable cycle. Every time her heart hammered against her ribs during a sudden noise, Eleanor took it as proof that she had lost her grip on reality, confirming her belief that she no longer belonged anywhere. When she flinched at the sound of Thomas clearing his throat after work, she interpreted his startled expression not as concern, but as evidence that she was becoming unpredictable and unlovable. The persistent shame, anger, fear, horror, and guilt she felt in her chest convinced her that the world remained inherently treacherous and that she was entirely alone in surviving it. These intense negative emotions did not pass; they settled into her bones, convincing her that her emotional state was permanent and that isolation was the only logical consequence of surviving what she had. Over the following eighteen months, the strategies she adopted to escape this threat ultimately kept the danger alive. Fearing that normal social gatherings would only highlight her disconnection, she avoided other people and strictly limited herself to avoiding social contacts with anyone she had socialised with before the event. Instead, she worked hard at keeping busy with other things, filling her days with aggressive garden weeding and repetitive laundry cycles. Yet this relentless activity did not calm her nervous system; it only denied her the recovery periods needed to lower her physiological baseline. Consequently, her threat response remained permanently switched on. Her body felt constantly tense and ready to react to danger, and her inability to relax even when she knew she was in a safe place grew worse, as her avoidance of normal pacing routines starved her system of the predictability required to calm down. The strain reached its breaking point in the spring. Thomas began sleeping on the pull-out couch, their shared dinners devolving into silence punctuated by her flinches. Eleanor finally realized that her attempts to outrun her guilt had only built a cage around her marriage. She signed up for therapy because she was terrified of losing him entirely, hoping not to cure her fear, but simply to learn how to sit in the quiet without feeling like a failure. She told the intake coordinator that she wanted to stop waiting for the other shoe to drop, and that she was most afraid of realizing she had survived for nothing."
+,
+
+  "vignette_attempts": [
+    {"vignette": "The phone call came on a Tuesday in November, shattering sixty-eight years of assumed security. Eleanor Vance had missed her brother’s flight by a misplaced calendar notification, a simple scheduling error that soon felt like a profound moral failure. When the police arrived at the interstate rest stop where he had stopped to call her, he was alone, the car crumpled against a steel guardrail. In the immediate aftermath, Eleanor was certain she should have protected others and I failed to shield him from the road. The conviction that she failed to protect him took root before the body was even released. As weeks bled into months, this belief anchored a deep, isolating conviction that she no longer belonged anywhere among people who lived without such looming finality. She began to feel isolated and set apart from others, as though a glass wall had been erected between her and the rest of the world. Eleanor’s negative appraisals directly drove her withdrawal from the very relationships she once cherished. Because she believed she was fundamentally broken and responsible for the tragedy, she avoided other people and strictly limited herself to avoiding social contacts with anyone she had socialised with before the event. She convinced herself that shared memories at the retirement community clubhouse would only magnify her guilt, so she worked hard at keeping busy with other things, filling her days with aggressive garden weeding and repetitive household repairs. These avoidance behaviours and relentless routines became the primary architecture of her retirement, erected specifically to escape the negative appraisals that made ordinary company feel impossible. The weight of those self-blaming beliefs quickly forged the landscape of her ongoing threat response. Because Eleanor held onto the conviction that she had failed to protect her brother, her mind began cataloging every potential danger as proof of her inadequacy. The simple sight of a car idling in her driveway triggered a wave of horror, while the sound of tires on wet pavement sent her shoulders hitching to her ears. Her body felt constantly tense and ready to react to danger, even when the kitchen was quiet and the windows were closed. This physiological alarm system did not discriminate between actual risk and memory; it simply ensured that Eleanor could not relax even when she knew she was in a safe place, turning her negative appraisals into a continuous state of dread. The threat state soon looped back, solidifying her negative appraisals into an unbreakable cycle. Every time her heart hammered against her ribs during a sudden noise, Eleanor took it as proof that she had lost her grip on reality, confirming her belief that she no longer belonged anywhere. When she flinched at the sound of Thomas clearing his throat after work, she interpreted his startled expression not as concern, but as evidence that she was becoming unpredictable and unlovable. The persistent shame, anger, fear, horror, and guilt she felt in her chest convinced her that the world remained inherently treacherous and that she was entirely alone in surviving it. These intense negative emotions did not pass; they settled into her bones, convincing her that her emotional state was permanent and that isolation was the only logical consequence of surviving what she had. Over the following eighteen months, the strategies she adopted to escape this threat ultimately kept the danger alive. Fearing that normal social gatherings would only highlight her disconnection, she avoided other people and strictly limited herself to avoiding social contacts with anyone she had socialised with before the event. Instead, she worked hard at keeping busy with other things, filling her days with aggressive garden weeding and repetitive laundry cycles. Yet this relentless activity did not calm her nervous system; it only denied her the recovery periods needed to lower her physiological baseline. Consequently, her threat response remained permanently switched on. Her body felt constantly tense and ready to react to danger, and her inability to relax even when she knew she was in a safe place grew worse, as her avoidance of normal pacing routines starved her system of the predictability required to calm down. The strain reached its breaking point in the spring. Thomas began sleeping on the pull-out couch, their shared dinners devolving into silence punctuated by her flinches. Eleanor finally realized that her attempts to outrun her guilt had only built a cage around her marriage. She signed up for therapy because she was terrified of losing him entirely, hoping not to cure her fear, but simply to learn how to sit in the quiet without feeling like a failure. She told the intake coordinator that she wanted to stop waiting for the other shoe to drop, and that she was most afraid of realizing she had survived for nothing.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

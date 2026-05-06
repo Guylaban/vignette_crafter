@@ -1,0 +1,180 @@
+{
+  "persona_id": 123,
+  "source_persona_id": 123,
+  "experiment_timestamp": "2026-05-04 04:15:54",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 32,
+    "gender": "Male",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Housekeeper",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 61
+  },
+  "self_report": {
+    "Memory": [
+      {
+        "key": "Pain Recall",
+        "value": "When the memory returns I feel physical pain in the same parts of my body as during the event"
+      },
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Distrust Others",
+        "value": "People are not what they seem"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.8557,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.2423,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Memory",
+    "Memory → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Memory",
+    "Memory → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.549,
+  "edge_density": 0.1,
+  "vignette_word_count": 460,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Fragmented Pieces",
+          "explanation": "Within the Memory node, 'My memories of the event come in disconnected pieces that do not fit together' directly conflicts with 'I can talk about what happened very easily.' For a severe mugging-related PTSD profile, markedly fragmented recall and very easy verbal access to the trauma narrative are hard to reconcile as describing the same current memory presentation."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Fragmented Pieces"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Verbal Access: I can talk about what happened very easily.",
+          "explanation": "The Memory node is internally incoherent for a severe mugging/robbery PTSD presentation: 'I can talk about what happened very easily' suggests low avoidance and relatively integrated, verbally accessible trauma memory, whereas simultaneously endorsing very vivid detailed recall and body-based painful reliving implies a highly sensory, distressing, poorly integrated trauma memory. This combination is possible in milder cases, but here it is hard to reconcile clinically within the same Memory profile. The Negative Appraisals items are coherent for robbery trauma, but the Memory selections do not fit cleanly with that node pattern or with the strong Negative Appraisals ↔ Memory linkage in the formulation."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Verbal Access"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Constant Vigilance: I have to be especially careful because you never know what can happen next",
+          "explanation": "This item is more characteristic of ongoing threat/safety behavior than of a pure negative appraisal. In this profile, Threat is not endorsed and all Threat-related edges are inactive, while the active formulation is specifically centered on a Memory ↔ Negative Appraisals loop. The mistrust items fit robbery-related appraisals, but 'Constant Vigilance' introduces a prominent current-threat theme that is not supported elsewhere in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Constant Vigilance"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Raj, a 32-year-old South Asian man married to his high school sweetheart, had been working steadily as a housekeeper at a local hotel for several years when he was mugged one late evening. The experience was so vivid that every detail remains seared into his memory. He recalls the dimly lit alleyway where the incident occurred and the sudden fear of being cornered by two men who demanded his wallet. Raj had felt helpless, pinned against a brick wall, as they snatched his belongings and left him alone in the darkness. Since then, Raj's memories have become hauntingly clear and detailed. Whenever he tries to describe what happened, he struggles to find the right words, feeling that any explanation falls short of conveying the depth of his experience. The physical pain associated with those memories is almost as real as if it were happening all over again. Each time a memory surfaces, Raj feels the same crushing pressure against his chest and the sharp ache in his wrists where he was held forcibly. Raj has come to believe that people are not what they seem, and this belief is deeply rooted in his experience of being robbed by those who appeared harmless at first glance. His distrust has grown stronger with each vivid recollection of that night, reinforcing his negative appraisals about the world's inherent danger and people’s untrustworthiness. His job as a housekeeper has become increasingly difficult due to these thoughts. He finds himself constantly on edge while working in empty rooms or hallways, wary of any shadowy figures he might encounter. Raj avoids certain areas where he feels more vulnerable, which has led to his supervisors giving him less desirable shifts and less interaction with regular guests. What frightens Raj most is that the world seems perpetually unsafe, and he can't shake the feeling that another attack could happen at any moment. This constant vigilance takes a toll on both his mental health and his marriage; he often cancels plans or declines social invitations out of fear of being caught off guard again. Despite his efforts to maintain a sense of normalcy, Raj's life has become increasingly isolated and tense. The vivid memories continue to haunt him, reinforcing the notion that everyone around him is potentially dangerous. This self-reinforcing cycle leaves him feeling trapped in a state of perpetual anxiety and distrust. It was this overwhelming fear and the realization that his daily functioning had been severely compromised that finally pushed Raj to seek help. He hopes to regain some sense of safety and trust, both in himself and in others. His primary concern is finding ways to manage his intrusive memories so that he can return to a life where he feels secure and connected once more."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Raj, a 32-year-old South Asian man married to his high school sweetheart, had been working steadily as a housekeeper at a local hotel for several years when he was mugged one late evening. The experience was so vivid that every detail remains seared into his memory. He recalls the dimly lit alleyway where the incident occurred and the sudden fear of being cornered by two men who demanded his wallet. Raj had felt helpless, pinned against a brick wall, as they snatched his belongings and left him alone in the darkness. Since then, Raj's memories have become hauntingly clear and detailed. Whenever he tries to describe what happened, he struggles to find the right words, feeling that any explanation falls short of conveying the depth of his experience. The physical pain associated with those memories is almost as real as if it were happening all over again. Each time a memory surfaces, Raj feels the same crushing pressure against his chest and the sharp ache in his wrists where he was held forcibly. Raj has come to believe that people are not what they seem, and this belief is deeply rooted in his experience of being robbed by those who appeared harmless at first glance. His distrust has grown stronger with each vivid recollection of that night, reinforcing his negative appraisals about the world's inherent danger and people’s untrustworthiness. His job as a housekeeper has become increasingly difficult due to these thoughts. He finds himself constantly on edge while working in empty rooms or hallways, wary of any shadowy figures he might encounter. Raj avoids certain areas where he feels more vulnerable, which has led to his supervisors giving him less desirable shifts and less interaction with regular guests. What frightens Raj most is that the world seems perpetually unsafe, and he can't shake the feeling that another attack could happen at any moment. This constant vigilance takes a toll on both his mental health and his marriage; he often cancels plans or declines social invitations out of fear of being caught off guard again. Despite his efforts to maintain a sense of normalcy, Raj's life has become increasingly isolated and tense. The vivid memories continue to haunt him, reinforcing the notion that everyone around him is potentially dangerous. This self-reinforcing cycle leaves him feeling trapped in a state of perpetual anxiety and distrust. It was this overwhelming fear and the realization that his daily functioning had been severely compromised that finally pushed Raj to seek help. He hopes to regain some sense of safety and trust, both in himself and in others. His primary concern is finding ways to manage his intrusive memories so that he can return to a life where he feels secure and connected once more.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

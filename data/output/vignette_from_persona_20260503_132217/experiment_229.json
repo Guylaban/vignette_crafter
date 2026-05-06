@@ -1,0 +1,249 @@
+{
+  "persona_id": 229,
+  "source_persona_id": 229,
+  "experiment_timestamp": "2026-05-03 18:29:19",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 49,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Fashion Designer",
+    "trauma_type": "Trauma to a loved one",
+    "pcl5": 77
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Future Plans",
+        "value": "Making any plans for the future"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      },
+      {
+        "key": "Mental Distraction",
+        "value": "keep mind occupied all the time"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      },
+      {
+        "key": "Sleep Problems",
+        "value": "Trouble falling or staying asleep"
+      },
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Guilt on Recall",
+        "value": "When I remember the event I feel intense guilt"
+      },
+      {
+        "key": "Overwhelm on Recall",
+        "value": "When the memory returns I feel so overwhelmed by emotion that I have to stop"
+      },
+      {
+        "key": "Partial Clarity",
+        "value": "Some moments of the event are extremely clear while others are completely blank"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.636,
+    "Memory -- Threat": 0.0215,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.1308,
+    "Threat -- Memory": 0.9094,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.591,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Maladaptive Strategies → Memory"
+  ],
+  "satisfied_edges": [
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Maladaptive Strategies → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.45774,
+  "edge_density": 0.25,
+  "vignette_word_count": 718,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat in Delays: When something takes longer than expected I assume something bad is happening",
+          "explanation": "The profile is for trauma to a loved one, but the threat items are dominated by direct personal pursuit/attack themes (someone following me, needing to check immediate personal safety, planning escape routes). That pattern fits interpersonal victimization of the self more than bereavement/trauma-to-loved-one and is hard to reconcile without any corresponding memory content about being personally endangered."
+        },
+        {
+          "component": "Memory",
+          "item": "Checking Behind: I frequently look behind me to check if someone is following me",
+          "explanation": "Within the formulation, Threat and Memory are tightly linked, yet the memory items are about guilt, emotional overwhelm, and patchy recall, while the threat items are about current physical surveillance/attack. There is little plausible content connection between these selected memory items and the very specific threat behaviors, so the strong Threat ↔ Memory pattern is not well reflected."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Waking Alert: I wake during the night to check whether I am safe",
+          "explanation": "Revenge fantasies toward those responsible can occur after a loved one is harmed, but paired with checking behind, waking to check safety, and escape-route planning, the overall pattern implies ongoing direct threat to the patient rather than distress centered on the loved one's trauma. This cross-node combination is clinically difficult to explain as one coherent presentation from the stated trauma type."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Threat in Delays"
+        ],
+        "Memory": [
+          "Checking Behind"
+        ],
+        "Maladaptive Strategies": [
+          "Waking Alert"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Checking Behind: I frequently look behind me to check if someone is following me",
+          "explanation": "These threat and safety-behaviour items imply an ongoing interpersonal pursuit or direct personal danger to the patient. That is hard to reconcile with the validated trauma type of trauma to a loved one, unless there is additional unreported threat to self."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Escape Route Planning: always plan an escape route before entering a place",
+          "explanation": "The profile otherwise centres on guilt, emotional overwhelm, and fragmented recall linked to the loved one's trauma, which fits bereavement/indirect trauma. Escape-route planning and checking if someone is following him pull toward a different trauma context and are not well integrated with the rest of the selected items."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Checking Behind"
+        ],
+        "Maladaptive Strategies": [
+          "Escape Route Planning"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Revenge Fantasies: I imagine getting revenge on the people responsible",
+          "explanation": "For trauma to a loved one, revenge fantasies can be plausible if there is an identifiable perpetrator, but here the rest of the profile does not establish an assault/perpetrator context. In the absence of any trigger, memory, or appraisal content about attackers or blame, this item is hard to integrate clinically with the rest of the profile."
+        },
+        {
+          "component": "Threat",
+          "item": "Waking Alert: I wake during the night to check whether I am safe",
+          "explanation": "The threat items are specifically about the patient checking whether he himself is physically safe at night. For trauma to a loved one, this can occur, but in this profile there are no triggers or appraisals supporting a persistent personal-danger formulation. The memory items centre on guilt and emotional overwhelm about the event, making the nocturnal self-protection theme feel disconnected."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Revenge Fantasies"
+        ],
+        "Threat": [
+          "Waking Alert"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Sleep Vigilance: I have difficulty falling asleep because I need to stay alert",
+          "explanation": "The Threat node is internally strained by combining general negative emotions and generic sleep problems with a highly specific hypervigilance item ('need to stay alert'). For a trauma involving harm to a loved one, this item implies an ongoing immediate-danger posture toward the patient's own safety that is not supported by the memory content, appraisals, or strategies provided. The rest of the profile is dominated by guilt, overwhelming recall, patchy memory, suppression, and distraction, which coheres with trauma to a loved one and severe PTSD, but does not clinically anchor a strong 'must stay alert' threat theme. This makes the sleep-vigilance item the main incoherent selection relative to the rest of the formulation and profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Sleep Vigilance"
+        ]
+      }
+    },
+    {
+      "attempt": 5,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Arthur Vance was forty-nine when the Pennsylvania rain turned the county road to glass. He remembered the exact pitch of the wipers and the easy banter with his younger brother, Leo, before the tires lost their grip. The car spun, slammed into the guardrail, and settled into the icy runoff with a muffled silence. Arthur survived with bruised ribs; Leo did not. In the weeks that followed, the clarity of that night fractured. Some moments were razor-sharp: the way Leo’s hand slipped from the door handle, the sudden spray against the rear window. Other stretches were completely blank, as if his mind had severed the wires to the worst of it. Whenever the fragments surfaced, a heavy guilt rushed in. The sheer emotional weight of the recall forced him to close his sketchbook, press his palms flat against his drafting table, and force himself to breathe until the wave passed. The trauma quickly manifested in his body. Within a month, Arthur’s sleep fractured. He would lie beside his wife, Claire, staring at the ceiling, certain that any sudden noise was the crack of a collision. When a delivery truck backfired outside his garment district shop, his heart hammered against his ribs, a violent physical reactivity that left his palms slick. The terror and guilt that flooded him were immediate, coloring every daylight hour with persistent horror. These threatening sensations did not stay contained; they fed directly back into his recall. The worse his sleep became and the more frequently his body braced for impact, the more vivid the memories grew, returning not as reflections but as unavoidable intrusions. He found himself checking the locks three times and jumping at the sudden slam of a fitting room door. To survive the intrusions, Arthur developed habits that slowly isolated him. When the guilt on recall became too heavy, he immediately tried to suppress the memory, gripping his stylus until his knuckles whitened and forcing his attention onto the exact thread count of a velvet swatch. The mental distraction offered a brief reprieve, but it was the dread of what might surface that dictated his movements. He stopped booking hotel rooms for his annual Paris showings, telling clients he was focusing on local production, because making any plans for the future felt like a betrayal. The physical reactivity and the crushing guilt worked in tandem to reinforce this retreat; the more his body braced for danger, the more rigidly he locked away forward-looking ambitions. In the quiet hours before dawn, Arthur would sit at his desk and try to clear his mind of Leo. Yet the more fiercely he fought to suppress the thoughts and occupy his head with geometry and grain, the more stubbornly the fragmented memories returned, slipping through his defenses like water. Over the following months, the cycle closed. The partial clarity of the crash, followed by the overwhelming guilt, triggered a fresh wave of physical reactivity and negative emotions. Arthur’s heart would race, his chest would tighten, and the threat response would instantly push him toward suppression. He would abandon his sketches, pace the warehouse floor, and mentally reconstruct every possible decision point. His fashion design work, once his anchor, became a battlefield. He missed two critical supplier meetings because he could not bear to step outside and risk the sound of a reversing engine. Claire noticed the distance; his avoidance of future plans bled into his marriage, leaving him unable to imagine a timeline that did not include an ending. Arthur finally came to his therapist’s office last Tuesday, not because the memories had stopped, but because they had stopped making sense to the rest of his life. He sat on the edge of the chair, fingers twisting the hem of his sweater, and admitted that he had begun wearing noise-canceling headphones for the entire workday. He was terrified that if he ever let his guard down, the guilt would consume him entirely. What he hoped for was simply to sleep through the night, to attend his brother’s memorial without his pulse spiking at the sound of rain, and to finally draft a collection without feeling like he was designing for a ghost. He wanted to remember Leo without the terror, and to step into the future without flinching at the sound of his own footsteps."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Arthur Vance was forty-nine when the Pennsylvania rain turned the county road to glass. He remembered the exact pitch of the wipers and the easy banter with his younger brother, Leo, before the tires lost their grip. The car spun, slammed into the guardrail, and settled into the icy runoff with a muffled silence. Arthur survived with bruised ribs; Leo did not. In the weeks that followed, the clarity of that night fractured. Some moments were razor-sharp: the way Leo’s hand slipped from the door handle, the sudden spray against the rear window. Other stretches were completely blank, as if his mind had severed the wires to the worst of it. Whenever the fragments surfaced, a heavy guilt rushed in. The sheer emotional weight of the recall forced him to close his sketchbook, press his palms flat against his drafting table, and force himself to breathe until the wave passed. The trauma quickly manifested in his body. Within a month, Arthur’s sleep fractured. He would lie beside his wife, Claire, staring at the ceiling, certain that any sudden noise was the crack of a collision. When a delivery truck backfired outside his garment district shop, his heart hammered against his ribs, a violent physical reactivity that left his palms slick. The terror and guilt that flooded him were immediate, coloring every daylight hour with persistent horror. These threatening sensations did not stay contained; they fed directly back into his recall. The worse his sleep became and the more frequently his body braced for impact, the more vivid the memories grew, returning not as reflections but as unavoidable intrusions. He found himself checking the locks three times and jumping at the sudden slam of a fitting room door. To survive the intrusions, Arthur developed habits that slowly isolated him. When the guilt on recall became too heavy, he immediately tried to suppress the memory, gripping his stylus until his knuckles whitened and forcing his attention onto the exact thread count of a velvet swatch. The mental distraction offered a brief reprieve, but it was the dread of what might surface that dictated his movements. He stopped booking hotel rooms for his annual Paris showings, telling clients he was focusing on local production, because making any plans for the future felt like a betrayal. The physical reactivity and the crushing guilt worked in tandem to reinforce this retreat; the more his body braced for danger, the more rigidly he locked away forward-looking ambitions. In the quiet hours before dawn, Arthur would sit at his desk and try to clear his mind of Leo. Yet the more fiercely he fought to suppress the thoughts and occupy his head with geometry and grain, the more stubbornly the fragmented memories returned, slipping through his defenses like water. Over the following months, the cycle closed. The partial clarity of the crash, followed by the overwhelming guilt, triggered a fresh wave of physical reactivity and negative emotions. Arthur’s heart would race, his chest would tighten, and the threat response would instantly push him toward suppression. He would abandon his sketches, pace the warehouse floor, and mentally reconstruct every possible decision point. His fashion design work, once his anchor, became a battlefield. He missed two critical supplier meetings because he could not bear to step outside and risk the sound of a reversing engine. Claire noticed the distance; his avoidance of future plans bled into his marriage, leaving him unable to imagine a timeline that did not include an ending. Arthur finally came to his therapist’s office last Tuesday, not because the memories had stopped, but because they had stopped making sense to the rest of his life. He sat on the edge of the chair, fingers twisting the hem of his sweater, and admitted that he had begun wearing noise-canceling headphones for the entire workday. He was terrified that if he ever let his guard down, the guilt would consume him entirely. What he hoped for was simply to sleep through the night, to attend his brother’s memorial without his pulse spiking at the sound of rain, and to finally draft a collection without feeling like he was designing for a ghost. He wanted to remember Leo without the terror, and to step into the future without flinching at the sound of his own footsteps.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,191 @@
+PERSONA 101  |  2026-05-03 15:35:24
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             67
+  gender          Male
+  ethnicity       North American
+  relationship_status Widowed
+  occupation      Military Medic
+  trauma_type     Life-threatening motor vehicle collision
+  pcl5            64
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Alcohol): Alcohol smell
+    • Crash Imagery: Cars hit by accident
+    • Olfactory Danger Cue: Burnt smell
+  Maladaptive Strategies:
+    • Thought Monitoring: constantly monitor own thoughts for signs of going crazy
+    • Avoid Driving: Driving or being a passenger in a vehicle
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Startle Response: Feeling jumpy or easily startled
+    • Startle to Sounds: I jump or startle at ordinary sounds that would not bother most people
+  Memory:
+    • Cannot Explain Clearly: When I try to explain what happened I lose the thread and cannot finish
+    • Memory Feels Alien: The memory feels like it belongs to someone else rather than to me
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+  Negative Appraisals:
+    • Self-Blame: The event happened because of the way I acted
+    • Self-Doubt: I can't trust that I will do the right thing
+    • Weakness Belief: I am a weak person
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.7699
+  Triggers → Memory                                  0.5694
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.3449
+  Negative Appraisals → Threat                       0.7036
+  Negative Appraisals → Memory                       0.6651
+  Negative Appraisals → Triggers                     0.3523
+  Memory → Maladaptive Strategies                    0.3910
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.9879
+  Memory → Triggers                                  0.6470
+  Threat → Maladaptive Strategies                    0.8504
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.4967
+  Maladaptive Strategies → Memory                    0.9704
+  Maladaptive Strategies → Negative Appraisals       0.2305
+  Maladaptive Strategies → Triggers                  0.4092
+  Maladaptive Strategies → Threat                    0.4645
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Sexual Situations: Sexual situations or intimacy
+    explanation: For a life-threatening motor vehicle collision, sexual situations and being around children are hard-to-explain triggers in the absence of any related trauma content elsewhere in the profile. The rest of the profile centers on generic hyperarousal/dissociation and transportation-related cues, so these two triggers do not fit the trauma-specific pattern and weaken Triggers → Threat / Triggers → Memory coherence.
+    item:        Negative Appraisals / Triggers: Children Present: Being around children
+    explanation: Humiliation can occur after an MVC, but here it sits awkwardly with the rest of the profile: the appraisals otherwise suggest self-blame and social disconnection, yet no memory, threat, or trigger content reflects embarrassment, public exposure, disability, or shame-linked reminders. For this trauma type, permanent humiliation is insufficiently supported by the other selected items.
+    item:        Maladaptive Strategies / Negative Appraisals: Humiliation: I feel permanently humiliated by what happened
+    explanation: Restricting food as a coping strategy is poorly linked to the rest of the formulation. The profile’s active threat content is hyperarousal/startle and dissociative memory disturbance, and the selected strategies otherwise involve vigilance and situational avoidance. Undereating does not plausibly address any represented symptom cluster and feels disconnected from the threat/memory/appraisal pattern.
+  [2] FAIL
+    item:        Triggers / Triggers: Children Present: Being around children
+    explanation: 'Being around children' is a weak fit as a trauma trigger for a life-threatening motor vehicle collision unless the crash specifically involved children; nothing else in the profile supports children as a salient cue, so this trigger appears disconnected from the rest of the formulation.
+    item:        Negative Appraisals / Negative Appraisals: Humiliation: I feel permanently humiliated by what happened
+    explanation: 'I feel permanently humiliated by what happened' is possible but is not well supported by the rest of the profile for a motor vehicle collision. The accompanying appraisals are self-blame and alienation, but there are no other items suggesting shame/humiliation themes (e.g., social exposure, moral failure, visible disgrace), making this appraisal stand out as poorly integrated.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Open Spaces: Open or exposed spaces where I feel vulnerable
+    explanation: 'Avoid open or exposed spaces where I feel vulnerable' is hard to reconcile with the rest of the profile, which centers on transportation cues, startle/physical threat reactions, and trauma memory phenomena from an MVC. Open-space avoidance suggests a different threat pattern (e.g., assault/agoraphobic vulnerability) that is not represented elsewhere.
+  [3] FAIL
+    item:        Triggers / Triggers: Transportation (Bicycle): Bicycle
+    explanation: A bicycle-specific trigger is difficult to reconcile with a life-threatening motor vehicle collision unless the collision specifically involved a bicycle; the rest of the profile is vehicle/crash focused rather than bicycle focused, so this item stands out as trauma-incongruent.
+    item:        Threat / Threat: Startle to Touch: I react with alarm when someone touches me unexpectedly
+    explanation: Alarm to unexpected touch suggests an interpersonal/assault-related threat cue more than a motor vehicle collision. In the context of the other threat items, generic startle and physical reactivity fit, but touch-specific alarm is not well linked to the reported trauma or the rest of the formulation.
+    item:        Negative Appraisals / Negative Appraisals: Belong Nowhere: I no longer belong anywhere
+    explanation: 'I no longer belong anywhere' is a broad social-identity appraisal that is not impossible, but it sits awkwardly with the otherwise self-blame/competence-focused appraisal pattern tied to an MVC. It is less clearly connected to the memory and trigger content than more trauma-specific appraisals would be.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Undereating: I avoid eating or restrict food as a way of coping
+    explanation: Restricting food as a coping strategy is not impossible, but here it is poorly supported by the rest of the profile. The formulation strongly links threat and appraisals to maladaptive strategies, and the other strategies are vehicle avoidance and thought monitoring, whereas undereating addresses a symptom domain not otherwise represented.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Six months ago, Frank’s sedan was T-boned at a busy intersection, rolling onto its roof while the
+guardrail groaned and the windshield spider-webbed. When he finally crawled from the twisted door,
+the sharp tang of ruptured coolant mixed with the acrid stench of scorched brakes, a sensory
+collision that immediately hijacked his nervous system. His heart hammered against his ribs, and the
+violent jolt of that impact left him permanently jumpy, so that even ordinary car horns now spiked
+his pulse into a frantic, breathless reaction. The memory of the crash refused to settle into a
+coherent narrative; whenever he tried to explain what happened to his son, he would lose the thread,
+and the fragmented audio of snapping seatbelts and grinding metal would echo in his head as if it
+belonged to someone else. This inability to piece the event together convinced Frank that he was
+fundamentally weak, that a competent military medic would never have misjudged that stop sign. That
+harsh self-judgment took root quickly, and he became convinced he could not trust his own judgment
+anymore. Determined to prevent another failure, Frank began constantly monitoring his own thoughts
+for any sign of mental unraveling. He started suppressing any memory of the collision, trying hard
+not to think about the trauma, which only forced the fragmented recollections deeper, making them
+feel even more alien and detached from his own life. Because he viewed himself as weak and blamed
+himself for the crash, he avoided driving and would not even ride as a passenger in a vehicle. This
+avoidance quickly bred profound physical reactivity; the mere thought of a steering wheel triggered
+a cold sweat and a trembling that made him feel utterly jumpy. The physical panic then acted as a
+beacon, pulling his attention straight back to the smell of alcohol on a colleague’s breath or the
+sight of dented fenders on parked cars, convincing him that danger was everywhere. When he tried to
+push the triggers away, the suppressed memories surfaced with greater auditory clarity, and these
+loud, uncontrollable flashbacks reinforced his belief that he was losing control and could never be
+sure of his own instincts. The more he doubted his own competence, the more his body prepared for
+catastrophe, which in turn made ordinary noises trigger a violent startle response, ensuring that
+every reminder of the crash felt overwhelmingly potent. Now stationed at the community VA clinic as
+a senior military medic, Frank finds himself trapped in this tightening loop. Last Tuesday, a supply
+delivery truck idled outside his office window, its diesel fumes drifting through the cracked pane.
+The burnt smell instantly triggered a full-body tremor, which flooded his mind with the auditory
+recall of the original impact, stripping the event of any sense of ownership and leaving it feeling
+entirely alien. His immediate thought monitoring flagged the panic as a sign of impending collapse,
+driving him to suppress the memory again, which only deepened his conviction that he was too broken
+to care for patients. He has not driven or ridden in a car since the accident, isolating himself
+from the road and abandoning his favorite weekend walks through the downtown district. He finally
+scheduled this intake because the suppression is no longer holding, and the constant hypervigilance
+has left him exhausted and certain that he is losing his mind. He is most afraid of another
+collision, but he desperately hopes the treatment might finally help him trust his own hands again.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Six months ago, Frank’s sedan was T-boned at a busy intersection, rolling onto its roof while the
+guardrail groaned and the windshield spider-webbed. When he finally crawled from the twisted door,
+the sharp tang of ruptured coolant mixed with the acrid stench of scorched brakes, a sensory
+collision that immediately hijacked his nervous system. His heart hammered against his ribs, and the
+violent jolt of that impact left him permanently jumpy, so that even ordinary car horns now spiked
+his pulse into a frantic, breathless reaction. The memory of the crash refused to settle into a
+coherent narrative; whenever he tried to explain what happened to his son, he would lose the thread,
+and the fragmented audio of snapping seatbelts and grinding metal would echo in his head as if it
+belonged to someone else. This inability to piece the event together convinced Frank that he was
+fundamentally weak, that a competent military medic would never have misjudged that stop sign. That
+harsh self-judgment took root quickly, and he became convinced he could not trust his own judgment
+anymore. Determined to prevent another failure, Frank began constantly monitoring his own thoughts
+for any sign of mental unraveling. He started suppressing any memory of the collision, trying hard
+not to think about the trauma, which only forced the fragmented recollections deeper, making them
+feel even more alien and detached from his own life. Because he viewed himself as weak and blamed
+himself for the crash, he avoided driving and would not even ride as a passenger in a vehicle. This
+avoidance quickly bred profound physical reactivity; the mere thought of a steering wheel triggered
+a cold sweat and a trembling that made him feel utterly jumpy. The physical panic then acted as a
+beacon, pulling his attention straight back to the smell of alcohol on a colleague’s breath or the
+sight of dented fenders on parked cars, convincing him that danger was everywhere. When he tried to
+push the triggers away, the suppressed memories surfaced with greater auditory clarity, and these
+loud, uncontrollable flashbacks reinforced his belief that he was losing control and could never be
+sure of his own instincts. The more he doubted his own competence, the more his body prepared for
+catastrophe, which in turn made ordinary noises trigger a violent startle response, ensuring that
+every reminder of the crash felt overwhelmingly potent. Now stationed at the community VA clinic as
+a senior military medic, Frank finds himself trapped in this tightening loop. Last Tuesday, a supply
+delivery truck idled outside his office window, its diesel fumes drifting through the cracked pane.
+The burnt smell instantly triggered a full-body tremor, which flooded his mind with the auditory
+recall of the original impact, stripping the event of any sense of ownership and leaving it feeling
+entirely alien. His immediate thought monitoring flagged the panic as a sign of impending collapse,
+driving him to suppress the memory again, which only deepened his conviction that he was too broken
+to care for patients. He has not driven or ridden in a car since the accident, isolating himself
+from the road and abandoning his favorite weekend walks through the downtown district. He finally
+scheduled this intake because the suppression is no longer holding, and the constant hypervigilance
+has left him exhausted and certain that he is losing his mind. He is most afraid of another
+collision, but he desperately hopes the treatment might finally help him trust his own hands again.

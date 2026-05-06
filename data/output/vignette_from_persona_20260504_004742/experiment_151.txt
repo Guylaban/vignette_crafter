@@ -1,0 +1,174 @@
+PERSONA 151  |  2026-05-04 01:43:58
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      gpt-oss-20b
+    persona_validator    gpt-oss-20b
+    vignette_crafter     gpt-oss-20b
+    vignette_validator   gpt-oss-20b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             60
+  gender          Male
+  ethnicity       European
+  relationship_status In a relationship
+  occupation      Warehouse Worker
+  trauma_type     Military
+  pcl5            62
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid Location: Going to or near the place where the event happened
+    • Avoid Similar Clothes: avoid wearing similar clothes
+    • Avoid Thinking: Thinking about the event
+  Memory:
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+  Negative Appraisals:
+    • Survival Guilt: I feel guilty for surviving when others did not
+    • Identity Loss: I feel like I don't know myself anymore
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.8219
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.2335
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0174
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.7336
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.9273
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Carry Weapon: carry weapon
+    explanation: The profile omits both Triggers and Threat entirely, yet includes carrying a weapon and persistent on-guard appraisals. For a 60-year-old male with military trauma, these items are individually plausible, but together they imply an active current-danger/threat system that is not represented elsewhere in the selected nodes and sits poorly with the formulation, where Threat and Triggers are not linked to the active network.
+    item:        Negative Appraisals / Hypervigilance: I have to be on guard all the time
+    explanation: 'I have to be on guard all the time' functions more like a live threat appraisal, but the formulation centers the case on a Negative Appraisals ↔ Memory ↔ Maladaptive Strategies loop, with Threat inactive. In the absence of any other threat-focused items, this item is the main source of incoherence.
+    item:        Memory / Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    explanation: 'Something in my surroundings can instantly bring back the full memory without warning' implies salient cue-driven triggering, but all Triggers edges are inactive and no Trigger items are selected. That does not by itself make triggered recall impossible, but combined with the otherwise appraisal/guilt/identity-focused formulation and profile, it is the least coherent memory item.
+  [2] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: This item is difficult to reconcile with the formulation because Threat is not otherwise represented in the self-report and all Threat-related edges are inactive. The rest of the profile is organized around guilt/identity loss and trauma memory, whereas constant threat scanning implies an active current-threat focus that is not supported by the selected Threat, Trigger, Appraisal, or Memory items. The avoidance items fit the military trauma context, but this hypervigilant checking behavior appears clinically disconnected from the rest of the profile.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Martin, a 60‑year‑old European warehouse worker, returned to civilian life after twenty years in the
+Army. On the day of the incident, a sudden artillery burst hit the forward observation post where he
+was standing, killing four of his squad while he miraculously escaped uninjured. Years later, the
+weight of having survived when others did not gnawed at him. He had come to believe that the world
+was inherently dangerous and that his own life had lost its meaning. Because of this conviction,
+Martin began to keep a strict routine of avoidance: he avoided the exact building he had occupied
+during the attack, shunned any clothing that resembled his former uniform, and made a deliberate
+effort not to think about the event, even in the quiet of his apartment. These appraisals did not
+remain abstract; when Martin recalled the artillery blast, he was struck by an immediate wave of
+guilt for having survived, and the memory unfolded with a terrifying fidelity that felt almost
+identical to the heat of the blast itself. He could not find words to describe the scene, as if the
+language had been taken out of his grasp, and the terror that accompanied the recollection was as
+intense as the moment itself. The conviction that the world was dangerous amplified this vividness,
+making each flashback feel like a warning that the safety he had once known was forever gone. Each
+time the terrifying memory resurfaced, Martin would instinctively retreat from the place that had
+become a symbol of his loss. The warehouse where he now worked, with its humming conveyors and
+echoing metal, felt eerily similar to the observation post, so he began arriving early to avoid the
+crowds and to keep a short shift whenever possible. He also replaced his dark olive field jacket
+with a bright orange safety vest, believing that the more distinct his clothing was from the uniform
+that now haunted his thoughts, the safer he would feel. The act of turning away from any thoughts of
+that night was so compelling that he would often skip his night shift to avoid the lull when his
+mind might wander into the past. The vividness of the recollection only deepened Martin’s sense that
+the world had irrevocably changed. Each flashback served as a reminder that he could never return to
+the person he had been before, reinforcing his feeling of identity loss. The terror that accompanied
+the memory made him believe that danger lurked not just in distant places but in the everyday
+routine of the warehouse, a place he had once trusted. He started to fear that his own judgment was
+unreliable, that he could not rely on his senses to keep him safe, and that the safety he had once
+known was a fleeting illusion. By the time Martin began consulting a therapist, his avoidance had
+become so pervasive that even the sound of the loading dock’s alarm reminded him of the artillery
+that had once erupted in his mind. His habit of staying away from the warehouse at peak times and of
+avoiding any clothing reminiscent of his former uniform kept him constantly on edge, reinforcing the
+belief that he was living in a world that could snap into danger at any moment. The more he
+sidestepped the place that had defined the trauma, the more he convinced himself that survival had
+been a betrayal, that the only way to survive was to remain detached from the memories that might
+surface. In the end, the avoidance that once felt like protection had become a prison that amplified
+every ounce of guilt and fear he carried. His fear that the relentless avoidance would erase the
+person he loved most—himself and his partner—prompted him to step into therapy, hoping to reclaim a
+sense of safety and identity.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Martin, a 60‑year‑old European warehouse worker, returned to civilian life after twenty years in the
+Army. On the day of the incident, a sudden artillery burst hit the forward observation post where he
+was standing, killing four of his squad while he miraculously escaped uninjured. Years later, the
+weight of having survived when others did not gnawed at him. He had come to believe that the world
+was inherently dangerous and that his own life had lost its meaning. Because of this conviction,
+Martin began to keep a strict routine of avoidance: he avoided the exact building he had occupied
+during the attack, shunned any clothing that resembled his former uniform, and made a deliberate
+effort not to think about the event, even in the quiet of his apartment. These appraisals did not
+remain abstract; when Martin recalled the artillery blast, he was struck by an immediate wave of
+guilt for having survived, and the memory unfolded with a terrifying fidelity that felt almost
+identical to the heat of the blast itself. He could not find words to describe the scene, as if the
+language had been taken out of his grasp, and the terror that accompanied the recollection was as
+intense as the moment itself. The conviction that the world was dangerous amplified this vividness,
+making each flashback feel like a warning that the safety he had once known was forever gone. Each
+time the terrifying memory resurfaced, Martin would instinctively retreat from the place that had
+become a symbol of his loss. The warehouse where he now worked, with its humming conveyors and
+echoing metal, felt eerily similar to the observation post, so he began arriving early to avoid the
+crowds and to keep a short shift whenever possible. He also replaced his dark olive field jacket
+with a bright orange safety vest, believing that the more distinct his clothing was from the uniform
+that now haunted his thoughts, the safer he would feel. The act of turning away from any thoughts of
+that night was so compelling that he would often skip his night shift to avoid the lull when his
+mind might wander into the past. The vividness of the recollection only deepened Martin’s sense that
+the world had irrevocably changed. Each flashback served as a reminder that he could never return to
+the person he had been before, reinforcing his feeling of identity loss. The terror that accompanied
+the memory made him believe that danger lurked not just in distant places but in the everyday
+routine of the warehouse, a place he had once trusted. He started to fear that his own judgment was
+unreliable, that he could not rely on his senses to keep him safe, and that the safety he had once
+known was a fleeting illusion. By the time Martin began consulting a therapist, his avoidance had
+become so pervasive that even the sound of the loading dock’s alarm reminded him of the artillery
+that had once erupted in his mind. His habit of staying away from the warehouse at peak times and of
+avoiding any clothing reminiscent of his former uniform kept him constantly on edge, reinforcing the
+belief that he was living in a world that could snap into danger at any moment. The more he
+sidestepped the place that had defined the trauma, the more he convinced himself that survival had
+been a betrayal, that the only way to survive was to remain detached from the memories that might
+surface. In the end, the avoidance that once felt like protection had become a prison that amplified
+every ounce of guilt and fear he carried. His fear that the relentless avoidance would erase the
+person he loved most—himself and his partner—prompted him to step into therapy, hoping to reclaim a
+sense of safety and identity.

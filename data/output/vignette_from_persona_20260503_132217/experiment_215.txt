@@ -1,0 +1,192 @@
+PERSONA 215  |  2026-05-03 18:10:11
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             34
+  gender          Male
+  ethnicity       North American
+  relationship_status Married
+  occupation      School Counselor
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            77
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Stress: Stress
+    • Medical Procedures: Undergoing a medical examination or procedure
+    • Olfactory (Smell): Related smells
+  Maladaptive Strategies:
+    • Mental Distraction: keep mind occupied all the time
+    • Avoid Police: Police
+    • Avoid Thinking: Thinking about the event
+  Threat:
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+  Memory:
+    • Feels Present Not Past: The memory feels like it is happening right now rather than something that is over
+    • Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+  Negative Appraisals:
+    • Self-Doubt: I can't trust that I will do the right thing
+    • Life Destroyed: My life has been destroyed by the trauma
+    • Self-Blame: The event happened because of the way I acted
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.2581
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.6736
+  Triggers → Negative Appraisals                     0.4667
+  Negative Appraisals → Maladaptive Strategies       0.6605
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.4761
+  Negative Appraisals → Triggers                     0.1698
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.1855
+  Memory → Negative Appraisals                       0.7440
+  Memory → Triggers                                  0.6747
+  Threat → Maladaptive Strategies                    0.2805
+  Threat → Memory                                    0.1862
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.4476
+  Maladaptive Strategies → Negative Appraisals       0.6384
+  Maladaptive Strategies → Triggers                  0.6659
+  Maladaptive Strategies → Threat                    0.1118
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: Within Memory, 'Feels Present Not Past' and 'Full Sensory Reliving' indicate highly intrusive, poorly contextualized trauma memory, which conflicts with 'Verbal Access: I can talk about what happened very easily.' These can sometimes coexist, but stated this strongly they pull in opposite directions and are hard to reconcile as the same memory profile.
+    item:        Threat / Threat: Watching Others: I watch other people closely for signs that they might harm me
+    explanation: The Threat items depict pervasive fear of being physically attacked by other people ('watch other people closely', 'back to wall', 'stay alert at night'), which does not fit well with the trauma type of accidentally causing serious injury to another. For this trauma, threat is more plausibly guilt, condemnation, or fear of consequences, not generalized interpersonal danger.
+    item:        Maladaptive Strategies / Threat: Back to Wall: I feel unsafe unless my back is against a wall where I can see the room
+    explanation: 'Mirror Checking' is not well linked to the rest of the profile. Nothing in Triggers, Memory, Threat, or Negative Appraisals suggests appearance-focused concern, dissociation needing visual reassurance, or checking for injury; as selected, it appears clinically disconnected.
+  [2] FAIL
+    item:        Maladaptive Strategies / Mirror Checking: keep checking mirrors
+    explanation: Mirror checking is hard to reconcile with the trauma type of accidentally causing serious injury to another; it more strongly suggests concerns about visible injury, appearance, or being followed, none of which are supported by the other nodes.
+    item:        Threat / Back to Wall: I feel unsafe unless my back is against a wall where I can see the room
+    explanation: Back-to-wall hypervigilance and scanning the room imply an interpersonal or attack-related threat context. That is difficult to integrate with the rest of the profile, which centers on guilt, reliving, and self-blame after accidentally injuring someone rather than danger from other people.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+The afternoon sun had just hit the linoleum of the third-floor hallway when Daniel, the school
+counselor, stepped between two escalating teenagers. He misjudged the slickness from the morning
+mopping, his grip on the larger student’s jacket slipping as he tried to anchor him. The boy pitched
+forward, tumbled down the stairwell, and struck his head on the concrete landing with a sickening
+crack. In the months that followed, the accident did not settle into a distant report; instead, it
+replayed with full sensory reliving, each fragment feeling as present and unedited as the day it
+occurred. Daniel knew the facts of what happened, yet he consistently found himself unable to find
+words to describe the moment to anyone. When the school nurse’s clipboard clicked in the staff
+lounge or a supervisor’s voice grew tight with administrative stress, the hallway instantly replayed
+in his mind with perfect, unbroken clarity. Those environmental cues did not merely spark a
+flashback; they cemented his conviction that he was fundamentally unreliable and entirely at fault.
+Because he was certain he could never trust himself again, ordinary workplace demands morphed into
+imminent warnings, drawing his attention like a magnet to the disaster. The more vividly the past
+assaulted him, the more hyperaware he became, turning every routine medical check-up or staff
+meeting into a potential reminder. The visceral weight of those sensory intrusions constantly
+whispered that he was dangerous and had irrevocably shattered his future. His self-blame and life-
+destroyed beliefs made the fragmented moments of the accident feel less like a report and more like
+a live broadcast he could not pause. Convinced that his own judgment was poison, he systematically
+sidestepped any police or administrative review and buried himself in endless paperwork to avoid the
+possibility of error. His compulsive mental distraction only prevented the event from being
+processed as a completed memory, trapping it as an unending present. By running from his thoughts
+and shutting out officials, he interpreted his own coping mechanisms as proof that his life was
+truly ruined and his professional identity was gone. The habits he relied on to survive the weeks
+after the accident prevented his nervous system from habituating, leaving every subsequent smell or
+stressor feeling as sudden and catastrophic as the first. Maintaining that exhausting perimeter of
+avoidance and mental noise ensured his baseline anxiety never dropped, keeping his body permanently
+braced for another catastrophe. This relentless physical reactivity and exhausted sleep vigilance
+forced him to keep his attention perpetually occupied, as resting his mind felt synonymous with
+losing control. Whenever he finally lowered his guard in the quiet of his marital home, his heart
+would hammer against his ribs and a wave of crushing guilt and horror washed over him, leaving his
+muscles locked in cold dread. The constant state of high alert did not fade into the background;
+instead, it sharpened the edges of the recollection, pulling him back into the moment with
+increasing frequency. Even the faint scent of antiseptic from the staff clinic now triggered the
+same paralyzing fear, immediately pushing him to withdraw into frantic busywork to keep the panic at
+bay. Daniel’s wife finally called a therapist after he missed their daughter’s recital because he
+had spent the entire afternoon in his car, parked three blocks away, gripping the steering wheel to
+stop his hands from shaking. He arrived at the intake office with a PCL-5 score that reflected
+profound distress, hoping someone could help him untangle the knot in his chest. What frightened him
+most was not the memories themselves, but the terrifying certainty that he would never be allowed to
+do the right thing again. He left the first session with a fragile hope that he might finally learn
+how to stop running from the past, even as he braced for the possibility that some fractures simply
+cannot be repaired.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+The afternoon sun had just hit the linoleum of the third-floor hallway when Daniel, the school
+counselor, stepped between two escalating teenagers. He misjudged the slickness from the morning
+mopping, his grip on the larger student’s jacket slipping as he tried to anchor him. The boy pitched
+forward, tumbled down the stairwell, and struck his head on the concrete landing with a sickening
+crack. In the months that followed, the accident did not settle into a distant report; instead, it
+replayed with full sensory reliving, each fragment feeling as present and unedited as the day it
+occurred. Daniel knew the facts of what happened, yet he consistently found himself unable to find
+words to describe the moment to anyone. When the school nurse’s clipboard clicked in the staff
+lounge or a supervisor’s voice grew tight with administrative stress, the hallway instantly replayed
+in his mind with perfect, unbroken clarity. Those environmental cues did not merely spark a
+flashback; they cemented his conviction that he was fundamentally unreliable and entirely at fault.
+Because he was certain he could never trust himself again, ordinary workplace demands morphed into
+imminent warnings, drawing his attention like a magnet to the disaster. The more vividly the past
+assaulted him, the more hyperaware he became, turning every routine medical check-up or staff
+meeting into a potential reminder. The visceral weight of those sensory intrusions constantly
+whispered that he was dangerous and had irrevocably shattered his future. His self-blame and life-
+destroyed beliefs made the fragmented moments of the accident feel less like a report and more like
+a live broadcast he could not pause. Convinced that his own judgment was poison, he systematically
+sidestepped any police or administrative review and buried himself in endless paperwork to avoid the
+possibility of error. His compulsive mental distraction only prevented the event from being
+processed as a completed memory, trapping it as an unending present. By running from his thoughts
+and shutting out officials, he interpreted his own coping mechanisms as proof that his life was
+truly ruined and his professional identity was gone. The habits he relied on to survive the weeks
+after the accident prevented his nervous system from habituating, leaving every subsequent smell or
+stressor feeling as sudden and catastrophic as the first. Maintaining that exhausting perimeter of
+avoidance and mental noise ensured his baseline anxiety never dropped, keeping his body permanently
+braced for another catastrophe. This relentless physical reactivity and exhausted sleep vigilance
+forced him to keep his attention perpetually occupied, as resting his mind felt synonymous with
+losing control. Whenever he finally lowered his guard in the quiet of his marital home, his heart
+would hammer against his ribs and a wave of crushing guilt and horror washed over him, leaving his
+muscles locked in cold dread. The constant state of high alert did not fade into the background;
+instead, it sharpened the edges of the recollection, pulling him back into the moment with
+increasing frequency. Even the faint scent of antiseptic from the staff clinic now triggered the
+same paralyzing fear, immediately pushing him to withdraw into frantic busywork to keep the panic at
+bay. Daniel’s wife finally called a therapist after he missed their daughter’s recital because he
+had spent the entire afternoon in his car, parked three blocks away, gripping the steering wheel to
+stop his hands from shaking. He arrived at the intake office with a PCL-5 score that reflected
+profound distress, hoping someone could help him untangle the knot in his chest. What frightened him
+most was not the memories themselves, but the terrifying certainty that he would never be allowed to
+do the right thing again. He left the first session with a fragile hope that he might finally learn
+how to stop running from the past, even as he braced for the possibility that some fractures simply
+cannot be repaired.

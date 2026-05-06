@@ -8,6 +8,7 @@ from pathlib import Path
 from agents.vignette_crafter_agent import VignetteCrafterAgent
 from agents.zero_shot_vignette_agent import ZeroShotVignetteAgent
 from agents.vignette_validator_agent import VignetteValidatorAgent
+from agents.no_formulation_validator_agent import NoFormulationValidatorAgent
 from agents.persona_crafter_agent import PersonaCrafterAgent
 from agents.persona_validator_agent import PersonaValidatorAgent
 from data.input.input import (sample_formulation, sample_cognitive_model, sample_demographics,
@@ -169,6 +170,22 @@ def step_load_persona(label: str, persona_id, persona_source_dir: str) -> dict:
         "demographics_validation_attempts": data.get("demographics_validation_attempts", []),
         "selfreport_validation_attempts":   data.get("selfreport_validation_attempts", []),
     }
+
+
+def step_validate_no_formulation(label: str, state: dict, validator: NoFormulationValidatorAgent, max_retries: int) -> dict:
+    demographics = state["demographics"]
+    self_report  = state["self_report"]
+    crafter      = state["_vignette_crafter"]
+
+    vignette, attempts = validator.validate_with_retry(
+        initial_vignette=state["vignette"],
+        demographics=demographics,
+        self_report=self_report,
+        retry_fn=crafter.create_vignette_with_no_formulation_feedback,
+        max_retries=max_retries,
+        label=label,
+    )
+    return {"vignette": vignette, "vignette_attempts": attempts}
 
 
 def step_validate_persona(label: str, state: dict, validator: VignetteValidatorAgent, max_retries: int) -> dict:

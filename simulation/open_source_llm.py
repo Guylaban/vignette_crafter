@@ -1,5 +1,6 @@
 """LangChain-compatible wrapper for the lab Tailscale REST API."""
 import json
+import logging
 import re
 import requests
 from typing import Any, List, Optional, Type
@@ -7,6 +8,8 @@ from pydantic import BaseModel
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage
 from langchain_core.outputs import ChatGeneration, ChatResult
+
+logger = logging.getLogger(__name__)
 
 
 class _StructuredOutputWrapper:
@@ -19,9 +22,11 @@ class _StructuredOutputWrapper:
     def invoke(self, messages: list, **kwargs) -> BaseModel:
         # Append JSON instruction to the last user message
         augmented = list(messages)
+        fields = list(self._schema.model_json_schema()["properties"].keys())
         json_instruction = (
-            f"\nRespond with a valid JSON object only. "
-            f"Match this schema exactly: {self._schema.model_json_schema()}"
+            f"\nRespond with a JSON object only — no explanation, no markdown fences, no schema definition. "
+            f"Fill in actual values for these fields: {fields}. "
+            f"Field types for reference: {self._schema.model_json_schema()['properties']}"
         )
         last = augmented[-1]
         augmented[-1] = {"role": last.get("role", "user") if isinstance(last, dict) else "user",
@@ -32,10 +37,19 @@ class _StructuredOutputWrapper:
         from agents.base_agent import _count
         _count(result)
         text = result.content if hasattr(result, "content") else str(result)
+        # Strip thinking-model tags before JSON extraction
+        clean = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
 
-        match = re.search(r"\{.*\}", text, re.DOTALL)
-        data = json.loads(match.group()) if match else {}
-        return self._schema(**data)
+        try:
+            match = re.search(r"\{.*\}", clean, re.DOTALL)
+            if not match:
+                logger.warning("StructuredOutputWrapper: no JSON object found. Raw text (first 300): %r", text[:300])
+                return None
+            data = json.loads(match.group())
+            return self._schema(**data)
+        except Exception as e:
+            logger.warning("StructuredOutputWrapper parse failed (%s). Clean text (first 300): %r", e, clean[:300])
+            return None
 
 
 class OpenSourceChatModel(BaseChatModel):

@@ -1,0 +1,175 @@
+PERSONA 113  |  2026-05-05 15:24:01
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      gemini-2.5-pro
+    persona_validator    gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             46
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Widowed
+  occupation      Auditor
+  trauma_type     Natural disaster
+  pcl5            41
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Feeling Happy: Feeling happy or relaxed
+    • Spatial Triggers: Physical locations
+    • Nighttime/Dark: Night-time or waking up in the dark
+  Maladaptive Strategies:
+    • Smoking: I smoke
+    • Avoid Relaxation: avoid relaxing because it feels dangerous
+    • Avoid Talking: Talking with others about the event or its aftermath
+  Threat:
+    • Avoid Unfamiliar Places: I avoid going to unfamiliar places because I cannot assess the danger
+    • Threat in Silence: Unusual silence makes me feel something dangerous is about to happen
+    • Threat in Delays: When something takes longer than expected I assume something bad is happening
+  Memory:
+    • Olfactory Recall: When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened.
+    • Taste Vividness: I can taste what I tasted during the event when the memory returns
+    • Story Feels Unreal: The memory is so extreme it is hard to believe it actually happened to me
+  Negative Appraisals:
+    • Helplessness: I can't stop bad things from happening to me
+    • Emotional Numbness: I feel dead inside
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        age
+    explanation: Occupation 'Student' is implausible for age 73 because 'Student' is flagged as implausible if age > 40.
+  [2] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Others Cycling
+    explanation: For a natural-disaster trauma, 'People cycling' is a hard-to-explain trigger unless there is disaster-specific context, which is not supported by the rest of the profile. The other items do not provide a plausible link to bicycles/cyclists.
+    item:        Threat / Triggers: Male Presence
+    explanation: 'Being alone with men' implies an interpersonal/assault-related trigger context that is not reflected in the trauma type or elsewhere in the profile, making it clinically incoherent here.
+    item:        Negative Appraisals / Threat: Avoid Unfamiliar Places
+    explanation: Avoidance of unfamiliar places due to inability to assess danger can occur in PTSD, but alongside the selected triggers it pulls toward an interpersonal/urban threat pattern rather than a natural-disaster pattern. This becomes problematic because the threat items are not meaningfully linked to the disaster-specific cues represented elsewhere.
+  [2] FAIL
+    item:        Triggers / Triggers: Male Presence: Being alone with men
+    explanation: For a natural-disaster trauma, 'being alone with men' is hard to reconcile as a primary trauma-linked trigger unless there is additional interpersonal trauma not represented elsewhere. The other trigger items are disaster-plausible (locations, relaxed state), so this item stands out as clinically incoherent with the stated trauma type.
+    item:        Negative Appraisals / Negative Appraisals: Mistrust: People can't be trusted
+    explanation: 'People can't be trusted' suggests an interpersonal betrayal/assault formulation rather than a natural-disaster formulation. In the context of the rest of the profile, this appraisal does not connect plausibly to the disaster-linked threat and memory items and appears trauma-type inconsistent.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,398
+  output:     3,913
+  total:      6,311
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Keanu traces the spreadsheet on his screen with a finger, but the numbers blur into a meaningless
+grid. It has been eighteen months since the night the ocean came into their house. He remembers the
+silence first. Not a complete silence, but the eerie cessation of the normal night sounds—the
+crickets, the distant road noise—replaced by a low, guttural hum that seemed to come from the earth
+itself. He and his wife, Leilani, had been on the lanai, sharing a moment of quiet contentment after
+dinner. That feeling of peace is now one of his most potent triggers; any flicker of happiness or
+relaxation sends a jolt of pure panic through him, a certainty that catastrophe is imminent. He has
+learned to avoid relaxing, filling every moment with work or distracting noise. He keeps the
+television on all night, because waking up in the dark is unbearable, instantly plunging him back
+into the black, churning water.
+
+The memory of that night is not a story he can tell. When his well-meaning sister-in-law tried to
+talk to him about it, the words caught in his throat. How could he explain something that still
+feels so profoundly unreal, like a film he’d been forced to watch? The memory arrives not in
+narrative but in fragments of raw sensation. Sometimes, while reviewing a client’s inventory in a
+sterile, air-conditioned office, he is suddenly overwhelmed by the thick, cloying smell of saltwater
+and decay. More than once, the taste of briny grit has filled his mouth so vividly that he has had
+to run to the restroom, spitting into the sink. These sensory intrusions are stark reminders of a
+reality so extreme it feels impossible that he survived it, and that Leilani did not. The world, he
+has come to understand, is simply a dangerous place, and he is powerless to stop the terrible things
+from happening.
+
+This belief now governs his life. As an auditor, his job requires meticulous attention to detail and
+risk assessment, a skill set that has now metastasized into his personal life. He avoids any
+unfamiliar places, turning down new client engagements if they require him to visit a location he
+hasn't personally vetted for structural soundness and clear escape routes. His manager is beginning
+to notice. Last week, a project meeting was delayed by twenty minutes, and Keanu found himself
+sweating, his heart hammering in his chest, convinced the delay was a precursor to some awful event.
+Even unusual silence at the office, like when the HVAC system briefly cycles off, makes him feel a
+primal sense of dread, as if the world is holding its breath before another devastating roar. He
+feels hollowed out, as though the part of him that could feel joy or connection was washed away that
+night. He often tells himself he feels dead inside, a walking ghost in his own life.
+
+His routines have become rigid, designed to minimize risk and sensation. He takes the same route to
+work, eats the same lunch, and speaks to colleagues only when necessary. He has picked up smoking
+again, the sharp burn in his lungs a controllable, predictable sensation that anchors him to the
+present. The habit gives him a reason to step outside, to stand alone, to not have to engage. It was
+after a particularly bad week, when a moment of unexpected laughter with a colleague triggered a
+full-blown panic attack, that Keanu realized he could not continue this way. The terror of feeling
+good was more exhausting than the grief itself. He didn’t come to therapy to find happiness—that
+concept feels both naive and terrifying. He came because he is tired of being afraid of silence, of
+the dark, of a delayed train, and most of all, of the memory of his own fleeting joy.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Keanu traces the spreadsheet on his screen with a finger, but the numbers blur into a meaningless
+grid. It has been eighteen months since the night the ocean came into their house. He remembers the
+silence first. Not a complete silence, but the eerie cessation of the normal night sounds—the
+crickets, the distant road noise—replaced by a low, guttural hum that seemed to come from the earth
+itself. He and his wife, Leilani, had been on the lanai, sharing a moment of quiet contentment after
+dinner. That feeling of peace is now one of his most potent triggers; any flicker of happiness or
+relaxation sends a jolt of pure panic through him, a certainty that catastrophe is imminent. He has
+learned to avoid relaxing, filling every moment with work or distracting noise. He keeps the
+television on all night, because waking up in the dark is unbearable, instantly plunging him back
+into the black, churning water.
+
+The memory of that night is not a story he can tell. When his well-meaning sister-in-law tried to
+talk to him about it, the words caught in his throat. How could he explain something that still
+feels so profoundly unreal, like a film he’d been forced to watch? The memory arrives not in
+narrative but in fragments of raw sensation. Sometimes, while reviewing a client’s inventory in a
+sterile, air-conditioned office, he is suddenly overwhelmed by the thick, cloying smell of saltwater
+and decay. More than once, the taste of briny grit has filled his mouth so vividly that he has had
+to run to the restroom, spitting into the sink. These sensory intrusions are stark reminders of a
+reality so extreme it feels impossible that he survived it, and that Leilani did not. The world, he
+has come to understand, is simply a dangerous place, and he is powerless to stop the terrible things
+from happening.
+
+This belief now governs his life. As an auditor, his job requires meticulous attention to detail and
+risk assessment, a skill set that has now metastasized into his personal life. He avoids any
+unfamiliar places, turning down new client engagements if they require him to visit a location he
+hasn't personally vetted for structural soundness and clear escape routes. His manager is beginning
+to notice. Last week, a project meeting was delayed by twenty minutes, and Keanu found himself
+sweating, his heart hammering in his chest, convinced the delay was a precursor to some awful event.
+Even unusual silence at the office, like when the HVAC system briefly cycles off, makes him feel a
+primal sense of dread, as if the world is holding its breath before another devastating roar. He
+feels hollowed out, as though the part of him that could feel joy or connection was washed away that
+night. He often tells himself he feels dead inside, a walking ghost in his own life.
+
+His routines have become rigid, designed to minimize risk and sensation. He takes the same route to
+work, eats the same lunch, and speaks to colleagues only when necessary. He has picked up smoking
+again, the sharp burn in his lungs a controllable, predictable sensation that anchors him to the
+present. The habit gives him a reason to step outside, to stand alone, to not have to engage. It was
+after a particularly bad week, when a moment of unexpected laughter with a colleague triggered a
+full-blown panic attack, that Keanu realized he could not continue this way. The terror of feeling
+good was more exhausting than the grief itself. He didn’t come to therapy to find happiness—that
+concept feels both naive and terrifying. He came because he is tired of being afraid of silence, of
+the dark, of a delayed train, and most of all, of the memory of his own fleeting joy.

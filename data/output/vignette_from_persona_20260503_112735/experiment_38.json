@@ -1,0 +1,200 @@
+{
+  "persona_id": 38,
+  "source_persona_id": 38,
+  "experiment_timestamp": "2026-05-03 11:35:31",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen2.5-32b",
+      "persona_crafter": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 66,
+    "gender": "Female",
+    "ethnicity": "Oceania",
+    "relationship_status": "Divorced",
+    "occupation": "Curriculum Designer",
+    "trauma_type": "Combat",
+    "pcl5": 49
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Intrusive Memory",
+        "value": "A memory of the event coming to mind suddenly"
+      },
+      {
+        "key": "Power Imbalance",
+        "value": "Being in a situation where someone has power over me"
+      },
+      {
+        "key": "Auditory (Helicopter)",
+        "value": "Helicopter or aircraft sounds"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      },
+      {
+        "key": "Avoid Feelings",
+        "value": "Allowing myself to feel any strong emotion"
+      },
+      {
+        "key": "Stay Near Exit",
+        "value": "make sure to stay close to exit"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Story Feels Unreal",
+        "value": "The memory is so extreme it is hard to believe it actually happened to me"
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      },
+      {
+        "key": "Fragmented Pieces",
+        "value": "My memories of the event come in disconnected pieces that do not fit together"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Self-Doubt",
+        "value": "I can't trust that I will do the right thing"
+      },
+      {
+        "key": "Isolation",
+        "value": "I feel isolated and set apart from others"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "I have to be on guard all the time"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.1306,
+    "Triggers -- Negative Appraisals": 0.6426,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0722,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.5407,
+    "Memory -- Maladaptive Strategies": 0.5793,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0115,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.575,
+    "Maladaptive Strategies -- Negative Appraisals": 0.6715,
+    "Maladaptive Strategies -- Triggers": 0.367,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.3989333333333333,
+  "edge_density": 0.45,
+  "vignette_word_count": 517,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Children Crying): Kids crying",
+          "explanation": "For a combat trauma profile, 'kids crying' is not impossible, but it is a relatively specific trigger that would usually be supported by memory or appraisal content involving civilians/children; here the memory and appraisal items do not provide that link, so this trigger is hard to integrate with the rest of the profile."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened",
+          "explanation": "'My body has been permanently damaged by what happened' implies an enduring physical injury theme, but the rest of the selected items do not support a bodily injury-focused combat presentation: memory items emphasize fragmentation/unreality, triggers emphasize intrusion/power imbalance, and strategies emphasize avoidance/hypervigilance rather than injury management. This appraisal is insufficiently anchored in the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Children Crying)"
+        ],
+        "Negative Appraisals": [
+          "Physical Vulnerability"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Maria, a 66-year-old Oceania woman with a background in curriculum design, has been struggling significantly since her time in combat. The traumatic event that haunts her occurred during a mission where she found herself under relentless enemy fire while helicopters circled overhead. This experience left deep scars not only physically but also psychologically. Maria often finds herself jolted back to the memory of that fateful day when she hears the sound of helicopters or aircrafts, which are auditory triggers for her. These sounds evoke a visceral response, plunging her into a state where the memory feels unreal and disconnected from reality. She knows what happened but struggles to articulate it, leaving her feeling fragmented and isolated. The intrusion of these memories is particularly potent in her daily life as she works at home designing curriculum materials. The sudden flashbacks disrupt her concentration, making it difficult for her to complete tasks efficiently. This experience has led Maria to doubt herself and her abilities, reinforcing a sense that she can't trust that she will do the right thing. Her hypervigilance compounds this feeling, as she constantly feels the need to be on guard. Maria's negative appraisals have significantly influenced her behavior patterns. She avoids going out, preferring instead to stay indoors where she can feel safer and closer to an exit if needed. This avoidance has led to further isolation from others, which is a constant source of distress for her. Her tendency to avoid strong emotions makes it even harder for her to process the trauma she experienced. The interplay between these factors creates a self-reinforcing cycle that tightens around Maria. When she hears the sound of helicopters or aircrafts, the fragmented and unreal nature of her memories is triggered again. This deepens her negative appraisals about herself and others, making her even more isolated and hypervigilant. In turn, these negative beliefs lead to further avoidance behaviors, such as staying close to exits and avoiding going out. Maria's attempts to avoid the triggers often exacerbate her memory fragmentation. For instance, when she stays near an exit or avoids places where helicopters might be heard, it prevents her from fully processing and integrating her traumatic experiences into coherent memories. This, in turn, makes the memory even more fragmented and difficult to describe. Despite her best efforts to cope, Maria's life has become increasingly restricted. Her hypervigilance and self-doubt have made it challenging for her to maintain relationships or engage meaningfully with work. She is certain that she needs help but fears that opening up about these experiences will only lead to further isolation and judgment. What finally brought Maria to seek therapy was a series of flashbacks at work that left her unable to complete an important project deadline. This incident made her realize that her current coping mechanisms were no longer sustainable. She is most afraid of being retraumatized or misunderstood but also hopes for relief from the constant intrusions and isolation she feels. Maria's journey towards healing will involve addressing these deeply intertwined issues—working through her fragmented memories, reducing hypervigilance, and rebuilding trust in herself and others."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Maria, a 66-year-old Oceania woman with a background in curriculum design, has been struggling significantly since her time in combat. The traumatic event that haunts her occurred during a mission where she found herself under relentless enemy fire while helicopters circled overhead. This experience left deep scars not only physically but also psychologically. Maria often finds herself jolted back to the memory of that fateful day when she hears the sound of helicopters or aircrafts, which are auditory triggers for her. These sounds evoke a visceral response, plunging her into a state where the memory feels unreal and disconnected from reality. She knows what happened but struggles to articulate it, leaving her feeling fragmented and isolated. The intrusion of these memories is particularly potent in her daily life as she works at home designing curriculum materials. The sudden flashbacks disrupt her concentration, making it difficult for her to complete tasks efficiently. This experience has led Maria to doubt herself and her abilities, reinforcing a sense that she can't trust that she will do the right thing. Her hypervigilance compounds this feeling, as she constantly feels the need to be on guard. Maria's negative appraisals have significantly influenced her behavior patterns. She avoids going out, preferring instead to stay indoors where she can feel safer and closer to an exit if needed. This avoidance has led to further isolation from others, which is a constant source of distress for her. Her tendency to avoid strong emotions makes it even harder for her to process the trauma she experienced. The interplay between these factors creates a self-reinforcing cycle that tightens around Maria. When she hears the sound of helicopters or aircrafts, the fragmented and unreal nature of her memories is triggered again. This deepens her negative appraisals about herself and others, making her even more isolated and hypervigilant. In turn, these negative beliefs lead to further avoidance behaviors, such as staying close to exits and avoiding going out. Maria's attempts to avoid the triggers often exacerbate her memory fragmentation. For instance, when she stays near an exit or avoids places where helicopters might be heard, it prevents her from fully processing and integrating her traumatic experiences into coherent memories. This, in turn, makes the memory even more fragmented and difficult to describe. Despite her best efforts to cope, Maria's life has become increasingly restricted. Her hypervigilance and self-doubt have made it challenging for her to maintain relationships or engage meaningfully with work. She is certain that she needs help but fears that opening up about these experiences will only lead to further isolation and judgment. What finally brought Maria to seek therapy was a series of flashbacks at work that left her unable to complete an important project deadline. This incident made her realize that her current coping mechanisms were no longer sustainable. She is most afraid of being retraumatized or misunderstood but also hopes for relief from the constant intrusions and isolation she feels. Maria's journey towards healing will involve addressing these deeply intertwined issues—working through her fragmented memories, reducing hypervigilance, and rebuilding trust in herself and others.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

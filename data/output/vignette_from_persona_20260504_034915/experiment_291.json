@@ -1,0 +1,214 @@
+{
+  "persona_id": 291,
+  "source_persona_id": 291,
+  "experiment_timestamp": "2026-05-04 04:51:06",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 55,
+    "gender": "Male",
+    "ethnicity": "North American",
+    "relationship_status": "Divorced",
+    "occupation": "Fashion Designer",
+    "trauma_type": "Physical abuse by caregiver (childhood)",
+    "pcl5": 41
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Other-Blame Rumination",
+        "value": "I dwell on what other people have done to me"
+      },
+      {
+        "key": "Avoid Dreams",
+        "value": "Situations or times of day that tend to bring on nightmares"
+      },
+      {
+        "key": "Self-Blame Rumination",
+        "value": "I dwell on what I have done wrong"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Touch",
+        "value": "I react with alarm when someone touches me unexpectedly"
+      },
+      {
+        "key": "Threat in Silence",
+        "value": "Unusual silence makes me feel something dangerous is about to happen"
+      },
+      {
+        "key": "Alert at Home",
+        "value": "I feel on guard even inside my own home"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "No Coherent Story",
+        "value": "I cannot tell a clear story of what happened even to myself"
+      },
+      {
+        "key": "Emotionless Recall",
+        "value": "Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger"
+      },
+      {
+        "key": "Guilt on Recall",
+        "value": "When I remember the event I feel intense guilt"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      },
+      {
+        "key": "Fear Going Crazy",
+        "value": "My reactions since the event mean that I am going crazy"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.5018,
+    "Negative Appraisals -- Threat": 0.6384,
+    "Negative Appraisals -- Memory": 0.5211,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.44,
+    "Memory -- Negative Appraisals": 0.6151,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.6911,
+    "Threat -- Negative Appraisals": 0.6347,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.3552,
+    "Maladaptive Strategies -- Negative Appraisals": 0.9548,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5946888888888888,
+  "edge_density": 0.45,
+  "vignette_word_count": 573,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "field": "age",
+          "explanation": "Occupation 'Retired' is implausible for age 38 because retired is only considered plausible at age 50 or older."
+        }
+      ],
+      "problematic_fields": [
+        "age",
+        "occupation"
+      ]
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Catastrophising Others: I worry obsessively about bad things happening to people I care about",
+          "explanation": "'Catastrophising Others' is hard to integrate with the rest of the profile and the trauma type. The other items center on childhood physical abuse, mistrust, touch-sensitivity, fragmented memory, guilt, and self-damage; obsessive worry about harm befalling loved ones points to a different threat theme and is not supported by the appraisals or memory content."
+        },
+        {
+          "component": "Threat",
+          "item": "Door and Lock Checking: I repeatedly check that doors and windows are locked",
+          "explanation": "'Door and Lock Checking' suggests a home-intrusion/security threat theme. In this profile, threat is otherwise expressed as interpersonal danger cues (unexpected touch, ominous silence) linked to caregiver abuse. Without matching appraisals or memory content about break-ins or external intruders, this item is difficult to reconcile with the rest of the selected items."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Catastrophising Others"
+        ],
+        "Threat": [
+          "Door and Lock Checking"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "James is a 55-year-old divorced fashion designer who has been struggling with profound psychological distress since he was physically abused by his caregiver during childhood. The trauma has left indelible marks on his psyche, and it is evident in the way he navigates the world today. Growing up, James endured years of physical abuse that shaped his understanding of himself and others. He now believes that he has permanently changed for the worse, a belief that fuels his intense other-blame rumination. \"I dwell on what other people have done to me,\" he often tells himself, feeling an unyielding sense of mistrust towards everyone around him. This deep-seated mistrust exacerbates his fear going crazy, as he perceives his reactions since the event as signs that something is fundamentally wrong with him. James’ mistrust and belief in permanent damage lead him to ruminate not only on what others have done but also on what he has done wrong. He frequently reflects on past actions and experiences intense self-blame, which reinforces his negative appraisals and makes it difficult for him to move forward. His inability to forgive himself compounds the guilt he feels when recalling the traumatic event. When James tries to recount the abuse, he struggles to form a coherent narrative. \"I cannot tell a clear story of what happened even to myself,\" he laments. This fragmented memory contributes to his emotional numbness during recall and exacerbates his feelings of guilt. The combination of these memory issues and negative appraisals creates an overwhelming sense of threat. Unusual silence makes him feel that something dangerous is about to happen, and he reacts with alarm when someone touches him unexpectedly. James feels on guard even inside his own home, a constant state of alertness that has become second nature. This heightened awareness stems from his fragmented memories and the guilt they evoke, making every sound or movement seem like a potential threat. His fear of going crazy deepens as these symptoms persist and intensify over time. The cycle becomes self-reinforcing: James' negative appraisals fuel his maladaptive strategies, which in turn exacerbate his memory issues and further heighten his sense of threat. For instance, the guilt he feels when remembering the abuse leads him to avoid situations that might trigger nightmares or other traumatic memories, such as certain times of day or specific scenarios. These avoidance behaviors, in turn, reinforce his belief that he is permanently damaged and cannot trust others. James’ occupational environment also serves as a backdrop for these struggles. As a fashion designer, James often finds himself in social settings where unexpected touch can trigger severe startle responses. This has led to strained professional relationships and difficulty collaborating with colleagues, ultimately affecting his work performance. His mistrust of people extends to the workplace, making it challenging for him to form meaningful connections. Despite these challenges, what finally brought James to seek help was a recent incident where he overreacted to a friendly gesture from a coworker, leading to an embarrassing confrontation in the studio. He realized that his reactions were increasingly isolating him and preventing him from living a fulfilling life. What frightens James most is the possibility of being forever trapped by these overwhelming feelings and perceptions. James hopes for relief from the constant vigilance and guilt that plague him daily. He seeks understanding and strategies to manage his symptoms, with the ultimate goal of reclaiming a sense of trust in himself and others."
+,
+
+  "vignette_attempts": [
+    {"vignette": "James is a 55-year-old divorced fashion designer who has been struggling with profound psychological distress since he was physically abused by his caregiver during childhood. The trauma has left indelible marks on his psyche, and it is evident in the way he navigates the world today. Growing up, James endured years of physical abuse that shaped his understanding of himself and others. He now believes that he has permanently changed for the worse, a belief that fuels his intense other-blame rumination. \"I dwell on what other people have done to me,\" he often tells himself, feeling an unyielding sense of mistrust towards everyone around him. This deep-seated mistrust exacerbates his fear going crazy, as he perceives his reactions since the event as signs that something is fundamentally wrong with him. James’ mistrust and belief in permanent damage lead him to ruminate not only on what others have done but also on what he has done wrong. He frequently reflects on past actions and experiences intense self-blame, which reinforces his negative appraisals and makes it difficult for him to move forward. His inability to forgive himself compounds the guilt he feels when recalling the traumatic event. When James tries to recount the abuse, he struggles to form a coherent narrative. \"I cannot tell a clear story of what happened even to myself,\" he laments. This fragmented memory contributes to his emotional numbness during recall and exacerbates his feelings of guilt. The combination of these memory issues and negative appraisals creates an overwhelming sense of threat. Unusual silence makes him feel that something dangerous is about to happen, and he reacts with alarm when someone touches him unexpectedly. James feels on guard even inside his own home, a constant state of alertness that has become second nature. This heightened awareness stems from his fragmented memories and the guilt they evoke, making every sound or movement seem like a potential threat. His fear of going crazy deepens as these symptoms persist and intensify over time. The cycle becomes self-reinforcing: James' negative appraisals fuel his maladaptive strategies, which in turn exacerbate his memory issues and further heighten his sense of threat. For instance, the guilt he feels when remembering the abuse leads him to avoid situations that might trigger nightmares or other traumatic memories, such as certain times of day or specific scenarios. These avoidance behaviors, in turn, reinforce his belief that he is permanently damaged and cannot trust others. James’ occupational environment also serves as a backdrop for these struggles. As a fashion designer, James often finds himself in social settings where unexpected touch can trigger severe startle responses. This has led to strained professional relationships and difficulty collaborating with colleagues, ultimately affecting his work performance. His mistrust of people extends to the workplace, making it challenging for him to form meaningful connections. Despite these challenges, what finally brought James to seek help was a recent incident where he overreacted to a friendly gesture from a coworker, leading to an embarrassing confrontation in the studio. He realized that his reactions were increasingly isolating him and preventing him from living a fulfilling life. What frightens James most is the possibility of being forever trapped by these overwhelming feelings and perceptions. James hopes for relief from the constant vigilance and guilt that plague him daily. He seeks understanding and strategies to manage his symptoms, with the ultimate goal of reclaiming a sense of trust in himself and others.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "persona_id": 98,
+  "source_persona_id": 98,
+  "experiment_timestamp": "2026-05-03 11:48:00",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen2.5-32b",
+      "persona_crafter": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 58,
+    "gender": "Male",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "Hairdresser",
+    "trauma_type": "Mugging or robbery",
+    "pcl5": 72
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Being Criticised",
+        "value": "Being criticised or corrected"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      },
+      {
+        "key": "Perceived Threat",
+        "value": "People acting suspiciously"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Self-Blame Rumination",
+        "value": "I dwell on what I have done wrong"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      },
+      {
+        "key": "Avoid People",
+        "value": "avoid other people"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      },
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.1229,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.2067,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.2704,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.2097,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.049,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.17174,
+  "edge_density": 0.25,
+  "vignette_word_count": 553,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Verbal Access: I can talk about what happened very easily.",
+          "explanation": "Within the Memory node, 'I can talk about what happened very easily' conflicts with the other two memory items, which describe intrusive, sensory-dominated, repeatedly replaying trauma memories. That combination is not impossible, but with no other items indicating organized narrative access, the 'very easily' wording pulls in the opposite direction and is clinically inconsistent within this node."
+        },
+        {
+          "component": "Triggers",
+          "item": "Memory: Visual Memories: My memories of the frightening event are mostly pictures or images.",
+          "explanation": "The trigger set is hard to reconcile with the trauma type of mugging/robbery. 'Being around children' and 'Happy families' do not show a plausible thematic link to the reported trauma, and there are no accompanying threat or appraisal items to explain why these social/family cues would specifically trigger this patient's robbery-related PTSD."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Memory: Memory Replay: My memories of the frightening event are like a film that plays over and over.",
+          "explanation": "'I pick arguments or create drama to distract myself from the trauma' is weakly supported by the rest of the profile. The formulation mainly links triggers and memory with maladaptive strategies, but the actual triggers and memory content given are socially/family themed and intrusive-image based; deliberate conflict-seeking does not fit clearly with those items and looks clinically disconnected from the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Verbal Access"
+        ],
+        "Triggers": [
+          "Memory"
+        ],
+        "Maladaptive Strategies": [
+          "Memory"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Children Present: Being around children",
+          "explanation": "For a mugging/robbery trauma, triggers centered on children and idealized families are hard to link clinically unless there is additional trauma meaning not represented elsewhere. The memory items describe perceptual re-experiencing of the robbery, but these triggers imply family/child themes that are absent from the rest of the profile, making the trigger set feel disconnected from the trauma type."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Idealized Families: Happy families",
+          "explanation": "Within the Triggers node, 'children present' and 'happy families' suggest a loss/family-comparison theme, whereas 'being criticised or corrected' suggests interpersonal shame or sensitivity. These could coexist, but together they do not form a coherent trigger pattern tied to a robbery, especially given no threat or appraisal items supporting these meanings."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Children Present"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Idealized Families: Happy families",
+          "explanation": "'Happy families' is a weakly plausible trigger for a mugging/robbery trauma and is hard to connect to the accompanying memory items, which are purely sensory/reliving-based and suggest trauma reminders tied more directly to the event. It does not fit well with the otherwise robbery-linked trigger pattern."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Seeking Conflict: I pick arguments or create drama to distract myself from the trauma",
+          "explanation": "'Seeking conflict/create drama' is not well supported by the rest of the profile. The formulation links triggers and memory to maladaptive strategies, but the selected triggers and memory items imply intrusive re-experiencing, for which suppression/avoidance is coherent; deliberate conflict-seeking appears clinically disconnected and unusually externalising relative to the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Idealized Families"
+        ],
+        "Maladaptive Strategies": [
+          "Seeking Conflict"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "James, a 58-year-old African American hairdresser, has been struggling with persistent thoughts and reactions stemming from a traumatic mugging that occurred six months ago. On that fateful night, James was closing up his salon when two individuals, one of whom had a strong odor of alcohol, entered the shop. They acted suspiciously and quickly overpowered him, leaving him feeling helpless and humiliated. Ever since, specific triggers have made it difficult for James to function normally. James's experience has left him with vivid visual memories that replay like a film whenever he encounters certain triggers, such as people acting suspiciously or the smell of alcohol. These intrusive images are so powerful that they often render him speechless and unable to articulate what happened. What frightens him most is not just the memory itself but the sense of helplessness it brings back. He finds himself constantly on edge, anticipating another encounter with someone who might act suspiciously. James has come to believe that he was somehow at fault for the mugging—that if only he had been more alert or taken different precautions, he could have avoided the situation. This self-blame has led him to dwell endlessly on what he did wrong and try hard not to think about the trauma itself. As a result, James has become increasingly isolated, avoiding social interactions that might trigger these thoughts. His occupation as a hairdresser, which once brought him joy and satisfaction, now feels like a minefield of potential triggers. The alcohol smell from colognes or perfumes used by his clients often brings back vivid images of the mugger, leaving him feeling overwhelmed and unable to focus on his work. Similarly, any client who appears nervous or anxious can set off a chain reaction of memories that make it difficult for James to provide the care and attention he once did. The more James avoids these triggers, the stronger they seem to become. He finds himself increasingly suspicious of people around him, and this has strained his relationships at work and home. His wife notices how he becomes tense and withdrawn in social settings, and even small criticisms from clients can send him into a spiral of self-blame and rumination. James’s memory of the trauma is so vivid that it feels like he relives the event over and over again. This constant replaying of the incident reinforces his tendency to blame himself and avoid situations where he might be reminded of the mugging. Even simple tasks, such as closing up the salon at night or walking home from work, have become sources of significant anxiety. The weight of these experiences has made James realize that he needs help. His self-imposed isolation has affected not only his job but also his marriage and overall well-being. He is most afraid of reliving the trauma again, but he hopes that with support, he can regain control over his life and find a way to manage his memories without letting them dominate his existence. James's journey towards seeking help reflects a growing awareness that his current strategies are not sustainable. The triggers, maladaptive thoughts, and intrusive memories have created a self-reinforcing cycle that has only intensified over time. He is now determined to break this pattern and find a way to live more fully without the constant fear of another traumatic encounter."
+,
+
+  "vignette_attempts": [
+    {"vignette": "James, a 58-year-old African American hairdresser, has been struggling with persistent thoughts and reactions stemming from a traumatic mugging that occurred six months ago. On that fateful night, James was closing up his salon when two individuals, one of whom had a strong odor of alcohol, entered the shop. They acted suspiciously and quickly overpowered him, leaving him feeling helpless and humiliated. Ever since, specific triggers have made it difficult for James to function normally. James's experience has left him with vivid visual memories that replay like a film whenever he encounters certain triggers, such as people acting suspiciously or the smell of alcohol. These intrusive images are so powerful that they often render him speechless and unable to articulate what happened. What frightens him most is not just the memory itself but the sense of helplessness it brings back. He finds himself constantly on edge, anticipating another encounter with someone who might act suspiciously. James has come to believe that he was somehow at fault for the mugging—that if only he had been more alert or taken different precautions, he could have avoided the situation. This self-blame has led him to dwell endlessly on what he did wrong and try hard not to think about the trauma itself. As a result, James has become increasingly isolated, avoiding social interactions that might trigger these thoughts. His occupation as a hairdresser, which once brought him joy and satisfaction, now feels like a minefield of potential triggers. The alcohol smell from colognes or perfumes used by his clients often brings back vivid images of the mugger, leaving him feeling overwhelmed and unable to focus on his work. Similarly, any client who appears nervous or anxious can set off a chain reaction of memories that make it difficult for James to provide the care and attention he once did. The more James avoids these triggers, the stronger they seem to become. He finds himself increasingly suspicious of people around him, and this has strained his relationships at work and home. His wife notices how he becomes tense and withdrawn in social settings, and even small criticisms from clients can send him into a spiral of self-blame and rumination. James’s memory of the trauma is so vivid that it feels like he relives the event over and over again. This constant replaying of the incident reinforces his tendency to blame himself and avoid situations where he might be reminded of the mugging. Even simple tasks, such as closing up the salon at night or walking home from work, have become sources of significant anxiety. The weight of these experiences has made James realize that he needs help. His self-imposed isolation has affected not only his job but also his marriage and overall well-being. He is most afraid of reliving the trauma again, but he hopes that with support, he can regain control over his life and find a way to manage his memories without letting them dominate his existence. James's journey towards seeking help reflects a growing awareness that his current strategies are not sustainable. The triggers, maladaptive thoughts, and intrusive memories have created a self-reinforcing cycle that has only intensified over time. He is now determined to break this pattern and find a way to live more fully without the constant fear of another traumatic encounter.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

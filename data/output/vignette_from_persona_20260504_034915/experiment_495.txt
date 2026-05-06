@@ -1,0 +1,181 @@
+PERSONA 495  |  2026-05-04 05:33:41
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      qwen2.5-32b
+    persona_validator    qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             43
+  gender          Female
+  ethnicity       South Asian
+  relationship_status Married
+  occupation      Plumber
+  trauma_type     Toxic chemical exposure
+  pcl5            79
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Smoke): Smoke or fire smell
+    • Olfactory (Smell): Related smells
+    • Olfactory Danger Cue: Burnt smell
+  Maladaptive Strategies:
+    • Avoid All Feelings: avoid anything that could cause negative or positive feelings
+    • Checking Surroundings: constantly scan environment for signs of threat
+    • Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+  Threat:
+    • Waking Alert: I wake during the night to check whether I am safe
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3252
+  Triggers → Threat                                  0.8013
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.3746
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.7232
+  Maladaptive Strategies → Threat                    0.5706
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: For toxic chemical exposure, the trigger set is hard to reconcile with the trauma type: explosion sounds and a specific perfume/cologne suggest a blast/fire or interpersonal-associated cue pattern rather than a chemically exposed patient, especially with no matching memory or appraisal content to explain these cues.
+    item:        Threat / Triggers: Olfactory (Cologne/Perfume): A specific perfume or cologne
+    explanation: The three trigger items do not form a coherent trigger profile for a single toxic exposure trauma. Explosion sounds imply an acute blast-related event, perfume/cologne implies a highly idiosyncratic associative cue, and sleeping alone/unfamiliar place is a vulnerability context rather than a specific trauma reminder; together they lack a clear shared link to the reported trauma.
+    item:        Maladaptive Strategies / Triggers: Sleeping Alone: Sleeping alone or in an unfamiliar place
+    explanation: Threat items center on strangers, vague delays, and nighttime safety checking, which reads as a generalized interpersonal/hypervigilance threat profile rather than one tied to toxic chemical exposure. Given the strong Triggers → Threat edge, the threats should be plausibly elicited by the reported triggers, but strangers and delays are poorly connected to explosion sounds, perfume, and sleeping alone.
+  [2] FAIL
+    item:        Triggers / Triggers: Sleeping Alone: Sleeping alone or in an unfamiliar place
+    explanation: For toxic chemical exposure, the olfactory triggers are clinically coherent, but 'sleeping alone or in an unfamiliar place' is a qualitatively different trigger theme more typical of interpersonal assault, combat, or burglary-related threat learning. It is hard to link this item to the same trauma profile described by the other trigger items.
+    item:        Threat / Threat: Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations
+    explanation: The threat profile is dominated by generalized interpersonal danger ('strangers approaching me') and vague catastrophe in delays, whereas the trigger profile is specifically smell-based and exposure-related. With a strong Triggers → Threat edge, the threat items should plausibly arise from those triggers; here the link is weak because the endorsed threats do not center on contamination, poisoning, bodily harm from exposure, or unsafe environments.
+  [3] FAIL
+    item:        Triggers / Triggers: Olfactory (Cologne/Perfume): A specific perfume or cologne
+    explanation: For toxic chemical exposure, hospital/antiseptic and smoke smells are plausible olfactory trauma reminders, but a specific perfume/cologne is hard to reconcile with the same exposure unless there is additional context not reflected elsewhere in the profile. It stands out as a trigger type not supported by the other selected items.
+    item:        Threat / Threat: Threat in Delays: When something takes longer than expected I assume something bad is happening
+    explanation: The threat profile is dominated by immediate safety checking and hypervigilance, closely matching the strong Triggers ↔ Threat and Maladaptive Strategies → Threat pattern. 'Threat in Delays' implies a more generalized expectancy of bad outcomes from lateness or delay, which is not well anchored to the toxic exposure context or to the other selected trigger items. It is less coherent with the otherwise concrete contamination/safety-related threat pattern.
+  [4] FAIL
+    item:        Triggers / Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: For toxic chemical exposure, hospital/antiseptic smells can be plausible aftermath cues if linked to treatment, but the overall profile lacks any memory or appraisal content anchoring medical aftermath; combined with the other smell triggers and home-intruder threat items, this trigger set does not form a coherent trauma-linked pattern.
+    item:        Threat / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The threat items are dominated by fear of a person entering the home or needing to check for personal safety at night, which suggests interpersonal attack/home invasion rather than toxic chemical exposure. This is hard to reconcile with the trigger profile of chemical/smell cues.
+  [5] FAIL
+    item:        Triggers / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: For a toxic chemical exposure trauma, smoke/related smells are plausible olfactory triggers, but alcohol smell is hard to connect unless the exposure specifically involved solvents or alcohol-like chemicals. With no supporting threat or memory content tying the trauma to alcohol-like odours, this item is clinically questionable.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Overanalysing: I go over and over the details of the event trying to make sense of it
+    explanation: The formulation makes Negative Appraisals and Memory effectively isolated/inactive, while the active pattern centres on Triggers ↔ Threat and Maladaptive Strategies. Overanalysing the event to make sense of it is more characteristic of appraisal/meaning-making processes than of the otherwise selected strategy pattern (avoidance and checking). In this profile it sits weakly with the active edge structure and lacks support from any appraisal items.
+  [6] FAIL
+    item:        Maladaptive Strategies / Checking Locks: repeatedly check locks, doors, or windows
+    explanation: For toxic chemical exposure, repeatedly checking locks/doors/windows is not a plausible fit with the rest of the profile. The triggers and threat items center on olfactory danger cues and generalized safety monitoring after exposure, but checking locks is a security/intruder-oriented behavior that is hard to reconcile with the stated trauma and selected threat content. It does not align well with the active Triggers → Threat / Maladaptive Strategies pattern, because the dominant trigger-threat link here is chemical/smoke smell rather than break-in danger.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Sunita, a 43-year-old South Asian woman married with two children, has been working as a plumber for
+over a decade. Her job often exposes her to various environments and situations, some of which have
+become potent triggers following a traumatic incident in which she was exposed to toxic chemicals at
+work. The experience left her deeply unsettled, particularly by the smell of burnt materials,
+reminiscent of the acrid fumes that nearly overwhelmed her during the accident. Since the exposure,
+Sunita has found herself hyper-vigilant, constantly scanning her surroundings for any signs of
+danger. This hypervigilance is a direct response to the lingering fear and physical reactivity she
+experiences when encountering smells similar to those from the toxic fumes. The slightest hint of
+smoke or burnt odor triggers a cascade of panic within her, leading her to avoid situations where
+such smells might arise. Sunita’s avoidance behaviors have gradually expanded beyond just the
+immediate smell triggers. She now avoids any situation that could potentially cause negative
+emotions, and even positive ones, fearing they may lead to a resurgence of distressing feelings
+related to the accident. This heightened sense of danger has made her wary of medical environments
+as well; she steers clear of hospitals and ambulances due to their associations with emergency
+situations similar to what she experienced. Her husband has noticed Sunita's preoccupation with
+safety, often finding her awake in the middle of the night checking if everything is secure. This
+behavior reinforces her belief that constant vigilance is necessary to prevent another traumatic
+event from occurring. Her waking alertness and hypervigilance have become so ingrained that she
+feels anxious even when there are no immediate smells to trigger these responses, a self-reinforcing
+cycle perpetuated by her heightened state of threat monitoring. Sunita’s work as a plumber has been
+particularly challenging since the incident. She avoids jobs where she might encounter similar odors
+or environments, leading to conflicts with her team and clients who need her expertise in difficult
+situations. This occupational avoidance has strained both her professional relationships and her
+sense of self-worth as a skilled tradesperson. What frightens Sunita most is the unpredictability
+and intensity of her reactions. She had come to believe that she could never fully escape the
+memories or the fear they evoke, even when no external triggers are present. Her hypervigilance and
+avoidance behaviors have become so entrenched that she seeks help now, hoping to regain control over
+her life and alleviate the constant sense of danger. Sunita’s decision to seek therapy is driven by
+a desperate need for relief from her overwhelming fears and the belief that there might be a way to
+manage these intrusive memories without completely altering her identity as a plumber. She hopes
+that with support, she can return to work and rebuild her confidence in a world no longer fraught
+with constant reminders of the toxic exposure incident.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Sunita, a 43-year-old South Asian woman married with two children, has been working as a plumber for
+over a decade. Her job often exposes her to various environments and situations, some of which have
+become potent triggers following a traumatic incident in which she was exposed to toxic chemicals at
+work. The experience left her deeply unsettled, particularly by the smell of burnt materials,
+reminiscent of the acrid fumes that nearly overwhelmed her during the accident. Since the exposure,
+Sunita has found herself hyper-vigilant, constantly scanning her surroundings for any signs of
+danger. This hypervigilance is a direct response to the lingering fear and physical reactivity she
+experiences when encountering smells similar to those from the toxic fumes. The slightest hint of
+smoke or burnt odor triggers a cascade of panic within her, leading her to avoid situations where
+such smells might arise. Sunita’s avoidance behaviors have gradually expanded beyond just the
+immediate smell triggers. She now avoids any situation that could potentially cause negative
+emotions, and even positive ones, fearing they may lead to a resurgence of distressing feelings
+related to the accident. This heightened sense of danger has made her wary of medical environments
+as well; she steers clear of hospitals and ambulances due to their associations with emergency
+situations similar to what she experienced. Her husband has noticed Sunita's preoccupation with
+safety, often finding her awake in the middle of the night checking if everything is secure. This
+behavior reinforces her belief that constant vigilance is necessary to prevent another traumatic
+event from occurring. Her waking alertness and hypervigilance have become so ingrained that she
+feels anxious even when there are no immediate smells to trigger these responses, a self-reinforcing
+cycle perpetuated by her heightened state of threat monitoring. Sunita’s work as a plumber has been
+particularly challenging since the incident. She avoids jobs where she might encounter similar odors
+or environments, leading to conflicts with her team and clients who need her expertise in difficult
+situations. This occupational avoidance has strained both her professional relationships and her
+sense of self-worth as a skilled tradesperson. What frightens Sunita most is the unpredictability
+and intensity of her reactions. She had come to believe that she could never fully escape the
+memories or the fear they evoke, even when no external triggers are present. Her hypervigilance and
+avoidance behaviors have become so entrenched that she seeks help now, hoping to regain control over
+her life and alleviate the constant sense of danger. Sunita’s decision to seek therapy is driven by
+a desperate need for relief from her overwhelming fears and the belief that there might be a way to
+manage these intrusive memories without completely altering her identity as a plumber. She hopes
+that with support, she can return to work and rebuild her confidence in a world no longer fraught
+with constant reminders of the toxic exposure incident.

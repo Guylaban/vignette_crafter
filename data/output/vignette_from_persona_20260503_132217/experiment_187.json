@@ -1,0 +1,193 @@
+{
+  "persona_id": 187,
+  "source_persona_id": 187,
+  "experiment_timestamp": "2026-05-03 17:31:37",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 63,
+    "gender": "Male",
+    "ethnicity": "Oceania",
+    "relationship_status": "Divorced",
+    "occupation": "Community Organizer",
+    "trauma_type": "Life-threatening accident",
+    "pcl5": 49
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Expressions of Anger",
+        "value": "Other people expressing anger, even calmly"
+      },
+      {
+        "key": "Intrusive Thoughts",
+        "value": "Unwanted thoughts"
+      },
+      {
+        "key": "Visual (Uniforms)",
+        "value": "Military or police uniforms"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Partial Clarity",
+        "value": "Some moments of the event are extremely clear while others are completely blank"
+      },
+      {
+        "key": "Memory Gaps",
+        "value": "There are parts of the event that I simply cannot remember no matter how hard I try"
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Emotional Numbness",
+        "value": "I feel dead inside"
+      },
+      {
+        "key": "Self-Blame",
+        "value": "The event happened because of the way I acted"
+      },
+      {
+        "key": "Body as Enemy",
+        "value": "My body keeps reacting as if I am still in danger even when I am safe"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.6767,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0277,
+    "Negative Appraisals -- Triggers": 0.0232,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.4656,
+    "Memory -- Triggers": 0.6611,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.37086,
+  "edge_density": 0.25,
+  "vignette_word_count": 744,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Cannot Explain Clearly",
+          "explanation": "Within the Memory node, 'When I try to explain what happened I lose the thread and cannot finish' directly conflicts with 'I can talk about what happened very easily.' These items describe opposing levels of verbal access to the trauma memory and are hard to reconcile as the same patient's current self-report."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Cannot Explain Clearly"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Memory: Verbal Access: I can talk about what happened very easily.",
+          "explanation": "Within the Memory node, 'I can talk about what happened very easily' conflicts with marked memory disturbance items ('some moments are extremely clear while others are completely blank' and 'there are parts of the event I simply cannot remember'). Although fragmented trauma memory can coexist with disclosure, the wording 'very easily' is hard to reconcile with this level of fragmentation in the same profile."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Thought Avoidance: If I think about the event, I will not be able to handle it",
+          "explanation": "Across Memory and Negative Appraisals, reporting that one can talk about the event 'very easily' sits in tension with the appraisal 'If I think about the event, I will not be able to handle it.' Patients may force themselves to discuss trauma despite distress, but these two statements point in opposite directions and are difficult to integrate clinically without additional context."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Verbal Access"
+        ],
+        "Negative Appraisals": [
+          "Thought Avoidance"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Hemi sat at the back of a borrowed minibus, reviewing his community center outreach schedules, when the tires caught a sheet of black ice on the coastal route. The vehicle tilted, metal screamed, and it rolled twice before crushing against a drainage culvert. For him, the crash became a fractured film reel. One moment, he could see the dashboard clock frozen at 4:12 PM with crystalline precision. The next, a wall of white nothingness swallowed the rest. He knew the door had jammed, that the smell of fuel had choked the cabin, but the words for those moments slipped through his fingers like smoke. When the rescue crews finally pried the metal apart, Hemi watched them through a haze of shock. They wore dark tactical uniforms, their boots heavy on the gravel, their radios crackling with clipped voices. He survived, but the community rally was cancelled, his wife had already filed for divorce citing his increasing distance, and the silence in his own chest began to settle. Over the following months, Hemi’s attempts to return to his work only deepened the fracture. He still organized town hall meetings and coordinated volunteer drives, but the daily rhythms of his occupation became minefields. When a local council member raised his voice during a budget debate, even speaking in a measured, conversational tone, Hemi’s hands would clamp shut on his clipboard. The steady cadence of that anger bypassed his ears and struck directly at his conviction that he had caused the crash. It convinced him his body was betraying him as a threat, deepening the deadness he felt in his chest and reinforcing his certainty that he was to blame for what had happened. As the days passed, that heavy self-reproach began to fracture his recall. His certainty that he had acted carelessly widened the gaps in his memory, pushing the remaining fragments into isolation. The emotional numbness itself siphoned away the details, leaving him unable to find words for what had actually occurred. He would sit in his office staring at incident reports, knowing exactly which files had been lost in the wreck, yet finding himself completely unable to articulate the sequence of events that led him there. The more he blamed himself for the accident, the more his own mind refused to hold the picture together. That deepened self-reproach only sharpened his watchfulness. The more he felt the deadness inside and blamed himself for the danger, the more acutely he tracked the room for any sharp intake of breath or frustrated sigh. A colleague’s sigh over a misplaced file sent his pulse racing toward his throat, making the sight of the uniformed security guard patrolling the community center entrance feel immediately threatening. He began leaving coordinator briefings early, unable to sit through planning sessions without checking the exits or flinching at a raised voice. The numbness acted as a filter, turning every ordinary expression of anger into a confirmation of his own failure. Now, the loop tightened around him. The fragments he did remember—the frozen clock, the choked air—would flash forward, stripping away his ability to articulate what he had felt. Without words to ground him, the numbness deepened into a cold certainty that he was permanently damaged. His body kept reacting to these unmoored memories as if he were still trapped, reinforcing his conviction that he was unsafe even in a quiet room. Because the middle hours of the crash simply did not exist in his mind, the unknown space would seize him during ordinary shifts. When a uniformed officer finally walked past the glass doors, that unremembered chaos would surge forward, pulling the intrusive visuals of armored vests and flashing lights into the present. The memory gaps acted as a lens, magnifying the uniforms until they felt like the cause of the next collapse, which only widened the gaps further and left him sitting alone in his car, hands gripping the wheel, terrified that he would never feel his own body again. What finally brought Hemi to seek help was not the panic itself, but the quiet realization that he could no longer step into a community planning session without his chest tightening and his mind going blank. He was terrified that he was permanently broken, that the deadness would swallow his remaining relationships entirely. He hoped, more than anything, to find a way to remember the accident without feeling like its architect, and to trust his own pulse in a safe room."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Hemi sat at the back of a borrowed minibus, reviewing his community center outreach schedules, when the tires caught a sheet of black ice on the coastal route. The vehicle tilted, metal screamed, and it rolled twice before crushing against a drainage culvert. For him, the crash became a fractured film reel. One moment, he could see the dashboard clock frozen at 4:12 PM with crystalline precision. The next, a wall of white nothingness swallowed the rest. He knew the door had jammed, that the smell of fuel had choked the cabin, but the words for those moments slipped through his fingers like smoke. When the rescue crews finally pried the metal apart, Hemi watched them through a haze of shock. They wore dark tactical uniforms, their boots heavy on the gravel, their radios crackling with clipped voices. He survived, but the community rally was cancelled, his wife had already filed for divorce citing his increasing distance, and the silence in his own chest began to settle. Over the following months, Hemi’s attempts to return to his work only deepened the fracture. He still organized town hall meetings and coordinated volunteer drives, but the daily rhythms of his occupation became minefields. When a local council member raised his voice during a budget debate, even speaking in a measured, conversational tone, Hemi’s hands would clamp shut on his clipboard. The steady cadence of that anger bypassed his ears and struck directly at his conviction that he had caused the crash. It convinced him his body was betraying him as a threat, deepening the deadness he felt in his chest and reinforcing his certainty that he was to blame for what had happened. As the days passed, that heavy self-reproach began to fracture his recall. His certainty that he had acted carelessly widened the gaps in his memory, pushing the remaining fragments into isolation. The emotional numbness itself siphoned away the details, leaving him unable to find words for what had actually occurred. He would sit in his office staring at incident reports, knowing exactly which files had been lost in the wreck, yet finding himself completely unable to articulate the sequence of events that led him there. The more he blamed himself for the accident, the more his own mind refused to hold the picture together. That deepened self-reproach only sharpened his watchfulness. The more he felt the deadness inside and blamed himself for the danger, the more acutely he tracked the room for any sharp intake of breath or frustrated sigh. A colleague’s sigh over a misplaced file sent his pulse racing toward his throat, making the sight of the uniformed security guard patrolling the community center entrance feel immediately threatening. He began leaving coordinator briefings early, unable to sit through planning sessions without checking the exits or flinching at a raised voice. The numbness acted as a filter, turning every ordinary expression of anger into a confirmation of his own failure. Now, the loop tightened around him. The fragments he did remember—the frozen clock, the choked air—would flash forward, stripping away his ability to articulate what he had felt. Without words to ground him, the numbness deepened into a cold certainty that he was permanently damaged. His body kept reacting to these unmoored memories as if he were still trapped, reinforcing his conviction that he was unsafe even in a quiet room. Because the middle hours of the crash simply did not exist in his mind, the unknown space would seize him during ordinary shifts. When a uniformed officer finally walked past the glass doors, that unremembered chaos would surge forward, pulling the intrusive visuals of armored vests and flashing lights into the present. The memory gaps acted as a lens, magnifying the uniforms until they felt like the cause of the next collapse, which only widened the gaps further and left him sitting alone in his car, hands gripping the wheel, terrified that he would never feel his own body again. What finally brought Hemi to seek help was not the panic itself, but the quiet realization that he could no longer step into a community planning session without his chest tightening and his mind going blank. He was terrified that he was permanently broken, that the deadness would swallow his remaining relationships entirely. He hoped, more than anything, to find a way to remember the accident without feeling like its architect, and to trust his own pulse in a safe room.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

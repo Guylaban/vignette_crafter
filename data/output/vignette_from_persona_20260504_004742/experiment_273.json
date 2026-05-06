@@ -1,0 +1,240 @@
+{
+  "persona_id": 273,
+  "source_persona_id": 273,
+  "experiment_timestamp": "2026-05-04 02:28:28",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "gpt-oss-20b",
+      "persona_validator": "gpt-oss-20b",
+      "vignette_crafter": "gpt-oss-20b",
+      "vignette_validator": "gpt-oss-20b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 37,
+    "gender": "Male",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Married",
+    "occupation": "Firefighter",
+    "trauma_type": "Stalking",
+    "pcl5": 62
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Spatial Triggers",
+        "value": "Physical locations"
+      },
+      {
+        "key": "Transportation (Bicycle)",
+        "value": "Bicycle"
+      },
+      {
+        "key": "Being Followed",
+        "value": "Feeling followed or tracked"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      },
+      {
+        "key": "Scanning Exits",
+        "value": "I scan for exits as soon as I enter any room or building"
+      },
+      {
+        "key": "Watching Others",
+        "value": "I watch other people closely for signs that they might harm me"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Overwhelm on Recall",
+        "value": "When the memory returns I feel so overwhelmed by emotion that I have to stop"
+      },
+      {
+        "key": "Triggered Without Warning",
+        "value": "Something in my surroundings can instantly bring back the full memory without warning"
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Fear Going Crazy",
+        "value": "My reactions since the event mean that I am going crazy"
+      },
+      {
+        "key": "Weakness Belief",
+        "value": "I am a weak person"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.6841,
+    "Triggers -- Negative Appraisals": 0.2969,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.171,
+    "Negative Appraisals -- Memory": 0.074,
+    "Negative Appraisals -- Triggers": 0.4593,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.8272,
+    "Memory -- Negative Appraisals": 0.4935,
+    "Memory -- Triggers": 0.3587,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.1463,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.39011111111111113,
+  "edge_density": 0.45,
+  "vignette_word_count": 717,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory",
+          "explanation": "Within the Memory node, 'Hard to Recall Deliberately' conflicts with 'Verbal Access: I can talk about what happened very easily.' Deliberate retrieval difficulty and very easy verbal access are opposing states and are hard to reconcile as describing the same patient at the same time, especially alongside 'Overwhelm on Recall,' which implies traumatic recall is effortful and dysregulating rather than easy to discuss."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Hard to Recall Deliberately"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Verbal Access: I can talk about what happened very easily.",
+          "explanation": "Within the Memory node, 'I can talk about what happened very easily' directly conflicts with 'When the memory returns I feel so overwhelmed by emotion that I have to stop.' At this severity level and with strong Trigger↔Memory and Memory→Threat links, these two memory items describe opposing levels of accessibility/distress and are hard to reconcile as the same current presentation."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Verbal Access"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Authority Commands: Being given orders or instructions",
+          "explanation": "The trigger set is hard to reconcile with stalking as the index trauma: 'authority commands' and especially 'bicycle' do not show an evident clinical link to the reported trauma, and the profile provides no memory or appraisal content that would make these idiosyncratic triggers understandable."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Transportation (Bicycle): Bicycle",
+          "explanation": "Threat items emphasize broad interpersonal attack and generic danger vigilance (loud sounds, scanning exits, watching others for harm), which fits assault/combat/fire trauma better than stalking. For stalking, one would expect threat focused more on being followed, approached, monitored, contacted, or found by the perpetrator."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Threat: Threat in Sounds: I am on high alert when I hear unexpected or loud sounds",
+          "explanation": "'I am a weak person' sits awkwardly with this profile and occupation unless supported by appraisal content about failure to protect oneself or family; here the other appraisals center on permanent damage and fear of going crazy, so the weakness item feels less coherent with the stalking-specific formulation than those items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Authority Commands"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Negative Appraisals": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "When the sirens of a distant ambulance cut through the quiet streets that night, Khalid’s heart lurched forward. He had just finished a long shift at the firehouse and was riding his bicycle home through the suburban cul‑de‑sac that had always felt safe. The bike’s chain creaked and the wind whipped against his face, but the sudden, high‑pitched cry of the ambulance made him feel as if a phantom hand was gripping his shoulder. He froze, the handlebars trembling, and then hurried past the street’s lone lamp post, the sound echoing like a warning bell. That moment, that unanticipated noise, had begun the loop that now defined his life. The spatial trigger—his own home street, the bicycle, the unexpected sounds—has become a conduit for the traumatic memory. When the siren’s echo lingers in his mind, he is flooded with a rush of terror so intense that he must stop mid‑cycle to catch his breath. He describes the memory as “overwhelming” and “unutterable,” saying he cannot find the words to lay the experience on paper. The very fact that the memory can be triggered without warning, by the simple thrum of a passing bus or a sudden footstep on the sidewalk, reinforces his belief that he has been permanently altered. Khalid feels that he has become weaker, that his mind is fraying, that the “damage” he suffered has made him more fragile than he once was. These negative appraisals feed a belief that he is going crazy, that the world has turned against him. The terror of that memory spills into his everyday vigilance. Whenever he enters any room—whether the cramped firehouse training hall or the living room of his own house—he instinctively scans for exits. He watches other people closely, noting any movement that might signify threat. The sound of a colleague’s laughter can feel like an approaching threat, and he feels compelled to watch his coworkers for signs that they might harm him. The fear of being followed, the belief that his own weakness invites danger, and the memory’s persistent recall drive him to remain in a state of high alert. Each time the memory floods his mind, the sense of threat intensifies, and his negative appraisals deepen. The loop tightens as his belief that he is permanently damaged keeps his fear high, and his fear, in turn, keeps the memory alive. The memory’s power to surface spontaneously—by a noise, a sight, even a smell—keeps the cycle of threat and negative appraisal relentless. The occupational environment amplifies this struggle. During fire training drills, Khalid’s body goes into a reflexive scan, looking for an escape route at the first sign of an emergency siren. When a fellow firefighter’s voice cracks with panic, he feels an urgent need to watch and assess. The fear of being followed—his negative appraisal of his own weakness—drives him to avoid cycling altogether. He now takes the bus, a route that stops outside a parking lot he considers safer. He has begun to decline late‑night calls from colleagues, citing “personal reasons,” a way to avoid being alone when he feels most vulnerable. The avoidance has begun to strain his marriage; his wife, Fatima, has noticed his sudden reticence to attend family gatherings or to stay after his shift to help with the house. The strain at home mirrors the strain at work, where his colleagues have observed his hyper‑alert posture and his constant scanning of exits. After months of living in a constant state of dread, Khalid finally sought help. Fatima had grown weary of the tension in their home and gently encouraged him to see a therapist. He felt that the ongoing fear of going crazy was no longer just a thought—it had become a daily reality that threatened his marriage, his job, and his sense of self. He hoped that a professional could help him break the tightening loop of triggers, memories, negative appraisals, and threat. Yet he feared that even therapy might not dissolve the terror he felt whenever he heard a siren or felt the weight of someone watching him. His most urgent wish is to reclaim the quiet of his own streets, to ride his bicycle without the breathlessness that follows a distant sound, and to live free of the constant belief that he has been permanently damaged."
+,
+
+  "vignette_attempts": [
+    {"vignette": "When the sirens of a distant ambulance cut through the quiet streets that night, Khalid’s heart lurched forward. He had just finished a long shift at the firehouse and was riding his bicycle home through the suburban cul‑de‑sac that had always felt safe. The bike’s chain creaked and the wind whipped against his face, but the sudden, high‑pitched cry of the ambulance made him feel as if a phantom hand was gripping his shoulder. He froze, the handlebars trembling, and then hurried past the street’s lone lamp post, the sound echoing like a warning bell. That moment, that unanticipated noise, had begun the loop that now defined his life. The spatial trigger—his own home street, the bicycle, the unexpected sounds—has become a conduit for the traumatic memory. When the siren’s echo lingers in his mind, he is flooded with a rush of terror so intense that he must stop mid‑cycle to catch his breath. He describes the memory as “overwhelming” and “unutterable,” saying he cannot find the words to lay the experience on paper. The very fact that the memory can be triggered without warning, by the simple thrum of a passing bus or a sudden footstep on the sidewalk, reinforces his belief that he has been permanently altered. Khalid feels that he has become weaker, that his mind is fraying, that the “damage” he suffered has made him more fragile than he once was. These negative appraisals feed a belief that he is going crazy, that the world has turned against him. The terror of that memory spills into his everyday vigilance. Whenever he enters any room—whether the cramped firehouse training hall or the living room of his own house—he instinctively scans for exits. He watches other people closely, noting any movement that might signify threat. The sound of a colleague’s laughter can feel like an approaching threat, and he feels compelled to watch his coworkers for signs that they might harm him. The fear of being followed, the belief that his own weakness invites danger, and the memory’s persistent recall drive him to remain in a state of high alert. Each time the memory floods his mind, the sense of threat intensifies, and his negative appraisals deepen. The loop tightens as his belief that he is permanently damaged keeps his fear high, and his fear, in turn, keeps the memory alive. The memory’s power to surface spontaneously—by a noise, a sight, even a smell—keeps the cycle of threat and negative appraisal relentless. The occupational environment amplifies this struggle. During fire training drills, Khalid’s body goes into a reflexive scan, looking for an escape route at the first sign of an emergency siren. When a fellow firefighter’s voice cracks with panic, he feels an urgent need to watch and assess. The fear of being followed—his negative appraisal of his own weakness—drives him to avoid cycling altogether. He now takes the bus, a route that stops outside a parking lot he considers safer. He has begun to decline late‑night calls from colleagues, citing “personal reasons,” a way to avoid being alone when he feels most vulnerable. The avoidance has begun to strain his marriage; his wife, Fatima, has noticed his sudden reticence to attend family gatherings or to stay after his shift to help with the house. The strain at home mirrors the strain at work, where his colleagues have observed his hyper‑alert posture and his constant scanning of exits. After months of living in a constant state of dread, Khalid finally sought help. Fatima had grown weary of the tension in their home and gently encouraged him to see a therapist. He felt that the ongoing fear of going crazy was no longer just a thought—it had become a daily reality that threatened his marriage, his job, and his sense of self. He hoped that a professional could help him break the tightening loop of triggers, memories, negative appraisals, and threat. Yet he feared that even therapy might not dissolve the terror he felt whenever he heard a siren or felt the weight of someone watching him. His most urgent wish is to reclaim the quiet of his own streets, to ride his bicycle without the breathlessness that follows a distant sound, and to live free of the constant belief that he has been permanently damaged.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

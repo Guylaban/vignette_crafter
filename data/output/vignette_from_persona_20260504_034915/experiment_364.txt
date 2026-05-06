@@ -1,0 +1,184 @@
+PERSONA 364  |  2026-05-04 05:06:36
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      qwen2.5-32b
+    persona_validator    qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             63
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Married
+  occupation      Airline Pilot
+  trauma_type     Combat
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Tactile (Texture): A specific texture associated with the event
+    • Time of Day: The same time of day the event occurred
+    • Auditory (Helicopter): Helicopter or aircraft sounds
+  Threat:
+    • Night Vigilance: I find it harder to feel safe at night than during the day
+    • Threat in Movements: Sudden movements by others put me immediately on guard
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+  Memory:
+    • Memory Feels Alien: The memory feels like it belongs to someone else rather than to me
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+  Negative Appraisals:
+    • Defective Self: There is something wrong with me as a person
+    • Lost Happiness: I used to be a happy person but now I am always miserable.
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.8748
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.9526
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.2392
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.3704
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.4617
+  Memory → Negative Appraisals                       0.1723
+  Memory → Triggers                                  0.3776
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.1542
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.1822
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips
+    explanation: A medical-equipment visual trigger is hard to reconcile as a central combat-related trigger for this profile, especially alongside otherwise combat-consistent threat items and without any medical/hospital-related memory or appraisal content. It suggests a different trauma context and is clinically difficult to integrate with the stated trauma type.
+    item:        Memory / Memory: Rage on Recall + Emotionless Recall + Memory Feels Alien
+    explanation: Within Memory, intense rage on recall conflicts with the paired reports of emotionally numb recall and the memory feeling alien/detached. Fluctuation can occur, but as a compact three-item profile these items pull in opposing directions—high emotional arousal versus marked dissociative detachment—without other memory content to bridge them.
+  [2] FAIL
+    item:        Memory / Memory: Rage on Recall
+    explanation: Within the Memory node, 'Rage on Recall' conflicts with the paired endorsement of markedly detached recall ('Emotionless Recall' and 'Memory Feels Alien'). Intense rage during recall and recall experienced as numb/alien can both occur in PTSD, but selecting all three as coequal memory descriptors creates a direct within-node tension between highly affect-laden remembering and strongly depersonalized, affectless remembering. The rest of the profile coherently reflects severe combat-related PTSD, but this specific Memory combination is the main clinically questionable inconsistency.
+  [3] FAIL
+    item:        Memory / Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+    explanation: Within the Memory node, two items describe markedly detached/derealized recall ('emotionless', 'belongs to someone else') while another describes intensely affect-laden reliving ('same terror I felt at the time'). These can both occur across different moments in PTSD, but as the only three selected memory items they pull in opposing directions and are not a clean, internally coherent depiction of a single dominant memory style for this profile.
+  [4] FAIL
+    item:        Negative Appraisals / Hopelessness: I have no future
+    explanation: These two appraisals are plausible in severe PTSD, but for a 63-year-old married airline pilot they create a hard-to-explain mismatch with the rest of the profile when presented without any trauma-linked appraisal content. 'I have no future' is especially discordant for an older, still-employed patient and is not well integrated with the combat-specific trigger/threat pattern. The Negative Appraisals node is dominated by global depressive identity/future statements rather than trauma-related meanings that would plausibly connect to the very strong Triggers → Negative Appraisals edge in the formulation.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+John, a 63-year-old married man of Oceania ethnicity, has spent much of his life navigating the
+skies as an airline pilot. However, his latest deployment to a combat zone during his younger years
+has left deep psychological scars that continue to haunt him. John was involved in a particularly
+harrowing incident where he had to evacuate civilians under intense gunfire and helicopter
+bombardment. The tactile sensation of the sand that covered everything, the piercing sounds of
+helicopters, and the very time of day when the event occurred have all become potent triggers for
+his PTSD. John finds it harder to feel safe at night than during the day because the darkness
+recalls the nightmarish scenes from the combat zone. Sudden movements by others put him immediately
+on guard, a reaction that stems from the heightened awareness he had to maintain in the war-torn
+environment. This constant vigilance is further exacerbated whenever John scans for exits as soon as
+he enters any room or building—a behavior born out of his instinctual need for an escape route
+should danger arise. The memory of the traumatic event feels alien and surreal, almost like it
+belongs to someone else rather than to him. However, this detachment does not shield him from the
+terror that surges through him upon recall. Something in his surroundings can instantly bring back
+the full memory without warning, overwhelming him with a sense of dread and helplessness. John’s
+negative appraisals have taken a significant toll on his psychological state. He has come to believe
+that there is something wrong with him as a person; he struggles with feelings of being defective
+and finds it difficult to see himself as a whole individual anymore. His view of the world has also
+darkened—he perceives the world as an inherently dangerous place where threats lurk around every
+corner. These negative appraisals exacerbate his sense of threat, making him more vigilant and wary
+than ever before. They also contribute to his heightened sensitivity to triggers, causing John to
+become increasingly anxious in everyday situations that remind him of the traumatic event. His
+memory serves as a constant reminder of his perceived defectiveness and reinforces his belief in the
+world’s inherent danger. John's occupation as an airline pilot has become particularly challenging
+due to these symptoms. The sound of helicopters or aircraft at work often triggers intense
+flashbacks, making it difficult for him to maintain focus during flights. These memories not only
+disrupt his ability to perform his duties but also strain his relationships with colleagues and
+family members who do not fully understand the depth of his struggles. John’s wife has noticed a
+significant change in his behavior over time; he is no longer as cheerful or engaged, and she
+worries about his constant state of vigilance. The combination of these factors eventually led John
+to seek help. He recognizes that while his symptoms have helped him survive in combat, they are now
+interfering with his ability to live a fulfilling life. In therapy sessions, John speaks candidly
+about the fear that haunts him daily and how it affects every aspect of his life. What frightens him
+most is the possibility of losing control completely or becoming a burden on those he loves. At the
+same time, there’s a glimmer of hope that with help, he can find ways to manage his symptoms and
+regain some sense of peace. John hopes for a future where he can feel more at ease in his daily
+life—where he no longer feels the constant need to be on guard or plagued by memories that feel like
+an intrusion. His journey towards healing is just beginning, but with support, he sees a path
+forward to reclaiming a happier and healthier state of being.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+John, a 63-year-old married man of Oceania ethnicity, has spent much of his life navigating the
+skies as an airline pilot. However, his latest deployment to a combat zone during his younger years
+has left deep psychological scars that continue to haunt him. John was involved in a particularly
+harrowing incident where he had to evacuate civilians under intense gunfire and helicopter
+bombardment. The tactile sensation of the sand that covered everything, the piercing sounds of
+helicopters, and the very time of day when the event occurred have all become potent triggers for
+his PTSD. John finds it harder to feel safe at night than during the day because the darkness
+recalls the nightmarish scenes from the combat zone. Sudden movements by others put him immediately
+on guard, a reaction that stems from the heightened awareness he had to maintain in the war-torn
+environment. This constant vigilance is further exacerbated whenever John scans for exits as soon as
+he enters any room or building—a behavior born out of his instinctual need for an escape route
+should danger arise. The memory of the traumatic event feels alien and surreal, almost like it
+belongs to someone else rather than to him. However, this detachment does not shield him from the
+terror that surges through him upon recall. Something in his surroundings can instantly bring back
+the full memory without warning, overwhelming him with a sense of dread and helplessness. John’s
+negative appraisals have taken a significant toll on his psychological state. He has come to believe
+that there is something wrong with him as a person; he struggles with feelings of being defective
+and finds it difficult to see himself as a whole individual anymore. His view of the world has also
+darkened—he perceives the world as an inherently dangerous place where threats lurk around every
+corner. These negative appraisals exacerbate his sense of threat, making him more vigilant and wary
+than ever before. They also contribute to his heightened sensitivity to triggers, causing John to
+become increasingly anxious in everyday situations that remind him of the traumatic event. His
+memory serves as a constant reminder of his perceived defectiveness and reinforces his belief in the
+world’s inherent danger. John's occupation as an airline pilot has become particularly challenging
+due to these symptoms. The sound of helicopters or aircraft at work often triggers intense
+flashbacks, making it difficult for him to maintain focus during flights. These memories not only
+disrupt his ability to perform his duties but also strain his relationships with colleagues and
+family members who do not fully understand the depth of his struggles. John’s wife has noticed a
+significant change in his behavior over time; he is no longer as cheerful or engaged, and she
+worries about his constant state of vigilance. The combination of these factors eventually led John
+to seek help. He recognizes that while his symptoms have helped him survive in combat, they are now
+interfering with his ability to live a fulfilling life. In therapy sessions, John speaks candidly
+about the fear that haunts him daily and how it affects every aspect of his life. What frightens him
+most is the possibility of losing control completely or becoming a burden on those he loves. At the
+same time, there’s a glimmer of hope that with help, he can find ways to manage his symptoms and
+regain some sense of peace. John hopes for a future where he can feel more at ease in his daily
+life—where he no longer feels the constant need to be on guard or plagued by memories that feel like
+an intrusion. His journey towards healing is just beginning, but with support, he sees a path
+forward to reclaiming a happier and healthier state of being.

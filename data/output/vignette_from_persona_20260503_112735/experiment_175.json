@@ -1,0 +1,203 @@
+{
+  "persona_id": 175,
+  "source_persona_id": 175,
+  "experiment_timestamp": "2026-05-03 12:03:55",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen2.5-32b",
+      "persona_crafter": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 61,
+    "gender": "Male",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Paramedic",
+    "trauma_type": "Toxic chemical exposure",
+    "pcl5": 35
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Workplace",
+        "value": "Workplace"
+      },
+      {
+        "key": "Darkness",
+        "value": "Dark spaces"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Rumination: Prevention",
+        "value": "ruminate about how event could have been prevented"
+      },
+      {
+        "key": "Constant Socialising",
+        "value": "I keep myself constantly surrounded by people so I am never alone with my thoughts"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Overwhelm on Recall",
+        "value": "When the memory returns I feel so overwhelmed by emotion that I have to stop"
+      },
+      {
+        "key": "Triggered Without Warning",
+        "value": "Something in my surroundings can instantly bring back the full memory without warning"
+      },
+      {
+        "key": "Terror on Recall",
+        "value": "Remembering the event brings back the same terror I felt at the time"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.3868,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.992,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0659,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.2423,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0941,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.8703,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.44189999999999996,
+  "edge_density": 0.3,
+  "vignette_word_count": 636,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Carry Weapon: carry weapon",
+          "explanation": "Carrying a weapon is hard to reconcile with the rest of this profile and trauma type. For a 61-year-old married male paramedic whose index trauma is toxic chemical exposure, the other selected items center on sensory triggers, intrusive recall, and emotion-focused coping. Weapon carrying implies a persistent interpersonal/assault threat context that is not represented in the triggers, memory, or formulation, making this item clinically incoherent here."
+        },
+        {
+          "component": "Memory",
+          "item": "Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Intense shame on recall is weakly supported by the rest of the selected profile. The formulation shows Threat and Negative Appraisals as inactive, yet shame is a strong self-appraisal-based memory response. With no negative appraisal items and no threat-linked content, this item does not fit the otherwise trigger-memory-avoidance pattern as well as the other memory items."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Carry Weapon"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "For a toxic chemical exposure trauma, helicopter/aircraft sounds are hard to reconcile unless the exposure clearly occurred in an air-evacuation or aircraft-related context; nothing else in the profile supports that context, so this trigger appears trauma-incongruent."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Darkness: Dark spaces",
+          "explanation": "Dark spaces are not impossible, but with toxic chemical exposure they are weakly supported here because no memory, threat, or appraisal content links the trauma to darkness or confined/obscured environments. In this profile the trigger set starts to imply a different trauma context than the rest of the items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Helicopter)"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Mr. Rajiv Patel, a 61-year-old South Asian paramedic, has been experiencing significant distress following an incident of toxic chemical exposure at work. The traumatic event occurred during a routine emergency call where he was exposed to harmful chemicals. Since the incident, Mr. Patel’s life has been marked by pervasive anxiety and intrusive memories that disrupt his daily functioning. Mr. Patel vividly remembers the moment when he first encountered the noxious fumes at the scene of an industrial accident. The overwhelming smell of alcohol-like chemicals immediately triggered a visceral fear response as he realized the danger they posed. This memory has become deeply ingrained in his mind, and even now, any olfactory cue that resembles this smell can instantly transport him back to that terrifying moment. He feels overwhelmed by emotion and often experiences intense terror when these memories surface unexpectedly. Mr. Patel’s triggers extend beyond just the scent of alcohol. Dark spaces, particularly those reminiscent of the dimly lit warehouse where the incident occurred, and his workplace itself have become sources of significant distress for him. These triggers are so potent that they lead to a relentless cycle of rumination and avoidance behaviors. For instance, the sight of an ambulance or the sound of sirens can quickly spiral into thoughts about how he might have prevented the exposure if only he had taken different actions at the time. The intensity of these triggers has driven Mr. Patel towards maladaptive strategies to cope with his overwhelming emotions. He often finds himself ruminating on how the event could have been prevented, which in turn exacerbates his anxiety and prevents him from moving forward. To mitigate this, he keeps himself constantly surrounded by people, ensuring that he is never alone with his thoughts. This constant socializing serves as a temporary buffer against the intrusion of distressing memories but ultimately does little to address the root cause of his distress. The overwhelming nature of Mr. Patel’s memories often leads him to avoid any medical cues, such as hospitals or physical examinations, because they remind him too vividly of the traumatic incident. This avoidance has had significant consequences in his professional life. He has become hesitant to respond to emergency calls involving potential chemical exposure, leading to a notable decline in his work performance and an increasing sense of isolation from his colleagues. Mr. Patel’s daily routine is punctuated by unexpected triggers that bring back the full memory without warning. The dark interiors of ambulances or the smell of cleaning supplies can instantly overwhelm him with terror, forcing him to take breaks and isolate himself until the intensity subsides. This recurrent cycle of triggers and overwhelming memories has left him feeling increasingly trapped in a self-perpetuating loop. His wife notices that he is becoming more withdrawn at home, often canceling social engagements and preferring to stay indoors where he can control his environment. Despite these efforts, Mr. Patel’s attempts to avoid triggers only seem to make the intrusive memories more frequent and intense. The fear of being exposed again has taken a significant toll on his mental health. What finally brought Mr. Patel to seek help was a particularly distressing episode at work when he had a panic attack while responding to an emergency call involving a chemical spill. He realized that his current coping strategies were not sustainable, and the relentless cycle of triggers and intrusive memories was becoming too much for him to bear alone. Mr. Patel is most afraid of losing control in front of his colleagues or experiencing another traumatic event that he feels unable to prevent. However, he also hopes that with professional help, he can regain a sense of stability and control over his life, allowing him to return to work without being overwhelmed by the memories and triggers that currently dominate his daily existence."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Mr. Rajiv Patel, a 61-year-old South Asian paramedic, has been experiencing significant distress following an incident of toxic chemical exposure at work. The traumatic event occurred during a routine emergency call where he was exposed to harmful chemicals. Since the incident, Mr. Patel’s life has been marked by pervasive anxiety and intrusive memories that disrupt his daily functioning. Mr. Patel vividly remembers the moment when he first encountered the noxious fumes at the scene of an industrial accident. The overwhelming smell of alcohol-like chemicals immediately triggered a visceral fear response as he realized the danger they posed. This memory has become deeply ingrained in his mind, and even now, any olfactory cue that resembles this smell can instantly transport him back to that terrifying moment. He feels overwhelmed by emotion and often experiences intense terror when these memories surface unexpectedly. Mr. Patel’s triggers extend beyond just the scent of alcohol. Dark spaces, particularly those reminiscent of the dimly lit warehouse where the incident occurred, and his workplace itself have become sources of significant distress for him. These triggers are so potent that they lead to a relentless cycle of rumination and avoidance behaviors. For instance, the sight of an ambulance or the sound of sirens can quickly spiral into thoughts about how he might have prevented the exposure if only he had taken different actions at the time. The intensity of these triggers has driven Mr. Patel towards maladaptive strategies to cope with his overwhelming emotions. He often finds himself ruminating on how the event could have been prevented, which in turn exacerbates his anxiety and prevents him from moving forward. To mitigate this, he keeps himself constantly surrounded by people, ensuring that he is never alone with his thoughts. This constant socializing serves as a temporary buffer against the intrusion of distressing memories but ultimately does little to address the root cause of his distress. The overwhelming nature of Mr. Patel’s memories often leads him to avoid any medical cues, such as hospitals or physical examinations, because they remind him too vividly of the traumatic incident. This avoidance has had significant consequences in his professional life. He has become hesitant to respond to emergency calls involving potential chemical exposure, leading to a notable decline in his work performance and an increasing sense of isolation from his colleagues. Mr. Patel’s daily routine is punctuated by unexpected triggers that bring back the full memory without warning. The dark interiors of ambulances or the smell of cleaning supplies can instantly overwhelm him with terror, forcing him to take breaks and isolate himself until the intensity subsides. This recurrent cycle of triggers and overwhelming memories has left him feeling increasingly trapped in a self-perpetuating loop. His wife notices that he is becoming more withdrawn at home, often canceling social engagements and preferring to stay indoors where he can control his environment. Despite these efforts, Mr. Patel’s attempts to avoid triggers only seem to make the intrusive memories more frequent and intense. The fear of being exposed again has taken a significant toll on his mental health. What finally brought Mr. Patel to seek help was a particularly distressing episode at work when he had a panic attack while responding to an emergency call involving a chemical spill. He realized that his current coping strategies were not sustainable, and the relentless cycle of triggers and intrusive memories was becoming too much for him to bear alone. Mr. Patel is most afraid of losing control in front of his colleagues or experiencing another traumatic event that he feels unable to prevent. However, he also hopes that with professional help, he can regain a sense of stability and control over his life, allowing him to return to work without being overwhelmed by the memories and triggers that currently dominate his daily existence.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

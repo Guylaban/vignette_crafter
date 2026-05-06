@@ -1,0 +1,164 @@
+PERSONA 327  |  2026-05-06 08:41:58
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      llama3.1-70b
+    persona_validator    llama3.1-70b
+    vignette_crafter     llama3.1-70b
+    vignette_validator   llama3.1-70b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             28
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Financial Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Media / News: Related news
+    • Weather Similarity: Similar weather conditions to when the event happened
+    • Children Present: Being around children
+  Threat:
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+  Memory:
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Identity Loss: I feel like I don't know myself anymore
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6291
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.3279
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.8899
+  Negative Appraisals → Triggers                     0.8733
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3833
+  Memory → Triggers                                  0.5300
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0248
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9883
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The threat items are keyed to interpersonal assault/home-intrusion danger and pervasive escape planning, which is hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, threat would more plausibly involve medical catastrophe, sudden deterioration, or loss, rather than someone entering the home.
+    item:        Negative Appraisals / Threat: Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    explanation: These threat items also fit poorly with the rest of the profile: the triggers are news, emotional closeness, and weather similarity, none of which plausibly connect to monitoring for an intruder or scanning escape routes. Given the very strong Triggers ↔ Threat edges, the selected threat content should be tightly linked to the triggers, but here the content appears to come from a different trauma schema.
+  [2] FAIL
+    item:        Triggers / Triggers: Emotional Closeness: Someone getting emotionally close to me
+    explanation: For trauma involving a child's life-threatening illness, media/news and weather cues are plausible reminders, but 'someone getting emotionally close to me' is difficult to reconcile as a primary trauma trigger unless there is additional interpersonal trauma history. It does not fit well with the illness-focused threat and memory pattern described by the rest of the profile.
+    item:        Negative Appraisals / Negative Appraisals: Dehumanization: I feel like an object, not like a person
+    explanation: The negative appraisal set is dominated by severe depersonalisation/identity disturbance ('object, not a person'; 'don't know myself anymore'; 'unrecognisable to me'), which is hard to link coherently to the stated trauma type and to the rest of the profile. For a parent traumatised by a child's illness, appraisals would more plausibly center on guilt, responsibility, permanent danger, or inability to protect. This item especially feels clinically mismatched rather than merely unusual.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Alessandro had always been a rational person, but since his two-year-old son's near-fatal bout of
+meningitis six months ago, he'd found himself trapped in a cycle of fear and hypervigilance. The
+memory of that day was etched into his mind like a scar: the frantic rush to the hospital, the eerie
+quiet of the ICU, the beeping machines and sterile smell that still made his stomach turn. When news
+reports about outbreaks or medical emergencies caught his attention, Alessandro would feel an
+automatic jolt of anxiety, as if he was reliving the nightmare all over again. Similar weather
+conditions – a grey, drizzly sky like the one on the day his son fell ill – would also transport him
+back to that state of panicked alertness. And being around children now filled him with a creeping
+sense of dread; their laughter and playful shouts seemed to underscore the fragility of life. As he
+navigated these triggers, Alessandro's mind began to spiral into worst-case scenarios: false alarms
+that left him breathless, an obsessive need to identify escape routes in every new environment, and
+an inability to fall asleep due to a constant vigilance for potential threats. He would lie awake at
+night, mentally rehearsing disaster scenarios and convinced that he was on the cusp of another
+catastrophe. This heightened state of threat had begun to seep into his perception of himself;
+Alessandro felt lost and disconnected from the person he used to be. "I'm no longer the same guy,"
+he'd confide in his wife, Emma. The more he struggled to make sense of his post-trauma world, the
+more his memories of that event seemed to taunt him – vivid images of hospital corridors and medical
+equipment, which he couldn't shake despite desperately trying to push them away. Alessandro's
+negative self-appraisals had become a vicious loop: the more he dwelled on his failure to protect
+his son (despite knowing intellectually it wasn't his fault), the more these memories resurfaced,
+intensifying his feelings of inadequacy and fear. His recollections seemed to grow sharper with each
+passing day, as if in cruel mockery of his attempts to suppress them. In turn, this cycle had warped
+Alessandro's perception of reality; he now viewed everyday situations through a lens of potential
+danger, which only served to heighten his threat response and reinforce the painful memories. This
+self-reinforcing loop had taken its toll: at work as a financial analyst, Alessandro found himself
+increasingly withdrawn and anxious, unable to concentrate on tasks or engage with colleagues. As he
+sat in therapy sessions, trying to articulate the suffocating grip of PTSD, Alessandro knew that
+this was no longer just about his son's health – it was about reclaiming his own life. "I want to be
+me again," he whispered, his voice trembling with desperation. The memories still lingered, a
+constant reminder of what had been lost, but perhaps – just perhaps – there was hope for redemption
+yet.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Alessandro had always been a rational person, but since his two-year-old son's near-fatal bout of
+meningitis six months ago, he'd found himself trapped in a cycle of fear and hypervigilance. The
+memory of that day was etched into his mind like a scar: the frantic rush to the hospital, the eerie
+quiet of the ICU, the beeping machines and sterile smell that still made his stomach turn. When news
+reports about outbreaks or medical emergencies caught his attention, Alessandro would feel an
+automatic jolt of anxiety, as if he was reliving the nightmare all over again. Similar weather
+conditions – a grey, drizzly sky like the one on the day his son fell ill – would also transport him
+back to that state of panicked alertness. And being around children now filled him with a creeping
+sense of dread; their laughter and playful shouts seemed to underscore the fragility of life. As he
+navigated these triggers, Alessandro's mind began to spiral into worst-case scenarios: false alarms
+that left him breathless, an obsessive need to identify escape routes in every new environment, and
+an inability to fall asleep due to a constant vigilance for potential threats. He would lie awake at
+night, mentally rehearsing disaster scenarios and convinced that he was on the cusp of another
+catastrophe. This heightened state of threat had begun to seep into his perception of himself;
+Alessandro felt lost and disconnected from the person he used to be. "I'm no longer the same guy,"
+he'd confide in his wife, Emma. The more he struggled to make sense of his post-trauma world, the
+more his memories of that event seemed to taunt him – vivid images of hospital corridors and medical
+equipment, which he couldn't shake despite desperately trying to push them away. Alessandro's
+negative self-appraisals had become a vicious loop: the more he dwelled on his failure to protect
+his son (despite knowing intellectually it wasn't his fault), the more these memories resurfaced,
+intensifying his feelings of inadequacy and fear. His recollections seemed to grow sharper with each
+passing day, as if in cruel mockery of his attempts to suppress them. In turn, this cycle had warped
+Alessandro's perception of reality; he now viewed everyday situations through a lens of potential
+danger, which only served to heighten his threat response and reinforce the painful memories. This
+self-reinforcing loop had taken its toll: at work as a financial analyst, Alessandro found himself
+increasingly withdrawn and anxious, unable to concentrate on tasks or engage with colleagues. As he
+sat in therapy sessions, trying to articulate the suffocating grip of PTSD, Alessandro knew that
+this was no longer just about his son's health – it was about reclaiming his own life. "I want to be
+me again," he whispered, his voice trembling with desperation. The memories still lingered, a
+constant reminder of what had been lost, but perhaps – just perhaps – there was hope for redemption
+yet.

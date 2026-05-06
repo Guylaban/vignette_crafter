@@ -1,0 +1,236 @@
+{
+  "persona_id": 307,
+  "source_persona_id": 307,
+  "experiment_timestamp": "2026-05-03 20:19:26",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 25,
+    "gender": "Male",
+    "ethnicity": "North American",
+    "relationship_status": "Single",
+    "occupation": "Housekeeper",
+    "trauma_type": "Physical abuse by caregiver (childhood)",
+    "pcl5": 44
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Nighttime/Dark",
+        "value": "Night-time or waking up in the dark"
+      },
+      {
+        "key": "Tactile (Texture)",
+        "value": "A specific texture associated with the event"
+      },
+      {
+        "key": "Auditory (Children Crying)",
+        "value": "Kids crying"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Drop Responsibilities",
+        "value": "give up important responsibilities to stay safe or avoid triggers"
+      },
+      {
+        "key": "Fantasy Escape",
+        "value": "I drift off into a world of my own"
+      },
+      {
+        "key": "Never Alone",
+        "value": "make sure never to be alone with another person"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Overwhelm on Recall",
+        "value": "When the memory returns I feel so overwhelmed by emotion that I have to stop"
+      },
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Full Sensory Reliving",
+        "value": "When the memory comes back it feels completely real across all my senses at once"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Exposed to Others",
+        "value": "I feel that others can see what happened to me just by looking at me"
+      },
+      {
+        "key": "Dehumanization",
+        "value": "I feel like an object, not like a person"
+      },
+      {
+        "key": "Fear of Harm",
+        "value": "You can never know who will harm you"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      },
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.9721,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.2517,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.4638,
+    "Memory -- Maladaptive Strategies": 0.3791,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.9771,
+    "Memory -- Triggers": 0.8832,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.9805,
+    "Maladaptive Strategies -- Negative Appraisals": 0.9282,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.7294625,
+  "edge_density": 0.4,
+  "vignette_word_count": 712,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: missing/none selected despite multiple current-danger and exposure-related items",
+          "explanation": "The profile contains several items implying an active sense of present threat or exposure (e.g., 'World is Dangerous', 'Exposed to Others', concealment to avoid being noticed), yet the Threat component is entirely absent. For this trauma type, such items would usually cohere with at least some explicit threat content; the omission makes the cross-node picture clinically uneven."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: World is Dangerous",
+          "explanation": "'World is Dangerous' expresses a broad ongoing threat belief, but the formulation specifies no active links into or out of Threat and no Threat items are endorsed. This makes the appraisal sit awkwardly in the formulation because it functions more like a threat belief than an isolated negative self-appraisal."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Concealing Clothing: wear concealing clothing to avoid being noticed",
+          "explanation": "'Concealing Clothing ... to avoid being noticed' implies active management of current interpersonal threat/visibility. With Threat completely unrepresented and no Trigger→Threat or Maladaptive Strategies→Threat linkage in the formulation, this strategy lacks a clear matching symptom target in the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "missing/none selected despite multiple current-danger and exposure-related items"
+        ],
+        "Negative Appraisals": [
+          "World is Dangerous"
+        ],
+        "Maladaptive Strategies": [
+          "Concealing Clothing"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations",
+          "explanation": "The Threat node is not clinically coherent here. 'Flashbacks' and 'Physical Reactivity' are re-experiencing/arousal responses rather than threat appraisals, while the only genuine threat appraisal selected is 'Threat from Strangers.' That mixes different constructs within one node."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Threat from Strangers"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Julian was seven when his stepfather’s belt snapped against his shoulders in the guest room. The abuse was never just the pain; it was the coarse, scratchy velvet drapes that brushed his forearms, the splintered floorboards that groaned under shifting weight, and the absolute certainty that violence could arrive without warning. His stepfather’s hands never trembled, only pressed down with heavy, impersonal force that made Julian feel less like a boy and more like furniture waiting to be moved. That night left him with a permanent sense of vulnerability, teaching him that his own body had become a space for someone else’s control. Now twenty-five, Julian works the night shift cleaning hotel corridors, a role that forces him through environments saturated with reminders. When the automatic hallway lights dim to conserve power, the sudden plunge into darkness hits him like a physical weight, instantly pulling the memory of that unlit guest room forward. The coarse texture of the industrial carpet against his knees during scrubbing sends a jolt up his spine, and when a child begins crying from a neighboring suite, his breath catches because the sound has never just been noise. His body never settles. He became superalert, watching every door handle and every shifting shadow. When the memories return, his nervous system short-circuits; his chest tightens, his palms sweat, and for a terrifying moment, he is acting as if the abuse were happening again, not merely recalling it. The more Julian tried to navigate the present, the more his own interpretations sharpened the edges of the reminders. He had come to believe that others could see what happened to him just by looking at him, as though the violence had left invisible marks on his posture and gaze. That conviction made the night shifts unbearable. Because he was certain that anyone could become dangerous without warning, ordinary shadows turned into immediate threats, which directly amplified his reaction to the dark and the scratch of nylon against his wrists. To survive the shifts, Julian started making choices that kept him safe but slowly eroded his stability. When the dimming lights or a sudden draft threatened to pull him under, he would close his eyes and let his mind drift to a quiet, sunlit lake. This direct response led him to drop responsibilities he could barely afford to lose, calling in sick whenever a guest’s footsteps grew too loud or when the night supervisor asked him to clean a second room. He could not bear the silence of an empty floor, so he lingered near the staff breakroom long after his shift ended, just to hear other people’s breathing. But the fantasy escape only lasted until the memory of the guest room rushed back with overwhelming force. Because he could not process the sensory collapse—the smell of dust, the weight on his arms, the splintered floor against his palms—he retreated further into the drift, which in turn fed the memories with sharper force when he opened his eyes. That retreat taught him something he could not shake: that he was fundamentally an object, handled and discarded rather than a person with a voice. The fewer responsibilities he took, the more he felt stripped of his own agency, and the more he convinced himself that he was completely exposed to those around him. He stopped applying for day jobs because the thought of standing in a brightly lit office made his skin prickle. The fantasy escapes that had once felt like mercy now felt like proof that he was hollow. He was certain that if he stayed alone, he would shatter, but if he stayed with others, he would be found out. The memory replay never stopped; it just waited for the next shift, the next dimming light, the next scratch of carpet against his palms. Julian finally walked into the counseling center because the drop-offs had accumulated into a fired resignation, and the silence of his studio apartment had become louder than the hotel corridors. He was not looking for a diagnosis; he was asking for a way to sleep without waking to the ghost of a heavy hand, and hoping someone could help him untangle the knot between the texture of a rug and the terror of being permanently on guard."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Julian was seven when his stepfather’s belt snapped against his shoulders in the guest room. The abuse was never just the pain; it was the coarse, scratchy velvet drapes that brushed his forearms, the splintered floorboards that groaned under shifting weight, and the absolute certainty that violence could arrive without warning. His stepfather’s hands never trembled, only pressed down with heavy, impersonal force that made Julian feel less like a boy and more like furniture waiting to be moved. That night left him with a permanent sense of vulnerability, teaching him that his own body had become a space for someone else’s control. Now twenty-five, Julian works the night shift cleaning hotel corridors, a role that forces him through environments saturated with reminders. When the automatic hallway lights dim to conserve power, the sudden plunge into darkness hits him like a physical weight, instantly pulling the memory of that unlit guest room forward. The coarse texture of the industrial carpet against his knees during scrubbing sends a jolt up his spine, and when a child begins crying from a neighboring suite, his breath catches because the sound has never just been noise. His body never settles. He became superalert, watching every door handle and every shifting shadow. When the memories return, his nervous system short-circuits; his chest tightens, his palms sweat, and for a terrifying moment, he is acting as if the abuse were happening again, not merely recalling it. The more Julian tried to navigate the present, the more his own interpretations sharpened the edges of the reminders. He had come to believe that others could see what happened to him just by looking at him, as though the violence had left invisible marks on his posture and gaze. That conviction made the night shifts unbearable. Because he was certain that anyone could become dangerous without warning, ordinary shadows turned into immediate threats, which directly amplified his reaction to the dark and the scratch of nylon against his wrists. To survive the shifts, Julian started making choices that kept him safe but slowly eroded his stability. When the dimming lights or a sudden draft threatened to pull him under, he would close his eyes and let his mind drift to a quiet, sunlit lake. This direct response led him to drop responsibilities he could barely afford to lose, calling in sick whenever a guest’s footsteps grew too loud or when the night supervisor asked him to clean a second room. He could not bear the silence of an empty floor, so he lingered near the staff breakroom long after his shift ended, just to hear other people’s breathing. But the fantasy escape only lasted until the memory of the guest room rushed back with overwhelming force. Because he could not process the sensory collapse—the smell of dust, the weight on his arms, the splintered floor against his palms—he retreated further into the drift, which in turn fed the memories with sharper force when he opened his eyes. That retreat taught him something he could not shake: that he was fundamentally an object, handled and discarded rather than a person with a voice. The fewer responsibilities he took, the more he felt stripped of his own agency, and the more he convinced himself that he was completely exposed to those around him. He stopped applying for day jobs because the thought of standing in a brightly lit office made his skin prickle. The fantasy escapes that had once felt like mercy now felt like proof that he was hollow. He was certain that if he stayed alone, he would shatter, but if he stayed with others, he would be found out. The memory replay never stopped; it just waited for the next shift, the next dimming light, the next scratch of carpet against his palms. Julian finally walked into the counseling center because the drop-offs had accumulated into a fired resignation, and the silence of his studio apartment had become louder than the hotel corridors. He was not looking for a diagnosis; he was asking for a way to sleep without waking to the ghost of a heavy hand, and hoping someone could help him untangle the knot between the texture of a rug and the terror of being permanently on guard.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

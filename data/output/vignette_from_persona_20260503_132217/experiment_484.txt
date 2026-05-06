@@ -1,0 +1,177 @@
+PERSONA 484  |  2026-05-04 00:13:49
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             77
+  gender          Male
+  ethnicity       African
+  relationship_status Married
+  occupation      School Principal
+  trauma_type     Assault
+  pcl5            70
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Alcohol): Alcohol smell
+    • Loss of Control: Lack of control
+    • Loss of Autonomy: Being forced to do something
+  Threat:
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+    • Startle Response: Feeling jumpy or easily startled
+    • Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+  Memory:
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+    • Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Self-Blame: The event happened because of the way I acted
+    • Can't Rely on Others: I can't rely on other people
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.9799
+  Triggers → Memory                                  0.6086
+  Triggers → Negative Appraisals                     0.2325
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0185
+  Negative Appraisals → Memory                       0.3832
+  Negative Appraisals → Triggers                     0.1382
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.1433
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.3026
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.2243
+  Threat → Negative Appraisals                       0.1461
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: For an assault trauma, the trigger pattern is difficult to reconcile clinically: explosion/bang sounds and hospital/antiseptic smells imply very different trauma contexts or aftermaths, with no accompanying memory or appraisal content linking them into a coherent assault narrative. This is more than merely unusual because the trigger set suggests mixed trauma cues rather than one assault profile.
+    item:        Threat / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: The appraisal 'My body has been permanently damaged by what happened' does not fit well with the rest of the profile. Threat items focus on immediate environmental danger and startle, while memory items center on grief, auditory recall, and emotional numbing; none support a prominent bodily injury theme. In the absence of corroborating assault-related injury cues, this appraisal appears mismatched.
+    item:        Negative Appraisals / Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened
+    explanation: Given the very strong Triggers → Threat edge, trigger items should plausibly feed the specific threat pattern. 'Being naked' can fit vulnerability and danger, but explosion sounds and hospital smells do not connect well to the selected threat items for a single assault formulation, making the trigger-to-threat linkage clinically incoherent.
+  [2] FAIL
+    item:        Triggers / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: For an assault trauma, hospital/antiseptic smell is only coherent if the assault involved serious injury or hospital treatment, but nothing in threat, memory, or appraisals anchors the trauma to a medical context. In this profile it stands out as insufficiently connected to the rest of the formulation.
+    item:        Negative Appraisals / Triggers: Vulnerability: Being naked
+    explanation: 'Being naked' as a trigger implies a sexual assault, humiliation, medical exposure, or a very specific vulnerability context. The other items do not support that context: threat items reflect generalized hypervigilance/startle, memory items do not indicate bodily violation or exposure, and appraisals focus on self-blame/protection of others rather than sexualized shame. This makes the trigger hard to reconcile with the rest of the profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Vulnerability: Being naked
+    explanation: For an assault trauma, 'being naked' as a trigger is not impossible, but without any corroborating memory, threat, or appraisal content suggesting sexual assault, humiliation, or clothing-related vulnerability, it stands out as poorly integrated with the rest of the profile. The other trigger items point to alcohol cues and loss of control, while threat items center on hypervigilance/startle; this specific trigger appears disconnected from the described trauma representation.
+    item:        Negative Appraisals / Negative Appraisals: Failed to Protect: I should have protected others and I failed
+    explanation: 'I should have protected others and I failed' implies the patient experienced the assault in a protector/caretaker role or alongside endangered others. No memory, trigger, or threat item references other people being harmed or the patient's responsibility toward them. The rest of the appraisals are self-focused incompetence/blame, so this item is the main cross-node inconsistency.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Walter, seventy-seven, had spent his career teaching young men about personal responsibility, but
+the autumn night behind the high school’s recycling center taught him a different lesson. A figure
+had stepped from the dark, the reek of cheap whiskey coating his throat before the blade pressed to
+his ribs. When the attacker ordered him to drop his wallet and kneel, Walter’s body had locked. He
+had been forced to comply, stripped of every ounce of autonomy while gravel bit into his knees. Now,
+the scent of liquor on a colleague’s breath in the faculty lounge still caught in his chest. The
+moment that olfactory trigger registered, his heart rate accelerated and his gaze instinctively
+darted to the nearest door. The smell did not merely remind him of the assault; it pulled him back
+into the physical panic, making him scan the room’s perimeter as if the violence were about to
+repeat. This sudden spike in alarm also dragged the memory of the encounter into the present with
+such force that he could still hear the attacker’s ragged breathing. When the overwhelming grief of
+recall episodes washed over him, it quietly shifted into a heavier certainty: he had let it happen
+because he had hesitated. He told himself the event happened because of the way he acted, a self-
+reproach that solidified when he realized he had been forced to surrender without a fight. That
+belief convinced him he could no longer rely on himself, and he stopped consulting his deputies,
+certain he could not rely on other people to keep him safe. This conviction quickly amplified his
+physical alarm. Every time Walter walked into a new building, he scanned for exits as soon as he
+crossed the threshold. The act of mapping the room became a ritual of survival because his certainty
+that he was alone demanded constant vigilance. Meanwhile, the belief that he could not depend on his
+staff or his wife for protection made him hypersensitive to any situation where he might be ordered
+to obey, turning routine administrative check-ins into perceived threats. This self-blame and doubt
+only deepened the grief and numbness that followed each recall, keeping the past tightly bound to
+his present. The tighter the loop became, the more his past bled into his daily routine. When the
+grief and emotionless recall episodes returned, they sharpened his sensitivity to sudden motion.
+When a secretary dropped a stack of disciplinary reports near his desk, the unexpected movement made
+him jolt upright, heart hammering as if the attacker were lunging again. This violent flinch
+confirmed his self-doubt that he could not rely on himself, and the lingering panic after the
+incident only deepened the grief that followed when the memory returned. The constant scanning of
+exits and the jumpy posture he carried through the principal’s office fed directly back into his
+worst fears. He began to avoid mandatory board meetings, leaving early under the pretense of a
+medical appointment, unable to endure the thought of being forced to comply with administrators who
+he was certain would abandon him. His wife noticed him pacing the kitchen floor, terrified that his
+reactions would finally bring the violence of that night into their home, and he knew he had to seek
+help before his school career collapsed entirely.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Walter, seventy-seven, had spent his career teaching young men about personal responsibility, but
+the autumn night behind the high school’s recycling center taught him a different lesson. A figure
+had stepped from the dark, the reek of cheap whiskey coating his throat before the blade pressed to
+his ribs. When the attacker ordered him to drop his wallet and kneel, Walter’s body had locked. He
+had been forced to comply, stripped of every ounce of autonomy while gravel bit into his knees. Now,
+the scent of liquor on a colleague’s breath in the faculty lounge still caught in his chest. The
+moment that olfactory trigger registered, his heart rate accelerated and his gaze instinctively
+darted to the nearest door. The smell did not merely remind him of the assault; it pulled him back
+into the physical panic, making him scan the room’s perimeter as if the violence were about to
+repeat. This sudden spike in alarm also dragged the memory of the encounter into the present with
+such force that he could still hear the attacker’s ragged breathing. When the overwhelming grief of
+recall episodes washed over him, it quietly shifted into a heavier certainty: he had let it happen
+because he had hesitated. He told himself the event happened because of the way he acted, a self-
+reproach that solidified when he realized he had been forced to surrender without a fight. That
+belief convinced him he could no longer rely on himself, and he stopped consulting his deputies,
+certain he could not rely on other people to keep him safe. This conviction quickly amplified his
+physical alarm. Every time Walter walked into a new building, he scanned for exits as soon as he
+crossed the threshold. The act of mapping the room became a ritual of survival because his certainty
+that he was alone demanded constant vigilance. Meanwhile, the belief that he could not depend on his
+staff or his wife for protection made him hypersensitive to any situation where he might be ordered
+to obey, turning routine administrative check-ins into perceived threats. This self-blame and doubt
+only deepened the grief and numbness that followed each recall, keeping the past tightly bound to
+his present. The tighter the loop became, the more his past bled into his daily routine. When the
+grief and emotionless recall episodes returned, they sharpened his sensitivity to sudden motion.
+When a secretary dropped a stack of disciplinary reports near his desk, the unexpected movement made
+him jolt upright, heart hammering as if the attacker were lunging again. This violent flinch
+confirmed his self-doubt that he could not rely on himself, and the lingering panic after the
+incident only deepened the grief that followed when the memory returned. The constant scanning of
+exits and the jumpy posture he carried through the principal’s office fed directly back into his
+worst fears. He began to avoid mandatory board meetings, leaving early under the pretense of a
+medical appointment, unable to endure the thought of being forced to comply with administrators who
+he was certain would abandon him. His wife noticed him pacing the kitchen floor, terrified that his
+reactions would finally bring the violence of that night into their home, and he knew he had to seek
+help before his school career collapsed entirely.

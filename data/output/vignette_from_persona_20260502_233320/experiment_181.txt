@@ -1,0 +1,201 @@
+PERSONA 181  |  2026-05-03 10:54:07
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             40
+  gender          Male
+  ethnicity       Middle Eastern
+  relationship_status Married
+  occupation      Paramedic
+  trauma_type     Trauma to a loved one
+  pcl5            36
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Visual (Injuries): Visible injuries or wounds on others
+    • Victim Memories: Reminders of victims
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Maladaptive Strategies:
+    • Avoid Work or Study: Going to work or study
+    • Suppress Thoughts: try hard not think about the trauma
+    • Overworking: I throw myself into work or tasks to keep my mind occupied
+  Threat:
+    • Startle to Touch: I react with alarm when someone touches me unexpectedly
+    • Concentration: Having difficulty concentrating
+    • Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+  Memory:
+    • Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    • Memory Gaps: There are parts of the event that I simply cannot remember no matter how hard I try
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+  Negative Appraisals:
+    • Permanent Damage: I have permanently changed for the worse
+    • Can't Rely on Self: I can't rely on myself
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.3125
+  Triggers → Threat                                  0.1197
+  Triggers → Memory                                  0.7164
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.1388
+  Negative Appraisals → Threat                       0.4162
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.8748
+  Memory → Maladaptive Strategies                    0.1817
+  Memory → Threat                                    0.3343
+  Memory → Negative Appraisals                       0.0936
+  Memory → Triggers                                  0.3996
+  Threat → Maladaptive Strategies                    0.8363
+  Threat → Memory                                    0.0305
+  Threat → Negative Appraisals                       0.5629
+  Threat → Triggers                                  0.2364
+  Maladaptive Strategies → Memory                    0.4678
+  Maladaptive Strategies → Negative Appraisals       0.8533
+  Maladaptive Strategies → Triggers                  0.6218
+  Maladaptive Strategies → Threat                    0.1578
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Pain Recall
+    explanation: Pain Recall implies the patient personally sustained bodily injury during the trauma, which is hard to reconcile with the trauma type being trauma to a loved one unless there was also direct physical injury to the patient. That is not otherwise supported by the profile.
+    item:        Negative Appraisals / Negative Appraisals: Physical Vulnerability
+    explanation: Physical Vulnerability and permanent bodily damage imply the patient believes his own body was physically harmed. For a trauma-to-a-loved-one presentation, this is difficult to explain clinically without evidence that he was also directly injured.
+    item:        Triggers / Triggers: Military Topics
+    explanation: Military Topics is a trigger that suggests a military/combat-linked trauma context, but no other trigger, memory, threat, or appraisal item supports a military-related formulation. As a standalone item it feels disconnected from the rest of the profile.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Driving
+    explanation: Avoid Driving is plausible for motor-vehicle trauma, but here it lacks support from the trauma type and from the rest of the profile. With no transport-related trigger or memory content, it appears to target a symptom domain not otherwise represented.
+  [2] FAIL
+    item:        Triggers / Triggers: Darkness: Dark spaces
+    explanation: For trauma to a loved one, visible injuries is a plausible trigger, but darkness and alcohol smell are not well anchored to the rest of the profile. Nothing in memory, threat, or appraisals suggests a dark-space or alcohol-related trauma context, so these triggers feel disconnected rather than part of a coherent loved-one trauma presentation.
+    item:        Maladaptive Strategies / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: Avoiding work/study is hard to reconcile with this patient's occupation as a paramedic unless the trauma is clearly tied to the workplace, but the rest of the profile frames the trauma as harm to a loved one rather than occupational trauma. Drug use is also insufficiently supported elsewhere in the profile: there are no other items indicating broad externalising coping or substance-related trigger context, making this strategy feel tacked on.
+    item:        Negative Appraisals / Maladaptive Strategies: Avoid Work or Study: Going to work or study
+    explanation: Self-blame can occur after trauma to a loved one, but this specific wording implies a direct causal role in the event. The rest of the profile does not provide supporting content suggesting he believes his own actions caused the loved one's trauma. The other appraisals are about damage and unreliability of self, so this item is the least integrated with the stated trauma type and surrounding node content.
+  [3] FAIL
+    item:        Triggers / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: Alcohol smell is not impossible, but in this profile it is the only trigger that suggests a substance-related context. The other trigger and memory items center on victims/injuries, which fits a paramedic exposed to injured loved ones or victims. Without any corresponding memory, threat, or appraisal content linked to alcohol, this item stands out as weakly connected to the rest of the trauma representation.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Drug Use: take drugs
+    explanation: Drug use can occur in PTSD, but here it is the only maladaptive strategy that implies substance misuse. The rest of the profile emphasizes work avoidance, suppression, sensory reliving, and hypervigilant threat responses. With no parallel alcohol/substance-related trigger, appraisal, or memory content, this item looks clinically disconnected from the rest of the formulation.
+    item:        Negative Appraisals / Negative Appraisals: Self-Blame: The event happened because of the way I acted
+    explanation: For trauma to a loved one, self-blame is plausible only if the patient had a clear perceived role in failing to protect or respond. In this profile, the other items describe reliving of victims/injuries, hypervigilance, and damaged-self beliefs, but nothing else indicates a responsibility-based trauma narrative. This makes the specific self-blame item the least coherent appraisal relative to the rest of the selected content.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Elias stood in the rain-slicked alley behind St. Jude’s Emergency Department, his paramedic gloves
+still stiff with the blood of a pediatric trauma. He had been on shift when his seven-year-old son’s
+car had wrapped around a utility pole; the antiseptic sting of the hospital clung to his uniform,
+and the sight of his boy’s face, split open by shattered glass, burned into his mind. He remembered
+the frantic scramble of monitors and the crushing terror of holding his son’s cooling hand, yet when
+he tried to reconstruct the minutes that followed, there was only a blank void. A memory gap he
+could not fill no matter how hard he strained convinced him that he had permanently changed for the
+worse and that he simply couldn’t rely on himself. The raw terror on recall brought back the same
+panic he felt at the wheel, and because the memory was so consuming, he found himself trying hard to
+suppress thoughts of the event. But the habit of suppression only ensured that the memory gaps
+widened, leaving him unable to integrate what actually happened. This unresolved memory directly
+fueled his conviction that he had failed to protect his son, a negative appraisal that made him
+hypersensitive to any reminder of victims, from news alerts about child accidents to the sight of a
+neighbor’s bandaged knee. That heightened awareness to triggers then flooded his system with startle
+responses, making him react with alarm when his wife brushed his arm or a dispatcher tapped his
+shoulder. His difficulty concentrating meant he missed radio codes and misread vitals, which
+reinforced his appraisal that he was fundamentally broken. Because he felt so unsafe on the
+ambulance bay floor, he adopted safe seat seeking, always choosing corner spots where he could watch
+the doors, a posture that slowly turned into avoidance work or study, making him call in sick more
+often to escape the station. Each avoided shift meant he could not process his guilt, which only
+deepened the negative appraisal that he had permanently damaged himself. That guilt, in turn, made
+him hyper-fixate on visible injuries on others, treating them as immediate warnings of his own
+inadequacy. The sight of those wounds, combined with the lingering hospital smells, directly
+triggered full sensory reliving, every detail as real as if it were happening now. The memory gaps
+and terror on recall shattered his ability to concentrate, which in turn created more memory gaps
+when he tried to reconstruct the event, convincing him again that he couldn't rely on himself. His
+constant startle to touch and difficulty concentrating kept his nervous system on high alert, which
+amplified the potency of every hospital smell and visible injury on others. Because the triggers
+were so overwhelming, he threw himself into overworking, taking extra overtime routes just to keep
+his mind occupied, yet this overworking meant he never allowed his concentration to recover, leaving
+him perpetually startled by unexpected touch. The relentless overworking and avoidance of work or
+study only deepened his conviction that he had failed to protect his son, which made him more
+fixated on reminders of victims. The memory gaps and full sensory reliving acted as a beacon,
+pulling his attention toward hospital smells and visible injuries on others, which then triggered
+the same alarm. His attempts to suppress thoughts and overwork meant that his concentration never
+improved, leaving him perpetually startled by unexpected touch and convinced he had permanently
+changed for the worse. He would pace the back alley of the station during his breaks, heart
+hammering against his ribs, until the quiet dread of coming home to a wife who noticed his distance
+finally pushed him to book an intake appointment. He hoped, desperately, that someone might show him
+how to stop the spiral, but what frightened him most was the fear that he had already lost the
+ability to protect anyone, including himself.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Elias stood in the rain-slicked alley behind St. Jude’s Emergency Department, his paramedic gloves
+still stiff with the blood of a pediatric trauma. He had been on shift when his seven-year-old son’s
+car had wrapped around a utility pole; the antiseptic sting of the hospital clung to his uniform,
+and the sight of his boy’s face, split open by shattered glass, burned into his mind. He remembered
+the frantic scramble of monitors and the crushing terror of holding his son’s cooling hand, yet when
+he tried to reconstruct the minutes that followed, there was only a blank void. A memory gap he
+could not fill no matter how hard he strained convinced him that he had permanently changed for the
+worse and that he simply couldn’t rely on himself. The raw terror on recall brought back the same
+panic he felt at the wheel, and because the memory was so consuming, he found himself trying hard to
+suppress thoughts of the event. But the habit of suppression only ensured that the memory gaps
+widened, leaving him unable to integrate what actually happened. This unresolved memory directly
+fueled his conviction that he had failed to protect his son, a negative appraisal that made him
+hypersensitive to any reminder of victims, from news alerts about child accidents to the sight of a
+neighbor’s bandaged knee. That heightened awareness to triggers then flooded his system with startle
+responses, making him react with alarm when his wife brushed his arm or a dispatcher tapped his
+shoulder. His difficulty concentrating meant he missed radio codes and misread vitals, which
+reinforced his appraisal that he was fundamentally broken. Because he felt so unsafe on the
+ambulance bay floor, he adopted safe seat seeking, always choosing corner spots where he could watch
+the doors, a posture that slowly turned into avoidance work or study, making him call in sick more
+often to escape the station. Each avoided shift meant he could not process his guilt, which only
+deepened the negative appraisal that he had permanently damaged himself. That guilt, in turn, made
+him hyper-fixate on visible injuries on others, treating them as immediate warnings of his own
+inadequacy. The sight of those wounds, combined with the lingering hospital smells, directly
+triggered full sensory reliving, every detail as real as if it were happening now. The memory gaps
+and terror on recall shattered his ability to concentrate, which in turn created more memory gaps
+when he tried to reconstruct the event, convincing him again that he couldn't rely on himself. His
+constant startle to touch and difficulty concentrating kept his nervous system on high alert, which
+amplified the potency of every hospital smell and visible injury on others. Because the triggers
+were so overwhelming, he threw himself into overworking, taking extra overtime routes just to keep
+his mind occupied, yet this overworking meant he never allowed his concentration to recover, leaving
+him perpetually startled by unexpected touch. The relentless overworking and avoidance of work or
+study only deepened his conviction that he had failed to protect his son, which made him more
+fixated on reminders of victims. The memory gaps and full sensory reliving acted as a beacon,
+pulling his attention toward hospital smells and visible injuries on others, which then triggered
+the same alarm. His attempts to suppress thoughts and overwork meant that his concentration never
+improved, leaving him perpetually startled by unexpected touch and convinced he had permanently
+changed for the worse. He would pace the back alley of the station during his breaks, heart
+hammering against his ribs, until the quiet dread of coming home to a wife who noticed his distance
+finally pushed him to book an intake appointment. He hoped, desperately, that someone might show him
+how to stop the spiral, but what frightened him most was the fear that he had already lost the
+ability to protect anyone, including himself.

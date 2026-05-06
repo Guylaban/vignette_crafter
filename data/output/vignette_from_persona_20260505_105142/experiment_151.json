@@ -1,0 +1,201 @@
+{
+  "persona_id": 151,
+  "source_persona_id": 151,
+  "experiment_timestamp": "2026-05-05 20:57:30",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "llama3.1-70b",
+      "persona_validator": "llama3.1-70b",
+      "vignette_crafter": "llama3.1-70b",
+      "vignette_validator": "llama3.1-70b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 60,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "In a relationship",
+    "occupation": "Warehouse Worker",
+    "trauma_type": "Military",
+    "pcl5": 62
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Location",
+        "value": "Going to or near the place where the event happened"
+      },
+      {
+        "key": "Avoid Similar Clothes",
+        "value": "avoid wearing similar clothes"
+      },
+      {
+        "key": "Avoid Thinking",
+        "value": "Thinking about the event"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Guilt on Recall",
+        "value": "When I remember the event I feel intense guilt"
+      },
+      {
+        "key": "Cannot Find Words",
+        "value": "I know what happened but I am unable to find words to describe it"
+      },
+      {
+        "key": "Terror on Recall",
+        "value": "Remembering the event brings back the same terror I felt at the time"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Survival Guilt",
+        "value": "I feel guilty for surviving when others did not"
+      },
+      {
+        "key": "Identity Loss",
+        "value": "I feel like I don't know myself anymore"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.8219,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.2335,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0174,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.7336,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.9273,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.54674,
+  "edge_density": 0.25,
+  "vignette_word_count": 519,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Carry Weapon: carry weapon",
+          "explanation": "The profile omits both Triggers and Threat entirely, yet includes carrying a weapon and persistent on-guard appraisals. For a 60-year-old male with military trauma, these items are individually plausible, but together they imply an active current-danger/threat system that is not represented elsewhere in the selected nodes and sits poorly with the formulation, where Threat and Triggers are not linked to the active network."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Hypervigilance: I have to be on guard all the time",
+          "explanation": "'I have to be on guard all the time' functions more like a live threat appraisal, but the formulation centers the case on a Negative Appraisals ↔ Memory ↔ Maladaptive Strategies loop, with Threat inactive. In the absence of any other threat-focused items, this item is the main source of incoherence."
+        },
+        {
+          "component": "Memory",
+          "item": "Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning",
+          "explanation": "'Something in my surroundings can instantly bring back the full memory without warning' implies salient cue-driven triggering, but all Triggers edges are inactive and no Trigger items are selected. That does not by itself make triggered recall impossible, but combined with the otherwise appraisal/guilt/identity-focused formulation and profile, it is the least coherent memory item."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Carry Weapon"
+        ],
+        "Negative Appraisals": [
+          "Hypervigilance"
+        ],
+        "Memory": [
+          "Triggered Without Warning"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Checking Surroundings: constantly scan environment for signs of threat",
+          "explanation": "This item is difficult to reconcile with the formulation because Threat is not otherwise represented in the self-report and all Threat-related edges are inactive. The rest of the profile is organized around guilt/identity loss and trauma memory, whereas constant threat scanning implies an active current-threat focus that is not supported by the selected Threat, Trigger, Appraisal, or Memory items. The avoidance items fit the military trauma context, but this hypervigilant checking behavior appears clinically disconnected from the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Checking Surroundings"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Franz Weiss had always been proud of his time in the military, serving his country with honor and distinction. But one fateful day during a mission, everything changed. As he recalls it now, the sound of gunfire still echoes in his mind, and the memories of what happened next are etched into his brain like scars. Franz remembers feeling an overwhelming sense of guilt as he watched some of his comrades fall around him. Even though it was decades ago, when he thinks about that day, the same terror washes over him anew. He tries to push those thoughts away, but they linger, making it hard for him to find words to describe what happened. Franz knows intellectually that he's not responsible for the outcome of that mission, yet the weight of survival guilt hangs heavy on his shoulders. As a result, Franz has become increasingly withdrawn and isolated. He avoids going near the old army base where the event occurred, afraid that being there will bring back the memories in vivid detail. He also makes sure to avoid wearing any clothing reminiscent of his military uniform, hoping to sever any tangible connections to that fateful day. Franz's partner, Margaret, has noticed a change in him over the years. She says he seems lost and uncertain about himself, like he's trying to find his way again. Franz acknowledges this, feeling like an essential part of him was left behind on that battlefield. He sees the world as a more perilous place now, always waiting for the other shoe to drop. When memories of the event resurface, they're often triggered by innocuous things – the smell of smoke or the sound of sirens in the distance. Franz becomes withdrawn and sullen, feeling the guilt and terror wash over him anew. He's tried to push those thoughts away, but it only seems to make them more entrenched. The warehouse where Franz works has become a battleground of sorts, with certain sights and sounds triggering memories he'd rather forget. His colleagues have started noticing his avoidance behaviors – how he takes longer routes around the facility or avoids working near areas that remind him of the military base. Franz's negative appraisals about himself and the world have created a self-reinforcing cycle. The more he tries to avoid these triggers, the more convinced he becomes that they're essential to avoiding further pain. This conviction only serves to strengthen his avoidance behaviors, which in turn reinforce his negative views of himself and the world. It's this vicious cycle that finally brought Franz to seek help. He's exhausted from trying to outrun his memories and is desperate for a way out. His greatest fear now is losing himself completely – becoming trapped forever in a prison of guilt, terror, and avoidance behaviors. Margaret has been urging him to get professional help, hoping it will allow them to reconnect on a deeper level. Franz's greatest hope is that therapy can teach him how to break free from this cycle, find some measure of peace, and rediscover the man he once was before the trauma changed everything."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Franz Weiss had always been proud of his time in the military, serving his country with honor and distinction. But one fateful day during a mission, everything changed. As he recalls it now, the sound of gunfire still echoes in his mind, and the memories of what happened next are etched into his brain like scars. Franz remembers feeling an overwhelming sense of guilt as he watched some of his comrades fall around him. Even though it was decades ago, when he thinks about that day, the same terror washes over him anew. He tries to push those thoughts away, but they linger, making it hard for him to find words to describe what happened. Franz knows intellectually that he's not responsible for the outcome of that mission, yet the weight of survival guilt hangs heavy on his shoulders. As a result, Franz has become increasingly withdrawn and isolated. He avoids going near the old army base where the event occurred, afraid that being there will bring back the memories in vivid detail. He also makes sure to avoid wearing any clothing reminiscent of his military uniform, hoping to sever any tangible connections to that fateful day. Franz's partner, Margaret, has noticed a change in him over the years. She says he seems lost and uncertain about himself, like he's trying to find his way again. Franz acknowledges this, feeling like an essential part of him was left behind on that battlefield. He sees the world as a more perilous place now, always waiting for the other shoe to drop. When memories of the event resurface, they're often triggered by innocuous things – the smell of smoke or the sound of sirens in the distance. Franz becomes withdrawn and sullen, feeling the guilt and terror wash over him anew. He's tried to push those thoughts away, but it only seems to make them more entrenched. The warehouse where Franz works has become a battleground of sorts, with certain sights and sounds triggering memories he'd rather forget. His colleagues have started noticing his avoidance behaviors – how he takes longer routes around the facility or avoids working near areas that remind him of the military base. Franz's negative appraisals about himself and the world have created a self-reinforcing cycle. The more he tries to avoid these triggers, the more convinced he becomes that they're essential to avoiding further pain. This conviction only serves to strengthen his avoidance behaviors, which in turn reinforce his negative views of himself and the world. It's this vicious cycle that finally brought Franz to seek help. He's exhausted from trying to outrun his memories and is desperate for a way out. His greatest fear now is losing himself completely – becoming trapped forever in a prison of guilt, terror, and avoidance behaviors. Margaret has been urging him to get professional help, hoping it will allow them to reconnect on a deeper level. Franz's greatest hope is that therapy can teach him how to break free from this cycle, find some measure of peace, and rediscover the man he once was before the trauma changed everything.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

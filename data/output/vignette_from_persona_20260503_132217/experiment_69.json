@@ -1,0 +1,231 @@
+{
+  "persona_id": 69,
+  "source_persona_id": 69,
+  "experiment_timestamp": "2026-05-03 14:53:03",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 62,
+    "gender": "Male",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "Bomb Disposal Technician",
+    "trauma_type": "Toxic chemical exposure",
+    "pcl5": 57
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Workplace",
+        "value": "Workplace"
+      },
+      {
+        "key": "Auditory (Loud Noises)",
+        "value": "Loud noises"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Being Alone",
+        "value": "Being alone in a room or building"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      },
+      {
+        "key": "Overwork",
+        "value": "work excessively to avoid being alone with thoughts"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Escape Route Planning",
+        "value": "I always identify escape routes before I feel comfortable anywhere"
+      },
+      {
+        "key": "Startle to Touch",
+        "value": "I react with alarm when someone touches me unexpectedly"
+      },
+      {
+        "key": "Scanning for Danger",
+        "value": "I constantly scan my surroundings for signs of danger"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.1752,
+    "Triggers -- Threat": 0.1952,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.8669,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.2032
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.36012500000000003,
+  "edge_density": 0.2,
+  "vignette_word_count": 620,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Body Parts): Specific body parts associated with the event",
+          "explanation": "The trigger set is not clinically coherent with the validated trauma type of toxic chemical exposure. 'Specific body parts associated with the event,' 'power imbalance,' and 'being alone with women' are much more characteristic of interpersonal/sexual assault formulations than toxic exposure."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Power Imbalance: Being in a situation where someone has power over me",
+          "explanation": "Within the Triggers node, the items point to incompatible trauma meanings: body-part cues, gendered interpersonal cues, and power-over-me situations imply an assaultive perpetrator context rather than an occupational chemical exposure event."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Body Parts)"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Female Presence: Being alone with women",
+          "explanation": "For a 62-year-old male bomb disposal technician whose index trauma is toxic chemical exposure, 'being alone with women' is hard to reconcile as a trauma-related trigger. It implies an interpersonal/sexual-threat context that does not fit the stated trauma type and is not supported by the threat items, which instead reflect generalized physical danger/hypervigilance."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Avoid Perpetrator Cues: Anything that reminds me of the person who harmed me",
+          "explanation": "'Anything that reminds me of the person who harmed me' is difficult to reconcile with toxic chemical exposure, which typically does not involve an identifiable perpetrator. This item suggests an assault/interpersonal trauma formulation and is inconsistent with the stated trauma type and the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Female Presence"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Perpetrator Cues"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid New Relationships: Starting new friendships or relationships",
+          "explanation": "Avoiding new relationships is hard to reconcile with a 62-year-old married bomb disposal technician whose indexed trauma is toxic chemical exposure; this strategy fits interpersonal trauma or betrayal formulations more than exposure-related PTSD, and there are no corresponding threat, memory, or appraisal items to support an interpersonal-relationship focus."
+        },
+        {
+          "component": "Threat",
+          "item": "Avoid Being Alone: Being alone in a room or building",
+          "explanation": "Avoiding being alone in a room or building does not connect well to the rest of the profile. The threat items describe generalized hypervigilance and escape planning, while the trauma type and other selected triggers do not suggest solitary settings as a specific danger cue. This looks like a maladaptive strategy for a symptom pattern not otherwise represented."
+        },
+        {
+          "component": "Triggers",
+          "item": "Power Imbalance: Being in a situation where someone has power over me",
+          "explanation": "The trigger 'being in a situation where someone has power over me' is difficult to integrate with toxic chemical exposure and the rest of the selected profile. The other triggers are workplace and loud noises, and the threat items reflect environmental danger monitoring rather than coercion or dominance. This trigger suggests an interpersonal/control-based trauma theme that is unsupported elsewhere."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid New Relationships"
+        ],
+        "Threat": [
+          "Avoid Being Alone"
+        ],
+        "Triggers": [
+          "Power Imbalance"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Kwame stood in the doorway of the municipal decontamination lab, his fingers tracing the cold steel frame as he mapped the three possible exits before his foot even crossed the threshold. At sixty-two, he had spent the last decade living in the shadow of the pressure rupture that had split his life into before and after. Ten years earlier, he had been the lead bomb disposal technician when a pressurized chemical containment tank ruptured during a high-stakes field calibration. The shriek of the emergency sirens had split the air, followed by a hissing cloud of corrosive vapor that stung his lungs and burned his eyes. Medics had dragged him to the regional trauma center, where the sharp, clinical tang of industrial antiseptic had flooded his sinuses, sealing the memory of the chemical burn to his skin. He had survived the exposure, but the event had permanently rewired his perception of safety, turning every ordinary facility into a potential kill zone. He had come to believe that a single missed alarm meant death, a conviction that left no room for hesitation in his current work. In the months that followed, the laboratory never felt neutral again. When the automated warning klaxon from the fire suppression system blared during a routine inspection, his breath hitched and his body automatically shifted into a retreat posture, pushing him to abandon the floor and retreat to the breakroom, where he began insisting on keeping the door propped open. The sensory alarm directly catalyzed his need to avoid enclosed spaces and fueled his compulsion to pile on extra calibration shifts, ensuring his hands were never idle long enough to sit with the memory of the burning air. At the same time, the initial trigger of the siren immediately drove his physiological alarm system into overdrive, pulling his gaze across the room for the quickest path out before his conscious mind could even process the drill. Because his nervous system remained locked in this state of relentless threat monitoring, the ordinary whine of the facility’s HVAC equipment began to register as the precursor to another catastrophic rupture, sharpening his focus on environmental hazards until they felt indistinguishable from the original breach. This feedback loop tightened over the years, becoming the structural core of his daily survival. By refusing to sit in a room unaccompanied and by overworking himself to the point of exhaustion, he drained the psychological reserves needed to calm his own autonomic nerves, which in turn kept his startle reflex constantly primed to snap at the slightest unexpected contact. His wife learned to tap his shoulder only after announcing her presence, and he caught himself scanning the checkout aisles at the grocery store for the nearest doorway just to feel a fraction of control. The avoidance of medical cues became so absolute that he declined routine physicals, fearing the scratch of the blood pressure cuff would trigger a full respiratory shutdown. The constant scanning meant he never truly rested, and the unrelenting anticipation of disaster ensured that every ordinary workplace sound was instantly filtered through the lens of the original exposure. His supervisor noticed the tremor in his hands during precision wire cuts, eventually reassigning him to desk logistics, a demotion he interpreted as proof that his body had betrayed him. When a routine equipment test last month produced a sharp metallic ping, he dropped the calibration tablet, his heart hammering so violently he could not breathe, and finally called the clinic himself. He was terrified that without intervention, he would either lose his grip on his career entirely or suffocate in his own mind, and he hoped desperately to find a way to stand in a room without measuring the distance to the door."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Kwame stood in the doorway of the municipal decontamination lab, his fingers tracing the cold steel frame as he mapped the three possible exits before his foot even crossed the threshold. At sixty-two, he had spent the last decade living in the shadow of the pressure rupture that had split his life into before and after. Ten years earlier, he had been the lead bomb disposal technician when a pressurized chemical containment tank ruptured during a high-stakes field calibration. The shriek of the emergency sirens had split the air, followed by a hissing cloud of corrosive vapor that stung his lungs and burned his eyes. Medics had dragged him to the regional trauma center, where the sharp, clinical tang of industrial antiseptic had flooded his sinuses, sealing the memory of the chemical burn to his skin. He had survived the exposure, but the event had permanently rewired his perception of safety, turning every ordinary facility into a potential kill zone. He had come to believe that a single missed alarm meant death, a conviction that left no room for hesitation in his current work. In the months that followed, the laboratory never felt neutral again. When the automated warning klaxon from the fire suppression system blared during a routine inspection, his breath hitched and his body automatically shifted into a retreat posture, pushing him to abandon the floor and retreat to the breakroom, where he began insisting on keeping the door propped open. The sensory alarm directly catalyzed his need to avoid enclosed spaces and fueled his compulsion to pile on extra calibration shifts, ensuring his hands were never idle long enough to sit with the memory of the burning air. At the same time, the initial trigger of the siren immediately drove his physiological alarm system into overdrive, pulling his gaze across the room for the quickest path out before his conscious mind could even process the drill. Because his nervous system remained locked in this state of relentless threat monitoring, the ordinary whine of the facility’s HVAC equipment began to register as the precursor to another catastrophic rupture, sharpening his focus on environmental hazards until they felt indistinguishable from the original breach. This feedback loop tightened over the years, becoming the structural core of his daily survival. By refusing to sit in a room unaccompanied and by overworking himself to the point of exhaustion, he drained the psychological reserves needed to calm his own autonomic nerves, which in turn kept his startle reflex constantly primed to snap at the slightest unexpected contact. His wife learned to tap his shoulder only after announcing her presence, and he caught himself scanning the checkout aisles at the grocery store for the nearest doorway just to feel a fraction of control. The avoidance of medical cues became so absolute that he declined routine physicals, fearing the scratch of the blood pressure cuff would trigger a full respiratory shutdown. The constant scanning meant he never truly rested, and the unrelenting anticipation of disaster ensured that every ordinary workplace sound was instantly filtered through the lens of the original exposure. His supervisor noticed the tremor in his hands during precision wire cuts, eventually reassigning him to desk logistics, a demotion he interpreted as proof that his body had betrayed him. When a routine equipment test last month produced a sharp metallic ping, he dropped the calibration tablet, his heart hammering so violently he could not breathe, and finally called the clinic himself. He was terrified that without intervention, he would either lose his grip on his career entirely or suffocate in his own mind, and he hoped desperately to find a way to stand in a room without measuring the distance to the door.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

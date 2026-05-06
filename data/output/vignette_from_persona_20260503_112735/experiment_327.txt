@@ -1,0 +1,174 @@
+PERSONA 327  |  2026-05-03 12:36:49
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen2.5-32b
+    persona_crafter      qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             28
+  gender          Male
+  ethnicity       European
+  relationship_status Married
+  occupation      Financial Analyst
+  trauma_type     Child's life-threatening illness
+  pcl5            75
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Media / News: Related news
+    • Weather Similarity: Similar weather conditions to when the event happened
+    • Children Present: Being around children
+  Threat:
+    • False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    • Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+  Memory:
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Blocked Before Complete: I find myself pushing the memory away before I can fully recall it
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Identity Loss: I feel like I don't know myself anymore
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6291
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.3279
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.8899
+  Negative Appraisals → Triggers                     0.8733
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3833
+  Memory → Triggers                                  0.5300
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0248
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.9883
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Threat / Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home
+    explanation: The threat items are keyed to interpersonal assault/home-intrusion danger and pervasive escape planning, which is hard to reconcile with the indexed trauma of a child's life-threatening illness. For this trauma type, threat would more plausibly involve medical catastrophe, sudden deterioration, or loss, rather than someone entering the home.
+    item:        Negative Appraisals / Threat: Escape Route Planning: I always identify escape routes before I feel comfortable anywhere
+    explanation: These threat items also fit poorly with the rest of the profile: the triggers are news, emotional closeness, and weather similarity, none of which plausibly connect to monitoring for an intruder or scanning escape routes. Given the very strong Triggers ↔ Threat edges, the selected threat content should be tightly linked to the triggers, but here the content appears to come from a different trauma schema.
+  [2] FAIL
+    item:        Triggers / Triggers: Emotional Closeness: Someone getting emotionally close to me
+    explanation: For trauma involving a child's life-threatening illness, media/news and weather cues are plausible reminders, but 'someone getting emotionally close to me' is difficult to reconcile as a primary trauma trigger unless there is additional interpersonal trauma history. It does not fit well with the illness-focused threat and memory pattern described by the rest of the profile.
+    item:        Negative Appraisals / Negative Appraisals: Dehumanization: I feel like an object, not like a person
+    explanation: The negative appraisal set is dominated by severe depersonalisation/identity disturbance ('object, not a person'; 'don't know myself anymore'; 'unrecognisable to me'), which is hard to link coherently to the stated trauma type and to the rest of the profile. For a parent traumatised by a child's illness, appraisals would more plausibly center on guilt, responsibility, permanent danger, or inability to protect. This item especially feels clinically mismatched rather than merely unusual.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Michael, a 28-year-old European-American financial analyst, has been struggling with intense
+psychological distress since his young child was hospitalized for a life-threatening illness. The
+experience left him feeling overwhelmed and shattered his sense of self. Michael’s trauma is deeply
+ingrained in the vivid memories of that harrowing time, which remain crystal clear and detailed. He
+finds himself constantly haunted by these images, pushing them away before he can fully recall the
+full extent of what happened. Michael was married at the time of the incident, and the stress has
+taken a significant toll on his relationship and daily life as a financial analyst. Any mention of
+similar weather conditions or children in distress serves as a powerful trigger, often causing him
+to feel like he is reliving those terrifying moments. He reacts with intense fear even when there’s
+no real danger present, always on high alert for any signs of impending crisis. The vivid memory of
+his child’s illness has profoundly affected Michael's sense of identity. He feels unrecognizable to
+himself, as if the person who once knew how to navigate life’s challenges is now lost and replaced
+by someone who constantly lives in a state of fear and hyper-vigilance. This profound shift in self-
+perception has led him to believe that he failed his child during those critical moments, deepening
+his negative appraisals. Michael's fears have become so intense that even watching the news or
+encountering weather similar to when his child was hospitalized can plunge him back into a state of
+panic and distress. These triggers amplify his threat perception, making it difficult for him to
+relax in any environment. He constantly identifies escape routes before he feels safe anywhere, and
+this hyper-vigilance affects his ability to sleep as well. The vividness and clarity of the memories
+further exacerbate Michael’s sense of self-blame and failure. Each time he allows himself to revisit
+these images, it reinforces his belief that he should have protected his child more effectively.
+These negative appraisals not only hinder his recovery but also perpetuate a cycle of avoidance and
+heightened anxiety. Michael's occupation as a financial analyst has been impacted by this ongoing
+struggle. The constant vigilance and fear of triggers in daily work environments make it challenging
+for him to focus on tasks at hand, leading to increased stress and job performance issues. His
+marriage is strained due to his emotional withdrawal and preoccupation with these traumatic
+memories. What finally brought Michael to seek help was a recent incident where he nearly had a
+panic attack while walking through the hospital where his child was treated. He realized that his
+life has been increasingly consumed by fear and hypervigilance, and he fears he might lose more than
+just his peace of mind if this continues. While he hopes for relief from these overwhelming
+feelings, what frightens him most is the prospect of never truly feeling like himself again or
+having to live in constant fear. Michael’s journey towards recovery involves addressing these deeply
+intertwined symptoms—understanding how specific triggers heighten his threat perception and negative
+appraisals while also working through the vivid memories that continue to haunt him. He hopes to
+regain a sense of self and control over his life, no longer bound by the shadows of his traumatic
+past.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Michael, a 28-year-old European-American financial analyst, has been struggling with intense
+psychological distress since his young child was hospitalized for a life-threatening illness. The
+experience left him feeling overwhelmed and shattered his sense of self. Michael’s trauma is deeply
+ingrained in the vivid memories of that harrowing time, which remain crystal clear and detailed. He
+finds himself constantly haunted by these images, pushing them away before he can fully recall the
+full extent of what happened. Michael was married at the time of the incident, and the stress has
+taken a significant toll on his relationship and daily life as a financial analyst. Any mention of
+similar weather conditions or children in distress serves as a powerful trigger, often causing him
+to feel like he is reliving those terrifying moments. He reacts with intense fear even when there’s
+no real danger present, always on high alert for any signs of impending crisis. The vivid memory of
+his child’s illness has profoundly affected Michael's sense of identity. He feels unrecognizable to
+himself, as if the person who once knew how to navigate life’s challenges is now lost and replaced
+by someone who constantly lives in a state of fear and hyper-vigilance. This profound shift in self-
+perception has led him to believe that he failed his child during those critical moments, deepening
+his negative appraisals. Michael's fears have become so intense that even watching the news or
+encountering weather similar to when his child was hospitalized can plunge him back into a state of
+panic and distress. These triggers amplify his threat perception, making it difficult for him to
+relax in any environment. He constantly identifies escape routes before he feels safe anywhere, and
+this hyper-vigilance affects his ability to sleep as well. The vividness and clarity of the memories
+further exacerbate Michael’s sense of self-blame and failure. Each time he allows himself to revisit
+these images, it reinforces his belief that he should have protected his child more effectively.
+These negative appraisals not only hinder his recovery but also perpetuate a cycle of avoidance and
+heightened anxiety. Michael's occupation as a financial analyst has been impacted by this ongoing
+struggle. The constant vigilance and fear of triggers in daily work environments make it challenging
+for him to focus on tasks at hand, leading to increased stress and job performance issues. His
+marriage is strained due to his emotional withdrawal and preoccupation with these traumatic
+memories. What finally brought Michael to seek help was a recent incident where he nearly had a
+panic attack while walking through the hospital where his child was treated. He realized that his
+life has been increasingly consumed by fear and hypervigilance, and he fears he might lose more than
+just his peace of mind if this continues. While he hopes for relief from these overwhelming
+feelings, what frightens him most is the prospect of never truly feeling like himself again or
+having to live in constant fear. Michael’s journey towards recovery involves addressing these deeply
+intertwined symptoms—understanding how specific triggers heighten his threat perception and negative
+appraisals while also working through the vivid memories that continue to haunt him. He hopes to
+regain a sense of self and control over his life, no longer bound by the shadows of his traumatic
+past.

@@ -1,0 +1,224 @@
+{
+  "persona_id": 45,
+  "source_persona_id": 45,
+  "experiment_timestamp": "2026-05-03 11:36:58",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen2.5-32b",
+      "persona_crafter": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 37,
+    "gender": "Male",
+    "ethnicity": "Latin American",
+    "relationship_status": "Divorced",
+    "occupation": "Social Ministry Worker",
+    "trauma_type": "Physical abuse by romantic partner",
+    "pcl5": 48
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Tactile (Restrained)",
+        "value": "Feeling physically restrained or held down"
+      },
+      {
+        "key": "Auditory (Door)",
+        "value": "Doors opening or slamming"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Location",
+        "value": "Going to or near the place where the event happened"
+      },
+      {
+        "key": "Freeze When Threatened",
+        "value": "freeze completely when feeling threatened"
+      },
+      {
+        "key": "Emotion Control",
+        "value": "I try hard to control my emotions"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      },
+      {
+        "key": "Door and Lock Checking",
+        "value": "I repeatedly check that doors and windows are locked"
+      },
+      {
+        "key": "Night Vigilance",
+        "value": "I find it harder to feel safe at night than during the day"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      },
+      {
+        "key": "Auditory Recall",
+        "value": "When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event."
+      },
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.4759,
+    "Triggers -- Threat": 0.8487,
+    "Triggers -- Memory": 0.8836,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4066,
+    "Threat -- Maladaptive Strategies": 0.2027,
+    "Threat -- Memory": 0.0828,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.7668,
+    "Maladaptive Strategies -- Memory": 0.9892,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.1276,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5315444444444445,
+  "edge_density": 0.45,
+  "vignette_word_count": 608,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Needles/Medical): Medical equipment such as needles or drips",
+          "explanation": "These triggers are hard to reconcile with the stated trauma of physical abuse by a romantic partner. 'Feeling restrained or held down' fits well, but medical equipment and helicopter sounds suggest a medical, combat, or accident context that is not represented in the Threat, Memory, Appraisals, or Strategy items."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "Because Triggers has strong links to Threat and Memory in the formulation, the trigger content should plausibly connect to the patient's danger cues and trauma memories. The profile's Threat items center on interpersonal hypervigilance in close environments (silence, nearby movement, lock checking), and Memory items do not contain medical or aircraft content, making these two triggers clinically incoherent with the rest of the profile."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Needles/Medical)"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "'Helicopter or aircraft sounds' is hard to reconcile with the stated trauma type of physical abuse by a romantic partner unless there is additional undisclosed trauma exposure; it does not fit the rest of the profile, which centers on interpersonal/domestic threat cues such as restraint, doors, movement, and lock checking."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat in Silence: Unusual silence makes me feel something dangerous is about to happen",
+          "explanation": "'Unusual silence makes me feel something dangerous is about to happen' is not impossible, but paired with the otherwise specifically interpersonal/domestic cue pattern it weakens coherence because it suggests a different threat context without support from memory or appraisal items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Helicopter)"
+        ],
+        "Threat": [
+          "Threat in Silence"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Carlos, a 37-year-old Latin American man who recently divorced his abusive partner, has been grappling with symptoms of PTSD. His story begins several years ago when he was physically restrained and abused by his then-partner in their home. The traumatic event has left Carlos with vivid memories that are deeply tied to specific triggers: the smell of alcohol, the sound of a door opening or slamming, and feeling physically restrained. Carlos’s trauma became particularly potent because of the context in which it occurred. His partner would often return from nights out smelling strongly of alcohol and proceed to abuse him. The loudness of doors slamming as his partner entered the house was a harbinger of impending violence. The memory of being held down, unable to move or fight back, has left an indelible mark on Carlos’s psyche. Since that time, any instance of these triggers—such as the smell of alcohol at work during social events or hearing a door slam in his apartment building—triggers intense fear and flashbacks. This reaction has led him to adopt several maladaptive strategies. For example, whenever he feels restrained, such as being stuck in traffic or feeling cornered, Carlos freezes completely, unable to respond effectively. He also tries hard to control his emotions, often bottling up any signs of distress. The vividness and clarity of these memories are overwhelming, especially when Carlos recalls the abuse. The sound of doors opening or slamming is particularly potent because it was a regular precursor to the violence he endured. When he hears things in his head that he heard during the traumatic event—like his partner’s angry voice—it triggers grief and intense fear. These vivid and distressing memories also reinforce his heightened state of threat monitoring. Unexpected movements, such as someone walking past him quickly or an object falling unexpectedly, cause Carlos to react as if he is still in danger. He has developed a habit of repeatedly checking that doors and windows are locked at night, finding it harder to feel safe when it’s dark. Carlos’s maladaptive strategies have grown increasingly restrictive over time. His fear of being restrained makes him avoid social events where alcohol might be present or situations that remind him of his home during the abuse. This avoidance has led to significant isolation and a decline in his work performance at the social ministry, as he struggles to engage fully with community events. The cycle of triggers and maladaptive strategies has tightened over time. When Carlos is triggered by the smell of alcohol or hearing doors open, his memories are vivid and painful, causing him intense grief and fear. This emotional turmoil leads him to further control his environment and avoid triggering situations, which only serves to reinforce his memory of the event. What frightens Carlos most now is that he feels increasingly trapped in this cycle of fear and avoidance. He recognizes that these behaviors are isolating him from the community work he loves and from forming new relationships. The final straw came when a colleague noticed his deteriorating condition and encouraged him to seek help. Carlos hopes for relief from the constant fear and grief, and he is seeking therapy to regain control over his life without being bound by the memories of past abuse. In summary, Carlos’s PTSD symptoms have deeply affected his daily functioning and relationships. His triggers are potent reminders of the traumatic event, leading to intense distress and maladaptive behaviors that further reinforce his fear and isolation. The cycle of triggers, threat monitoring, and avoidance has become increasingly difficult for him to manage, ultimately driving him to seek professional help in hopes of reclaiming his life."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Carlos, a 37-year-old Latin American man who recently divorced his abusive partner, has been grappling with symptoms of PTSD. His story begins several years ago when he was physically restrained and abused by his then-partner in their home. The traumatic event has left Carlos with vivid memories that are deeply tied to specific triggers: the smell of alcohol, the sound of a door opening or slamming, and feeling physically restrained. Carlos’s trauma became particularly potent because of the context in which it occurred. His partner would often return from nights out smelling strongly of alcohol and proceed to abuse him. The loudness of doors slamming as his partner entered the house was a harbinger of impending violence. The memory of being held down, unable to move or fight back, has left an indelible mark on Carlos’s psyche. Since that time, any instance of these triggers—such as the smell of alcohol at work during social events or hearing a door slam in his apartment building—triggers intense fear and flashbacks. This reaction has led him to adopt several maladaptive strategies. For example, whenever he feels restrained, such as being stuck in traffic or feeling cornered, Carlos freezes completely, unable to respond effectively. He also tries hard to control his emotions, often bottling up any signs of distress. The vividness and clarity of these memories are overwhelming, especially when Carlos recalls the abuse. The sound of doors opening or slamming is particularly potent because it was a regular precursor to the violence he endured. When he hears things in his head that he heard during the traumatic event—like his partner’s angry voice—it triggers grief and intense fear. These vivid and distressing memories also reinforce his heightened state of threat monitoring. Unexpected movements, such as someone walking past him quickly or an object falling unexpectedly, cause Carlos to react as if he is still in danger. He has developed a habit of repeatedly checking that doors and windows are locked at night, finding it harder to feel safe when it’s dark. Carlos’s maladaptive strategies have grown increasingly restrictive over time. His fear of being restrained makes him avoid social events where alcohol might be present or situations that remind him of his home during the abuse. This avoidance has led to significant isolation and a decline in his work performance at the social ministry, as he struggles to engage fully with community events. The cycle of triggers and maladaptive strategies has tightened over time. When Carlos is triggered by the smell of alcohol or hearing doors open, his memories are vivid and painful, causing him intense grief and fear. This emotional turmoil leads him to further control his environment and avoid triggering situations, which only serves to reinforce his memory of the event. What frightens Carlos most now is that he feels increasingly trapped in this cycle of fear and avoidance. He recognizes that these behaviors are isolating him from the community work he loves and from forming new relationships. The final straw came when a colleague noticed his deteriorating condition and encouraged him to seek help. Carlos hopes for relief from the constant fear and grief, and he is seeking therapy to regain control over his life without being bound by the memories of past abuse. In summary, Carlos’s PTSD symptoms have deeply affected his daily functioning and relationships. His triggers are potent reminders of the traumatic event, leading to intense distress and maladaptive behaviors that further reinforce his fear and isolation. The cycle of triggers, threat monitoring, and avoidance has become increasingly difficult for him to manage, ultimately driving him to seek professional help in hopes of reclaiming his life.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

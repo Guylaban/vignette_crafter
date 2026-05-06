@@ -1,0 +1,188 @@
+PERSONA 151  |  2026-05-03 16:42:34
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             60
+  gender          Male
+  ethnicity       European
+  relationship_status In a relationship
+  occupation      Warehouse Worker
+  trauma_type     Military
+  pcl5            62
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid Location: Going to or near the place where the event happened
+    • Avoid Similar Clothes: avoid wearing similar clothes
+    • Avoid Thinking: Thinking about the event
+  Memory:
+    • Guilt on Recall: When I remember the event I feel intense guilt
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+  Negative Appraisals:
+    • Survival Guilt: I feel guilty for surviving when others did not
+    • Identity Loss: I feel like I don't know myself anymore
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.8219
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.2335
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0174
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.7336
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.9273
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Carry Weapon: carry weapon
+    explanation: The profile omits both Triggers and Threat entirely, yet includes carrying a weapon and persistent on-guard appraisals. For a 60-year-old male with military trauma, these items are individually plausible, but together they imply an active current-danger/threat system that is not represented elsewhere in the selected nodes and sits poorly with the formulation, where Threat and Triggers are not linked to the active network.
+    item:        Negative Appraisals / Hypervigilance: I have to be on guard all the time
+    explanation: 'I have to be on guard all the time' functions more like a live threat appraisal, but the formulation centers the case on a Negative Appraisals ↔ Memory ↔ Maladaptive Strategies loop, with Threat inactive. In the absence of any other threat-focused items, this item is the main source of incoherence.
+    item:        Memory / Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    explanation: 'Something in my surroundings can instantly bring back the full memory without warning' implies salient cue-driven triggering, but all Triggers edges are inactive and no Trigger items are selected. That does not by itself make triggered recall impossible, but combined with the otherwise appraisal/guilt/identity-focused formulation and profile, it is the least coherent memory item.
+  [2] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: This item is difficult to reconcile with the formulation because Threat is not otherwise represented in the self-report and all Threat-related edges are inactive. The rest of the profile is organized around guilt/identity loss and trauma memory, whereas constant threat scanning implies an active current-threat focus that is not supported by the selected Threat, Trigger, Appraisal, or Memory items. The avoidance items fit the military trauma context, but this hypervigilant checking behavior appears clinically disconnected from the rest of the profile.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Arthur Vance was thirty-two when the ambush shattered the desert quiet near the eastern ridge. The
+sky had turned the color of bruised iron, and the sudden crack of incoming fire forced him into a
+shallow trench, the metallic taste of dust and cordite coating his throat. He watched his squad
+mates fall, the weight of their unyielding bodies pressing against the earth as he scrambled for
+cover. He survived the firefight, but in the quiet aftermath, a heavy conviction took root: he had
+lived when Miller and Torres had not. This survival guilt hardened into a quiet despair, and he
+began to believe the man he used to be was gone, replaced by someone fractured and unrecognizable.
+He came to view the world as a fundamentally dangerous place, where sudden violence could descend
+without warning and ordinary life offered no real protection. When the past eventually broke through
+his guard, the terror and shame of recall flooded back with such visceral intensity that his hands
+would shake and his throat would close, leaving him unable to find words for what had happened. Each
+time the panic surged and the guilt of survival pressed against his ribs, it directly reinforced his
+negative appraisals, convincing him that his identity was permanently lost and that the world
+remained a hostile place waiting to strike again. Those deepened appraisals actively pulled the
+memories closer. The conviction that he was fundamentally broken and that the environment was
+inherently unsafe ensured that when the event returned, his mind fixated on the threat, making the
+flashbacks more intrusive and the recall terror more intense. Unable to tolerate the physiological
+panic, Arthur immediately began avoiding the location where the memorial service was held, steering
+his car wide of the coastal highway. He also stopped wearing cargo trousers or heavy boots,
+insisting instead on soft sneakers and tailored slacks that felt nothing like fatigues. When the
+intrusive thoughts began to gather, he would force himself to stare at spreadsheets or turn the
+television up loud, refusing to let his mind linger on the event. This careful routine of avoidance
+provided temporary relief, but it quietly compounded his internal crisis. His belief that the world
+was dangerous and his identity was fractured directly prompted his avoidance of the memorial
+location, the tactical-style clothing, and the act of thinking about the deployment. By blocking the
+memories and steering clear of the triggers, he denied himself any chance to process the guilt or
+integrate the experience. The avoidance only reinforced his negative appraisals, convincing him that
+he was permanently disconnected from himself and that navigating life required constant, exhausting
+distance. Now sixty, Arthur works the day shift at a regional distribution warehouse, where the
+environment itself had become a trigger he could no longer ignore. The high steel racking and the
+narrow concrete aisles mirrored the trench walls from that day, and the scent of dust and hydraulic
+fluid would make his breath catch before he could steady himself. He had begun taking longer routes
+through the facility, avoiding the eastern loading bay entirely, and he wore oversized, plain
+T-shirts under his high-vis vest to keep the memory of tactical webbing far from his skin. Over the
+months, these habits eroded his work life; his supervisor noted his constant detours and delayed
+shipments, eventually moving him to solitary inventory counts away from the floor crew. The
+isolation strained his relationship; his partner, Elena, noticed how he flinched at sudden noises
+and how his evenings grew quiet and withdrawn. The breaking point came three weeks ago when Arthur
+dropped a stack of inventory boxes in the stockroom, his hands trembling so violently he could not
+pick them up, while Elena sat on the porch watching the rain with quiet worry. He realized he was no
+longer living; he was merely surviving in a self-imposed cage of his own making. He came to the
+clinic seeking a way to quiet the relentless guilt and reclaim a sense of stability, though he
+remained terrified that facing the memories would permanently fracture what little peace he had
+left. He hoped, against his own instincts, to find a path back to himself and to the partner who was
+slowly losing faith in the man he had become.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Arthur Vance was thirty-two when the ambush shattered the desert quiet near the eastern ridge. The
+sky had turned the color of bruised iron, and the sudden crack of incoming fire forced him into a
+shallow trench, the metallic taste of dust and cordite coating his throat. He watched his squad
+mates fall, the weight of their unyielding bodies pressing against the earth as he scrambled for
+cover. He survived the firefight, but in the quiet aftermath, a heavy conviction took root: he had
+lived when Miller and Torres had not. This survival guilt hardened into a quiet despair, and he
+began to believe the man he used to be was gone, replaced by someone fractured and unrecognizable.
+He came to view the world as a fundamentally dangerous place, where sudden violence could descend
+without warning and ordinary life offered no real protection. When the past eventually broke through
+his guard, the terror and shame of recall flooded back with such visceral intensity that his hands
+would shake and his throat would close, leaving him unable to find words for what had happened. Each
+time the panic surged and the guilt of survival pressed against his ribs, it directly reinforced his
+negative appraisals, convincing him that his identity was permanently lost and that the world
+remained a hostile place waiting to strike again. Those deepened appraisals actively pulled the
+memories closer. The conviction that he was fundamentally broken and that the environment was
+inherently unsafe ensured that when the event returned, his mind fixated on the threat, making the
+flashbacks more intrusive and the recall terror more intense. Unable to tolerate the physiological
+panic, Arthur immediately began avoiding the location where the memorial service was held, steering
+his car wide of the coastal highway. He also stopped wearing cargo trousers or heavy boots,
+insisting instead on soft sneakers and tailored slacks that felt nothing like fatigues. When the
+intrusive thoughts began to gather, he would force himself to stare at spreadsheets or turn the
+television up loud, refusing to let his mind linger on the event. This careful routine of avoidance
+provided temporary relief, but it quietly compounded his internal crisis. His belief that the world
+was dangerous and his identity was fractured directly prompted his avoidance of the memorial
+location, the tactical-style clothing, and the act of thinking about the deployment. By blocking the
+memories and steering clear of the triggers, he denied himself any chance to process the guilt or
+integrate the experience. The avoidance only reinforced his negative appraisals, convincing him that
+he was permanently disconnected from himself and that navigating life required constant, exhausting
+distance. Now sixty, Arthur works the day shift at a regional distribution warehouse, where the
+environment itself had become a trigger he could no longer ignore. The high steel racking and the
+narrow concrete aisles mirrored the trench walls from that day, and the scent of dust and hydraulic
+fluid would make his breath catch before he could steady himself. He had begun taking longer routes
+through the facility, avoiding the eastern loading bay entirely, and he wore oversized, plain
+T-shirts under his high-vis vest to keep the memory of tactical webbing far from his skin. Over the
+months, these habits eroded his work life; his supervisor noted his constant detours and delayed
+shipments, eventually moving him to solitary inventory counts away from the floor crew. The
+isolation strained his relationship; his partner, Elena, noticed how he flinched at sudden noises
+and how his evenings grew quiet and withdrawn. The breaking point came three weeks ago when Arthur
+dropped a stack of inventory boxes in the stockroom, his hands trembling so violently he could not
+pick them up, while Elena sat on the porch watching the rain with quiet worry. He realized he was no
+longer living; he was merely surviving in a self-imposed cage of his own making. He came to the
+clinic seeking a way to quiet the relentless guilt and reclaim a sense of stability, though he
+remained terrified that facing the memories would permanently fracture what little peace he had
+left. He hoped, against his own instincts, to find a path back to himself and to the partner who was
+slowly losing faith in the man he had become.

@@ -1,0 +1,260 @@
+{
+  "persona_id": 458,
+  "source_persona_id": 458,
+  "experiment_timestamp": "2026-05-05 12:20:22",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "gemini-2.5-pro",
+      "persona_validator": "gemini-2.5-pro",
+      "vignette_crafter": "gemini-2.5-pro",
+      "vignette_validator": "gemini-2.5-pro"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 30,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "School Counselor",
+    "trauma_type": "Police",
+    "pcl5": 63
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Feeling Tired",
+        "value": "Feeling very tired or exhausted"
+      },
+      {
+        "key": "Auditory (Loud Noises)",
+        "value": "Loud noises"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Emotional Stress",
+        "value": "Situations that make me feel strong emotions"
+      },
+      {
+        "key": "Avoid Positive Events",
+        "value": "Situations that might make me feel happy or hopeful"
+      },
+      {
+        "key": "Avoid People",
+        "value": "avoid other people"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Movements",
+        "value": "Sudden movements by others put me immediately on guard"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      },
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      },
+      {
+        "key": "Isolation",
+        "value": "I feel isolated and set apart from others"
+      },
+      {
+        "key": "Self-Blame",
+        "value": "The event happened because of the way I acted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.7176,
+    "Negative Appraisals -- Threat": 0.3927,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.5499,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.8949,
+    "Maladaptive Strategies -- Triggers": 0.2372,
+    "Maladaptive Strategies -- Threat": 0.0454
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.47295,
+  "edge_density": 0.3,
+  "vignette_word_count": 714,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Driving with Others",
+          "explanation": "The transport-related content is not clinically well anchored to the rest of the profile. 'Driving with Others' and 'Avoid Public Transport' imply a prominent transport/travel trigger-avoidance pattern, but the Threat and Negative Appraisal items are centered on hypervigilance to others' movements, interpersonal danger, shame, and isolation rather than transport-specific trauma meanings. That mismatch is hard to explain as the same dominant self-report profile for a police-related trauma."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Avoid Public Transport",
+          "explanation": "The trigger node is also weakly integrated in the formulation: Triggers has no active links to Threat, Negative Appraisals, or Memory. Given that, the selected trigger content should not imply a strong specific threat pathway that is absent elsewhere. The transport-specific trigger/avoidance pair suggests a major cue-threat connection that is not reflected in the formulation or other nodes."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Driving with Others"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Public Transport"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Perceived Threat: People acting suspiciously",
+          "explanation": "The trigger item 'people acting suspiciously' implies a socially interpreted cue linked to hostile intent, but the threat items are dominated by non-social movement sensitivity ('unexpected movement', 'sudden movements'). That pattern is not impossible, but here the trigger-threat pairing is weakly coherent because the formulation does not support a strong Triggers → Threat linkage, and the selected trigger does not clearly connect to the specific threat content endorsed."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger",
+          "explanation": "The two threat items form a tight cluster around hypervigilance to sudden movement, which is coherent for police-related trauma. However, pairing them with 'risky behavior' pulls the threat node in the opposite direction: immediate danger sensitivity and exaggerated guard are difficult to reconcile with concurrent high-risk behavior unless there is other profile content explaining impulsive disinhibition, which is absent here."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Threat: Threat in Movements: Sudden movements by others put me immediately on guard",
+          "explanation": "'Avoid positive events' is not well supported by the rest of the profile. The negative appraisals emphasize defectiveness, isolation, and loss of community, and the threat items emphasize movement-based danger. Avoiding emotionally stressful situations and other people fits that pattern, but avoiding potentially happy or hopeful situations introduces a different process without corresponding appraisal or memory content to explain it."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Perceived Threat"
+        ],
+        "Threat": [
+          "Startle to Movement"
+        ],
+        "Maladaptive Strategies": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Risky Behavior: Taking too many risks or doing things that could cause you harm",
+          "explanation": "'Risky Behavior' is difficult to reconcile with the rest of the profile, which is otherwise dominated by fear, hypervigilance, avoidance, and social withdrawal. In this configuration it points in the opposite direction from the threat system described by the other items and lacks support from the maladaptive-strategy items."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Lost Community: I have lost my connection to my community and culture",
+          "explanation": "'Lost Community' is not impossible, but it is weakly integrated with the rest of the profile. The other appraisal items center on personal defectiveness and interpersonal isolation, while no other trigger, memory, threat, or coping item reflects community/cultural disruption specifically after police trauma."
+        },
+        {
+          "component": "Triggers",
+          "item": "Triggers: Tactile (Touch): Physical touch",
+          "explanation": "'Physical touch' as a trigger is not impossible, but here it is less well connected to the rest of the selected items than loud noises and sudden movements. The remainder of the profile suggests a police-related threat theme centered on vigilance to environmental danger rather than touch-specific trauma cues."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Risky Behavior"
+        ],
+        "Negative Appraisals": [
+          "Lost Community"
+        ],
+        "Triggers": [
+          "Tactile (Touch)"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 2,
+    "passed": 1,
+    "failed": 1,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 6510,
+    "output": 8108,
+    "total": 14618
+  },
+  "vignette": "Imani was a school counselor, a person whose professional life was built on calm, empathetic engagement. For the last six months, however, her own life had felt like a constant, silent emergency. The shift began on a humid August night, driving home from her sister’s wedding. She and her husband were exhausted, the kind of deep-in-your-bones tired that makes the world feel fuzzy at the edges. The flashing blue and red lights that suddenly filled their rearview mirror felt unreal, a scene from a movie. The officer who approached the driver's side window was large and unsteady, and the smell of stale liquor that drifted in with his questions was the first spike of real fear. He was aggressive, his speech slurred, his questions nonsensical. When a truck backfired on the main road, the officer flinched violently and slammed his hand on the roof of their car. The deafening bang felt like a gunshot, and in that moment, Imani was certain they were going to die.\n\nIn the weeks that followed, the world became a landscape of potential threats. She couldn't relax, even in her own home, her body perpetually coiled as if bracing for a blow. This constant state of watchfulness was exhausting, and it fed a growing, terrible belief that the trauma had fundamentally broken her. Watching her husband read calmly on the sofa while she tracked every creak of the floorboards and passing car, she felt a profound sense of alienation. The fact that she was always on edge, while he seemed to have moved on, became proof to her that there was something deeply wrong with her, that she was defective in a way he was not. This shame was a constant companion, whispering that the incident was her fault; if only she had been less tired, more articulate, or had acted differently, she could have prevented the officer's terrifying escalation. This core belief that she was irreparably broken meant she could no longer trust her own ability to handle unexpected situations, which in turn made every interaction and every unfamiliar noise feel charged with potential danger.\n\nThis conviction that she was flawed and to blame drove Imani into a self-imposed exile. Believing herself to be a source of danger or distress, she began to meticulously avoid other people. She started making excuses to miss faculty meetings at school and cancelled long-standing plans with friends. The idea of navigating social situations, where a sudden movement or a raised voice could send her spiraling, felt impossible. Her avoidance extended even to joy; she turned down a celebratory dinner for her husband’s promotion, unable to bear the thought of trying to feel happy when her internal reality was one of constant, high-alert dread. This withdrawal had a predictable effect: it deepened her conviction that she was isolated and set apart from others. Each cancelled plan and unanswered text message was further evidence for the story she told herself—that she was alone because she was fundamentally broken.\n\nHer shrinking world seemed to amplify the danger within it. By staying home and avoiding the complex emotional landscape of her job, the quiet of her house made any unexpected sound—a door slamming down the hall at school, a loud noise from the street outside her window—feel more jarring and menacing. Her life became a feedback loop of fear. Her self-imposed isolation was draining, and this chronic exhaustion only heightened her sensitivity to feeling very tired, a state now inextricably linked to the memory of that long, terrifying drive home. The very strategies she used to feel safe were making her feel more threatened and confirmed her deepest fears about herself.\n\nImani sought help after her principal, a kind woman who had been her mentor, took her aside to express concern about her increasing distance from her students and colleagues. The conversation was gentle, but for Imani, it was a confirmation of her failure. She saw the chasm that had opened between her and the life she had built—her career, her marriage, her friendships—and realized her attempts to protect herself were costing her everything she valued. She came to therapy terrified that the person she was before that night was gone for good, but holding onto a desperate hope that she could find her way back."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Imani was a school counselor, a person whose professional life was built on calm, empathetic engagement. For the last six months, however, her own life had felt like a constant, silent emergency. The shift began on a humid August night, driving home from her sister’s wedding. She and her husband were exhausted, the kind of deep-in-your-bones tired that makes the world feel fuzzy at the edges. The flashing blue and red lights that suddenly filled their rearview mirror felt unreal, a scene from a movie. The officer who approached the driver's side window was large and unsteady, and the smell of stale liquor that drifted in with his questions was the first spike of real fear. He was aggressive, his speech slurred, his questions nonsensical. When a truck backfired on the main road, the officer flinched violently and slammed his hand on the roof of their car. The deafening bang felt like a gunshot, and in that moment, Imani was certain they were going to die.\n\nIn the weeks that followed, the world became a landscape of potential threats. She couldn't relax, even in her own home, her body perpetually coiled as if bracing for a blow. This constant state of watchfulness was exhausting, and it fed a growing, terrible belief that the trauma had fundamentally broken her. Watching her husband read calmly on the sofa while she tracked every creak of the floorboards and passing car, she felt a profound sense of alienation. The fact that she was always on edge, while he seemed to have moved on, became proof to her that there was something deeply wrong with her, that she was defective in a way he was not. This shame was a constant companion, whispering that the incident was her fault; if only she had been less tired, more articulate, or had acted differently, she could have prevented the officer's terrifying escalation.\n\nThis conviction that she was flawed and to blame drove Imani into a self-imposed exile. Believing herself to be a source of danger or distress, she began to meticulously avoid other people. She started making excuses to miss faculty meetings at school and cancelled long-standing plans with friends. The idea of navigating social situations, where a sudden movement or a raised voice could send her spiraling, felt impossible. Her avoidance extended even to joy; she turned down a celebratory dinner for her husband’s promotion, unable to bear the thought of trying to feel happy when her internal reality was one of constant, high-alert dread. This withdrawal had a predictable effect: it deepened her conviction that she was isolated and set apart from others. Each cancelled plan and unanswered text message was further evidence for the story she told herself—that she was alone because she was fundamentally broken.\n\nHer shrinking world seemed to amplify the danger within it. By staying home and avoiding the complex emotional landscape of her job, the quiet of her house made any unexpected sound—a door slamming down the hall at school, a loud noise from the street outside her window—feel more jarring and menacing. Her life became a feedback loop of fear. Her self-imposed isolation was draining, and this chronic exhaustion only heightened her sensitivity to feeling very tired, a state now inextricably linked to the memory of that long, terrifying drive home. The very strategies she used to feel safe were making her feel more threatened and confirmed her deepest fears about herself.\n\nImani sought help after her principal, a kind woman who had been her mentor, took her aside to express concern about her increasing distance from her students and colleagues. The conversation was gentle, but for Imani, it was a confirmation of her failure. She saw the chasm that had opened between her and the life she had built—her career, her marriage, her friendships—and realized her attempts to protect herself were costing her everything she valued. She came to therapy terrified that the person she was before that night was gone for good, but holding onto a desperate hope that she could find her way back.", "passed": false, "violations": [{"edge": "Negative Appraisals -> Threat", "explanation": "The vignette does not describe how Imani's negative beliefs about herself (e.g., being flawed or broken) cause or increase her sense of threat."}], "violation_count": 1, "feedback": "REQUIRED EDGES MISSING:\n- Negative Appraisals -> Threat: The vignette does not describe how Imani's negative beliefs about herself (e.g., being flawed or broken) cause or increase her sense of threat."},
+
+    {"vignette": "Imani was a school counselor, a person whose professional life was built on calm, empathetic engagement. For the last six months, however, her own life had felt like a constant, silent emergency. The shift began on a humid August night, driving home from her sister’s wedding. She and her husband were exhausted, the kind of deep-in-your-bones tired that makes the world feel fuzzy at the edges. The flashing blue and red lights that suddenly filled their rearview mirror felt unreal, a scene from a movie. The officer who approached the driver's side window was large and unsteady, and the smell of stale liquor that drifted in with his questions was the first spike of real fear. He was aggressive, his speech slurred, his questions nonsensical. When a truck backfired on the main road, the officer flinched violently and slammed his hand on the roof of their car. The deafening bang felt like a gunshot, and in that moment, Imani was certain they were going to die.\n\nIn the weeks that followed, the world became a landscape of potential threats. She couldn't relax, even in her own home, her body perpetually coiled as if bracing for a blow. This constant state of watchfulness was exhausting, and it fed a growing, terrible belief that the trauma had fundamentally broken her. Watching her husband read calmly on the sofa while she tracked every creak of the floorboards and passing car, she felt a profound sense of alienation. The fact that she was always on edge, while he seemed to have moved on, became proof to her that there was something deeply wrong with her, that she was defective in a way he was not. This shame was a constant companion, whispering that the incident was her fault; if only she had been less tired, more articulate, or had acted differently, she could have prevented the officer's terrifying escalation. This core belief that she was irreparably broken meant she could no longer trust her own ability to handle unexpected situations, which in turn made every interaction and every unfamiliar noise feel charged with potential danger.\n\nThis conviction that she was flawed and to blame drove Imani into a self-imposed exile. Believing herself to be a source of danger or distress, she began to meticulously avoid other people. She started making excuses to miss faculty meetings at school and cancelled long-standing plans with friends. The idea of navigating social situations, where a sudden movement or a raised voice could send her spiraling, felt impossible. Her avoidance extended even to joy; she turned down a celebratory dinner for her husband’s promotion, unable to bear the thought of trying to feel happy when her internal reality was one of constant, high-alert dread. This withdrawal had a predictable effect: it deepened her conviction that she was isolated and set apart from others. Each cancelled plan and unanswered text message was further evidence for the story she told herself—that she was alone because she was fundamentally broken.\n\nHer shrinking world seemed to amplify the danger within it. By staying home and avoiding the complex emotional landscape of her job, the quiet of her house made any unexpected sound—a door slamming down the hall at school, a loud noise from the street outside her window—feel more jarring and menacing. Her life became a feedback loop of fear. Her self-imposed isolation was draining, and this chronic exhaustion only heightened her sensitivity to feeling very tired, a state now inextricably linked to the memory of that long, terrifying drive home. The very strategies she used to feel safe were making her feel more threatened and confirmed her deepest fears about herself.\n\nImani sought help after her principal, a kind woman who had been her mentor, took her aside to express concern about her increasing distance from her students and colleagues. The conversation was gentle, but for Imani, it was a confirmation of her failure. She saw the chasm that had opened between her and the life she had built—her career, her marriage, her friendships—and realized her attempts to protect herself were costing her everything she valued. She came to therapy terrified that the person she was before that night was gone for good, but holding onto a desperate hope that she could find her way back.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

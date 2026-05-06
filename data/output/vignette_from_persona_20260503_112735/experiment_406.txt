@@ -1,0 +1,179 @@
+PERSONA 406  |  2026-05-03 12:53:04
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen2.5-32b
+    persona_crafter      qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             46
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Single
+  occupation      Pharmacist
+  trauma_type     Child's life-threatening illness
+  pcl5            42
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+    • Suppress Thoughts: try hard not think about the trauma
+    • Meaning Seeking: I think about why the event has happened to me
+  Threat:
+    • Cannot Relax: I am unable to relax even when I know I am in a safe place
+    • Startle to Sounds: I jump or startle at ordinary sounds that would not bother most people
+    • Sleep Problems: Trouble falling or staying asleep
+  Negative Appraisals:
+    • Weakness Belief: I am a weak person
+    • No Good Ahead: Nothing good can happen to me anymore
+    • Defective Self: There is something wrong with me as a person
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.2992
+  Negative Appraisals → Threat                       0.5503
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.6715
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.2943
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.7703
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.8261
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Grief Reminders: Anything that reminds me of someone I have lost
+    explanation: 'Avoid Grief Reminders' implies bereavement/loss of a deceased person, which is hard to reconcile with the indexed trauma of a child's life-threatening illness unless the child died; that is not the stated trauma type. This item appears trauma-incongruent.
+    item:        Threat / Hypervigilance towards people: vigilant for dangerous people
+    explanation: 'Hypervigilance towards people: vigilant for dangerous people' suggests interpersonal danger/assault-related threat. The rest of the profile centers on generalized unsafety and negative self-appraisals rather than fear of dangerous people, making this item poorly matched to the trauma type and the other selected items.
+  [2] FAIL
+    item:        Maladaptive Strategies / Maladaptive Strategies: Hypervigilance towards people: vigilant for dangerous people
+    explanation: The profile is built around a child's life-threatening illness, but 'vigilant for dangerous people' implies an interpersonal/assault-type danger focus that is hard to reconcile with the rest of the profile, which otherwise reflects generalized vulnerability and medical trauma. This item appears trauma-incongruent for the stated trauma type.
+    item:        Threat / Maladaptive Strategies: Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+    explanation: Avoiding hospitals/ambulances/physical examinations is plausible for medical trauma, but it sits awkwardly alongside 'vigilant for dangerous people,' which points to a different threat domain. Within Maladaptive Strategies, these two strategies suggest different trauma contexts that are difficult to explain as one coherent profile.
+  [3] FAIL
+    item:        Maladaptive Strategies / Magical Thinking: I tell myself the event did not really happen or was not that bad
+    explanation: For a trauma centered on a child's life-threatening illness, minimizing that the event 'did not really happen or was not that bad' is hard to reconcile with the rest of the profile, which shows marked ongoing threat and strongly negative self-appraisals. Thought suppression and avoidance of medical cues fit, but this item points toward denial/minimization in a way that clashes with the severity and emotional meaning of the other endorsed items.
+    item:        Threat / Waking Alert: I wake during the night to check whether I am safe
+    explanation: 'I wake during the night to check whether I am safe' suggests a danger-focused nighttime safety-checking pattern centered on the patient's own physical safety. In the context of trauma from a child's severe illness, threat is more plausibly organized around the child's safety/health or medical crises. This item is not impossible, but paired with the absence of child-focused threat content it is clinically mismatched to the trauma context.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Sara, a 46-year-old Middle Eastern woman and pharmacist, has been struggling with the aftermath of
+her child's life-threatening illness. The trauma of watching her son fight for his life in the
+hospital has left deep emotional scars that have only grown over time. Initially, Sara tried to cope
+by avoiding anything medical-related—hospitals, ambulances, even physical examinations. She believed
+that thinking about these things would only intensify her pain and anxiety. Instead, she would try
+hard not to think about the trauma at all, suppressing any thoughts or memories that might surface.
+However, what frightened her most was the belief that she was a weak person who could never fully
+recover from this experience. This sense of weakness led her to feel that nothing good could happen
+to her anymore and that there must be something wrong with her as a person. These negative beliefs
+reinforced Sara's maladaptive strategies. Her conviction that she was inherently flawed made it
+easier for her to avoid medical cues, convincing herself that these actions were necessary to
+protect her from further emotional pain. The more she avoided, the stronger her negative appraisals
+became, creating a self-reinforcing cycle of avoidance and self-doubt. Sara's constant fear of
+weakness also contributed to a heightened state of threat perception. She was unable to relax even
+when she knew she was in a safe place, constantly on edge as if waiting for another catastrophe to
+strike. Ordinary sounds that would not bother most people made her jump or startle, and she had
+significant trouble falling or staying asleep due to the persistent worry and anxiety. This cycle of
+negative thoughts and heightened threat perception further fueled her maladaptive strategies. She
+found herself increasingly isolated from social activities and professional events related to
+medicine, leading to a decline in both her personal relationships and job satisfaction. Her
+colleagues noticed that Sara was becoming more distant and less engaged at work, which made her feel
+even worse about herself. Sara’s avoidance behaviors started to take a toll on her everyday life. As
+a pharmacist, she often encountered patients who were sick or dealing with serious health issues,
+which triggered intense anxiety for her. She began to dread going to work, knowing that these
+encounters would inevitably lead to flashbacks of her son's illness and the fear that something
+similar could happen again. The combination of her negative beliefs and constant threat perception
+made Sara feel like she was trapped in a never-ending cycle of distress. Her sense of worthlessness
+intensified as she withdrew further from social support and professional engagement, which only
+deepened her feeling that nothing good would ever happen to her again. What finally brought Sara to
+seek help was the realization that her life had become unmanageable and filled with constant fear
+and avoidance. She feared losing her job due to her declining performance and knew that she needed
+to find a way out of this cycle before it consumed her entirely. Despite her fears, Sara hoped for a
+future where she could feel safe again and regain control over her life. Through the lens of her
+negative appraisals and heightened threat perception, Sara’s maladaptive strategies had become both
+a coping mechanism and a source of further distress. She was certain that her beliefs about herself
+as weak and flawed were the root cause of her struggles, yet she felt powerless to change them on
+her own. The cycle seemed inescapable, but she desperately hoped that with professional help, she
+could break free from these debilitating patterns.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Sara, a 46-year-old Middle Eastern woman and pharmacist, has been struggling with the aftermath of
+her child's life-threatening illness. The trauma of watching her son fight for his life in the
+hospital has left deep emotional scars that have only grown over time. Initially, Sara tried to cope
+by avoiding anything medical-related—hospitals, ambulances, even physical examinations. She believed
+that thinking about these things would only intensify her pain and anxiety. Instead, she would try
+hard not to think about the trauma at all, suppressing any thoughts or memories that might surface.
+However, what frightened her most was the belief that she was a weak person who could never fully
+recover from this experience. This sense of weakness led her to feel that nothing good could happen
+to her anymore and that there must be something wrong with her as a person. These negative beliefs
+reinforced Sara's maladaptive strategies. Her conviction that she was inherently flawed made it
+easier for her to avoid medical cues, convincing herself that these actions were necessary to
+protect her from further emotional pain. The more she avoided, the stronger her negative appraisals
+became, creating a self-reinforcing cycle of avoidance and self-doubt. Sara's constant fear of
+weakness also contributed to a heightened state of threat perception. She was unable to relax even
+when she knew she was in a safe place, constantly on edge as if waiting for another catastrophe to
+strike. Ordinary sounds that would not bother most people made her jump or startle, and she had
+significant trouble falling or staying asleep due to the persistent worry and anxiety. This cycle of
+negative thoughts and heightened threat perception further fueled her maladaptive strategies. She
+found herself increasingly isolated from social activities and professional events related to
+medicine, leading to a decline in both her personal relationships and job satisfaction. Her
+colleagues noticed that Sara was becoming more distant and less engaged at work, which made her feel
+even worse about herself. Sara’s avoidance behaviors started to take a toll on her everyday life. As
+a pharmacist, she often encountered patients who were sick or dealing with serious health issues,
+which triggered intense anxiety for her. She began to dread going to work, knowing that these
+encounters would inevitably lead to flashbacks of her son's illness and the fear that something
+similar could happen again. The combination of her negative beliefs and constant threat perception
+made Sara feel like she was trapped in a never-ending cycle of distress. Her sense of worthlessness
+intensified as she withdrew further from social support and professional engagement, which only
+deepened her feeling that nothing good would ever happen to her again. What finally brought Sara to
+seek help was the realization that her life had become unmanageable and filled with constant fear
+and avoidance. She feared losing her job due to her declining performance and knew that she needed
+to find a way out of this cycle before it consumed her entirely. Despite her fears, Sara hoped for a
+future where she could feel safe again and regain control over her life. Through the lens of her
+negative appraisals and heightened threat perception, Sara’s maladaptive strategies had become both
+a coping mechanism and a source of further distress. She was certain that her beliefs about herself
+as weak and flawed were the root cause of her struggles, yet she felt powerless to change them on
+her own. The cycle seemed inescapable, but she desperately hoped that with professional help, she
+could break free from these debilitating patterns.

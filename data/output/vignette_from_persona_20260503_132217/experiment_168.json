@@ -1,0 +1,232 @@
+{
+  "persona_id": 168,
+  "source_persona_id": 168,
+  "experiment_timestamp": "2026-05-03 17:05:29",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 54,
+    "gender": "Female",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Chef",
+    "trauma_type": "Assault",
+    "pcl5": 68
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Certain Conversation Topics",
+        "value": "Certain conversation topics"
+      },
+      {
+        "key": "Emotional Closeness",
+        "value": "Someone getting emotionally close to me"
+      },
+      {
+        "key": "Male Presence",
+        "value": "Being alone with men"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Startle to Movement",
+        "value": "Unexpected movement nearby causes me to react as if I am in danger"
+      },
+      {
+        "key": "Threat from Strangers",
+        "value": "I feel threatened by strangers approaching me even in ordinary situations"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Nonverbal Memory",
+        "value": "I can't seem to put the frightening event into words."
+      },
+      {
+        "key": "Fragmented Pieces",
+        "value": "My memories of the event come in disconnected pieces that do not fit together"
+      },
+      {
+        "key": "Bodily Reenactment",
+        "value": "When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Fear of Harm",
+        "value": "You can never know who will harm you"
+      },
+      {
+        "key": "Betrayal",
+        "value": "I was betrayed by someone I trusted"
+      },
+      {
+        "key": "Mistrust",
+        "value": "People can't be trusted"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.7933,
+    "Triggers -- Negative Appraisals": 0.3072,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.6402,
+    "Negative Appraisals -- Memory": 0.6693,
+    "Negative Appraisals -- Triggers": 0.1876,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0382,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.9709,
+    "Threat -- Negative Appraisals": 0.3681,
+    "Threat -- Triggers": 0.4417,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4907222222222222,
+  "edge_density": 0.45,
+  "vignette_word_count": 699,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Military Topics: Talks about military",
+          "explanation": "For a civilian assault trauma, 'talks about military' is a hard-to-explain trigger unless the assault specifically involved military context, which is not otherwise reflected anywhere in the profile. It is not supported by the other trigger, memory, threat, or appraisal items."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Survival Guilt: I feel guilty for surviving when others did not",
+          "explanation": "'I feel guilty for surviving when others did not' implies a trauma involving deaths of others or a mass-casualty context. That does not cohere with the rest of this profile, which otherwise describes an individual assault without any indication that others were killed."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Military Topics"
+        ],
+        "Negative Appraisals": [
+          "Survival Guilt"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Negative Appraisals",
+          "item": "Fear of Rage: I will not be able to control my anger and will do something terrible",
+          "explanation": "This appraisal is the main incoherent item in the profile. The rest of the report is organized around fear, betrayal, hypervigilance, male-related/interpersonal triggers, and fragmented sensory trauma memory after assault. In contrast, fearing that she will lose control of her own rage and do something terrible introduces a perpetration/anger-control theme that is not supported by the triggers, threat items, or memory content. It does not fit the dominant cognitive formulation in which negative appraisals feed threat and memory; the other appraisal items plausibly amplify fear and mistrust, but this one points to a different clinical concern not otherwise represented in the profile. Given the otherwise tightly fear-based assault presentation, this item is hard to integrate clinically with the selected set."
+        }
+      ],
+      "problematic_items": {
+        "Negative Appraisals": [
+          "Fear of Rage"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Sleep Vigilance: I have difficulty falling asleep because I need to stay alert",
+          "explanation": "This threat item is the least coherent element in the profile. The rest of the selected triggers, appraisals, and memory items consistently describe an interpersonal assault formulation centered on men, betrayal, mistrust, conversational/emotional triggers, and trauma memories. By contrast, needing to stay alert at night implies a more generalized ongoing danger-monitoring pattern that is not specifically supported by the selected triggers or appraisals. It is not impossible in PTSD, but here it fits less well than the other threat items and is weakly linked to the formulation, especially because Threat has no active edge to Maladaptive Strategies and the profile lacks other nighttime/sleep-related material."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Sleep Vigilance"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "The night everything fractured started as a routine closing shift at the neighborhood bistro where Clara Bennett had worked for eight years. Julian, the sous-chef she had confided in about her marriage anxieties and the quiet loneliness of running a kitchen, had followed her into the walk-in freezer. The assault was not a sudden storm but a calculated violation of shared space and whispered trust. When he pinned her against the ice racks, his hands over her mouth, Clara tried to scream but only managed a choked gasp. The silence of the cold room and the weight of his knee against her ribs became the anchor of a night where the man who knew her secrets became the source of her terror. The morning after, she stood at the stainless steel prep station chopping herbs with trembling hands. What frightened her most was not just the physical violation but the sudden, unshakable conviction that you can never know who will harm you. The trust she had placed in him curdled instantly into a cold certainty that people could not be trusted, no matter how long she had known them. Days bled into weeks, and the restaurant’s rhythms became minefields. A particular conversation topic about workplace boundaries or a colleague leaning in too closely during a debrief would suddenly flood the prep kitchen with the scent of stale air and ozone. Within seconds, Clara’s spine would lock into the exact, rigid posture of that night against the ice wall, her body remembering what her mind could not yet articulate. She simply could not seem to put the frightening event into words; it existed only as a visceral echo that hijacked her present moment. Because she believed betrayal was inevitable and safety an illusion, her mind constantly reconstructed the assault. The entrenched fear of harm kept the fragmented pieces of the attack resurfacing in her periphery, demanding immediate survival responses. Each time her muscles tensed, those disconnected pieces that did not fit together confirmed her growing belief that betrayal was a certainty and that she was perpetually vulnerable. That deepened conviction quietly rewired how she moved through her daily life. Clara found herself perpetually superalert or watchful or on guard, scanning the pass for unfamiliar faces or tracking the shift in a line cook’s eyes. Her constant state of being superalert or watchful on guard kept her nervous system permanently primed. The threat she felt from strangers approaching in ordinary situations pulled the frozen moments of the assault back into her periphery, ensuring that the bodily reenactment never fully faded. Because she was always braced for attack, every unexpected movement nearby caused her to react as if she were in danger, which in turn reinforced the negative appraisal that the world was fundamentally unsafe. The threat she felt from strangers approaching in ordinary situations made the kitchen’s hierarchy feel like a minefield, which is why she could no longer tolerate the trigger of being alone with men in the prep line. The fear of harm had turned her home into a place of careful distance. She began avoiding certain conversation topics entirely, and when her husband tried to reach for her hand after a quiet dinner, the prospect of someone getting emotionally close to her felt suddenly suffocating. Over the months, the avoidance that once felt like survival hardened into isolation. The kitchen, once her sanctuary of precise control, became a landscape of calculated exits and guarded conversations. She started sending male line cooks to the walk-in alone, claiming equipment issues, and stopped attending staff dinners where emotional closeness felt like a trap. Her husband’s gentle questions about her distance only met with silence, and the marriage that had once been her refuge now felt like another room where she might be trapped. When the tremors in her hands finally made her drop a sauté pan in front of the health inspector, and her husband quietly suggested she see someone because he missed his wife, Clara knew she could no longer outrun the loop. She was terrified that seeking help meant finally putting the event into words, but she was desperate for the quiet that only silence had never given her."
+,
+
+  "vignette_attempts": [
+    {"vignette": "The night everything fractured started as a routine closing shift at the neighborhood bistro where Clara Bennett had worked for eight years. Julian, the sous-chef she had confided in about her marriage anxieties and the quiet loneliness of running a kitchen, had followed her into the walk-in freezer. The assault was not a sudden storm but a calculated violation of shared space and whispered trust. When he pinned her against the ice racks, his hands over her mouth, Clara tried to scream but only managed a choked gasp. The silence of the cold room and the weight of his knee against her ribs became the anchor of a night where the man who knew her secrets became the source of her terror. The morning after, she stood at the stainless steel prep station chopping herbs with trembling hands. What frightened her most was not just the physical violation but the sudden, unshakable conviction that you can never know who will harm you. The trust she had placed in him curdled instantly into a cold certainty that people could not be trusted, no matter how long she had known them. Days bled into weeks, and the restaurant’s rhythms became minefields. A particular conversation topic about workplace boundaries or a colleague leaning in too closely during a debrief would suddenly flood the prep kitchen with the scent of stale air and ozone. Within seconds, Clara’s spine would lock into the exact, rigid posture of that night against the ice wall, her body remembering what her mind could not yet articulate. She simply could not seem to put the frightening event into words; it existed only as a visceral echo that hijacked her present moment. Because she believed betrayal was inevitable and safety an illusion, her mind constantly reconstructed the assault. The entrenched fear of harm kept the fragmented pieces of the attack resurfacing in her periphery, demanding immediate survival responses. Each time her muscles tensed, those disconnected pieces that did not fit together confirmed her growing belief that betrayal was a certainty and that she was perpetually vulnerable. That deepened conviction quietly rewired how she moved through her daily life. Clara found herself perpetually superalert or watchful or on guard, scanning the pass for unfamiliar faces or tracking the shift in a line cook’s eyes. Her constant state of being superalert or watchful on guard kept her nervous system permanently primed. The threat she felt from strangers approaching in ordinary situations pulled the frozen moments of the assault back into her periphery, ensuring that the bodily reenactment never fully faded. Because she was always braced for attack, every unexpected movement nearby caused her to react as if she were in danger, which in turn reinforced the negative appraisal that the world was fundamentally unsafe. The threat she felt from strangers approaching in ordinary situations made the kitchen’s hierarchy feel like a minefield, which is why she could no longer tolerate the trigger of being alone with men in the prep line. The fear of harm had turned her home into a place of careful distance. She began avoiding certain conversation topics entirely, and when her husband tried to reach for her hand after a quiet dinner, the prospect of someone getting emotionally close to her felt suddenly suffocating. Over the months, the avoidance that once felt like survival hardened into isolation. The kitchen, once her sanctuary of precise control, became a landscape of calculated exits and guarded conversations. She started sending male line cooks to the walk-in alone, claiming equipment issues, and stopped attending staff dinners where emotional closeness felt like a trap. Her husband’s gentle questions about her distance only met with silence, and the marriage that had once been her refuge now felt like another room where she might be trapped. When the tremors in her hands finally made her drop a sauté pan in front of the health inspector, and her husband quietly suggested she see someone because he missed his wife, Clara knew she could no longer outrun the loop. She was terrified that seeking help meant finally putting the event into words, but she was desperate for the quiet that only silence had never given her.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

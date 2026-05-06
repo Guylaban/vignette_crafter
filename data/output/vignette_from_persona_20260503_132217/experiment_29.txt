@@ -1,0 +1,196 @@
+PERSONA 29  |  2026-05-03 13:59:33
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             19
+  gender          Male
+  ethnicity       North American
+  relationship_status Single
+  occupation      Fast Food Worker
+  trauma_type     Natural disaster
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Rehearse Conversations: rehearse what to say before any interaction
+    • Avoid Stressors: avoid anything that could be stressful
+    • Suppress Thoughts: try hard not think about the trauma
+  Memory:
+    • Terror on Recall: Remembering the event brings back the same terror I felt at the time
+    • Olfactory Recall: When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened.
+    • Visual Memories: My memories of the frightening event are mostly pictures or images.
+  Negative Appraisals:
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Lost Happiness: I used to be a happy person but now I am always miserable.
+    • Permanent Damage: I have permanently changed for the worse
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.9460
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.7854
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.4635
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.4842
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Evaluation: Situations in which other people evaluate me / my appearance / my performance
+    explanation: The maladaptive strategies are strongly social-evaluative and interpersonal (avoiding evaluation, avoiding conflict, rehearsing conversations), which is hard to reconcile with the indexed trauma type of natural disaster and with the rest of the profile, which contains no social threat, shame, or interpersonal trauma content to explain these strategies.
+    item:        Memory / Avoid Conflict: Any situation that might involve disagreement or confrontation
+    explanation: Within the cognitive formulation, the strongest pathway is Negative Appraisals → Maladaptive Strategies. However, the selected negative appraisals focus on global identity change, chronic misery, and self-blame for being in the situation, while the selected strategies are specifically about managing social scrutiny and interpersonal interactions. That is a weak clinical fit: the strategies do not plausibly follow from the appraisals provided.
+    item:        Negative Appraisals / Rehearse Conversations: rehearse what to say before any interaction
+    explanation: Memory and appraisals are only partly coherent: terror on recall and olfactory recall fit disaster trauma, but rage on recall is less well supported by the rest of the profile because there is no accompanying appraisal about betrayal, preventability by others, or injustice that would explain intense anger as a central recall response.
+  [2] FAIL
+    item:        Memory / Memory: Rage on Recall
+    explanation: For a natural-disaster trauma, intense rage specifically on recall is hard to reconcile with the rest of the profile, which otherwise centers on terror, misery, self-change, and generalized avoidance rather than anger at a person or agent. Rage can occur, but here it lacks support from the other selected items and is the least coherent memory item.
+    item:        Negative Appraisals / Negative Appraisals: Self-Comparison
+    explanation: 'Somebody else would not have gotten into this situation' implies preventable personal failure in getting into the trauma. With a natural disaster, this appraisal is difficult to justify unless there was a very specific risky decision context, which is not reflected elsewhere in the profile. The other appraisals focus on post-trauma change and unhappiness, making this item the clearest mismatch.
+  [3] FAIL
+    item:        Negative Appraisals / Self-Blame: The event happened because of the way I acted
+    explanation: For a natural disaster trauma, strong self-blame framed as 'the event happened because of the way I acted' is hard to justify clinically unless the disaster involved a very specific preventable action by the patient. In the absence of any such context, this appraisal is implausible for the indexed trauma.
+    item:        Maladaptive Strategies / Avoid Conflict: Any situation that might involve disagreement or confrontation
+    explanation: The maladaptive strategies are predominantly interpersonal/social-safety behaviors (avoiding conflict, rehearsing conversations) that fit social threat or shame-based trauma formulations more than a natural disaster PTSD presentation. They do not connect well to the memory/appraisal content provided.
+  [4] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: The profile includes active hypervigilant threat-monitoring ('constantly scan environment for signs of threat') and a global danger appraisal, but the formulation specifies Threat as effectively inactive, with no active links involving Threat and no active Trigger pathways. For a natural-disaster case, these items imply an ongoing threat-focused maintenance pattern that is not supported by the stated formulation.
+    item:        Negative Appraisals / World is Dangerous: The world is a dangerous place
+    explanation: This is not just a weak-edge issue: both items explicitly center current external danger/threat, whereas the active formulation is concentrated on Negative Appraisals ↔ Memory and Negative Appraisals ↔ Maladaptive Strategies without Threat involvement. The remaining items fit a self-focused/post-traumatic change formulation, making these threat-focused items the main incoherent elements.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+The night the tornado hit, Elias was twenty years old, sleeping in a second-floor apartment that
+offered little protection against the storm. One moment he was dreaming, and the next, the
+structural groan of collapsing timber drowned out the sirens. He spent hours wedged in the dark
+between a fallen wall and his mattress, breathing a thick mixture of wet ash, shattered insulation,
+and damp plaster. When rescuers cut him free, Elias walked away unharmed, but the specific violence
+of the event—the sudden collapse of his safe space and the suffocating scent that clung to his
+clothes—left a visceral imprint. That exact sensory profile now surfaces whenever he works the grill
+at his fast-food job; the sharp tang of frying oil and the sudden clatter of metal trays instantly
+trigger the smell of wet ash and bring back the same terror he felt trapped in the rubble. For
+Elias, remembering the event brings back the same terror he felt at the time, and his memories of
+the frightening event are mostly pictures or images. These visual fragments—twisted rebar,
+glittering glass—do not pass as gentle recollections. Instead, they flood his mind with such
+intensity that they directly shape his self-view, convincing him that the person he has become is
+unrecognisable to him. He looks in the mirror and no longer sees the friend he was, because the
+recurring terror and vivid scenes make him feel as though his core identity was shattered. He is
+certain he lost his happiness completely, interpreting these inescapable flashes as proof that he
+used to be a happy person but now is always miserable. Because Elias believes he has permanently
+changed for the worse, the intrusions themselves become far more threatening. His conviction that he
+is fundamentally broken acts as a lens that amplifies the visual memories, forcing him to stare at
+them with dread. This appraisal of permanent damage makes the terror on recall feel like a
+predictive warning that his mind is failing, which ensures that the olfactory recall of damp plaster
+and ash returns with greater force whenever a trigger appears. He cannot dismiss the flashbacks as
+harmless echoes; his negative self-judgment fuels their intensity, guaranteeing the memories will
+dominate his attention. Believing he is permanently damaged and emotionally hollow, Elias adopts
+rigid habits to keep the world at a distance. His conviction that he is unrecognisable directly
+leads him to avoid anything that could be stressful, a rule he enforces by declining weekend plans
+and stepping back from college. At work, this avoidance manifests as a refusal to take the lunch
+rush, which strains his standing but feels necessary to prevent panic. The belief that he has
+permanently changed also compels him to suppress thoughts, forcing him to immediately divert his
+focus to mundane tasks whenever the trauma tries to surface. He treats his mind like a sealed room,
+convinced any unguarded moment will invite the same overwhelming dread. These maneuvers only cement
+his bleak self-perception. By rehearsing what to say before any interaction, Elias strips every
+relationship of spontaneity, leaving him isolated and confirming his fear that he is permanently
+changed for the worse. The more he avoids stressors and suppresses his thoughts, the more stagnant
+his life becomes, turning his avoidance into undeniable proof of his unrecognisable self. He notices
+how his rehearsed scripts drain his energy, yet he clings to them because he is certain his core has
+been irrevocably damaged. Now, Elias sits in a clinic waiting room with his hands clasped tightly in
+his lap, the rhythmic hum of the air conditioner making his chest tighten. He has finally come to
+this appointment because his latest supervisor warning crossed a line he could no longer
+rationalize, and because the constant mental rehearsal has left him hollowed out. What he is most
+hoping for is a return to the person he remembers, a belief that the permanent damage he fears is
+not truly final, and a way to step back into a world that no longer feels like a series of threats
+waiting to collapse.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+The night the tornado hit, Elias was twenty years old, sleeping in a second-floor apartment that
+offered little protection against the storm. One moment he was dreaming, and the next, the
+structural groan of collapsing timber drowned out the sirens. He spent hours wedged in the dark
+between a fallen wall and his mattress, breathing a thick mixture of wet ash, shattered insulation,
+and damp plaster. When rescuers cut him free, Elias walked away unharmed, but the specific violence
+of the event—the sudden collapse of his safe space and the suffocating scent that clung to his
+clothes—left a visceral imprint. That exact sensory profile now surfaces whenever he works the grill
+at his fast-food job; the sharp tang of frying oil and the sudden clatter of metal trays instantly
+trigger the smell of wet ash and bring back the same terror he felt trapped in the rubble. For
+Elias, remembering the event brings back the same terror he felt at the time, and his memories of
+the frightening event are mostly pictures or images. These visual fragments—twisted rebar,
+glittering glass—do not pass as gentle recollections. Instead, they flood his mind with such
+intensity that they directly shape his self-view, convincing him that the person he has become is
+unrecognisable to him. He looks in the mirror and no longer sees the friend he was, because the
+recurring terror and vivid scenes make him feel as though his core identity was shattered. He is
+certain he lost his happiness completely, interpreting these inescapable flashes as proof that he
+used to be a happy person but now is always miserable. Because Elias believes he has permanently
+changed for the worse, the intrusions themselves become far more threatening. His conviction that he
+is fundamentally broken acts as a lens that amplifies the visual memories, forcing him to stare at
+them with dread. This appraisal of permanent damage makes the terror on recall feel like a
+predictive warning that his mind is failing, which ensures that the olfactory recall of damp plaster
+and ash returns with greater force whenever a trigger appears. He cannot dismiss the flashbacks as
+harmless echoes; his negative self-judgment fuels their intensity, guaranteeing the memories will
+dominate his attention. Believing he is permanently damaged and emotionally hollow, Elias adopts
+rigid habits to keep the world at a distance. His conviction that he is unrecognisable directly
+leads him to avoid anything that could be stressful, a rule he enforces by declining weekend plans
+and stepping back from college. At work, this avoidance manifests as a refusal to take the lunch
+rush, which strains his standing but feels necessary to prevent panic. The belief that he has
+permanently changed also compels him to suppress thoughts, forcing him to immediately divert his
+focus to mundane tasks whenever the trauma tries to surface. He treats his mind like a sealed room,
+convinced any unguarded moment will invite the same overwhelming dread. These maneuvers only cement
+his bleak self-perception. By rehearsing what to say before any interaction, Elias strips every
+relationship of spontaneity, leaving him isolated and confirming his fear that he is permanently
+changed for the worse. The more he avoids stressors and suppresses his thoughts, the more stagnant
+his life becomes, turning his avoidance into undeniable proof of his unrecognisable self. He notices
+how his rehearsed scripts drain his energy, yet he clings to them because he is certain his core has
+been irrevocably damaged. Now, Elias sits in a clinic waiting room with his hands clasped tightly in
+his lap, the rhythmic hum of the air conditioner making his chest tighten. He has finally come to
+this appointment because his latest supervisor warning crossed a line he could no longer
+rationalize, and because the constant mental rehearsal has left him hollowed out. What he is most
+hoping for is a return to the person he remembers, a belief that the permanent damage he fears is
+not truly final, and a way to step back into a world that no longer feels like a series of threats
+waiting to collapse.

@@ -1,0 +1,177 @@
+PERSONA 127  |  2026-05-03 11:53:59
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen2.5-32b
+    persona_crafter      qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             38
+  gender          Female
+  ethnicity       South Eastern Asian
+  relationship_status Single
+  occupation      Welder
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            60
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid People: avoid other people
+    • Avoid Thinking: Thinking about the event
+    • Self-Blame Rumination: I dwell on what I have done wrong
+  Threat:
+    • Sleep Problems: Trouble falling or staying asleep
+    • Concentration: Having difficulty concentrating
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+  Memory:
+    • Taste Vividness: I can taste what I tasted during the event when the memory returns
+    • Incomplete Picture: I feel like I am only remembering parts of what happened and the rest is missing
+    • Guilt on Recall: When I remember the event I feel intense guilt
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.6938
+  Memory → Threat                                    0.1634
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.5049
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.3450
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        age
+    explanation: Relationship status 'Divorced' is implausible for age 21 under the validation rules.
+  [2] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Self-Harm: hurt myself physically to release overwhelming feelings
+    explanation: The profile lacks coherence with the trauma type and formulation because the dominant symptoms are generic hyperarousal/danger responses and self-harm, while there are no guilt, responsibility, shame, or perpetration-related appraisals/items that would typically anchor a profile for accidentally causing serious injury to another person. This makes the selected Threat and Memory content feel poorly tied to the identified trauma context.
+    item:        Threat / False Alarms: I often react as if I am in danger even when nothing is actually wrong
+    explanation: Within the active formulation, Memory is strongly linked with Maladaptive Strategies and moderately bidirectional with Threat. The memory items support vivid, fragmented re-experiencing, but the selected maladaptive strategies do not clearly arise from managing those memories: Avoid Thinking fits, but Avoid People and especially Self-Harm are not well explained by the memory content provided.
+    item:        Memory / Startle Response: Feeling jumpy or easily startled
+    explanation: Rage on Recall is the least coherent memory item for this trauma type in the absence of any corroborating interpersonal blame, anger-focused threat, or appraisals. For accidentally injuring another person, rage can occur, but standing alone alongside missing-memory fragments and sensory reliving, it is hard to integrate clinically compared with guilt, horror, or shame-linked recall.
+  [2] FAIL
+    item:        Memory / Memory: Rage on Recall
+    explanation: The profile centers on a moral-injury-type accident in which the patient accidentally caused serious injury to another, but the dominant Memory item is intense rage on recall. Rage can occur, but in this trauma context it is much less coherent than guilt, shame, horror, or distress unless there is some clear target for anger, which is not reflected anywhere else in the profile.
+    item:        Threat / Threat: Startle Response
+    explanation: Threat items are nonspecific hyperarousal symptoms (startle, sleep, concentration) that do not clearly connect to the selected Memory content or to a defined ongoing sense of danger. Given the formulation, Threat is mainly linked with Memory, so Threat items should plausibly arise from the memory content. Here the memory profile is fragmented, sensory, and rage-based, while Threat does not reflect a matching fear/danger theme, creating a weakly coherent Memory–Threat pairing.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Samantha, a 38-year-old South Eastern Asian woman, works as a welder and is single. She has been
+experiencing significant distress following an incident where she accidentally caused serious injury
+to another person at work. This traumatic event has led Samantha to develop several symptoms that
+have significantly impacted her daily life. The accident occurred during a busy shift when Samantha
+was working on a high-pressure welding project. Due to a momentary lapse, the equipment
+malfunctioned, causing severe burns to her coworker's arm. Ever since then, the taste of metal and
+the smell of burnt plastic often return vividly whenever she thinks about or is reminded of the
+event. These sensations trigger intense feelings of guilt and a sense that there are parts of what
+happened that remain unclear to her. These memory experiences have led Samantha to engage in
+maladaptive strategies. She avoids people, especially those who remind her of the accident, and
+tries not to think about the incident as much as possible. However, this avoidance only exacerbates
+her symptoms. When she does recall the event, the vividness of the sensations and the incomplete
+picture of what occurred cause her intense guilt, leading her to dwell on what she believes she did
+wrong. Samantha’s sleep has been severely disrupted since the accident. She often finds it difficult
+to fall or stay asleep due to intrusive memories that feel incomplete and trigger strong physical
+reactions such as sweating and increased heart rate. These sleep problems make it harder for her to
+concentrate at work, further increasing her anxiety and sense of being overwhelmed. The intense
+physical reactivity she experiences when triggered by reminders of the event often leads her back
+into a cycle of self-blame rumination and guilt. She is certain that if she had been more careful or
+alert, the accident would not have happened. This belief reinforces her tendency to avoid both
+thinking about and talking with others about the incident. Samantha’s occupation as a welder has
+become particularly challenging. The smell of welding fumes, the sound of equipment, and even the
+sight of other welders working can trigger these intrusive memories and physical reactions. She
+tries to avoid such situations by taking on solo tasks or working in isolation, but this often leads
+to misunderstandings with her coworkers who perceive her as distant or unapproachable. The guilt she
+feels when remembering parts of the event is so intense that it makes it difficult for Samantha to
+form close relationships outside of work. She has come to believe that people around her would judge
+her harshly if they knew what happened, which reinforces her tendency to avoid others and ruminate
+on her perceived failures. Samantha’s current state is one of increasing distress, where the loop
+between memory intrusions, physical reactions, avoidance behaviors, and self-blame has tightened
+significantly. She knows that she needs help to break this cycle but remains fearful of judgment
+from others if she seeks support. Despite these fears, Samantha hopes that therapy can provide a
+space for her to better understand what happened and find ways to cope with the guilt and memories
+without resorting to avoidance. What finally brought Samantha to seek help was the realization that
+her symptoms were only getting worse over time and were beginning to affect her ability to perform
+at work. She is most afraid of being blamed or judged by others but also hopes that therapy can
+offer a path toward healing and acceptance, allowing her to regain control of her life.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Samantha, a 38-year-old South Eastern Asian woman, works as a welder and is single. She has been
+experiencing significant distress following an incident where she accidentally caused serious injury
+to another person at work. This traumatic event has led Samantha to develop several symptoms that
+have significantly impacted her daily life. The accident occurred during a busy shift when Samantha
+was working on a high-pressure welding project. Due to a momentary lapse, the equipment
+malfunctioned, causing severe burns to her coworker's arm. Ever since then, the taste of metal and
+the smell of burnt plastic often return vividly whenever she thinks about or is reminded of the
+event. These sensations trigger intense feelings of guilt and a sense that there are parts of what
+happened that remain unclear to her. These memory experiences have led Samantha to engage in
+maladaptive strategies. She avoids people, especially those who remind her of the accident, and
+tries not to think about the incident as much as possible. However, this avoidance only exacerbates
+her symptoms. When she does recall the event, the vividness of the sensations and the incomplete
+picture of what occurred cause her intense guilt, leading her to dwell on what she believes she did
+wrong. Samantha’s sleep has been severely disrupted since the accident. She often finds it difficult
+to fall or stay asleep due to intrusive memories that feel incomplete and trigger strong physical
+reactions such as sweating and increased heart rate. These sleep problems make it harder for her to
+concentrate at work, further increasing her anxiety and sense of being overwhelmed. The intense
+physical reactivity she experiences when triggered by reminders of the event often leads her back
+into a cycle of self-blame rumination and guilt. She is certain that if she had been more careful or
+alert, the accident would not have happened. This belief reinforces her tendency to avoid both
+thinking about and talking with others about the incident. Samantha’s occupation as a welder has
+become particularly challenging. The smell of welding fumes, the sound of equipment, and even the
+sight of other welders working can trigger these intrusive memories and physical reactions. She
+tries to avoid such situations by taking on solo tasks or working in isolation, but this often leads
+to misunderstandings with her coworkers who perceive her as distant or unapproachable. The guilt she
+feels when remembering parts of the event is so intense that it makes it difficult for Samantha to
+form close relationships outside of work. She has come to believe that people around her would judge
+her harshly if they knew what happened, which reinforces her tendency to avoid others and ruminate
+on her perceived failures. Samantha’s current state is one of increasing distress, where the loop
+between memory intrusions, physical reactions, avoidance behaviors, and self-blame has tightened
+significantly. She knows that she needs help to break this cycle but remains fearful of judgment
+from others if she seeks support. Despite these fears, Samantha hopes that therapy can provide a
+space for her to better understand what happened and find ways to cope with the guilt and memories
+without resorting to avoidance. What finally brought Samantha to seek help was the realization that
+her symptoms were only getting worse over time and were beginning to affect her ability to perform
+at work. She is most afraid of being blamed or judged by others but also hopes that therapy can
+offer a path toward healing and acceptance, allowing her to regain control of her life.

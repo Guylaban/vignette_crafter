@@ -1,0 +1,198 @@
+{
+  "persona_id": 125,
+  "source_persona_id": 125,
+  "experiment_timestamp": "2026-05-04 04:16:19",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 46,
+    "gender": "Male",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "Park Ranger",
+    "trauma_type": "Combat",
+    "pcl5": 33
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Discomfort",
+        "value": "Feeling uncomfortable"
+      },
+      {
+        "key": "Dissociative Feeling",
+        "value": "Beginning to feel detached or unreal"
+      },
+      {
+        "key": "Auditory (Helicopter)",
+        "value": "Helicopter or aircraft sounds"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      },
+      {
+        "key": "Watching Others",
+        "value": "I watch other people closely for signs that they might harm me"
+      },
+      {
+        "key": "Scanning for Danger",
+        "value": "I constantly scan my surroundings for signs of danger"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Olfactory Recall",
+        "value": "When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened."
+      },
+      {
+        "key": "More Real Than Normal",
+        "value": "My memories of the event feel more real and vivid than memories of ordinary things"
+      },
+      {
+        "key": "Vivid Memory",
+        "value": "My memories of the frightening event are very clear and detailed."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Permanent Damage",
+        "value": "I have permanently changed for the worse"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "I have to be on guard all the time"
+      },
+      {
+        "key": "Inaction Guilt",
+        "value": "I will never forgive myself for not doing more to stop what happened"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.497,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.7682,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.7988,
+    "Negative Appraisals -- Triggers": 0.1967,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.2574,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.8301,
+    "Threat -- Negative Appraisals": 0.0884,
+    "Threat -- Triggers": 0.5214,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Negative Appraisals",
+    "Threat → Memory",
+    "Threat → Negative Appraisals",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.49474999999999997,
+  "edge_density": 0.4,
+  "vignette_word_count": 595,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Self-Consciousness: Being seen",
+          "explanation": "The trigger set mixes a socially evaluative trigger ('being seen') with nonspecific discomfort/detachment, while the threat items center on danger from sudden sounds, home intrusion, and interpersonal harm. For a combat trauma profile, 'being seen' is not impossible, but here it is poorly linked to the stated threat pattern and stands out as the one trigger not plausibly connected to the strong Triggers→Threat and Triggers→Negative Appraisals edges."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "Within Threat, hypervigilance to loud sounds and watching others for danger fit a combat-related threat profile, but specifically monitoring for someone entering the home implies a domestic intrusion threat context that is not supported by the triggers, memory, or appraisals. It pulls the profile toward a different trauma context and weakens cross-node coherence."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Self-Consciousness"
+        ],
+        "Threat": [
+          "Intrusion Monitoring"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "John is a 46-year-old African-American male who works as a park ranger. Married and with over two decades of service in the military behind him, John has struggled since his combat tour to re-adjust to civilian life. His experience in the war zone was marked by constant danger, where each sound could mean life or death. One particularly vivid memory that haunts John is an ambush he encountered during a patrol mission. The smell of cordite lingered in the air as bullets whizzed past his head and helicopters roared overhead, their blades slicing through the sky with an ominous whoosh. This event left deep imprints on John’s psyche, making him hyper-aware of every noise around him. John often feels uncomfortable when he hears unexpected or loud sounds, especially those reminiscent of aircraft or helicopters. These auditory triggers evoke a visceral response that plunges him back into the wartime environment. He becomes acutely aware of his surroundings and scans for signs of danger, as if preparing himself for another ambush at any moment. This high alertness is not just limited to specific sounds; John finds himself constantly watching other people closely, suspecting potential threats around every corner. The intensity of these reactions has led to significant changes in how he perceives the world. He believes that his experience has left him permanently changed for the worse. The guilt of feeling like he could have done more during the ambush weighs heavily on him, contributing to a pervasive sense of inadequacy and constant vigilance. This belief is reinforced by his vivid memories, which feel more real and vivid than any ordinary memory. John's occupation as a park ranger has become particularly challenging due to these triggers and heightened threat perceptions. On several occasions, the sound of helicopters patrolling over the national parks has caused him severe distress. He feels detached from reality during such moments, making it hard for him to focus on his duties. The discomfort he experiences in these situations often leads him to avoid areas where helicopter activity is common, impacting his ability to perform his job effectively. John’s wife notices that he becomes unusually distant and preoccupied after certain triggers occur. He has come to believe that the memories of his traumatic experience are more real than anything else in his life, constantly re-living those moments. This belief exacerbates his negative appraisals, leading him to remain on high alert for any potential threats. The vividness of these memories further fuels John’s sense of guilt and hypervigilance. He is certain that he will never forgive himself for not doing more to prevent the ambush, which makes him constantly watchful and anxious. This cycle has made it difficult for him to engage fully with his wife or colleagues, as each sound or sight can quickly transport him back to those traumatic moments. John’s life has become a constant struggle between his desire to move forward and the relentless pull of his memories and triggers. It was only when he realized that these symptoms were beginning to affect his marriage and job performance that he sought help. He is most afraid of not being able to control his reactions and feels hopeful about finding ways to manage them, so he can reconnect with his family and regain a sense of normalcy in his daily life. John’s journey towards recovery involves addressing the interplay between his triggers, threat perceptions, vivid memories, and negative appraisals. The therapeutic process aims to help him understand and manage these interconnected elements, allowing him to reclaim control over his thoughts and reactions."
+,
+
+  "vignette_attempts": [
+    {"vignette": "John is a 46-year-old African-American male who works as a park ranger. Married and with over two decades of service in the military behind him, John has struggled since his combat tour to re-adjust to civilian life. His experience in the war zone was marked by constant danger, where each sound could mean life or death. One particularly vivid memory that haunts John is an ambush he encountered during a patrol mission. The smell of cordite lingered in the air as bullets whizzed past his head and helicopters roared overhead, their blades slicing through the sky with an ominous whoosh. This event left deep imprints on John’s psyche, making him hyper-aware of every noise around him. John often feels uncomfortable when he hears unexpected or loud sounds, especially those reminiscent of aircraft or helicopters. These auditory triggers evoke a visceral response that plunges him back into the wartime environment. He becomes acutely aware of his surroundings and scans for signs of danger, as if preparing himself for another ambush at any moment. This high alertness is not just limited to specific sounds; John finds himself constantly watching other people closely, suspecting potential threats around every corner. The intensity of these reactions has led to significant changes in how he perceives the world. He believes that his experience has left him permanently changed for the worse. The guilt of feeling like he could have done more during the ambush weighs heavily on him, contributing to a pervasive sense of inadequacy and constant vigilance. This belief is reinforced by his vivid memories, which feel more real and vivid than any ordinary memory. John's occupation as a park ranger has become particularly challenging due to these triggers and heightened threat perceptions. On several occasions, the sound of helicopters patrolling over the national parks has caused him severe distress. He feels detached from reality during such moments, making it hard for him to focus on his duties. The discomfort he experiences in these situations often leads him to avoid areas where helicopter activity is common, impacting his ability to perform his job effectively. John’s wife notices that he becomes unusually distant and preoccupied after certain triggers occur. He has come to believe that the memories of his traumatic experience are more real than anything else in his life, constantly re-living those moments. This belief exacerbates his negative appraisals, leading him to remain on high alert for any potential threats. The vividness of these memories further fuels John’s sense of guilt and hypervigilance. He is certain that he will never forgive himself for not doing more to prevent the ambush, which makes him constantly watchful and anxious. This cycle has made it difficult for him to engage fully with his wife or colleagues, as each sound or sight can quickly transport him back to those traumatic moments. John’s life has become a constant struggle between his desire to move forward and the relentless pull of his memories and triggers. It was only when he realized that these symptoms were beginning to affect his marriage and job performance that he sought help. He is most afraid of not being able to control his reactions and feels hopeful about finding ways to manage them, so he can reconnect with his family and regain a sense of normalcy in his daily life. John’s journey towards recovery involves addressing the interplay between his triggers, threat perceptions, vivid memories, and negative appraisals. The therapeutic process aims to help him understand and manage these interconnected elements, allowing him to reclaim control over his thoughts and reactions.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

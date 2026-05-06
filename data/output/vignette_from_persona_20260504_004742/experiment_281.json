@@ -1,0 +1,226 @@
+{
+  "persona_id": 281,
+  "source_persona_id": 281,
+  "experiment_timestamp": "2026-05-04 02:31:57",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "gpt-oss-20b",
+      "persona_validator": "gpt-oss-20b",
+      "vignette_crafter": "gpt-oss-20b",
+      "vignette_validator": "gpt-oss-20b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 74,
+    "gender": "Female",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Physical Therapist",
+    "trauma_type": "Refugee",
+    "pcl5": 35
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Event Recall",
+        "value": "Talking about the event"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      },
+      {
+        "key": "Olfactory Danger Cue",
+        "value": "Burnt smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Alcohol Use",
+        "value": "drink alcohol"
+      },
+      {
+        "key": "Past Dwelling",
+        "value": "I dwell on how I used to be before the event"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Intrusion Monitoring",
+        "value": "I listen for sounds that might mean someone is entering my home"
+      },
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      },
+      {
+        "key": "Threat from Strangers",
+        "value": "I feel threatened by strangers approaching me even in ordinary situations"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Auditory Recall",
+        "value": "When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event."
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      },
+      {
+        "key": "Feels Present Not Past",
+        "value": "The memory feels like it is happening right now rather than something that is over"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.9319,
+    "Triggers -- Memory": 0.784,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.6121,
+    "Memory -- Threat": 0.6868,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4874,
+    "Threat -- Maladaptive Strategies": 0.3835,
+    "Threat -- Memory": 0.7043,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.1244,
+    "Maladaptive Strategies -- Memory": 0.6195,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.3497
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Threat",
+    "Memory → Triggers",
+    "Threat → Maladaptive Strategies",
+    "Threat → Memory",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.56836,
+  "edge_density": 0.5,
+  "vignette_word_count": 755,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Photos): Related photos",
+          "explanation": "The trigger set is partly incongruent with the indexed trauma type. For a refugee trauma history, 'related photos' could be plausible, but 'talk about accidents' is specifically accident-themed and does not fit the stated trauma unless there is an unmentioned separate index trauma. That makes the trigger profile clinically hard to reconcile with this trauma type."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Crash Discussions: Talk about accidents",
+          "explanation": "The threat item about listening for signs that someone is entering the home implies a home-intrusion/assault-style danger context. Combined with the accident-themed trigger item, the profile mixes incompatible threat contexts rather than a coherent refugee-related trauma pattern. The remaining memory items describe vivid reliving, but they do not anchor to either accidents or home intrusion, so this specific threat content is difficult to explain from the provided formulation and trauma type."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Photos)"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Crash Discussions: Talk about accidents",
+          "explanation": "The trigger content is centered on accidents/crashes, which is hard to reconcile with a refugee trauma history unless a specific accident trauma is part of the index event. For a refugee presentation, this trigger theme is clinically mismatched with the stated trauma type."
+        },
+        {
+          "component": "Threat",
+          "item": "Event Recall: Talking about the event",
+          "explanation": "The threat item about someone entering the home fits a home-intrusion/assault formulation more than the refugee-linked trigger and memory content provided. Together with accident-related triggers, it creates a cross-node profile that points to multiple unrelated trauma contexts rather than one coherent trauma history."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Crash Discussions"
+        ],
+        "Threat": [
+          "Event Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "When Mara first fled her village in the mountains of her homeland, the night she left was consumed by a sudden, fierce fire that erupted in the makeshift shelter where her family had taken refuge. The acrid smell of burning wood and the frantic shouts of her neighbors pressed into her chest, and a bullet’s distant thud seemed to echo in the darkness. She had no choice but to scramble across the uneven dirt road, clutching her husband’s hand, as the flames licked the low walls and the smoke spiraled into the starlit sky. Years later, in the quiet of her suburban kitchen, the faint scent of burnt plastic from a lingering electric stove would trigger a sudden rush of panic: she would freeze, her eyes darting for a hidden danger, convinced that the past threat was re‑igniting. That scent also brought her mind back to the night of the blaze, with its sharp, unforgettable images of her home collapsing, making the memories feel as immediate as if they were happening again. The memories that burst in Mara’s mind are vivid and intrusive. When she hears the low hum of the refrigerator or the creak of the front door, she often hears in her head the echo of gunshots and the crackle of fire, as if the sounds of the camp had followed her across continents. These auditory recollections force her to reach instinctively for the phone, to call a friend, or to pause mid‑conversation with a patient, feeling as if she might be interrupted by an unseen enemy. The images of that night – a charred roof, the silhouettes of men in black – are so clear that they feel more present than remote, and when she recalls them she can’t help but stare at old photographs of her village, hoping the past will give her a sense of safety. The constant mental rehearsal of that scene becomes a source of distress and a lure that pulls her into maladaptive coping: she often retreats to a bottle of wine, believing that the alcohol will dull the sharp edges of the memories, and she spends long hours checking the windows and doors in her home, convinced that a threat may have followed her across the world. Mara’s work as a physical therapist sharpens the cycle of threat and avoidance. In the clinic, she feels a jittery sense that a colleague might be listening or that a patient could suddenly act hostile, and she routinely checks the room before beginning treatment – double‑checking that the machines are turned off, that the door is locked. This heightened vigilance interrupts the flow of therapy, and her patients sometimes sense her unease, which only reinforces Mara’s belief that she must remain on guard. When the alarm of a neighbor’s car horn or a sudden laugh from a passer‑by sounds too loud, she feels the same spike of danger she once felt in the village, and she rushes to lock the cabinet, leaving the patient’s exercise routine unfinished. The physical act of checking and the mental echo of threat co‑exist, each amplifying the other, and the intrusive memories surge forward, drawing her back to the smell of burnt plastic or the scent of someone’s alcohol-soaked breath. The loop tightens each time Mara engages in a maladaptive strategy. When she reaches for her bottle, the alcohol’s numbing effect is short‑lived; instead, it heightens her sensitivity to sounds and scents, making the next wave of intrusive memory feel even more real. Her habit of staring at photographs of her village and recalling how her life had once been, feeds the visual memory that keeps her in a state of constant alert. The combination of alcohol use, the act of checking her surroundings, and the relentless focus on the past feeds the same cycle: the memories drive her to avoid, the avoidance feeds the memories, and the threat she senses keeps her trapped in a loop that she cannot break alone. Now, at seventy‑four, with a career dedicated to helping others heal, Mara feels the weight of that relentless cycle pressing down on her; the constant alarms, the invisible threat she believes she must always guard against, and the haunting images of a fire that burned her past. It is this exhaustion, the fear that she will never be able to breathe without feeling as if a bomb might explode, that finally compels her to seek professional help, hoping that a way exists to quiet the inner fire and reclaim a peaceful life."
+,
+
+  "vignette_attempts": [
+    {"vignette": "When Mara first fled her village in the mountains of her homeland, the night she left was consumed by a sudden, fierce fire that erupted in the makeshift shelter where her family had taken refuge. The acrid smell of burning wood and the frantic shouts of her neighbors pressed into her chest, and a bullet’s distant thud seemed to echo in the darkness. She had no choice but to scramble across the uneven dirt road, clutching her husband’s hand, as the flames licked the low walls and the smoke spiraled into the starlit sky. Years later, in the quiet of her suburban kitchen, the faint scent of burnt plastic from a lingering electric stove would trigger a sudden rush of panic: she would freeze, her eyes darting for a hidden danger, convinced that the past threat was re‑igniting. That scent also brought her mind back to the night of the blaze, with its sharp, unforgettable images of her home collapsing, making the memories feel as immediate as if they were happening again. The memories that burst in Mara’s mind are vivid and intrusive. When she hears the low hum of the refrigerator or the creak of the front door, she often hears in her head the echo of gunshots and the crackle of fire, as if the sounds of the camp had followed her across continents. These auditory recollections force her to reach instinctively for the phone, to call a friend, or to pause mid‑conversation with a patient, feeling as if she might be interrupted by an unseen enemy. The images of that night – a charred roof, the silhouettes of men in black – are so clear that they feel more present than remote, and when she recalls them she can’t help but stare at old photographs of her village, hoping the past will give her a sense of safety. The constant mental rehearsal of that scene becomes a source of distress and a lure that pulls her into maladaptive coping: she often retreats to a bottle of wine, believing that the alcohol will dull the sharp edges of the memories, and she spends long hours checking the windows and doors in her home, convinced that a threat may have followed her across the world. Mara’s work as a physical therapist sharpens the cycle of threat and avoidance. In the clinic, she feels a jittery sense that a colleague might be listening or that a patient could suddenly act hostile, and she routinely checks the room before beginning treatment – double‑checking that the machines are turned off, that the door is locked. This heightened vigilance interrupts the flow of therapy, and her patients sometimes sense her unease, which only reinforces Mara’s belief that she must remain on guard. When the alarm of a neighbor’s car horn or a sudden laugh from a passer‑by sounds too loud, she feels the same spike of danger she once felt in the village, and she rushes to lock the cabinet, leaving the patient’s exercise routine unfinished. The physical act of checking and the mental echo of threat co‑exist, each amplifying the other, and the intrusive memories surge forward, drawing her back to the smell of burnt plastic or the scent of someone’s alcohol-soaked breath. The loop tightens each time Mara engages in a maladaptive strategy. When she reaches for her bottle, the alcohol’s numbing effect is short‑lived; instead, it heightens her sensitivity to sounds and scents, making the next wave of intrusive memory feel even more real. Her habit of staring at photographs of her village and recalling how her life had once been, feeds the visual memory that keeps her in a state of constant alert. The combination of alcohol use, the act of checking her surroundings, and the relentless focus on the past feeds the same cycle: the memories drive her to avoid, the avoidance feeds the memories, and the threat she senses keeps her trapped in a loop that she cannot break alone. Now, at seventy‑four, with a career dedicated to helping others heal, Mara feels the weight of that relentless cycle pressing down on her; the constant alarms, the invisible threat she believes she must always guard against, and the haunting images of a fire that burned her past. It is this exhaustion, the fear that she will never be able to breathe without feeling as if a bomb might explode, that finally compels her to seek professional help, hoping that a way exists to quiet the inner fire and reclaim a peaceful life.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

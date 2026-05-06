@@ -1,0 +1,187 @@
+PERSONA 194  |  2026-05-05 23:51:12
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      llama3.1-70b
+    persona_validator    llama3.1-70b
+    vignette_crafter     llama3.1-70b
+    vignette_validator   llama3.1-70b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             35
+  gender          Female
+  ethnicity       European
+  relationship_status Married
+  occupation      Counselor
+  trauma_type     Accidentally caused serious injury to another
+  pcl5            46
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Avoid Eye Contact: Making eye contact with other people
+    • Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+    • Suppress Thoughts: try hard not think about the trauma
+  Threat:
+    • Sleep Problems: Trouble falling or staying asleep
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Hypervigilance: Being superalert or watchful or on guard
+  Memory:
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • No Coherent Story: I cannot tell a clear story of what happened even to myself
+  Negative Appraisals:
+    • Lost Meaning: Nothing in my life feels meaningful anymore
+    • Self-Blame: The event happened because of the way I acted
+    • Failed to Protect: I should have protected others and I failed
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.7776
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.5421
+  Memory → Threat                                    0.7217
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.5454
+  Threat → Memory                                    0.5166
+  Threat → Negative Appraisals                       0.3473
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0332
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.2661
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Avoid Uniform or Weapons: Military, police uniforms or weapons
+    explanation: 'Avoid Uniform or Weapons' is hard to reconcile with the indexed trauma of accidentally causing serious injury to another unless there is additional unreported trauma involving military, police, or armed threat. It introduces a highly specific cue set not supported by the other nodes.
+    item:        Negative Appraisals / Hypervigilance: I have to be on guard all the time
+    explanation: The appraisal 'I have to be on guard all the time' and the threat item 'I need to stay alert' imply ongoing external danger surveillance. For a guilt-based accident trauma, this is possible but, alongside the rest of the profile, it pulls toward a current-threat/assault formulation rather than the stated trauma context.
+    item:        Threat / Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    explanation: These vigilance-focused items cluster around danger-monitoring, whereas the memory and appraisal content otherwise fit grief/guilt and disorganization after causing injury. That mismatch is clinically harder to explain than ordinary heterogeneity.
+  [2] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Fear of Rage: I will not be able to control my anger and will do something terrible
+    explanation: The profile is centered on guilt, grief, and fragmented memory after accidentally causing serious injury, which is coherent, but the anger/rage theme is not well integrated with the rest of the formulation. Fear of losing control of anger plus irritability/aggressive behavior suggests a prominent violence/rage presentation that is not otherwise reflected in the memory content, appraisals, or strategies tied to this trauma type.
+    item:        Threat / Threat: Irritability: Irritable behavior, angry outbursts, or acting aggressively
+    explanation: Compulsive exercise appears poorly connected to the rest of the selected items. The other maladaptive strategies are avoidance-based and directly related to interpersonal shame or medical reminders, whereas excessive exercise implies a separate regulation strategy that is not supported by the rest of the profile or the specified edge pattern.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Compulsive Exercise: I push myself to exercise excessively
+    explanation: Given the active formulation, Memory and Threat should be tightly linked. The memory items emphasize fragmentation and grief, while the threat items are limited to nonspecific arousal symptoms (concentration, irritability, sleep) rather than a trauma-linked sense of current threat. This makes the irritability/anger strand especially weakly anchored in the stated cognitive formulation.
+  [3] FAIL
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: The Threat node is dominated by generic arousal/distress items (concentration and sleep problems) rather than a sense of current threat linked to the trauma. Given the formulation, Threat is strongly driven by memory and negative appraisals, so threat items should more clearly reflect ongoing danger, guilt-based threat, or feared consequences connected to having seriously injured someone.
+    item:        Negative Appraisals / Threat: Sleep Problems: Trouble falling or staying asleep
+    explanation: 'Nothing in my life feels meaningful anymore' is a broad depressive/existential appraisal that is not well anchored to this trauma profile. The other appraisal items are specifically guilt/responsibility based (self-blame, failed to protect), which fit the trauma type and the strong Negative Appraisals → Threat edge; this item pulls the node toward a different syndrome and weakens internal coherence.
+    item:        Maladaptive Strategies / Negative Appraisals: Lost Meaning: Nothing in my life feels meaningful anymore
+    explanation: Avoiding eye contact is hard to connect specifically to accidentally causing serious injury to another unless there are accompanying appraisals about others judging or condemning her. No such interpersonal-judgment threat/appraisal is represented elsewhere, so this strategy is weakly integrated with the rest of the profile.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Ava's life had been a testament to her empathetic nature, with a successful career as a counselor
+helping others navigate their struggles. But it all changed on that fateful day when she
+accidentally caused serious injury to another person. The event left an indelible mark on her
+psyche, setting off a chain reaction of guilt, shame, and self-blame. As Ava struggled to come to
+terms with what had happened, she began to experience a pervasive sense of lost meaning in her life.
+Nothing seemed to hold the same significance as it once did; every interaction felt superficial,
+every accomplishment hollow. This feeling of emptiness only served to intensify her negative
+emotions, fueling an overwhelming fear that she would never be able to make amends for her actions.
+She became consumed by the thought that she had failed to protect others, and this self-blame seeped
+into every waking moment. The fragmented pieces of memory from that day haunted Ava, refusing to
+coalesce into a coherent narrative. When she did recall snippets of the event, they were accompanied
+by an overwhelming grief that left her breathless. Her memories felt like a puzzle with missing
+pieces, forever out of reach. This disjointed recollection only served to heighten her sense of
+threat, making her hypervigilant and constantly on guard against potential dangers. As Ava navigated
+this treacherous emotional landscape, she found herself employing maladaptive strategies to cope.
+She avoided eye contact with others, fearing the judgment or condemnation that might lurk behind
+their gazes. Hospitals, ambulances, and physical examinations became triggers for her anxiety,
+reminders of the trauma she had inflicted on another person. In an attempt to suppress these
+thoughts, Ava tried hard not to think about the event, but this only led to increased
+hypervigilance, as if her mind was constantly waiting for the other shoe to drop. As the weeks went
+by, Ava's sleep problems intensified, with trouble falling or staying asleep becoming a regular
+occurrence. Her negative emotions – fear, horror, anger, guilt, and shame – swirled together in a
+toxic stew, making it difficult for her to find any semblance of peace. She began to withdraw from
+social interactions, fearing that others would discover the "truth" about her, further solidifying
+her sense of self-blame. The threat Ava perceived was not just external but also internal; she
+feared that she would never be able to escape the darkness that had taken up residence within her.
+This constant state of alertness only served to reinforce her negative appraisals, creating a
+vicious cycle where one fueled the other. As Ava's world began to shrink, she found herself avoiding
+situations that might trigger memories of the event. Her work as a counselor became increasingly
+difficult, as every session felt like a potential minefield waiting to be triggered. It was this
+inability to escape her past, combined with the crushing weight of her negative appraisals, that
+finally brought Ava to seek help. Now, she sits in the therapist's office, her eyes cast downward,
+fearful of making eye contact. The journey ahead will be long and arduous, but for Ava, it
+represents a glimmer of hope – a chance to break free from the cycle of self-blame and threat that
+has consumed her life. As she begins this new chapter, she is most afraid of confronting the
+memories she has worked so hard to suppress, but also hopeful that, with time, she may find a way to
+heal and rediscover meaning in her life.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Ava's life had been a testament to her empathetic nature, with a successful career as a counselor
+helping others navigate their struggles. But it all changed on that fateful day when she
+accidentally caused serious injury to another person. The event left an indelible mark on her
+psyche, setting off a chain reaction of guilt, shame, and self-blame. As Ava struggled to come to
+terms with what had happened, she began to experience a pervasive sense of lost meaning in her life.
+Nothing seemed to hold the same significance as it once did; every interaction felt superficial,
+every accomplishment hollow. This feeling of emptiness only served to intensify her negative
+emotions, fueling an overwhelming fear that she would never be able to make amends for her actions.
+She became consumed by the thought that she had failed to protect others, and this self-blame seeped
+into every waking moment. The fragmented pieces of memory from that day haunted Ava, refusing to
+coalesce into a coherent narrative. When she did recall snippets of the event, they were accompanied
+by an overwhelming grief that left her breathless. Her memories felt like a puzzle with missing
+pieces, forever out of reach. This disjointed recollection only served to heighten her sense of
+threat, making her hypervigilant and constantly on guard against potential dangers. As Ava navigated
+this treacherous emotional landscape, she found herself employing maladaptive strategies to cope.
+She avoided eye contact with others, fearing the judgment or condemnation that might lurk behind
+their gazes. Hospitals, ambulances, and physical examinations became triggers for her anxiety,
+reminders of the trauma she had inflicted on another person. In an attempt to suppress these
+thoughts, Ava tried hard not to think about the event, but this only led to increased
+hypervigilance, as if her mind was constantly waiting for the other shoe to drop. As the weeks went
+by, Ava's sleep problems intensified, with trouble falling or staying asleep becoming a regular
+occurrence. Her negative emotions – fear, horror, anger, guilt, and shame – swirled together in a
+toxic stew, making it difficult for her to find any semblance of peace. She began to withdraw from
+social interactions, fearing that others would discover the "truth" about her, further solidifying
+her sense of self-blame. The threat Ava perceived was not just external but also internal; she
+feared that she would never be able to escape the darkness that had taken up residence within her.
+This constant state of alertness only served to reinforce her negative appraisals, creating a
+vicious cycle where one fueled the other. As Ava's world began to shrink, she found herself avoiding
+situations that might trigger memories of the event. Her work as a counselor became increasingly
+difficult, as every session felt like a potential minefield waiting to be triggered. It was this
+inability to escape her past, combined with the crushing weight of her negative appraisals, that
+finally brought Ava to seek help. Now, she sits in the therapist's office, her eyes cast downward,
+fearful of making eye contact. The journey ahead will be long and arduous, but for Ava, it
+represents a glimmer of hope – a chance to break free from the cycle of self-blame and threat that
+has consumed her life. As she begins this new chapter, she is most afraid of confronting the
+memories she has worked so hard to suppress, but also hopeful that, with time, she may find a way to
+heal and rediscover meaning in her life.

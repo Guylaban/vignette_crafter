@@ -1,0 +1,185 @@
+PERSONA 484  |  2026-05-03 13:09:05
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen2.5-32b
+    persona_crafter      qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             77
+  gender          Male
+  ethnicity       African
+  relationship_status Married
+  occupation      School Principal
+  trauma_type     Assault
+  pcl5            70
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Alcohol): Alcohol smell
+    • Loss of Control: Lack of control
+    • Loss of Autonomy: Being forced to do something
+  Threat:
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+    • Startle Response: Feeling jumpy or easily startled
+    • Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+  Memory:
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+    • Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Self-Blame: The event happened because of the way I acted
+    • Can't Rely on Others: I can't rely on other people
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.9799
+  Triggers → Memory                                  0.6086
+  Triggers → Negative Appraisals                     0.2325
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0185
+  Negative Appraisals → Memory                       0.3832
+  Negative Appraisals → Triggers                     0.1382
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.1433
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.3026
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.2243
+  Threat → Negative Appraisals                       0.1461
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: For an assault trauma, the trigger pattern is difficult to reconcile clinically: explosion/bang sounds and hospital/antiseptic smells imply very different trauma contexts or aftermaths, with no accompanying memory or appraisal content linking them into a coherent assault narrative. This is more than merely unusual because the trigger set suggests mixed trauma cues rather than one assault profile.
+    item:        Threat / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: The appraisal 'My body has been permanently damaged by what happened' does not fit well with the rest of the profile. Threat items focus on immediate environmental danger and startle, while memory items center on grief, auditory recall, and emotional numbing; none support a prominent bodily injury theme. In the absence of corroborating assault-related injury cues, this appraisal appears mismatched.
+    item:        Negative Appraisals / Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened
+    explanation: Given the very strong Triggers → Threat edge, trigger items should plausibly feed the specific threat pattern. 'Being naked' can fit vulnerability and danger, but explosion sounds and hospital smells do not connect well to the selected threat items for a single assault formulation, making the trigger-to-threat linkage clinically incoherent.
+  [2] FAIL
+    item:        Triggers / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: For an assault trauma, hospital/antiseptic smell is only coherent if the assault involved serious injury or hospital treatment, but nothing in threat, memory, or appraisals anchors the trauma to a medical context. In this profile it stands out as insufficiently connected to the rest of the formulation.
+    item:        Negative Appraisals / Triggers: Vulnerability: Being naked
+    explanation: 'Being naked' as a trigger implies a sexual assault, humiliation, medical exposure, or a very specific vulnerability context. The other items do not support that context: threat items reflect generalized hypervigilance/startle, memory items do not indicate bodily violation or exposure, and appraisals focus on self-blame/protection of others rather than sexualized shame. This makes the trigger hard to reconcile with the rest of the profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Vulnerability: Being naked
+    explanation: For an assault trauma, 'being naked' as a trigger is not impossible, but without any corroborating memory, threat, or appraisal content suggesting sexual assault, humiliation, or clothing-related vulnerability, it stands out as poorly integrated with the rest of the profile. The other trigger items point to alcohol cues and loss of control, while threat items center on hypervigilance/startle; this specific trigger appears disconnected from the described trauma representation.
+    item:        Negative Appraisals / Negative Appraisals: Failed to Protect: I should have protected others and I failed
+    explanation: 'I should have protected others and I failed' implies the patient experienced the assault in a protector/caretaker role or alongside endangered others. No memory, trigger, or threat item references other people being harmed or the patient's responsibility toward them. The rest of the appraisals are self-focused incompetence/blame, so this item is the main cross-node inconsistency.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Mr. Johnson is a 77-year-old African-American man who has been married for over five decades and
+currently serves as a school principal. The traumatic event that precipitated his current
+psychological struggles occurred several months ago when he was assaulted by an armed intruder
+during one of the school's after-hours events. During the assault, the assailant forced Mr. Johnson
+to comply with his demands, while drunk and belligerent, creating a situation where Mr. Johnson felt
+completely powerless and terrified. Since the assault, Mr. Johnson has been struggling with
+intrusive memories that are triggered by olfactory cues such as the smell of alcohol, which
+immediately brings back vivid recollections of the event. When he smells alcohol, he is jolted back
+to the moment when his assailant reeked of liquor. The memory evokes a profound sense of grief and
+numbness, as if the assault happened to someone else. Each time this happens, it intensifies his
+feelings of being unable to rely on himself or others for safety. Mr. Johnson's daily routine has
+been profoundly affected by these triggers. At work, the faint scent of alcohol from a janitorial
+cleaner can send him into a state of high alert, causing him to scan exits and feel jumpy at any
+sudden movement nearby. The fear that he might not be able to protect himself or anyone else in such
+a situation is overwhelming. He has come to believe that the event happened because of his
+actions—perhaps if he had been more vigilant or assertive, it could have been prevented. This sense
+of self-blame and reliance on others for safety has become a constant presence in his life. When Mr.
+Johnson smells alcohol or senses a loss of control, he experiences heightened anxiety, which leads
+to further negative appraisals about his own capabilities and the unpredictability of others. He
+feels like he can't trust himself to handle similar situations in the future, and this uncertainty
+exacerbates his startle response and hypervigilance. Mr. Johnson’s memories are often accompanied by
+auditory recollections, where sounds from the assault replay in his head. These auditory memories
+further trigger his grief and numbness, reinforcing his belief that he can't rely on himself or
+others for protection. The more vivid these memories become, the more he scans exits and feels
+jumpy, creating a cycle of fear and helplessness. The assault has also strained his relationship
+with his wife, as he finds it difficult to relax around her when he is triggered by the scent of
+alcohol or sudden movements. His heightened startle response often leads to him reacting sharply
+even in safe settings, causing confusion and concern for those around him. What frightens Mr.
+Johnson most is the possibility that he might never fully recover from this trauma. He fears living
+with constant hypervigilance and self-doubt, which have already affected his ability to function at
+work and enjoy life at home. Despite these fears, what brings him to seek help now is a growing
+realization that he cannot continue living in a state of perpetual anxiety and grief. He hopes for a
+return to a sense of safety and control over his own life. The trauma has left Mr. Johnson feeling
+trapped in a cycle where triggers lead to intense threat responses, which in turn feed back into
+negative self-appraisals and further memory intrusions. This feedback loop is the central challenge
+he faces as he begins to explore treatment options. He hopes that through therapy, he can regain
+some control over his memories and fears, ultimately finding relief from the constant reminders of
+the assault and a return to a sense of safety in his daily life.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Mr. Johnson is a 77-year-old African-American man who has been married for over five decades and
+currently serves as a school principal. The traumatic event that precipitated his current
+psychological struggles occurred several months ago when he was assaulted by an armed intruder
+during one of the school's after-hours events. During the assault, the assailant forced Mr. Johnson
+to comply with his demands, while drunk and belligerent, creating a situation where Mr. Johnson felt
+completely powerless and terrified. Since the assault, Mr. Johnson has been struggling with
+intrusive memories that are triggered by olfactory cues such as the smell of alcohol, which
+immediately brings back vivid recollections of the event. When he smells alcohol, he is jolted back
+to the moment when his assailant reeked of liquor. The memory evokes a profound sense of grief and
+numbness, as if the assault happened to someone else. Each time this happens, it intensifies his
+feelings of being unable to rely on himself or others for safety. Mr. Johnson's daily routine has
+been profoundly affected by these triggers. At work, the faint scent of alcohol from a janitorial
+cleaner can send him into a state of high alert, causing him to scan exits and feel jumpy at any
+sudden movement nearby. The fear that he might not be able to protect himself or anyone else in such
+a situation is overwhelming. He has come to believe that the event happened because of his
+actions—perhaps if he had been more vigilant or assertive, it could have been prevented. This sense
+of self-blame and reliance on others for safety has become a constant presence in his life. When Mr.
+Johnson smells alcohol or senses a loss of control, he experiences heightened anxiety, which leads
+to further negative appraisals about his own capabilities and the unpredictability of others. He
+feels like he can't trust himself to handle similar situations in the future, and this uncertainty
+exacerbates his startle response and hypervigilance. Mr. Johnson’s memories are often accompanied by
+auditory recollections, where sounds from the assault replay in his head. These auditory memories
+further trigger his grief and numbness, reinforcing his belief that he can't rely on himself or
+others for protection. The more vivid these memories become, the more he scans exits and feels
+jumpy, creating a cycle of fear and helplessness. The assault has also strained his relationship
+with his wife, as he finds it difficult to relax around her when he is triggered by the scent of
+alcohol or sudden movements. His heightened startle response often leads to him reacting sharply
+even in safe settings, causing confusion and concern for those around him. What frightens Mr.
+Johnson most is the possibility that he might never fully recover from this trauma. He fears living
+with constant hypervigilance and self-doubt, which have already affected his ability to function at
+work and enjoy life at home. Despite these fears, what brings him to seek help now is a growing
+realization that he cannot continue living in a state of perpetual anxiety and grief. He hopes for a
+return to a sense of safety and control over his own life. The trauma has left Mr. Johnson feeling
+trapped in a cycle where triggers lead to intense threat responses, which in turn feed back into
+negative self-appraisals and further memory intrusions. This feedback loop is the central challenge
+he faces as he begins to explore treatment options. He hopes that through therapy, he can regain
+some control over his memories and fears, ultimately finding relief from the constant reminders of
+the assault and a return to a sense of safety in his daily life.

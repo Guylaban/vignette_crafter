@@ -1,0 +1,223 @@
+{
+  "persona_id": 228,
+  "source_persona_id": 228,
+  "experiment_timestamp": "2026-05-06 02:06:13",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "llama3.1-70b",
+      "persona_validator": "llama3.1-70b",
+      "vignette_crafter": "llama3.1-70b",
+      "vignette_validator": "llama3.1-70b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 75,
+    "gender": "Male",
+    "ethnicity": "South Eastern Asian",
+    "relationship_status": "Widowed",
+    "occupation": "Cybersecurity Analyst",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 74
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Medical Procedures",
+        "value": "Undergoing a medical examination or procedure"
+      },
+      {
+        "key": "Pregnancy/Birth Reminders",
+        "value": "Pregnancy, childbirth, or babies in general"
+      },
+      {
+        "key": "Olfactory (Hospital)",
+        "value": "Hospital or antiseptic smell"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Negative Emotions",
+        "value": "Having strong negative feelings such as fear, horror, anger, guilt, or shame"
+      },
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      },
+      {
+        "key": "Flashbacks",
+        "value": "Suddenly feeling or acting as if the stressful experience were actually happening again"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Feels Present Not Past",
+        "value": "The memory feels like it is happening right now rather than something that is over"
+      },
+      {
+        "key": "Cannot Explain Clearly",
+        "value": "When I try to explain what happened I lose the thread and cannot finish"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.9509,
+    "Triggers -- Memory": 0.8432,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.9744,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0619,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Memory"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Memory → Triggers",
+    "Threat → Memory"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.7076,
+  "edge_density": 0.2,
+  "vignette_word_count": 587,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Helicopter): Helicopter or aircraft sounds",
+          "explanation": "The trigger set is strongly combat/assault-themed (helicopters, being followed, people in uniform) and is hard to reconcile with the indexed trauma of a child's life-threatening illness. A clinician would question whether these triggers belong to a different trauma history."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Being Followed: Feeling followed or tracked",
+          "explanation": "The threat items similarly suggest interpersonal attack or pursuit/hypervigilance in dangerous public settings (checking locks, needing back to wall) rather than a coherent threat representation linked to a child's medical crisis. Given the very strong Triggers → Threat edge, these threat items should plausibly arise from the listed triggers, but both sets point to a different trauma context than the indexed illness trauma."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Helicopter)"
+        ],
+        "Threat": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Being Followed: Feeling followed or tracked",
+          "explanation": "The profile centers on a child's life-threatening illness, but 'being followed or tracked' suggests a stalking/pursuit trauma context that is hard to reconcile with the trauma type and the other selected medical-trauma items."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Door and Lock Checking: I repeatedly check that doors and windows are locked",
+          "explanation": "The threat items emphasize interpersonal attack/intrusion vigilance (door-lock checking, needing back to wall) rather than danger linked to medical crisis, loss, or recurrence of illness. In combination with the stalking-like trigger, this pulls the profile toward a persecution/assault formulation that is not clinically coherent with the stated trauma."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Being Followed"
+        ],
+        "Threat": [
+          "Door and Lock Checking"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Authority Figures: People in uniform",
+          "explanation": "For trauma centred on a child's life-threatening illness, 'people in uniform' is a poor fit as a trigger unless the trauma involved military or police contexts; it does not cohere well with the otherwise medical/illness-based profile."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Back to Wall: I feel unsafe unless my back is against a wall where I can see the room",
+          "explanation": "'Back to wall' implies a hypervigilant interpersonal/assault-style danger schema about monitoring the room, which is hard to reconcile with the illness/medical trauma profile and the other listed triggers and memory items that centre on medical procedures and intrusive reliving."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Authority Figures"
+        ],
+        "Threat": [
+          "Back to Wall"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Kumar had always been a stoic man, but the year his granddaughter spent in and out of hospitals with leukemia had shaken him to his core. The smell of antiseptic and hospital corridors still brought back the memories like a tidal wave crashing against the shore. Just last week, he was at the grocery store when he caught a whiff of that unmistakable scent wafting from a bottle of hand sanitizer. Suddenly, his heart was racing, and his mind was flooded with images of his granddaughter's frail body hooked up to beeping machines. As a cybersecurity analyst, Kumar had always prided himself on being able to remain calm under pressure, but these physical reactions left him feeling helpless. The strong negative emotions that accompanied them – fear, horror, anger, guilt – made him question whether he was still the same man who had once been so in control. When his granddaughter's mother announced she was pregnant again a few months ago, Kumar felt like he'd been punched in the gut. He couldn't bear the thought of going through it all over again. Pregnancy and childbirth reminders sent him spiraling into memories of those torturous hospital visits. Those memories played on repeat in his mind like a film stuck on an endless loop. The sounds, sights, and smells came rushing back with such intensity that Kumar often felt as if he was reliving the experience right then and there. When his granddaughter finally went into remission, Kumar thought the worst was behind him, but the memories persisted, refusing to be relegated to the past. Even now, when people asked about that time, Kumar struggled to put it into words – his thoughts jumbled, and he'd lose track of what he wanted to say. The medical procedures themselves had been traumatic enough, but it was the aftermath – watching his family struggle to cope, feeling like he couldn't protect them from harm – that continued to haunt him. The triggers piled up: hospitals, babies, even certain smells. They brought back not only memories but also those suffocating feelings of helplessness and terror. Kumar felt trapped in a never-ending cycle where every reminder sparked another flashback, which in turn heightened his sense of threat. As the years passed, Kumar began to withdraw from social events, avoiding anything that might trigger these memories or reactions. His colleagues at work noticed the change but couldn't quite put their finger on what was wrong. He became more reclusive, shutting himself away with only his computers for company. The isolation suited him fine; it was a small price to pay for not having to face those memories head-on. Lately, though, even that seemed insufficient. Kumar's avoidance strategies weren't keeping the demons at bay as effectively as they used to. His granddaughter's upcoming fifth birthday party loomed on the horizon – a celebration that should have filled him with joy but now filled him with dread. As he grappled with whether to attend or make up an excuse, Kumar realized it was time to confront the memories and emotions he'd been running from for so long. He made an appointment with a therapist, hoping that finally facing his fears might help him break free from this suffocating cycle of pain and regret. Kumar sat in his armchair, staring out at the cityscape below, wondering what the future held – whether it would bring peace or more suffering. One thing was certain: he couldn't keep living like this, trapped by memories that refused to stay buried."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Kumar had always been a stoic man, but the year his granddaughter spent in and out of hospitals with leukemia had shaken him to his core. The smell of antiseptic and hospital corridors still brought back the memories like a tidal wave crashing against the shore. Just last week, he was at the grocery store when he caught a whiff of that unmistakable scent wafting from a bottle of hand sanitizer. Suddenly, his heart was racing, and his mind was flooded with images of his granddaughter's frail body hooked up to beeping machines. As a cybersecurity analyst, Kumar had always prided himself on being able to remain calm under pressure, but these physical reactions left him feeling helpless. The strong negative emotions that accompanied them – fear, horror, anger, guilt – made him question whether he was still the same man who had once been so in control. When his granddaughter's mother announced she was pregnant again a few months ago, Kumar felt like he'd been punched in the gut. He couldn't bear the thought of going through it all over again. Pregnancy and childbirth reminders sent him spiraling into memories of those torturous hospital visits. Those memories played on repeat in his mind like a film stuck on an endless loop. The sounds, sights, and smells came rushing back with such intensity that Kumar often felt as if he was reliving the experience right then and there. When his granddaughter finally went into remission, Kumar thought the worst was behind him, but the memories persisted, refusing to be relegated to the past. Even now, when people asked about that time, Kumar struggled to put it into words – his thoughts jumbled, and he'd lose track of what he wanted to say. The medical procedures themselves had been traumatic enough, but it was the aftermath – watching his family struggle to cope, feeling like he couldn't protect them from harm – that continued to haunt him. The triggers piled up: hospitals, babies, even certain smells. They brought back not only memories but also those suffocating feelings of helplessness and terror. Kumar felt trapped in a never-ending cycle where every reminder sparked another flashback, which in turn heightened his sense of threat. As the years passed, Kumar began to withdraw from social events, avoiding anything that might trigger these memories or reactions. His colleagues at work noticed the change but couldn't quite put their finger on what was wrong. He became more reclusive, shutting himself away with only his computers for company. The isolation suited him fine; it was a small price to pay for not having to face those memories head-on. Lately, though, even that seemed insufficient. Kumar's avoidance strategies weren't keeping the demons at bay as effectively as they used to. His granddaughter's upcoming fifth birthday party loomed on the horizon – a celebration that should have filled him with joy but now filled him with dread. As he grappled with whether to attend or make up an excuse, Kumar realized it was time to confront the memories and emotions he'd been running from for so long. He made an appointment with a therapist, hoping that finally facing his fears might help him break free from this suffocating cycle of pain and regret. Kumar sat in his armchair, staring out at the cityscape below, wondering what the future held – whether it would bring peace or more suffering. One thing was certain: he couldn't keep living like this, trapped by memories that refused to stay buried.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

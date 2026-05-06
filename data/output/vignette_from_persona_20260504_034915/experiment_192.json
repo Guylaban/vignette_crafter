@@ -1,0 +1,242 @@
+{
+  "persona_id": 192,
+  "source_persona_id": 192,
+  "experiment_timestamp": "2026-05-04 04:30:23",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 57,
+    "gender": "Female",
+    "ethnicity": "Latin American",
+    "relationship_status": "Divorced",
+    "occupation": "Physical Therapist",
+    "trauma_type": "Natural disaster",
+    "pcl5": 39
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Somatic (Nausea)",
+        "value": "Feeling nauseous"
+      },
+      {
+        "key": "Name Reminders",
+        "value": "Hearing related names"
+      },
+      {
+        "key": "Visual (Water/Flooding)",
+        "value": "Water, flooding, or large bodies of water"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Dissociate Deliberately",
+        "value": "deliberately try to leave my body or blank out"
+      },
+      {
+        "key": "Past Dwelling",
+        "value": "I dwell on how I used to be before the event"
+      },
+      {
+        "key": "Avoid Going Out",
+        "value": "Going out"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Sleep Problems",
+        "value": "Trouble falling or staying asleep"
+      },
+      {
+        "key": "Safe Zone Only",
+        "value": "I only feel safe in a very limited number of places"
+      },
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Memory Feels Alien",
+        "value": "The memory feels like it belongs to someone else rather than to me"
+      },
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.8718,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.3701,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.2099,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.8365,
+    "Maladaptive Strategies -- Memory": 0.2939,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.2734,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Memory",
+    "Memory → Maladaptive Strategies",
+    "Memory → Triggers",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Memory",
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.4759333333333333,
+  "edge_density": 0.3,
+  "vignette_word_count": 472,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Uniforms): Military or police uniforms",
+          "explanation": "For a natural-disaster trauma, military/police uniforms are not a plausible primary trigger unless there is additional trauma context; this item points to an interpersonal/authority-related trauma theme not represented elsewhere."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Name Reminders: Hearing related names",
+          "explanation": "'Hearing related names' is hard to reconcile with natural disaster as the index trauma unless a specific deceased/injured person is central, which is not supported by the rest of the profile."
+        },
+        {
+          "component": "Memory",
+          "item": "Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "Listening for someone entering the home implies an interpersonal intruder/assailant threat rather than disaster-related danger, creating a cross-node mismatch with the trauma type and trigger/memory content."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Threat: Safe Zone Only: I only feel safe in a very limited number of places",
+          "explanation": "Feeling safe only in a very limited number of places can occur in PTSD, but here it clusters with home-intruder monitoring and touch avoidance into an interpersonal-danger profile that is poorly matched to natural disaster trauma."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Uniforms)"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Memory": [
+          "Threat"
+        ],
+        "Maladaptive Strategies": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "The threat item implies fear of an intruder or interpersonal attack in the home, which is hard to reconcile with a natural-disaster trauma profile. With flooding/water triggers present, the expected threat would be environmental danger rather than someone entering the home."
+        },
+        {
+          "component": "Memory",
+          "item": "Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Intense shame on recall is not impossible after a natural disaster, but here it lacks support from the rest of the profile: there are no negative-appraisal items about personal blame, humiliation, or moral failure that would make shame a coherent central memory response."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Being Touched: Any form of physical contact with others",
+          "explanation": "Avoiding all physical contact is more characteristic of interpersonal trauma and is not clinically well linked to the reported disaster-related triggers and memory items. It addresses a symptom domain not otherwise represented in the profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Intrusion Monitoring"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ],
+        "Maladaptive Strategies": [
+          "Avoid Being Touched"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Sofía, a 57-year-old Latin American woman and physical therapist, has been struggling with the aftermath of a devastating flood that swept through her community three years ago. The traumatic event left indelible marks on her psyche and daily life. Sofía vividly remembers the moment when the floodwaters began to rise rapidly in her home, inundating everything in their path and forcing her to evacuate in sheer terror. Since then, Sofía's world has become a minefield of triggers that remind her of that harrowing experience. The feeling of nausea often hits her without warning, bringing back the overwhelming sense of panic she felt during the flood. Hearing names related to the disaster or seeing large bodies of water immediately transports her back to that moment of fear and helplessness. These triggers have become deeply intertwined with her memories of the event; whenever they occur, Sofía is thrust into a state where the memory feels alien and detached from her current self. When the memory re-emerges, it often comes without any clear visual imagery, leaving her feeling only the overwhelming grief and emotion associated with the disaster. This disconnect between emotions and images makes the memories feel more surreal and disorienting, leading Sofía to dwell on how she used to be before the event and to deliberately dissociate as a way to cope. She finds herself trying to leave her body or blank out completely whenever these feelings become too intense. The distress caused by these memory intrusions has also made Sofía hyper-vigilant about external threats. She struggles with sleep problems, often lying awake at night, on high alert for unexpected or loud sounds that might trigger another wave of panic. Her safe zone is now limited to a very small number of places where she feels secure, and going out into the world has become increasingly difficult. As time passed, Sofía began to avoid leaving her home more frequently, leading to concrete changes in how she lives and works. She missed several appointments at work, which strained her relationships with colleagues and patients. The constant vigilance and avoidance behaviors have created a self-reinforcing cycle where the triggers lead to intrusive memories, which then prompt further maladaptive strategies such as dissociation. The more Sofía tries to blank out or avoid these memories, the more frequently they return in even stronger form. This vicious cycle has made her daily life increasingly restrictive and isolating. What frightens her most is the prospect of losing control completely and being unable to function at all. Despite these challenges, what finally brought Sofía to seek help was a realization that she could no longer bear the isolation and fear. She hopes that with support, she can find a way to reclaim some sense of normalcy in her life without feeling constantly trapped by the memories of that devastating flood."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Sofía, a 57-year-old Latin American woman and physical therapist, has been struggling with the aftermath of a devastating flood that swept through her community three years ago. The traumatic event left indelible marks on her psyche and daily life. Sofía vividly remembers the moment when the floodwaters began to rise rapidly in her home, inundating everything in their path and forcing her to evacuate in sheer terror. Since then, Sofía's world has become a minefield of triggers that remind her of that harrowing experience. The feeling of nausea often hits her without warning, bringing back the overwhelming sense of panic she felt during the flood. Hearing names related to the disaster or seeing large bodies of water immediately transports her back to that moment of fear and helplessness. These triggers have become deeply intertwined with her memories of the event; whenever they occur, Sofía is thrust into a state where the memory feels alien and detached from her current self. When the memory re-emerges, it often comes without any clear visual imagery, leaving her feeling only the overwhelming grief and emotion associated with the disaster. This disconnect between emotions and images makes the memories feel more surreal and disorienting, leading Sofía to dwell on how she used to be before the event and to deliberately dissociate as a way to cope. She finds herself trying to leave her body or blank out completely whenever these feelings become too intense. The distress caused by these memory intrusions has also made Sofía hyper-vigilant about external threats. She struggles with sleep problems, often lying awake at night, on high alert for unexpected or loud sounds that might trigger another wave of panic. Her safe zone is now limited to a very small number of places where she feels secure, and going out into the world has become increasingly difficult. As time passed, Sofía began to avoid leaving her home more frequently, leading to concrete changes in how she lives and works. She missed several appointments at work, which strained her relationships with colleagues and patients. The constant vigilance and avoidance behaviors have created a self-reinforcing cycle where the triggers lead to intrusive memories, which then prompt further maladaptive strategies such as dissociation. The more Sofía tries to blank out or avoid these memories, the more frequently they return in even stronger form. This vicious cycle has made her daily life increasingly restrictive and isolating. What frightens her most is the prospect of losing control completely and being unable to function at all. Despite these challenges, what finally brought Sofía to seek help was a realization that she could no longer bear the isolation and fear. She hopes that with support, she can find a way to reclaim some sense of normalcy in her life without feeling constantly trapped by the memories of that devastating flood.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

@@ -1,0 +1,205 @@
+PERSONA 353  |  2026-05-03 21:18:31
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             67
+  gender          Male
+  ethnicity       Latin American
+  relationship_status Single
+  occupation      Doctor
+  trauma_type     Child's life-threatening illness
+  pcl5            54
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Suppress Thoughts: try hard not think about the trauma
+    • Avoid Thinking: Thinking about the event
+    • Mental Distraction: keep mind occupied all the time
+  Threat:
+    • Hypervigilance: Being superalert or watchful or on guard
+    • Negative Emotions: Having strong negative feelings such as fear, horror, anger, guilt, or shame
+    • Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again
+  Memory:
+    • Incomplete Picture: I feel like I am only remembering parts of what happened and the rest is missing
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+    • No Coherent Story: I cannot tell a clear story of what happened even to myself
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.8747
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.1308
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.7486
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.1008
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: Several threat-focused and safety-behavior items imply hypervigilance for interpersonal or environmental danger (checking surroundings, avoiding night, choosing safe seats, scanning faces for threat), which is hard to reconcile with the indexed trauma of a child's life-threatening illness. These items fit assault/combat-type danger contexts more than a medical trauma unless there is additional unreported trauma.
+    item:        Threat / Avoid Night: Going out at night or being outside after dark
+    explanation: The threat and maladaptive-strategy items are internally coherent with each other, but they are poorly matched to the memory content provided. The memory items describe a fragmented, unreal, partially inaccessible trauma memory related to a medical crisis, not a recurrent expectation of attack from strangers or unsafe environments.
+    item:        Memory / Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+    explanation: Within the Memory node, 'Verbal Access: I can talk about what happened very easily' sits awkwardly with 'Story Feels Unreal' and 'Incomplete Picture'. Those latter items indicate disrupted, fragmented processing, whereas very easy verbal access suggests comparatively well-elaborated access. This combination is not impossible, but together with the other items it weakens coherence and is the clearest within-node inconsistency.
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Night: Going out at night or being outside after dark
+    explanation: Avoiding going out at night is difficult to reconcile with the indexed trauma of a child's life-threatening illness; it suggests an assault/public-danger context rather than a medical trauma context, especially when paired with avoidance of medical cues.
+    item:        Threat / Safe Seat Seeking: I always choose where to sit based on how safe or protected I feel
+    explanation: Safe-seat seeking implies fear of interpersonal attack or sudden external danger, which does not fit well with a trauma centered on a child's serious illness. It is also poorly linked to the other selected items, which otherwise point partly toward medical-trauma reminders.
+    item:        Memory / Threat in Faces: I study people's faces and body language to detect if they are a threat
+    explanation: Scanning faces and body language for threat similarly suggests danger from other people rather than threat related to illness, loss, or medical crisis, making the threat profile clinically incoherent with the stated trauma type.
+  [3] FAIL
+    item:        Memory / Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, 'I can talk about what happened very easily' conflicts with the other two memory items, which describe a fragmented, unreal, and only partially accessible trauma memory. Those states can sometimes coexist, but this specific combination is hard to justify as the same dominant memory profile.
+    item:        Memory / Story Feels Unreal: The memory is so extreme it is hard to believe it actually happened to me
+    explanation: The cognitive formulation emphasizes a strong reciprocal Memory ↔ Maladaptive Strategies pattern. The selected maladaptive strategies (thought suppression and avoidance of medical/news cues) fit a poorly integrated, distressing trauma memory, but 'I can talk about what happened very easily' pulls against that formulation and weakens coherence with the other memory items.
+    item:        Threat / Threat in Faces: I study people's faces and body language to detect if they are a threat
+    explanation: For trauma related to a child's life-threatening illness, hypervigilance and irritability are plausible, but 'studying people's faces and body language to detect if they are a threat' suggests interpersonal danger monitoring more typical of assault or violence trauma. It does not fit well with the medical-illness trauma context or with the rest of the profile, which is organized around medical reminders and fragmented memory rather than hostile people.
+  [4] FAIL
+    item:        Threat / Threat: Irritability
+    explanation: The Threat items are not well aligned with the trauma type and overall formulation. For a parent traumatized by a child's life-threatening illness, threat is more plausibly linked to medical deterioration, illness cues, or fear of recurrence. The selected threat items instead emphasize generalized external-danger/startle phenomena (hypervigilance to loud or unexpected sounds, irritability/aggressive arousal), which fit more naturally with assault/combat-type trauma and are hard to reconcile with the rest of the profile. This mismatch is amplified by the Memory↔Maladaptive Strategies pattern: memory disorganization and avoidance of medical/news cues are coherent together, but the threat content does not connect plausibly to those items or to the specified trauma in a clinically tight way.
+  [5] FAIL
+    item:        Threat / Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+    explanation: For trauma involving a child's life-threatening illness, high alert to unexpected or loud sounds is hard to connect clinically unless supported by other items indicating a sudden catastrophic medical event with salient alarm noises. The rest of the profile centers on fragmented memory and medical/news avoidance, so this sound-based threat cue appears mismatched to the trauma context.
+    item:        Maladaptive Strategies / Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+    explanation: Avoidance of hospitals/ambulances/physical examinations is plausible for a medical trauma, but within this formulation triggers are inactive and the profile provides no Trigger items linking external medical cues to the memory/threat pattern. The strategy therefore looks only partially integrated with the stated edge structure, especially alongside a profile otherwise dominated by memory disorganization rather than cue-driven reactivity.
+  [6] FAIL
+    item:        Maladaptive Strategies / Avoid News: News reports about events similar to what happened to me
+    explanation: Avoiding news reports about events similar to the trauma is a poor fit for the indexed trauma of a child's life-threatening illness. This item implies a broad media-based trigger pattern more typical of accidents, disasters, violence, or war-like events than a specific prolonged illness context, especially when no Triggers node items are present to contextualize it.
+    item:        Threat / Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    explanation: Strong physical reactivity to reminders implies identifiable trauma reminders/triggers, but the formulation specifies Triggers as inactive and the profile contains no trigger content to explain what evokes these reactions. Given the formulation, threat symptoms should not depend heavily on reminder-driven activation, so this item sits awkwardly with the node structure.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+At sixty-seven, and having navigated life alone since his divorce, Alejandro Vega found that the
+memory of his ten-year-old son’s collapse still sits in his chest like a stone. It happened on a
+Tuesday during a routine sports physical; one moment the boy was laughing about a scraped knee, and
+the next he was on the asphalt, gasping for air. Alejandro, a seasoned physician, felt his own
+medical training dissolve into panic as paramedics worked. The sterile pediatric intensive care unit
+the following days became a blur of beeping monitors, hushed conversations, and the cold weight of a
+high-mortality diagnosis. He had come to believe that if he had just noticed the subtle wheeze
+earlier that season, the cascade could have been prevented. That helplessness crystallized into a
+quiet terror that has never receded. In the months that followed, Alejandro found himself unable to
+piece together the clinical picture. He knew what happened but was utterly unable to find words to
+describe it, leaving him with no coherent story he could even tell himself. Because the memory
+remained fragmented, it felt unsafe to approach it directly. He learned to try hard not to think
+about the trauma, deliberately steering his attention toward textbooks and journal articles the
+moment his mind drifted back to the ICU. He kept his mind occupied all the time, burying himself in
+procedural reviews until the mental space for the event was entirely filled. Yet his body remained
+locked in the past. Alejandro began walking through the hospital wards superalert or watchful, his
+eyes constantly scanning for the slightest change in a patient’s breathing pattern. When a monitor
+alarm would trill, a sudden wave of fear, horror, and guilt would flood him, a heavy shame settling
+over his shoulders for having felt powerless against his child’s fragility. Whenever the intensity
+of these negative emotions grew too steep, he found himself avoiding thinking about the event by
+immediately switching tasks or calling a colleague to discuss a routine lab value, using
+professional chatter to push the emotional weight back down. Over the years, this constant mental
+distraction began to work against him. Every time he suppressed his thoughts, the underlying trauma
+fractured further; the more he tried not to think about the trauma, the more the memory slipped
+away, leaving him with an even more incomplete picture of his son’s ordeal. This fragmented recall
+fed directly into his sense of danger. When he could not construct a clear narrative to reassure
+himself that the crisis was over, his nervous system remained permanently engaged. The avoidance
+tactics that once offered temporary relief now amplified his hypervigilance, making every slight
+cough in the examining room trigger a fresh wave of alarm. He was certain that if he let his guard
+down, the same helplessness would return. The loop tightened with each passing year: he kept his
+mind occupied to escape the pain, but the lack of a coherent story only proved to him that the
+threat was still active, which drove him to suppress his thoughts even more fiercely. The
+occupational toll eventually became impossible to ignore. During morning rounds, Alejandro would
+find himself hesitating before ordering standard blood panels, his hand hovering over the keyboard
+as a sudden flashback made him feel as if he were acting as if the stressful experience were
+actually happening again. He would catch himself mentally distracting toward a trivial scheduling
+conflict just to regain his composure, but the patient’s chart would blur, and his colleagues
+noticed his distracted demeanor. He finally sought help last week after a junior resident found him
+sitting in his office with his hands pressed flat against the desk, trying to steady his breathing
+after a routine chest pain evaluation. What Alejandro is most hoping for is a way to quiet the
+constant watchfulness and to finally piece together a story that feels true, so he can stop bracing
+for a catastrophe that has already passed.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+At sixty-seven, and having navigated life alone since his divorce, Alejandro Vega found that the
+memory of his ten-year-old son’s collapse still sits in his chest like a stone. It happened on a
+Tuesday during a routine sports physical; one moment the boy was laughing about a scraped knee, and
+the next he was on the asphalt, gasping for air. Alejandro, a seasoned physician, felt his own
+medical training dissolve into panic as paramedics worked. The sterile pediatric intensive care unit
+the following days became a blur of beeping monitors, hushed conversations, and the cold weight of a
+high-mortality diagnosis. He had come to believe that if he had just noticed the subtle wheeze
+earlier that season, the cascade could have been prevented. That helplessness crystallized into a
+quiet terror that has never receded. In the months that followed, Alejandro found himself unable to
+piece together the clinical picture. He knew what happened but was utterly unable to find words to
+describe it, leaving him with no coherent story he could even tell himself. Because the memory
+remained fragmented, it felt unsafe to approach it directly. He learned to try hard not to think
+about the trauma, deliberately steering his attention toward textbooks and journal articles the
+moment his mind drifted back to the ICU. He kept his mind occupied all the time, burying himself in
+procedural reviews until the mental space for the event was entirely filled. Yet his body remained
+locked in the past. Alejandro began walking through the hospital wards superalert or watchful, his
+eyes constantly scanning for the slightest change in a patient’s breathing pattern. When a monitor
+alarm would trill, a sudden wave of fear, horror, and guilt would flood him, a heavy shame settling
+over his shoulders for having felt powerless against his child’s fragility. Whenever the intensity
+of these negative emotions grew too steep, he found himself avoiding thinking about the event by
+immediately switching tasks or calling a colleague to discuss a routine lab value, using
+professional chatter to push the emotional weight back down. Over the years, this constant mental
+distraction began to work against him. Every time he suppressed his thoughts, the underlying trauma
+fractured further; the more he tried not to think about the trauma, the more the memory slipped
+away, leaving him with an even more incomplete picture of his son’s ordeal. This fragmented recall
+fed directly into his sense of danger. When he could not construct a clear narrative to reassure
+himself that the crisis was over, his nervous system remained permanently engaged. The avoidance
+tactics that once offered temporary relief now amplified his hypervigilance, making every slight
+cough in the examining room trigger a fresh wave of alarm. He was certain that if he let his guard
+down, the same helplessness would return. The loop tightened with each passing year: he kept his
+mind occupied to escape the pain, but the lack of a coherent story only proved to him that the
+threat was still active, which drove him to suppress his thoughts even more fiercely. The
+occupational toll eventually became impossible to ignore. During morning rounds, Alejandro would
+find himself hesitating before ordering standard blood panels, his hand hovering over the keyboard
+as a sudden flashback made him feel as if he were acting as if the stressful experience were
+actually happening again. He would catch himself mentally distracting toward a trivial scheduling
+conflict just to regain his composure, but the patient’s chart would blur, and his colleagues
+noticed his distracted demeanor. He finally sought help last week after a junior resident found him
+sitting in his office with his hands pressed flat against the desk, trying to steady his breathing
+after a routine chest pain evaluation. What Alejandro is most hoping for is a way to quiet the
+constant watchfulness and to finally piece together a story that feels true, so he can stop bracing
+for a catastrophe that has already passed.

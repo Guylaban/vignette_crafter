@@ -1,0 +1,185 @@
+PERSONA 273  |  2026-05-03 19:27:23
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen3.6-35b
+    persona_crafter      qwen3.6-35b
+    vignette_crafter     qwen3.6-35b
+    vignette_validator   qwen3.6-35b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             37
+  gender          Male
+  ethnicity       Middle Eastern
+  relationship_status Married
+  occupation      Firefighter
+  trauma_type     Stalking
+  pcl5            62
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Spatial Triggers: Physical locations
+    • Transportation (Bicycle): Bicycle
+    • Being Followed: Feeling followed or tracked
+  Threat:
+    • Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+    • Watching Others: I watch other people closely for signs that they might harm me
+  Memory:
+    • Overwhelm on Recall: When the memory returns I feel so overwhelmed by emotion that I have to stop
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+  Negative Appraisals:
+    • Permanent Damage: I have permanently changed for the worse
+    • Fear Going Crazy: My reactions since the event mean that I am going crazy
+    • Weakness Belief: I am a weak person
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.6841
+  Triggers → Negative Appraisals                     0.2969
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.1710
+  Negative Appraisals → Memory                       0.0740
+  Negative Appraisals → Triggers                     0.4593
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.8272
+  Memory → Negative Appraisals                       0.4935
+  Memory → Triggers                                  0.3587
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.1463
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory
+    explanation: Within the Memory node, 'Hard to Recall Deliberately' conflicts with 'Verbal Access: I can talk about what happened very easily.' Deliberate retrieval difficulty and very easy verbal access are opposing states and are hard to reconcile as describing the same patient at the same time, especially alongside 'Overwhelm on Recall,' which implies traumatic recall is effortful and dysregulating rather than easy to discuss.
+  [2] FAIL
+    item:        Memory / Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, 'I can talk about what happened very easily' directly conflicts with 'When the memory returns I feel so overwhelmed by emotion that I have to stop.' At this severity level and with strong Trigger↔Memory and Memory→Threat links, these two memory items describe opposing levels of accessibility/distress and are hard to reconcile as the same current presentation.
+  [3] FAIL
+    item:        Triggers / Triggers: Authority Commands: Being given orders or instructions
+    explanation: The trigger set is hard to reconcile with stalking as the index trauma: 'authority commands' and especially 'bicycle' do not show an evident clinical link to the reported trauma, and the profile provides no memory or appraisal content that would make these idiosyncratic triggers understandable.
+    item:        Threat / Triggers: Transportation (Bicycle): Bicycle
+    explanation: Threat items emphasize broad interpersonal attack and generic danger vigilance (loud sounds, scanning exits, watching others for harm), which fits assault/combat/fire trauma better than stalking. For stalking, one would expect threat focused more on being followed, approached, monitored, contacted, or found by the perpetrator.
+    item:        Negative Appraisals / Threat: Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+    explanation: 'I am a weak person' sits awkwardly with this profile and occupation unless supported by appraisal content about failure to protect oneself or family; here the other appraisals center on permanent damage and fear of going crazy, so the weakness item feels less coherent with the stalking-specific formulation than those items.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+At thirty-seven, Samir had spent years trusting the rhythm of his life as a firefighter, a trust
+shattered during a routine bicycle commute that descended into a targeted stalking campaign. For
+weeks, he had noticed a man mirroring his route along the tree-lined avenue near his building, but
+one evening, the distance between them collapsed as a figure stepped from the shadows near his
+apartment complex. The pursuer’s deliberate pacing and the way he blocked the sidewalk forced Samir
+to abandon his bike and flee on foot, leaving behind a visceral impression of inescapable pursuit
+that never truly left him. In the weeks that followed, the memory of that night did not fade; it
+invaded. A discarded coffee cup on a sidewalk or the sudden scuff of tires against asphalt would
+instantly drag the full weight of the stalking episode back into his mind. He knew exactly what had
+happened, yet whenever he tried to explain it to his wife, the words dissolved into a choked
+silence. The emotional surge would hit him so violently that he had to stop whatever he was doing,
+gripping the kitchen counter until his breath evened out. Because these intrusions arrived without
+warning, the moment familiar locations and the mere suggestion of being tracked surfaced, they
+immediately pulled him back into the trauma, confirming his belief that he was permanently changed
+for the worse. As this conviction that he was fundamentally weak took root, it dialed his threat
+monitoring to maximum. The shame of feeling broken directly intensified the emotional force of his
+memories, making them return with greater frequency, while his belief that he was a weak man
+directly sharpened his sensitivity to spatial cues, making every familiar path feel like a stalking
+ground. Every unexpected loud sound—a backfiring engine, a dropped tool—made him jolt and scan the
+perimeter, convinced the next threat would be auditory and immediate. He watched others with
+forensic intensity, parsing every glance for a flicker of hostility, and always mapped the nearest
+exit the moment he crossed a threshold. The intrusive recollections flooded him with such
+disorientation that he began to interpret his own reactions as proof that he was going crazy. The
+memories themselves became the fuel for this hyperarousal; when the recollection of being followed
+finally receded, it did not leave him calm, but rather left him braced for the next attack. This
+constant recall made him hyper-sensitive to his surroundings; a discarded coffee cup or the scuff of
+tires instantly became a trigger for fear. The cycle cemented itself into a daily rhythm that
+siphoned his focus from his crew and created a quiet distance that his wife noticed when he flinched
+at the kettle’s whistle at home. The routine at the fire station, once his anchor, now felt like a
+labyrinth of potential threats. During roll call in the bay, he found himself scanning the heavy
+roll-up doors first, his eyes darting to the ventilation shafts and stairwells while his ears tuned
+into the heavy thud of boots on the concrete floor. This constant scanning and the weight of his
+self-doubt fed into one another, and the ongoing state of threat monitoring confirmed his fear that
+his reactions meant he was going crazy, which in turn made every spatial cue feel like a precursor
+to the stalking all over again. He had come to believe that the man who had stalked him was still
+out there, and that his own hypervigilance was a necessary, if exhausting, armor. He finally stepped
+into the clinic not because he wanted to return to who he was, but because the walls of his own mind
+were closing in. What he hoped for was a way to quiet the alarm system that never stopped ringing,
+and what he feared most was that no matter what he did, he would never be able to outrun the feeling
+of being tracked.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+At thirty-seven, Samir had spent years trusting the rhythm of his life as a firefighter, a trust
+shattered during a routine bicycle commute that descended into a targeted stalking campaign. For
+weeks, he had noticed a man mirroring his route along the tree-lined avenue near his building, but
+one evening, the distance between them collapsed as a figure stepped from the shadows near his
+apartment complex. The pursuer’s deliberate pacing and the way he blocked the sidewalk forced Samir
+to abandon his bike and flee on foot, leaving behind a visceral impression of inescapable pursuit
+that never truly left him. In the weeks that followed, the memory of that night did not fade; it
+invaded. A discarded coffee cup on a sidewalk or the sudden scuff of tires against asphalt would
+instantly drag the full weight of the stalking episode back into his mind. He knew exactly what had
+happened, yet whenever he tried to explain it to his wife, the words dissolved into a choked
+silence. The emotional surge would hit him so violently that he had to stop whatever he was doing,
+gripping the kitchen counter until his breath evened out. Because these intrusions arrived without
+warning, the moment familiar locations and the mere suggestion of being tracked surfaced, they
+immediately pulled him back into the trauma, confirming his belief that he was permanently changed
+for the worse. As this conviction that he was fundamentally weak took root, it dialed his threat
+monitoring to maximum. The shame of feeling broken directly intensified the emotional force of his
+memories, making them return with greater frequency, while his belief that he was a weak man
+directly sharpened his sensitivity to spatial cues, making every familiar path feel like a stalking
+ground. Every unexpected loud sound—a backfiring engine, a dropped tool—made him jolt and scan the
+perimeter, convinced the next threat would be auditory and immediate. He watched others with
+forensic intensity, parsing every glance for a flicker of hostility, and always mapped the nearest
+exit the moment he crossed a threshold. The intrusive recollections flooded him with such
+disorientation that he began to interpret his own reactions as proof that he was going crazy. The
+memories themselves became the fuel for this hyperarousal; when the recollection of being followed
+finally receded, it did not leave him calm, but rather left him braced for the next attack. This
+constant recall made him hyper-sensitive to his surroundings; a discarded coffee cup or the scuff of
+tires instantly became a trigger for fear. The cycle cemented itself into a daily rhythm that
+siphoned his focus from his crew and created a quiet distance that his wife noticed when he flinched
+at the kettle’s whistle at home. The routine at the fire station, once his anchor, now felt like a
+labyrinth of potential threats. During roll call in the bay, he found himself scanning the heavy
+roll-up doors first, his eyes darting to the ventilation shafts and stairwells while his ears tuned
+into the heavy thud of boots on the concrete floor. This constant scanning and the weight of his
+self-doubt fed into one another, and the ongoing state of threat monitoring confirmed his fear that
+his reactions meant he was going crazy, which in turn made every spatial cue feel like a precursor
+to the stalking all over again. He had come to believe that the man who had stalked him was still
+out there, and that his own hypervigilance was a necessary, if exhausting, armor. He finally stepped
+into the clinic not because he wanted to return to who he was, but because the walls of his own mind
+were closing in. What he hoped for was a way to quiet the alarm system that never stopped ringing,
+and what he feared most was that no matter what he did, he would never be able to outrun the feeling
+of being tracked.

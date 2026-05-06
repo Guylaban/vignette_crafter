@@ -1,0 +1,189 @@
+PERSONA 81  |  2026-05-04 01:18:08
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      gpt-oss-20b
+    persona_validator    gpt-oss-20b
+    vignette_crafter     gpt-oss-20b
+    vignette_validator   gpt-oss-20b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             21
+  gender          Male
+  ethnicity       European
+  relationship_status Single
+  occupation      Bus Driver
+  trauma_type     Military
+  pcl5            53
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Screen Escape: I spend long hours on my phone, games, or internet to avoid thinking
+    • Avoid Religious Spaces: Places of worship or religious gatherings
+    • Avoid Crowds: Crowded places such as shopping centres or public events
+  Memory:
+    • Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together
+    • Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    • Cannot Find Words: I know what happened but I am unable to find words to describe it
+  Negative Appraisals:
+    • Life Not Worth Living: I am not sure my life is worth living anymore
+    • World is Dangerous: The world is a dangerous place
+    • Hypervigilance: I have to be on guard all the time
+  Triggers:
+    • Olfactory Danger Cue: Burnt smell
+    • Auditory (Explosion): Explosion or bang sounds
+    • Auditory (Helicopter): Helicopter or aircraft sounds
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.9441
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.7724
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.1146
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.3209
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.3647
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, 'Verbal Access' directly conflicts with the combination of 'Fragmented Pieces' and repetitive intrusive replay. A patient who says the trauma memory is fragmented and involuntarily replayed would not usually also report being able to talk about it very easily; this is a hard within-node contradiction rather than normal heterogeneity.
+    item:        Maladaptive Strategies / Memory: Fragmented Pieces: My memories of the event come in disconnected pieces that do not fit together.
+    explanation: The maladaptive avoidance items are not clinically well anchored to the rest of the profile or to the military trauma context presented here. Avoiding enclosed spaces and religious spaces suggests specific situational trigger-linked avoidance, but the profile contains no Triggers items and the formulation explicitly leaves Triggers disconnected from the other active components. These avoidance choices therefore do not fit the stated formulation and are hard to connect to the memory/appraisal pattern that is otherwise driving symptoms.
+    item:        Negative Appraisals / Memory: Memory Replay: My memories of the frightening event are like a film that plays over and over.
+    explanation: Negative appraisals are generally severe and coherent with high PTSD burden, but because the active formulation centers Negative Appraisals driving Maladaptive Strategies and Memory, the selected maladaptive strategies should plausibly arise from those appraisals. 'Screen Escape' fits this, whereas avoidance of enclosed and religious spaces does not clearly follow from the selected appraisals ('Constant Vigilance,' 'Life Not Worth Living,' 'No Accountability').
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Enclosed Spaces: Enclosed or confined spaces
+    explanation: The maladaptive avoidance items are not clinically well matched to the rest of the profile or to a military trauma formulation here. Avoiding enclosed spaces and religious spaces suggests highly specific trigger-linked avoidance, but the profile contains no Trigger items and no Threat content tied to confinement, ambush, captivity, worship settings, or comparable trauma cues. This makes these two avoidance items feel disconnected from the reported memory and appraisal pattern.
+    item:        Negative Appraisals / Avoid Religious Spaces: Places of worship or religious gatherings
+    explanation: 'Constant Vigilance' implies an active current-sense-of-threat/hypervigilance presentation. In this formulation, Threat is not active and Negative Appraisals has no link to Threat; the rest of the selected items center more on fragmented/repetitive memory, injustice, hopelessness, and cognitive avoidance. That item therefore sits awkwardly with both the node structure and the absence of any corresponding threat-related content elsewhere in the profile.
+  [3] FAIL
+    item:        Negative Appraisals / Negative Appraisals: Constant Vigilance: I have to be especially careful because you never know what can happen next
+    explanation: The Negative Appraisals node mixes three quite different themes—ongoing current danger/hypervigilance, severe depressive hopelessness, and moral/injustice-focused appraisal. These can coexist, but with only three appraisal items and no corresponding Threat or Trigger content, the node lacks a clear coherent theme tied to the formulation.
+    item:        Triggers / Negative Appraisals: Life Not Worth Living: I am not sure my life is worth living anymore
+    explanation: A prominent appraisal of current danger ('Constant Vigilance') would usually connect clinically with Threat and/or Trigger content, but both nodes are absent here and all edges involving Threat/Triggers are inactive. This makes that item poorly aligned with the stated formulation structure.
+  [4] FAIL
+    item:        Triggers / Olfactory (Alcohol): Alcohol smell
+    explanation: For a military trauma profile, loud noises are coherent, but alcohol smell and burnt smell together are hard to reconcile clinically without any corresponding memory, threat, or appraisal content indicating fire, explosions, intoxication, barracks/social-drinking contexts, or another olfactory-linked trauma scene. The trigger set implies a specific sensory trauma context that is not represented elsewhere in the profile.
+  [5] FAIL
+    item:        Triggers / Triggers: Auditory (Babies): Babies
+    explanation: The trigger profile is mostly coherent with military trauma (loud noises, burnt smell), but 'Babies' is hard to reconcile with the rest of the profile and trauma type because no memory, threat, appraisal, or strategy item suggests infant-related content or a civilian/family trauma context. This makes that trigger clinically hard to explain within the same trauma narrative.
+    item:        Negative Appraisals / Negative Appraisals: No Accountability: The people responsible have faced no consequences
+    explanation: 'No Accountability' can occur after military trauma, but here the rest of the profile is dominated by sensory-perceptual trauma memory, generalized danger beliefs, and avoidance/distraction, with no other items indicating moral injury, betrayal, or injustice themes. Given the formulation strongly links Negative Appraisals to Memory and Maladaptive Strategies, this appraisal is insufficiently supported by the accompanying memory and strategy items and sits apart from the otherwise fear-based profile.
+  [6] FAIL
+    item:        Triggers / Triggers: Auditory (Loud Noises): Loud noises
+    explanation: The trigger items are strongly combat-specific and plausibly fit military trauma, but the formulation marks all Triggers pathways as inactive, including Triggers → Threat, Triggers → Memory, and Triggers → Negative Appraisals. With three intense sensory trauma reminders selected, one would expect at least some linked threat or memory activation. As written, the trigger node is too active and trauma-specific to sit coherently as an isolated component in this formulation.
+    item:        Negative Appraisals / Triggers: Olfactory Danger Cue: Burnt smell
+    explanation: The appraisal items 'World is Dangerous' and 'I have to be on guard all the time' imply a persistent sense of current threat, yet Threat is entirely disconnected in the formulation and no Threat items are present. These appraisals can occur in PTSD, but together they function as threat-laden beliefs that sit awkwardly with a model where Negative Appraisals link mainly to Memory and Maladaptive Strategies rather than to current threat processing.
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Michael, a 21‑year‑old European American, had returned from his last deployment in Iraq to take a
+job as a bus driver in a mid‑size city. On the night of his last patrol he was standing near a
+collapsed building when a mortar burst exploded, sending a spray of shattered glass and a acrid,
+burnt‑metal smell toward him. The impact threw a small group of troops, including Michael, into the
+air, and the sudden, thunder‑like boom of the weapon was followed by the unmistakable whir of a
+helicopter overhead. The image of the explosion and the sound of the helicopter were seared into his
+mind; he can’t stop replaying the fire‑filled scene like a looping film. The enormity of what he
+endured left Michael convinced that his life was no longer worth living and that the world was a
+dangerous place. Those harsh appraisals pulled him toward screen escape—he would sit for hours
+scrolling through news feeds, playing games, or binge‑watching series on his phone to distract
+himself from the pain. The same bleak belief also distorted his memory: when he tried to talk about
+the night, his thoughts fractured into disjointed, wordless pieces, and he struggled to find
+language to describe the terror he had felt. Thus, the negativity in his thoughts guided both his
+avoidance and the way his recollections fragmented. The fragmented memory further fueled Michael’s
+reliance on his phone. Each time he tried to recall the event, the film‑like replay seemed
+impossible to pin down, so he turned again to the bright screen for comfort. This avoidance, in
+turn, deepened his negative outlook—he began to feel that even if he could survive the day, nothing
+would make the world feel safe. The memory’s inability to provide closure pushed him toward more
+digital distraction, creating a self‑reinforcing loop between his broken recollection and his
+pessimistic appraisals. Michael’s digital refuge also affected the integrity of his memory. By
+spending long hours immersed in virtual worlds, he left little cognitive space for the brain to
+weave a coherent narrative of the trauma. The more he stared at pixels, the more his mind sketched
+only isolated, jagged fragments. As the disjointed memories spread, they made it even harder for him
+to find words, and his sense that life had lost meaning grew stronger. Thus, the maladaptive
+strategy of screen escape directly altered the texture of his memory, reinforcing the very
+disorganization it sought to escape. When the same stimuli—burnt smell, the crack of an explosion,
+or the blaring of a helicopter—filter through the city air on his routes, Michael’s heart rate
+spikes and his mind spirals back to that night. To avoid these triggers, he now steers clear of
+crowded stops, refuses invitations to church services, and has stopped attending a local veterans’
+group. The fear that these exposures might ignite a full‑blown panic has made him increasingly
+isolated, and the cumulative loss of social support has made him worry that he might lose his job
+and the very structure that keeps him grounded. These escalating concerns, paired with a feeling
+that the world remains unsafe, pushed Michael to seek help in a therapist’s office, hoping to break
+the loop that keeps him trapped in a cycle of dread, avoidance, and fragmented memory.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Michael, a 21‑year‑old European American, had returned from his last deployment in Iraq to take a
+job as a bus driver in a mid‑size city. On the night of his last patrol he was standing near a
+collapsed building when a mortar burst exploded, sending a spray of shattered glass and a acrid,
+burnt‑metal smell toward him. The impact threw a small group of troops, including Michael, into the
+air, and the sudden, thunder‑like boom of the weapon was followed by the unmistakable whir of a
+helicopter overhead. The image of the explosion and the sound of the helicopter were seared into his
+mind; he can’t stop replaying the fire‑filled scene like a looping film. The enormity of what he
+endured left Michael convinced that his life was no longer worth living and that the world was a
+dangerous place. Those harsh appraisals pulled him toward screen escape—he would sit for hours
+scrolling through news feeds, playing games, or binge‑watching series on his phone to distract
+himself from the pain. The same bleak belief also distorted his memory: when he tried to talk about
+the night, his thoughts fractured into disjointed, wordless pieces, and he struggled to find
+language to describe the terror he had felt. Thus, the negativity in his thoughts guided both his
+avoidance and the way his recollections fragmented. The fragmented memory further fueled Michael’s
+reliance on his phone. Each time he tried to recall the event, the film‑like replay seemed
+impossible to pin down, so he turned again to the bright screen for comfort. This avoidance, in
+turn, deepened his negative outlook—he began to feel that even if he could survive the day, nothing
+would make the world feel safe. The memory’s inability to provide closure pushed him toward more
+digital distraction, creating a self‑reinforcing loop between his broken recollection and his
+pessimistic appraisals. Michael’s digital refuge also affected the integrity of his memory. By
+spending long hours immersed in virtual worlds, he left little cognitive space for the brain to
+weave a coherent narrative of the trauma. The more he stared at pixels, the more his mind sketched
+only isolated, jagged fragments. As the disjointed memories spread, they made it even harder for him
+to find words, and his sense that life had lost meaning grew stronger. Thus, the maladaptive
+strategy of screen escape directly altered the texture of his memory, reinforcing the very
+disorganization it sought to escape. When the same stimuli—burnt smell, the crack of an explosion,
+or the blaring of a helicopter—filter through the city air on his routes, Michael’s heart rate
+spikes and his mind spirals back to that night. To avoid these triggers, he now steers clear of
+crowded stops, refuses invitations to church services, and has stopped attending a local veterans’
+group. The fear that these exposures might ignite a full‑blown panic has made him increasingly
+isolated, and the cumulative loss of social support has made him worry that he might lose his job
+and the very structure that keeps him grounded. These escalating concerns, paired with a feeling
+that the world remains unsafe, pushed Michael to seek help in a therapist’s office, hoping to break
+the loop that keeps him trapped in a cycle of dread, avoidance, and fragmented memory.

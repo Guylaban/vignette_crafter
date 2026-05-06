@@ -1,0 +1,227 @@
+{
+  "persona_id": 406,
+  "source_persona_id": 406,
+  "experiment_timestamp": "2026-05-05 11:50:44",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "gemini-2.5-pro",
+      "persona_validator": "gemini-2.5-pro",
+      "vignette_crafter": "gemini-2.5-pro",
+      "vignette_validator": "gemini-2.5-pro"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 46,
+    "gender": "Female",
+    "ethnicity": "Middle Eastern",
+    "relationship_status": "Single",
+    "occupation": "Pharmacist",
+    "trauma_type": "Child's life-threatening illness",
+    "pcl5": 42
+  },
+  "self_report": {
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      },
+      {
+        "key": "Suppress Thoughts",
+        "value": "try hard not think about the trauma"
+      },
+      {
+        "key": "Meaning Seeking",
+        "value": "I think about why the event has happened to me"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Cannot Relax",
+        "value": "I am unable to relax even when I know I am in a safe place"
+      },
+      {
+        "key": "Startle to Sounds",
+        "value": "I jump or startle at ordinary sounds that would not bother most people"
+      },
+      {
+        "key": "Sleep Problems",
+        "value": "Trouble falling or staying asleep"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Weakness Belief",
+        "value": "I am a weak person"
+      },
+      {
+        "key": "No Good Ahead",
+        "value": "Nothing good can happen to me anymore"
+      },
+      {
+        "key": "Defective Self",
+        "value": "There is something wrong with me as a person"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.2992,
+    "Negative Appraisals -- Threat": 0.5503,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.6715,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.2943,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.7703,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.8261
+  },
+  "active_nodes": [
+    "Maladaptive Strategies",
+    "Threat",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Negative Appraisals → Maladaptive Strategies",
+    "Negative Appraisals → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Negative Appraisals",
+    "Maladaptive Strategies → Negative Appraisals",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5686166666666667,
+  "edge_density": 0.3,
+  "vignette_word_count": 622,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Grief Reminders: Anything that reminds me of someone I have lost",
+          "explanation": "'Avoid Grief Reminders' implies bereavement/loss of a deceased person, which is hard to reconcile with the indexed trauma of a child's life-threatening illness unless the child died; that is not the stated trauma type. This item appears trauma-incongruent."
+        },
+        {
+          "component": "Threat",
+          "item": "Hypervigilance towards people: vigilant for dangerous people",
+          "explanation": "'Hypervigilance towards people: vigilant for dangerous people' suggests interpersonal danger/assault-related threat. The rest of the profile centers on generalized unsafety and negative self-appraisals rather than fear of dangerous people, making this item poorly matched to the trauma type and the other selected items."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Grief Reminders"
+        ],
+        "Threat": [
+          "Hypervigilance towards people"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Hypervigilance towards people: vigilant for dangerous people",
+          "explanation": "The profile is built around a child's life-threatening illness, but 'vigilant for dangerous people' implies an interpersonal/assault-type danger focus that is hard to reconcile with the rest of the profile, which otherwise reflects generalized vulnerability and medical trauma. This item appears trauma-incongruent for the stated trauma type."
+        },
+        {
+          "component": "Threat",
+          "item": "Maladaptive Strategies: Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations",
+          "explanation": "Avoiding hospitals/ambulances/physical examinations is plausible for medical trauma, but it sits awkwardly alongside 'vigilant for dangerous people,' which points to a different threat domain. Within Maladaptive Strategies, these two strategies suggest different trauma contexts that are difficult to explain as one coherent profile."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Hypervigilance towards people"
+        ],
+        "Threat": [
+          "Maladaptive Strategies"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Magical Thinking: I tell myself the event did not really happen or was not that bad",
+          "explanation": "For a trauma centered on a child's life-threatening illness, minimizing that the event 'did not really happen or was not that bad' is hard to reconcile with the rest of the profile, which shows marked ongoing threat and strongly negative self-appraisals. Thought suppression and avoidance of medical cues fit, but this item points toward denial/minimization in a way that clashes with the severity and emotional meaning of the other endorsed items."
+        },
+        {
+          "component": "Threat",
+          "item": "Waking Alert: I wake during the night to check whether I am safe",
+          "explanation": "'I wake during the night to check whether I am safe' suggests a danger-focused nighttime safety-checking pattern centered on the patient's own physical safety. In the context of trauma from a child's severe illness, threat is more plausibly organized around the child's safety/health or medical crises. This item is not impossible, but paired with the absence of child-focused threat content it is clinically mismatched to the trauma context."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Magical Thinking"
+        ],
+        "Threat": [
+          "Waking Alert"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 2816,
+    "output": 4083,
+    "total": 6899
+  },
+  "vignette": "For Layla, a 46-year-old pharmacist, the world had shrunk to the size of a hospital room two years ago, and it had never fully expanded since. The trauma wasn't an attack or an accident, but the silent, terrifying implosion of her world when her son, Amir, then ten, went into anaphylactic shock from an unrecognised bee sting. She remembered the frantic call to 911, the awful, wheezing sound of his breathing, and the ride in the ambulance where the piercing wail of the siren seemed to be coming from inside her own head. The three days he spent in the pediatric ICU were a blur of beeping monitors, hushed medical jargon, and a profound, bone-deep helplessness. Amir made a full recovery, but Layla never quite left that hospital ward.\n\nIn the months that followed, the ordinary sounds of her life became menacing. She found she was unable to relax, even in the quiet of her apartment after a long shift. A car backfiring on the street would cause her to jump violently, her heart hammering against her ribs. The beep of the microwave sounded like a heart monitor about to flatline. This constant, thrumming anxiety was proof, she had come to believe, that there was something deeply wrong with her. A strong mother would be grateful, relieved. Layla just felt broken, a weak person who had failed some fundamental test of resilience. This conviction that she was defective made the world feel even more dangerous, a place where another catastrophe was always imminent.\n\nThis powerful sense of her own weakness and the ever-present threat drove her to construct a life of careful avoidance. She cancelled her own physical examination, terrified of the sterile smell and the questions from the doctor. At her pharmacy, she would find excuses to let a colleague handle prescriptions for EpiPens or severe allergy medications. This avoidance, meant to protect her from her own fragility, only amplified her sense of being on edge. Every distant siren or hospital scene on television became a threat to be managed, a potential trigger that sent her fleeing the room or trying desperately to suppress the intrusive images of Amir struggling to breathe.\n\nThe strategies themselves became a source of shame. The immense effort she spent trying hard not to think about the trauma was exhausting, and its constant failure only served as more evidence of her weakness. In the long, sleepless nights, her mind would circle endlessly, not just on the memory, but on the question of why it had happened to her, a circular search for meaning that offered no comfort. This relentless mental churn confirmed her fear that nothing good could happen to her anymore; her life was now defined by this single, terrible event. The more she avoided and suppressed, the more defective she felt, and the more defective she felt, the more convinced she was that she couldn't possibly cope with the world, making the hypervigilance and sleeplessness even worse.\n\nThe cycle tightened its grip over two years. She became more withdrawn at work, her startle responses becoming a source of quiet embarrassment. The breaking point came last week when a reminder arrived for Amir’s annual check-up. The thought of walking him into a medical clinic, of seeing the nurses and hearing the familiar sounds, filled her with such overwhelming panic that she couldn't bring herself to make the appointment. The realization that her own private struggle was now directly interfering with her ability to care for the very person she had been so terrified of losing was devastating. She came to therapy not with hope, but with a quiet desperation, asking if it was possible to fix something she was certain was fundamentally broken within her."
+,
+
+  "vignette_attempts": [
+    {"vignette": "For Layla, a 46-year-old pharmacist, the world had shrunk to the size of a hospital room two years ago, and it had never fully expanded since. The trauma wasn't an attack or an accident, but the silent, terrifying implosion of her world when her son, Amir, then ten, went into anaphylactic shock from an unrecognised bee sting. She remembered the frantic call to 911, the awful, wheezing sound of his breathing, and the ride in the ambulance where the piercing wail of the siren seemed to be coming from inside her own head. The three days he spent in the pediatric ICU were a blur of beeping monitors, hushed medical jargon, and a profound, bone-deep helplessness. Amir made a full recovery, but Layla never quite left that hospital ward.\n\nIn the months that followed, the ordinary sounds of her life became menacing. She found she was unable to relax, even in the quiet of her apartment after a long shift. A car backfiring on the street would cause her to jump violently, her heart hammering against her ribs. The beep of the microwave sounded like a heart monitor about to flatline. This constant, thrumming anxiety was proof, she had come to believe, that there was something deeply wrong with her. A strong mother would be grateful, relieved. Layla just felt broken, a weak person who had failed some fundamental test of resilience. This conviction that she was defective made the world feel even more dangerous, a place where another catastrophe was always imminent.\n\nThis powerful sense of her own weakness and the ever-present threat drove her to construct a life of careful avoidance. She cancelled her own physical examination, terrified of the sterile smell and the questions from the doctor. At her pharmacy, she would find excuses to let a colleague handle prescriptions for EpiPens or severe allergy medications. This avoidance, meant to protect her from her own fragility, only amplified her sense of being on edge. Every distant siren or hospital scene on television became a threat to be managed, a potential trigger that sent her fleeing the room or trying desperately to suppress the intrusive images of Amir struggling to breathe.\n\nThe strategies themselves became a source of shame. The immense effort she spent trying hard not to think about the trauma was exhausting, and its constant failure only served as more evidence of her weakness. In the long, sleepless nights, her mind would circle endlessly, not just on the memory, but on the question of why it had happened to her, a circular search for meaning that offered no comfort. This relentless mental churn confirmed her fear that nothing good could happen to her anymore; her life was now defined by this single, terrible event. The more she avoided and suppressed, the more defective she felt, and the more defective she felt, the more convinced she was that she couldn't possibly cope with the world, making the hypervigilance and sleeplessness even worse.\n\nThe cycle tightened its grip over two years. She became more withdrawn at work, her startle responses becoming a source of quiet embarrassment. The breaking point came last week when a reminder arrived for Amir’s annual check-up. The thought of walking him into a medical clinic, of seeing the nurses and hearing the familiar sounds, filled her with such overwhelming panic that she couldn't bring herself to make the appointment. The realization that her own private struggle was now directly interfering with her ability to care for the very person she had been so terrified of losing was devastating. She came to therapy not with hope, but with a quiet desperation, asking if it was possible to fix something she was certain was fundamentally broken within her.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

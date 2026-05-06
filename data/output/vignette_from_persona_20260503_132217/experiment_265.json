@@ -1,0 +1,235 @@
+{
+  "persona_id": 265,
+  "source_persona_id": 265,
+  "experiment_timestamp": "2026-05-03 19:16:39",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_validator": "qwen3.6-35b",
+      "persona_crafter": "qwen3.6-35b",
+      "vignette_crafter": "qwen3.6-35b",
+      "vignette_validator": "qwen3.6-35b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 75,
+    "gender": "Male",
+    "ethnicity": "Latin American",
+    "relationship_status": "Married",
+    "occupation": "QA Engineer",
+    "trauma_type": "Natural disaster",
+    "pcl5": 46
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Olfactory (Smoke)",
+        "value": "Smoke or fire smell"
+      },
+      {
+        "key": "Visual (Fire/Flames)",
+        "value": "Fire or flames"
+      },
+      {
+        "key": "Weather Similarity",
+        "value": "Similar weather conditions to when the event happened"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Self-Blame Rumination",
+        "value": "I dwell on what I have done wrong"
+      },
+      {
+        "key": "Rumination: Prevention",
+        "value": "ruminate about how event could have been prevented"
+      },
+      {
+        "key": "Thought Suppression",
+        "value": "I try to push them out of my mind"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      },
+      {
+        "key": "Startle Response",
+        "value": "Feeling jumpy or easily startled"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.8937,
+    "Triggers -- Threat": 0.7586,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.3269,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.8047,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.9904,
+    "Maladaptive Strategies -- Threat": 0.1329
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Maladaptive Strategies",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.6512,
+  "edge_density": 0.3,
+  "vignette_word_count": 713,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Visual (Body Parts): Specific body parts associated with the event",
+          "explanation": "For a natural-disaster trauma, 'specific body parts associated with the event' is hard to reconcile clinically unless the disaster involved gruesome injury exposure, which is not supported elsewhere in the profile. The other trigger items (darkness, smoke) fit disaster-related danger cues; this one points toward a different trauma context and is not coherent with the rest of the selected items."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations",
+          "explanation": "'Threat from strangers approaching me' implies an interpersonal danger schema. In a natural-disaster case, this is difficult to reconcile with the rest of the profile, which centers on non-interpersonal threat cues (darkness, smoke, physical reactivity, flashback-type reliving). There are no appraisals or memory items supporting a generalized interpersonal threat pattern, so this item is a poor fit with the trauma type and overall formulation."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Visual (Body Parts)"
+        ],
+        "Threat": [
+          "Threat from Strangers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Darkness: Dark spaces",
+          "explanation": "For a natural-disaster trauma, smoke/fire/flames can be plausible only in certain disaster contexts, but pairing them with darkness as the third trigger makes the trigger set look more like a fire-related trauma profile than a coherent general natural-disaster profile. Darkness is not impossible, but alongside smoke and flames it weakens trauma-type coherence and the trigger pattern is hard to explain without a more specific fire disaster context."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Positive Reframing: I force myself to think only positive thoughts",
+          "explanation": "Within maladaptive strategies, self-blame rumination and prevention rumination fit a perseverative threat-focused coping style, but 'I force myself to think only positive thoughts' points toward deliberate suppression/overcontrol in a different direction. It is not impossible, but in this sparse profile it sits awkwardly with the otherwise repetitive self-blaming/what-if style and is less clearly aligned with the strong Triggers ↔ Maladaptive Strategies loop than another avoidance or safety strategy would be."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Darkness"
+        ],
+        "Maladaptive Strategies": [
+          "Positive Reframing"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Flashbacks: Suddenly feeling or acting as if the stressful experience were actually happening again",
+          "explanation": "The profile includes only Triggers, Threat, and Maladaptive Strategies, which is acceptable given the formulation, but within Threat the selected items mix reminder-triggered reactivity with a dissociative re-experiencing item ('flashbacks'). For this trauma type and the rest of the profile, flashbacks are possible but are not well supported by the accompanying Trigger and Strategy items, which emphasize smoke/fire/weather reminders and rumination/suppression rather than dissociative reliving."
+        },
+        {
+          "component": "Triggers",
+          "item": "Threat: Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience",
+          "explanation": "The trigger set is coherent for a natural disaster if the event involved wildfire or smoke, but the profile does not otherwise specify a fire-related disaster context. Smoke and fire/flames are narrower and more specific than 'natural disaster' alone, so without matching memory or appraisal content they make the trigger pattern feel overly specific relative to the rest of the report."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Threat: Hypervigilance: Being superalert or watchful or on guard",
+          "explanation": "The strongest formulation links are Triggers ↔ Threat and Triggers → Maladaptive Strategies, which are partly reflected by reminder-linked physical reactivity and suppression. However, the maladaptive strategies are dominated by self-blame/prevention rumination, while there are no Negative Appraisal items and no clear cross-node support for guilt/responsibility themes. This makes the rumination content weakly integrated with the rest of the selected items."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Flashbacks"
+        ],
+        "Triggers": [
+          "Threat"
+        ],
+        "Maladaptive Strategies": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Thirty years ago, a fast-moving wildfire swallowed Mateo’s Los Angeles neighborhood, turning the afternoon sky the color of bruised iron. The heat had been unrelenting for weeks, the canyon winds howling like an approaching freight train, carrying embers that rained down on shingled roofs. Mateo had stood on his driveway, gripping his wife’s hand, watching the orange tongue of the flames lick toward the garage where their family albums were stored. That moment of absolute helplessness cemented a visceral truth in his mind: fire could arrive without warning, and the dry, wind-scoured air was its harbinger. Now, at seventy-five, those same elements dictate his days. When autumn winds shift and the humidity drops, Mateo’s breath tightens before he even steps outside. The mere scent of campfire smoke drifting from a neighbor’s yard, or the distant orange glow of controlled burns on the hillsides, immediately pulls him back to that driveway. As soon as the wind picks up or a familiar wisp of acrid smoke catches his nose, his body betrays him with a sudden rush of heat, a tightening chest, and a heart hammering against his ribs. The sheer intensity of these physical reactions forces him to try to shove the images away, pressing his palms to his eyes and telling himself he is being foolish. The physiological alarm leaves no room for calm reflection; it simply funnels him straight into a loop of relentless self-reproach and mental rehearsal. He catches himself pacing the kitchen, convinced he could have evacuated an hour earlier, that he should have cleared the embers from the gutters, or that he had left the side gate unlatched. The threat response is what drives him to ruminate on prevention and to blame himself for the past. To quiet the racing in his chest, Mateo tries to suppress the memories, but the harder he pushes the thoughts down, the more violently they rebound. The attempted suppression only amplifies the tremor in his hands and the prickling alertness that has become his default state. His constant hypervigilance and startle response make him perpetually scan the environment for familiar danger, so the moment his nervous system flares, his attention locks onto the dry winds and distant orange glow, sharpening his sensitivity to them and keeping the sensory alarm wires live. The physiological arousal and mental suppression only feed each other, pulling his gaze repeatedly to the very weather patterns and visual cues he is trying to ignore. The relentless mental rehearsals keep his nervous system primed, so the slightest shift in the air or a familiar wisp of smoke immediately catches his attention, which in turn fuels the conviction that he has failed to protect what matters most, driving the physical alarms even higher. The cycle has seeped into his daily work. As a QA Engineer, Mateo spends his days meticulously testing software builds, a job that once suited his methodical nature but now feels like a minefield. When the office HVAC system kicks on with a sudden gust of warm air, or a colleague drops a heavy binder, his head snaps up, shoulders bracing against an invisible impact. The mental exhaustion from constant suppression and prevention rumination makes him slow his typing, which worries him, but stopping the mental churn feels impossible because it is the only way to feel temporarily safe from the physical jolts that follow. For years, Mateo managed by isolating his evenings and avoiding conversations about the old wildfires, but lately the exhaustion has become untenable. He recently missed a critical deployment deadline because he had to leave his desk early, overwhelmed by a sudden wave of dread when the city issued a high-fire-danger forecast. His wife has noticed how he jumps at the microwave timer and how he spends hours staring out at the hills, convinced another storm is coming. What frightens him most is not the fire itself, but the certainty that his own mind will never let him rest, trapping him in a vigilance he did not ask for. He has come to the clinic hoping for a way to break the spell, desperate to find a path where the autumn winds do not automatically command his heart to race, and where he can finally stop bracing for a disaster that passed long ago."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Thirty years ago, a fast-moving wildfire swallowed Mateo’s Los Angeles neighborhood, turning the afternoon sky the color of bruised iron. The heat had been unrelenting for weeks, the canyon winds howling like an approaching freight train, carrying embers that rained down on shingled roofs. Mateo had stood on his driveway, gripping his wife’s hand, watching the orange tongue of the flames lick toward the garage where their family albums were stored. That moment of absolute helplessness cemented a visceral truth in his mind: fire could arrive without warning, and the dry, wind-scoured air was its harbinger. Now, at seventy-five, those same elements dictate his days. When autumn winds shift and the humidity drops, Mateo’s breath tightens before he even steps outside. The mere scent of campfire smoke drifting from a neighbor’s yard, or the distant orange glow of controlled burns on the hillsides, immediately pulls him back to that driveway. As soon as the wind picks up or a familiar wisp of acrid smoke catches his nose, his body betrays him with a sudden rush of heat, a tightening chest, and a heart hammering against his ribs. The sheer intensity of these physical reactions forces him to try to shove the images away, pressing his palms to his eyes and telling himself he is being foolish. The physiological alarm leaves no room for calm reflection; it simply funnels him straight into a loop of relentless self-reproach and mental rehearsal. He catches himself pacing the kitchen, convinced he could have evacuated an hour earlier, that he should have cleared the embers from the gutters, or that he had left the side gate unlatched. The threat response is what drives him to ruminate on prevention and to blame himself for the past. To quiet the racing in his chest, Mateo tries to suppress the memories, but the harder he pushes the thoughts down, the more violently they rebound. The attempted suppression only amplifies the tremor in his hands and the prickling alertness that has become his default state. His constant hypervigilance and startle response make him perpetually scan the environment for familiar danger, so the moment his nervous system flares, his attention locks onto the dry winds and distant orange glow, sharpening his sensitivity to them and keeping the sensory alarm wires live. The physiological arousal and mental suppression only feed each other, pulling his gaze repeatedly to the very weather patterns and visual cues he is trying to ignore. The relentless mental rehearsals keep his nervous system primed, so the slightest shift in the air or a familiar wisp of smoke immediately catches his attention, which in turn fuels the conviction that he has failed to protect what matters most, driving the physical alarms even higher. The cycle has seeped into his daily work. As a QA Engineer, Mateo spends his days meticulously testing software builds, a job that once suited his methodical nature but now feels like a minefield. When the office HVAC system kicks on with a sudden gust of warm air, or a colleague drops a heavy binder, his head snaps up, shoulders bracing against an invisible impact. The mental exhaustion from constant suppression and prevention rumination makes him slow his typing, which worries him, but stopping the mental churn feels impossible because it is the only way to feel temporarily safe from the physical jolts that follow. For years, Mateo managed by isolating his evenings and avoiding conversations about the old wildfires, but lately the exhaustion has become untenable. He recently missed a critical deployment deadline because he had to leave his desk early, overwhelmed by a sudden wave of dread when the city issued a high-fire-danger forecast. His wife has noticed how he jumps at the microwave timer and how he spends hours staring out at the hills, convinced another storm is coming. What frightens him most is not the fire itself, but the certainty that his own mind will never let him rest, trapping him in a vigilance he did not ask for. He has come to the clinic hoping for a way to break the spell, desperate to find a path where the autumn winds do not automatically command his heart to race, and where he can finally stop bracing for a disaster that passed long ago.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

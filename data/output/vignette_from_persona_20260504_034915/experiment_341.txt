@@ -1,0 +1,177 @@
+PERSONA 341  |  2026-05-04 05:01:36
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      qwen2.5-32b
+    persona_validator    qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             51
+  gender          Male
+  ethnicity       North American
+  relationship_status Widowed
+  occupation      School Principal
+  trauma_type     Life-threatening illness
+  pcl5            56
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Alcohol): Alcohol smell
+    • Olfactory (Hospital): Hospital or antiseptic smell
+    • Medical Procedures: Undergoing a medical examination or procedure
+  Maladaptive Strategies:
+    • Rehearse Conversations: rehearse what to say before any interaction
+    • Isolate Completely: cut off all contact with friends and family
+    • Avoid Medical Cues: Hospitals/ Ambulances/ Physical Examinations
+  Memory:
+    • Hard to Recall Deliberately: When I try to deliberately remember what happened I find it difficult to access the memory
+    • Emotion Without Image: Sometimes I feel the full emotional intensity of the event without any clear image or memory
+    • Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+  Negative Appraisals:
+    • Unrecognisable Self: The person I have become is unrecognisable to me
+    • Can't Rely on Self: I can't rely on myself
+    • Body Unreliable: I can no longer trust my own body
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.8020
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.3811
+  Triggers → Negative Appraisals                     0.1807
+  Negative Appraisals → Maladaptive Strategies       0.5032
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.9760
+  Negative Appraisals → Triggers                     0.6863
+  Memory → Maladaptive Strategies                    0.3804
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.4463
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.8162
+  Maladaptive Strategies → Triggers                  0.6259
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: Military-themed conversations are hard to reconcile with a life-threatening illness trauma in a 51-year-old school principal; this trigger implies a combat-related context not represented anywhere else in the profile.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Similar People: Seeing other people that were involved in the event or that look similar
+    explanation: Avoiding people involved in the event or who look similar fits interpersonal/assault/accident traumas better than life-threatening illness, where there are typically no 'other people involved' in that sense. It is not well supported by the rest of the profile.
+  [2] FAIL
+    item:        Triggers / Triggers: Future Orientation: Talking about the future
+    explanation: For a life-threatening illness trauma, 'talking about the future' as a trigger is plausible, but 'alcohol smell' is hard to connect unless alcohol was part of treatment context; nothing else in the profile supports that association, making this trigger set clinically incoherent.
+    item:        Negative Appraisals / Triggers: Olfactory (Alcohol): Alcohol smell
+    explanation: 'People can't be trusted' is more typical of interpersonal trauma and is poorly anchored to a life-threatening illness trauma in the absence of any treatment-related betrayal, conflict, or mistrust themes elsewhere in the profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Affective Expression: Crying
+    explanation: 'Crying' is not a trauma cue but an affective response/behavior, so it is clinically incoherent as a trigger item relative to the other trigger items, which are concrete sensory reminders linked to life-threatening illness (alcohol smell, hospital/antiseptic smell).
+    item:        Negative Appraisals / Negative Appraisals: Mistrust: People can't be trusted
+    explanation: A global mistrust appraisal is a poor fit for the rest of the profile and trauma type. In life-threatening illness, the other items center on altered self and self-reliance, while 'People can't be trusted' implies an interpersonal betrayal/threat theme that is not supported by the memory, trigger, or strategy items and does not align well with the otherwise weak/inactive Threat links.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+John, a 51-year-old widowed school principal from North America, experienced a life-threatening
+illness several years ago. The memory of his hospitalization still haunts him in unexpected ways. A
+simple whiff of antiseptic or alcohol can trigger a flood of distressing emotions and thoughts that
+he struggles to manage. John had come to believe that the person he has become is unrecognizable to
+himself, and this sense of being different from who he once was has been compounded by the
+realization that his body is no longer reliable. The traumatic experience left him feeling that he
+can't rely on himself, which has significantly affected how he navigates daily life. One day last
+week, John walked past a hospital and suddenly felt overwhelmed by an intense emotional response
+without any clear image or memory of what happened during his illness. He found it hard to
+deliberately recall the specific details but was hit with the full force of his emotions. These
+bodily sensations, such as feeling physically back in that moment when he was critically ill, have
+made him increasingly anxious about being around medical environments. The emotional intensity and
+lack of clear images lead John to avoid any potential triggers. He began rehearsing conversations
+before interacting with anyone, cutting off contact with friends and family, and avoiding hospitals
+or any medical examinations. This avoidance behavior stems from his deep-seated fear that he might
+not be able to handle a similar situation again. John's isolation has worsened over time. The
+thought of encountering the antiseptic smell in a hospital or even a conversation about health can
+send him spiraling into anxiety. He avoids leaving his home and feels trapped by these fears,
+further reinforcing his negative beliefs that he cannot trust himself or his body to handle such
+situations. John's fear that his body is unreliable has led to frequent rehearsals of conversations
+with medical professionals in which he imagines worst-case scenarios. The difficulty in recalling
+the specific details of his illness, combined with the intense emotional responses, makes him more
+anxious and less likely to seek medical help when needed. This avoidance reinforces his negative
+self-appraisals, making him feel increasingly isolated. The memory difficulties and bodily
+reenactments have made John more prone to avoidant behaviors and negative appraisals. He finds
+himself constantly on edge, always anticipating a trigger that could bring back the overwhelming
+emotions he experienced during his illness. His isolation has also affected his work as a school
+principal, leading him to delegate tasks he once handled with confidence. John's increasing anxiety
+has reached a point where he can no longer ignore it. The fear of not being able to rely on himself
+or his body continues to grow, and the emotional intensity without clear memories haunts him daily.
+He finally decided to seek help when his isolation became too much to bear and his work began to
+suffer significantly. What frightens John most is the prospect of losing control again, both
+mentally and physically. However, he hopes that with professional support, he can regain a sense of
+reliability in himself and trust his body once more. He seeks therapy not only to manage his
+symptoms but also to find a way back to being the person he recognizes as himself.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+John, a 51-year-old widowed school principal from North America, experienced a life-threatening
+illness several years ago. The memory of his hospitalization still haunts him in unexpected ways. A
+simple whiff of antiseptic or alcohol can trigger a flood of distressing emotions and thoughts that
+he struggles to manage. John had come to believe that the person he has become is unrecognizable to
+himself, and this sense of being different from who he once was has been compounded by the
+realization that his body is no longer reliable. The traumatic experience left him feeling that he
+can't rely on himself, which has significantly affected how he navigates daily life. One day last
+week, John walked past a hospital and suddenly felt overwhelmed by an intense emotional response
+without any clear image or memory of what happened during his illness. He found it hard to
+deliberately recall the specific details but was hit with the full force of his emotions. These
+bodily sensations, such as feeling physically back in that moment when he was critically ill, have
+made him increasingly anxious about being around medical environments. The emotional intensity and
+lack of clear images lead John to avoid any potential triggers. He began rehearsing conversations
+before interacting with anyone, cutting off contact with friends and family, and avoiding hospitals
+or any medical examinations. This avoidance behavior stems from his deep-seated fear that he might
+not be able to handle a similar situation again. John's isolation has worsened over time. The
+thought of encountering the antiseptic smell in a hospital or even a conversation about health can
+send him spiraling into anxiety. He avoids leaving his home and feels trapped by these fears,
+further reinforcing his negative beliefs that he cannot trust himself or his body to handle such
+situations. John's fear that his body is unreliable has led to frequent rehearsals of conversations
+with medical professionals in which he imagines worst-case scenarios. The difficulty in recalling
+the specific details of his illness, combined with the intense emotional responses, makes him more
+anxious and less likely to seek medical help when needed. This avoidance reinforces his negative
+self-appraisals, making him feel increasingly isolated. The memory difficulties and bodily
+reenactments have made John more prone to avoidant behaviors and negative appraisals. He finds
+himself constantly on edge, always anticipating a trigger that could bring back the overwhelming
+emotions he experienced during his illness. His isolation has also affected his work as a school
+principal, leading him to delegate tasks he once handled with confidence. John's increasing anxiety
+has reached a point where he can no longer ignore it. The fear of not being able to rely on himself
+or his body continues to grow, and the emotional intensity without clear memories haunts him daily.
+He finally decided to seek help when his isolation became too much to bear and his work began to
+suffer significantly. What frightens John most is the prospect of losing control again, both
+mentally and physically. However, he hopes that with professional support, he can regain a sense of
+reliability in himself and trust his body once more. He seeks therapy not only to manage his
+symptoms but also to find a way back to being the person he recognizes as himself.

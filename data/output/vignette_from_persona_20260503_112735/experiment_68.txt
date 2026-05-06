@@ -1,0 +1,162 @@
+PERSONA 68  |  2026-05-03 11:41:48
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_validator    qwen2.5-32b
+    persona_crafter      qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             51
+  gender          Female
+  ethnicity       Middle Eastern
+  relationship_status Married
+  occupation      Hotel Manager
+  trauma_type     Toxic chemical exposure
+  pcl5            40
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Stress: Stress
+    • Workplace: Workplace
+    • Olfactory (Hospital): Hospital or antiseptic smell
+  Threat:
+    • Sleep Vigilance: I have difficulty falling asleep because I need to stay alert
+    • Physical Reactivity: Having strong physical reactions when something reminded you of the stressful experience
+    • Threat in Sounds: I am on high alert when I hear unexpected or loud sounds
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.6183
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0000
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.1426
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.0000
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Military Topics: Talks about military
+    explanation: For toxic chemical exposure, the trigger pattern is not clinically well matched: 'Military Topics' suggests combat/war-related trauma cues, and 'Loss Themes' suggests bereavement-related reminders, while no trigger references fumes, smells, contamination, breathing difficulty, workplaces, or chemical hazards. This makes the trigger set hard to reconcile with the stated trauma type.
+    item:        Threat / Threat: Checking Behind: I frequently look behind me to check if someone is following me
+    explanation: The threat items are internally coherent with a persecution/assault-style danger formulation ('someone is following me', needing to stay alert at night) rather than a toxic exposure formulation. They do not plausibly connect to the selected triggers, despite the strong Triggers → Threat edge that should link these nodes tightly.
+  [2] FAIL
+    item:        Triggers / Triggers: Loss Themes: Talk about people loosing loved ones
+    explanation: The trigger item about discussions of people losing loved ones is hard to reconcile with the indexed trauma of toxic chemical exposure. It implies bereavement-related trauma content that is not otherwise represented in the profile, making this trigger clinically implausible for the same patient unless the exposure involved deaths, which is not supported elsewhere.
+    item:        Threat / Threat: Concentration: Having difficulty concentrating
+    explanation: Within the Threat node, concentration difficulty is a broad nonspecific symptom, whereas sleep vigilance reflects an ongoing sense of current external danger. That combination can coexist, but in this profile the threat content is otherwise sparse and the selected triggers do not clearly support a coherent toxic-exposure-related danger schema, weakening internal coherence.
+  [3] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Sara, a 51-year-old Middle Eastern woman and hotel manager, has been living with the lingering
+effects of a traumatic exposure to toxic chemicals at her workplace. The incident occurred during an
+accident in which she was caught off-guard by a sudden release of fumes that left her gasping for
+air and dizzy within moments. Despite escaping without physical injury, Sara’s sense of safety was
+irrevocably shattered. Since the event, Sara has experienced significant distress when exposed to
+triggers such as stress at work or even the faint antiseptic smell reminiscent of hospitals. These
+triggers have consistently intensified her feelings of threat, making her hypervigilant and anxious
+in situations that once felt mundane. For example, the smell of cleaning products in the hotel’s
+hallways often brings back vivid memories of the toxic fumes, leading to an immediate surge of
+physical reactions like a racing heart and sweating palms. Sara has found it increasingly difficult
+to manage her work environment, where she feels constantly on edge due to these triggers. She had
+come to believe that any stress or unfamiliar odors could signal another exposure incident,
+reinforcing her sense of threat. This heightened vigilance makes it hard for her to concentrate
+during her shifts and has even caused conflicts with colleagues who find her behavior unpredictable.
+The trauma has also affected Sara’s sleep patterns. She often lies awake at night, unable to rest
+because she is convinced that any unexpected sound or sudden noise could be a sign of danger. This
+constant state of alertness exacerbates her anxiety, leading to more frequent episodes where even
+minor triggers set off intense physical reactions and renewed fear. Sara has grown to dread going
+into the workplace, where the ambient smells and daily stresses can quickly plunge her back into a
+state of panic. Her husband has noticed that she becomes agitated when they pass by a hospital or
+encounter antiseptic scents in their neighborhood, which often leaves her feeling shaken for hours
+afterward. Despite these challenges, Sara’s work environment remains a significant trigger. The
+stressors inherent to hotel management—such as managing staff and ensuring guest satisfaction—now
+feel overwhelming due to the persistent threat she perceives. She has developed avoidance behaviors
+like delegating tasks that typically require her presence in certain areas of the hotel, but this
+has started to affect her professional relationships and job performance. What frightens Sara most
+is the unpredictability of these triggers and how they can disrupt her daily life at any moment. The
+cycle of threat and subsequent vigilance has become a relentless loop, making it increasingly
+difficult for her to function without constant anxiety. It was only after a particularly stressful
+week where she felt overwhelmed by both work-related stress and her physical reactions that Sara
+realized the need to seek help. Sara is most hoping for a sense of control over her life again—a way
+to manage these overwhelming triggers and fears so she can return to a state of relative calm and
+stability. She understands that without intervention, this cycle will continue to erode her sense of
+safety and well-being in both her personal and professional life.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Sara, a 51-year-old Middle Eastern woman and hotel manager, has been living with the lingering
+effects of a traumatic exposure to toxic chemicals at her workplace. The incident occurred during an
+accident in which she was caught off-guard by a sudden release of fumes that left her gasping for
+air and dizzy within moments. Despite escaping without physical injury, Sara’s sense of safety was
+irrevocably shattered. Since the event, Sara has experienced significant distress when exposed to
+triggers such as stress at work or even the faint antiseptic smell reminiscent of hospitals. These
+triggers have consistently intensified her feelings of threat, making her hypervigilant and anxious
+in situations that once felt mundane. For example, the smell of cleaning products in the hotel’s
+hallways often brings back vivid memories of the toxic fumes, leading to an immediate surge of
+physical reactions like a racing heart and sweating palms. Sara has found it increasingly difficult
+to manage her work environment, where she feels constantly on edge due to these triggers. She had
+come to believe that any stress or unfamiliar odors could signal another exposure incident,
+reinforcing her sense of threat. This heightened vigilance makes it hard for her to concentrate
+during her shifts and has even caused conflicts with colleagues who find her behavior unpredictable.
+The trauma has also affected Sara’s sleep patterns. She often lies awake at night, unable to rest
+because she is convinced that any unexpected sound or sudden noise could be a sign of danger. This
+constant state of alertness exacerbates her anxiety, leading to more frequent episodes where even
+minor triggers set off intense physical reactions and renewed fear. Sara has grown to dread going
+into the workplace, where the ambient smells and daily stresses can quickly plunge her back into a
+state of panic. Her husband has noticed that she becomes agitated when they pass by a hospital or
+encounter antiseptic scents in their neighborhood, which often leaves her feeling shaken for hours
+afterward. Despite these challenges, Sara’s work environment remains a significant trigger. The
+stressors inherent to hotel management—such as managing staff and ensuring guest satisfaction—now
+feel overwhelming due to the persistent threat she perceives. She has developed avoidance behaviors
+like delegating tasks that typically require her presence in certain areas of the hotel, but this
+has started to affect her professional relationships and job performance. What frightens Sara most
+is the unpredictability of these triggers and how they can disrupt her daily life at any moment. The
+cycle of threat and subsequent vigilance has become a relentless loop, making it increasingly
+difficult for her to function without constant anxiety. It was only after a particularly stressful
+week where she felt overwhelmed by both work-related stress and her physical reactions that Sara
+realized the need to seek help. Sara is most hoping for a sense of control over her life again—a way
+to manage these overwhelming triggers and fears so she can return to a state of relative calm and
+stability. She understands that without intervention, this cycle will continue to erode her sense of
+safety and well-being in both her personal and professional life.

@@ -1,0 +1,194 @@
+{
+  "persona_id": 189,
+  "source_persona_id": 189,
+  "experiment_timestamp": "2026-05-04 04:29:48",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "qwen2.5-32b",
+      "persona_validator": "qwen2.5-32b",
+      "vignette_crafter": "qwen2.5-32b",
+      "vignette_validator": "qwen2.5-32b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 72,
+    "gender": "Female",
+    "ethnicity": "African",
+    "relationship_status": "Widowed",
+    "occupation": "Forester",
+    "trauma_type": "Civilian in war zone",
+    "pcl5": 64
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Nighttime/Dark",
+        "value": "Night-time or waking up in the dark"
+      },
+      {
+        "key": "Auditory (Explosion)",
+        "value": "Explosion or bang sounds"
+      },
+      {
+        "key": "Perceived Threat",
+        "value": "People acting suspiciously"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Sensory Distraction",
+        "value": "I put on loud music or TV"
+      },
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Hypervigilance towards people",
+        "value": "vigilant for dangerous people"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.0,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0701,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies"
+  ],
+  "required_edges": [
+    "Maladaptive Strategies → Triggers"
+  ],
+  "satisfied_edges": [
+    "Maladaptive Strategies → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.0701,
+  "edge_density": 0.05,
+  "vignette_word_count": 614,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Avoid Being Alone: Being alone in a room or building",
+          "explanation": "The item is not a maladaptive strategy but describes an avoided situation/trigger-like context. It is internally mismatched with the other strategy items, which are actual coping behaviors (covering face, using loud music/TV). It also weakens cross-node coherence because the profile contains no corresponding threat, appraisal, or memory content explaining why being alone is specifically targeted."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Avoid Being Alone"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Object Throwing: Throwing objects",
+          "explanation": "The trigger set is partly coherent for a civilian in a war zone (gunshot noise, darkness), but 'Throwing objects' is hard to reconcile as a salient trauma-related trigger without any supporting threat, memory, or appraisal content linking thrown objects to the war trauma."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Face Hiding: cover face with hands",
+          "explanation": "The maladaptive strategies are not internally coherent with the formulation or with each other as the only active node pair is a very weak Maladaptive Strategies → Triggers link, yet the selected strategies imply multiple different symptom targets (acute fear concealment, sensory suppression, hypervigilant threat monitoring) without corresponding threat, memory, or appraisal content."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Object Throwing"
+        ],
+        "Maladaptive Strategies": [
+          "Face Hiding"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory/Threat: Gunshot noise",
+          "explanation": "The trigger items are plausible for a civilian in a war zone, but the profile is not internally coherent with the cognitive formulation because all links from Triggers to other nodes are inactive and no Threat, Memory, or Negative Appraisal items are present to give these highly specific combat-like auditory triggers any connected meaning in the formulation."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Auditory (Explosion): Explosion or bang sounds",
+          "explanation": "Using loud music or TV as sensory distraction sits awkwardly with the dominant trigger pattern of gunshot and explosion sounds: this strategy relies on additional intense auditory input despite the only reported triggers being threatening noises. That is a hard-to-explain within-profile mismatch unless other non-auditory symptoms are present, which are not reported here."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory/Threat"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Evelyn, a 72-year-old African-American widow, had spent most of her life in the quiet serenity of the forest. Now retired from her occupation as a forester, she still maintained her love for nature and often wandered through the woods near her home. Her life took a sharp turn when she found herself caught in the midst of a civilian war zone several years ago. The experience left indelible scars that haunted her daily life. The traumatic event occurred during one of Evelyn's regular forest walks. Unbeknownst to her, the area had become a battleground between warring factions. Suddenly, an explosion shattered the peaceful ambiance of the woods. The blast was deafening and disorienting, leaving her stunned and dazed. The lingering echoes of gunfire and screams etched themselves into her memory. Since that harrowing day, Evelyn's nights have been plagued by vivid flashbacks and nightmares. Waking up in the dark often triggers intense anxiety, as she relives the chaos of that moment. She has come to associate nighttime with danger, a constant reminder of her vulnerability. The slightest auditory cues—such as fireworks or even loud thunder—are enough to send her into a state of heightened alarm. Evelyn's attempts to cope with these overwhelming feelings have led her to adopt several maladaptive strategies. Sensory distraction is one such tactic; she often plays loud music or keeps the television on at high volumes, hoping that the noise will drown out any intrusive thoughts or memories. However, this very behavior inadvertently creates a new layer of triggers. The constant auditory stimuli make it difficult for her to distinguish between benign sounds and potential threats. Her hypervigilance extends beyond just sensory distractions; she constantly scans her environment for signs of danger. Evelyn’s heightened alertness causes her to perceive any suspicious activity or person as a threat, which has significantly altered her interactions with others. Her neighbors often find it unsettling that she scrutinizes their actions and movements, leading to strained relationships. Evelyn's hypervigilance has also led her to avoid certain activities altogether. She no longer ventures into the forest alone, fearing that another unexpected event could occur. This avoidance has left her feeling isolated and disconnected from a place she once held dear. Even simple outings have become stressful; she constantly looks over her shoulder, convinced that someone or something might attack at any moment. The cumulative effect of these maladaptive strategies has created a self-perpetuating cycle of anxiety. Evelyn's constant vigilance makes it nearly impossible to relax or let down her guard, as any perceived threat triggers intense fear and distress. The loud music she relies on for comfort paradoxically amplifies her sensitivity to auditory stimuli, making her even more susceptible to being startled by sudden noises. What frightened her most was the realization that her life had become dominated by these fears and avoidance behaviors. Her days were filled with a constant state of readiness, leaving little room for enjoyment or peace. The war zone experience had not only shattered her sense of safety but also altered how she interacted with the world around her. Despite her efforts to manage her symptoms, Evelyn found that her life was becoming increasingly constricted. She realized that her coping mechanisms were no longer effective and that they were actually exacerbating her anxiety rather than alleviating it. The strain on her relationships and the loss of activities she once cherished finally pushed her to seek professional help. Evelyn hopes that through therapy, she can regain some semblance of normalcy and find a way to live with peace rather than constant fear. She is determined to break free from the cycle of hypervigilance and sensory distractions that have taken over her life."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Evelyn, a 72-year-old African-American widow, had spent most of her life in the quiet serenity of the forest. Now retired from her occupation as a forester, she still maintained her love for nature and often wandered through the woods near her home. Her life took a sharp turn when she found herself caught in the midst of a civilian war zone several years ago. The experience left indelible scars that haunted her daily life. The traumatic event occurred during one of Evelyn's regular forest walks. Unbeknownst to her, the area had become a battleground between warring factions. Suddenly, an explosion shattered the peaceful ambiance of the woods. The blast was deafening and disorienting, leaving her stunned and dazed. The lingering echoes of gunfire and screams etched themselves into her memory. Since that harrowing day, Evelyn's nights have been plagued by vivid flashbacks and nightmares. Waking up in the dark often triggers intense anxiety, as she relives the chaos of that moment. She has come to associate nighttime with danger, a constant reminder of her vulnerability. The slightest auditory cues—such as fireworks or even loud thunder—are enough to send her into a state of heightened alarm. Evelyn's attempts to cope with these overwhelming feelings have led her to adopt several maladaptive strategies. Sensory distraction is one such tactic; she often plays loud music or keeps the television on at high volumes, hoping that the noise will drown out any intrusive thoughts or memories. However, this very behavior inadvertently creates a new layer of triggers. The constant auditory stimuli make it difficult for her to distinguish between benign sounds and potential threats. Her hypervigilance extends beyond just sensory distractions; she constantly scans her environment for signs of danger. Evelyn’s heightened alertness causes her to perceive any suspicious activity or person as a threat, which has significantly altered her interactions with others. Her neighbors often find it unsettling that she scrutinizes their actions and movements, leading to strained relationships. Evelyn's hypervigilance has also led her to avoid certain activities altogether. She no longer ventures into the forest alone, fearing that another unexpected event could occur. This avoidance has left her feeling isolated and disconnected from a place she once held dear. Even simple outings have become stressful; she constantly looks over her shoulder, convinced that someone or something might attack at any moment. The cumulative effect of these maladaptive strategies has created a self-perpetuating cycle of anxiety. Evelyn's constant vigilance makes it nearly impossible to relax or let down her guard, as any perceived threat triggers intense fear and distress. The loud music she relies on for comfort paradoxically amplifies her sensitivity to auditory stimuli, making her even more susceptible to being startled by sudden noises. What frightened her most was the realization that her life had become dominated by these fears and avoidance behaviors. Her days were filled with a constant state of readiness, leaving little room for enjoyment or peace. The war zone experience had not only shattered her sense of safety but also altered how she interacted with the world around her. Despite her efforts to manage her symptoms, Evelyn found that her life was becoming increasingly constricted. She realized that her coping mechanisms were no longer effective and that they were actually exacerbating her anxiety rather than alleviating it. The strain on her relationships and the loss of activities she once cherished finally pushed her to seek professional help. Evelyn hopes that through therapy, she can regain some semblance of normalcy and find a way to live with peace rather than constant fear. She is determined to break free from the cycle of hypervigilance and sensory distractions that have taken over her life.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}
