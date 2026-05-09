@@ -302,11 +302,11 @@ elif step == 4:
     st.markdown("---")
 
     DSM = [
-        ("dsm_a", "Traumatic event exposure (at least 1 required)"),
-        ("dsm_b", "Intrusion symptoms — flashbacks, nightmares, or distress at reminders (at least 1 required)"),
-        ("dsm_c", "Avoidance of thoughts or external reminders (at least 1 required)"),
-        ("dsm_d", "Negative cognitions or mood — guilt, shame, detachment, numbing, or negative beliefs (at least 2 required)"),
-        ("dsm_e", "Hyperarousal or reactivity — hypervigilance, startle, sleep problems, or irritability (at least 2 required)"),
+        ("dsm_a", "Traumatic event exposure described"),
+        ("dsm_b", "Intrusion symptoms (flashbacks, nightmares, distress at cues)"),
+        ("dsm_c", "Avoidance (internal thoughts or external reminders)"),
+        ("dsm_d", "Negative cognitions/mood (guilt, shame, detachment, numbing, negative beliefs)"),
+        ("dsm_e", "Hyperarousal/reactivity (hypervigilance, startle, sleep, irritability)"),
         ("dsm_g", "Functional impairment mentioned"),
     ]
 
