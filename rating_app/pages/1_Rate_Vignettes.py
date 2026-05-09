@@ -2,6 +2,9 @@ import sys
 import random
 from pathlib import Path
 from datetime import datetime
+from zoneinfo import ZoneInfo
+
+TZ = ZoneInfo("Asia/Jerusalem")
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -332,7 +335,7 @@ elif step == 4:
                 dsm_binary = {k: (1 if v == "Yes" else 0) for k, v in dsm_results.items()}
                 dsm_valid  = int(all(dsm_binary.values()))
                 row = {
-                    "timestamp":       datetime.now().isoformat(),
+                    "timestamp":       datetime.now(TZ).isoformat(),
                     "rater_id":        st.session_state.rater_id,
                     "vignette_number": idx + 1,
                     "vignette_id":     vignette["vignette_id"],
