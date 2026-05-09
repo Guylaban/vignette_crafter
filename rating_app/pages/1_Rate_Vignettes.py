@@ -262,13 +262,13 @@ elif step == 3:
         st.markdown(f'<div class="vignette-box">{vignette["vignette"]}</div>', unsafe_allow_html=True)
     st.markdown("---")
 
-    g1 = rating_radio("Grounded in realistic clinical experience or literature",  "evans_g1", "Not at all", "Very much")
+    g1 = rating_radio("The vignette appears grounded in realistic clinical experience or literature",       "evans_g1", "Not at all", "Very much")
     st.markdown("")
-    g2 = rating_radio("Reads as a personal narrative, not a symptom checklist",   "evans_g2", "Not at all", "Very much")
+    g2 = rating_radio("The vignette reads as a personal narrative rather than a symptom checklist",        "evans_g2", "Not at all", "Very much")
     st.markdown("")
-    g3 = rating_radio("PTSD-relevant details are explicit and identifiable",       "evans_g3", "Not at all", "Very much")
+    g3 = rating_radio("PTSD-relevant details are explicit and identifiable",                               "evans_g3", "Not at all", "Very much")
     st.markdown("")
-    g4 = rating_radio("Only relevant information included — nothing confusing",    "evans_g4", "Not at all", "Very much")
+    g4 = rating_radio("Only relevant clinical information is included; nothing confusing or misleading",   "evans_g4", "Not at all", "Very much")
     st.markdown("---")
 
     col_back, _, col_next = st.columns([1, 3, 1])
