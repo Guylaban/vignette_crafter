@@ -1,0 +1,214 @@
+PERSONA 429  |  2026-05-08 18:23:47
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      gemini-2.5-pro
+    persona_validator    gemini-2.5-pro
+    vignette_crafter     gemini-2.5-pro
+    vignette_validator   gemini-2.5-pro
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             71
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Single
+  occupation      Painter
+  trauma_type     Terrorism
+  pcl5            48
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Reassurance Seeking: I keep asking others to reassure me that I am okay
+    • Emotion Control: I try hard to control my emotions
+    • Avoid Going Out: Going out
+  Memory:
+    • Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Uncontrolled Access: The memory forces its way into my mind when I do not want it to
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Can't Rely on Others: I can't rely on other people
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.3376
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0678
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.7752
+  Maladaptive Strategies → Negative Appraisals       0.7944
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Partial Clarity: Some moments of the event are extremely clear while others are completely blank
+    explanation: Within the Memory node, 'Partial Clarity' implies marked fragmentation with important gaps, while 'Vivid Memory' implies globally clear and detailed recall. These can sometimes coexist for specific segments, but stated together at face value they pull in opposite directions and are the clearest internal inconsistency in the profile.
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Enclosed Spaces: Enclosed or confined spaces
+    explanation: The profile lacks any Threat items, despite terrorism-related avoidance of crowds and enclosed/public spaces usually being linked to a current sense of danger in public places. With Triggers→Threat inactive and no Threat node content provided, the avoidance pattern is left clinically unanchored.
+    item:        Memory / Avoid Crowds: Crowded places such as shopping centres or public events
+    explanation: Memory items describe vivid, cue-driven, sensory re-experiencing, especially being triggered by surroundings without warning. However, all Triggers edges are inactive and no Trigger items are present, making the specific 'surroundings instantly bring back the full memory' item poorly aligned with the formulation structure.
+    item:        Negative Appraisals / Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+    explanation: Negative appraisals focus on generalized mistrust of self, body, and others, while the maladaptive strategies are highly situational (crowds/enclosed spaces). Without corresponding threat or trigger content, these nodes do not form a clearly coherent terrorism-specific presentation.
+  [3] FAIL
+    item:        Memory / Memory: Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    explanation: The Memory item describes strong cue-driven reactivation by surroundings, but the formulation explicitly has Triggers inactive with Memory. This creates a direct contradiction between the item's content and the formulation structure.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Crowds: Crowded places such as shopping centres or public events
+    explanation: Avoiding crowds is plausible after terrorism, but it implies salient environmental trigger sensitivity and public-place threat anticipation. In this profile, Triggers and Threat are not represented and are inactive in the formulation, so this strategy lacks a coherent linked context.
+  [4] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: Checking surroundings for signs of threat implies an active trigger/threat monitoring pattern, but the formulation explicitly has Triggers and Threat disconnected from the rest of the system, making this item poorly aligned with the cognitive formulation.
+    item:        Memory / Reassurance Seeking: I keep asking others to reassure me that I am okay
+    explanation: Frequent reassurance seeking from others sits awkwardly with the simultaneous appraisal 'I can't rely on other people.' While some ambivalence is possible, taking both as central items without any moderating context creates a notable cross-node tension.
+    item:        Negative Appraisals / Body Unreliable: I can no longer trust my own body
+    explanation: 'I can no longer trust my own body' is more typical of trauma involving physical injury, illness, or prominent somatic threat. With terrorism trauma, it is not impossible, but alongside the other selected items there is little memory content or appraisal content explaining bodily unreliability, so this item feels weakly grounded in the rest of the profile.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:      2,962
+  output:     4,384
+  total:      7,346
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Kaelen had always found the world a place of vibrant, chaotic beauty, something to be captured on
+canvas. At 71, he still spent his days painting, his hands steady, his eye for color as keen as
+ever. That all changed nine months ago. He was at an outdoor art fair, his own stall filled with
+landscapes of the Pacific islands of his youth, when the first explosion tore through the cheerful
+chatter of the crowd. He was knocked from his stool by the panicked surge of people, the smell of
+cordite and fear instantly overwhelming the scent of oil paints and popcorn. He remembers the rough
+scrape of the cobblestones against his cheek and the sight of an overturned fruit cart, its contents
+staining the ground a terrible red. He lay there, curled into himself, for what felt like an
+eternity, listening to the screams and the sirens that followed.
+
+In the months since, the memory of that day has refused to fade. It is not a hazy recollection but a
+series of vivid, high-definition snapshots that force their way into his mind without warning. The
+memory is not just mental; it is physical. When an image of the chaos surfaces, Kaelen feels his
+body involuntarily reenact the trauma, his shoulders hunching as if to protect his head, his muscles
+tensing into the same tight crouch he held on the ground. These sensory-rich intrusions have
+profoundly reshaped his understanding of the world. The memory of utter helplessness and the sight
+of people running for their own lives has convinced him that he cannot rely on other people in a
+crisis. More fundamentally, the raw violence of the memory has taught him that the world is a deeply
+dangerous place, and that his own aging body is no defense against it; he feels he can no longer
+rely on himself.
+
+This new set of beliefs—that the world is hostile and he is defenseless—has dictated his every
+action. The conviction that he is unsafe has led him to retreat from the very life that once
+sustained him. He no longer goes out. The bustling streets he once loved to sketch now seem filled
+with hidden threats. His downtown studio, once a sanctuary, sits unused. He has his groceries and
+art supplies delivered, the brief interaction with the delivery person his only contact with the
+outside world for days at a time. Internally, he works tirelessly to maintain a state of detached
+calm, believing that any strong emotion is a sign of weakness, a crack in his fragile defenses. This
+constant effort to control his emotions is exhausting. He also calls his niece, Leilani, three or
+four times a day, asking the same questions: Had she heard any news? Was everything alright? He is
+seeking a reassurance that he is okay, a confirmation of safety that evaporates almost as soon as
+the call ends.
+
+These strategies, meant to keep him safe, have only served to imprison him further. By staying
+inside, he never has the chance to see that the world can be ordinary, even boring. His self-imposed
+isolation gives the intrusive memories more space to bloom. The immense effort he pours into
+suppressing his feelings often backfires, making the memories burst through with even greater force,
+as if a dam has broken. This failure to control his mind only reinforces his belief that he can't
+rely on himself, that he is fundamentally broken by what happened. Each time he calls Leilani for
+reassurance, the fleeting relief is followed by a wave of shame at his own dependency, further
+cementing the painful appraisal of his own inadequacy. His world has shrunk to the size of his
+apartment, a feedback loop where the memories prove the world is dangerous, his avoidance confirms
+this belief, and the resulting isolation makes the memories more potent.
+
+It was Leilani who finally insisted he seek help. During their last call, her voice was strained
+with a mixture of love and exhaustion. "Uncle," she had said gently, "you can't live like this. Your
+paintings are gathering dust. You are gathering dust." Kaelen knows she is right. The canvases in
+his apartment stand blank, and his once-vibrant palette of colors has been replaced by the gray
+walls of his self-made prison. He has come to therapy not with a grand hope of reclaiming his old
+life, but with a small, specific prayer: to one day feel safe enough to walk to the art supply
+store, to feel the sun on his face, and to choose a new tube of cadmium yellow without his body
+preparing for a disaster that has already passed.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Kaelen had always found the world a place of vibrant, chaotic beauty, something to be captured on
+canvas. At 71, he still spent his days painting, his hands steady, his eye for color as keen as
+ever. That all changed nine months ago. He was at an outdoor art fair, his own stall filled with
+landscapes of the Pacific islands of his youth, when the first explosion tore through the cheerful
+chatter of the crowd. He was knocked from his stool by the panicked surge of people, the smell of
+cordite and fear instantly overwhelming the scent of oil paints and popcorn. He remembers the rough
+scrape of the cobblestones against his cheek and the sight of an overturned fruit cart, its contents
+staining the ground a terrible red. He lay there, curled into himself, for what felt like an
+eternity, listening to the screams and the sirens that followed.
+
+In the months since, the memory of that day has refused to fade. It is not a hazy recollection but a
+series of vivid, high-definition snapshots that force their way into his mind without warning. The
+memory is not just mental; it is physical. When an image of the chaos surfaces, Kaelen feels his
+body involuntarily reenact the trauma, his shoulders hunching as if to protect his head, his muscles
+tensing into the same tight crouch he held on the ground. These sensory-rich intrusions have
+profoundly reshaped his understanding of the world. The memory of utter helplessness and the sight
+of people running for their own lives has convinced him that he cannot rely on other people in a
+crisis. More fundamentally, the raw violence of the memory has taught him that the world is a deeply
+dangerous place, and that his own aging body is no defense against it; he feels he can no longer
+rely on himself.
+
+This new set of beliefs—that the world is hostile and he is defenseless—has dictated his every
+action. The conviction that he is unsafe has led him to retreat from the very life that once
+sustained him. He no longer goes out. The bustling streets he once loved to sketch now seem filled
+with hidden threats. His downtown studio, once a sanctuary, sits unused. He has his groceries and
+art supplies delivered, the brief interaction with the delivery person his only contact with the
+outside world for days at a time. Internally, he works tirelessly to maintain a state of detached
+calm, believing that any strong emotion is a sign of weakness, a crack in his fragile defenses. This
+constant effort to control his emotions is exhausting. He also calls his niece, Leilani, three or
+four times a day, asking the same questions: Had she heard any news? Was everything alright? He is
+seeking a reassurance that he is okay, a confirmation of safety that evaporates almost as soon as
+the call ends.
+
+These strategies, meant to keep him safe, have only served to imprison him further. By staying
+inside, he never has the chance to see that the world can be ordinary, even boring. His self-imposed
+isolation gives the intrusive memories more space to bloom. The immense effort he pours into
+suppressing his feelings often backfires, making the memories burst through with even greater force,
+as if a dam has broken. This failure to control his mind only reinforces his belief that he can't
+rely on himself, that he is fundamentally broken by what happened. Each time he calls Leilani for
+reassurance, the fleeting relief is followed by a wave of shame at his own dependency, further
+cementing the painful appraisal of his own inadequacy. His world has shrunk to the size of his
+apartment, a feedback loop where the memories prove the world is dangerous, his avoidance confirms
+this belief, and the resulting isolation makes the memories more potent.
+
+It was Leilani who finally insisted he seek help. During their last call, her voice was strained
+with a mixture of love and exhaustion. "Uncle," she had said gently, "you can't live like this. Your
+paintings are gathering dust. You are gathering dust." Kaelen knows she is right. The canvases in
+his apartment stand blank, and his once-vibrant palette of colors has been replaced by the gray
+walls of his self-made prison. He has come to therapy not with a grand hope of reclaiming his old
+life, but with a small, specific prayer: to one day feel safe enough to walk to the art supply
+store, to feel the sun on his face, and to choose a new tube of cadmium yellow without his body
+preparing for a disaster that has already passed.

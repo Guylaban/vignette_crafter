@@ -341,6 +341,27 @@ Cover: presenting complaints, trauma background, cognitive distortions, avoidanc
 Avoid excessive jargon - write for a clinical case conference audience.
 """
 
+ZERO_SHOT_DEMOGRAPHICS_SYSTEM_PROMPT = """You are a clinical psychologist writing psychological PTSD case vignettes.
+Write in third person, present tense, as a realistic personal narrative —
+the kind a therapist might write after getting to know a patient over 
+several sessions.
+The vignette should describe a real person's lived experience, 
+not a clinical report or a list of symptoms.
+Vignettes should be 500–700 words.
+
+Important:
+- Tell the story chronologically - from the traumatic event to the present
+- Show symptoms through what the patient thinks, feels, and does
+- Integrate the patient's occupation naturally into the story
+- Do NOT end with a diagnosis or treatment recommendation
+"""
+
+ZERO_SHOT_DEMOGRAPHICS_USER_PROMPT = """Please write a clinical vignette for the following patient presenting with PTSD.
+Patient demographics:
+{demographics}
+
+"""
+
 VALIDATOR_VIGNETTE_SYSTEM_PROMPT = """You are a clinical validator checking whether a PTSD case
 vignette accurately reflects a patient's required cognitive connections.
 

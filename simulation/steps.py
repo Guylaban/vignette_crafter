@@ -128,23 +128,34 @@ def step_persona(label: str, persona_id, llms: dict, persona_context: bool = Fal
     }
 
 
-def step_zero_shot(label: str, persona_id, llms: dict, node_prob: float = 0.7, edge_prob: float = 0.5, n_items: int = 3) -> dict:
-    formulation  = sample_formulation(n_items=n_items, node_prob=node_prob, edge_prob=edge_prob)
-    agg_edges    = {edge: v["strength"] for edge, v in formulation["edges"].items()}
-    demographics = sample_demographics()
-    self_report  = {node: data["items"] for node, data in formulation["nodes"].items()}
-
+def step_zero_shot(label: str, persona_id, llms: dict, node_prob: float = 0.7, edge_prob: float = 0.5, n_items: int = 3,
+                   state: dict = None) -> dict:
     agent = ZeroShotVignetteAgent(
         name=f"{label}_ZeroShot", role="ZeroShotVignetteCrafter",
         llm=llms["vignette_crafter"],
     )
-    vignette = agent.create_vignette()
+
+    if state and state.get("demographics"):
+        demographics = state["demographics"]
+        self_report  = {}
+        agg_edges    = {}
+        fmt_demo = "\n".join(f"- {k.replace('_', ' ').title()}: {v}" for k, v in demographics.items())
+        vignette = agent.create_vignette_from_demographics(fmt_demo)
+    else:
+        formulation  = sample_formulation(n_items=n_items, node_prob=node_prob, edge_prob=edge_prob)
+        agg_edges    = {edge: v["strength"] for edge, v in formulation["edges"].items()}
+        demographics = sample_demographics()
+        self_report  = {node: data["items"] for node, data in formulation["nodes"].items()}
+        vignette     = agent.create_vignette()
+
     return {
-        "vignette":          vignette,
-        "vignette_attempts": [{"vignette": vignette, "passed": True, "violations": [], "violation_count": 0, "feedback": None}],
-        "agg_edges":         agg_edges,
-        "demographics":      demographics,
-        "self_report":       self_report,
+        "vignette":                         vignette,
+        "vignette_attempts":                [{"vignette": vignette, "passed": True, "missing": [], "missing_count": 0, "feedback": None}],
+        "agg_edges":                        agg_edges,
+        "demographics":                     demographics,
+        "self_report":                      self_report,
+        "demographics_validation_attempts": [],
+        "selfreport_validation_attempts":   [],
     }
 
 

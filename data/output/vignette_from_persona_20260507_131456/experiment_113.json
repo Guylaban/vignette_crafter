@@ -1,0 +1,207 @@
+{
+  "persona_id": 113,
+  "source_persona_id": 113,
+  "experiment_timestamp": "2026-05-07 15:02:02",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "no_formulation",
+    "models": {
+      "persona_crafter": "qwen3.6-35b-ablit",
+      "persona_validator": "qwen3.6-35b-ablit",
+      "vignette_crafter": "qwen3.6-35b-ablit",
+      "vignette_validator": "qwen3.6-35b-ablit"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": false,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 46,
+    "gender": "Male",
+    "ethnicity": "Oceania",
+    "relationship_status": "Widowed",
+    "occupation": "Auditor",
+    "trauma_type": "Natural disaster",
+    "pcl5": 41
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Feeling Happy",
+        "value": "Feeling happy or relaxed"
+      },
+      {
+        "key": "Spatial Triggers",
+        "value": "Physical locations"
+      },
+      {
+        "key": "Nighttime/Dark",
+        "value": "Night-time or waking up in the dark"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Smoking",
+        "value": "I smoke"
+      },
+      {
+        "key": "Avoid Relaxation",
+        "value": "avoid relaxing because it feels dangerous"
+      },
+      {
+        "key": "Avoid Talking",
+        "value": "Talking with others about the event or its aftermath"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Avoid Unfamiliar Places",
+        "value": "I avoid going to unfamiliar places because I cannot assess the danger"
+      },
+      {
+        "key": "Threat in Silence",
+        "value": "Unusual silence makes me feel something dangerous is about to happen"
+      },
+      {
+        "key": "Threat in Delays",
+        "value": "When something takes longer than expected I assume something bad is happening"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Olfactory Recall",
+        "value": "When I think about the frightening event I can sometimes smell things that I smelt when the frightening event happened."
+      },
+      {
+        "key": "Taste Vividness",
+        "value": "I can taste what I tasted during the event when the memory returns"
+      },
+      {
+        "key": "Story Feels Unreal",
+        "value": "The memory is so extreme it is hard to believe it actually happened to me"
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Helplessness",
+        "value": "I can't stop bad things from happening to me"
+      },
+      {
+        "key": "Emotional Numbness",
+        "value": "I feel dead inside"
+      },
+      {
+        "key": "World is Dangerous",
+        "value": "The world is a dangerous place"
+      }
+    ]
+  },
+  "vignette_word_count": 650,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "field": "age",
+          "explanation": "Occupation 'Student' is implausible for age 73 because 'Student' is flagged as implausible if age > 40."
+        }
+      ],
+      "problematic_fields": [
+        "age",
+        "occupation"
+      ]
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Others Cycling",
+          "explanation": "For a natural-disaster trauma, 'People cycling' is a hard-to-explain trigger unless there is disaster-specific context, which is not supported by the rest of the profile. The other items do not provide a plausible link to bicycles/cyclists."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Male Presence",
+          "explanation": "'Being alone with men' implies an interpersonal/assault-related trigger context that is not reflected in the trauma type or elsewhere in the profile, making it clinically incoherent here."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Threat: Avoid Unfamiliar Places",
+          "explanation": "Avoidance of unfamiliar places due to inability to assess danger can occur in PTSD, but alongside the selected triggers it pulls toward an interpersonal/urban threat pattern rather than a natural-disaster pattern. This becomes problematic because the threat items are not meaningfully linked to the disaster-specific cues represented elsewhere."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Others Cycling"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Negative Appraisals": [
+          "Threat"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Male Presence: Being alone with men",
+          "explanation": "For a natural-disaster trauma, 'being alone with men' is hard to reconcile as a primary trauma-linked trigger unless there is additional interpersonal trauma not represented elsewhere. The other trigger items are disaster-plausible (locations, relaxed state), so this item stands out as clinically incoherent with the stated trauma type."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Negative Appraisals: Mistrust: People can't be trusted",
+          "explanation": "'People can't be trusted' suggests an interpersonal betrayal/assault formulation rather than a natural-disaster formulation. In the context of the rest of the profile, this appraisal does not connect plausibly to the disaster-linked threat and memory items and appears trauma-type inconsistent."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Male Presence"
+        ],
+        "Negative Appraisals": [
+          "Mistrust"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Kai sat at his desk in the auditing firm’s third-floor office, the familiar hum of the building vibrating through the chair, yet his attention drifted to the closed window. Years ago, a sudden storm surge had breached the coastal levees where he was visiting his parents, swallowing the access road and pinning the family home against the rising water. He remembered the exact moment the tide crossed the threshold: the sharp, iron-heavy taste of brine on his tongue, the wet ash clinging to his throat, and the overwhelming sense that the environment beyond the walls was entirely beyond his control. His PCL5 score of 41 mirrored a sustained pattern that settled heavily after his wife’s passing, leaving him feeling dead inside despite his active days. The disaster did not leave him; it simply altered the shape of his surroundings. Physical locations became potent cues. He found himself pausing at low doorways and lingering near stairwells, mapping sightlines the way he mapped financial discrepancies. When he traveled for field audits to unfamiliar municipal offices, he avoided them altogether, convinced that without a familiar blueprint he could not properly assess the danger. Delays in correspondence or stalled reports now read as active warnings. If a document took longer than expected to arrive, Kai assumed something was wrong, his posture stiffening as though the water were rising again. Unusual silence in the conference room carried a similar weight. When conversations lapsed, he did not see respite but rather the quiet before a threat breached the perimeter. Even his capacity for joy grew taut. There were evenings when a familiar joke or a quiet moment sparked genuine contentment, but the sensation would quickly feel precarious. Kai was certain that letting himself relax was dangerous, a vulnerability that might leave him exposed. He would smile, then abruptly check his phone or rise from his seat, as though happiness required constant defense. Alongside the constant vigilance, Kai developed quiet habits. He smoked frequently, the draw of the cigarette a steady rhythm beside his avoidance of relaxation. Sitting back in a comfortable chair felt like lowering his guard. He also avoided talking with others about the storm and its aftermath. When colleagues asked how he was coping, he offered short, practical answers and changed the subject, fearing that speaking of it might pull the memory forward with full force. The memory did not feel like a simple recollection. When he thought of the flood, he could sometimes smell the damp earth and saltwater again, and the taste of that brine would surface on his tongue. The narrative felt so extreme, so total in its devastation, that he could barely convince himself it had actually happened to him. His helplessness and his sense that the world remained dangerous coexisted with this vivid, almost detached recall. His nights grew especially heavy. Waking in the dark meant the bedroom felt unmoored, the shadows stretching like rising water. He would lie still, listening to the house settle, convinced that danger waited in the quiet. This tension had compounded over the years, shaping his daily routine rather than driving it. His PCL5 profile reflected a life lived with sustained alertness, where spatial awareness, silence, and delay operated as parallel signals rather than sequential consequences. Now at forty-six, Kai sought help after a field audit forced him to stay overnight in an unfamiliar hotel. The unfamiliar ceiling, the delayed room service, and the thick silence of the corridor pushed him to the edge of his endurance. He realized he was no longer living so much as managing a perpetual threat. He hoped that therapy might offer him a way to tolerate the unexpected without bracing for collapse, to walk through familiar and unfamiliar spaces alike, and perhaps to let happiness settle without immediately searching for the exit. He was afraid the storm would return, but he was ready to stop running from it."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Kai sat at his desk in the auditing firm’s third-floor office, the familiar hum of the building vibrating through the chair, yet his attention drifted to the closed window. Years ago, a sudden storm surge had breached the coastal levees where he was visiting his parents, swallowing the access road and pinning the family home against the rising water. He remembered the exact moment the tide crossed the threshold: the sharp, iron-heavy taste of brine on his tongue, the wet ash clinging to his throat, and the overwhelming sense that the environment beyond the walls was entirely beyond his control. His PCL5 score of 41 mirrored a sustained pattern that settled heavily after his wife’s passing, leaving him feeling dead inside despite his active days. The disaster did not leave him; it simply altered the shape of his surroundings. Physical locations became potent cues. He found himself pausing at low doorways and lingering near stairwells, mapping sightlines the way he mapped financial discrepancies. When he traveled for field audits to unfamiliar municipal offices, he avoided them altogether, convinced that without a familiar blueprint he could not properly assess the danger. Delays in correspondence or stalled reports now read as active warnings. If a document took longer than expected to arrive, Kai assumed something was wrong, his posture stiffening as though the water were rising again. Unusual silence in the conference room carried a similar weight. When conversations lapsed, he did not see respite but rather the quiet before a threat breached the perimeter. Even his capacity for joy grew taut. There were evenings when a familiar joke or a quiet moment sparked genuine contentment, but the sensation would quickly feel precarious. Kai was certain that letting himself relax was dangerous, a vulnerability that might leave him exposed. He would smile, then abruptly check his phone or rise from his seat, as though happiness required constant defense. Alongside the constant vigilance, Kai developed quiet habits. He smoked frequently, the draw of the cigarette a steady rhythm beside his avoidance of relaxation. Sitting back in a comfortable chair felt like lowering his guard. He also avoided talking with others about the storm and its aftermath. When colleagues asked how he was coping, he offered short, practical answers and changed the subject, fearing that speaking of it might pull the memory forward with full force. The memory did not feel like a simple recollection. When he thought of the flood, he could sometimes smell the damp earth and saltwater again, and the taste of that brine would surface on his tongue. The narrative felt so extreme, so total in its devastation, that he could barely convince himself it had actually happened to him. His helplessness and his sense that the world remained dangerous coexisted with this vivid, almost detached recall. His nights grew especially heavy. Waking in the dark meant the bedroom felt unmoored, the shadows stretching like rising water. He would lie still, listening to the house settle, convinced that danger waited in the quiet. This tension had compounded over the years, shaping his daily routine rather than driving it. His PCL5 profile reflected a life lived with sustained alertness, where spatial awareness, silence, and delay operated as parallel signals rather than sequential consequences. Now at forty-six, Kai sought help after a field audit forced him to stay overnight in an unfamiliar hotel. The unfamiliar ceiling, the delayed room service, and the thick silence of the corridor pushed him to the edge of his endurance. He realized he was no longer living so much as managing a perpetual threat. He hoped that therapy might offer him a way to tolerate the unexpected without bracing for collapse, to walk through familiar and unfamiliar spaces alike, and perhaps to let happiness settle without immediately searching for the exit. He was afraid the storm would return, but he was ready to stop running from it.", "passed": true, "missing": [], "missing_count": 0, "feedback": null}
+  ]
+}

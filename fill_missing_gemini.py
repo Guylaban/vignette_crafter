@@ -20,39 +20,19 @@ import yaml
 CONFIG_PATH = Path("configs/simulation_config.yaml")
 OUTPUT_DIR  = Path("data/output")
 
-GEMINI_RUNS = [
-    # full-formulation runs
+RUNS = [
+    # gemini-2.5-pro full: 12 missing
     {
         "model":  "gemini-2.5-pro",
         "dir":    "vignette_from_persona_20260502_152558",
         "total":  500,
     },
+    # qwen3.6-35b no_formulation: 3 missing (310, 311, 312)
     {
-        "model":  "gemini-2.5-flash",
-        "dir":    "vignette_from_persona_20260502_152854",
-        "total":  500,
-    },
-    # no_formulation runs
-    {
-        "model":  "gemini-2.5-pro",
-        "dir":    "vignette_from_persona_20260505_141321",
+        "model":  "qwen3.6-35b",
+        "dir":    "vignette_from_persona_20260507_020840",
         "total":  500,
         "config": "configs/no_formulation_test.yaml",
-    },
-    {
-        "model":  "gemini-2.5-flash",
-        "dir":    "vignette_from_persona_20260505_141338",
-        "total":  500,
-        "config": "configs/no_formulation_test.yaml",
-    },
-]
-
-LAB_RUNS = [
-    # full-formulation runs (lab server)
-    {
-        "model":  "llama3.1-70b",
-        "dir":    "vignette_from_persona_20260505_105142",
-        "total":  500,
     },
 ]
 
@@ -66,7 +46,7 @@ def find_missing(run_dir: Path, total: int) -> list[int]:
     return sorted(set(range(1, total + 1)) - existing)
 
 
-for run in GEMINI_RUNS + LAB_RUNS:
+for run in RUNS:
     run_dir = OUTPUT_DIR / run["dir"]
     missing = find_missing(run_dir, run["total"])
 

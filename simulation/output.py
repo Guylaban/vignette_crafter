@@ -35,7 +35,11 @@ def to_serializable(obj):
 
 def write_json(output: dict, f):
     """Write output JSON with blank lines between vignette attempts."""
-    vignette_attempts = output.pop("vignette_attempts", [])
+    vignette_attempts = output.pop("vignette_attempts", None)
+
+    if vignette_attempts is None:
+        f.write(json.dumps(output, indent=2, ensure_ascii=False) + "\n")
+        return
 
     f.write(json.dumps(output, indent=2, ensure_ascii=False)[:-1])
 

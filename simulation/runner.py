@@ -77,12 +77,13 @@ class SimulationRunner:
 
             try:
                 state: dict = {}
+                needs_validation = "validate_vignette" in self.pipeline
                 validator = VignetteValidatorAgent(
                     name=f"{label}_VignetteValidator", role="VignetteValidator", llm=self._llms["vignette_validator"],
-                )
+                ) if needs_validation else None
                 no_formulation_validator = NoFormulationValidatorAgent(
                     name=f"{label}_NoFormulationValidator", role="NoFormulationValidator", llm=self._llms["vignette_validator"],
-                )
+                ) if needs_validation else None
 
                 for step in self.pipeline:
                     logger.info("[%s] step_%s: starting", label, step)
@@ -100,7 +101,7 @@ class SimulationRunner:
                         else:
                             state.update(step_validate_no_formulation(label, state, no_formulation_validator, self.max_retries))
                     elif step == "zero_shot":
-                        state.update(step_zero_shot(label, persona_id, self._llms, self.node_prob, self.edge_prob, self.n_items))
+                        state.update(step_zero_shot(label, persona_id, self._llms, self.node_prob, self.edge_prob, self.n_items, state=state))
                     logger.info("[%s] step_%s: done", label, step)
 
                 self._save(persona_id, state)
@@ -164,15 +165,17 @@ class SimulationRunner:
                 "seed":              self.seed,
             },
             "demographics":               state.get("demographics", {}),
-            "self_report":                state.get("self_report", {}),
+            **({} if self.vignette_mode == "zero_shot" else {"self_report": state.get("self_report", {})}),
             **formulation_fields,
             "vignette_word_count":        len(final_vignette.split()),
-            "demographics_validation_attempts": state.get("demographics_validation_attempts", []),
-            "selfreport_validation_attempts":   state.get("selfreport_validation_attempts", []),
-            "validation_summary":         self._validation_summary(vignette_attempts),
+            **({} if self.vignette_mode == "zero_shot" else {
+                "demographics_validation_attempts": state.get("demographics_validation_attempts", []),
+                "selfreport_validation_attempts":   state.get("selfreport_validation_attempts", []),
+                "validation_summary":               self._validation_summary(vignette_attempts),
+                "vignette_attempts":                vignette_attempts,
+            }),
             "token_usage":                get_run_tokens(),
             "vignette":                   final_vignette,
-            "vignette_attempts":          vignette_attempts,
         })
 
         base = self.experiment_dir / f"experiment_{persona_id}"

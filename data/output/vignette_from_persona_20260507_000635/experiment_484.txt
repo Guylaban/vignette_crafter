@@ -1,0 +1,159 @@
+PERSONA 484  |  2026-05-07 02:05:18
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      qwen2.5-32b
+    persona_validator    qwen2.5-32b
+    vignette_crafter     qwen2.5-32b
+    vignette_validator   qwen2.5-32b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             77
+  gender          Male
+  ethnicity       African
+  relationship_status Married
+  occupation      School Principal
+  trauma_type     Assault
+  pcl5            70
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Olfactory (Alcohol): Alcohol smell
+    • Loss of Control: Lack of control
+    • Loss of Autonomy: Being forced to do something
+  Threat:
+    • Scanning Exits: I scan for exits as soon as I enter any room or building
+    • Startle Response: Feeling jumpy or easily startled
+    • Startle to Movement: Unexpected movement nearby causes me to react as if I am in danger
+  Memory:
+    • Grief on Recall: When I remember the event I feel overwhelming grief
+    • Auditory Recall: When I have memories of what happened I sometimes hear things in my head that I heard during the frightening event.
+    • Emotionless Recall: Sometimes I can recall what happened but feel completely numb, as if it happened to a stranger
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Self-Blame: The event happened because of the way I acted
+    • Can't Rely on Others: I can't rely on other people
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Triggers / Triggers: Auditory (Explosion): Explosion or bang sounds
+    explanation: For an assault trauma, the trigger pattern is difficult to reconcile clinically: explosion/bang sounds and hospital/antiseptic smells imply very different trauma contexts or aftermaths, with no accompanying memory or appraisal content linking them into a coherent assault narrative. This is more than merely unusual because the trigger set suggests mixed trauma cues rather than one assault profile.
+    item:        Threat / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: The appraisal 'My body has been permanently damaged by what happened' does not fit well with the rest of the profile. Threat items focus on immediate environmental danger and startle, while memory items center on grief, auditory recall, and emotional numbing; none support a prominent bodily injury theme. In the absence of corroborating assault-related injury cues, this appraisal appears mismatched.
+    item:        Negative Appraisals / Negative Appraisals: Physical Vulnerability: My body has been permanently damaged by what happened
+    explanation: Given the very strong Triggers → Threat edge, trigger items should plausibly feed the specific threat pattern. 'Being naked' can fit vulnerability and danger, but explosion sounds and hospital smells do not connect well to the selected threat items for a single assault formulation, making the trigger-to-threat linkage clinically incoherent.
+  [2] FAIL
+    item:        Triggers / Triggers: Olfactory (Hospital): Hospital or antiseptic smell
+    explanation: For an assault trauma, hospital/antiseptic smell is only coherent if the assault involved serious injury or hospital treatment, but nothing in threat, memory, or appraisals anchors the trauma to a medical context. In this profile it stands out as insufficiently connected to the rest of the formulation.
+    item:        Negative Appraisals / Triggers: Vulnerability: Being naked
+    explanation: 'Being naked' as a trigger implies a sexual assault, humiliation, medical exposure, or a very specific vulnerability context. The other items do not support that context: threat items reflect generalized hypervigilance/startle, memory items do not indicate bodily violation or exposure, and appraisals focus on self-blame/protection of others rather than sexualized shame. This makes the trigger hard to reconcile with the rest of the profile.
+  [3] FAIL
+    item:        Triggers / Triggers: Vulnerability: Being naked
+    explanation: For an assault trauma, 'being naked' as a trigger is not impossible, but without any corroborating memory, threat, or appraisal content suggesting sexual assault, humiliation, or clothing-related vulnerability, it stands out as poorly integrated with the rest of the profile. The other trigger items point to alcohol cues and loss of control, while threat items center on hypervigilance/startle; this specific trigger appears disconnected from the described trauma representation.
+    item:        Negative Appraisals / Negative Appraisals: Failed to Protect: I should have protected others and I failed
+    explanation: 'I should have protected others and I failed' implies the patient experienced the assault in a protector/caretaker role or alongside endangered others. No memory, trigger, or threat item references other people being harmed or the patient's responsibility toward them. The rest of the appraisals are self-focused incompetence/blame, so this item is the main cross-node inconsistency.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Mr. Johnson is a 77-year-old African-American man who has been married for over five decades and
+currently serves as a school principal in his local community. Mr. Johnson experienced a traumatic
+event approximately six months ago when he was assaulted by an intruder at the school where he
+works. The incident occurred late one afternoon after most students had left, but a few were still
+on campus. An intoxicated individual broke into the building and forcibly entered Mr. Johnson’s
+office, demanding money. The traumatic experience left profound imprints on his daily life. He now
+experiences intense distress whenever he encounters smells reminiscent of alcohol. The assault
+involved being forced to do things against his will, leaving him with a deep-seated fear of losing
+control or autonomy. This has translated into frequent scanning of exits as soon as he enters any
+room or building, and an exaggerated startle response to sudden movements around him. The memory of
+the event is complex and laden with grief. Each time Mr. Johnson remembers what happened, he feels
+an overwhelming sense of loss and sorrow. Auditory flashbacks are common; often, he hears snippets
+of sounds from that day—shouting or breaking glass—as if they were still happening in his head.
+Sometimes, these memories feel so detached that he almost feels numb, as though the event happened
+to someone else. Mr. Johnson has come to believe that he cannot rely on himself during such moments,
+which exacerbates his sense of vulnerability. He frequently blames himself for the assault,
+believing that if he had acted differently or been more cautious, the incident might have been
+avoided. This self-blame is compounded by a growing mistrust in others; he finds it difficult to
+trust even close colleagues and friends. These symptoms began manifesting immediately following the
+assault but grew worse over time. At work, Mr. Johnson’s scanning behavior has made him appear
+distracted or preoccupied, leading to misunderstandings with his staff. He often avoids social
+gatherings where alcohol is served or where there might be a crowd, which has strained his
+relationships with colleagues and friends. The cumulative impact of these symptoms has taken its
+toll on both his personal and professional life. His marriage has been affected by the isolation he
+seeks in order to avoid triggers; he withdraws emotionally from his wife, leaving her feeling
+unsupported and confused about what’s happening. Mr. Johnson finally decided to seek help after a
+particularly distressing episode at work where an unexpected noise caused him to react so severely
+that it alarmed those around him. He realized that the fear of another incident and the persistent
+feelings of grief were overwhelming and affecting his ability to function effectively in both his
+personal and professional life. What frightens Mr. Johnson most is the prospect of never feeling
+safe again, of always being on edge, and of not being able to trust himself or others in crucial
+moments. Despite these fears, he is hopeful that with help, he might be able to regain a sense of
+control over his life and find ways to cope with the memories and triggers without them dominating
+his daily existence. He seeks support to navigate through this difficult time and reclaim a sense of
+normalcy and trust in both himself and others around him.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Mr. Johnson is a 77-year-old African-American man who has been married for over five decades and
+currently serves as a school principal in his local community. Mr. Johnson experienced a traumatic
+event approximately six months ago when he was assaulted by an intruder at the school where he
+works. The incident occurred late one afternoon after most students had left, but a few were still
+on campus. An intoxicated individual broke into the building and forcibly entered Mr. Johnson’s
+office, demanding money. The traumatic experience left profound imprints on his daily life. He now
+experiences intense distress whenever he encounters smells reminiscent of alcohol. The assault
+involved being forced to do things against his will, leaving him with a deep-seated fear of losing
+control or autonomy. This has translated into frequent scanning of exits as soon as he enters any
+room or building, and an exaggerated startle response to sudden movements around him. The memory of
+the event is complex and laden with grief. Each time Mr. Johnson remembers what happened, he feels
+an overwhelming sense of loss and sorrow. Auditory flashbacks are common; often, he hears snippets
+of sounds from that day—shouting or breaking glass—as if they were still happening in his head.
+Sometimes, these memories feel so detached that he almost feels numb, as though the event happened
+to someone else. Mr. Johnson has come to believe that he cannot rely on himself during such moments,
+which exacerbates his sense of vulnerability. He frequently blames himself for the assault,
+believing that if he had acted differently or been more cautious, the incident might have been
+avoided. This self-blame is compounded by a growing mistrust in others; he finds it difficult to
+trust even close colleagues and friends. These symptoms began manifesting immediately following the
+assault but grew worse over time. At work, Mr. Johnson’s scanning behavior has made him appear
+distracted or preoccupied, leading to misunderstandings with his staff. He often avoids social
+gatherings where alcohol is served or where there might be a crowd, which has strained his
+relationships with colleagues and friends. The cumulative impact of these symptoms has taken its
+toll on both his personal and professional life. His marriage has been affected by the isolation he
+seeks in order to avoid triggers; he withdraws emotionally from his wife, leaving her feeling
+unsupported and confused about what’s happening. Mr. Johnson finally decided to seek help after a
+particularly distressing episode at work where an unexpected noise caused him to react so severely
+that it alarmed those around him. He realized that the fear of another incident and the persistent
+feelings of grief were overwhelming and affecting his ability to function effectively in both his
+personal and professional life. What frightens Mr. Johnson most is the prospect of never feeling
+safe again, of always being on edge, and of not being able to trust himself or others in crucial
+moments. Despite these fears, he is hopeful that with help, he might be able to regain a sense of
+control over his life and find ways to cope with the memories and triggers without them dominating
+his daily existence. He seeks support to navigate through this difficult time and reclaim a sense of
+normalcy and trust in both himself and others around him.
