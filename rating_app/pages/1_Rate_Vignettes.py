@@ -71,19 +71,19 @@ div[data-testid="stRadio"] > label { display: none; }
 """, unsafe_allow_html=True)
 
 # ── Rater pool assignment ─────────────────────────────────────────────────────
-# Each named rater receives a unique, non-overlapping subset of the 300 vignettes.
-# Vignettes are sorted by vignette_id (V001–V300) then assigned round-robin so
-# every rater's pool is balanced across models and conditions.
+# The 300 vignettes are split into N_POOLS non-overlapping subsets of 100.
+# A rater's pool index is derived from a stable MD5 hash of their full name,
+# so the same person always gets the same pool regardless of session.
 
-RATERS = ["Amit", "Guy", "Nimrod"]
+import hashlib
+
+N_POOLS = 3
 
 
 def assign_pool(rater_id: str, all_vignettes: list) -> list:
-    if rater_id not in RATERS:
-        return sorted(all_vignettes, key=lambda v: v["vignette_id"])
     sorted_v = sorted(all_vignettes, key=lambda v: v["vignette_id"])
-    idx = RATERS.index(rater_id)
-    return [v for i, v in enumerate(sorted_v) if i % len(RATERS) == idx]
+    pool_idx = int(hashlib.md5(rater_id.strip().lower().encode()).hexdigest(), 16) % N_POOLS
+    return [v for i, v in enumerate(sorted_v) if i % N_POOLS == pool_idx]
 
 
 # ── Session state ─────────────────────────────────────────────────────────────
@@ -151,8 +151,8 @@ def yn_radio(key, saved=None):
 
 if not st.session_state.rater_id:
     st.title("Rate Vignettes")
-    st.markdown("Select your name to begin or resume your session.")
-    rater_id = st.selectbox("Who are you?", [""] + RATERS)
+    st.markdown("Enter your full name to begin or resume your session.")
+    rater_id = st.text_input("Full name", placeholder="e.g. Jane Smith").strip()
     if st.button("Start", type="primary") and rater_id:
         with st.spinner("Loading..."):
             try:
@@ -192,15 +192,10 @@ if not st.session_state.demographics_done:
     with st.form("demographics_form"):
         st.markdown("#### Professional background")
 
-        title = st.selectbox(
+        title = st.text_input(
             "Practice degree / professional title *",
-            ["", "Clinical Psychologist", "Psychiatrist", "Psychotherapist",
-             "Social Worker", "Counselor / MFT", "Psychiatric Nurse",
-             "Researcher (non-clinical)", "Other"],
+            placeholder="e.g. Clinical Psychologist, Psychiatrist, Social Worker",
         )
-        title_other = ""
-        if title == "Other":
-            title_other = st.text_input("Please specify your title")
 
         sex = st.selectbox(
             "Sex *",
@@ -213,22 +208,15 @@ if not st.session_state.demographics_done:
             placeholder="e.g. 12",
         )
 
-        work_status = st.selectbox(
+        work_status = st.text_input(
             "Work status *",
-            ["", "Full-time clinical practice", "Part-time clinical practice",
-             "Combined clinical & academic / research",
-             "Primarily academic / research", "Retired", "Other"],
+            placeholder="e.g. Full-time clinical practice, Academic / research, Part-time",
         )
 
-        specialty = st.selectbox(
+        specialty = st.text_input(
             "Clinical specialty *",
-            ["", "PTSD / Trauma", "Anxiety disorders", "Depression / mood disorders",
-             "General adult mental health", "Child / adolescent",
-             "Neuropsychology", "Forensic", "Other"],
+            placeholder="e.g. PTSD / Trauma, Anxiety disorders, General adult mental health",
         )
-        specialty_other = ""
-        if specialty == "Other":
-            specialty_other = st.text_input("Please specify your specialty")
 
         degree = st.selectbox(
             "Highest academic degree *",
@@ -261,11 +249,11 @@ if not st.session_state.demographics_done:
             demo_row = {
                 "rater_id":        st.session_state.rater_id,
                 "timestamp":       datetime.now(TZ).isoformat(),
-                "title":           title if title != "Other" else title_other,
+                "title":           title,
                 "sex":             sex,
                 "years_practice":  int(years),
                 "work_status":     work_status,
-                "specialty":       specialty if specialty != "Other" else specialty_other,
+                "specialty":       specialty,
                 "degree":          degree,
                 "licensure":       licensure,
                 "english":         english,
