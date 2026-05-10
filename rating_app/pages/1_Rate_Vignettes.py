@@ -104,7 +104,7 @@ def autosave():
 
 
 def step_nav(current: int):
-    labels = ["Read", "Content Validity", "Construction", "DSM-5"]
+    labels = ["Read", "Content Validity", "Construction", "DSM-5", "E&C Model"]
     pills = ""
     for i, label in enumerate(labels, 1):
         if i < current:
@@ -194,7 +194,8 @@ with st.container():
             for k in ["rater_id", "vignettes", "current_idx", "step", "current_ratings",
                       "cvi_clarity", "cvi_relevance", "cvi_representativeness",
                       "evans_g1", "evans_g2", "evans_g3", "evans_g4",
-                      "dsm_a", "dsm_b", "dsm_c", "dsm_d", "dsm_e", "dsm_g"]:
+                      "dsm_a", "dsm_b", "dsm_c", "dsm_d", "dsm_e", "dsm_g",
+                      "ec_threat", "ec_appraisals", "ec_memory", "ec_strategies", "ec_triggers"]:
                 st.session_state.pop(k, None)
             st.rerun()
 
@@ -327,13 +328,70 @@ elif step == 4:
             st.session_state.step = 3
             st.rerun()
     with col_submit:
-        if st.button("Submit", type="primary", use_container_width=True):
+        if st.button("Next →", type="primary", use_container_width=True):
             if None in dsm_results.values():
                 st.session_state["_warn4"] = True
             else:
                 st.session_state.pop("_warn4", None)
-                dsm_binary = {k: (1 if v == "Yes" else 0) for k, v in dsm_results.items()}
+                for k, v in dsm_results.items():
+                    st.session_state.current_ratings[k] = v
+                st.session_state.step = 5
+                st.rerun()
+if st.session_state.pop("_warn4", False):
+    st.warning("Please answer all questions before continuing.")
+
+# ── Step 5 — Ehlers & Clark Model ────────────────────────────────────────────
+
+elif step == 5:
+    st.markdown("### Ehlers & Clark Model Components")
+    st.caption("Is each component present in the vignette?")
+    with st.expander("Re-read vignette"):
+        st.markdown(f'<div class="vignette-box">{vignette["vignette"]}</div>', unsafe_allow_html=True)
+    st.markdown("---")
+
+    EC = [
+        ("ec_threat",    "Sense of current threat",
+         "The person feels the trauma is still happening or still dangerous right now — not just a bad memory. "
+         "E.g. \"The world is unsafe,\" \"I am permanently damaged.\""),
+        ("ec_appraisals","Negative appraisals",
+         "The person interprets the trauma or its aftermath in an overly negative way. "
+         "E.g. \"I caused it,\" \"My flashbacks mean I'm going mad.\""),
+        ("ec_memory",    "Nature of trauma memory",
+         "The memory is fragmented, disorganised, and feels like it's happening now rather than in the past."),
+        ("ec_strategies","Maladaptive strategies",
+         "Things the person does to cope that actually keep the PTSD going. "
+         "E.g. avoiding reminders, suppressing thoughts, staying busy, drinking, giving up activities they used to enjoy."),
+        ("ec_triggers",  "Triggers for re-experiencing",
+         "Specific cues — internal or external — that set off flashbacks or distress. "
+         "Often not obviously linked to the trauma (e.g. a particular light, a tone of voice, a body position)."),
+    ]
+
+    ec_results = {}
+    cr = st.session_state.current_ratings
+    for key, title, description in EC:
+        st.markdown(f"**{title}**")
+        st.caption(description)
+        ec_results[key] = yn_radio(key, saved=cr.get(key))
+        st.markdown("---")
+
+    col_back, _, col_submit = st.columns([1, 3, 1])
+    with col_back:
+        if st.button("← Back"):
+            for k, v in ec_results.items():
+                if v is not None:
+                    st.session_state.current_ratings[k] = v
+            st.session_state.step = 4
+            st.rerun()
+    with col_submit:
+        if st.button("Submit", type="primary", use_container_width=True):
+            if None in ec_results.values():
+                st.session_state["_warn5"] = True
+            else:
+                st.session_state.pop("_warn5", None)
+                dsm_vals   = {k: v for k, v in st.session_state.current_ratings.items() if k.startswith("dsm_")}
+                dsm_binary = {k: (1 if v == "Yes" else 0) for k, v in dsm_vals.items() if k != "dsm_valid"}
                 dsm_valid  = int(all(dsm_binary.values()))
+                ec_binary  = {k: (1 if v == "Yes" else 0) for k, v in ec_results.items()}
                 row = {
                     "timestamp":       datetime.now(TZ).isoformat(),
                     "rater_id":        st.session_state.rater_id,
@@ -345,6 +403,7 @@ elif step == 4:
                     **st.session_state.current_ratings,
                     **dsm_binary,
                     "dsm_valid":       dsm_valid,
+                    **ec_binary,
                 }
                 with st.spinner("Saving..."):
                     try:
@@ -352,15 +411,15 @@ elif step == 4:
                     except Exception as e:
                         st.error(f"Could not save: {e}"); st.stop()
 
-                # clear widget keys for next vignette
                 for k in ["cvi_clarity","cvi_relevance","cvi_representativeness",
                           "evans_g1","evans_g2","evans_g3","evans_g4",
-                          "dsm_a","dsm_b","dsm_c","dsm_d","dsm_e","dsm_g"]:
+                          "dsm_a","dsm_b","dsm_c","dsm_d","dsm_e","dsm_g",
+                          "ec_threat","ec_appraisals","ec_memory","ec_strategies","ec_triggers"]:
                     st.session_state.pop(k, None)
 
                 st.session_state.current_idx    += 1
                 st.session_state.step            = 1
                 st.session_state.current_ratings = {}
                 st.rerun()
-if st.session_state.pop("_warn4", False):
+if st.session_state.pop("_warn5", False):
     st.warning("Please answer all questions before submitting.")
