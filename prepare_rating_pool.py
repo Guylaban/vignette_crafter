@@ -15,7 +15,7 @@ DATA_DIR    = Path("data/output")
 OUTPUT_PATH = Path("data/rating_pool.json")
 
 N_PER_GROUP = 5   # vignettes per (model, condition) pair
-SEED        = 42
+SEED        = 55
 
 
 def best_dir_per_group(data_dir: Path) -> dict:

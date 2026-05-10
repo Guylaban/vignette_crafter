@@ -1,6 +1,6 @@
 """
-7_Embedding_Clusters.py — cluster vignettes by semantic embedding and compare
-conditions (full / no_formulation / zero_shot) for a selected model.
+7_Embedding_Clusters.py — semantic embedding visualization of vignettes.
+Projects vignette embeddings to 2D with UMAP, colored by condition.
 """
 
 import json
@@ -11,19 +11,15 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import streamlit as st
-from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
 
 _STREAMLIT_APP_DIR = Path(__file__).parent.parent
 if str(_STREAMLIT_APP_DIR) not in sys.path:
     sys.path.insert(0, str(_STREAMLIT_APP_DIR))
 
-from utils.loader import get_experiments
+st.set_page_config(page_title="Vignette Embeddings", layout="wide")
+st.title("Vignette Semantic Embeddings")
 
-st.set_page_config(page_title="Embedding Clusters", layout="wide")
-st.title("Vignette Embedding Clusters")
-
-# ── Discover available (model, condition) runs ────────────────────────────────
+# ── Discover runs ─────────────────────────────────────────────────────────────
 
 REPO_ROOT  = Path(__file__).parent.parent.parent
 OUTPUT_DIR = REPO_ROOT / "data" / "output"
@@ -33,7 +29,7 @@ OUTPUT_DIR = REPO_ROOT / "data" / "output"
 def discover_runs() -> pd.DataFrame:
     rows = []
     for d in sorted(OUTPUT_DIR.iterdir()):
-        if not d.is_dir():
+        if not d.is_dir() or d.name.startswith("craft_persona"):
             continue
         files = list(d.glob("experiment_*.json"))
         if not files:
@@ -52,79 +48,76 @@ def discover_runs() -> pd.DataFrame:
 
 runs = discover_runs()
 
-# ── Sidebar controls ──────────────────────────────────────────────────────────
+# ── Sidebar ───────────────────────────────────────────────────────────────────
 
 st.sidebar.header("Settings")
-
-available_models = sorted(runs["model"].unique())
-selected_model   = st.sidebar.selectbox("Model", available_models, index=available_models.index("gpt-5.4") if "gpt-5.4" in available_models else 0)
-
-model_runs = runs[runs["model"] == selected_model]
 
 CONDITION_LABELS = {
     "full":           "Full formulation",
     "no_formulation": "No formulation",
     "zero_shot":      "Zero-shot",
 }
-CONDITION_COLORS = {
-    "Full formulation": "#28a745",
-    "No formulation":   "#007bff",
-    "Zero-shot":        "#fd7e14",
-}
 
-available_conditions = model_runs["condition"].tolist()
-selected_conditions  = st.sidebar.multiselect(
-    "Conditions", options=list(CONDITION_LABELS.keys()),
-    default=[c for c in CONDITION_LABELS if c in available_conditions],
-    format_func=lambda c: CONDITION_LABELS[c],
+EVAL_MODELS = [
+    "gpt-5.4", "gpt-5.4-mini", "gpt-4o-mini",
+    "claude-sonnet-4-6", "claude-haiku-4-5",
+    "gemini-2.5-flash", "deepseek-chat", "deepseek-reasoner",
+    "qwen2.5-32b", "qwen3.6-35b",
+]
+
+available_models  = sorted(runs["model"].unique())
+selected_models   = st.sidebar.multiselect(
+    "Models", options=available_models,
+    default=[m for m in EVAL_MODELS if m in available_models],
 )
 
-max_pid = int(model_runs["n"].max()) if not model_runs.empty else 500
-persona_range = st.sidebar.slider("Persona IDs", min_value=1, max_value=max_pid, value=(1, 10))
-n_clusters    = st.sidebar.slider("K-means clusters (k)", min_value=2, max_value=8, value=3)
-emb_model     = st.sidebar.selectbox("Embedding model", ["both", "all-MiniLM-L6-v2", "MentalBERT"])
+persona_range  = st.sidebar.slider("Persona IDs", min_value=1, max_value=500, value=(1, 10))
+emb_model      = st.sidebar.selectbox("Embedding model", ["all-MiniLM-L6-v2", "MentalBERT"])
+auto_neighbors = st.sidebar.checkbox("Auto-select neighbours", value=True)
+umap_neighbors = st.sidebar.slider("UMAP neighbours", min_value=2, max_value=30, value=5,
+                                   disabled=auto_neighbors)
 
 # ── Load vignettes ────────────────────────────────────────────────────────────
 
 @st.cache_data
-def load_vignettes(model: str, conditions: list, pid_min: int, pid_max: int) -> pd.DataFrame:
+def load_vignettes(models: tuple, pid_min: int, pid_max: int) -> pd.DataFrame:
     rows = []
-    for condition in conditions:
-        match = runs[(runs["model"] == model) & (runs["condition"] == condition)]
-        if match.empty:
-            continue
-        dirpath = match.sort_values("n", ascending=False).iloc[0]["dir"]
-        for pid in range(pid_min, pid_max + 1):
-            fp = dirpath / f"experiment_{pid}.json"
-            if not fp.exists():
+    for model in models:
+        for condition in CONDITION_LABELS:
+            match = runs[(runs["model"] == model) & (runs["condition"] == condition)]
+            if match.empty:
                 continue
-            try:
-                with open(fp, encoding="utf-8") as f:
-                    data = json.load(f)
-                text = data.get("vignette", "").strip()
-                if not text:
+            dirpath = match.sort_values("n", ascending=False).iloc[0]["dir"]
+            for pid in range(pid_min, pid_max + 1):
+                fp = dirpath / f"experiment_{pid}.json"
+                if not fp.exists():
                     continue
-                rows.append({
-                    "persona_id": pid,
-                    "condition":  condition,
-                    "label":      CONDITION_LABELS[condition],
-                    "vignette":   text,
-                    "preview":    text[:120] + "…",
-                })
-            except Exception:
-                continue
+                try:
+                    with open(fp, encoding="utf-8") as f:
+                        data = json.load(f)
+                    text = data.get("vignette", "").strip()
+                    if text:
+                        rows.append({
+                            "persona_id": pid,
+                            "model":      model,
+                            "condition":  condition,
+                            "vignette":   text,
+                            "preview":    text[:120] + "…",
+                        })
+                except Exception:
+                    continue
     return pd.DataFrame(rows)
 
 
-if not selected_conditions:
-    st.info("Select at least one condition.")
+if not selected_models:
+    st.info("Select at least one model.")
     st.stop()
 
-df = load_vignettes(selected_model, selected_conditions, persona_range[0], persona_range[1])
-st.caption(f"{len(df)} vignettes — {selected_model}, personas {persona_range[0]}–{persona_range[1]}")
+df = load_vignettes(tuple(selected_models), persona_range[0], persona_range[1])
+st.caption(f"{len(df)} vignettes — {len(selected_models)} models, personas {persona_range[0]}–{persona_range[1]}")
 
 if df.empty:
-    st.error("No vignettes found for the selected options.")
+    st.error("No vignettes found.")
     st.stop()
 
 # ── Embedding models ──────────────────────────────────────────────────────────
@@ -137,9 +130,8 @@ def load_minilm():
 
 @st.cache_resource
 def load_mentalbert():
-    import torch
+    import os, torch
     from transformers import AutoTokenizer, AutoModel
-    import os
     from huggingface_hub import get_token
     from dotenv import load_dotenv
     load_dotenv(Path(__file__).parent.parent.parent / ".env")
@@ -150,71 +142,100 @@ def load_mentalbert():
     return tok, mdl
 
 
-def encode_minilm(texts: list) -> np.ndarray:
+def encode_minilm(texts):
     return load_minilm().encode(texts, show_progress_bar=False)
 
 
-def encode_mentalbert(texts: list) -> np.ndarray:
+def encode_mentalbert(texts):
     import torch
     tok, mdl = load_mentalbert()
-    all_embs = []
-    batch_size = 8
+    all_embs, batch_size = [], 8
     for i in range(0, len(texts), batch_size):
-        batch = texts[i : i + batch_size]
-        enc = tok(batch, padding=True, truncation=True, max_length=512, return_tensors="pt")
+        enc = tok(texts[i:i+batch_size], padding=True, truncation=True,
+                  max_length=512, return_tensors="pt")
         with torch.no_grad():
             out = mdl(**enc)
         mask = enc["attention_mask"].unsqueeze(-1).float()
-        emb  = (out.last_hidden_state * mask).sum(1) / mask.sum(1)
-        all_embs.append(emb.numpy())
+        all_embs.append(((out.last_hidden_state * mask).sum(1) / mask.sum(1)).numpy())
     return np.vstack(all_embs)
 
 
-ENCODERS = {
-    "all-MiniLM-L6-v2": encode_minilm,
-    "MentalBERT":        encode_mentalbert,
-}
+ENCODERS = {"all-MiniLM-L6-v2": encode_minilm, "MentalBERT": encode_mentalbert}
 
-names_to_load = ("all-MiniLM-L6-v2", "MentalBERT") if emb_model == "both" else (emb_model,)
+with st.spinner(f"Loading {emb_model}…"):
+    if emb_model == "all-MiniLM-L6-v2": load_minilm()
+    if emb_model == "MentalBERT":        load_mentalbert()
 
-with st.spinner("Loading embedding model(s)…"):
-    if "all-MiniLM-L6-v2" in names_to_load:
-        load_minilm()
-    if "MentalBERT" in names_to_load:
-        load_mentalbert()
-
-# ── Embed + PCA + KMeans ──────────────────────────────────────────────────────
+# ── Embed + UMAP ──────────────────────────────────────────────────────────────
 
 @st.cache_data
-def compute_plot_df(texts: tuple, model_name: str, k: int) -> pd.DataFrame:
-    embs   = ENCODERS[model_name](list(texts))
-    coords = PCA(n_components=2, random_state=42).fit_transform(embs)
-    labels = KMeans(n_clusters=k, random_state=42, n_init=10).fit_predict(coords)
-    return pd.DataFrame({"x": coords[:, 0], "y": coords[:, 1], "cluster": labels.astype(str)})
+def best_neighbors(texts: tuple, model_name: str) -> int:
+    import umap
+    from sklearn.manifold import trustworthiness
+    embs = ENCODERS[model_name](list(texts))
+    n = len(texts)
+    candidates = [k for k in [2, 3, 5, 8, 10, 15, 20] if k < n]
+    best_n, best_score = candidates[0], -1
+    scores = {}
+    for k in candidates:
+        coords = umap.UMAP(n_components=2, n_neighbors=k,
+                           min_dist=0.1, random_state=42).fit_transform(embs)
+        t = trustworthiness(embs, coords, n_neighbors=k)
+        c = trustworthiness(coords, embs, n_neighbors=k)  # continuity
+        combined = (t + c) / 2
+        scores[k] = round(combined, 3)
+        if combined > best_score:
+            best_score, best_n = combined, k
+    return best_n, scores
 
 
-texts = tuple(df["vignette"].tolist())
-cols  = st.columns(len(names_to_load))
+@st.cache_data
+def compute_umap(texts: tuple, model_name: str, n_neighbors: int) -> np.ndarray:
+    import umap
+    embs = ENCODERS[model_name](list(texts))
+    reducer = umap.UMAP(n_components=2, n_neighbors=n_neighbors,
+                        min_dist=0.1, random_state=42)
+    return reducer.fit_transform(embs)
 
-for col, name in zip(cols, names_to_load):
+
+conditions = list(CONDITION_LABELS.keys())
+cols = st.columns(len(conditions))
+
+for col, condition in zip(cols, conditions):
+    cond_df = df[df["condition"] == condition].reset_index(drop=True)
     with col:
-        with st.spinner(f"Embedding with {name}…"):
-            plot_df = pd.concat([df.reset_index(drop=True),
-                                 compute_plot_df(texts, name, n_clusters)], axis=1)
+        st.subheader(CONDITION_LABELS[condition])
+        if cond_df.empty:
+            st.info("No data for this condition.")
+            continue
+        texts = tuple(cond_df["vignette"].tolist())
+        with st.spinner("Embedding + UMAP…"):
+            if auto_neighbors:
+                chosen_n, scores = best_neighbors(texts, emb_model)
+                scores_str = ", ".join(f"{k}: {v:.3f}" for k, v in scores.items())
+                st.caption(f"Auto neighbours = **{chosen_n}** (scores: {scores_str})")
+            else:
+                chosen_n = umap_neighbors
+            coords = compute_umap(texts, emb_model, chosen_n)
+
+        plot_df = cond_df.copy()
+        plot_df["x"] = coords[:, 0]
+        plot_df["y"] = coords[:, 1]
 
         fig = px.scatter(
             plot_df, x="x", y="y",
-            color="label",
-            symbol="cluster",
-            hover_data={"persona_id": True, "preview": True,
-                        "x": False, "y": False, "cluster": False},
-            title=name,
-            labels={"label": "Condition", "cluster": "Cluster"},
-            color_discrete_map=CONDITION_COLORS,
-            height=500,
+            color="model",
+            hover_data={"persona_id": True, "preview": True, "x": False, "y": False},
+            title=CONDITION_LABELS[condition],
+            labels={"model": "Model"},
+            height=520,
         )
-        fig.update_traces(marker=dict(size=11, opacity=0.85))
-        fig.update_layout(legend=dict(orientation="h", y=-0.2))
+        fig.update_traces(marker=dict(size=10, opacity=0.85))
+        fig.update_layout(
+            xaxis=dict(showticklabels=False, title=""),
+            yaxis=dict(showticklabels=False, title=""),
+            legend=dict(orientation="h", y=-0.15),
+        )
         st.plotly_chart(fig, use_container_width=True)
 
 # ── Vignette inspector ────────────────────────────────────────────────────────
@@ -222,6 +243,7 @@ for col, name in zip(cols, names_to_load):
 st.markdown("---")
 st.subheader("Vignette inspector")
 pid = st.selectbox("Persona ID", sorted(df["persona_id"].unique()))
-for _, row in df[df["persona_id"] == pid].sort_values("condition").iterrows():
-    with st.expander(row["label"]):
+for _, row in df[df["persona_id"] == pid].sort_values(["condition", "model"]).iterrows():
+    label = f"{CONDITION_LABELS.get(row['condition'], row['condition'])} — {row['model']}"
+    with st.expander(label):
         st.write(row["vignette"])

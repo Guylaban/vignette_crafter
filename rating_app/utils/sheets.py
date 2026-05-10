@@ -31,3 +31,20 @@ def get_completed_vignette_ids(rater_id: str) -> set:
     )
     resp.raise_for_status()
     return {r["vignette_id"] for r in resp.json()}
+
+
+def save_demographics(row: dict):
+    resp = requests.post(_url("rater_demographics"), json=row, headers=_headers(), timeout=10)
+    resp.raise_for_status()
+
+
+def get_demographics(rater_id: str) -> dict | None:
+    resp = requests.get(
+        _url("rater_demographics"),
+        params={"rater_id": f"eq.{rater_id}", "select": "*", "limit": "1"},
+        headers=_headers(),
+        timeout=10,
+    )
+    resp.raise_for_status()
+    rows = resp.json()
+    return rows[0] if rows else None

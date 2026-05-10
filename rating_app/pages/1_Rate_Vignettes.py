@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
 from utils.vignettes import load_vignettes
-from utils.sheets import append_rating, get_completed_vignette_ids
+from utils.sheets import append_rating, get_completed_vignette_ids, save_demographics, get_demographics
 
 st.set_page_config(page_title="Rate Vignettes", layout="centered", initial_sidebar_state="collapsed")
 
@@ -20,7 +20,6 @@ st.markdown("""
 <style>
 html, body, [class*="css"] { font-size: 17px; }
 
-/* Radio buttons → pill buttons */
 div[data-testid="stRadio"] > div {
     display: flex;
     gap: 10px;
@@ -49,19 +48,15 @@ div[data-testid="stRadio"] label:has(input:checked) {
     font-weight: 600;
 }
 div[data-testid="stRadio"] label span { margin-left: 8px; }
-
-/* Hide default radio circles and empty label */
 div[data-testid="stRadio"] input[type="radio"] { display: none; }
 div[data-testid="stRadio"] > label { display: none; }
 
-/* Step indicator */
 .step-bar { display: flex; gap: 8px; margin-bottom: 4px; }
 .step-pill { padding: 5px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; }
 .step-active   { background: #28a745; color: white; }
 .step-done     { background: #c3e6cb; color: #155724; }
 .step-upcoming { background: #f0f0f0; color: #aaa; }
 
-/* Vignette box */
 .vignette-box {
     background: #f8f9fa;
     border-left: 4px solid #28a745;
@@ -75,12 +70,29 @@ div[data-testid="stRadio"] > label { display: none; }
 </style>
 """, unsafe_allow_html=True)
 
+# ── Rater pool assignment ─────────────────────────────────────────────────────
+# Each named rater receives a unique, non-overlapping subset of the 300 vignettes.
+# Vignettes are sorted by vignette_id (V001–V300) then assigned round-robin so
+# every rater's pool is balanced across models and conditions.
+
+RATERS = ["Amit", "Guy", "Nimrod"]
+
+
+def assign_pool(rater_id: str, all_vignettes: list) -> list:
+    if rater_id not in RATERS:
+        return sorted(all_vignettes, key=lambda v: v["vignette_id"])
+    sorted_v = sorted(all_vignettes, key=lambda v: v["vignette_id"])
+    idx = RATERS.index(rater_id)
+    return [v for i, v in enumerate(sorted_v) if i % len(RATERS) == idx]
+
+
 # ── Session state ─────────────────────────────────────────────────────────────
 
 def _init():
     for k, v in [
         ("rater_id", None), ("vignettes", []),
         ("current_idx", 0), ("step", 1), ("current_ratings", {}),
+        ("demographics_done", False),
     ]:
         if k not in st.session_state:
             st.session_state[k] = v
@@ -90,7 +102,6 @@ _init()
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def autosave():
-    """Read current widget values into current_ratings so navigation doesn't lose them."""
     step = st.session_state.step
     cr = st.session_state.current_ratings
     if step == 2:
@@ -138,35 +149,134 @@ def yn_radio(key, saved=None):
 
 # ── Login ─────────────────────────────────────────────────────────────────────
 
-RATERS = ["", "Amit", "Guy", "Nimrod"]
-
 if not st.session_state.rater_id:
     st.title("Rate Vignettes")
     st.markdown("Select your name to begin or resume your session.")
-    rater_id = st.selectbox("Who are you?", RATERS)
+    rater_id = st.selectbox("Who are you?", [""] + RATERS)
     if st.button("Start", type="primary") and rater_id:
-        rid = rater_id
         with st.spinner("Loading..."):
             try:
                 all_vignettes = load_vignettes()
             except FileNotFoundError as e:
                 st.error(str(e)); st.stop()
-            rng = random.Random(rid)
-            shuffled = all_vignettes.copy()
-            rng.shuffle(shuffled)
+            pool = assign_pool(rater_id, all_vignettes)
+            rng = random.Random(rater_id)
+            rng.shuffle(pool)
             try:
-                done_ids = get_completed_vignette_ids(rid)
+                done_ids = get_completed_vignette_ids(rater_id)
             except Exception:
                 done_ids = set()
             start_idx = next(
-                (i for i, v in enumerate(shuffled) if v["vignette_id"] not in done_ids),
-                len(shuffled)
+                (i for i, v in enumerate(pool) if v["vignette_id"] not in done_ids),
+                len(pool)
             )
+            try:
+                demo_done = get_demographics(rater_id) is not None
+            except Exception:
+                demo_done = False
         st.session_state.update({
-            "rater_id": rid, "vignettes": shuffled,
+            "rater_id": rater_id, "vignettes": pool,
             "current_idx": start_idx, "step": 1, "current_ratings": {},
+            "demographics_done": demo_done,
         })
         st.rerun()
+    st.stop()
+
+# ── Demographics (one-time, before first vignette) ────────────────────────────
+
+if not st.session_state.demographics_done:
+    st.title("Before you begin")
+    st.markdown("Please complete this short background questionnaire. Your answers will only be used to describe the sample of raters in the study.")
+    st.markdown("---")
+
+    with st.form("demographics_form"):
+        st.markdown("#### Professional background")
+
+        title = st.selectbox(
+            "Practice degree / professional title *",
+            ["", "Clinical Psychologist", "Psychiatrist", "Psychotherapist",
+             "Social Worker", "Counselor / MFT", "Psychiatric Nurse",
+             "Researcher (non-clinical)", "Other"],
+        )
+        title_other = ""
+        if title == "Other":
+            title_other = st.text_input("Please specify your title")
+
+        sex = st.selectbox(
+            "Sex *",
+            ["", "Male", "Female", "Non-binary / third gender", "Prefer not to say"],
+        )
+
+        years = st.number_input(
+            "Years in clinical practice *",
+            min_value=0, max_value=60, step=1, value=None,
+            placeholder="e.g. 12",
+        )
+
+        work_status = st.selectbox(
+            "Work status *",
+            ["", "Full-time clinical practice", "Part-time clinical practice",
+             "Combined clinical & academic / research",
+             "Primarily academic / research", "Retired", "Other"],
+        )
+
+        specialty = st.selectbox(
+            "Clinical specialty *",
+            ["", "PTSD / Trauma", "Anxiety disorders", "Depression / mood disorders",
+             "General adult mental health", "Child / adolescent",
+             "Neuropsychology", "Forensic", "Other"],
+        )
+        specialty_other = ""
+        if specialty == "Other":
+            specialty_other = st.text_input("Please specify your specialty")
+
+        degree = st.selectbox(
+            "Highest academic degree *",
+            ["", "BA / BS", "MA / MS", "MSW", "PhD", "PsyD", "MD / MBBCh", "Other"],
+        )
+
+        licensure = st.text_input(
+            "Current licensure (e.g. Licensed Clinical Psychologist, Board-certified Psychiatrist) *",
+            placeholder="Enter your licensure / registration status",
+        )
+
+        english = st.selectbox(
+            "English speaking and reading proficiency *",
+            ["", "Native speaker", "Fluent (bilingual or near-native)",
+             "Proficient (professional level)", "Basic"],
+        )
+
+        country = st.text_input(
+            "Country of current practice *",
+            placeholder="e.g. Israel",
+        )
+
+        submitted = st.form_submit_button("Continue to rating →", type="primary")
+
+    if submitted:
+        required = [title, sex, work_status, specialty, degree, licensure, english, country]
+        if any(v == "" or v is None for v in required) or years is None:
+            st.warning("Please complete all required fields before continuing.")
+        else:
+            demo_row = {
+                "rater_id":        st.session_state.rater_id,
+                "timestamp":       datetime.now(TZ).isoformat(),
+                "title":           title if title != "Other" else title_other,
+                "sex":             sex,
+                "years_practice":  int(years),
+                "work_status":     work_status,
+                "specialty":       specialty if specialty != "Other" else specialty_other,
+                "degree":          degree,
+                "licensure":       licensure,
+                "english":         english,
+                "country":         country,
+            }
+            try:
+                save_demographics(demo_row)
+                st.session_state.demographics_done = True
+                st.rerun()
+            except Exception as e:
+                st.error(f"Could not save: {e}")
     st.stop()
 
 # ── All done ──────────────────────────────────────────────────────────────────
@@ -192,6 +302,7 @@ with st.container():
     with col_logout:
         if st.button("Log out", use_container_width=True):
             for k in ["rater_id", "vignettes", "current_idx", "step", "current_ratings",
+                      "demographics_done",
                       "cvi_clarity", "cvi_relevance", "cvi_representativeness",
                       "evans_g1", "evans_g2", "evans_g3", "evans_g4",
                       "dsm_a", "dsm_b", "dsm_c", "dsm_d", "dsm_e", "dsm_g",
@@ -199,7 +310,7 @@ with st.container():
                 st.session_state.pop(k, None)
             st.rerun()
 
-st.markdown(f"**Completed: {idx}**")
+st.markdown(f"**Completed: {idx} / {total}**")
 st.progress(idx / total)
 st.markdown("---")
 step_nav(step)
@@ -225,7 +336,6 @@ elif step == 2:
         st.markdown(f'<div class="vignette-box">{vignette["vignette"]}</div>', unsafe_allow_html=True)
     st.markdown("---")
 
-    cr = st.session_state.current_ratings
     clarity            = rating_radio("Clarity — How clearly is the vignette written?",           "cvi_clarity",            "Unclear",            "Very clear")
     st.markdown("")
     relevance          = rating_radio("Relevance — Is this vignette relevant to a PTSD case?",    "cvi_relevance",          "Not relevant",       "Very relevant")
@@ -321,7 +431,6 @@ elif step == 4:
     col_back, _, col_submit = st.columns([1, 3, 1])
     with col_back:
         if st.button("← Back"):
-            # save DSM answers so far
             for k, v in dsm_results.items():
                 if v is not None:
                     st.session_state.current_ratings[k] = v
