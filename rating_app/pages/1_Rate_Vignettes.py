@@ -324,11 +324,11 @@ elif step == 2:
         st.markdown(f'<div class="vignette-box">{vignette["vignette"]}</div>', unsafe_allow_html=True)
     st.markdown("---")
 
-    clarity            = rating_radio("Clarity — How clearly is the vignette written?",           "cvi_clarity",            "Unclear",            "Very clear")
+    clarity            = rating_radio("Clarity — How clear is this vignette?",                             "cvi_clarity",            "Not clear",     "Very clear")
     st.markdown("")
-    relevance          = rating_radio("Relevance — Is this vignette relevant to a PTSD case?",    "cvi_relevance",          "Not relevant",       "Very relevant")
+    relevance          = rating_radio("Relevance — How relevant is this vignette to clinical practice?",   "cvi_relevance",          "Not relevant",  "Very relevant")
     st.markdown("")
-    representativeness = rating_radio("Representativeness — Does this accurately represent PTSD?", "cvi_representativeness", "Not representative", "Very representative")
+    representativeness = rating_radio("Importance — How important is this vignette for learning?",         "cvi_representativeness", "Not important", "Very important")
     st.markdown("---")
 
     col_back, _, col_next = st.columns([1, 3, 1])

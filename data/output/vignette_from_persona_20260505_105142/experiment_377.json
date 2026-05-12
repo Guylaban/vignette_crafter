@@ -1,0 +1,189 @@
+{
+  "persona_id": 377,
+  "source_persona_id": 377,
+  "experiment_timestamp": "2026-05-10 17:12:41",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "llama3.1-70b",
+      "persona_validator": "llama3.1-70b",
+      "vignette_crafter": "llama3.1-70b",
+      "vignette_validator": "llama3.1-70b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 45,
+    "gender": "Male",
+    "ethnicity": "European",
+    "relationship_status": "Married",
+    "occupation": "Journalist",
+    "trauma_type": "Captivity",
+    "pcl5": 66
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Somatic Pain (Neck)",
+        "value": "Neck pain"
+      },
+      {
+        "key": "Tactile (Touch)",
+        "value": "Physical touch"
+      },
+      {
+        "key": "Olfactory (Alcohol)",
+        "value": "Alcohol smell"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Threat in Sounds",
+        "value": "I am on high alert when I hear unexpected or loud sounds"
+      },
+      {
+        "key": "False Alarms",
+        "value": "I often react as if I am in danger even when nothing is actually wrong"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Memory Replay",
+        "value": "My memories of the frightening event are like a film that plays over and over."
+      },
+      {
+        "key": "Uncontrolled Access",
+        "value": "The memory forces its way into my mind when I do not want it to"
+      },
+      {
+        "key": "Terror on Recall",
+        "value": "Remembering the event brings back the same terror I felt at the time"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.0,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.4755,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.1762,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.9617,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory"
+  ],
+  "required_edges": [
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5378,
+  "edge_density": 0.15,
+  "vignette_word_count": 503,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Threat",
+          "item": "Threat: Checking Behind: I frequently look behind me to check if someone is following me",
+          "explanation": "For a captivity trauma profile, the threat pattern is dominated by loud sounds/startle and false alarms, but 'checking if someone is following me' implies a stalking/pursuit-based danger context that is not supported by the listed triggers or memory items. With strong Threat → Triggers and Memory → Triggers links, the threat content should connect plausibly to the trigger set; here the pursuit-focused checking stands out as clinically mismatched."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "Within the memory node, recurrent replay and uncontrolled intrusions fit the formulation and trauma type, but intense shame on recall introduces a self-evaluative appraisal theme that is otherwise absent. Given that Negative Appraisals is not represented and Threat → Negative Appraisals / Memory → Negative Appraisals are inactive, this item does not cohere well with the otherwise sensory-intrusive memory profile."
+        }
+      ],
+      "problematic_items": {
+        "Threat": [
+          "Checking Behind"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Car Similarity: Similar cars",
+          "explanation": "For captivity trauma, 'similar cars' is hard to reconcile with the rest of the profile unless transport vehicles were a clearly central part of the trauma. The other selected trigger items and all Threat/Memory items point to a general captivity-style pattern of somatic/tactile cueing, intrusive replay, terror on recall, and hypervigilance to sudden sounds. A car-specific visual trigger stands out as insufficiently connected to the rest of this formulation and is the one item a clinician would most likely question."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Car Similarity"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Kai had always been drawn to the most intense stories as a journalist, but nothing could have prepared him for the captivity he endured while reporting on a conflict in Eastern Europe. The memories of those three days still replayed like a film in his mind - the sound of footsteps outside his cell, the smell of cheap vodka wafting from his captors' breath, and the feeling of neck pain that radiated down his spine as he was forced to sit for hours on end. As Kai recalls these memories, they trigger an intense physical response. The mere thought of being touched sends a shiver down his spine, transporting him back to the moments when his captors would roughly handle him during interrogations. Even the smell of alcohol now makes him feel like he's reliving those terrifying moments. His neck pain, which began as a minor injury sustained during captivity, has become a constant reminder of the trauma he experienced. Kai's memories are no longer just recollections - they're an integral part of his threat monitoring system. Whenever he hears unexpected or loud sounds, he is instantly on high alert, convinced that danger lurks around every corner. The sound of a car backfiring outside his office window can send him into a panic, and he often finds himself reacting as if his life depends on it, even when nothing is actually wrong. As Kai becomes more hypervigilant, the memories of his captivity flood back, forcing their way into his mind uninvited. He can't escape the terror that accompanies these recollections - remembering the event brings back the same fear he felt at the time. It's as if the threat hasn't dissipated; it's just lying in wait, ready to pounce. Kai's work as a journalist has suffered as a result of his hypervigilance. He now avoids assignments that involve reporting from conflict zones or interviewing sources in person. Even simple tasks like walking down a busy street can become overwhelming, and he often finds himself scanning the surroundings for potential threats. His marriage is also starting to bear the strain - Kai's wife has grown frustrated with his constant need to be \"on guard\" and the way it affects their daily life. Despite trying to manage his symptoms on his own, Kai finally sought help when a particularly disturbing memory replay episode left him unable to work for several days. He hopes that therapy will help him learn to cope with these memories and reduce his threat monitoring system's constant chatter. What he fears most is losing himself in the process - becoming so consumed by the trauma of his past that he can no longer pursue the career or relationships he values. Kai's greatest hope is that, through treatment, he'll be able to find a way to quiet the memories and threats that have taken over his life. He wants to rediscover the journalist within himself - someone who can tell powerful stories without being haunted by the ghosts of his own past."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Kai had always been drawn to the most intense stories as a journalist, but nothing could have prepared him for the captivity he endured while reporting on a conflict in Eastern Europe. The memories of those three days still replayed like a film in his mind - the sound of footsteps outside his cell, the smell of cheap vodka wafting from his captors' breath, and the feeling of neck pain that radiated down his spine as he was forced to sit for hours on end. As Kai recalls these memories, they trigger an intense physical response. The mere thought of being touched sends a shiver down his spine, transporting him back to the moments when his captors would roughly handle him during interrogations. Even the smell of alcohol now makes him feel like he's reliving those terrifying moments. His neck pain, which began as a minor injury sustained during captivity, has become a constant reminder of the trauma he experienced. Kai's memories are no longer just recollections - they're an integral part of his threat monitoring system. Whenever he hears unexpected or loud sounds, he is instantly on high alert, convinced that danger lurks around every corner. The sound of a car backfiring outside his office window can send him into a panic, and he often finds himself reacting as if his life depends on it, even when nothing is actually wrong. As Kai becomes more hypervigilant, the memories of his captivity flood back, forcing their way into his mind uninvited. He can't escape the terror that accompanies these recollections - remembering the event brings back the same fear he felt at the time. It's as if the threat hasn't dissipated; it's just lying in wait, ready to pounce. Kai's work as a journalist has suffered as a result of his hypervigilance. He now avoids assignments that involve reporting from conflict zones or interviewing sources in person. Even simple tasks like walking down a busy street can become overwhelming, and he often finds himself scanning the surroundings for potential threats. His marriage is also starting to bear the strain - Kai's wife has grown frustrated with his constant need to be \"on guard\" and the way it affects their daily life. Despite trying to manage his symptoms on his own, Kai finally sought help when a particularly disturbing memory replay episode left him unable to work for several days. He hopes that therapy will help him learn to cope with these memories and reduce his threat monitoring system's constant chatter. What he fears most is losing himself in the process - becoming so consumed by the trauma of his past that he can no longer pursue the career or relationships he values. Kai's greatest hope is that, through treatment, he'll be able to find a way to quiet the memories and threats that have taken over his life. He wants to rediscover the journalist within himself - someone who can tell powerful stories without being haunted by the ghosts of his own past.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

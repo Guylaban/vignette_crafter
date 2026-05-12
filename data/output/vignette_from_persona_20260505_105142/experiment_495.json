@@ -1,0 +1,291 @@
+{
+  "persona_id": 495,
+  "source_persona_id": 495,
+  "experiment_timestamp": "2026-05-11 01:04:11",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "llama3.1-70b",
+      "persona_validator": "llama3.1-70b",
+      "vignette_crafter": "llama3.1-70b",
+      "vignette_validator": "llama3.1-70b"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 43,
+    "gender": "Female",
+    "ethnicity": "South Asian",
+    "relationship_status": "Married",
+    "occupation": "Plumber",
+    "trauma_type": "Toxic chemical exposure",
+    "pcl5": 79
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Olfactory (Smoke)",
+        "value": "Smoke or fire smell"
+      },
+      {
+        "key": "Olfactory (Smell)",
+        "value": "Related smells"
+      },
+      {
+        "key": "Olfactory Danger Cue",
+        "value": "Burnt smell"
+      }
+    ],
+    "Maladaptive Strategies": [
+      {
+        "key": "Avoid All Feelings",
+        "value": "avoid anything that could cause negative or positive feelings"
+      },
+      {
+        "key": "Checking Surroundings",
+        "value": "constantly scan environment for signs of threat"
+      },
+      {
+        "key": "Avoid Medical Cues",
+        "value": "Hospitals/ Ambulances/ Physical Examinations"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Waking Alert",
+        "value": "I wake during the night to check whether I am safe"
+      },
+      {
+        "key": "Hypervigilance",
+        "value": "Being superalert or watchful or on guard"
+      },
+      {
+        "key": "Physical Reactivity",
+        "value": "Having strong physical reactions when something reminded you of the stressful experience"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.3252,
+    "Triggers -- Threat": 0.8013,
+    "Triggers -- Memory": 0.0,
+    "Triggers -- Negative Appraisals": 0.0,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.0,
+    "Negative Appraisals -- Memory": 0.0,
+    "Negative Appraisals -- Triggers": 0.0,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.0,
+    "Memory -- Negative Appraisals": 0.0,
+    "Memory -- Triggers": 0.0,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.0,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.3746,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.7232,
+    "Maladaptive Strategies -- Threat": 0.5706
+  },
+  "active_nodes": [
+    "Triggers",
+    "Maladaptive Strategies",
+    "Threat"
+  ],
+  "required_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "satisfied_edges": [
+    "Triggers → Maladaptive Strategies",
+    "Triggers → Threat",
+    "Threat → Triggers",
+    "Maladaptive Strategies → Triggers",
+    "Maladaptive Strategies → Threat"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.55898,
+  "edge_density": 0.25,
+  "vignette_word_count": 536,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Auditory (Explosion): Explosion or bang sounds",
+          "explanation": "For toxic chemical exposure, the trigger set is hard to reconcile with the trauma type: explosion sounds and a specific perfume/cologne suggest a blast/fire or interpersonal-associated cue pattern rather than a chemically exposed patient, especially with no matching memory or appraisal content to explain these cues."
+        },
+        {
+          "component": "Threat",
+          "item": "Triggers: Olfactory (Cologne/Perfume): A specific perfume or cologne",
+          "explanation": "The three trigger items do not form a coherent trigger profile for a single toxic exposure trauma. Explosion sounds imply an acute blast-related event, perfume/cologne implies a highly idiosyncratic associative cue, and sleeping alone/unfamiliar place is a vulnerability context rather than a specific trauma reminder; together they lack a clear shared link to the reported trauma."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Triggers: Sleeping Alone: Sleeping alone or in an unfamiliar place",
+          "explanation": "Threat items center on strangers, vague delays, and nighttime safety checking, which reads as a generalized interpersonal/hypervigilance threat profile rather than one tied to toxic chemical exposure. Given the strong Triggers → Threat edge, the threats should be plausibly elicited by the reported triggers, but strangers and delays are poorly connected to explosion sounds, perfume, and sleeping alone."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Auditory (Explosion)"
+        ],
+        "Threat": [
+          "Triggers"
+        ],
+        "Maladaptive Strategies": [
+          "Triggers"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Sleeping Alone: Sleeping alone or in an unfamiliar place",
+          "explanation": "For toxic chemical exposure, the olfactory triggers are clinically coherent, but 'sleeping alone or in an unfamiliar place' is a qualitatively different trigger theme more typical of interpersonal assault, combat, or burglary-related threat learning. It is hard to link this item to the same trauma profile described by the other trigger items."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat from Strangers: I feel threatened by strangers approaching me even in ordinary situations",
+          "explanation": "The threat profile is dominated by generalized interpersonal danger ('strangers approaching me') and vague catastrophe in delays, whereas the trigger profile is specifically smell-based and exposure-related. With a strong Triggers → Threat edge, the threat items should plausibly arise from those triggers; here the link is weak because the endorsed threats do not center on contamination, poisoning, bodily harm from exposure, or unsafe environments."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Sleeping Alone"
+        ],
+        "Threat": [
+          "Threat from Strangers"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Olfactory (Cologne/Perfume): A specific perfume or cologne",
+          "explanation": "For toxic chemical exposure, hospital/antiseptic and smoke smells are plausible olfactory trauma reminders, but a specific perfume/cologne is hard to reconcile with the same exposure unless there is additional context not reflected elsewhere in the profile. It stands out as a trigger type not supported by the other selected items."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Threat in Delays: When something takes longer than expected I assume something bad is happening",
+          "explanation": "The threat profile is dominated by immediate safety checking and hypervigilance, closely matching the strong Triggers ↔ Threat and Maladaptive Strategies → Threat pattern. 'Threat in Delays' implies a more generalized expectancy of bad outcomes from lateness or delay, which is not well anchored to the toxic exposure context or to the other selected trigger items. It is less coherent with the otherwise concrete contamination/safety-related threat pattern."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory (Cologne/Perfume)"
+        ],
+        "Threat": [
+          "Threat in Delays"
+        ]
+      }
+    },
+    {
+      "attempt": 4,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Olfactory (Hospital): Hospital or antiseptic smell",
+          "explanation": "For toxic chemical exposure, hospital/antiseptic smells can be plausible aftermath cues if linked to treatment, but the overall profile lacks any memory or appraisal content anchoring medical aftermath; combined with the other smell triggers and home-intruder threat items, this trigger set does not form a coherent trauma-linked pattern."
+        },
+        {
+          "component": "Threat",
+          "item": "Threat: Intrusion Monitoring: I listen for sounds that might mean someone is entering my home",
+          "explanation": "The threat items are dominated by fear of a person entering the home or needing to check for personal safety at night, which suggests interpersonal attack/home invasion rather than toxic chemical exposure. This is hard to reconcile with the trigger profile of chemical/smell cues."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory (Hospital)"
+        ],
+        "Threat": [
+          "Intrusion Monitoring"
+        ]
+      }
+    },
+    {
+      "attempt": 5,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Olfactory (Alcohol): Alcohol smell",
+          "explanation": "For a toxic chemical exposure trauma, smoke/related smells are plausible olfactory triggers, but alcohol smell is hard to connect unless the exposure specifically involved solvents or alcohol-like chemicals. With no supporting threat or memory content tying the trauma to alcohol-like odours, this item is clinically questionable."
+        },
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Maladaptive Strategies: Overanalysing: I go over and over the details of the event trying to make sense of it",
+          "explanation": "The formulation makes Negative Appraisals and Memory effectively isolated/inactive, while the active pattern centres on Triggers ↔ Threat and Maladaptive Strategies. Overanalysing the event to make sense of it is more characteristic of appraisal/meaning-making processes than of the otherwise selected strategy pattern (avoidance and checking). In this profile it sits weakly with the active edge structure and lacks support from any appraisal items."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Olfactory (Alcohol)"
+        ],
+        "Maladaptive Strategies": [
+          "Overanalysing"
+        ]
+      }
+    },
+    {
+      "attempt": 6,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Maladaptive Strategies",
+          "item": "Checking Locks: repeatedly check locks, doors, or windows",
+          "explanation": "For toxic chemical exposure, repeatedly checking locks/doors/windows is not a plausible fit with the rest of the profile. The triggers and threat items center on olfactory danger cues and generalized safety monitoring after exposure, but checking locks is a security/intruder-oriented behavior that is hard to reconcile with the stated trauma and selected threat content. It does not align well with the active Triggers → Threat / Maladaptive Strategies pattern, because the dominant trigger-threat link here is chemical/smoke smell rather than break-in danger."
+        }
+      ],
+      "problematic_items": {
+        "Maladaptive Strategies": [
+          "Checking Locks"
+        ]
+      }
+    }
+  ],
+  "validation_summary": {
+    "attempts": 1,
+    "passed": 1,
+    "failed": 0,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0
+  },
+  "vignette": "Rukmini had always taken pride in her work as a plumber, troubleshooting pipes and unclogging drains with ease. But everything changed on that fateful day when she was exposed to toxic chemicals while working on a construction site. The smell of burnt plastic and smoke still lingered in her nostrils as she stumbled out of the site, gasping for air. As the days went by, Rukmini found herself becoming increasingly sensitive to certain smells - not just the acrid tang of burnt plastic, but also related odors like gasoline or paint thinner. She would catch a whiff of something and instantly be transported back to that terrifying moment when her lungs felt like they were on fire. Her husband, Raj, noticed the change in her first. She would suddenly become agitated, her eyes darting around the room as if searching for an escape route, whenever someone lit a match or started cooking with strong-smelling spices. Rukmini began to avoid anything that could trigger those feelings - not just smells, but also places and situations that might remind her of the accident. She stopped going to hospitals or seeing doctors, even when she needed medical attention. Her plumbing business suffered as she turned down jobs involving chemical-heavy materials or confined spaces. At home, she would constantly scan her surroundings for signs of threat, checking the stove burners and electrical outlets with an obsessive frequency. As time passed, Rukmini's hypervigilance only intensified. She would wake up in the middle of the night to check whether the house was safe, her heart racing as she listened for any unusual sounds. Her physical reactions became more pronounced too - a sudden smell or loud noise could send her into a tailspin of panic and trembling. Rukmini's attempts to avoid feelings only seemed to amplify her sense of threat. She felt like she was walking on eggshells, waiting for the next trigger to set off another episode. Her mind began to play tricks on her - every little smell or noise became a potential danger signal. She started to see threats everywhere, even in mundane situations. Raj tried to be supportive, but Rukmini's constant checking and avoidance behaviors were taking a toll on their relationship. He would catch her scanning the room during dinner, her eyes wide with fear, and try to reassure her that everything was okay. But Rukmini couldn't shake off the feeling of being constantly on guard. As the months went by, Rukmini's world began to shrink. She stopped going out with friends or taking on new projects at work. Her plumbing business dwindled, and she became isolated in her own home. It wasn't until Raj staged an intervention, pointing out how much her avoidance behaviors were affecting their lives together, that Rukmini finally realized she needed help. She made the appointment with a therapist, hoping to break free from the cycle of fear and avoidance that had taken over her life. As she sat in the waiting room, clutching her husband's hand for support, Rukmini knew she was taking the first step towards reclaiming her life - but she couldn't help wondering what other triggers lay hidden, waiting to pounce and send her spiraling back into chaos."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Rukmini had always taken pride in her work as a plumber, troubleshooting pipes and unclogging drains with ease. But everything changed on that fateful day when she was exposed to toxic chemicals while working on a construction site. The smell of burnt plastic and smoke still lingered in her nostrils as she stumbled out of the site, gasping for air. As the days went by, Rukmini found herself becoming increasingly sensitive to certain smells - not just the acrid tang of burnt plastic, but also related odors like gasoline or paint thinner. She would catch a whiff of something and instantly be transported back to that terrifying moment when her lungs felt like they were on fire. Her husband, Raj, noticed the change in her first. She would suddenly become agitated, her eyes darting around the room as if searching for an escape route, whenever someone lit a match or started cooking with strong-smelling spices. Rukmini began to avoid anything that could trigger those feelings - not just smells, but also places and situations that might remind her of the accident. She stopped going to hospitals or seeing doctors, even when she needed medical attention. Her plumbing business suffered as she turned down jobs involving chemical-heavy materials or confined spaces. At home, she would constantly scan her surroundings for signs of threat, checking the stove burners and electrical outlets with an obsessive frequency. As time passed, Rukmini's hypervigilance only intensified. She would wake up in the middle of the night to check whether the house was safe, her heart racing as she listened for any unusual sounds. Her physical reactions became more pronounced too - a sudden smell or loud noise could send her into a tailspin of panic and trembling. Rukmini's attempts to avoid feelings only seemed to amplify her sense of threat. She felt like she was walking on eggshells, waiting for the next trigger to set off another episode. Her mind began to play tricks on her - every little smell or noise became a potential danger signal. She started to see threats everywhere, even in mundane situations. Raj tried to be supportive, but Rukmini's constant checking and avoidance behaviors were taking a toll on their relationship. He would catch her scanning the room during dinner, her eyes wide with fear, and try to reassure her that everything was okay. But Rukmini couldn't shake off the feeling of being constantly on guard. As the months went by, Rukmini's world began to shrink. She stopped going out with friends or taking on new projects at work. Her plumbing business dwindled, and she became isolated in her own home. It wasn't until Raj staged an intervention, pointing out how much her avoidance behaviors were affecting their lives together, that Rukmini finally realized she needed help. She made the appointment with a therapist, hoping to break free from the cycle of fear and avoidance that had taken over her life. As she sat in the waiting room, clutching her husband's hand for support, Rukmini knew she was taking the first step towards reclaiming her life - but she couldn't help wondering what other triggers lay hidden, waiting to pounce and send her spiraling back into chaos.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

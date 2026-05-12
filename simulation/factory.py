@@ -14,7 +14,10 @@ def build_llm(model_name: str, temperature: float = 0.7):
     if provider == "openai":
         return ChatOpenAI(model=model_name, temperature=temperature, api_key=SecretStr(Config.OPENAI_API_KEY or ""))
     if provider == "anthropic":
-        return ChatAnthropic(model_name=model_name, temperature=temperature, api_key=SecretStr(Config.ANTHROPIC_API_KEY or ""), timeout=60, stop=None)
+        # claude-opus-4-7 and newer models don't accept temperature
+        NO_TEMP_MODELS = {"claude-opus-4-7"}
+        kwargs = {} if model_name in NO_TEMP_MODELS else {"temperature": temperature}
+        return ChatAnthropic(model_name=model_name, api_key=SecretStr(Config.ANTHROPIC_API_KEY or ""), timeout=60, stop=None, **kwargs)
     if provider == "ollama":
         return ChatOllama(model=model_name, temperature=temperature, base_url=Config.ollama_url())
     if provider == "open_source":

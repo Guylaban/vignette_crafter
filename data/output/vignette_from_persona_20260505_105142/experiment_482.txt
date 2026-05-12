@@ -1,0 +1,193 @@
+PERSONA 482  |  2026-05-11 00:16:31
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      llama3.1-70b
+    persona_validator    llama3.1-70b
+    vignette_crafter     llama3.1-70b
+    vignette_validator   llama3.1-70b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             30
+  gender          Male
+  ethnicity       North American
+  relationship_status Married
+  occupation      Carpenter
+  trauma_type     Witnessed other trauma
+  pcl5            61
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers:
+    • Tactile (Touch): Physical touch
+    • Gustatory (Taste): A specific taste associated with the event
+    • Visual (Injuries): Visible injuries or wounds on others
+  Maladaptive Strategies:
+    • Overeat: eat excessively to manage distress
+    • Dissociate Deliberately: deliberately try to leave my body or blank out
+    • Avoid Thinking: Thinking about the event
+  Memory:
+    • Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    • Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    • Nonverbal Memory: I can't seem to put the frightening event into words.
+  Negative Appraisals:
+    • Life Destroyed: My life has been destroyed by the trauma
+    • Can't Rely on Self: I can't rely on myself
+    • Permanent Damage: I have permanently changed for the worse
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0803
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.1703
+  Triggers → Negative Appraisals                     0.4216
+  Negative Appraisals → Maladaptive Strategies       0.0000
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.7449
+  Negative Appraisals → Triggers                     0.3843
+  Memory → Maladaptive Strategies                    0.8620
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.7516
+  Memory → Triggers                                  0.1281
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.0000
+  Maladaptive Strategies → Negative Appraisals       0.8437
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Verbal Access: I can talk about what happened very easily.
+    explanation: Within the Memory node, 'I can talk about what happened very easily' conflicts with the same node's strong intrusive, poorly controlled re-experiencing items ('triggered without warning' and 'full sensory reliving'). Severe reliving can coexist with disclosure, but 'very easily' pulls in the opposite direction and is the clearest within-node inconsistency.
+    item:        Negative Appraisals / Memory: Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    explanation: The cognitive formulation leaves Threat disconnected from the active network, yet 'Hypervigilance: I have to be on guard all the time' implies a strong ongoing sense of current threat. That threat-focused appraisal is not supported by the formulation and is not matched by any Threat-node content.
+    item:        Triggers / Memory: Full Sensory Reliving: When the memory comes back it feels completely real across all my senses at once
+    explanation: 'Entrapment: Having no options' as a trigger is hard to reconcile with the rest of the profile. The negative appraisals and memory content center on global damage/self-reliance and sensory reliving, not on themes of being trapped or unable to escape, so this trigger appears insufficiently grounded in the reported formulation.
+    item:        Maladaptive Strategies / Negative Appraisals: Hypervigilance: I have to be on guard all the time
+    explanation: 'Avoid Physical Stress' is weakly supported by the rest of the profile. The triggers and appraisals do not indicate body-strain or exertion as a salient trauma-linked theme, making this strategy look disconnected from the reported trigger-memory-appraisal pattern.
+  [2] FAIL
+    item:        Triggers / Triggers: Entrapment: Having no options
+    explanation: The trigger profile is centered on entrapment, touch, and a specific taste, which implies reactivity to concrete sensory or situational reminders of the witnessed trauma. 'Entrapment: Having no options' is harder to reconcile with the rest of the profile because the memory and appraisal items do not describe being trapped or immobilized; they emphasize sensory reliving, nonverbal memory, hypervigilance, and global damage/self-doubt rather than a trapped-state theme. For a witnessed-trauma case, this item stands out as poorly integrated with the rest of the formulation.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Physical Stress: Situations that put my body under stress
+    explanation: 'Avoid Physical Stress' is not well supported by the rest of the five-component profile. The selected triggers and memory items point to sensory cue-driven reliving, and the appraisals concern vigilance, self-reliance, and life damage. Avoiding bodily stress suggests fear of physiological arousal or somatic activation, but there are no corresponding threat or appraisal items about bodily danger, losing control when activated, or physical collapse. It therefore looks like a maladaptive strategy targeting a symptom pattern not otherwise represented in the profile.
+  [3] FAIL
+    item:        Maladaptive Strategies / Avoid Reminders: Being reminded of the event by others
+    explanation: 'Avoid Reminders' appears mis-keyed: the strategy should be an avoidant behavior (e.g., avoiding being reminded), but the selected text describes a trigger/reminder rather than something the patient does. This makes the maladaptive-strategy item internally incoherent.
+    item:        Negative Appraisals / Hypervigilance: I have to be on guard all the time
+    explanation: The profile includes a prominent current-threat appraisal ('I have to be on guard all the time') despite Threat being structurally inactive: there are no active edges to or from Threat, and the rest of the profile is dominated by memory-based reexperiencing, negative self-appraisals, and coping strategies rather than an active external-danger formulation. This item fits Threat more than Negative Appraisals and is inconsistent with the specified formulation.
+  [4] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Alejandro Hernandez's life changed forever on a sweltering summer afternoon three years ago. As a
+carpenter working on a construction site, he witnessed a devastating accident involving one of his
+coworkers. The man had fallen from the scaffolding and landed with a sickening thud, leaving
+Alejandro shaken to his core. He vividly recalled the sight of his coworker's mangled body, the
+metallic taste that lingered in the air, and the feeling of being utterly helpless as he watched.
+Those sensory details have become etched in his mind like a scar, refusing to be erased by time or
+distance. Whenever Alejandro is touched unexpectedly – whether it's a gentle nudge from his wife,
+Sofia, or an accidental brush against someone on the street – his entire body tenses up,
+transporting him back to that fateful day. The sensation of physical touch serves as a potent
+trigger, instantly conjuring the memory of his coworker's lifeless form. Alejandro has tried various
+ways to cope with this constant barrage of distressing recollections. He often finds himself
+overeating in an attempt to dull the emotional pain, consuming entire pizzas or buckets of fried
+chicken in one sitting. At times, he will deliberately dissociate from his body, feeling like he's
+hovering above the scene, observing everything without being a part of it. This coping mechanism
+provides temporary relief but ultimately proves unhelpful. The triggers don't stop at physical
+touch; certain tastes and smells can also send Alejandro careening back into the past. The metallic
+taste that clung to his tongue on the day of the accident has become linked inextricably with
+feelings of dread. If he catches even a whiff of something similar – perhaps while working with
+metal pipes or passing by a construction site – it's like being dropped back into the midst of
+chaos. The memories themselves are fragmented and nonverbal, often manifesting as vivid sensory
+flashbacks without warning. Alejandro might be walking down the street when suddenly he's bombarded
+with the sounds of sirens blaring, the smell of sweat and dust, and the vision of his coworker's
+contorted body. The full force of those sensations crashes over him like a tidal wave, leaving him
+disoriented and struggling to catch his breath. Alejandro is convinced that this traumatic event has
+destroyed his life. He feels as though he can no longer rely on himself, constantly plagued by self-
+doubt and uncertainty. Even simple tasks seem insurmountable at times, leaving him overwhelmed with
+anxiety. His relationships suffer, too – Sofia, sensing the distance growing between them, has begun
+to worry that Alejandro is slipping further away. As these negative appraisals take hold, they
+reinforce the memories, which in turn feed into his perception of being irreparably damaged. The
+cycle perpetuates itself, fueling Alejandro's avoidance behaviors and further solidifying his
+conviction that he'll never be whole again. For example, if a particularly distressing memory
+resurfaces while he's working on a project, he might abandon it altogether, citing frustration or
+exhaustion – but deep down, he knows he's simply trying to escape the visceral feelings of panic.
+The constant interplay between these elements has taken its toll on Alejandro's daily life. His
+relationships are strained, and his work as a carpenter is suffering due to his increased
+irritability and lack of focus. He finds himself drawn into a cycle of self-loathing, unable to
+break free from the shackles of his own mind. It was only when Sofia threatened to leave him unless
+he sought help that Alejandro realized just how far down this dark path he'd descended. As he sat in
+his therapist's office for the first time, something about the quiet concern etched on her face made
+him feel a glimmer of hope – perhaps it wasn't too late to find a way out of this labyrinth after
+all.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Alejandro Hernandez's life changed forever on a sweltering summer afternoon three years ago. As a
+carpenter working on a construction site, he witnessed a devastating accident involving one of his
+coworkers. The man had fallen from the scaffolding and landed with a sickening thud, leaving
+Alejandro shaken to his core. He vividly recalled the sight of his coworker's mangled body, the
+metallic taste that lingered in the air, and the feeling of being utterly helpless as he watched.
+Those sensory details have become etched in his mind like a scar, refusing to be erased by time or
+distance. Whenever Alejandro is touched unexpectedly – whether it's a gentle nudge from his wife,
+Sofia, or an accidental brush against someone on the street – his entire body tenses up,
+transporting him back to that fateful day. The sensation of physical touch serves as a potent
+trigger, instantly conjuring the memory of his coworker's lifeless form. Alejandro has tried various
+ways to cope with this constant barrage of distressing recollections. He often finds himself
+overeating in an attempt to dull the emotional pain, consuming entire pizzas or buckets of fried
+chicken in one sitting. At times, he will deliberately dissociate from his body, feeling like he's
+hovering above the scene, observing everything without being a part of it. This coping mechanism
+provides temporary relief but ultimately proves unhelpful. The triggers don't stop at physical
+touch; certain tastes and smells can also send Alejandro careening back into the past. The metallic
+taste that clung to his tongue on the day of the accident has become linked inextricably with
+feelings of dread. If he catches even a whiff of something similar – perhaps while working with
+metal pipes or passing by a construction site – it's like being dropped back into the midst of
+chaos. The memories themselves are fragmented and nonverbal, often manifesting as vivid sensory
+flashbacks without warning. Alejandro might be walking down the street when suddenly he's bombarded
+with the sounds of sirens blaring, the smell of sweat and dust, and the vision of his coworker's
+contorted body. The full force of those sensations crashes over him like a tidal wave, leaving him
+disoriented and struggling to catch his breath. Alejandro is convinced that this traumatic event has
+destroyed his life. He feels as though he can no longer rely on himself, constantly plagued by self-
+doubt and uncertainty. Even simple tasks seem insurmountable at times, leaving him overwhelmed with
+anxiety. His relationships suffer, too – Sofia, sensing the distance growing between them, has begun
+to worry that Alejandro is slipping further away. As these negative appraisals take hold, they
+reinforce the memories, which in turn feed into his perception of being irreparably damaged. The
+cycle perpetuates itself, fueling Alejandro's avoidance behaviors and further solidifying his
+conviction that he'll never be whole again. For example, if a particularly distressing memory
+resurfaces while he's working on a project, he might abandon it altogether, citing frustration or
+exhaustion – but deep down, he knows he's simply trying to escape the visceral feelings of panic.
+The constant interplay between these elements has taken its toll on Alejandro's daily life. His
+relationships are strained, and his work as a carpenter is suffering due to his increased
+irritability and lack of focus. He finds himself drawn into a cycle of self-loathing, unable to
+break free from the shackles of his own mind. It was only when Sofia threatened to leave him unless
+he sought help that Alejandro realized just how far down this dark path he'd descended. As he sat in
+his therapist's office for the first time, something about the quiet concern etched on her face made
+him feel a glimmer of hope – perhaps it wasn't too late to find a way out of this labyrinth after
+all.

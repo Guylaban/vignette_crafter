@@ -20,7 +20,7 @@ import yaml
 
 CONFIG_PATHS = {
     "full":           Path("configs/simulation_config.yaml"),
-    "no_formulation": Path("configs/no_formulation_test.yaml"),
+    "no_formulation": Path("configs/no_formulation_config.yaml"),
     "zero_shot":      Path("configs/zero_shot_config.yaml"),
 }
 

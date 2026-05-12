@@ -1,0 +1,176 @@
+PERSONA 429  |  2026-05-10 20:38:46
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+CONFIG
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  pipeline:    vignette_from_persona
+  temperature: 0.7
+  max_retries: 5
+  seed:        42
+  models:
+    persona_crafter      llama3.1-70b
+    persona_validator    llama3.1-70b
+    vignette_crafter     llama3.1-70b
+    vignette_validator   llama3.1-70b
+
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  age             71
+  gender          Male
+  ethnicity       Oceania
+  relationship_status Single
+  occupation      Painter
+  trauma_type     Terrorism
+  pcl5            48
+
+SELF-REPORT
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Maladaptive Strategies:
+    • Reassurance Seeking: I keep asking others to reassure me that I am okay
+    • Emotion Control: I try hard to control my emotions
+    • Avoid Going Out: Going out
+  Memory:
+    • Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+    • Vivid Memory: My memories of the frightening event are very clear and detailed.
+    • Uncontrolled Access: The memory forces its way into my mind when I do not want it to
+  Negative Appraisals:
+    • Can't Rely on Self: I can't rely on myself
+    • Can't Rely on Others: I can't rely on other people
+    • World is Dangerous: The world is a dangerous place
+
+COGNITIVE MODEL EDGES
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Triggers → Maladaptive Strategies                  0.0000
+  Triggers → Threat                                  0.0000
+  Triggers → Memory                                  0.0000
+  Triggers → Negative Appraisals                     0.0000
+  Negative Appraisals → Maladaptive Strategies       0.3376
+  Negative Appraisals → Threat                       0.0000
+  Negative Appraisals → Memory                       0.0000
+  Negative Appraisals → Triggers                     0.0000
+  Memory → Maladaptive Strategies                    0.0000
+  Memory → Threat                                    0.0000
+  Memory → Negative Appraisals                       0.0678
+  Memory → Triggers                                  0.0000
+  Threat → Maladaptive Strategies                    0.0000
+  Threat → Memory                                    0.0000
+  Threat → Negative Appraisals                       0.0000
+  Threat → Triggers                                  0.0000
+  Maladaptive Strategies → Memory                    0.7752
+  Maladaptive Strategies → Negative Appraisals       0.7944
+  Maladaptive Strategies → Triggers                  0.0000
+  Maladaptive Strategies → Threat                    0.0000
+
+DEMOGRAPHICS VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] PASS
+
+SELF-REPORT VALIDATION
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  [1] FAIL
+    item:        Memory / Memory: Partial Clarity: Some moments of the event are extremely clear while others are completely blank
+    explanation: Within the Memory node, 'Partial Clarity' implies marked fragmentation with important gaps, while 'Vivid Memory' implies globally clear and detailed recall. These can sometimes coexist for specific segments, but stated together at face value they pull in opposite directions and are the clearest internal inconsistency in the profile.
+  [2] FAIL
+    item:        Maladaptive Strategies / Avoid Enclosed Spaces: Enclosed or confined spaces
+    explanation: The profile lacks any Threat items, despite terrorism-related avoidance of crowds and enclosed/public spaces usually being linked to a current sense of danger in public places. With Triggers→Threat inactive and no Threat node content provided, the avoidance pattern is left clinically unanchored.
+    item:        Memory / Avoid Crowds: Crowded places such as shopping centres or public events
+    explanation: Memory items describe vivid, cue-driven, sensory re-experiencing, especially being triggered by surroundings without warning. However, all Triggers edges are inactive and no Trigger items are present, making the specific 'surroundings instantly bring back the full memory' item poorly aligned with the formulation structure.
+    item:        Negative Appraisals / Bodily Reenactment: When memories come to mind of what happened, I feel my body is in the same position as when the frightening event occurred.
+    explanation: Negative appraisals focus on generalized mistrust of self, body, and others, while the maladaptive strategies are highly situational (crowds/enclosed spaces). Without corresponding threat or trigger content, these nodes do not form a clearly coherent terrorism-specific presentation.
+  [3] FAIL
+    item:        Memory / Memory: Triggered Without Warning: Something in my surroundings can instantly bring back the full memory without warning
+    explanation: The Memory item describes strong cue-driven reactivation by surroundings, but the formulation explicitly has Triggers inactive with Memory. This creates a direct contradiction between the item's content and the formulation structure.
+    item:        Maladaptive Strategies / Maladaptive Strategies: Avoid Crowds: Crowded places such as shopping centres or public events
+    explanation: Avoiding crowds is plausible after terrorism, but it implies salient environmental trigger sensitivity and public-place threat anticipation. In this profile, Triggers and Threat are not represented and are inactive in the formulation, so this strategy lacks a coherent linked context.
+  [4] FAIL
+    item:        Maladaptive Strategies / Checking Surroundings: constantly scan environment for signs of threat
+    explanation: Checking surroundings for signs of threat implies an active trigger/threat monitoring pattern, but the formulation explicitly has Triggers and Threat disconnected from the rest of the system, making this item poorly aligned with the cognitive formulation.
+    item:        Memory / Reassurance Seeking: I keep asking others to reassure me that I am okay
+    explanation: Frequent reassurance seeking from others sits awkwardly with the simultaneous appraisal 'I can't rely on other people.' While some ambivalence is possible, taking both as central items without any moderating context creates a notable cross-node tension.
+    item:        Negative Appraisals / Body Unreliable: I can no longer trust my own body
+    explanation: 'I can no longer trust my own body' is more typical of trauma involving physical injury, illness, or prominent somatic threat. With terrorism trauma, it is not impossible, but alongside the other selected items there is little memory content or appraisal content explaining bodily unreliability, so this item feels weakly grounded in the rest of the profile.
+  [5] PASS
+
+TOKEN USAGE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  input:          0
+  output:         0
+  total:          0
+
+VALIDATION SUMMARY
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 attempt(s)  →  PASS
+
+VIGNETTE ATTEMPTS
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  [1] PASS
+Kai had always been a man who found solace in his art. As a painter, he spent most of his days lost
+in the vibrant colors and textures of his canvases. But that all changed on a fateful day seven
+years ago when Kai was caught in a terrorist attack while visiting family in his native Fiji. The
+sounds of gunfire and screams still echoed in his mind, transporting him back to the moment when he
+had to shield himself behind a nearby wall as the world around him descended into chaos. In the
+aftermath of that event, Kai began to notice that memories of that day would force their way into
+his mind at the most inopportune moments. He'd be standing at his easel, brush poised over canvas,
+when suddenly he'd feel his body tense up and he'd be back in that alleyway, huddled behind a wall
+as bullets whizzed by. These bodily reenactments were so vivid that Kai would often find himself
+instinctively ducking for cover or crouching low to the ground, much to the confusion of those
+around him. As these memories continued to intrude on his daily life, Kai started to develop some
+very negative appraisals about himself and the world. He began to feel like he couldn't rely on
+himself to stay safe, that at any moment something terrible could happen again. And as for others?
+Forget it – they were just as powerless as he was in the face of such senseless violence. The world,
+Kai had come to believe, was a fundamentally dangerous place. These negative appraisals only seemed
+to fuel his memories, making them even more vivid and unsettling. In an effort to cope with these
+feelings, Kai started seeking reassurance from those around him. He'd constantly ask his friends and
+family if they thought he was okay, if they thought the world was a safe place. And when that didn't
+work, he tried to exert strict control over his emotions, as if by sheer willpower alone he could
+keep the memories at bay. But of course, this only made things worse. The more Kai sought
+reassurance, the more he seemed to doubt himself. He became convinced that others were just humoring
+him, that they secretly thought he was weak or foolish for still being so traumatized after all
+these years. And as for controlling his emotions? That was a losing battle from the start. The
+memories would always find a way to break through, leaving Kai feeling like he was at their mercy.
+As time went on, Kai found himself avoiding going out more and more. He'd stop attending art
+openings or visiting with friends, afraid of what might happen if he left the safety of his own
+home. His painting suffered as well – how could he possibly create anything beautiful when the world
+outside seemed so full of darkness? It was this downward spiral that finally led Kai to seek help.
+He realized that he couldn't keep living like this, constantly on edge and waiting for the other
+shoe to drop. What scared him most was losing himself entirely to these memories and negative
+appraisals – becoming a shadow of his former self. And yet, as he sat in the therapist's office,
+clutching his worn-out paint-stained apron, Kai couldn't help but feel a glimmer of hope that maybe,
+just maybe, there was still a way out of this darkness.
+
+VIGNETTE (final)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Kai had always been a man who found solace in his art. As a painter, he spent most of his days lost
+in the vibrant colors and textures of his canvases. But that all changed on a fateful day seven
+years ago when Kai was caught in a terrorist attack while visiting family in his native Fiji. The
+sounds of gunfire and screams still echoed in his mind, transporting him back to the moment when he
+had to shield himself behind a nearby wall as the world around him descended into chaos. In the
+aftermath of that event, Kai began to notice that memories of that day would force their way into
+his mind at the most inopportune moments. He'd be standing at his easel, brush poised over canvas,
+when suddenly he'd feel his body tense up and he'd be back in that alleyway, huddled behind a wall
+as bullets whizzed by. These bodily reenactments were so vivid that Kai would often find himself
+instinctively ducking for cover or crouching low to the ground, much to the confusion of those
+around him. As these memories continued to intrude on his daily life, Kai started to develop some
+very negative appraisals about himself and the world. He began to feel like he couldn't rely on
+himself to stay safe, that at any moment something terrible could happen again. And as for others?
+Forget it – they were just as powerless as he was in the face of such senseless violence. The world,
+Kai had come to believe, was a fundamentally dangerous place. These negative appraisals only seemed
+to fuel his memories, making them even more vivid and unsettling. In an effort to cope with these
+feelings, Kai started seeking reassurance from those around him. He'd constantly ask his friends and
+family if they thought he was okay, if they thought the world was a safe place. And when that didn't
+work, he tried to exert strict control over his emotions, as if by sheer willpower alone he could
+keep the memories at bay. But of course, this only made things worse. The more Kai sought
+reassurance, the more he seemed to doubt himself. He became convinced that others were just humoring
+him, that they secretly thought he was weak or foolish for still being so traumatized after all
+these years. And as for controlling his emotions? That was a losing battle from the start. The
+memories would always find a way to break through, leaving Kai feeling like he was at their mercy.
+As time went on, Kai found himself avoiding going out more and more. He'd stop attending art
+openings or visiting with friends, afraid of what might happen if he left the safety of his own
+home. His painting suffered as well – how could he possibly create anything beautiful when the world
+outside seemed so full of darkness? It was this downward spiral that finally led Kai to seek help.
+He realized that he couldn't keep living like this, constantly on edge and waiting for the other
+shoe to drop. What scared him most was losing himself entirely to these memories and negative
+appraisals – becoming a shadow of his former self. And yet, as he sat in the therapist's office,
+clutching his worn-out paint-stained apron, Kai couldn't help but feel a glimmer of hope that maybe,
+just maybe, there was still a way out of this darkness.
