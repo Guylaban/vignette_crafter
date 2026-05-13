@@ -9,14 +9,15 @@ from pathlib import Path
 from agents.base_agent import reset_run_tokens, set_context_subdir
 from agents.judge_agent import JudgeAgent, JudgeRating
 from simulation.factory import build_llm
+from utils.text import strip_markdown
 
 logger = logging.getLogger(__name__)
 
 FIELDNAMES = [
     "timestamp", "judge_model", "vignette_id", "persona_id", "model", "condition",
-    "clarity", "relevance", "representativeness",
+    "clarity", "relevance", "importance",
     "g1_grounded", "g2_narrative", "g3_explicit", "g4_relevant",
-    "dsm_a", "dsm_b", "dsm_c", "dsm_d", "dsm_e", "dsm_g", "dsm_valid",
+    "dsm_a", "dsm_b", "dsm_c", "dsm_d", "dsm_e", "dsm_g",
     "ec_threat", "ec_appraisals", "ec_memory", "ec_strategies", "ec_triggers",
     "rationale",
 ]
@@ -45,10 +46,6 @@ class JudgeRunner:
 
     def _row_from_rating(self, rating: JudgeRating, vignette_id: str,
                          persona_id: str, model_src: str, condition: str) -> dict:
-        dsm_valid = int(all([
-            rating.dsm_a, rating.dsm_b, rating.dsm_c,
-            rating.dsm_d, rating.dsm_e, rating.dsm_g,
-        ]))
         return {
             "timestamp":          datetime.now().isoformat(),
             "judge_model":        self.model,
@@ -56,9 +53,9 @@ class JudgeRunner:
             "persona_id":         persona_id,
             "model":              "" if self.blind else model_src,
             "condition":          "" if self.blind else condition,
-            "clarity":            rating.clarity,
-            "relevance":          rating.relevance,
-            "representativeness": rating.representativeness,
+            "clarity":    rating.clarity,
+            "relevance":  rating.relevance,
+            "importance": rating.importance,
             "g1_grounded":        rating.g1_grounded,
             "g2_narrative":       rating.g2_narrative,
             "g3_explicit":        rating.g3_explicit,
@@ -69,7 +66,6 @@ class JudgeRunner:
             "dsm_d":              rating.dsm_d,
             "dsm_e":              rating.dsm_e,
             "dsm_g":              rating.dsm_g,
-            "dsm_valid":          dsm_valid,
             "ec_threat":          rating.ec_threat,
             "ec_appraisals":      rating.ec_appraisals,
             "ec_memory":          rating.ec_memory,
@@ -113,7 +109,7 @@ class JudgeRunner:
 
                 logger.info("[%d/%d] %s  %s/%s", i, len(todo), vid, model_src, condition)
                 try:
-                    rating = agent.rate(v["vignette"])
+                    rating = agent.rate(strip_markdown(v["vignette"]))
                     if rating is None:
                         logger.warning("  Parse failed for %s — skipping", vid)
                         continue

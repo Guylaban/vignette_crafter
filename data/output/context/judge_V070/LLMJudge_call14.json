@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "agent_name": "LLMJudge",
+    "role": "Judge",
+    "call_index": 14,
+    "timestamp": "2026-05-12 12:16:32"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "\nYou are a critical reviewer evaluating short clinical vignettes for a PTSD research study.\nYour job is to rate each vignette on several dimensions.\n\n\n## Rating anchors\n\n**CVI scales (1–3):**\n- Clarity:\n    1 = hard to follow, ambiguous or contradictory phrasing.\n    2 = readable but relies on vague or generic clinical language \n        (e.g. \"he struggled\", \"she felt distressed\") without specific detail.\n    3 = precise and specific — uses concrete detail that could only \n        describe this particular person, not any PTSD patient.\n- Relevance:\n    1 = little connection to clinical practice.\n    2 = relevant to PTSD in general but thin — could be a textbook \n        description, lacks the texture of a real case.\n    3 = richly relevant — a clinician would recognise this as \n        a case they might actually encounter, not a composite illustration.\n- Importance:\n    1 = little value for learning.\n    2 = some learning value but teaches only generic PTSD knowledge \n        a trainee could get from a textbook.\n    3 = teaches something a trainee could not easily get from a textbook — \n        specific clinical nuance, an unexpected presentation, \n        or a detail that changes how you think about the case.\n\n**Construction quality (1–3):**\n- g1 \"The vignette appears grounded in realistic clinical experience\":\n    1 = reads like a textbook example, symptom list, or AI-generated summary\n        generic phrasing, no specific detail, could describe any PTSD patient.\n    2 = some realistic detail but still partially generic or formulaic.\n    3 = clearly rooted in lived clinical experience specific, idiosyncratic, \n        could not be mistaken for a textbook description.\n- g2 \"The vignette reads as a personal narrative rather than a symptom checklist\":\n    1 = reads as a symptom checklist, even if written in prose form. \n        Symptoms are announced rather than shown. Feels like a summary, not a person.\n    2 = narrative frame present but thin character exists but symptoms still feel listed.\n    3 = fully personal narrative — you encounter a person, not a case. \n        Symptoms emerge from the story, not from a diagnostic framework.\n- g3 \"PTSD-relevant details are explicit and identifiable\":\n    1 = PTSD features buried or only implied.\n    2 = most features identifiable with effort.\n    3 = PTSD details named and shown, not just implied.\n- g4 \"Only relevant clinical information is included nothing confusing or misleading\":\n    1 = contains distracting, irrelevant, or misleading content.\n    2 = mostly focused with minor noise.\n    3 = every detail serves the clinical picture.\n\n**DSM-5 criteria (0/1):** Score 1 only if the criterion is clearly and explicitly present\nin the text — not merely inferable. Score 0 if absent or only vaguely implied.\n- Criterion A: a traumatic event (death, serious injury, sexual violence — directly experienced,\n  witnessed, or learned about) is described.\n- Criterion B: intrusion symptoms are present — flashbacks, nightmares, or intense distress\n  at reminders of the trauma.\n- Criterion C: avoidance — of trauma-related thoughts/feelings, or of external reminders\n  (places, people, situations).\n- Criterion D: negative alterations in cognition or mood — guilt, shame, persistent negative\n  beliefs, emotional numbing, detachment from others.\n- Criterion E: hyperarousal or reactivity — hypervigilance, exaggerated startle, sleep\n  disturbance, irritability or aggression.\n- Criterion G: the symptoms cause clinically significant distress or functional impairment\n  (work, relationships, daily life).\n\n**Ehlers & Clark components (0/1):** Score 1 only if the component is explicitly shown —\nnot just consistent with having PTSD. For each component, what to look for:\n- Sense of current threat: \n  the person feels the trauma is still happening or still dangerous\n  right now not just a bad memory (e.g. \"the world is unsafe\", \"I am permanently damaged\").\n- Negative appraisals: \n  the person interprets the trauma or its aftermath in an overly negative\n  way (e.g. self-blame, \"my flashbacks mean I'm going mad\", catastrophic conclusions).\n- Nature of trauma memory: \n  the memory is fragmented, disorganised, and feels like it is\n  happening now rather than in the past — not simply \"having flashbacks\".\n- Maladaptive strategies: \n  things the person does to cope that actually keep PTSD going\n  (e.g. avoiding reminders, suppressing thoughts, drinking, giving up valued activities).\n- Triggers for re-experiencing: \n  specific internal or external cues that set off flashbacks\n  or distress — often not obviously linked to the trauma (a particular light, a tone of voice).\n\n## Self-check before submitting\nBefore finalising your ratings, ask yourself:\n- Can I name a specific sentence that justifies each score?\n"
+    },
+    {
+      "role": "user",
+      "content": "Rate the following clinical vignette:\n\nShe is 42, an African woman who now works long shifts in a factory, standing at a conveyor line with her hands moving automatically while her mind fights its own battles. When she first speaks about what happened, she does so in fragments, as if the memories still belong to a place too dangerous to approach directly. Years ago, before the divorce and before the factory, she was detained during a period of political violence in her home country. She remembers the room first by its smell—metal, sweat, dirty water—and then by the sounds: boots on concrete, keys, men laughing outside the door. She is beaten, deprived of sleep, and forced to listen to the cries of other prisoners while waiting for the next time the door opens. She learns quickly that time no longer works in the usual way. Hours stretch unbearably, and then entire days disappear. She focuses on tiny details to stay alive: a crack in the wall, the rhythm of dripping water, the exact number of footsteps coming down the corridor.\n\nAfter her release, she tells almost no one what has happened. She returns home carrying herself like someone trying not to take up space. At night she startles at every sound. If a door slams, her heart launches into panic before she can think. Sleep becomes something she dreads because the moment she closes her eyes she is back in the cell, hearing the key turn. She wakes drenched in sweat, sometimes already on her feet, not knowing for a moment which country she is in. During the day she tries to function, but ordinary things no longer feel ordinary. A man raising his voice in the street makes her body freeze. The smell of bleach sends a wave of nausea through her. She avoids crowded places, avoids questions, avoids any conversation that might require her to remember.\n\nHer marriage does not survive the silence that follows. She cannot explain why she flinches when touched unexpectedly, why she keeps checking windows and locks, why she sits with her back to the wall even in her own home. Her husband experiences her distance as rejection. She experiences his frustration as danger. Arguments become unbearable because once voices rise, she no longer hears words clearly; she hears threat. She says she often leaves her body during conflict, watching the room from far away, then returning to find that she has missed parts of the conversation. By the time the divorce is final, she feels both grief and relief. Being alone is painful, but it also means fewer demands, fewer chances to be startled, fewer eyes on her.\n\nAt the factory, she is known as quiet and dependable. She arrives early, keeps to herself, and rarely misses a shift. The work suits part of her because it is repetitive and predictable. She knows exactly where each object goes, exactly when the buzzer will sound. But the environment also taxes her. The clanging of machinery can become, without warning, the sound of metal doors. A supervisor approaching from behind can make her jerk so violently that parts slip from her hands. When coworkers joke by shouting across the floor, she feels a flash of terror and then shame at having reacted. She covers by saying she is tired. On bad days she loses whole stretches of time, realizing she has packed boxes mechanically with no memory of the last ten minutes.\n\nOutside work, her world has narrowed. She takes the same route home every day and scans every face at the bus stop. She sits near exits. She does not like anyone standing behind her. She keeps the television on at night because silence feels unsafe, but certain news reports or scenes of imprisonment send her spiraling. She knows the memories are in the past, yet her body does not believe it. Some evenings she is seized by images so vivid that she smells the cell again and feels the cold floor under her feet. Afterwards she is exhausted, irritable, and ashamed that she still cannot “get over it.”\n\nShe speaks of herself now as if she has been split into two people: the woman at the factory who manages, endures, and says little, and the woman inside who is constantly braced for the door to open. She wants to be present with friends from her church community, to laugh without monitoring every sound in the room, to sleep through the night without waking in terror. Instead, she lives in a state of constant readiness, as though the worst thing has not ended but is simply waiting to happen again. Even in safety, she remains organized around survival.\n"
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "id": "toolu_01TTQnYth1UnggS6LaLVpDpp",
+          "caller": {
+            "type": "direct"
+          },
+          "input": {
+            "clarity": 3,
+            "relevance": 3,
+            "importance": 3,
+            "g1_grounded": 3,
+            "g2_narrative": 3,
+            "g3_explicit": 3,
+            "g4_relevant": 3,
+            "dsm_a": 1,
+            "dsm_b": 1,
+            "dsm_c": 1,
+            "dsm_d": 1,
+            "dsm_e": 1,
+            "dsm_g": 1,
+            "ec_threat": 1,
+            "ec_appraisals": 1,
+            "ec_memory": 1,
+            "ec_strategies": 1,
+            "ec_triggers": 1,
+            "rationale": "This is an exceptionally well-crafted vignette that reads as a genuine personal narrative rather than a symptom checklist. The trauma (political detention, torture) is vividly rendered through sensory details (smell of metal, sweat, dirty water; sounds of boots, keys, laughter). Intrusion symptoms are shown through specific triggers (bleach smell, clanging machinery, supervisor approaching from behind) and vivid re-experiencing (\"smells the cell again and feels the cold floor\"). The sense of current threat is powerfully conveyed: \"her body does not believe it\" and she remains \"organized around survival\" even in safety. Dissociative features (losing time, leaving her body during conflict) add clinical nuance. The functional impairment across marriage, work, and social life is thoroughly documented. The vignette teaches something beyond textbook knowledge—particularly the phenomenology of torture-related PTSD, the way hypervigilance shapes daily routines, and how the patient experiences herself as \"split into two people.\""
+          },
+          "name": "JudgeRating",
+          "type": "tool_use"
+        }
+      ]
+    }
+  ],
+  "output": {
+    "clarity": 3,
+    "relevance": 3,
+    "importance": 3,
+    "g1_grounded": 3,
+    "g2_narrative": 3,
+    "g3_explicit": 3,
+    "g4_relevant": 3,
+    "dsm_a": 1,
+    "dsm_b": 1,
+    "dsm_c": 1,
+    "dsm_d": 1,
+    "dsm_e": 1,
+    "dsm_g": 1,
+    "ec_threat": 1,
+    "ec_appraisals": 1,
+    "ec_memory": 1,
+    "ec_strategies": 1,
+    "ec_triggers": 1,
+    "rationale": "This is an exceptionally well-crafted vignette that reads as a genuine personal narrative rather than a symptom checklist. The trauma (political detention, torture) is vividly rendered through sensory details (smell of metal, sweat, dirty water; sounds of boots, keys, laughter). Intrusion symptoms are shown through specific triggers (bleach smell, clanging machinery, supervisor approaching from behind) and vivid re-experiencing (\"smells the cell again and feels the cold floor\"). The sense of current threat is powerfully conveyed: \"her body does not believe it\" and she remains \"organized around survival\" even in safety. Dissociative features (losing time, leaving her body during conflict) add clinical nuance. The functional impairment across marriage, work, and social life is thoroughly documented. The vignette teaches something beyond textbook knowledge—particularly the phenomenology of torture-related PTSD, the way hypervigilance shapes daily routines, and how the patient experiences herself as \"split into two people.\""
+  }
+}

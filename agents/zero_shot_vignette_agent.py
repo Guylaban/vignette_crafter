@@ -1,7 +1,6 @@
 import logging
 from .base_agent import BaseAgent, _count
 from configs.prompts import (
-    ZERO_SHOT_VIGNETTE_PROMPT,
     ZERO_SHOT_DEMOGRAPHICS_SYSTEM_PROMPT,
     ZERO_SHOT_DEMOGRAPHICS_USER_PROMPT,
 )
@@ -10,15 +9,10 @@ logger = logging.getLogger(__name__)
 
 
 class ZeroShotVignetteAgent(BaseAgent):
-    """Generates a vignette with no patient-specific context, or with demographics only."""
+    """Generates a vignette from demographics only (zero-shot baseline)."""
 
     def __init__(self, name: str, role: str, llm):
-        super().__init__(name, role, system_prompt=ZERO_SHOT_VIGNETTE_PROMPT, llm=llm)
-
-    def create_vignette(self) -> str:
-        vignette = self.respond("Write the vignette.")
-        logger.info("[%s] zero-shot vignette written", self.name)
-        return vignette
+        super().__init__(name, role, system_prompt=ZERO_SHOT_DEMOGRAPHICS_SYSTEM_PROMPT, llm=llm)
 
     def create_vignette_from_demographics(self, demographics: str) -> str:
         user_prompt = ZERO_SHOT_DEMOGRAPHICS_USER_PROMPT.format(demographics=demographics)

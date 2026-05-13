@@ -29,14 +29,16 @@ class Config:
 # Model definitions with their providers
 MODELS = {
     # OpenAI
-    "gpt-4o-mini": "openai",
-    "gpt-4.1":     "openai",
+    "gpt-4o-mini":  "openai",
+    "gpt-4.1":      "openai",
     "gpt-5.4-mini": "openai",
-    "gpt-5.4": "openai",
+    "gpt-5.4":      "openai",
+    "gpt-5":        "openai",
 
     # Anthropic
     "claude-opus-4-7":          "anthropic",
     "claude-opus-4-6":          "anthropic",
+    "claude-opus-4-5":          "anthropic",
     "claude-opus-4-5-20251101": "anthropic",
     "claude-opus-4-1-20250805": "anthropic",
     "claude-sonnet-4-6":        "anthropic",

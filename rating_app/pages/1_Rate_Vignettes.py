@@ -486,8 +486,7 @@ elif step == 5:
             else:
                 st.session_state.pop("_warn5", None)
                 dsm_vals   = {k: v for k, v in st.session_state.current_ratings.items() if k.startswith("dsm_")}
-                dsm_binary = {k: (1 if v == "Yes" else 0) for k, v in dsm_vals.items() if k != "dsm_valid"}
-                dsm_valid  = int(all(dsm_binary.values()))
+                dsm_binary = {k: (1 if v == "Yes" else 0) for k, v in dsm_vals.items()}
                 ec_binary  = {k: (1 if v == "Yes" else 0) for k, v in ec_results.items()}
                 row = {
                     "timestamp":       datetime.now(TZ).isoformat(),
@@ -499,7 +498,6 @@ elif step == 5:
                     "condition":       vignette["condition"],
                     **st.session_state.current_ratings,
                     **dsm_binary,
-                    "dsm_valid":       dsm_valid,
                     **ec_binary,
                 }
                 with st.spinner("Saving..."):

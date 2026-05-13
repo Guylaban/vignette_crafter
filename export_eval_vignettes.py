@@ -12,6 +12,8 @@ import csv
 from pathlib import Path
 from collections import defaultdict
 
+from utils.text import strip_markdown
+
 EVAL_PATH      = Path("data/eval_personas.json")
 DATA_DIR       = Path("data/output")
 OUTPUT_PATH    = Path("data/eval_vignettes.csv")
@@ -80,7 +82,7 @@ def main():
             try:
                 with open(fp, encoding="utf-8") as f:
                     data = json.load(f)
-                vignette = data.get("vignette", "").strip()
+                vignette = strip_markdown(data.get("vignette", ""))
                 if not vignette:
                     missing.append((model, condition, pid))
                     continue

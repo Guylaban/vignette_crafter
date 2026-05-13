@@ -7,8 +7,7 @@ from configs.prompts import (VIGNETTE_CRAFTER_PROMPT_CONTEXT,
                              VIGNETTE_CRAFTER_NO_FORMULATION_RETRY_PROMPT,
                              VIGNETTE_CRAFTER_USER_PROMPT,
                              NO_FORMULATION_SR_SYSTEM_PROMPT,
-                             NO_FORMULATION_SR_USER_PROMPT,
-                             ZERO_SHOT_VIGNETTE_PROMPT)
+                             NO_FORMULATION_SR_USER_PROMPT)
 from configs.formulation_config import COMPONENT_SYNONYMS
 
 logger = logging.getLogger(__name__)
@@ -43,9 +42,6 @@ class VignetteCrafterAgent(BaseAgent):
                 self_report=self.fmt_self_report(sr)     if use_self_report  else "  (not provided)",
             )
             return NO_FORMULATION_SR_SYSTEM_PROMPT, user_prompt
-
-        if not use_formulation:
-            return ZERO_SHOT_VIGNETTE_PROMPT, "Write a clinical vignette for a patient with PTSD."
 
         if use_demographics or use_self_report:
             sr = self_report or self._nodes_to_self_report(context["nodes"])
