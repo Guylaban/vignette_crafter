@@ -66,8 +66,15 @@ if selected_pid:
 
 st.markdown(f"Found **{len(experiments)}** experiment(s).")
 
-for exp in experiments:
-    with st.expander(f"**{exp['name']}**  —  {exp['timestamp']}", expanded=False):
+# Group by condition for cleaner navigation
+from itertools import groupby
+conditions = sorted({e["condition"] for e in experiments})
+condition_filter = st.selectbox("Filter by condition", ["All"] + conditions)
+filtered = experiments if condition_filter == "All" else [e for e in experiments if e["condition"] == condition_filter]
+
+for exp in filtered:
+    label = f"**{exp.get('model', exp['name'])}**  —  `{exp.get('condition', '')}`"
+    with st.expander(label, expanded=False):
 
         personas_meta = get_personas(exp["path"])
         cfg = {}

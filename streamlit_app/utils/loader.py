@@ -14,22 +14,30 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 
 def get_experiments() -> list[dict]:
     """
-    Return all experiment directories under data/output/, sorted newest first.
+    Return all experiment directories under data/output/{condition}/{model}/.
 
-    Each item:  {"path": Path, "name": str, "timestamp": str}
+    Each item:  {"path": Path, "name": str, "condition": str, "model": str}
     """
     output_dir = PROJECT_ROOT / "data" / "output"
     if not output_dir.exists():
         return []
 
     experiments = []
-    for d in sorted(output_dir.iterdir(), reverse=True):
-        if not d.is_dir():
+    for condition_dir in sorted(output_dir.iterdir()):
+        if not condition_dir.is_dir() or condition_dir.name.startswith("_"):
             continue
-        # Extract timestamp: last two segments separated by _ (YYYYMMDD_HHMMSS)
-        m = re.search(r"(\d{8}_\d{6})$", d.name)
-        timestamp = m.group(1).replace("_", " ") if m else d.name
-        experiments.append({"path": d, "name": d.name, "timestamp": timestamp})
+        for model_dir in sorted(condition_dir.iterdir()):
+            if not model_dir.is_dir():
+                continue
+            if not list(model_dir.glob("experiment_*.json")):
+                continue
+            experiments.append({
+                "path":      model_dir,
+                "name":      f"{condition_dir.name} / {model_dir.name}",
+                "condition": condition_dir.name,
+                "model":     model_dir.name,
+                "timestamp": f"{condition_dir.name}  |  {model_dir.name}",
+            })
     return experiments
 
 

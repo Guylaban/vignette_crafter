@@ -71,7 +71,7 @@ div[data-testid="stRadio"] > label { display: none; }
 """, unsafe_allow_html=True)
 
 # ── Rater pool assignment ─────────────────────────────────────────────────────
-# The 300 vignettes are split into N_POOLS non-overlapping subsets of 100.
+# The 330 vignettes are split into N_POOLS non-overlapping subsets of 110.
 # A rater's pool index is derived from a stable MD5 hash of their full name,
 # so the same person always gets the same pool regardless of session.
 

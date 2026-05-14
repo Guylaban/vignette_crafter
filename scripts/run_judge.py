@@ -31,7 +31,8 @@ parser.add_argument("--input",       default=str(ROOT / "data/eval_vignettes.csv
 parser.add_argument("--output_dir",  default=str(ROOT / "data/llm_judge"),                       help="Output directory")
 parser.add_argument("--limit",       type=int,   default=None,                                    help="Stop after N vignettes (for testing)")
 parser.add_argument("--blind",       action="store_true",                                         help="Hide model/condition in output")
-parser.add_argument("--delay",       type=float, default=0.5,                                     help="Seconds between API calls")
+parser.add_argument("--delay",       type=float, default=0.5,                                     help="Seconds between API calls (sequential only)")
+parser.add_argument("--workers",     type=int,   default=1,                                        help="Parallel workers (default 1 = sequential)")
 args = parser.parse_args()
 
 runner = JudgeRunner(
@@ -42,5 +43,6 @@ runner = JudgeRunner(
     blind       = args.blind,
     delay       = args.delay,
     limit       = args.limit,
+    workers     = args.workers,
 )
 runner.run()
