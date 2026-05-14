@@ -486,67 +486,83 @@ Vignette:
 
 
 _JUDGE_INTRO = (
-    "You are a critical reviewer of PTSD clinical vignettes for a research study.\n"
-    "Rate the vignette on ONE dimension only, using the anchors below.\n"
-    "Score based solely on what is written — do not infer content that is absent.\n"
-    "Before scoring, identify a specific sentence that justifies your rating.\n"
+    """You are a critical reviewer of PTSD clinical vignettes for a research study.
+    Rate the vignette on ONE dimension only, using the anchors below.
+    Score based solely on what is written — do not infer content that is absent.
+    Before scoring, identify a specific sentence that justifies your rating.
+    
+    Guidelines for a well-written vignette:
+      1. Derive from the literature and/or clinical experience
+      2. Be clear, well-written, and carefully edited
+      3. Between 500 and 700 words, allowing enough space to show a complex clinical picture without being too long to read closely
+      4. Follow a narrative, story-like progression
+      5. Be as neutral as possible with respect to cultural and socio-economic factors
+      6. Resemble real people, not a personification of a list of symptoms or behaviors
+      7. Be relatable, relevant, and plausible to participants
+      8. Avoid “red herrings”, misleading details, and bizarre content
+      9. Highlight the key variables of interest, facilitating experimental effects
+      10. Facilitate participant engagement and thinking by including vague or ambiguous elements
+    """
+    
 )
+
+# Questions asked of the participants were about the clarity of the vignette, 
+# the vignette’s relevance to clinical practice,
+# and the importance of the vignette for learning
 
 # ── CVI ───────────────────────────────────────────────────────────────────────
 
 JUDGE_CLARITY_SYSTEM_PROMPT = _JUDGE_INTRO + """
-Dimension: **Clarity** (1–3) — how clearly the vignette communicates this patient's experience.
+Dimension: **Clarity** (1–3) — easy to understand, see, free from confusion, ambiguity, or obstruction.
 
-1 = hard to follow. ambiguous or contradictory phrasing that never adds up to a coherent picture.
-   Example: Shadows and cold hands. She remembers forgetting, the door that wasn't a door,
-   Tuesday smelling wrong. Something about his voice that meant floor.
+1 = hard to follow. it doesnt need to be short to be clear — a short vignette can be just as hard to understand.
+    Example: He was haunted by what happened. 
+    The past was a shadow that followed him, a weight that pressed down on his chest, a storm that raged inside him.
 
 2 = readable but relies on vague or generic clinical language without specific detail.
-   Example: He experienced intrusive memories that were distressing and interfered with
-   his ability to function at work and maintain relationships.
+   Example: He experienced hypervigilance that made things hard. 
+   He avoided reminders of the trauma and had trouble sleeping.
 
-3 = precise and specific — uses concrete detail that could only describe this particular
-   person, not any PTSD patient.
-   Example: Every time a car backfires on her street, she is already crouched behind the
-   kitchen counter before she knows she has moved. She cannot sit in restaurants unless
-   her back is to the wall and she can see the door — her husband has stopped suggesting otherwise.
+3 = precise and specific - very clear what the person does, thinks, and feels, and why.
+   Example: He lives with a constant sense of being on guard, sits with his back to walls, watches people's hands. 
+   When triggered, he feels panic mixed with anger. Underneath the fear there is grief for the version of himself who used to feel safe.
 """
 
 JUDGE_RELEVANCE_SYSTEM_PROMPT = _JUDGE_INTRO + """
 Dimension: **Relevance** (1–3) — clinical relevance to PTSD practice.
 
-1 = little connection to clinical practice.
-   Example: She carried the weight of what happened like a stone in her chest, always
-   present, always pulling her down toward something she could not name.
+1 = little connection to clinical practice - very general or atmospheric descriptions 
+    of distress that could apply to any mental health condition.
+    Example: She felt like she was drowning in a sea of darkness, her mind a labyrinth of shadows, 
+    her heart a fragile glass that could shatter at any moment — evocative but clinically uninformative.
 2 = relevant to PTSD in general but thin — covers expected symptom domains without
-   showing how or why this particular person's PTSD works the way it does.
-   Example: He avoided crowded places, had nightmares several times a week, and startled
-   easily at loud noises — symptoms consistent with a PTSD presentation.
-3 = richly relevant — a clinician would recognise this as a case they might actually
-   encounter, not a composite illustration.
-   Example: She functions well enough at work that no one suspects anything, which has
-   become its own trap — the energy spent on appearing intact leaves nothing for her
-   evenings, and the gap between her public composure and private state has started to
-   feel like evidence that she is faking it. A clinician would recognise the exhaustion
-   of high-functioning concealment and the shame-driven cognitive distortion maintaining it.
+    showing how or why this particular person's PTSD works the way it does.
+    Example: He avoided crowded places, had nightmares several times a week symptoms consistent with a PTSD presentation.
+3 = richly relevant — a clinician would recognise this as a case they might actually see in practice, 
+    with specific details that show how this person's PTSD works in a way that feels real and clinically meaningful.
+    Example: He declined team events in busy restaurants, took alternate routes to avoid the coastal expressway, 
+    and had stopped answering automated weather alerts — a specific pattern of avoidance that shows how his PTSD plays out in his daily life.
 """
 
 JUDGE_IMPORTANCE_SYSTEM_PROMPT = _JUDGE_INTRO + """
 Dimension: **Importance** (1–3) — educational value for clinical training.
 
 1 = little value for learning.
-    Example: A series of atmospheric descriptions of distress that teach
+    A series of atmospheric descriptions of distress that teach
     nothing about how PTSD works or how to treat it.
-2 = some learning value but teaches only generic PTSD knowledge a trainee
-    could get from a textbook.
-    Example: A vignette that clearly shows avoidance, hypervigilance, and
-    sleep disturbance, but does not show how these connect or maintain each other.
-3 = teaches something a trainee could not easily get from a textbook —
+    Example: She felt like she was drowning in a sea of darkness, her mind a labyrinth of shadows, 
+    her heart a fragile glass that could shatter at any moment — evocative but clinically uninformative.
+2 = some learning value but teaches only generic PTSD knowledge.
+    Example: He avoided crowded places, had nightmares several times a week 
+    symptoms consistent with a PTSD presentation — this teaches the general idea of avoidance and 
+    re-experiencing but does not show any specific clinical nuance or insight.
+3 = high learning value — a trainee would learn something specific about PTSD from this vignette 
     specific clinical nuance, an unexpected presentation, or a detail that
     changes how you think about the case.
-    Example: Showing how a patient's rigid eating and compulsive distraction
-    feel like coping but actually increase physiological arousal, making
-    triggers more potent — a maintenance cycle a trainee needs to see in action.
+    Example: He is frightened by how real the memories still feel, 
+    but also unsettled by the opposite — that something so extreme could feel like it happened to somebody else. 
+    This teaches a specific clinical insight about the paradoxical nature of trauma memory and how it can be both 
+    vividly present and yet feel unreal at the same time, which is a nuance that could change how a trainee thinks about re-experiencing symptoms.
 """
 
 # ── Construction quality ──────────────────────────────────────────────────────
@@ -555,7 +571,7 @@ JUDGE_G1_SYSTEM_PROMPT = _JUDGE_INTRO + """
 Dimension: **g1 — Grounded in realistic clinical experience** (1–3).
 
 1 = generic phrasing, no specific detail, could describe any PTSD patient.
-    Example: He avoided reminders of the trauma and experienced hypervigilance
+    Example: He avoided reminders of the trauma 
     and emotional numbing that affected his relationships and work.
 
 2 = some realistic detail but described from the outside — you can see 
@@ -590,9 +606,11 @@ which drive these specific behaviours, which maintain PTSD in this specific way.
     frightened, but the specific beliefs driving her behaviour are not fully visible.
 3 = you can trace the full line from trauma to belief to behaviour to coping —
     you understand not just what the person does but why, and how each part connects.
-    Example: You can see exactly why this person's specific triggers feel threatening
-    rather than just overwhelming, why their coping strategies backfire, and why
-    reassurance from others cannot reach them.
+    Example: He is certain something about him is visible to others 
+    that anyone who looks at him can see he is flawed and that something is wrong with him.
+    He avoid talking to peaple because he fears rejection and watches his wife sleep because 
+    he is afraid of losing her — you can see how his specific beliefs drive his specific 
+    behaviours in a way that feels real and clinically meaningful.
 """
 
 JUDGE_G3_SYSTEM_PROMPT = _JUDGE_INTRO + """

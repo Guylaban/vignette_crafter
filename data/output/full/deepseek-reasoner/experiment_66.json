@@ -1,0 +1,230 @@
+{
+  "persona_id": 66,
+  "source_persona_id": 66,
+  "experiment_timestamp": "2026-05-14 16:55:55",
+  "config": {
+    "pipeline": "vignette_from_persona",
+    "vignette_mode": "full",
+    "models": {
+      "persona_crafter": "deepseek-reasoner",
+      "persona_validator": "deepseek-reasoner",
+      "vignette_crafter": "deepseek-reasoner",
+      "vignette_validator": "deepseek-reasoner"
+    },
+    "temperature": 0.7,
+    "max_retries": 5,
+    "self_report_items": 3,
+    "use_formulation": true,
+    "node_prob": 0.7,
+    "edge_prob": 0.7,
+    "seed": 42
+  },
+  "demographics": {
+    "age": 55,
+    "gender": "Male",
+    "ethnicity": "African",
+    "relationship_status": "Married",
+    "occupation": "Painter",
+    "trauma_type": "Unexpected or traumatic death of a loved one",
+    "pcl5": 67
+  },
+  "self_report": {
+    "Triggers": [
+      {
+        "key": "Emergency Contexts",
+        "value": "Ambulances"
+      },
+      {
+        "key": "Workplace",
+        "value": "Workplace"
+      },
+      {
+        "key": "Loss Themes",
+        "value": "Talk about people loosing loved ones"
+      }
+    ],
+    "Threat": [
+      {
+        "key": "Night Vigilance",
+        "value": "I find it harder to feel safe at night than during the day"
+      },
+      {
+        "key": "Body on Alert",
+        "value": "My body feels constantly tense and ready to react to danger"
+      },
+      {
+        "key": "Alert at Home",
+        "value": "I feel on guard even inside my own home"
+      }
+    ],
+    "Memory": [
+      {
+        "key": "Emotion Without Image",
+        "value": "Sometimes I feel the full emotional intensity of the event without any clear image or memory"
+      },
+      {
+        "key": "Grief on Recall",
+        "value": "When I remember the event I feel overwhelming grief"
+      },
+      {
+        "key": "Visual Memories",
+        "value": "My memories of the frightening event are mostly pictures or images."
+      }
+    ],
+    "Negative Appraisals": [
+      {
+        "key": "Identity Loss",
+        "value": "I feel like I don't know myself anymore"
+      },
+      {
+        "key": "Isolation",
+        "value": "I feel isolated and set apart from others"
+      },
+      {
+        "key": "Life Destroyed",
+        "value": "My life has been destroyed by the trauma"
+      }
+    ]
+  },
+  "agg_edges": {
+    "Triggers -- Maladaptive Strategies": 0.0,
+    "Triggers -- Threat": 0.6166,
+    "Triggers -- Memory": 0.6486,
+    "Triggers -- Negative Appraisals": 0.9671,
+    "Negative Appraisals -- Maladaptive Strategies": 0.0,
+    "Negative Appraisals -- Threat": 0.7983,
+    "Negative Appraisals -- Memory": 0.1076,
+    "Negative Appraisals -- Triggers": 0.7494,
+    "Memory -- Maladaptive Strategies": 0.0,
+    "Memory -- Threat": 0.6908,
+    "Memory -- Negative Appraisals": 0.3804,
+    "Memory -- Triggers": 0.6828,
+    "Threat -- Maladaptive Strategies": 0.0,
+    "Threat -- Memory": 0.1592,
+    "Threat -- Negative Appraisals": 0.0,
+    "Threat -- Triggers": 0.3025,
+    "Maladaptive Strategies -- Memory": 0.0,
+    "Maladaptive Strategies -- Negative Appraisals": 0.0,
+    "Maladaptive Strategies -- Triggers": 0.0,
+    "Maladaptive Strategies -- Threat": 0.0
+  },
+  "active_nodes": [
+    "Triggers",
+    "Threat",
+    "Memory",
+    "Negative Appraisals"
+  ],
+  "required_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "satisfied_edges": [
+    "Triggers → Threat",
+    "Triggers → Memory",
+    "Triggers → Negative Appraisals",
+    "Negative Appraisals → Threat",
+    "Negative Appraisals → Memory",
+    "Negative Appraisals → Triggers",
+    "Memory → Threat",
+    "Memory → Negative Appraisals",
+    "Memory → Triggers",
+    "Threat → Memory",
+    "Threat → Triggers"
+  ],
+  "edge_coverage_rate": 1.0,
+  "mean_required_edge_weight": 0.5548454545454545,
+  "edge_density": 0.55,
+  "vignette_word_count": 826,
+  "demographics_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "issues": [],
+      "problematic_fields": []
+    }
+  ],
+  "selfreport_validation_attempts": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Memory",
+          "item": "Pain Recall: When the memory returns I feel physical pain in the same parts of my body as during the event",
+          "explanation": "Physical pain in the same body parts as during the event is hard to reconcile with the indexed trauma being an unexpected or traumatic death of a loved one, unless the patient was also physically injured during the event. That makes this item clinically implausible from the provided trauma context."
+        },
+        {
+          "component": "Negative Appraisals",
+          "item": "Mistrust: People can't be trusted",
+          "explanation": "A global mistrust appraisal is a weak fit with bereavement trauma unless there is some interpersonal betrayal, negligence, or assault-related context. The rest of the profile centers on loss, alarm, and isolation rather than interpersonal threat from other people, so this item is not well supported by the trauma type or the other selected items."
+        }
+      ],
+      "problematic_items": {
+        "Memory": [
+          "Pain Recall"
+        ],
+        "Negative Appraisals": [
+          "Mistrust"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "issues": [
+        {
+          "component": "Triggers",
+          "item": "Triggers: Others Cycling: People cycling",
+          "explanation": "For trauma involving the unexpected death of a loved one, ambulances can plausibly cue the death context and workplace cues may be idiosyncratically linked, but 'People cycling' is hard to connect clinically unless the loved one died in a cycling-related incident, which is not reflected anywhere else in threat, appraisals, or memory. It stands out as a trigger with no supporting context in the rest of the profile."
+        },
+        {
+          "component": "Memory",
+          "item": "Memory: Shame on Recall: When I remember the event I feel intense shame",
+          "explanation": "The memory profile is dominated by grief-related recall and affective reliving without clear imagery, which fits bereavement trauma. 'Intense shame' on recall is not impossible, but here it lacks support from the negative appraisals, which focus on identity loss, isolation, and life destruction rather than self-blame, guilt, or humiliation. In this profile, shame is insufficiently integrated with the rest of the formulation and trauma type."
+        }
+      ],
+      "problematic_items": {
+        "Triggers": [
+          "Others Cycling"
+        ],
+        "Memory": [
+          "Shame on Recall"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "issues": [],
+      "problematic_items": {}
+    }
+  ],
+  "validation_summary": {
+    "attempts": 2,
+    "passed": 1,
+    "failed": 1,
+    "ultimately_passed": true
+  },
+  "token_usage": {
+    "input": 7322,
+    "output": 10455,
+    "total": 17777
+  },
+  "vignette": "Kofi is a 55‑year‑old Ghanaian‑born painter who has lived in the United States for nearly thirty years. He is married to Adwoa, and they have two grown children. Eighteen months ago his younger brother Kwame was killed in a hit‑and‑run accident. Kofi received the news by phone while he was painting the exterior of a suburban home. He drove to the hospital but his brother was already dead; the only image that stuck was the blank sheet covering Kwame’s body and the sound of a siren fading outside the emergency bay. \n\nIn the weeks that followed, Kofi began to notice changes he could not explain. He would be standing on a scaffold, brush in hand, when the wail of a distant ambulance would send a jolt through his chest. His body would lock tight—shoulders hunched, jaw clenched—and he would scan the street for danger, even though the siren was blocks away. At first he told himself it was just grief, but the vigilance did not fade. At home, after dark, he found himself unable to settle. He would check the locks twice, then sit on the edge of the bed, listening. Adwoa would ask what he was listening for, and he could not answer. He only knew that the night felt unsafe, that his body was constantly coiled, ready to react. He felt on guard even inside his own bedroom.\n\nThe memories came in two forms. Sometimes a clear image would surface—Kwame’s face, or the hospital corridor—and Kofi would be flooded with a grief so physical it felt like a weight on his chest. Each time the image broke through, he came away more convinced that he was broken beyond repair, as if the mere fact that the memory kept returning proved there was something permanently wrong with him. Other times the grief arrived without any image at all, a sudden overwhelming sadness that seemed to come from nowhere, leaving him disoriented and shaken.  \n\nWork became a minefield. Every job site became a potential reminder of the phone call he had taken on that other job site. When a client mentioned losing a parent in passing, Kofi felt his throat close. He started turning down residential jobs that required him to work near busy roads, though he did not say why to his boss. He began to believe that his life had been destroyed by the accident. Once he was certain that the world was no longer safe and that he was no longer the same man, almost any ordinary sound could confirm it—a distant engine, a neighbour calling out, the creak of a door opening in the next room. He no longer recognised himself. That conviction—that he had been permanently unmade—kept pulling him back to the image of the sheet covering Kwame’s body, as if his mind needed to locate the exact moment the man he used to be had vanished. He had always been a steady, easy‑going man; now he was tense, withdrawn, and easily startled. He felt isolated and set apart from everyone, even from Adwoa, who tried to comfort him but could not understand why he would flinch when she touched his shoulder at night.  \n\nThe more isolated he felt, the more he saw the world through a lens of danger. A car backfiring in the street, a neighbour’s raised voice, the smell of antiseptic in a pharmacy—each seemed to confirm that something terrible was about to happen. The constant tension made him hypersensitive to any reminder of Kwame’s death. If he heard the word “brother” in conversation, his stomach dropped. He began to avoid social gatherings where people might ask about his family.  \n\nThe memories themselves fed the cycle. A sudden visual image of Kwame laughing would hit him while he was driving, and he would grip the steering wheel so hard his knuckles turned white, his heart racing, his eyes darting to the rear‑view mirror as if he were being followed. After the memory had passed, the road itself seemed charged with threat—every car that drifted near the shoulder, every pedestrian who stepped too close to the kerb, became a sign that something terrible was about to happen. That rush of fear made him anticipate triggers everywhere. He started leaving work early, claiming headaches. He would lie in bed at night, body rigid, replaying the moment of the phone call even though he had no clear image of it—only the emotion, raw and crushing.  \n\nBy the time he sought help at his wife’s insistence, Kofi was barely functioning. He had lost two contracts and was avoiding most of his usual painting routes. He was sleeping three hours a night, if that. What frightened him most was the feeling that the man he used to be—competent, connected, at ease in his own skin—had disappeared completely. He wanted to believe that could change, but the sirens seemed to be waiting everywhere, and he did not know how to stop listening for them."
+,
+
+  "vignette_attempts": [
+    {"vignette": "Kofi is a 55‑year‑old Ghanaian‑born painter who has lived in the United States for nearly thirty years. He is married to Adwoa, and they have two grown children. Eighteen months ago his younger brother Kwame was killed in a hit‑and‑run accident. Kofi received the news by phone while he was painting the exterior of a suburban home. He drove to the hospital but his brother was already dead; the only image that stuck was the blank sheet covering Kwame’s body and the sound of a siren fading outside the emergency bay. \n\nIn the weeks that followed, Kofi began to notice changes he could not explain. He would be standing on a scaffold, brush in hand, when the wail of a distant ambulance would send a jolt through his chest. His body would lock tight—shoulders hunched, jaw clenched—and he would scan the street for danger, even though the siren was blocks away. At first he told himself it was just grief, but the vigilance did not fade. At home, after dark, he found himself unable to settle. He would check the locks twice, then sit on the edge of the bed, listening. Adwoa would ask what he was listening for, and he could not answer. He only knew that the night felt unsafe, that his body was constantly coiled, ready to react. He felt on guard even inside his own bedroom.\n\nThe memories came in two forms. Sometimes a clear image would surface—Kwame’s face, or the hospital corridor—and Kofi would be flooded with a grief so physical it felt like a weight on his chest. Other times the grief arrived without any image at all, a sudden overwhelming sadness that seemed to come from nowhere, leaving him disoriented and shaken.  \n\nWork became a minefield. Every job site became a potential reminder of the phone call he had taken on that other job site. When a client mentioned losing a parent in passing, Kofi felt his throat close. He started turning down residential jobs that required him to work near busy roads, though he did not say why to his boss. He began to believe that his life had been destroyed by the accident. He no longer recognised himself. He had always been a steady, easy‑going man; now he was tense, withdrawn, and easily startled. He felt isolated and set apart from everyone, even from Adwoa, who tried to comfort him but could not understand why he would flinch when she touched his shoulder at night.  \n\nThe more isolated he felt, the more he saw the world through a lens of danger. A car backfiring in the street, a neighbour’s raised voice, the smell of antiseptic in a pharmacy—each seemed to confirm that something terrible was about to happen. The constant tension made him hypersensitive to any reminder of Kwame’s death. If he heard the word “brother” in conversation, his stomach dropped. He began to avoid social gatherings where people might ask about his family.  \n\nThe memories themselves fed the cycle. A sudden visual image of Kwame laughing would hit him while he was driving, and he would grip the steering wheel so hard his knuckles turned white, his heart racing, his eyes darting to the rear‑view mirror as if he were being followed. That rush of fear made him anticipate triggers everywhere. He started leaving work early, claiming headaches. He would lie in bed at night, body rigid, replaying the moment of the phone call even though he had no clear image of it—only the emotion, raw and crushing.  \n\nBy the time he sought help at his wife’s insistence, Kofi was barely functioning. He had lost two contracts and was avoiding most of his usual painting routes. He was sleeping three hours a night, if that. What frightened him most was the feeling that the man he used to be—competent, connected, at ease in his own skin—had disappeared completely. He wanted to believe that could change, but the sirens seemed to be waiting everywhere, and he did not know how to stop listening for them.", "passed": false, "violations": [{"edge": "Negative Appraisals → Memory", "explanation": "The vignette does not show that negative appraisals (e.g., belief life destroyed) cause or influence intrusive memories."}, {"edge": "Negative Appraisals → Triggers", "explanation": "The vignette lacks a causal link where negative appraisals lead to increased perception or occurrence of triggers."}, {"edge": "Memory → Negative Appraisals", "explanation": "The vignette does not convey that intrusive memories directly lead to or reinforce negative appraisals such as feeling destroyed or isolated."}, {"edge": "Memory → Triggers", "explanation": "The vignette does not establish that memories themselves cause triggers; the connection is only indirect via threat."}], "violation_count": 4, "feedback": "REQUIRED EDGES MISSING:\n- Negative Appraisals → Memory: The vignette does not show that negative appraisals (e.g., belief life destroyed) cause or influence intrusive memories.\n  e.g. \"The belief that she was permanently changed kept bringing her back to the moment it had happened, as if she needed to locate exactly where she had been lost.\"\n  e.g. \"Telling herself that she should have seen it coming made the memory more vivid and easier to find — it sat there waiting, proof of her failure.\"\n  e.g. \"The conviction that she was weak fed directly into the flashback, colouring it, making it worse: she wasn't just there again, she was there again and helpless.\"\n- Negative Appraisals → Triggers: The vignette lacks a causal link where negative appraisals lead to increased perception or occurrence of triggers.\n  e.g. \"Once she had concluded that the world was fundamentally unsafe, almost anything could confirm it — a figure in her periphery, the wrong tone of voice, footsteps behind her.\"\n  e.g. \"The belief that she couldn't trust her own judgement meant that things she would once have registered and dismissed now snagged and held her attention.\"\n  e.g. \"Her conviction that it would happen again meant she moved through ordinary days as if they were mined — every ambiguity became a potential signal.\"\n- Memory → Negative Appraisals: The vignette does not convey that intrusive memories directly lead to or reinforce negative appraisals such as feeling destroyed or isolated.\n  e.g. \"After the image broke through again, she caught herself thinking: if this keeps happening, there must be something deeply wrong with me.\"\n  e.g. \"The memory surfaced in the middle of a meeting and she spent the rest of the day convinced that everyone around her could see how broken she was.\"\n  e.g. \"Each time the flashback came, the thought that followed it was always the same — that she had let this happen, and that it said something permanent about who she was.\"\n- Memory → Triggers: The vignette does not establish that memories themselves cause triggers; the connection is only indirect via threat.\n  e.g. \"After the memory had surfaced, even the most ordinary things — a kettle whistling, a door slamming — felt like warnings she couldn't afford to ignore.\"\n  e.g. \"The intrusive image left her scanning every room she entered, cataloguing exits, tracking faces, unable to switch off.\"\n  e.g. \"Because the memory came back so vividly, she began to see threads of it everywhere: in strangers' faces, in certain times of day, in the quality of winter light.\""},
+
+    {"vignette": "Kofi is a 55‑year‑old Ghanaian‑born painter who has lived in the United States for nearly thirty years. He is married to Adwoa, and they have two grown children. Eighteen months ago his younger brother Kwame was killed in a hit‑and‑run accident. Kofi received the news by phone while he was painting the exterior of a suburban home. He drove to the hospital but his brother was already dead; the only image that stuck was the blank sheet covering Kwame’s body and the sound of a siren fading outside the emergency bay. \n\nIn the weeks that followed, Kofi began to notice changes he could not explain. He would be standing on a scaffold, brush in hand, when the wail of a distant ambulance would send a jolt through his chest. His body would lock tight—shoulders hunched, jaw clenched—and he would scan the street for danger, even though the siren was blocks away. At first he told himself it was just grief, but the vigilance did not fade. At home, after dark, he found himself unable to settle. He would check the locks twice, then sit on the edge of the bed, listening. Adwoa would ask what he was listening for, and he could not answer. He only knew that the night felt unsafe, that his body was constantly coiled, ready to react. He felt on guard even inside his own bedroom.\n\nThe memories came in two forms. Sometimes a clear image would surface—Kwame’s face, or the hospital corridor—and Kofi would be flooded with a grief so physical it felt like a weight on his chest. Each time the image broke through, he came away more convinced that he was broken beyond repair, as if the mere fact that the memory kept returning proved there was something permanently wrong with him. Other times the grief arrived without any image at all, a sudden overwhelming sadness that seemed to come from nowhere, leaving him disoriented and shaken.  \n\nWork became a minefield. Every job site became a potential reminder of the phone call he had taken on that other job site. When a client mentioned losing a parent in passing, Kofi felt his throat close. He started turning down residential jobs that required him to work near busy roads, though he did not say why to his boss. He began to believe that his life had been destroyed by the accident. Once he was certain that the world was no longer safe and that he was no longer the same man, almost any ordinary sound could confirm it—a distant engine, a neighbour calling out, the creak of a door opening in the next room. He no longer recognised himself. That conviction—that he had been permanently unmade—kept pulling him back to the image of the sheet covering Kwame’s body, as if his mind needed to locate the exact moment the man he used to be had vanished. He had always been a steady, easy‑going man; now he was tense, withdrawn, and easily startled. He felt isolated and set apart from everyone, even from Adwoa, who tried to comfort him but could not understand why he would flinch when she touched his shoulder at night.  \n\nThe more isolated he felt, the more he saw the world through a lens of danger. A car backfiring in the street, a neighbour’s raised voice, the smell of antiseptic in a pharmacy—each seemed to confirm that something terrible was about to happen. The constant tension made him hypersensitive to any reminder of Kwame’s death. If he heard the word “brother” in conversation, his stomach dropped. He began to avoid social gatherings where people might ask about his family.  \n\nThe memories themselves fed the cycle. A sudden visual image of Kwame laughing would hit him while he was driving, and he would grip the steering wheel so hard his knuckles turned white, his heart racing, his eyes darting to the rear‑view mirror as if he were being followed. After the memory had passed, the road itself seemed charged with threat—every car that drifted near the shoulder, every pedestrian who stepped too close to the kerb, became a sign that something terrible was about to happen. That rush of fear made him anticipate triggers everywhere. He started leaving work early, claiming headaches. He would lie in bed at night, body rigid, replaying the moment of the phone call even though he had no clear image of it—only the emotion, raw and crushing.  \n\nBy the time he sought help at his wife’s insistence, Kofi was barely functioning. He had lost two contracts and was avoiding most of his usual painting routes. He was sleeping three hours a night, if that. What frightened him most was the feeling that the man he used to be—competent, connected, at ease in his own skin—had disappeared completely. He wanted to believe that could change, but the sirens seemed to be waiting everywhere, and he did not know how to stop listening for them.", "passed": true, "violations": [], "violation_count": 0, "feedback": null}
+  ]
+}

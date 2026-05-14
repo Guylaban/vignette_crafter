@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "agent_name": "Persona_49_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-14 16:50:54"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Memory\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Memory → Maladaptive Strategies\n  - Memory → Triggers\n  - Threat → Maladaptive Strategies\n  - Threat → Memory\n  - Maladaptive Strategies → Memory\n  - Maladaptive Strategies → Triggers\n  - Maladaptive Strategies → Threat\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nTui used to love the annual publishing gala—the clink of champagne glasses, the buzz of deal-making, the warm press of colleagues. That night five years ago, when faulty wiring set the ballroom’s drapery ablaze and the exits sealed into a crush, he became a survivor among those who did not. He remembers the smoke coiling into chandeliers, the screams, the man in front of him falling and not getting up. Those images are terrifyingly clear and mostly visual, like a film that plays behind his eyelids without warning. Waking from nightmares still saturated with that orange glow, he often finds the smell of alcohol clinging to his sheets—dream residue, he calls it, but it also clings to any real-world scent of beer or wine. Just last week a colleague’s breath at an editorial meeting made him physically recoil. \n\nHe has come to believe that staying hypervigilant is the only way to stay safe. At home in suburban Seattle, Tui is alert even in his own living room: he always positions himself so his back is against a wall, a habit that has turned every chair into a potential risk until it is properly placed. When he goes out for coffee, he cannot help scanning the room—checking exits, watching hands, listening for raised voices. Ordinary sounds startle him; his wife’s footsteps on the stairs can make him jump, and he feels the flush of shame afterward. That constant watchfulness feels necessary, yet it seems to bring the worst memories closer. When he is on guard, the flames flash into his mind more vividly, and the need to avoid everything connected to that evening grows stronger. He has stopped seeing friends entirely, especially those from the publishing circle who might mention the gala. \n\nIn the months after the fire, Tui’s checking and scanning became automatic. He noticed that every time he made himself sit with his back exposed, a wave of panic followed, so he simply never did. Over time, the isolation hardened. His wife worries he has become a stranger; he knows he has. Now, when a news report or a conversation forces him to talk about the disaster, the memories surge uncontrollably—and he also finds himself scanning the room mid-sentence, which only makes the images stronger. He has come to his first appointment because his daughter’s wedding is approaching and the hotel ballroom terrifies him, and he is desperate not to ruin that day. But he is equally afraid that if he lets his guard down even for a moment, something terrible will happen again.\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Threat → Memory",
+      "Maladaptive Strategies → Triggers",
+      "Maladaptive Strategies → Threat"
+    ],
+    "violation_explanations": [
+      "The vignette does not show that the sense of threat directly causes intrusive memories; it shows that hypervigilance (a maladaptive strategy) brings memories, but not the threat itself.",
+      "There is no causal relationship where maladaptive strategies (e.g., avoidance, hypervigilance) lead to the creation or intensification of triggers; triggers are linked to memories instead.",
+      "The vignette does not convey that maladaptive strategies cause an increased sense of threat; rather, threat is the reason for adopting the strategies."
+    ]
+  }
+}

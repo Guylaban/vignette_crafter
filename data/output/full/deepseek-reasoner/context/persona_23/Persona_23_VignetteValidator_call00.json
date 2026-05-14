@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "agent_name": "Persona_23_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-14 16:47:07"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Maladaptive Strategies\n  - Memory\n  - Negative Appraisals\n  - Threat\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Negative Appraisals\n  - Negative Appraisals → Maladaptive Strategies\n  - Negative Appraisals → Threat\n  - Negative Appraisals → Memory\n  - Negative Appraisals → Triggers\n  - Memory → Maladaptive Strategies\n  - Memory → Threat\n  - Memory → Negative Appraisals\n  - Memory → Triggers\n  - Threat → Maladaptive Strategies\n  - Threat → Memory\n  - Threat → Triggers\n  - Maladaptive Strategies → Memory\n  - Maladaptive Strategies → Threat\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nLeilani, a 58-year-old psychiatrist of Maori descent, still feels the jolt of the impact when a driver ran a red light and T-boned her sedan two years ago. She had been on her way to an evening shift at the hospital. The wreckage pinned her legs, and she remembers the smell of gasoline and the sound of her own breathing more clearly than any face. In the months since, she has come to believe that the world is fundamentally dangerous—every intersection hides a threat, every driver is one distraction away from catastrophe. This conviction sits at the core of her present suffering, colouring everything.\n\nThe sight of a car turning too quickly, or the sudden flash of headlights in her rearview mirror, is enough to drop her straight back into that moment. She cannot tell a coherent story of what happened, not even to herself—the memories arrive in fragments: the metallic taste, the steering wheel's pressure against her ribs, then a blank until the paramedics. The sequence is jumbled; she cannot place which came first, the spin or the stop. When these images surge up without warning, they reinforce her sense of permanent damage, as if the accident rewired her entirely. She is no longer the competent psychiatrist she used to be; now she doubts her own judgment, certain she will make the wrong call. These appraisals, in turn, make everyday triggers feel sharper—a honk, a brake screech, even the hospital's ambulance bay can send her heart racing.\n\nLeilani has tried to manage by controlling her emotions. She clenches her jaw when unwanted thoughts arrive, refusing to let tears surface. She avoids driving altogether, taking the bus, but even that is difficult: the sudden stop of a bus can trigger the same crash imagery. She has also stopped having sex entirely and, most troublingly, she dreads going to sleep. Lying in the dark, with no visual input, her mind fills with the accident's confused sounds and images. The more she tries to push those memories away, the more they intrude, and the more hypervigilant she becomes. She catches herself sitting with her back to the wall in the staff lounge, scanning the room for exits. She wakes several times a night to check that the apartment door is locked, that the smoke detector is quiet, that nothing is wrong. Her startle response is extreme: a colleague's sudden tap on her shoulder made her yelp and drop a chart.\n\nHer occupation, once a source of pride, now compounds her distress. She treats trauma survivors, and their stories echo her own fears. She finds herself avoiding certain patients or steering sessions away from car accidents, a maladaptive strategy that only deepens her shame and self-doubt. The memory of the crash surfaces without warning during consultations, blurring her concentration. She cannot tell whether she is overreacting or genuinely unsafe—the world feels too unpredictable to trust.\n\nWhat finally brought Leilani to seek help was a moment during a routine supervision meeting. A junior doctor mentioned a near-miss on the highway, and Leilani felt her chest constrict so tightly she excused herself. In the bathroom, she pressed her back against the tiled wall, trembling, convinced she was about to have a heart attack. She realised she could no longer function as a clinician, and that terrified her more than anything. She hopes, she says, to find a way to sleep through the night without checking the locks, and to stop feeling that every car on the road is aimed at her.\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Triggers → Negative Appraisals",
+      "Negative Appraisals → Maladaptive Strategies",
+      "Negative Appraisals → Memory",
+      "Memory → Triggers",
+      "Threat → Memory",
+      "Threat → Triggers"
+    ],
+    "violation_explanations": [
+      "No paragraph conveys that triggers cause negative appraisals (e.g., triggering stimuli leading to distorted beliefs).",
+      "No paragraph conveys that negative appraisals lead to maladaptive strategies (e.g., beliefs causing avoidance).",
+      "No paragraph conveys that negative appraisals lead to memory (e.g., beliefs triggering intrusive recollections).",
+      "No paragraph conveys that memory leads to triggers (e.g., memories heightening sensitivity to cues).",
+      "No paragraph conveys that threat leads to memory (e.g., feeling unsafe evoking trauma memory).",
+      "No paragraph conveys that threat leads to triggers (e.g., threat perception making stimuli more triggering)."
+    ]
+  }
+}

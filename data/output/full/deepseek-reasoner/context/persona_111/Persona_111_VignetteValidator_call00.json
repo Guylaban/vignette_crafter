@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "agent_name": "Persona_111_VignetteValidator",
+    "role": "VignetteValidator",
+    "call_index": 0,
+    "timestamp": "2026-05-14 17:05:07"
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a clinical validator checking whether a PTSD case\nvignette accurately reflects a patient's required cognitive connections.\n\nYou will receive:\n- A vignette to validate\n- A list of REQUIRED edges that must appear\n- A list of ACTIVE components that must appear\n\n---\n\nCOMPONENT SYNONYMS\nEach component may appear by its exact name or any accepted synonym:\n  Triggers            → \"triggers\", \"reminders\", \"cues\", \"triggering stimuli\"\n  Negative Appraisals → \"negative appraisals\", \"negative beliefs\", \"appraisals\", \"distorted beliefs\"\n  Memory              → \"intrusive memory\", \"trauma memory\", \"traumatic memory\", \"the memory\"\n  Threat              → \"sense of threat\", \"perceived threat\", \"threat\", \"feeling of danger\"\n  Maladaptive Strategies → \"maladaptive strategies\", \"avoidance\", \"maladaptive coping\", \"safety behaviours\"\n\n---\n\nCAUSAL STANDARD\nA required edge A→B is SATISFIED if, within the same paragraph:\n  - Both A and B (or their synonyms) appear, AND\n  - The paragraph conveys — through any language — that A influences, drives, or leads to B.\nThis includes direct causal sentences, sequential structure, or connecting phrases\nlike \"because of\", \"this meant\", \"so\", \"which led\", \"as a result\", \"consequently\", \"in turn\".\nA required edge is MISSING only if no paragraph conveys the A→B relationship at all.\n\n---\n\nSECTION 1 — COMPONENT CHECK\nActive components (must appear in the vignette):\n  - Memory\n  - Negative Appraisals\n  - Triggers\n\nConfirm each component appears as a described feature of the patient's presentation.\nThis is an internal check only — do NOT add component results to violations.\n\n---\n\nSECTION 2 — REQUIRED EDGES\n  - Triggers → Memory\n  - Triggers → Negative Appraisals\n  - Memory → Negative Appraisals\n  - Memory → Triggers\n\nFor each edge, apply the causal standard above.\n- If satisfied: do nothing — only failures are reported.\n- If missing: add it to violations and explain in one sentence what causal relationship is absent.\n"
+    },
+    {
+      "role": "user",
+      "content": "Validate the following vignette against the cognitive graph.\n\nAri is a 75-year-old financial analyst who lives alone in a quiet suburban house since their spouse died a decade ago. The trauma that reshaped their life happened two years ago, during what should have been an ordinary evening walk. An off-duty police officer stopped them on the street, accused them of loitering, and then sexually assaulted them in the back of his personal car. The officer’s calm, authoritative tone—the same tone Ari had once trusted in uniform—made the violation feel like a twisted exercise of power. In the days after, Ari reported the assault. The internal affairs investigation was slow, and several colleagues and even a close friend suggested that Ari might have been careless walking alone at night. That criticism stung deeper than the attack itself; it became a second wound.\n\nFrom the beginning, Ari could not form a clear story of what happened. When they try to tell themselves what occurred, the sequence of events dissolves into fragments—the smell of stale coffee in the car, the officer’s radio crackling, and a metallic taste that still floods their mouth whenever the memory surfaces. That taste is so vivid it feels like the assault is happening again, and with it comes the sound of the officer’s voice, sharp and dismissive. These sensory intrusions horrify Ari. They have come to believe that their inability to narrate the event, and the intense physical reliving, means they are going crazy. “If I can’t even keep the story straight in my own head, what’s wrong with me?” they think. This sense of unreliability has drained meaning from everything that used to matter—work, hobbies, the garden their spouse planted. Nothing feels purposeful anymore. Ari no longer trusts their own judgment; after all, they once thought the officer was just a helpful authority figure, and that error in perception led to catastrophe.\n\nThe triggers are everywhere, and they feed a tightening cycle. Seeing a police car causes Ari’s mouth to fill with that taste, and they hear the officer’s voice before they can stop it. Being criticised—even mildly, like a colleague correcting a spreadsheet error—plunges them into a fragmented replay of the assault. And whenever Ari notices someone behaving badly in public, cutting in line or yelling, it feels like a moral violation that echoes the officer’s betrayal; immediately, the auditory and taste intrusions surge. Because these sensory memories are so overwhelming, Ari has become vigilant, scanning every environment for signs of authority or misconduct. In the office, they avoid the floor where the security guards sit. They leave meetings early if discussions turn to compliance violations. This hypervigilance has made it impossible to concentrate; Ari’s performance as a financial analyst has slipped, and they have withdrawn from team lunches and client dinners. The isolation reinforces their belief that they cannot rely on themselves to function normally.\n\nAri finally sought help after a weekend when three triggers converged: a neighbor’s loud argument (moral violation), a police car driving past their house, and a critical email from a supervisor. The taste of that night returned and did not fade for hours. Ari spent the night pacing, unable to articulate what happened, convinced they were losing control. Their general practitioner referred them to a trauma specialist. What Ari fears most is that they are already too far gone, that the meaninglessness and self-doubt are permanent. But they also hope, quietly, that if someone can help them hold the story together, the taste might finally stop flooding back.\n"
+    },
+    {
+      "role": "assistant",
+      "content": "(no raw content)"
+    }
+  ],
+  "output": {
+    "verdict": "FAIL",
+    "violation_edges": [
+      "Triggers → Negative Appraisals",
+      "Memory → Triggers"
+    ],
+    "violation_explanations": [
+      "No paragraph conveys that triggers directly lead to negative appraisals; the relationship is mediated by memory.",
+      "No paragraph conveys that memory directly leads to triggers; triggers precede and evoke memory, not the reverse."
+    ]
+  }
+}

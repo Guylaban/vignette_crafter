@@ -1,7 +1,6 @@
 """Entry point — loads a simulation config YAML and runs the experiment."""
 import argparse
 import logging
-from datetime import datetime
 from pathlib import Path
 
 import yaml
@@ -42,11 +41,12 @@ def main():
     models = cfg["models"]
 
     pipeline = args.pipeline or sim.get("pipeline", "vignette")
+    vignette_mode = sim.get("vignette_mode", "full")
     if args.output_dir:
         experiment_dir = Path(args.output_dir)
     else:
-        timestamp      = datetime.now().strftime("%Y%m%d_%H%M%S")
-        experiment_dir = Path("data/output") / f"{pipeline}_{timestamp}"
+        model_name     = next(iter(models.values()))
+        experiment_dir = Path("data/output") / vignette_mode / model_name
     experiment_dir.mkdir(parents=True, exist_ok=True)
 
     setup_logging(experiment_dir)
