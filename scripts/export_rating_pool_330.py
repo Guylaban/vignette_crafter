@@ -96,7 +96,7 @@ def main():
     # Save CSV
     csv_path = DATA_DIR / "eval_vignettes_330.csv"
     fieldnames = ["vignette_id", "persona_id", "model", "condition", "vignette"]
-    with open(csv_path, "w", newline="", encoding="utf-8") as f:
+    with open(csv_path, "w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)

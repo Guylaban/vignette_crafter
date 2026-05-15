@@ -77,9 +77,18 @@ class OpenSourceChatModel(BaseChatModel):
             timeout=self.timeout,
         )
         response.raise_for_status()
-        text = response.json()["text"]
+        body = response.json()
+        text = body["text"]
 
-        return ChatResult(generations=[ChatGeneration(message=AIMessage(content=text))])
+        usage = body.get("usage", {})
+        input_tokens  = usage.get("input_tokens")  or usage.get("prompt_tokens",     0)
+        output_tokens = usage.get("output_tokens") or usage.get("completion_tokens", 0)
+        usage_metadata = {"input_tokens": input_tokens, "output_tokens": output_tokens,
+                          "total_tokens": input_tokens + output_tokens}
+
+        return ChatResult(generations=[ChatGeneration(
+            message=AIMessage(content=text, usage_metadata=usage_metadata)
+        )])
 
     def with_structured_output(self, schema: Type[BaseModel], **kwargs) -> _StructuredOutputWrapper:
         return _StructuredOutputWrapper(self, schema)

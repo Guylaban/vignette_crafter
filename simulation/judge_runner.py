@@ -93,7 +93,7 @@ class JudgeRunner:
             return None
 
     def run(self):
-        with open(self.input_path, encoding="utf-8") as f:
+        with open(self.input_path, encoding="utf-8-sig") as f:
             vignettes = list(csv.DictReader(f))
         logger.info("Loaded %d vignettes from %s", len(vignettes), self.input_path)
 

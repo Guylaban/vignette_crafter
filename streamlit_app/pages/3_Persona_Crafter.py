@@ -48,9 +48,15 @@ demo_fields = [
     ("PCL-5",               demo.get("pcl5", "N/A")),
 ]
 
-demo_cols = st.columns(len(demo_fields))
-for col, (label, value) in zip(demo_cols, demo_fields):
-    col.metric(label, value)
+demo_html = "".join(
+    f"<span style='margin-right:2rem'><span style='font-size:0.75rem;color:#888;display:block'>{label}</span>"
+    f"<span style='font-size:0.9rem;font-weight:600'>{value}</span></span>"
+    for label, value in demo_fields
+)
+st.markdown(
+    f"<div style='display:flex;flex-wrap:wrap;gap:0.5rem 0;padding:0.5rem 0'>{demo_html}</div>",
+    unsafe_allow_html=True,
+)
 
 # ── Self-report items ──────────────────────────────────────────────────────
 

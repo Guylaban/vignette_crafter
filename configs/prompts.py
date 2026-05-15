@@ -1,4 +1,4 @@
-"""
+﻿"""
 prompts.py — all LLM prompts, organized by pipeline stage.
 
 Pipeline order:
@@ -486,7 +486,7 @@ Vignette:
 
 # ── V1 ────────────────────────────────────────────────────────────────────────
 
-_JUDGE_INTRO_V1 = (
+_JUDGE_INTRO = (
     """You are a critical reviewer of PTSD clinical vignettes for a research study.
     Rate the vignette on ONE dimension only, using the anchors below.
     Score based solely on what is written — do not infer content that is absent.
@@ -513,7 +513,7 @@ _JUDGE_INTRO_V1 = (
 
 # ── CVI ───────────────────────────────────────────────────────────────────────
 
-JUDGE_CLARITY_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + """
+JUDGE_CLARITY_SYSTEM_PROMPT = _JUDGE_INTRO + """
 Dimension: **Clarity** (1–3) — easy to understand, see, free from confusion, ambiguity, or obstruction.
 
 1 = hard to follow. it doesnt need to be short to be clear — a short vignette can be just as hard to understand.
@@ -529,7 +529,7 @@ Dimension: **Clarity** (1–3) — easy to understand, see, free from confusion,
    When triggered, he feels panic mixed with anger. Underneath the fear there is grief for the version of himself who used to feel safe.
 """
 
-JUDGE_RELEVANCE_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + """
+JUDGE_RELEVANCE_SYSTEM_PROMPT = _JUDGE_INTRO + """
 Dimension: **Relevance** (1–3) — clinical relevance to PTSD practice.
 
 1 = little connection to clinical practice - very general or atmospheric descriptions 
@@ -545,7 +545,7 @@ Dimension: **Relevance** (1–3) — clinical relevance to PTSD practice.
     and had stopped answering automated weather alerts — a specific pattern of avoidance that shows how his PTSD plays out in his daily life.
 """
 
-JUDGE_IMPORTANCE_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + """
+JUDGE_IMPORTANCE_SYSTEM_PROMPT = _JUDGE_INTRO + """
 Dimension: **Importance** (1–3) — educational value for clinical training.
 
 1 = little value for learning.
@@ -568,7 +568,7 @@ Dimension: **Importance** (1–3) — educational value for clinical training.
 
 # ── Construction quality ──────────────────────────────────────────────────────
 
-JUDGE_G1_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + """
+JUDGE_G1_SYSTEM_PROMPT = _JUDGE_INTRO + """
 Dimension: **g1 — Grounded in realistic clinical experience** (1–3).
 
 1 = generic phrasing, no specific detail, could describe any PTSD patient.
@@ -592,7 +592,7 @@ Dimension: **g1 — Grounded in realistic clinical experience** (1–3).
     especially in the airport and during ground transport.
 """
 
-JUDGE_G2_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + """
+JUDGE_G2_SYSTEM_PROMPT = _JUDGE_INTRO + """
 Dimension: **g2 — Personal narrative rather than symptom checklist** (1–3).
 You can trace a specific internal logic: why this trauma led to these specific beliefs,
 which drive these specific behaviours, which maintain PTSD in this specific way.
@@ -614,7 +614,7 @@ which drive these specific behaviours, which maintain PTSD in this specific way.
     behaviours in a way that feels real and clinically meaningful.
 """
 
-JUDGE_G3_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + """
+JUDGE_G3_SYSTEM_PROMPT = _JUDGE_INTRO + """
 Dimension: **g3 — PTSD-relevant details are explicit and identifiable** (1–3).
 
 1 = PTSD features buried or only implied.
@@ -630,7 +630,7 @@ Dimension: **g3 — PTSD-relevant details are explicit and identifiable** (1–3
     re-experiencing and hypervigilance shown in action, not just mentioned.
 """
 
-JUDGE_G4_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + """
+JUDGE_G4_SYSTEM_PROMPT = _JUDGE_INTRO + """
 Dimension: **g4 — Only relevant clinical information included** (1–3).
 
 1 = contains distracting, irrelevant, or misleading content.
@@ -652,7 +652,7 @@ _DSM_INTRO = (
     "not merely inferable. Score 0 if absent or only vaguely implied.\n"
 )
 
-JUDGE_DSM_A_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _DSM_INTRO + """
+JUDGE_DSM_A_SYSTEM_PROMPT = _JUDGE_INTRO + _DSM_INTRO + """
 Dimension: **DSM-5 Criterion A** — traumatic event (death, serious injury, or sexual
 violence — directly experienced, witnessed, or learned about) is described.
 
@@ -661,7 +661,7 @@ transit camps with adults whose moods felt dangerous — threat of serious harm 
 Score 0 example: He had a difficult childhood and things happened that he preferred not to think about.
 """
 
-JUDGE_DSM_B_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _DSM_INTRO + """
+JUDGE_DSM_B_SYSTEM_PROMPT = _JUDGE_INTRO + _DSM_INTRO + """
 Dimension: **DSM-5 Criterion B** — intrusion symptoms: flashbacks, nightmares, or
 intense distress at reminders of the trauma.
 
@@ -670,7 +670,7 @@ force their way in without warning, the terror so immediate it feels like the ev
 Score 0 example: He sometimes thought about what had happened, especially when the weather changed.
 """
 
-JUDGE_DSM_C_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _DSM_INTRO + """
+JUDGE_DSM_C_SYSTEM_PROMPT = _JUDGE_INTRO + _DSM_INTRO + """
 Dimension: **DSM-5 Criterion C** — avoidance of trauma-related thoughts/feelings,
 or of external reminders (places, people, situations).
 
@@ -679,7 +679,7 @@ to avoid the coastal expressway, and has stopped answering automated weather ale
 Score 0 example: He preferred quieter environments and did not like to dwell on the past.
 """
 
-JUDGE_DSM_D_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _DSM_INTRO + """
+JUDGE_DSM_D_SYSTEM_PROMPT = _JUDGE_INTRO + _DSM_INTRO + """
 Dimension: **DSM-5 Criterion D** — negative alterations in cognition or mood: guilt,
 shame, persistent negative beliefs, emotional numbing, detachment from others.
 
@@ -688,7 +688,7 @@ who looks at him can see he comes from that history and that something is wrong 
 Score 0 example: He felt low at times and found it hard to connect with people the way he used to.
 """
 
-JUDGE_DSM_E_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _DSM_INTRO + """
+JUDGE_DSM_E_SYSTEM_PROMPT = _JUDGE_INTRO + _DSM_INTRO + """
 Dimension: **DSM-5 Criterion E** — hyperarousal or reactivity: hypervigilance,
 exaggerated startle, sleep disturbance, irritability or aggression.
 
@@ -697,7 +697,7 @@ creak, lying rigid and straining to listen, her body never fully subsiding into 
 Score 0 example: He did not sleep well and felt on edge most of the time.
 """
 
-JUDGE_DSM_G_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _DSM_INTRO + """
+JUDGE_DSM_G_SYSTEM_PROMPT = _JUDGE_INTRO + _DSM_INTRO + """
 Dimension: **DSM-5 Criterion G** — clinically significant distress or functional impairment.
 
 Score 1 example: He had to exit the elevator on the wrong floor and sit on the ground
@@ -711,7 +711,7 @@ _EC_INTRO = (
     "Score 1 only if the component is explicitly shown — not just consistent with having PTSD.\n"
 )
 
-JUDGE_EC_THREAT_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _EC_INTRO + """
+JUDGE_EC_THREAT_SYSTEM_PROMPT = _JUDGE_INTRO + _EC_INTRO + """
 Dimension: **Sense of current threat** — the person feels the trauma is still happening
 or still dangerous now, not merely a memory of past danger.
 
@@ -720,7 +720,7 @@ not a memory of past danger but a present conviction that the ground itself is u
 Score 0 example: He remained cautious in general and found it hard to fully relax.
 """
 
-JUDGE_EC_APPRAISALS_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _EC_INTRO + """
+JUDGE_EC_APPRAISALS_SYSTEM_PROMPT = _JUDGE_INTRO + _EC_INTRO + """
 Dimension: **Negative appraisals** — catastrophic or overly negative interpretation
 of the trauma or its aftermath (e.g. "I am permanently damaged", "It was my fault").
 
@@ -730,7 +730,7 @@ that he cannot inhabit the world normally.
 Score 0 example: He felt bad about how he had been acting and worried he was not coping well.
 """
 
-JUDGE_EC_MEMORY_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _EC_INTRO + """
+JUDGE_EC_MEMORY_SYSTEM_PROMPT = _JUDGE_INTRO + _EC_INTRO + """
 Dimension: **Nature of trauma memory** — fragmented, disorganised, feels like happening
 now rather than in the past (as opposed to an ordinary autobiographical memory).
 
@@ -740,7 +740,7 @@ that feel present rather than past.
 Score 0 example: He had vivid memories of what happened that came back to him at difficult moments.
 """
 
-JUDGE_EC_STRATEGIES_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _EC_INTRO + """
+JUDGE_EC_STRATEGIES_SYSTEM_PROMPT = _JUDGE_INTRO + _EC_INTRO + """
 Dimension: **Maladaptive coping strategies** — behaviours that maintain PTSD:
 avoidance, thought suppression, rumination, substance use, safety behaviours.
 The key is that the strategy is shown to backfire or perpetuate symptoms.
@@ -751,7 +751,7 @@ and makes triggers more potent.
 Score 0 example: He tried to keep busy and avoid thinking about things that upset him.
 """
 
-JUDGE_EC_TRIGGERS_SYSTEM_PROMPT_V1 = _JUDGE_INTRO_V1 + _EC_INTRO + """
+JUDGE_EC_TRIGGERS_SYSTEM_PROMPT = _JUDGE_INTRO + _EC_INTRO + """
 Dimension: **Triggers for re-experiencing** — specific internal or external cues that
 reliably activate trauma memory or distress.
 
@@ -759,28 +759,6 @@ Score 1 example: The smell of alcohol makes his chest seize before he has locate
 source — a sensory cue not obviously linked to the original trauma that reliably sets off alarm.
 Score 0 example: Certain situations reminded him of what happened and caused him distress.
 """
-
-# ── Active version (change _V1 → _V2 etc. to switch) ─────────────────────────
-
-_JUDGE_INTRO                   = _JUDGE_INTRO_V1
-JUDGE_CLARITY_SYSTEM_PROMPT    = JUDGE_CLARITY_SYSTEM_PROMPT_V1
-JUDGE_RELEVANCE_SYSTEM_PROMPT  = JUDGE_RELEVANCE_SYSTEM_PROMPT_V1
-JUDGE_IMPORTANCE_SYSTEM_PROMPT = JUDGE_IMPORTANCE_SYSTEM_PROMPT_V1
-JUDGE_G1_SYSTEM_PROMPT         = JUDGE_G1_SYSTEM_PROMPT_V1
-JUDGE_G2_SYSTEM_PROMPT         = JUDGE_G2_SYSTEM_PROMPT_V1
-JUDGE_G3_SYSTEM_PROMPT         = JUDGE_G3_SYSTEM_PROMPT_V1
-JUDGE_G4_SYSTEM_PROMPT         = JUDGE_G4_SYSTEM_PROMPT_V1
-JUDGE_DSM_A_SYSTEM_PROMPT      = JUDGE_DSM_A_SYSTEM_PROMPT_V1
-JUDGE_DSM_B_SYSTEM_PROMPT      = JUDGE_DSM_B_SYSTEM_PROMPT_V1
-JUDGE_DSM_C_SYSTEM_PROMPT      = JUDGE_DSM_C_SYSTEM_PROMPT_V1
-JUDGE_DSM_D_SYSTEM_PROMPT      = JUDGE_DSM_D_SYSTEM_PROMPT_V1
-JUDGE_DSM_E_SYSTEM_PROMPT      = JUDGE_DSM_E_SYSTEM_PROMPT_V1
-JUDGE_DSM_G_SYSTEM_PROMPT      = JUDGE_DSM_G_SYSTEM_PROMPT_V1
-JUDGE_EC_THREAT_SYSTEM_PROMPT      = JUDGE_EC_THREAT_SYSTEM_PROMPT_V1
-JUDGE_EC_APPRAISALS_SYSTEM_PROMPT  = JUDGE_EC_APPRAISALS_SYSTEM_PROMPT_V1
-JUDGE_EC_MEMORY_SYSTEM_PROMPT      = JUDGE_EC_MEMORY_SYSTEM_PROMPT_V1
-JUDGE_EC_STRATEGIES_SYSTEM_PROMPT  = JUDGE_EC_STRATEGIES_SYSTEM_PROMPT_V1
-JUDGE_EC_TRIGGERS_SYSTEM_PROMPT    = JUDGE_EC_TRIGGERS_SYSTEM_PROMPT_V1
 
 # ── Shared user prompt ────────────────────────────────────────────────────────
 

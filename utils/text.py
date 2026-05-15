@@ -3,6 +3,19 @@
 import re
 
 
+def normalize_punctuation(text: str) -> str:
+    """Replace smart/fancy Unicode punctuation with plain ASCII equivalents."""
+    if not text:
+        return text
+    text = text.replace("‘", "'").replace("’", "'")  # ' '
+    text = text.replace("“", '"').replace("”", '"')  # " "
+    text = text.replace("–", "-").replace("—", "-")  # – —
+    text = text.replace("‑", "-")                          # non-breaking hyphen
+    text = text.replace("→", "->")                         # arrow
+    text = text.replace("…", "...")                        # …
+    return text
+
+
 def strip_markdown(text: str) -> str:
     """Remove markdown symbols from vignette text, preserving prose content.
 
@@ -28,6 +41,9 @@ def strip_markdown(text: str) -> str:
 
     # Remove leading list markers (- item or * item at line start)
     text = re.sub(r"^[-*]\s+", "", text, flags=re.MULTILINE)
+
+    # Normalise smart/fancy punctuation to plain ASCII
+    text = normalize_punctuation(text)
 
     # Collapse multiple blank lines into one
     text = re.sub(r"\n{3,}", "\n\n", text)
