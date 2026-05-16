@@ -1,6 +1,7 @@
 """JudgeRunner — iterates over eval vignettes and rates each with a JudgeAgent."""
 
 import csv
+import json
 import logging
 import threading
 import time
@@ -14,20 +15,11 @@ from utils.text import strip_markdown
 
 logger = logging.getLogger(__name__)
 
-FIELDNAMES = [
-    "timestamp", "judge_model", "vignette_id", "persona_id", "model", "condition",
-    "clarity", "relevance", "importance",
-    "g1_grounded", "g2_narrative", "g3_explicit", "g4_relevant",
-    "dsm_a", "dsm_b", "dsm_c", "dsm_d", "dsm_e", "dsm_g",
-    "ec_threat", "ec_appraisals", "ec_memory", "ec_strategies", "ec_triggers",
-    "rationale",
-]
-
 
 class JudgeRunner:
     def __init__(self, model: str, temperature: float, input_path: Path,
-                 output_dir: Path, blind: bool = False, delay: float = 0.5,
-                 limit: int = None, workers: int = 1):
+                 output_dir: Path, blind: bool = False, delay: float = 0.0,
+                 limit: int = None, workers: int = 10):
         self.model        = model
         self.temperature  = temperature
         self.input_path   = Path(input_path)
@@ -38,13 +30,18 @@ class JudgeRunner:
         self.workers      = workers
         self.output_dir.mkdir(parents=True, exist_ok=True)
         safe_name         = model.replace("/", "-").replace(":", "-")
-        self.output_path  = self.output_dir / f"llm_judge_{safe_name}.csv"
+        self.output_path  = self.output_dir / f"llm_judge_{safe_name}.jsonl"
 
     def _load_done_ids(self) -> set:
         if not self.output_path.exists():
             return set()
+        done = set()
         with open(self.output_path, encoding="utf-8") as f:
-            return {row["vignette_id"] for row in csv.DictReader(f)}
+            for line in f:
+                line = line.strip()
+                if line:
+                    done.add(json.loads(line)["vignette_id"])
+        return done
 
     def _row_from_rating(self, rating: JudgeRating, vignette_id: str,
                          persona_id: str, model_src: str, condition: str) -> dict:
@@ -92,9 +89,15 @@ class JudgeRunner:
             logger.warning("  Failed %s: %s", vid, e)
             return None
 
-    def run(self):
+    def _load_vignettes(self) -> list[dict]:
+        if self.input_path.suffix == ".jsonl":
+            with open(self.input_path, encoding="utf-8") as f:
+                return [json.loads(line) for line in f if line.strip()]
         with open(self.input_path, encoding="utf-8-sig") as f:
-            vignettes = list(csv.DictReader(f))
+            return list(csv.DictReader(f))
+
+    def run(self):
+        vignettes = self._load_vignettes()
         logger.info("Loaded %d vignettes from %s", len(vignettes), self.input_path)
 
         done_ids = self._load_done_ids()
@@ -107,32 +110,26 @@ class JudgeRunner:
             logger.info("Nothing to do.")
             return
 
-        is_new = not self.output_path.exists()
         write_lock = threading.Lock()
 
-        with open(self.output_path, "a", newline="", encoding="utf-8") as out_f:
-            writer = csv.DictWriter(out_f, fieldnames=FIELDNAMES)
-            if is_new:
-                writer.writeheader()
+        def make_agent():
+            llm = build_llm(self.model, self.temperature)
+            return JudgeAgent(name="LLMJudge", role="Judge", llm=llm)
 
+        completed = 0
+        with open(self.output_path, "a", encoding="utf-8") as out_f:
             if self.workers <= 1:
-                llm   = build_llm(self.model, self.temperature)
-                agent = JudgeAgent(name="LLMJudge", role="Judge", llm=llm)
+                agent = make_agent()
                 for i, v in enumerate(todo, 1):
                     logger.info("[%d/%d] %s  %s/%s", i, len(todo),
                                 v["vignette_id"], v.get("model",""), v.get("condition",""))
                     row = self._rate_one(v, agent)
                     if row:
-                        writer.writerow(row)
+                        out_f.write(json.dumps(row) + "\n")
                         out_f.flush()
                     if self.delay > 0 and i < len(todo):
                         time.sleep(self.delay)
             else:
-                def make_agent():
-                    llm = build_llm(self.model, self.temperature)
-                    return JudgeAgent(name="LLMJudge", role="Judge", llm=llm)
-
-                completed = 0
                 with ThreadPoolExecutor(max_workers=self.workers) as pool:
                     futures = {pool.submit(self._rate_one, v, make_agent()): v for v in todo}
                     for future in as_completed(futures):
@@ -140,7 +137,7 @@ class JudgeRunner:
                         row = future.result()
                         if row:
                             with write_lock:
-                                writer.writerow(row)
+                                out_f.write(json.dumps(row) + "\n")
                                 out_f.flush()
                         logger.info("  [%d/%d] done", completed, len(todo))
 

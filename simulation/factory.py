@@ -1,7 +1,6 @@
 from pydantic import SecretStr
 from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
-from langchain_community.chat_models import ChatOllama
 from langchain_google_genai import ChatGoogleGenerativeAI
 from configs.config import Config, get_model_provider
 from simulation.open_source_llm import OpenSourceChatModel
@@ -19,6 +18,7 @@ def build_llm(model_name: str, temperature: float = 0.7):
         kwargs = {} if model_name in NO_TEMP_MODELS else {"temperature": temperature}
         return ChatAnthropic(model_name=model_name, api_key=SecretStr(Config.ANTHROPIC_API_KEY or ""), timeout=60, stop=None, **kwargs)
     if provider == "ollama":
+        from langchain_community.chat_models import ChatOllama
         return ChatOllama(model=model_name, temperature=temperature, base_url=Config.ollama_url())
     if provider == "open_source":
         return OpenSourceChatModel(model=model_name, api_url=Config.LAB_API_URL,
