@@ -10,7 +10,6 @@ Examples:
 """
 
 import argparse
-import copy
 import subprocess
 import sys
 import tempfile
@@ -19,22 +18,25 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).parent.parent
+CONFIG_PATH = ROOT / "configs/simulation_config.yaml"
 
-CONFIG_PATHS = {
-    "full":           ROOT / "configs/simulation_config.yaml",
-    "no_formulation": ROOT / "configs/no_formulation_config.yaml",
-    "zero_shot":      ROOT / "configs/zero_shot_config.yaml",
+MODE_OVERRIDES = {
+    "full":           {"pipeline": "vignette_from_persona",  "vignette_mode": "full"},
+    "no_formulation": {"pipeline": "vignette_from_persona",  "vignette_mode": "no_formulation"},
+    "zero_shot":      {"pipeline": "zero_shot_from_persona", "vignette_mode": "zero_shot"},
 }
 
 parser = argparse.ArgumentParser()
 parser.add_argument("model", help="Model name (e.g. gpt-5.4, claude-haiku-4-5)")
-parser.add_argument("--mode", choices=["full", "no_formulation", "zero_shot"], default="no_formulation")
+parser.add_argument("--mode", choices=list(MODE_OVERRIDES), default="no_formulation")
 parser.add_argument("--persona_ids", help="Comma-separated persona IDs to run (e.g. 1,2,3)", default=None)
 parser.add_argument("--output_dir", help="Write into this existing directory instead of creating a new one", default=None)
 args = parser.parse_args()
 
-with open(CONFIG_PATHS[args.mode], encoding="utf-8") as f:
+with open(CONFIG_PATH, encoding="utf-8") as f:
     cfg = yaml.safe_load(f)
+
+cfg["simulation"].update(MODE_OVERRIDES[args.mode])
 
 if args.persona_ids:
     cfg["simulation"]["persona_ids"] = [int(x) for x in args.persona_ids.split(",")]

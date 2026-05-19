@@ -7,7 +7,12 @@ model and writes a combined JSONL file ready for run_judge.py.
 Usage:
     python scripts/collect_judge_input.py
     python scripts/collect_judge_input.py --models claude-haiku-4-5 claude-sonnet-4-6
-    python scripts/collect_judge_input.py --output data/judge_input_batch2.jsonl
+    python scripts/collect_judge_input.py --condition zero_shot --all
+    python scripts/collect_judge_input.py --output data/judge_input/full/batch2.jsonl
+
+Output layout:
+    data/judge_input/<condition>/<model>.jsonl   (single model)
+    data/judge_input/<condition>/_batch.jsonl    (multiple models, default name)
 """
 
 import argparse
@@ -111,13 +116,12 @@ def main():
     args = parser.parse_args()
 
     models = ALL_MODELS if args.all else args.models
-    suffix = "" if args.condition == "full" else f"_{args.condition}"
     if args.output:
         output = Path(args.output)
     elif len(models) == 1:
-        output = ROOT / f"data/judge_input{suffix}_{models[0]}.jsonl"
+        output = ROOT / f"data/judge_input/{args.condition}/{models[0]}.jsonl"
     else:
-        output = ROOT / f"data/judge_input{suffix}_batch1.jsonl"
+        output = ROOT / f"data/judge_input/{args.condition}/_batch.jsonl"
 
     print(f"Collecting {len(models)} models [{args.condition}] -> {output}")
     print(f"Models: {models}\n")
