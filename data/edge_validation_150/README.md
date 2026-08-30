@@ -43,6 +43,38 @@ This prints both tables in the paper: pairwise agreement between the four raters
 specified graph per rater per condition (MCC, AUC of the specified weight
 predicting detection, and Spearman of rated strength against specified weight).
 
+## `study_materials/`
+
+Everything the human raters were given, so the annotation task can be inspected
+or repeated:
+
+- `RUBRIC.md` — the edge-annotation rubric, including the causal standard applied
+- `INSTRUCTIONS.md`, `README.md` — rater-facing instructions
+- `rating_form.csv` — the blank form as issued
+- `submission_key.csv` — the sample definition, mapping each `vignette_id` to its
+  persona, condition, and generation model
+- `vignettes/` — the 150 vignette texts as shown to raters (`V001.txt` .. `V150.txt`)
+- `coordinator_only/` — material withheld from raters during annotation (LLM
+  ratings and analysis notes), kept separate so the blinding is auditable
+
+## `raw_judge_output/`
+
+Per-call output from the two LLM judges, one JSON object per vignette, carrying
+the raw response and the judge's rationale alongside the parsed per-edge scores.
+The `flash_*` and `pro_*` columns of the CSV derive from these.
+
+## Regenerating the judge columns
+
+```
+FORMA_PERSONA_DIR=/path/to/personas python scripts/run_graded_edge_probe_flash.py
+FORMA_PERSONA_DIR=/path/to/personas python scripts/run_graded_edge_probe_pro.py
+```
+
+Both read `DEEPSEEK_API_KEY` from `.env`. Paths are configurable through
+`FORMA_REPO`, `FORMA_SAMPLE_DIR`, `FORMA_OUT_DIR`, and `FORMA_PERSONA_DIR`;
+the defaults point at this directory. The human columns cannot be regenerated,
+being the raters' own judgements.
+
 ## Scope of this release
 
 This directory contains only the data behind the results reported in the paper.
