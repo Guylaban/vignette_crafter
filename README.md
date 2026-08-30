@@ -2,7 +2,7 @@
 
 **Findings of the Association for Computational Linguistics: EMNLP 2026**
 
-Amit Oren<sup>1</sup> · Nimrod Hertz<sup>2</sup> · Dean Ariel<sup>3,4</sup> · Guy Laban<sup>1,5,6</sup>
+Amit Oren<sup>1</sup> · Nimrod Hertz-Palmor<sup>2</sup> · Dean Ariel<sup>3,4</sup> · Guy Laban<sup>1,5,6</sup>
 
 <sup>1</sup> Department of Industrial Engineering and Management, Ben-Gurion University of the Negev, Beer Sheva, Israel
 <sup>2</sup> MRC Cognition and Brain Sciences Unit, University of Cambridge, United Kingdom
@@ -212,7 +212,7 @@ Fidelity to one cognitive model is not the same as clinical validity. The framew
 ```bibtex
 @inproceedings{oren2026forma,
   title     = {Generating Clinical Vignettes that Preserve Cognitive Formulations},
-  author    = {Oren, Amit and Hertz, Nimrod and Ariel, Dean and Laban, Guy},
+  author    = {Oren, Amit and Hertz-Palmor, Nimrod and Ariel, Dean and Laban, Guy},
   booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2026},
   year      = {2026}
 }
