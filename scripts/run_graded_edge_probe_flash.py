@@ -131,7 +131,7 @@ def main():
     # merged clean CSV
     personas = {}
     # Persona specifications, one JSON per persona named persona_<id>.json.
-    PDIR = pathlib.Path(os.environ["FORMA_PERSONA_DIR"])
+    PDIR = pathlib.Path(os.environ.get("FORMA_PERSONA_DIR", REPO / "data" / "personas"))
     for r in key:
         pid = r["persona_id"]
         if pid not in personas:

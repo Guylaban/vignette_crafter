@@ -66,14 +66,22 @@ The `flash_*` and `pro_*` columns of the CSV derive from these.
 ## Regenerating the judge columns
 
 ```
-FORMA_PERSONA_DIR=/path/to/personas python scripts/run_graded_edge_probe_flash.py
-FORMA_PERSONA_DIR=/path/to/personas python scripts/run_graded_edge_probe_pro.py
+python scripts/run_graded_edge_probe_flash.py
+python scripts/run_graded_edge_probe_pro.py
 ```
 
 Both read `DEEPSEEK_API_KEY` from `.env`. Paths are configurable through
-`FORMA_REPO`, `FORMA_SAMPLE_DIR`, `FORMA_OUT_DIR`, and `FORMA_PERSONA_DIR`;
-the defaults point at this directory. The human columns cannot be regenerated,
-being the raters' own judgements.
+`FORMA_REPO`, `FORMA_SAMPLE_DIR`, `FORMA_OUT_DIR`, and `FORMA_PERSONA_DIR`, and
+default to their released locations, the last being `data/personas/`. The human
+columns cannot be regenerated, being the raters' own judgements.
+
+## Where the gold labels come from
+
+`spec_weight` and `spec_active` are read from the persona specifications in
+`data/personas/` (`persona_<id>.json`), whose `agg_edges` field holds the
+specified weight for each of the 20 directed Ehlers & Clark pairs. Every one of
+the 3,000 `spec_weight` values in the CSV was checked against those files and
+matches exactly.
 
 ## Scope of this release
 
