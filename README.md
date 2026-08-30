@@ -207,6 +207,13 @@ Full-condition vignettes pass as human-written to clinicians 85% of the time, wh
 
 Fidelity to one cognitive model is not the same as clinical validity. The framework does not address complex PTSD, comorbidity, or culturally specific presentations.
 
+## Licence
+
+Code is released under the MIT License (see `LICENSE`). The datasets, including
+the generated vignettes, persona specifications, and the human edge-validation
+study, are released under CC BY 4.0 (see `LICENSE-DATA`, which also sets out
+what we ask of anyone reusing the vignettes).
+
 ## Citation
 
 ```bibtex
